@@ -1,2 +1,0 @@
-# GlowLabs
-Created with CodeSandbox

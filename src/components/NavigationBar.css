@@ -1,0 +1,38 @@
+.burger {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 20px;
+  width: 30%;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.burger_line {
+  margin-left: 1.5rem;
+  height: 3px;
+  width: 2rem;
+  background: white;
+}
+
+.navbar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  margin-right: 1.5rem;
+  padding: 0;
+  color: white;
+}
+
+.spacer {
+  flex-grow: 1;
+}
