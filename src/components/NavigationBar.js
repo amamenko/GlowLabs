@@ -6,8 +6,12 @@ const NavigationBar = props => (
   <nav className="navbar">
     <Hamburger />
     <div className="spacer" />
-    <h1 className="logo">glowlabs.</h1>
+    <h1>
+      <a className="logo" href="/">
+        glowlabs.
+      </a>
+    </h1>
   </nav>
-)
+);
 
 export default NavigationBar;
