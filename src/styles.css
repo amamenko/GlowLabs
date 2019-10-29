@@ -18,8 +18,7 @@ html {
   grid-auto-rows: auto 1fr;
   grid-template-areas:
     "header header header header"
-    "main main main main"
-    "footer footer footer footer";
+    "main main main main";
 }
 
 .header {
@@ -30,7 +29,7 @@ html {
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: rgb(255, 198, 207);
+  background-color: #ffc6cf;
   position: fixed;
 }
 
@@ -38,7 +37,6 @@ html {
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-bottom: 8vh;
   margin-top: 8vh;
   width: 100%;
   grid-area: main;
@@ -49,46 +47,33 @@ html {
 
 .main_heading {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
   height: 100%;
 }
 
 .main_heading h1 {
+  display: flex;
   font-size: 3rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
-.main_img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.call_to_action a {
+  border-radius: 30px;
+  background-color: #ffc6cf;
+  color: white;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.bg_image {
   height: 100%;
   width: 100%;
-  background-color: green;
-}
-
-.hero {
-  width: 100%;
-  height: 100%;
-}
-
-.hero-mask {
-  width: 100%;
-  height: 100%;
-  background-color: green;
-}
-
-.footer {
-  height: 8vh;
-  width: 100%;
-  bottom: 0;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  grid-area: footer;
-  background-color: white;
+  background: linear-gradient(top, white 5%, transparent, white 95%),
+    url(https://asset-a.grid.id/crop/0x0:0x0/700x0/photo/2018/06/08/2647661524.jpg)
+      no-repeat;
+  background-size: cover;
 }

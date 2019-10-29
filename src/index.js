@@ -11,14 +11,23 @@ function App() {
       </header>
       <section className="main_content">
         <div className="main_heading">
-          <h1><center>Customized<br/>skincare,<br/>down to a<br/>science.</center></h1>
+          <h1>
+            <center>
+              Customized
+              <br />
+              skincare,
+              <br />
+              down to a<br />
+              science.
+            </center>
+          </h1>
+
+          <button className="call_to_action">
+            <a href="/">Book Now</a>
+          </button>
         </div>
-        <div className="main_img">
-          <img className="hero" src="https://picsum.photos/200/300" alt="hero"></img>
-          <span className="hero_mask"></span>
-        </div>
+        <span className="bg_image" />
       </section>
-      <footer className="footer">This is the footer.</footer>
     </div>
   );
 }
