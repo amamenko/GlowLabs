@@ -8,10 +8,12 @@
   padding: 0;
   border: none;
   cursor: pointer;
+  flex: 1;
 }
 
 .burger_line {
-  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  display: flex;
   height: 3px;
   width: 2rem;
   background: white;
@@ -28,12 +30,13 @@
 
 .logo {
   display: flex;
-  margin-right: 1.5rem;
+  flex: 1;
+  margin-left: 1.5rem;
   padding: 0;
   color: white;
   text-decoration: none;
 }
 
 .spacer {
-  flex-grow: 1;
+  flex: 40;
 }

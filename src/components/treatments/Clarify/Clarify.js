@@ -11,6 +11,7 @@ const Clarify = () => (
         {props => (
           <svg
             className="clarify_svg"
+            width="100%"
             height="15rem"
             viewBox="0 0 50.006 50.006"
           >
@@ -22,7 +23,7 @@ const Clarify = () => (
               strokeWidth="0.5"
               fill="white"
             />
-            <g fill="none" transform="translate(14, 12)">
+            <g fill="none" transform="translate(13, 12)">
               <animated.path
                 strokeDasharray="200"
                 strokeDashoffset={`${props.x}`}

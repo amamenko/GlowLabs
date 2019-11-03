@@ -3,7 +3,7 @@
   display: grid;
   overflow-y: hidden;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-auto-rows: auto 1fr;
+  grid-auto-rows: auto;
   grid-template-areas:
     "header header header"
     "calm_card calm_card calm_card"
@@ -22,16 +22,16 @@
 
 .treatments_page_1_header h2 {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 900;
   color: #ffc6cf;
   line-height: 1rem;
-  margin-top: 1.5rem;
   border-bottom: 3px solid #ffc6cf;
-  padding-bottom: 10px;
+  padding-bottom: 1rem;
+  padding-top: 0.5rem;
 }
 
 .treatments_page_1_header h3 {
   font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 1.5rem;
+  font-weight: 700;
+  padding-bottom: 0.5rem;
 }

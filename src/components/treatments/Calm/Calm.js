@@ -7,9 +7,14 @@ import "./Calm.css";
 const Calm = () => (
   <section className="calm_card">
     <div className="calm_card_image">
-      <Spring from={{ x: 200 }} to={{ x: 0 }} config={{ duration: 1000 }}>
+      <Spring from={{ x: 200 }} to={{ x: 0 }} config={{ duration: 900 }}>
         {props => (
-          <svg className="calm_svg" viewBox="0 0 56 56" height="15rem">
+          <svg
+            className="calm_svg"
+            viewBox="0 0 56 56"
+            width="100%"
+            height="15rem"
+          >
             <circle
               cx="28"
               cy="28"

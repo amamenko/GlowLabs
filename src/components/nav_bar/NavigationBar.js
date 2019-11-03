@@ -4,13 +4,13 @@ import "./NavigationBar.css";
 
 const NavigationBar = props => (
   <nav className="navbar">
-    <Hamburger />
-    <div className="spacer" />
     <h1>
       <a className="logo" href="/">
         glowlabs.
       </a>
     </h1>
+    <div className="spacer" />
+    <Hamburger />
   </nav>
 );
 
