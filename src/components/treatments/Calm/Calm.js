@@ -19,7 +19,7 @@ const Calm = () => (
               cx="28"
               cy="28"
               r="25"
-              stroke="rgb(235, 178, 187)"
+              stroke="rgb(177, 192, 183)"
               strokeWidth="0.5"
               fill="white"
             />

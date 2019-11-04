@@ -1,5 +1,5 @@
-.calm_card {
-  grid-area: calm_card;
+.quickie_card {
+  grid-area: quickie_card;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: auto 1fr;
@@ -14,9 +14,9 @@
   z-index: -1;
 }
 
-.calm_card_image {
+.quickie_card_image {
   grid-area: hero;
-  background: rgb(197, 212, 203);
+  background: rgb(233, 190, 214);
   width: 100%;
   height: 100%;
   display: flex;
@@ -27,44 +27,44 @@
   position: relative;
 }
 
-.calm_svg {
+.quickie_svg {
   position: absolute;
   width: 100%;
   height: 100%;
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
 }
 
-.calm_icon_path {
+.quickie_icon_path {
   transform: scale(0.5);
 }
 
-.calm_description {
+.quickie_description {
   grid-area: description;
   margin: 1rem;
   max-width: 100%;
 }
 
-.calm_description_subheader {
+.quickie_description_subheader {
   font-weight: 300;
   margin-bottom: 1rem;
 }
 
-.calm_card_toggler {
-  color: rgb(157, 172, 163);
+.quickie_card_toggler {
+  color: rgb(193, 150, 274);
   font-weight: 500;
-  padding-top: 1rem;
+  padding-top: 2rem;
   display: flex;
   flex-direction: row;
   align-content: center;
   justify-content: flex-start;
 }
 
-.calm_card_bottom_spacer {
+.quickie_card_bottom_spacer {
   flex-grow: 1;
 }
 
-.calm_suitcase_icon {
-  color: rgb(157, 172, 163);
+.quickie_suitcase_icon {
+  color: rgb(193, 150, 274);
   display: flex;
   flex-direction: row;
   align-content: center;

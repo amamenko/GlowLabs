@@ -50,6 +50,7 @@
 .call_to_action {
   border: none;
   background: none;
+  border-radius: 30px;
 }
 
 .call_to_action a {
