@@ -47,10 +47,10 @@ const Calm = () => (
       <p className="calm_description_subheader" style={{ opacity: 0.5 }}>
         Soothing
       </p>
-      <p style={{ fontSize: "0.8rem" }}>
-        Most beneficial for sensitive skin caused by environmental damage,
-        rosacea, acne, laser treatments or natural disposition. Calm can improve
-        complexion, reduce inflammation and boost skin's immunity.
+      <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
+        Calm improves complexion and reduces inflammation of sensitive skin
+        caused by the environment, rosacea, acne, laser treatments or natural
+        disposition.
       </p>
       <p className="calm_card_toggler">
         LEARN MORE

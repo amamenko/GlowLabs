@@ -16,7 +16,7 @@
 
 .glow_card_image {
   grid-area: hero;
-  background: rgb(255, 219, 154);
+  background: rgb(243, 213, 157);
   width: 100%;
   height: 100%;
   display: flex;
@@ -50,7 +50,7 @@
 }
 
 .glow_card_toggler {
-  color: rgb(215, 179, 114);
+  color: rgb(173, 143, 87);
   font-weight: 500;
   padding-top: 1rem;
   display: flex;
@@ -64,7 +64,7 @@
 }
 
 .glow_suitcase_icon {
-  color: rgb(215, 179, 114);
+  color: rgb(173, 143, 87);
   display: flex;
   flex-direction: row;
   align-content: center;

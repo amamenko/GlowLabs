@@ -23,15 +23,15 @@
 .treatments_page_1_header h2 {
   font-size: 1.5rem;
   font-weight: 900;
-  color: #ffc6cf;
+  color: #957e59;
   line-height: 1rem;
-  border-bottom: 3px solid #ffc6cf;
+  border-bottom: 3px solid #957e59;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
 }
 
 .treatments_page_1_header h3 {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   padding-bottom: 0.5rem;
 }

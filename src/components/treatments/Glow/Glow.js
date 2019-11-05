@@ -47,10 +47,9 @@ const Glow = () => (
       <p className="glow_description_subheader" style={{ opacity: 0.5 }}>
         Brightening
       </p>
-      <p style={{ fontSize: "0.8rem" }}>
-        Accelerate brightening, improve skin tone, enhance skin clarity and
-        create a fresher, healthier appearance with this effective treatment.
-        Hyper-pigmentation and sun damage don’t stand a chance.
+      <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
+        Accelerate brightening, improve skin tone, and enhance skin clarity with
+        Glow. Hyper-pigmentation and sun damage don’t stand a chance.
       </p>
       <p className="glow_card_toggler">
         LEARN MORE

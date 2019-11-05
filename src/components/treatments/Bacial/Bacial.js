@@ -54,10 +54,10 @@ const Bacial = () => (
       <p className="bacial_description_subheader" style={{ opacity: 0.5 }}>
         Back acne-fighting
       </p>
-      <p style={{ fontSize: "0.8rem" }}>
-        For those seeking acne treatment for their backs, the Bacial is a
-        perfect choice and employs many of the same skin cleansing techniques
-        and antibacterial ingredients as the Clarify facial.
+      <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
+        The Bacial is a perfect choice for back acne treatment and employs many
+        of the same skin cleansing techniques and antibacterial ingredients as
+        the Clarify facial.
       </p>
       <p className="bacial_card_toggler">
         LEARN MORE

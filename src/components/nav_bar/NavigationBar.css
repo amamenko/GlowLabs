@@ -16,7 +16,7 @@
   display: flex;
   height: 3px;
   width: 2rem;
-  background: white;
+  background: #000;
 }
 
 .navbar {
@@ -33,7 +33,7 @@
   flex: 1;
   margin-left: 1.5rem;
   padding: 0;
-  color: white;
+  color: #000;
   text-decoration: none;
 }
 

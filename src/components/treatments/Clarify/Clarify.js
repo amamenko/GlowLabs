@@ -47,10 +47,10 @@ const Clarify = () => (
       <p className="clarify_description_subheader" style={{ opacity: 0.5 }}>
         Acne-fighting
       </p>
-      <p style={{ fontSize: "0.8rem" }}>
+      <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
         Dealing with spots, pimples and irritation? Clarify employs deep-pore
-        and deep-tissue cleansing to remove excess oils, stimulate circulation,
-        prevent further breakouts and soothe skin.
+        and deep-tissue cleansing to remove excess oils, prevent further
+        breakouts and soothe skin.
       </p>
       <p className="clarify_card_toggler">
         LEARN MORE

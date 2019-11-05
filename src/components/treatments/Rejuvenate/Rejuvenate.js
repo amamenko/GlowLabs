@@ -43,10 +43,10 @@ const Rejuvenate = () => (
       <p className="rejuvenate_description_subheader" style={{ opacity: 0.5 }}>
         Anti-aging
       </p>
-      <p style={{ fontSize: "0.8rem" }}>
+      <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
         Fine-lines, pigmentation and elasticity loss all come with aging skin.
-        Lines and wrinkles can make you appear older than you feel. Rejuvenate
-        can help pause and reverse the signs of aging.
+        Wrinkles can make you appear older than you feel. Rejuvenate can help
+        reverse the signs of aging.
       </p>
       <p className="rejuvenate_card_toggler">
         LEARN MORE
