@@ -39,6 +39,8 @@
 }
 
 .chemical_peel_description {
+  display: flex;
+  flex-direction: column;
   grid-area: description;
   margin: 1rem;
   max-width: 100%;
@@ -52,11 +54,9 @@
 .chemical_peel_card_toggler {
   color: rgb(189, 190, 177);
   font-weight: 500;
-  padding-top: 2rem;
   display: flex;
   flex-direction: row;
-  align-content: center;
-  justify-content: flex-start;
+  margin-top: auto;
 }
 
 .chemical_peel_card_bottom_spacer {

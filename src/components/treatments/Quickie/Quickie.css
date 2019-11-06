@@ -39,6 +39,8 @@
 }
 
 .quickie_description {
+  display: flex;
+  flex-direction: column;
   grid-area: description;
   margin: 1rem;
   max-width: 100%;
@@ -55,8 +57,7 @@
   padding-top: 2rem;
   display: flex;
   flex-direction: row;
-  align-content: center;
-  justify-content: flex-start;
+  margin-top: auto;
 }
 
 .quickie_card_bottom_spacer {

@@ -10,6 +10,7 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "react": "16.8.6",
     "react-dom": "16.8.6",
+    "react-intersection-observer": "^8.25.1",
     "react-scripts": "3.0.1",
     "react-spring": "^8.0.27"
   },
