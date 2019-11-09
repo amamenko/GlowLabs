@@ -4,6 +4,7 @@ import LandingPage from "./components/landing_page/LandingPage";
 import TreatmentsPage1 from "./components/treatments_pages/Page_1/TreatmentsPage1";
 import TreatmentsPage2 from "./components/treatments_pages/Page_2/TreatmentsPage2";
 import TreatmentsPage3 from "./components/treatments_pages/Page_3/TreatmentsPage3";
+import TreatmentsPage4 from "./components/treatments_pages/Page_4/TreatmentsPage4";
 import "./styles.css";
 
 const App = () => (
@@ -12,6 +13,7 @@ const App = () => (
     <TreatmentsPage1 />
     <TreatmentsPage2 />
     <TreatmentsPage3 />
+    <TreatmentsPage4 />
   </>
 );
 

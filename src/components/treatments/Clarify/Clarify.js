@@ -22,8 +22,8 @@ const Clarify = () => {
             <section className="clarify_card" style={props}>
               <div className="clarify_card_image">
                 <Spring
-                  from={{ x: 200 }}
-                  to={{ x: 0 }}
+                  from={{ x: 200, fill: "white" }}
+                  to={{ x: 0, fill: "rgb(207, 207, 196, 0.4)" }}
                   config={{ delay: 300, duration: 1500 }}
                 >
                   {props => (
@@ -37,12 +37,13 @@ const Clarify = () => {
                         cx="25"
                         cy="25"
                         r="23"
-                        stroke="rgb(171, 174, 190)"
+                        stroke="rgb(235, 178, 187)"
                         strokeWidth="0.5"
                         fill="white"
                       />
                       <g fill="none" transform="translate(13, 12)">
                         <animated.path
+                          fill={`${props.fill}`}
                           strokeDasharray="200"
                           strokeDashoffset={`${props.x}`}
                           className="clarify_icon_path"

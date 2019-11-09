@@ -29,8 +29,8 @@ const Calm = () => {
             <section className="calm_card" style={props}>
               <div className="calm_card_image">
                 <Spring
-                  from={{ x: 200 }}
-                  to={{ x: 0 }}
+                  from={{ x: 200, fill: "white" }}
+                  to={{ x: 0, fill: "rgb(155, 98, 107, 0.4)" }}
                   config={{ delay: 300, duration: 900 }}
                 >
                   {props => (
@@ -44,11 +44,11 @@ const Calm = () => {
                         cx="28"
                         cy="28"
                         r="25"
-                        stroke="rgb(169, 208, 190)"
+                        stroke="rgb(235, 178, 187)"
                         strokeWidth="0.5"
                         fill="white"
                       />
-                      <g fill="none" transform="translate(14, 14)">
+                      <g fill={`${props.fill}`} transform="translate(14, 14)">
                         <animated.path
                           strokeDasharray="200"
                           strokeDashoffset={`${props.x}`}

@@ -22,8 +22,8 @@ const Bacial = () => {
             <section className="bacial_card" style={props}>
               <div className="bacial_card_image">
                 <Spring
-                  from={{ x: 200 }}
-                  to={{ x: 0 }}
+                  from={{ x: 200, fill: "#fff" }}
+                  to={{ x: 0, fill: "rgba(150,221,225, 0.5)" }}
                   config={{ delay: 300, duration: 1500 }}
                 >
                   {props => (
@@ -37,7 +37,7 @@ const Bacial = () => {
                         cx="28"
                         cy="28"
                         r="25"
-                        stroke="rgb(152, 205, 213)"
+                        stroke="rgb(235, 178, 187)"
                         strokeWidth="0.5"
                         fill="white"
                       />
@@ -48,6 +48,7 @@ const Bacial = () => {
                         transform="translate(10, -174)"
                       >
                         <animated.path
+                          fill={`${props.fill}`}
                           strokeDasharray="200"
                           strokeDashoffset={`${props.x}`}
                           className="bacial_icon_path"
@@ -55,6 +56,7 @@ const Bacial = () => {
                           strokeWidth=".5"
                         />
                         <animated.path
+                          fill="#fff"
                           transform="translate(2, -140)"
                           strokeDasharray="200"
                           strokeDashoffset={`${props.x}`}

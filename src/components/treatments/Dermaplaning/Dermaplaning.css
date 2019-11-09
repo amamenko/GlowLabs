@@ -1,5 +1,5 @@
-.quickie_card {
-  grid-area: quickie_card;
+.dermaplaning_card {
+  grid-area: dermaplaning_card;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: auto 1fr;
@@ -7,8 +7,6 @@
     "hero hero description description description description"
     "hero hero description description description description"
     "hero hero description description description description";
-  box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
-  position: relative;
   box-shadow: 1px 0px 1px 0px rgba(207, 207, 196, 0.7),
     -1px 0px 1px 0px rgba(207, 207, 196, 0.7),
     0px -1px 1px 0px rgba(207, 207, 196, 0.1),
@@ -20,16 +18,15 @@
   height: 28.6666667vh;
 }
 
-.quickie_wrapping {
+.dermaplaning_wrapping {
   display: grid;
-  grid-area: quickie_card;
+  grid-area: dermaplaning_card;
   height: 28.6666667vh;
   border-radius: 10px;
-
   padding-top: 1.5rem;
 }
 
-.quickie_card_image {
+.dermaplaning_card_image {
   grid-area: hero;
   background: rgb(255, 198, 207);
   width: 100%;
@@ -45,18 +42,18 @@
   box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
 }
 
-.quickie_svg {
+.dermaplaning_svg {
   position: absolute;
   width: 100%;
   height: 100%;
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
 }
 
-.quickie_icon_path {
-  transform: scale(0.5);
+.dermaplaning_icon_path {
+  transform: scale(0.8);
 }
 
-.quickie_description {
+.dermaplaning_description {
   grid-area: description;
   display: flex;
   flex-direction: column;
@@ -68,16 +65,16 @@
   box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
 }
 
-.quickie_border_right {
+.dermaplaning_border_right {
   display: flex;
   align-self: flex-end;
-  border-right: 1px solid rgbA(155, 98, 187, 0.5);
+  border-right: 1px solid rgbA(155, 98, 107, 0.5);
   position: absolute;
   top: 0;
   bottom: 0;
 }
 
-.quickie_description_inner_wrapper {
+.dermaplaning_description_inner_wrapper {
   margin: 1rem;
   display: flex;
   flex-direction: column;
@@ -85,23 +82,23 @@
   justify-content: center;
 }
 
-.quickie_description_inner_wrapper h2 {
+.dermaplaning_description_inner_wrapper h2 {
   font-size: 1.3rem;
 }
 
-.quickie_description_subheader {
+.dermaplaning_description_subheader {
   display: flex;
   font-weight: 300;
 }
 
-.quickie_description_paragraph {
+.dermaplaning_description_paragraph {
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
 }
 
-.quickie_card_bottom_wrapper {
+.dermaplaning_card_bottom_wrapper {
   color: rgb(155, 98, 107);
   font-weight: 500;
   display: flex;
@@ -109,11 +106,11 @@
   margin-top: auto;
 }
 
-.quickie_card_bottom_spacer {
+.dermaplaning_card_bottom_spacer {
   flex-grow: 1;
 }
 
-.quickie_suitcase_icon {
+.dermaplaning_suitcase_icon {
   color: rgb(155, 98, 107);
   display: flex;
   flex-direction: row;

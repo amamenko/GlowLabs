@@ -24,14 +24,14 @@
 .treatments_page_1_header h2 {
   font-size: 1.5rem;
   font-weight: 900;
-  color: rgba(33, 62, 20, 0.8);
+  color: rgba(155, 98, 107, 0.8);
   line-height: 1rem;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
 }
 
 .title_underline {
-  border-bottom: 3px solid rgba(33, 62, 20, 0.8);
+  border-bottom: 3px solid rgba(155, 98, 107, 0.8);
   animation: line 1s linear forwards;
 }
 

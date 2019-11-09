@@ -22,9 +22,9 @@ const Rejuvenate = () => {
             <section className="rejuvenate_card" style={props}>
               <div className="rejuvenate_card_image">
                 <Spring
-                  from={{ x: 250 }}
-                  to={{ x: 0 }}
-                  config={{ duration: 1000 }}
+                  from={{ x: 250, fill: "white" }}
+                  to={{ x: 0, fill: "rgba(177, 156, 217, 0.4)" }}
+                  config={{ delay: 300, duration: 1000 }}
                 >
                   {props => (
                     <svg
@@ -37,7 +37,7 @@ const Rejuvenate = () => {
                         cx="25"
                         cy="25"
                         r="23"
-                        stroke="rgb(228, 193, 230)"
+                        stroke="rgb(235, 178, 187)"
                         strokeWidth="0.5"
                         fill="white"
                       />
@@ -45,7 +45,7 @@ const Rejuvenate = () => {
                         <animated.path
                           strokeDasharray="250"
                           strokeDashoffset={`${props.x}`}
-                          fill="none"
+                          fill={`${props.fill}`}
                           stroke="black"
                           strokeWidth="0.8"
                           className="rejuvenate_icon_path"
