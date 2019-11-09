@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Spring, animated } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcase } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,13 @@ const Calm = () => {
     triggerOnce: true,
     threshold: 0.2
   });
+
+  const [toggle, setToggle] = useState(false);
+
+  const handleClick = () => {
+    setToggle(toggle => !toggle);
+    console.log(toggle);
+  };
   return (
     <div className="calm_wrapping" ref={ref}>
       {inView ? (
@@ -59,28 +66,35 @@ const Calm = () => {
                     </svg>
                   )}
                 </Spring>
+
+                <div className="calm_border_right" />
               </div>
               <div className="calm_description">
-                <h2 style={{ fontWeight: 400 }}>CALM</h2>
-                <p
-                  className="calm_description_subheader"
-                  style={{ opacity: 0.5 }}
-                >
-                  Soothing
-                </p>
-                <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
-                  Calm improves complexion and reduces inflammation of sensitive
-                  skin caused by the environment, rosacea, acne, laser
-                  treatments or natural disposition.
-                </p>
-                <p className="calm_card_toggler">
-                  LEARN MORE
-                  <span className="calm_card_bottom_spacer" />
-                  <FontAwesomeIcon
-                    className="calm_suitcase_icon"
-                    icon={faSuitcase}
-                  />
-                </p>
+                <div className="calm_description_inner_wrapper">
+                  <h2 style={{ fontWeight: 400 }}>CALM</h2>
+                  <p
+                    className="calm_description_subheader"
+                    style={{ opacity: 0.6 }}
+                  >
+                    Soothing
+                  </p>
+                  <p
+                    className="calm_description_paragraph"
+                    style={{ fontSize: "0.8rem", lineHeight: "20px" }}
+                  >
+                    Calm reduces inflammation of sensitive skin caused by the
+                    environment, rosacea, acne, laser treatments or natural
+                    disposition.
+                  </p>
+                  <div className="calm_card_bottom_wrapper">
+                    <p>LEARN MORE</p>
+                    <span className="calm_card_bottom_spacer" />
+                    <FontAwesomeIcon
+                      className="calm_suitcase_icon"
+                      icon={faSuitcase}
+                    />
+                  </div>
+                </div>
               </div>
             </section>
           )}

@@ -18,20 +18,35 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  z-index: -1;
 }
 
 .treatments_page_1_header h2 {
   font-size: 1.5rem;
   font-weight: 900;
-  color: #957e59;
+  color: rgba(33, 62, 20, 0.8);
   line-height: 1rem;
-  border-bottom: 3px solid #957e59;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
 }
 
+.title_underline {
+  border-bottom: 3px solid rgba(33, 62, 20, 0.8);
+  animation: line 1s linear forwards;
+}
+
+@keyframes line {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 50%;
+  }
+}
+
 .treatments_page_1_header h3 {
-  font-size: 2rem;
+  font-size: 1.79rem;
   font-weight: 400;
   padding-bottom: 0.5rem;
+  color: rgba(0, 0, 0, 0.8);
 }

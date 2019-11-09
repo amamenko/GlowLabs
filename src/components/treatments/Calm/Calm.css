@@ -6,15 +6,21 @@
     "hero hero description description description description"
     "hero hero description description description description"
     "hero hero description description description description";
-  border-top: solid 0.5px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 0px 1px 0px rgba(207, 207, 196, 0.7),
+    -1px 0px 1px 0px rgba(207, 207, 196, 0.7),
+    0px -1px 1px 0px rgba(207, 207, 196, 0.1),
+    0px 2px 1px 0px rgba(207, 207, 196, 0.6);
   z-index: -1;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  border-radius: 10px;
 }
 
 .calm_wrapping {
   display: grid;
   grid-area: calm_card;
-  height: 29.3333vh;
+  height: 28.6666667vh;
+  border-radius: 10px;
 }
 
 .calm_card_image {
@@ -27,6 +33,9 @@
   align-content: center;
   align-items: center;
   position: relative;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
 }
 
 .calm_svg {
@@ -44,16 +53,44 @@
   grid-area: description;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  max-height: 100%;
+  background-color: rgba(189, 228, 210, 0.3);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
+}
+
+.calm_border_right {
+  display: flex;
+  align-self: flex-end;
+  border-right: 1px solid rgbA(89, 128, 110, 0.5);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.calm_description_inner_wrapper {
   margin: 1rem;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
 }
 
 .calm_description_subheader {
+  display: flex;
   font-weight: 300;
-  margin-bottom: 1rem;
 }
 
-.calm_card_toggler {
+.calm_description_paragraph {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.calm_card_bottom_wrapper {
   color: rgb(89, 128, 110);
   font-weight: 500;
   display: flex;

@@ -37,7 +37,7 @@ const Glow = () => {
                         cx="25"
                         cy="25"
                         r="23"
-                        stroke="rgb(223, 193, 137)"
+                        stroke="rgb(233, 233, 130)"
                         strokeWidth="0.5"
                         fill="white"
                       />
@@ -59,28 +59,33 @@ const Glow = () => {
                     </svg>
                   )}
                 </Spring>
+                <div className="glow_border_right" />
               </div>
               <div className="glow_description">
-                <h2 style={{ fontWeight: 400 }}>GLOW</h2>
-                <p
-                  className="glow_description_subheader"
-                  style={{ opacity: 0.5 }}
-                >
-                  Brightening
-                </p>
-                <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
-                  Accelerate brightening, improve skin tone, and enhance skin
-                  clarity with Glow. Hyper-pigmentation and sun damage don’t
-                  stand a chance.
-                </p>
-                <p className="glow_card_toggler">
-                  LEARN MORE
-                  <span className="glow_card_bottom_spacer" />
-                  <FontAwesomeIcon
-                    className="glow_suitcase_icon"
-                    icon={faSuitcase}
-                  />
-                </p>
+                <div className="glow_description_inner_wrapper">
+                  <h2 style={{ fontWeight: 400 }}>GLOW</h2>
+                  <p
+                    className="glow_description_subheader"
+                    style={{ opacity: 0.6 }}
+                  >
+                    Brightening
+                  </p>
+                  <p
+                    className="glow_description_paragraph"
+                    style={{ fontSize: "0.8rem", lineHeight: "20px" }}
+                  >
+                    Accelerate brightening and clarify skin with Glow.
+                    Hyper-pigmentation and sun damage don’t stand a chance.
+                  </p>
+                  <div className="glow_card_bottom_wrapper">
+                    <p>LEARN MORE</p>
+                    <span className="glow_card_bottom_spacer" />
+                    <FontAwesomeIcon
+                      className="glow_suitcase_icon"
+                      icon={faSuitcase}
+                    />
+                  </div>
+                </div>
               </div>
             </section>
           )}

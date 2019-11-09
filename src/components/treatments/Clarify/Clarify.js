@@ -59,28 +59,34 @@ const Clarify = () => {
                     </svg>
                   )}
                 </Spring>
+                <div className="clarify_border_right" />
               </div>
               <div className="clarify_description">
-                <h2 style={{ fontWeight: 400 }}>CLARIFY</h2>
-                <p
-                  className="clarify_description_subheader"
-                  style={{ opacity: 0.5 }}
-                >
-                  Acne-fighting
-                </p>
-                <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
-                  Dealing with spots, pimples and irritation? Clarify employs
-                  deep-pore and deep-tissue cleansing to remove excess oils,
-                  prevent further breakouts and soothe skin.
-                </p>
-                <p className="clarify_card_toggler">
-                  LEARN MORE
-                  <span className="clarify_card_bottom_spacer" />
-                  <FontAwesomeIcon
-                    className="clarify_suitcase_icon"
-                    icon={faSuitcase}
-                  />
-                </p>
+                <div className="clarify_description_inner_wrapper">
+                  <h2 style={{ fontWeight: 400 }}>CLARIFY</h2>
+                  <p
+                    className="clarify_description_subheader"
+                    style={{ opacity: 0.6 }}
+                  >
+                    Acne-fighting
+                  </p>
+                  <p
+                    className="clarify_description_paragraph"
+                    style={{ fontSize: "0.8rem", lineHeight: "20px" }}
+                  >
+                    Dealing with pimples and irritation? Clarify employs
+                    deep-tissue cleansing to remove excess oils, prevent
+                    breakouts and soothe skin.
+                  </p>
+                  <div className="clarify_card_bottom_wrapper">
+                    <p>LEARN MORE</p>
+                    <span className="clarify_card_bottom_spacer" />
+                    <FontAwesomeIcon
+                      className="clarify_suitcase_icon"
+                      icon={faSuitcase}
+                    />
+                  </div>
+                </div>
               </div>
             </section>
           )}

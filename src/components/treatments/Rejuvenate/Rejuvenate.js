@@ -55,28 +55,34 @@ const Rejuvenate = () => {
                     </svg>
                   )}
                 </Spring>
+                <div className="rejuvenate_border_right" />
               </div>
               <div className="rejuvenate_description">
-                <h2 style={{ fontWeight: 400 }}>REJUVENATE</h2>
-                <p
-                  className="rejuvenate_description_subheader"
-                  style={{ opacity: 0.5 }}
-                >
-                  Anti-aging
-                </p>
-                <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
-                  Fine-lines, pigmentation and elasticity loss all come with
-                  aging skin. Wrinkles can make you appear older than you feel.
-                  Rejuvenate can help reverse the signs of aging.
-                </p>
-                <p className="rejuvenate_card_toggler">
-                  LEARN MORE
-                  <span className="rejuvenate_card_bottom_spacer" />
-                  <FontAwesomeIcon
-                    className="rejuvenate_suitcase_icon"
-                    icon={faSuitcase}
-                  />
-                </p>
+                <div className="rejuvenate_description_inner_wrapper">
+                  <h2 style={{ fontWeight: 400 }}>REJUVENATE</h2>
+                  <p
+                    className="rejuvenate_description_subheader"
+                    style={{ opacity: 0.6 }}
+                  >
+                    Anti-aging
+                  </p>
+                  <p
+                    className="rejuvenate_description_paragraph"
+                    style={{ fontSize: "0.8rem", lineHeight: "20px" }}
+                  >
+                    Fine-lines, pigmentation and elasticity loss all come with
+                    aging skin. Rejuvenate can help pause and even reverse these
+                    issues.
+                  </p>
+                  <div className="rejuvenate_card_bottom_wrapper">
+                    <p>LEARN MORE</p>
+                    <span className="rejuvenate_card_bottom_spacer" />
+                    <FontAwesomeIcon
+                      className="rejuvenate_suitcase_icon"
+                      icon={faSuitcase}
+                    />
+                  </div>
+                </div>
               </div>
             </section>
           )}

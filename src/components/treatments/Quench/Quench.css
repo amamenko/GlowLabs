@@ -7,11 +7,24 @@
     "hero hero description description description description"
     "hero hero description description description description"
     "hero hero description description description description";
-  height: 29.3333vh;
-  border-top: solid 0.5px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
   position: relative;
+  box-shadow: 1px 0px 1px 0px rgba(207, 207, 196, 0.7),
+    -1px 0px 1px 0px rgba(207, 207, 196, 0.7),
+    0px -1px 1px 0px rgba(207, 207, 196, 0.1),
+    0px 2px 1px 0px rgba(207, 207, 196, 0.6);
   z-index: -1;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  border-radius: 10px;
+  height: 28.6666667vh;
+}
+
+.quench_wrapping {
+  display: grid;
+  grid-area: quench_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  padding-top: 1.5rem;
 }
 
 .quench_card_image {
@@ -25,6 +38,9 @@
   align-content: center;
   align-items: center;
   position: relative;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
 }
 
 .quench_svg {
@@ -35,26 +51,53 @@
 }
 
 .quench_icon_path {
-  transform: scale(0.5);
+  transform: scale(1);
 }
 
 .quench_description {
+  grid-area: description;
   display: flex;
   flex-direction: column;
-  grid-area: description;
+  align-items: center;
+  max-height: 100%;
+  background-color: rgba(183, 210, 214, 0.3);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
+}
+
+.quench_border_right {
+  display: flex;
+  align-self: flex-end;
+  border-right: 1px solid rgbA(83, 110, 114, 0.5);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.quench_description_inner_wrapper {
   margin: 1rem;
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
 }
 
 .quench_description_subheader {
+  display: flex;
   font-weight: 300;
-  margin-bottom: 1rem;
 }
 
-.quench_card_toggler {
-  color: rgb(143, 170, 274);
+.quench_description_paragraph {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.quench_card_bottom_wrapper {
+  color: rgb(83, 110, 114);
   font-weight: 500;
-  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   margin-top: auto;
@@ -65,7 +108,7 @@
 }
 
 .quench_suitcase_icon {
-  color: rgb(143, 170, 274);
+  color: rgb(83, 110, 114);
   display: flex;
   flex-direction: row;
   align-content: center;

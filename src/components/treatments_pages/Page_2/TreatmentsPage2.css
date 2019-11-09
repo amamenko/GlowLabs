@@ -1,12 +1,12 @@
 .treatments_page_2_container {
   height: 92vh;
   display: grid;
-  overflow-y: hidden;
+  overflow-y: visible;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-auto-rows: auto;
   grid-template-areas:
     "bacial_card bacial_card bacial_card"
     "glow_card glow_card glow_card"
     "rejuvenate_card rejuvenate_card rejuvenate_card";
-  row-gap: 1rem;
+  row-gap: 1.5rem;
 }

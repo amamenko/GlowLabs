@@ -66,28 +66,34 @@ const Bacial = () => {
                     </svg>
                   )}
                 </Spring>
+                <div className="calm_border_right" />
               </div>
               <div className="bacial_description">
-                <h2 style={{ fontWeight: 400 }}>BACIAL</h2>
-                <p
-                  className="bacial_description_subheader"
-                  style={{ opacity: 0.5 }}
-                >
-                  Back acne-fighting
-                </p>
-                <p style={{ fontSize: "0.9rem", lineHeight: "1.3" }}>
-                  The Bacial is a perfect choice for back acne treatment and
-                  employs many of the same skin cleansing techniques and
-                  antibacterial ingredients as the Clarify facial.
-                </p>
-                <p className="bacial_card_toggler">
-                  LEARN MORE
-                  <span className="bacial_card_bottom_spacer" />
-                  <FontAwesomeIcon
-                    className="bacial_suitcase_icon"
-                    icon={faSuitcase}
-                  />
-                </p>
+                <div className="bacial_description_inner_wrapper">
+                  <h2 style={{ fontWeight: 400 }}>BACIAL</h2>
+                  <p
+                    className="bacial_description_subheader"
+                    style={{ opacity: 0.6 }}
+                  >
+                    Back acne-fighting
+                  </p>
+                  <p
+                    className="calm_description_paragraph"
+                    style={{ fontSize: "0.8rem", lineHeight: "20px" }}
+                  >
+                    Bacial is a back treatment that uses many of the same skin
+                    cleansing techniques and antibacterial ingredients as the
+                    Clarify facial.
+                  </p>
+                  <div className="calm_card_bottom_wrapper">
+                    <p>LEARN MORE</p>
+                    <span className="calm_card_bottom_spacer" />
+                    <FontAwesomeIcon
+                      className="calm_suitcase_icon"
+                      icon={faSuitcase}
+                    />
+                  </div>
+                </div>
               </div>
             </section>
           )}
