@@ -23,7 +23,7 @@ const Clarify = () => {
               <div className="clarify_card_image">
                 <Spring
                   from={{ x: 200, fill: "white" }}
-                  to={{ x: 0, fill: "rgb(207, 207, 196, 0.4)" }}
+                  to={{ x: 0, fill: "rgb(207, 207, 196, 0.3)" }}
                   config={{ delay: 300, duration: 1500 }}
                 >
                   {props => (

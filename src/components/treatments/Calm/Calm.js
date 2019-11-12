@@ -50,6 +50,7 @@ const Calm = () => {
                       />
                       <g fill={`${props.fill}`} transform="translate(14, 14)">
                         <animated.path
+                          fill="rgba(255, 198, 207, 0.5)"
                           strokeDasharray="200"
                           strokeDashoffset={`${props.x}`}
                           className="calm_icon_path"
