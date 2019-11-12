@@ -26,6 +26,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  background: rgb(255, 198, 207);
 }
 
 .logo {
