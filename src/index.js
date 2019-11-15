@@ -7,15 +7,17 @@ import TreatmentsPage3 from "./components/treatments_pages/Page_3/TreatmentsPage
 import TreatmentsPage4 from "./components/treatments_pages/Page_4/TreatmentsPage4";
 import "./styles.css";
 
-const App = () => (
-  <>
-    <LandingPage />
-    <TreatmentsPage1 />
-    <TreatmentsPage2 />
-    <TreatmentsPage3 />
-    <TreatmentsPage4 />
-  </>
-);
+const App = () => {
+  return (
+    <>
+      <LandingPage />
+      <TreatmentsPage1 />
+      <TreatmentsPage2 />
+      <TreatmentsPage3 />
+      <TreatmentsPage4 />
+    </>
+  );
+};
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
