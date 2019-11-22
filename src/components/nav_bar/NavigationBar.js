@@ -1,6 +1,5 @@
 import React from "react";
 import Hamburger from "./Hamburger";
-
 import "./NavigationBar.css";
 
 class NavigationBar extends React.PureComponent {

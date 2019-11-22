@@ -21,6 +21,8 @@
   grid-area: calm_card;
   height: 28.6666667vh;
   border-radius: 10px;
+  position: relative;
+  z-index: 4;
 }
 
 .calm_card_image {
@@ -93,16 +95,67 @@
   align-items: center;
 }
 
+.calm_description_paragraph_toggle {
+  min-width: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.calm_description_icon_wrapper_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 3rem;
+}
+
+.calm_description_paragraph_icon_wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calm_description_paragraph_value {
+  font-size: 1.2rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.calm_description_paragraph_title {
+  display: flex;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.7);
+  padding-bottom: 0.5rem;
+}
+
+.calm_description_icon {
+  display: flex;
+  font-size: 1.3rem;
+  color: rgb(155, 98, 107);
+}
+
 .calm_card_bottom_wrapper {
   color: rgb(155, 98, 107);
   font-weight: 500;
   display: flex;
   flex-direction: row;
   margin-top: auto;
+  position: relative;
 }
 
 .calm_card_bottom_wrapper p {
-  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
 }
 
 .calm_card_bottom_spacer {
@@ -115,4 +168,6 @@
   flex-direction: row;
   align-content: center;
   justify-content: flex-end;
+  position: relative;
+  z-index: 5;
 }

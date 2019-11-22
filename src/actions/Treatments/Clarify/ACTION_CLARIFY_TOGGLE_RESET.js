@@ -1,0 +1,9 @@
+const CLARIFY_TOGGLE_RESET = "CLARIFY_TOGGLE_RESET";
+
+const ACTION_CLARIFY_TOGGLE_RESET = () => {
+  return {
+    type: CLARIFY_TOGGLE_RESET
+  };
+};
+
+export default ACTION_CLARIFY_TOGGLE_RESET;

@@ -20,6 +20,7 @@
   justify-content: center;
   background-color: white;
   position: fixed;
+  z-index: 500;
   background: rgb(255, 198, 207);
 }
 
@@ -46,32 +47,4 @@
 .main_heading h1 {
   display: flex;
   font-size: 3rem;
-}
-
-.call_to_action {
-  border: none;
-  background: none;
-  border-radius: 30px;
-}
-
-.call_to_action a {
-  border-radius: 30px;
-  background-color: #ffc6cf;
-  color: white;
-  padding: 0.5rem 3rem 0.5rem 3rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.bg_image {
-  display: block;
-  height: 100%;
-  width: 100%;
-  margin-bottom: 5%;
-  border: none;
-  background: linear-gradient(white 0%, transparent, white 100%),
-    url("https://asset-a.grid.id/crop/0x0:0x0/700x0/photo/2018/06/08/2647661524.jpg");
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, cover;
 }

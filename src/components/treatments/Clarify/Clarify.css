@@ -21,6 +21,8 @@
   grid-area: clarify_card;
   height: 28.6666667vh;
   border-radius: 10px;
+  position: relative;
+  z-index: 4;
 }
 
 .clarify_card_image {
@@ -100,6 +102,16 @@
   display: flex;
   flex-direction: row;
   margin-top: auto;
+  position: relative;
+}
+
+.clarify_card_bottom_wrapper p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
 }
 
 .clarify_card_bottom_spacer {
@@ -112,4 +124,6 @@
   flex-direction: row;
   align-content: center;
   justify-content: flex-end;
+  position: relative;
+  z-index: 5;
 }
