@@ -27,10 +27,9 @@
 
 .clarify_card_image {
   grid-area: hero;
-  background: rgb(255, 198, 207);
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: center;
   align-content: center;
   align-items: center;
@@ -57,7 +56,6 @@
   flex-direction: column;
   align-items: center;
   max-height: 100%;
-  background-color: rgba(255, 198, 207, 0.3);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
@@ -66,7 +64,6 @@
 .clarify_border_right {
   display: flex;
   align-self: flex-end;
-  border-right: 1px solid rgbA(155, 98, 107, 0.5);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -96,22 +93,74 @@
   align-items: center;
 }
 
-.clarify_card_bottom_wrapper {
-  color: rgb(155, 98, 107);
-  font-weight: 500;
+.clarify_description_paragraph_toggle {
   display: flex;
-  flex-direction: row;
-  margin-top: auto;
-  position: relative;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-right: 5.7rem;
 }
 
-.clarify_card_bottom_wrapper p {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+.clarify_description_icon_wrapper_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-items: flex-start;
+}
+
+.clarify_description_paragraph_icon_wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.clarify_description_paragraph_value {
+  font-size: 1.1rem;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1.2rem;
+  padding-bottom: 0.3rem;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+}
+.clarify_description_paragraph_title {
+  display: flex;
+  font-size: 0.9rem;
+  color: rgba(155, 98, 107, 0.7);
+  padding-left: 0.3rem;
+  font-weight: 500;
+}
+
+.clarify_description_icon {
+  display: flex;
+  font-size: 0.9rem;
+  color: rgba(155, 98, 107, 0.6);
+}
+
+.clarify_card_bottom_wrapper {
+  font-weight: 500;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.clarify_card_toggler {
+  font-size: 1rem;
+  display: flex;
+  align-self: flex-end;
   z-index: 5;
+  cursor: pointer;
 }
 
 .clarify_card_bottom_spacer {
@@ -119,11 +168,12 @@
 }
 
 .clarify_suitcase_icon {
-  color: rgb(155, 98, 107);
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: flex-end;
-  position: relative;
+  position: absolute;
   z-index: 5;
+  cursor: pointer;
+  margin-top: 0px;
+  top: 0;
+  bottom: 0;
+  left: auto;
+  right: 0;
 }

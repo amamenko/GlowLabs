@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Spring, animated } from "react-spring/renderprops";
+import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
 import ACTION_CALM_TOGGLE from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE";
 import ACTION_CALM_TOGGLE_RESET from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE_RESET";
 import ACTION_CLARIFY_TOGGLE_RESET from "../../../actions/Treatments/Clarify/ACTION_CLARIFY_TOGGLE_RESET";
+import ACTION_BACIAL_TOGGLE_RESET from "../../../actions/Treatments/Bacial/ACTION_BACIAL_TOGGLE_RESET";
+import ACTION_GLOW_TOGGLE_RESET from "../../../actions/Treatments/Glow/ACTION_GLOW_TOGGLE_RESET";
 import "./Calm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +20,8 @@ const Calm = () => {
     if (!calmToggle) {
       dispatch(ACTION_CALM_TOGGLE());
       dispatch(ACTION_CLARIFY_TOGGLE_RESET());
+      dispatch(ACTION_BACIAL_TOGGLE_RESET());
+      dispatch(ACTION_GLOW_TOGGLE_RESET());
     } else {
       dispatch(ACTION_CALM_TOGGLE_RESET());
     }
@@ -25,28 +29,35 @@ const Calm = () => {
 
   console.log(calmToggle);
 
-  const cardDetails = () => {
+  const cardDescriptionHandler = () => {
     if (calmToggle) {
       return (
-        <div className="calm_description_paragraph_toggle">
-          <div className="calm_description_icon_wrapper_container">
-            <div className="calm_description_paragraph_icon_wrapper">
-              <p className="calm_description_paragraph_title">Duration</p>
-              <FontAwesomeIcon
-                className="calm_description_icon"
-                icon={faClock}
-              />
-            </div>
-            <div className="calm_description_paragraph_icon_wrapper">
-              <p className="calm_description_paragraph_title">Price</p>
-              <FontAwesomeIcon className="calm_description_icon" icon={faTag} />
+        <>
+          <div className="calm_description_paragraph_toggle">
+            <div className="calm_description_icon_wrapper_container">
+              <div className="calm_description_paragraph_icon_wrapper">
+                <FontAwesomeIcon
+                  className="calm_description_icon"
+                  icon={faClock}
+                />
+                <p className="calm_description_paragraph_title">Duration</p>
+              </div>
+              <div className="calm_description_paragraph_value">
+                <p>50 minutes</p>
+              </div>
+              <div className="calm_description_paragraph_icon_wrapper">
+                <FontAwesomeIcon
+                  className="calm_description_icon"
+                  icon={faTag}
+                />
+                <p className="calm_description_paragraph_title">Price</p>
+              </div>
+              <div className="calm_description_paragraph_value">
+                <p>$70</p>
+              </div>
             </div>
           </div>
-          <div className="calm_description_paragraph_value">
-            <p>50 minutes</p>
-            <p>$70</p>
-          </div>
-        </div>
+        </>
       );
     } else {
       return (
@@ -57,6 +68,73 @@ const Calm = () => {
           Calm reduces inflammation of sensitive skin caused by the environment,
           rosacea, acne, laser treatments or natural disposition.
         </p>
+      );
+    }
+  };
+
+  const SuitcaseBounce = Keyframes.Spring({
+    suitcaseBounce: [
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 100 }
+      },
+      {
+        marginTop: "-5px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 300 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-5",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-3px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      }
+    ]
+  });
+
+  const bookButtonBounce = () => {
+    if (calmToggle) {
+      return (
+        <SuitcaseBounce state="suitcaseBounce">
+          {styles => (
+            <FontAwesomeIcon
+              className="calm_suitcase_icon"
+              style={styles}
+              icon={faSuitcase}
+            />
+          )}
+        </SuitcaseBounce>
+      );
+    } else {
+      return (
+        <FontAwesomeIcon
+          className="calm_suitcase_icon"
+          style={{
+            color: calmToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+            transition: "ease all 0.5s"
+          }}
+          icon={faSuitcase}
+        />
       );
     }
   };
@@ -76,8 +154,11 @@ const Calm = () => {
                   <div
                     className="calm_card_image"
                     style={{
+                      backgroundColor: calmToggle
+                        ? "rgb(255, 198, 207)"
+                        : "rgba(211, 211, 211, 0.4)",
                       boxShadow: calmToggle
-                        ? "0px -2px 2px 0px rgba(207, 207, 196, 0.7), -2px 0px 2px 0px rgba(207, 207, 196, 0.7), 0px 2px 2px 0px rgba(207, 207, 196, 0.7)"
+                        ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
                       transition: "ease all 0.5s"
                     }}
@@ -98,7 +179,11 @@ const Calm = () => {
                             cx="28"
                             cy="28"
                             r="27"
-                            stroke="rgb(235, 178, 187)"
+                            stroke={
+                              calmToggle
+                                ? "rgb(235, 178, 187)"
+                                : "rgba(191, 191, 191)"
+                            }
                             strokeWidth="0.5"
                             fill="white"
                           />
@@ -134,16 +219,23 @@ const Calm = () => {
                       )}
                     </Spring>
 
-                    <div className="calm_border_right" />
+                    <div
+                      className="calm_border_right"
+                      style={{
+                        borderRight: calmToggle
+                          ? "1px solid rgbA(155, 98, 107, 0.4)"
+                          : "1px solid rgbA(211, 211, 211)"
+                      }}
+                    />
                   </div>
                   <div
                     className="calm_description"
                     style={{
                       backgroundColor: calmToggle
-                        ? "rgba(255, 198, 207, 0.3)"
-                        : "rgba(211, 211, 211, 0.1)",
+                        ? "rgba(255, 198, 207, 0.2)"
+                        : "rgba(235, 235, 235, 0.1)",
                       boxShadow: calmToggle
-                        ? "0px -2px 2px 0px rgba(207, 207, 196, 0.7), 2px 0px 2px 0px rgba(207, 207, 196, 0.7), 0px 3px 2px 0px rgba(207, 207, 196, 0.7)"
+                        ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
                       transition: "ease all 0.5s"
                     }}
@@ -152,20 +244,25 @@ const Calm = () => {
                       <h2 style={{ fontWeight: 400 }}>CALM</h2>
                       <p
                         className="calm_description_subheader"
-                        style={{ opacity: 0.6 }}
+                        style={{ opacity: 0.7 }}
                       >
                         Soothing
                       </p>
-                      {cardDetails()}
-                      <div className="calm_card_bottom_wrapper">
-                        <p onClick={handleToggle}>
+                      {cardDescriptionHandler()}
+                      <div
+                        className="calm_card_bottom_wrapper"
+                        style={{
+                          color: calmToggle
+                            ? "rgb(155, 98, 107)"
+                            : "rgb(175, 118, 127)",
+                          transition: "ease all 0.5s"
+                        }}
+                      >
+                        <p className="calm_card_toggler" onClick={handleToggle}>
                           {calmToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
                         </p>
                         <span className="calm_card_bottom_spacer" />
-                        <FontAwesomeIcon
-                          className="calm_suitcase_icon"
-                          icon={faSuitcase}
-                        />
+                        {bookButtonBounce()}
                       </div>
                     </div>
                   </div>

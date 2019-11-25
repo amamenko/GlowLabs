@@ -48,3 +48,43 @@
   display: flex;
   font-size: 3rem;
 }
+
+.bottom_content {
+  grid-area: main;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: space-evenly;
+}
+
+.bottom_content h1 {
+  text-align: center;
+  color: rgb(225, 166, 175);
+}
+
+.bottom_content p {
+  display: flex;
+  align-items: center;
+  color: rgba(107, 107, 96, 0.89);
+  font-size: 14px;
+  line-height: 1.5rem;
+  text-align: center;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.landing_page_cta {
+  display: flex;
+  align-self: center;
+  color: rgb(0, 0, 0s);
+}
+
+.landing_page_down_arrow {
+  display: flex;
+  align-self: center;
+}

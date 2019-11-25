@@ -30,7 +30,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: rgb(255, 198, 207);
   justify-content: center;
   align-content: center;
   align-items: center;
@@ -65,7 +64,6 @@
 .calm_border_right {
   display: flex;
   align-self: flex-end;
-  border-right: 1px solid rgbA(155, 98, 107, 0.5);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -96,66 +94,74 @@
 }
 
 .calm_description_paragraph_toggle {
-  min-width: auto;
   display: flex;
   flex: 1;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-right: 5.7rem;
 }
 
 .calm_description_icon_wrapper_container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-right: 3rem;
+  align-items: flex-start;
+  justify-items: flex-start;
 }
 
 .calm_description_paragraph_icon_wrapper {
   display: flex;
   flex: 1;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 .calm_description_paragraph_value {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: flex;
   flex: 1;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-left: 1.2rem;
+  padding-bottom: 0.3rem;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
 }
 
 .calm_description_paragraph_title {
   display: flex;
-  font-size: 0.8rem;
-  color: rgba(0, 0, 0, 0.7);
-  padding-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(155, 98, 107, 0.7);
+  padding-left: 0.3rem;
+  font-weight: 500;
 }
 
 .calm_description_icon {
   display: flex;
-  font-size: 1.3rem;
-  color: rgb(155, 98, 107);
+  font-size: 0.9rem;
+  color: rgba(155, 98, 107, 0.6);
 }
 
 .calm_card_bottom_wrapper {
-  color: rgb(155, 98, 107);
   font-weight: 500;
   display: flex;
-  flex-direction: row;
-  margin-top: auto;
   position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.calm_card_bottom_wrapper p {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+.calm_card_toggler {
+  font-size: 1rem;
+  display: flex;
+  align-self: flex-end;
   z-index: 5;
+  cursor: pointer;
 }
 
 .calm_card_bottom_spacer {
@@ -163,11 +169,12 @@
 }
 
 .calm_suitcase_icon {
-  color: rgb(155, 98, 107);
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: flex-end;
-  position: relative;
+  position: absolute;
   z-index: 5;
+  cursor: pointer;
+  margin-top: 0px;
+  top: 0;
+  bottom: 0;
+  left: auto;
+  right: 0;
 }
