@@ -7,7 +7,6 @@
     "header header header header"
     "main main main main";
   background: rgb(255, 198, 207);
-  margin-bottom: 1.5rem;
 }
 
 .header {
@@ -26,6 +25,7 @@
 
 .main_content {
   display: flex;
+  position: relative;
   flex: 1;
   flex-direction: column;
   grid-area: main;
@@ -49,6 +49,25 @@
   font-size: 3rem;
 }
 
+.top_content_top_shelf {
+  grid-area: main;
+  position: absolute;
+  top: 20%;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
+}
+
+.top_content_bottom_shelf {
+  grid-area: main;
+  position: absolute;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
+}
+
 .bottom_content {
   grid-area: main;
   position: absolute;
@@ -59,32 +78,40 @@
   display: flex;
   flex-direction: column;
   justify-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 .bottom_content h1 {
   text-align: center;
-  color: rgb(225, 166, 175);
+  color: rgb(215, 156, 165);
+  font-size: 1.6rem;
+  padding-bottom: 1.5rem;
 }
 
 .bottom_content p {
   display: flex;
+  position: relative;
   align-items: center;
   color: rgba(107, 107, 96, 0.89);
   font-size: 14px;
   line-height: 1.5rem;
   text-align: center;
-  margin-right: 1.5rem;
-  margin-left: 1.5rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .landing_page_cta {
   display: flex;
-  align-self: center;
-  color: rgb(0, 0, 0s);
+  flex-direction: column;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 0.5rem;
 }
 
-.landing_page_down_arrow {
+.landing_page_bottom_icon {
   display: flex;
   align-self: center;
+  margin-top: 2rem;
+  filter: drop-shadow(8px 7px 2px rgb(211, 211, 211));
 }

@@ -233,7 +233,7 @@ const Calm = () => {
                     style={{
                       backgroundColor: calmToggle
                         ? "rgba(255, 198, 207, 0.2)"
-                        : "rgba(235, 235, 235, 0.1)",
+                        : "rgba(235, 235, 235, 0.3)",
                       boxShadow: calmToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
