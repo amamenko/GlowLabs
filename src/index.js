@@ -1,4 +1,5 @@
-import React from "react";
+import * as smoothscroll from "smoothscroll-polyfill";
+import React, { useRef } from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -12,6 +13,10 @@ import TreatmentsPage3 from "./components/treatments_pages/Page_3/TreatmentsPage
 import TreatmentsPage4 from "./components/treatments_pages/Page_4/TreatmentsPage4";
 import "./styles.css";
 
+require("intersection-observer");
+
+smoothscroll.polyfill();
+
 const middleware = [thunk];
 
 const store = createStore(
@@ -20,10 +25,12 @@ const store = createStore(
 );
 
 const App = () => {
+  const Treatments1Ref = useRef(null);
+
   return (
     <>
-      <LandingPage />
-      <TreatmentsPage1 />
+      <LandingPage Treatments1Ref={Treatments1Ref} />
+      <TreatmentsPage1 Treatments1Ref={Treatments1Ref} />
       <TreatmentsPage2 />
       <TreatmentsPage3 />
       <TreatmentsPage4 />

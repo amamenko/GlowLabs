@@ -5,54 +5,102 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
 import { InView } from "react-intersection-observer";
 import ACTION_BACIAL_TOGGLE from "../../../actions/Treatments/Bacial/ACTION_BACIAL_TOGGLE";
-import ACTION_BACIAL_TOGGLE_RESET from "../../../actions/Treatments/Bacial/ACTION_BACIAL_TOGGLE_RESET";
-import ACTION_CLARIFY_TOGGLE_RESET from "../../../actions/Treatments/Clarify/ACTION_CLARIFY_TOGGLE_RESET";
 import ACTION_CALM_TOGGLE_RESET from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE_RESET";
+import ACTION_CLARIFY_TOGGLE_RESET from "../../../actions/Treatments/Clarify/ACTION_CLARIFY_TOGGLE_RESET";
+import ACTION_BACIAL_TOGGLE_RESET from "../../../actions/Treatments/Bacial/ACTION_BACIAL_TOGGLE_RESET";
 import ACTION_GLOW_TOGGLE_RESET from "../../../actions/Treatments/Glow/ACTION_GLOW_TOGGLE_RESET";
+import ACTION_REJUVENATE_TOGGLE_RESET from "../../../actions/Treatments/Rejuvenate/ACTION_REJUVENATE_TOGGLE_RESET";
+import ACTION_QUENCH_TOGGLE_RESET from "../../../actions/Treatments/Quench/ACTION_QUENCH_TOGGLE_RESET";
+import ACTION_QUICKIE_TOGGLE_RESET from "../../../actions/Treatments/Quickie/ACTION_QUICKIE_TOGGLE_RESET";
+import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/ChemicalPeel/ACTION_CHEMICAL_PEEL_TOGGLE_RESET";
+import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
+import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
+import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./Bacial.css";
 
 const Bacial = () => {
+  const calmToggle = useSelector(state => state.calmToggle.toggle);
+  const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
+  const glowToggle = useSelector(state => state.glowToggle.toggle);
+  const rejuvenateToggle = useSelector(state => state.rejuvenateToggle.toggle);
+  const quenchToggle = useSelector(state => state.quenchToggle.toggle);
+  const quickieToggle = useSelector(state => state.quickieToggle.toggle);
+  const chemicalpeelToggle = useSelector(
+    state => state.chemicalpeelToggle.toggle
+  );
+  const dermaplaningToggle = useSelector(
+    state => state.dermaplaningToggle.toggle
+  );
+  const cbdToggle = useSelector(state => state.cbdToggle.toggle);
+  const microneedleToggle = useSelector(
+    state => state.microneedleToggle.toggle
+  );
 
   const dispatch = useDispatch();
 
   const handleToggle = () => {
     if (!bacialToggle) {
       dispatch(ACTION_BACIAL_TOGGLE());
-      dispatch(ACTION_CALM_TOGGLE_RESET());
-      dispatch(ACTION_CLARIFY_TOGGLE_RESET());
-      dispatch(ACTION_GLOW_TOGGLE_RESET());
+      if (calmToggle) {
+        dispatch(ACTION_CALM_TOGGLE_RESET());
+      }
+      if (clarifyToggle) {
+        dispatch(ACTION_CLARIFY_TOGGLE_RESET());
+      }
+      if (glowToggle) {
+        dispatch(ACTION_GLOW_TOGGLE_RESET());
+      }
+      if (rejuvenateToggle) {
+        dispatch(ACTION_REJUVENATE_TOGGLE_RESET());
+      }
+      if (quenchToggle) {
+        dispatch(ACTION_QUENCH_TOGGLE_RESET());
+      }
+      if (quickieToggle) {
+        dispatch(ACTION_QUICKIE_TOGGLE_RESET());
+      }
+      if (chemicalpeelToggle) {
+        dispatch(ACTION_CHEMICAL_PEEL_TOGGLE_RESET());
+      }
+      if (dermaplaningToggle) {
+        dispatch(ACTION_DERMAPLANING_TOGGLE_RESET());
+      }
+      if (cbdToggle) {
+        dispatch(ACTION_CBD_TOGGLE_RESET());
+      }
+      if (microneedleToggle) {
+        dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
+      }
     } else {
       dispatch(ACTION_BACIAL_TOGGLE_RESET());
     }
   };
 
-  console.log(bacialToggle);
-
   const cardDescriptionHandler = () => {
     if (bacialToggle) {
       return (
         <>
-          <div className="bacial_description_paragraph_toggle">
-            <div className="bacial_description_icon_wrapper_container">
-              <div className="bacial_description_paragraph_icon_wrapper">
+          <div className="card_description_paragraph_toggle">
+            <div className="card_description_icon_wrapper_container">
+              <div className="card_description_paragraph_icon_wrapper">
                 <FontAwesomeIcon
-                  className="bacial_description_icon"
+                  className="card_description_icon"
                   icon={faClock}
                 />
-                <p className="bacial_description_paragraph_title">Duration</p>
+                <p className="card_description_paragraph_title">Duration</p>
               </div>
-              <div className="bacial_description_paragraph_value">
+              <div className="card_description_paragraph_value">
                 <p>50 minutes</p>
               </div>
-              <div className="bacial_description_paragraph_icon_wrapper">
+              <div className="card_description_paragraph_icon_wrapper">
                 <FontAwesomeIcon
-                  className="bacial_description_icon"
+                  className="card_description_icon"
                   icon={faTag}
                 />
-                <p className="bacial_description_paragraph_title">Price</p>
+                <p className="card_description_paragraph_title">Price</p>
               </div>
-              <div className="bacial_description_paragraph_value">
+              <div className="card_description_paragraph_value">
                 <p>$70</p>
               </div>
             </div>
@@ -62,7 +110,7 @@ const Bacial = () => {
     } else {
       return (
         <p
-          className="bacial_description_paragraph"
+          className="card_description_paragraph"
           style={{ fontSize: "0.8rem", lineHeight: "20px" }}
         >
           Bacial is a back treatment that uses many of the same skin cleansing
@@ -118,7 +166,7 @@ const Bacial = () => {
         <SuitcaseBounce state="suitcaseBounce">
           {styles => (
             <FontAwesomeIcon
-              className="bacial_suitcase_icon"
+              className="card_suitcase_icon"
               style={styles}
               icon={faSuitcase}
             />
@@ -128,7 +176,7 @@ const Bacial = () => {
     } else {
       return (
         <FontAwesomeIcon
-          className="bacial_suitcase_icon"
+          className="card_suitcase_icon"
           style={{
             color: bacialToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
             transition: "ease all 0.5s"
@@ -150,9 +198,9 @@ const Bacial = () => {
               config={{ duration: 1000 }}
             >
               {props => (
-                <section className="bacial_card" style={props}>
+                <section className="card" style={props}>
                   <div
-                    className="bacial_card_image"
+                    className="card_image"
                     style={{
                       backgroundColor: bacialToggle
                         ? "rgb(255, 198, 207)"
@@ -170,7 +218,7 @@ const Bacial = () => {
                     >
                       {props => (
                         <svg
-                          className="bacial_svg"
+                          className="card_svg"
                           width="100%"
                           height="15rem"
                           viewBox="0 0 56 56"
@@ -215,7 +263,7 @@ const Bacial = () => {
                       )}
                     </Spring>
                     <div
-                      className="bacial_border_right"
+                      className="card_border_right"
                       style={{
                         borderRight: bacialToggle
                           ? "1px solid rgbA(155, 98, 107, 0.4)"
@@ -224,7 +272,7 @@ const Bacial = () => {
                     />
                   </div>
                   <div
-                    className="bacial_description"
+                    className="card_description"
                     style={{
                       backgroundColor: bacialToggle
                         ? "rgba(255, 198, 207, 0.2)"
@@ -235,17 +283,17 @@ const Bacial = () => {
                       transition: "ease all 0.5s"
                     }}
                   >
-                    <div className="bacial_description_inner_wrapper">
+                    <div className="card_description_inner_wrapper">
                       <h2 style={{ fontWeight: 400 }}>BACIAL</h2>
                       <p
-                        className="bacial_description_subheader"
+                        className="card_description_subheader"
                         style={{ opacity: 0.6 }}
                       >
                         Back acne-fighting
                       </p>
                       {cardDescriptionHandler()}
                       <div
-                        className="bacial_card_bottom_wrapper"
+                        className="card_bottom_wrapper"
                         style={{
                           color: bacialToggle
                             ? "rgb(155, 98, 107)"
@@ -253,13 +301,10 @@ const Bacial = () => {
                           transition: "ease all 0.5s"
                         }}
                       >
-                        <p
-                          className="bacial_card_toggler"
-                          onClick={handleToggle}
-                        >
+                        <p className="card_toggler" onClick={handleToggle}>
                           {bacialToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
                         </p>
-                        <span className="calm_card_bottom_spacer" />
+                        <span className="card_bottom_spacer" />
                         {bookButtonBounce()}
                       </div>
                     </div>

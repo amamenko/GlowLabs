@@ -1,0 +1,9 @@
+const REJUVENATE_TOGGLE = "REJUVENATE_TOGGLE";
+
+const ACTION_REJUVENATE_TOGGLE = () => {
+  return {
+    type: REJUVENATE_TOGGLE
+  };
+};
+
+export default ACTION_REJUVENATE_TOGGLE;

@@ -1,7 +1,6 @@
 .treatments_page_1_container {
   height: 92vh;
   display: grid;
-  overflow-y: hidden;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-auto-rows: auto;
   grid-template-areas:

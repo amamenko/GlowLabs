@@ -6,6 +6,15 @@
   box-sizing: border-box;
 }
 
-html {
+html,
+body {
   font-family: "Montserrat", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    --scroll-behavior: auto;
+    scroll-behavior: auto;
+  }
 }

@@ -1,0 +1,9 @@
+const QUENCH_TOGGLE_RESET = "QUENCH_TOGGLE_RESET";
+
+const ACTION_QUENCH_TOGGLE_RESET = () => {
+  return {
+    type: QUENCH_TOGGLE_RESET
+  };
+};
+
+export default ACTION_QUENCH_TOGGLE_RESET;

@@ -8,6 +8,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
+    "intersection-observer": "^0.7.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-intersection-observer": "^8.25.1",
@@ -17,7 +18,10 @@
     "react-spring": "^8.0.27",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "scroll-behavior-polyfill": "^2.0.13",
+    "scroll-snap": "^2.0.4",
+    "smoothscroll-polyfill": "^0.4.4"
   },
   "devDependencies": {
     "eslint": "5.16.0",

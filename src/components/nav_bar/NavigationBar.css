@@ -23,7 +23,6 @@
   position: fixed;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
   width: 100%;
 }
@@ -31,6 +30,7 @@
 .logo {
   display: flex;
   flex: 1;
+  align-self: center;
   margin-left: 1.5rem;
   padding: 0;
   color: #000;

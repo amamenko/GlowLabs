@@ -5,13 +5,13 @@ import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
 import "./TreatmentsPage1.css";
 
-const TreatmentsPage1 = () => {
+const TreatmentsPage1 = props => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2
   });
   return (
-    <div className="treatments_page_1_container">
+    <div className="treatments_page_1_container" ref={props.Treatments1Ref}>
       <header className="treatments_page_1_header" ref={ref}>
         {inView ? (
           <Spring

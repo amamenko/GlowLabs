@@ -5,54 +5,102 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
 import { InView } from "react-intersection-observer";
 import ACTION_GLOW_TOGGLE from "../../../actions/Treatments/Glow/ACTION_GLOW_TOGGLE";
-import ACTION_GLOW_TOGGLE_RESET from "../../../actions/Treatments/Glow/ACTION_GLOW_TOGGLE_RESET";
-import ACTION_BACIAL_TOGGLE_RESET from "../../../actions/Treatments/Bacial/ACTION_BACIAL_TOGGLE_RESET";
-import ACTION_CLARIFY_TOGGLE_RESET from "../../../actions/Treatments/Clarify/ACTION_CLARIFY_TOGGLE_RESET";
 import ACTION_CALM_TOGGLE_RESET from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE_RESET";
+import ACTION_CLARIFY_TOGGLE_RESET from "../../../actions/Treatments/Clarify/ACTION_CLARIFY_TOGGLE_RESET";
+import ACTION_BACIAL_TOGGLE_RESET from "../../../actions/Treatments/Bacial/ACTION_BACIAL_TOGGLE_RESET";
+import ACTION_GLOW_TOGGLE_RESET from "../../../actions/Treatments/Glow/ACTION_GLOW_TOGGLE_RESET";
+import ACTION_REJUVENATE_TOGGLE_RESET from "../../../actions/Treatments/Rejuvenate/ACTION_REJUVENATE_TOGGLE_RESET";
+import ACTION_QUENCH_TOGGLE_RESET from "../../../actions/Treatments/Quench/ACTION_QUENCH_TOGGLE_RESET";
+import ACTION_QUICKIE_TOGGLE_RESET from "../../../actions/Treatments/Quickie/ACTION_QUICKIE_TOGGLE_RESET";
+import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/ChemicalPeel/ACTION_CHEMICAL_PEEL_TOGGLE_RESET";
+import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
+import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
+import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./Glow.css";
 
 const Glow = () => {
+  const calmToggle = useSelector(state => state.calmToggle.toggle);
+  const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
+  const bacialToggle = useSelector(state => state.bacialToggle.toggle);
   const glowToggle = useSelector(state => state.glowToggle.toggle);
+  const rejuvenateToggle = useSelector(state => state.rejuvenateToggle.toggle);
+  const quenchToggle = useSelector(state => state.quenchToggle.toggle);
+  const quickieToggle = useSelector(state => state.quickieToggle.toggle);
+  const chemicalpeelToggle = useSelector(
+    state => state.chemicalpeelToggle.toggle
+  );
+  const dermaplaningToggle = useSelector(
+    state => state.dermaplaningToggle.toggle
+  );
+  const cbdToggle = useSelector(state => state.cbdToggle.toggle);
+  const microneedleToggle = useSelector(
+    state => state.microneedleToggle.toggle
+  );
 
   const dispatch = useDispatch();
 
   const handleToggle = () => {
     if (!glowToggle) {
       dispatch(ACTION_GLOW_TOGGLE());
-      dispatch(ACTION_CALM_TOGGLE_RESET());
-      dispatch(ACTION_CLARIFY_TOGGLE_RESET());
-      dispatch(ACTION_BACIAL_TOGGLE_RESET());
+      if (calmToggle) {
+        dispatch(ACTION_CALM_TOGGLE_RESET());
+      }
+      if (clarifyToggle) {
+        dispatch(ACTION_CLARIFY_TOGGLE_RESET());
+      }
+      if (bacialToggle) {
+        dispatch(ACTION_BACIAL_TOGGLE_RESET());
+      }
+      if (rejuvenateToggle) {
+        dispatch(ACTION_REJUVENATE_TOGGLE_RESET());
+      }
+      if (quenchToggle) {
+        dispatch(ACTION_QUENCH_TOGGLE_RESET());
+      }
+      if (quickieToggle) {
+        dispatch(ACTION_QUICKIE_TOGGLE_RESET());
+      }
+      if (chemicalpeelToggle) {
+        dispatch(ACTION_CHEMICAL_PEEL_TOGGLE_RESET());
+      }
+      if (dermaplaningToggle) {
+        dispatch(ACTION_DERMAPLANING_TOGGLE_RESET());
+      }
+      if (cbdToggle) {
+        dispatch(ACTION_CBD_TOGGLE_RESET());
+      }
+      if (microneedleToggle) {
+        dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
+      }
     } else {
       dispatch(ACTION_GLOW_TOGGLE_RESET());
     }
   };
 
-  console.log(glowToggle);
-
   const cardDescriptionHandler = () => {
     if (glowToggle) {
       return (
         <>
-          <div className="glow_description_paragraph_toggle">
-            <div className="glow_description_icon_wrapper_container">
-              <div className="glow_description_paragraph_icon_wrapper">
+          <div className="card_description_paragraph_toggle">
+            <div className="card_description_icon_wrapper_container">
+              <div className="card_description_paragraph_icon_wrapper">
                 <FontAwesomeIcon
-                  className="glow_description_icon"
+                  className="card_description_icon"
                   icon={faClock}
                 />
-                <p className="glow_description_paragraph_title">Duration</p>
+                <p className="card_description_paragraph_title">Duration</p>
               </div>
-              <div className="glow_description_paragraph_value">
+              <div className="card_description_paragraph_value">
                 <p>50 minutes</p>
               </div>
-              <div className="glow_description_paragraph_icon_wrapper">
+              <div className="card_description_paragraph_icon_wrapper">
                 <FontAwesomeIcon
-                  className="glow_description_icon"
+                  className="card_description_icon"
                   icon={faTag}
                 />
-                <p className="glow_description_paragraph_title">Price</p>
+                <p className="card_description_paragraph_title">Price</p>
               </div>
-              <div className="glow_description_paragraph_value">
+              <div className="card_description_paragraph_value">
                 <p>$70</p>
               </div>
             </div>
@@ -62,7 +110,7 @@ const Glow = () => {
     } else {
       return (
         <p
-          className="glow_description_paragraph"
+          className="card_description_paragraph"
           style={{ fontSize: "0.8rem", lineHeight: "20px" }}
         >
           Accelerate brightening and clarify skin with Glow. Hyper-pigmentation
@@ -118,7 +166,7 @@ const Glow = () => {
         <SuitcaseBounce state="suitcaseBounce">
           {styles => (
             <FontAwesomeIcon
-              className="glow_suitcase_icon"
+              className="card_suitcase_icon"
               style={styles}
               icon={faSuitcase}
             />
@@ -128,7 +176,7 @@ const Glow = () => {
     } else {
       return (
         <FontAwesomeIcon
-          className="glow_suitcase_icon"
+          className="card_suitcase_icon"
           style={{
             color: glowToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
             transition: "ease all 0.5s"
@@ -149,9 +197,9 @@ const Glow = () => {
               config={{ duration: 1000 }}
             >
               {props => (
-                <section className="glow_card" style={props}>
+                <section className="card" style={props}>
                   <div
-                    className="glow_card_image"
+                    className="card_image"
                     style={{
                       backgroundColor: glowToggle
                         ? "rgb(255, 198, 207)"
@@ -173,7 +221,7 @@ const Glow = () => {
                     >
                       {props => (
                         <svg
-                          className="glow_svg"
+                          className="card_svg"
                           width="100%"
                           height="15rem"
                           viewBox="0 0 50.006 50.006"
@@ -214,7 +262,7 @@ const Glow = () => {
                       )}
                     </Spring>
                     <div
-                      className="glow_border_right"
+                      className="card_border_right"
                       style={{
                         borderRight: glowToggle
                           ? "1px solid rgbA(155, 98, 107, 0.4)"
@@ -223,7 +271,7 @@ const Glow = () => {
                     />
                   </div>
                   <div
-                    className="glow_description"
+                    className="card_description"
                     style={{
                       backgroundColor: glowToggle
                         ? "rgba(255, 198, 207, 0.2)"
@@ -234,17 +282,17 @@ const Glow = () => {
                       transition: "ease all 0.5s"
                     }}
                   >
-                    <div className="glow_description_inner_wrapper">
+                    <div className="card_description_inner_wrapper">
                       <h2 style={{ fontWeight: 400 }}>GLOW</h2>
                       <p
-                        className="glow_description_subheader"
+                        className="card_description_subheader"
                         style={{ opacity: 0.6 }}
                       >
                         Brightening
                       </p>
                       {cardDescriptionHandler()}
                       <div
-                        className="glow_card_bottom_wrapper"
+                        className="card_bottom_wrapper"
                         style={{
                           color: glowToggle
                             ? "rgb(155, 98, 107)"
@@ -252,10 +300,10 @@ const Glow = () => {
                           transition: "ease all 0.5s"
                         }}
                       >
-                        <p className="glow_card_toggler" onClick={handleToggle}>
+                        <p className="card_toggler" onClick={handleToggle}>
                           {glowToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
                         </p>
-                        <span className="glow_card_bottom_spacer" />
+                        <span className="card_bottom_spacer" />
                         {bookButtonBounce()}
                       </div>
                     </div>

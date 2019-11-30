@@ -1,11 +1,11 @@
 .treatments_page_3_container {
-  display: grid;
-  row-gap: 1.5rem;
   height: 92vh;
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-auto-rows: auto;
   grid-template-areas:
     "quench_card quench_card quench_card"
     "quickie_card quickie_card quickie_card"
     "chemical_peel_card chemical_peel_card chemical_peel_card";
+  row-gap: 1.5rem;
 }

@@ -52,7 +52,6 @@
 .top_content_top_shelf {
   grid-area: main;
   position: absolute;
-  top: 20%;
   bottom: auto;
   left: 0;
   right: 0;
@@ -77,18 +76,27 @@
   background: white;
   display: flex;
   flex-direction: column;
-  justify-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .bottom_content h1 {
   text-align: center;
   color: rgb(215, 156, 165);
-  font-size: 1.6rem;
+  font-size: 1.65rem;
+  padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
 
-.bottom_content p {
+.landing_page_text_block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.landing_page_description {
   display: flex;
   position: relative;
   align-items: center;
@@ -102,16 +110,132 @@
 
 .landing_page_cta {
   display: flex;
+  top: 5rem;
+  bottom: 5rem;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  color: rgb(0, 0, 0);
-  text-align: center;
-  font-size: 0.5rem;
+  color: transparent;
 }
 
 .landing_page_bottom_icon {
-  display: flex;
-  align-self: center;
-  margin-top: 2rem;
-  filter: drop-shadow(8px 7px 2px rgb(211, 211, 211));
+  color: rgb(215, 156, 165);
+  font-size: 2rem;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.cta_line {
+  border-left: 5px solid rgb(215, 156, 165);
+  position: absolute;
+  text-align: center;
+  border-radius: 2px;
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  /* CSS specific to iOS devices */
+  .landing_page_cta {
+    min-height: 100%;
+    min-width: 100%;
+    position: -webkit-sticky;
+  }
+
+  .landing_page_bottom_icon {
+    margin-top: 1.5rem;
+  }
+
+  .cta_line {
+    margin-top: -1.5rem;
+  }
+}
+
+@supports not (-webkit-overflow-scrolling: touch) {
+  /* CSS for other than iOS devices */
+  .landing_page_cta {
+    height: 100%;
+    width: 100%;
+    position: sticky;
+    transition: all 0.5s ease;
+  }
+
+  .cta_line {
+    margin-top: -2.8rem;
+  }
+}
+
+.potted_plant {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 8%;
+  left: 20%;
+  filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.small_plant {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 15%;
+  left: 28%;
+  filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.cream {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 11%;
+  left: 38%;
+  filter: drop-shadow(5px 0px 2px rgba(0, 0, 0, 0.1));
+}
+
+.hand_cream {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 12%;
+  left: 57%;
+  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.mirror {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 26%;
+  left: 20%;
+  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.bottle {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 30%;
+  left: 38%;
+  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.q_tips {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 34%;
+  left: 54%;
+  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.sun_screen {
+  position: absolute;
+  height: 15%;
+  width: 25%;
+  top: 29.5%;
+  left: 59%;
+  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
 }
