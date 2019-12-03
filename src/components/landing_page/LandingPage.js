@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { useSelector, useDispatch } from "react-redux";
 import NavigationBar from "../nav_bar/NavigationBar";
 import { Spring, Transition } from "react-spring/renderprops";
 import SplashScreen from "./SplashScreen";
@@ -15,10 +17,26 @@ import Mirror from "./BottomShelf/Mirror";
 import Bottle from "./BottomShelf/Bottle";
 import Qtips from "./BottomShelf/Qtips";
 import Sunscreen from "./BottomShelf/Sunscreen";
+import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
+import ACTION_NAVBAR_TOGGLE from "../../actions/Nav/ACTION_NAVBAR_TOGGLE";
 
 const LandingPage = props => {
   const [scroll, setScroll] = useState(false);
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
+  const ScrollLockRef = useRef(null);
+  const navbarToggle = useSelector(state => state.navbarToggle.toggle);
+
+  const dispatch = useDispatch();
+
+  const handleNavbarToggle = () => {
+    if (navbarToggle) {
+      dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+    } else {
+      dispatch(ACTION_NAVBAR_TOGGLE());
+    }
+  };
+
+  console.log(navbarToggle);
 
   const changeScroll = useCallback(() => {
     const userScroll = window.scrollY < 345;
@@ -44,18 +62,26 @@ const LandingPage = props => {
     };
   }, [scroll, changeScroll]);
 
+  useEffect(() => {
+    disableBodyScroll(ScrollLockRef);
+
+    setTimeout(() => {
+      enableBodyScroll(ScrollLockRef);
+    }, 5000);
+  }, []);
+
   const handleClickToScroll = async ref => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
     window.scrollTo({
-      top: props.Treatments1Ref.current.offsetTop - 68,
+      top: props.Treatments1Ref.current.offsetTop - 80,
       behavior: "smooth"
     });
   };
 
   return (
-    <div className="landing_page_container">
+    <div className="landing_page_container" ref={ScrollLockRef}>
       <Spring
         from={{ marginTop: "-100px" }}
         to={{ marginTop: "0px" }}
@@ -66,7 +92,11 @@ const LandingPage = props => {
             className="header"
             style={{ marginTop: `${props.marginTop}` }}
           >
-            <NavigationBar scroll={scroll} />
+            <NavigationBar
+              scroll={scroll}
+              onClick={handleNavbarToggle}
+              navbarToggle={navbarToggle}
+            />
           </header>
         )}
       </Spring>

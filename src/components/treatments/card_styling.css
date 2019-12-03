@@ -62,6 +62,7 @@
   flex-direction: column;
   flex: 1;
   justify-content: center;
+  width: 85%;
 }
 
 .card_description_inner_wrapper h2 {

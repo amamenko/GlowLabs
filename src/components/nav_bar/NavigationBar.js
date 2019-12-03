@@ -42,7 +42,10 @@ class NavigationBar extends React.PureComponent {
           </a>
         </h1>
         <div className="spacer" />
-        <Hamburger />
+        <Hamburger
+          onClick={this.props.onClick}
+          navbarToggle={this.props.navbarToggle}
+        />
       </nav>
     );
   }

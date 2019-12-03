@@ -10,6 +10,7 @@ import chemicalpeelToggleReducer from "./reducers/Treatments/ChemicalPeel/chemic
 import dermaplaningToggleReducer from "./reducers/Treatments/Dermaplaning/dermaplaningToggleReducer";
 import cbdToggleReducer from "./reducers/Treatments/CBD/cbdToggleReducer";
 import microneedleToggleReducer from "./reducers/Treatments/Microneedle/microneedleToggleReducer";
+import navbarToggleReducer from "./reducers/Nav/navbarToggleReducer";
 
 const RootReducer = combineReducers({
   calmToggle: calmToggleReducer,
@@ -22,7 +23,8 @@ const RootReducer = combineReducers({
   chemicalpeelToggle: chemicalpeelToggleReducer,
   dermaplaningToggle: dermaplaningToggleReducer,
   cbdToggle: cbdToggleReducer,
-  microneedleToggle: microneedleToggleReducer
+  microneedleToggle: microneedleToggleReducer,
+  navbarToggle: navbarToggleReducer
 });
 
 export default RootReducer;

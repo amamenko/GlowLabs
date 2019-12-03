@@ -2,21 +2,20 @@
   background: transparent;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 20px;
+  align-items: center;
+  height: 3rem;
   width: 30%;
-  padding: 0;
   border: none;
   cursor: pointer;
   flex: 1;
 }
 
 .burger_line {
-  margin-right: 1.5rem;
   display: flex;
-  height: 3px;
+  height: 4px;
   width: 2rem;
   background: #000;
+  transition: all 0.5s ease;
 }
 
 .navbar {
