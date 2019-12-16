@@ -8,10 +8,10 @@ class NavigationBar extends React.PureComponent {
       <nav
         className="navbar"
         style={{
-          backgroundColor: this.props.scroll
-            ? "rgb(255, 255, 255)"
-            : "rgb(255, 198, 207)",
-          filter: this.props.scroll
+          backgroundColor: "rgb(255, 198, 207)",
+          filter: this.props.navbarToggle
+            ? "none"
+            : this.props.scroll
             ? "drop-shadow(0 0 3px rgba(0, 0, 0, 0.4)"
             : "none",
           transition: "all 0.5s ease-out"

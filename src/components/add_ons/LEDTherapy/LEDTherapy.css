@@ -1,0 +1,12 @@
+.led_therapy_wrapping {
+  display: grid;
+  grid-area: led_therapy_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.led_therapy_icon_path {
+  transform: scale(0.6);
+}

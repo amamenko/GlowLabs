@@ -11,6 +11,7 @@ import dermaplaningToggleReducer from "./reducers/Treatments/Dermaplaning/dermap
 import cbdToggleReducer from "./reducers/Treatments/CBD/cbdToggleReducer";
 import microneedleToggleReducer from "./reducers/Treatments/Microneedle/microneedleToggleReducer";
 import navbarToggleReducer from "./reducers/Nav/navbarToggleReducer";
+import bodyScrollReducer from "./reducers/Body_Scroll/bodyScrollReducer";
 
 const RootReducer = combineReducers({
   calmToggle: calmToggleReducer,
@@ -24,7 +25,8 @@ const RootReducer = combineReducers({
   dermaplaningToggle: dermaplaningToggleReducer,
   cbdToggle: cbdToggleReducer,
   microneedleToggle: microneedleToggleReducer,
-  navbarToggle: navbarToggleReducer
+  navbarToggle: navbarToggleReducer,
+  bodyScrollToggle: bodyScrollReducer
 });
 
 export default RootReducer;

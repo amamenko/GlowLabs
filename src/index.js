@@ -11,6 +11,9 @@ import TreatmentsPage1 from "./components/treatments_pages/Page_1/TreatmentsPage
 import TreatmentsPage2 from "./components/treatments_pages/Page_2/TreatmentsPage2";
 import TreatmentsPage3 from "./components/treatments_pages/Page_3/TreatmentsPage3";
 import TreatmentsPage4 from "./components/treatments_pages/Page_4/TreatmentsPage4";
+import NavigationMenu from "./components/nav_bar/NavigationMenu";
+import AddOnsPage1 from "./components/add_ons_pages/Page_1/AddOnsPage1";
+import AddOnsPage2 from "./components/add_ons_pages/Page_2/AddOnsPage2";
 import "./styles.css";
 
 require("intersection-observer");
@@ -29,11 +32,14 @@ const App = () => {
 
   return (
     <>
+      <NavigationMenu />
       <LandingPage Treatments1Ref={Treatments1Ref} />
       <TreatmentsPage1 Treatments1Ref={Treatments1Ref} />
       <TreatmentsPage2 />
       <TreatmentsPage3 />
       <TreatmentsPage4 />
+      <AddOnsPage1 />
+      <AddOnsPage2 />
     </>
   );
 };

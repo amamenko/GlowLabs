@@ -33,6 +33,7 @@
   align-items: center;
   justify-content: center;
   background: rgb(255, 198, 207);
+  padding-top: 8vh;
 }
 
 .main_heading {

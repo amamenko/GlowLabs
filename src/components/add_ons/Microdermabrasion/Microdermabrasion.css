@@ -1,0 +1,12 @@
+.microdermabrasion_wrapping {
+  display: grid;
+  grid-area: microdermabrasion_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.microdermabrasion_icon_path {
+  transform: scale(0.6);
+}

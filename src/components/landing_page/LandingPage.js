@@ -19,24 +19,29 @@ import Qtips from "./BottomShelf/Qtips";
 import Sunscreen from "./BottomShelf/Sunscreen";
 import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
 import ACTION_NAVBAR_TOGGLE from "../../actions/Nav/ACTION_NAVBAR_TOGGLE";
+import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 
 const LandingPage = props => {
   const [scroll, setScroll] = useState(false);
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
   const ScrollLockRef = useRef(null);
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
+  const bodyScrollToggle = useSelector(
+    state => state.bodyScrollToggle.overflow
+  );
 
   const dispatch = useDispatch();
 
   const handleNavbarToggle = () => {
     if (navbarToggle) {
       dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+      dispatch(ACTION_BODY_SCROLL_ALLOW());
     } else {
       dispatch(ACTION_NAVBAR_TOGGLE());
+      dispatch(ACTION_BODY_SCROLL_RESET());
     }
   };
-
-  console.log(navbarToggle);
 
   const changeScroll = useCallback(() => {
     const userScroll = window.scrollY < 345;
@@ -56,6 +61,13 @@ const LandingPage = props => {
   }, [setScroll, setLineRenderScroll]);
 
   useEffect(() => {
+    document.body.style.overflow = "visible";
+    return () => {
+      document.body.style.overflow = bodyScrollToggle;
+    };
+  }, [bodyScrollToggle]);
+
+  useEffect(() => {
     document.addEventListener("scroll", changeScroll);
     return () => {
       document.removeEventListener("scroll", changeScroll);
@@ -63,12 +75,20 @@ const LandingPage = props => {
   }, [scroll, changeScroll]);
 
   useEffect(() => {
-    disableBodyScroll(ScrollLockRef);
+    disableBodyScroll(ScrollLockRef.current);
 
-    setTimeout(() => {
-      enableBodyScroll(ScrollLockRef);
-    }, 5000);
-  }, []);
+    let timerEnableScroll = setTimeout(() => {
+      enableBodyScroll(ScrollLockRef.current);
+    }, 4000);
+
+    let bodyScrollTimer = setTimeout(() => {
+      dispatch(ACTION_BODY_SCROLL_ALLOW());
+    }, 4000);
+
+    return () => {
+      clearTimeout(timerEnableScroll, bodyScrollTimer);
+    };
+  }, [dispatch]);
 
   const handleClickToScroll = async ref => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
