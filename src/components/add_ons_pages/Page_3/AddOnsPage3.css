@@ -1,0 +1,12 @@
+.add_ons_page_3_container {
+  height: 92vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-auto-rows: auto;
+  grid-template-areas:
+    "dermarolling_card dermarolling_card dermarolling_card"
+    "nanoneedling_card nanoneedling_card nanoneedling_card"
+    "guasha_card guasha_card guasha_card";
+  row-gap: 1.5rem;
+  margin-top: 1.5rem;
+}

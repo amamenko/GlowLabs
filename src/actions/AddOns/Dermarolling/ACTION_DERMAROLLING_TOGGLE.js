@@ -1,0 +1,9 @@
+const DERMAROLLING_TOGGLE = "DERMAROLLING_TOGGLE";
+
+const ACTION_DERMAROLLING_TOGGLE = () => {
+  return {
+    type: DERMAROLLING_TOGGLE
+  };
+};
+
+export default ACTION_DERMAROLLING_TOGGLE;

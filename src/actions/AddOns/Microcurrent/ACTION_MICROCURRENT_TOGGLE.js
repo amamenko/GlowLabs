@@ -1,0 +1,9 @@
+const MICROCURRENT_TOGGLE = "MICROCURRENT_TOGGLE";
+
+const ACTION_MICROCURRENT_TOGGLE = () => {
+  return {
+    type: MICROCURRENT_TOGGLE
+  };
+};
+
+export default ACTION_MICROCURRENT_TOGGLE;

@@ -6,10 +6,10 @@
     "hero hero description description description description"
     "hero hero description description description description"
     "hero hero description description description description";
-  box-shadow: 1px 0px 1px 0px rgba(207, 207, 196, 0.7),
-    -1px 0px 1px 0px rgba(207, 207, 196, 0.7),
-    0px -1px 1px 0px rgba(207, 207, 196, 0.1),
-    0px 2px 1px 0px rgba(207, 207, 196, 0.6);
+  box-shadow: 1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+    -1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+    0px -1px 1px 0px rgba(177, 177, 166, 0.7),
+    0px 2px 1px 0px rgba(177, 177, 166, 0.6);
   z-index: -1;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -27,7 +27,7 @@
   position: relative;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
+  box-shadow: 0px -3px 3px 0px rgba(177, 177, 166, 0.1);
 }
 
 .card_svg {
@@ -45,7 +45,7 @@
   max-height: 100%;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  box-shadow: 0px -1px 1px 0px rgba(207, 207, 196, 0.1);
+  box-shadow: 0px -3px 3px 0px rgba(177, 177, 166, 0.1);
 }
 
 .card_border_right {

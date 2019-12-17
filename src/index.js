@@ -14,6 +14,8 @@ import TreatmentsPage4 from "./components/treatments_pages/Page_4/TreatmentsPage
 import NavigationMenu from "./components/nav_bar/NavigationMenu";
 import AddOnsPage1 from "./components/add_ons_pages/Page_1/AddOnsPage1";
 import AddOnsPage2 from "./components/add_ons_pages/Page_2/AddOnsPage2";
+import AddOnsPage3 from "./components/add_ons_pages/Page_3/AddOnsPage3";
+import AddOnsPage4 from "./components/add_ons_pages/Page_4/AddOnsPage4";
 import "./styles.css";
 
 require("intersection-observer");
@@ -40,6 +42,8 @@ const App = () => {
       <TreatmentsPage4 />
       <AddOnsPage1 />
       <AddOnsPage2 />
+      <AddOnsPage3 />
+      <AddOnsPage4 />
     </>
   );
 };

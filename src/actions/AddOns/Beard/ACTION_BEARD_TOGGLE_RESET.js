@@ -1,0 +1,9 @@
+const BEARD_TOGGLE_RESET = "BEARD_TOGGLE_RESET";
+
+const ACTION_BEARD_TOGGLE_RESET = () => {
+  return {
+    type: BEARD_TOGGLE_RESET
+  };
+};
+
+export default ACTION_BEARD_TOGGLE_RESET;

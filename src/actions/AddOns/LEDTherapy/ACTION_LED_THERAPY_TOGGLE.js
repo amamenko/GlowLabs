@@ -1,0 +1,9 @@
+const LED_THERAPY_TOGGLE = "LED_THERAPY_TOGGLE";
+
+const ACTION_LED_THERAPY_TOGGLE = () => {
+  return {
+    type: LED_THERAPY_TOGGLE
+  };
+};
+
+export default ACTION_LED_THERAPY_TOGGLE;

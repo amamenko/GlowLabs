@@ -61,7 +61,9 @@ const LandingPage = props => {
   }, [setScroll, setLineRenderScroll]);
 
   useEffect(() => {
-    document.body.style.overflow = "visible";
+    if (bodyScrollToggle === "visible") {
+      document.body.style.overflow = bodyScrollToggle;
+    }
     return () => {
       document.body.style.overflow = bodyScrollToggle;
     };

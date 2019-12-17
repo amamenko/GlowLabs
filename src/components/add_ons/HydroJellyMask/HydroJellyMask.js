@@ -2,11 +2,75 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Spring, animated } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
+import ACTION_HYDRO_JELLY_TOGGLE from "../../../actions/AddOns/HydroJellyMask/ACTION_HYDRO_JELLY_TOGGLE";
+import ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET from "../../../actions/AddOns/ExtraExtractions/ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET";
+import ACTION_HYDRO_JELLY_TOGGLE_RESET from "../../../actions/AddOns/HydroJellyMask/ACTION_HYDRO_JELLY_TOGGLE_RESET";
+import ACTION_LED_THERAPY_TOGGLE_RESET from "../../../actions/AddOns/LEDTherapy/ACTION_LED_THERAPY_TOGGLE_RESET";
+import ACTION_MICROCURRENT_TOGGLE_RESET from "../../../actions/AddOns/Microcurrent/ACTION_MICROCURRENT_TOGGLE_RESET";
+import ACTION_MICRODERMABRASION_TOGGLE_RESET from "../../../actions/AddOns/Microdermabrasion/ACTION_MICRODERMABRASION_TOGGLE_RESET";
+import ACTION_DERMAROLLING_TOGGLE_RESET from "../../../actions/AddOns/Dermarolling/ACTION_DERMAROLLING_TOGGLE_RESET";
+import ACTION_NANONEEDLING_TOGGLE_RESET from "../../../actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
+import ACTION_GUASHA_TOGGLE_RESET from "../../../actions/AddOns/GuaSha/ACTION_GUASHA_TOGGLE_RESET";
+import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEARD_TOGGLE_RESET";
 import "./HydroJellyMask.css";
 import "../../treatments/card_styling.css";
 
 const HydroJellyMask = () => {
+  const extraExtractionsToggle = useSelector(
+    state => state.extraExtractionsToggle.toggle
+  );
+  const hydroJellyToggle = useSelector(state => state.hydroJellyToggle.toggle);
+  const ledTherapyToggle = useSelector(state => state.ledTherapyToggle.toggle);
+  const microcurrentToggle = useSelector(
+    state => state.microcurrentToggle.toggle
+  );
+  const microdermabrasionToggle = useSelector(
+    state => state.microdermabrasionToggle.toggle
+  );
+  const dermarollingToggle = useSelector(
+    state => state.dermarollingToggle.toggle
+  );
+  const nanoneedlingToggle = useSelector(
+    state => state.nanoneedlingToggle.toggle
+  );
+  const guashaToggle = useSelector(state => state.guashaToggle.toggle);
+  const beardToggle = useSelector(state => state.beardToggle.toggle);
+
   const dispatch = useDispatch();
+
+  const handleToggle = () => {
+    if (!hydroJellyToggle) {
+      dispatch(ACTION_HYDRO_JELLY_TOGGLE());
+      if (extraExtractionsToggle) {
+        dispatch(ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET());
+      }
+      if (ledTherapyToggle) {
+        dispatch(ACTION_LED_THERAPY_TOGGLE_RESET());
+      }
+      if (microcurrentToggle) {
+        dispatch(ACTION_MICROCURRENT_TOGGLE_RESET());
+      }
+      if (microdermabrasionToggle) {
+        dispatch(ACTION_MICRODERMABRASION_TOGGLE_RESET());
+      }
+      if (dermarollingToggle) {
+        dispatch(ACTION_DERMAROLLING_TOGGLE_RESET());
+      }
+      if (nanoneedlingToggle) {
+        dispatch(ACTION_NANONEEDLING_TOGGLE_RESET());
+      }
+      if (guashaToggle) {
+        dispatch(ACTION_GUASHA_TOGGLE_RESET());
+      }
+      if (beardToggle) {
+        dispatch(ACTION_BEARD_TOGGLE_RESET());
+      }
+    } else {
+      dispatch(ACTION_HYDRO_JELLY_TOGGLE_RESET());
+    }
+  };
 
   return (
     <InView threshold={0.2} triggerOnce={true}>
@@ -47,7 +111,7 @@ const HydroJellyMask = () => {
                             strokeWidth="0.5"
                             fill="white"
                           />
-                          <g transform="translate(9 8)">
+                          <g transform="translate(8.5 8)">
                             <animated.path
                               className="hydro_jelly_mask_icon_path"
                               stroke="#000"
@@ -94,7 +158,14 @@ const HydroJellyMask = () => {
                           transition: "ease all 0.5s"
                         }}
                       >
-                        <p className="card_toggler">LEARN MORE</p>
+                        <p className="card_toggler" onClick={handleToggle}>
+                          {hydroJellyToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+                        </p>
+                        <span className="card_bottom_spacer" />
+                        <FontAwesomeIcon
+                          className="card_description_icon"
+                          icon={faPlus}
+                        />
                       </div>
                     </div>
                   </div>

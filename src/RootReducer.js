@@ -12,6 +12,15 @@ import cbdToggleReducer from "./reducers/Treatments/CBD/cbdToggleReducer";
 import microneedleToggleReducer from "./reducers/Treatments/Microneedle/microneedleToggleReducer";
 import navbarToggleReducer from "./reducers/Nav/navbarToggleReducer";
 import bodyScrollReducer from "./reducers/Body_Scroll/bodyScrollReducer";
+import beardToggleReducer from "./reducers/AddOns/Beard/beardToggleReducer";
+import dermarollingToggleReducer from "./reducers/AddOns/Dermarolling/dermarollingToggleReducer";
+import extraExtractionsToggleReducer from "./reducers/AddOns/ExtraExtractions/extraExtractionsToggleReducer";
+import guashaToggleReducer from "./reducers/AddOns/GuaSha/guashaToggleReducer";
+import hydroJellyToggleReducer from "./reducers/AddOns/HydroJellyMask/hydroJellyToggleReducer";
+import ledTherapyToggle from "./reducers/AddOns/LEDTherapy/ledTherapyToggleReducer";
+import microcurrentToggleReducer from "./reducers/AddOns/Microcurrent/microcurrentToggleReducer";
+import microdermabrasionToggleReducer from "./reducers/AddOns/Microdermabrasion/microdermabrasionToggleReducer";
+import nanoneedlingToggleReducer from "./reducers/AddOns/Nanoneedling/nanoneedlingToggleReducer";
 
 const RootReducer = combineReducers({
   calmToggle: calmToggleReducer,
@@ -26,7 +35,16 @@ const RootReducer = combineReducers({
   cbdToggle: cbdToggleReducer,
   microneedleToggle: microneedleToggleReducer,
   navbarToggle: navbarToggleReducer,
-  bodyScrollToggle: bodyScrollReducer
+  bodyScrollToggle: bodyScrollReducer,
+  beardToggle: beardToggleReducer,
+  dermarollingToggle: dermarollingToggleReducer,
+  extraExtractionsToggle: extraExtractionsToggleReducer,
+  guashaToggle: guashaToggleReducer,
+  hydroJellyToggle: hydroJellyToggleReducer,
+  ledTherapyToggle: ledTherapyToggle,
+  microcurrentToggle: microcurrentToggleReducer,
+  microdermabrasionToggle: microdermabrasionToggleReducer,
+  nanoneedlingToggle: nanoneedlingToggleReducer
 });
 
 export default RootReducer;

@@ -1,0 +1,12 @@
+.nanoneedling_wrapping {
+  display: grid;
+  grid-area: nanoneedling_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.nanoneedling_icon_path {
+  transform: scale(1.25);
+}

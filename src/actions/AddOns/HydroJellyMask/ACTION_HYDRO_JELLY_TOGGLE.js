@@ -1,0 +1,9 @@
+const HYDRO_JELLY_TOGGLE = "HYDRO_JELLY_TOGGLE";
+
+const ACTION_HYDRO_JELLY_TOGGLE = () => {
+  return {
+    type: HYDRO_JELLY_TOGGLE
+  };
+};
+
+export default ACTION_HYDRO_JELLY_TOGGLE;

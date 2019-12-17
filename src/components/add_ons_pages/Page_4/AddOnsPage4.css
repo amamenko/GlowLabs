@@ -1,0 +1,8 @@
+.add_ons_page_4_container {
+  height: 28.6666667vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-auto-rows: auto;
+  grid-template-areas: "beard_card beard_card beard_card";
+  margin-top: 1.5rem;
+}
