@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Spring, animated } from "react-spring/renderprops";
+import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
@@ -72,6 +72,119 @@ const Dermarolling = () => {
     }
   };
 
+  const cardDescriptionHandler = () => {
+    if (dermarollingToggle) {
+      return (
+        <>
+          <div className="card_description_paragraph_toggle">
+            <div className="card_description_icon_wrapper_container">
+              <div className="card_description_paragraph_icon_wrapper">
+                <FontAwesomeIcon
+                  className="card_description_icon"
+                  icon={faClock}
+                />
+                <p className="card_description_paragraph_title">Duration</p>
+              </div>
+              <div className="card_description_paragraph_value">
+                <p>10 minutes</p>
+              </div>
+              <div className="card_description_paragraph_icon_wrapper">
+                <FontAwesomeIcon
+                  className="card_description_icon"
+                  icon={faTag}
+                />
+                <p className="card_description_paragraph_title">Price</p>
+              </div>
+              <div className="card_description_paragraph_value">
+                <p>$15</p>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <p
+          className="card_description_paragraph"
+          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
+        >
+          This painless procedure uses a device covered with tiny needles to
+          poke holes in the skin's surface. These holes stimulate collagen
+          production, contributing to a younger look.
+        </p>
+      );
+    }
+  };
+
+  const SuitcaseBounce = Keyframes.Spring({
+    suitcaseBounce: [
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 100 }
+      },
+      {
+        marginTop: "-5px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 300 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-5",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-3px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      }
+    ]
+  });
+
+  const addOnBounce = () => {
+    if (dermarollingToggle) {
+      return (
+        <SuitcaseBounce state="suitcaseBounce">
+          {styles => (
+            <FontAwesomeIcon
+              className="card_suitcase_icon"
+              style={styles}
+              icon={faPlus}
+            />
+          )}
+        </SuitcaseBounce>
+      );
+    } else {
+      return (
+        <FontAwesomeIcon
+          className="card_suitcase_icon"
+          style={{
+            color: dermarollingToggle
+              ? "rgb(155, 98, 107)"
+              : "rgb(175, 118, 127)",
+            transition: "ease all 0.5s"
+          }}
+          icon={faPlus}
+        />
+      );
+    }
+  };
+
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
@@ -87,14 +200,19 @@ const Dermarolling = () => {
                   <div
                     className="card_image"
                     style={{
-                      backgroundColor: "rgba(211, 211, 211, 0.4)",
-                      boxShadow: "0px -1px 1px 0px rgba(207, 207, 196, 0.1)"
+                      backgroundColor: dermarollingToggle
+                        ? "rgb(255, 198, 207)"
+                        : "rgba(211, 211, 211, 0.4)",
+                      boxShadow: dermarollingToggle
+                        ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
+                        : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
+                      transition: "ease all 0.5s"
                     }}
                   >
                     <Spring
                       from={{ x: 100, fill: "#fff" }}
                       to={{ x: 0, fill: "#000" }}
-                      config={{ duration: 2500 }}
+                      config={{ duration: 3000 }}
                     >
                       {props => (
                         <svg
@@ -107,7 +225,11 @@ const Dermarolling = () => {
                             cx="28"
                             cy="28"
                             r="26"
-                            stroke="rgba(191, 191, 191)"
+                            stroke={
+                              dermarollingToggle
+                                ? "rgb(235, 178, 187)"
+                                : "rgba(191, 191, 191)"
+                            }
                             strokeWidth="0.5"
                             fill="white"
                           />
@@ -128,33 +250,33 @@ const Dermarolling = () => {
                     <div
                       className="card_border_right"
                       style={{
-                        borderRight: "1px solid rgbA(211, 211, 211)"
+                        borderRight: dermarollingToggle
+                          ? "1px solid rgbA(155, 98, 107, 0.4)"
+                          : "1px solid rgbA(211, 211, 211)"
                       }}
                     />
                   </div>
                   <div
                     className="card_description"
                     style={{
-                      backgroundColor: "rgba(235, 235, 235, 0.3)",
-                      boxShadow: "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
+                      backgroundColor: dermarollingToggle
+                        ? "rgba(255, 198, 207, 0.2)"
+                        : "rgba(235, 235, 235, 0.1)",
+                      boxShadow: dermarollingToggle
+                        ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
+                        : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
                       transition: "ease all 0.5s"
                     }}
                   >
                     <div className="card_description_inner_wrapper">
                       <h2 style={{ fontWeight: 400 }}>DERMAROLLING</h2>
-                      <p
-                        className="card_description_paragraph"
-                        style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-                      >
-                        This painless procedure uses a device covered with tiny
-                        needles to poke holes in the skin's surface. These holes
-                        stimulate collagen production, contributing to a younger
-                        look.
-                      </p>
+                      {cardDescriptionHandler()}
                       <div
                         className="card_bottom_wrapper"
                         style={{
-                          color: "rgb(175, 118, 127)",
+                          color: dermarollingToggle
+                            ? "rgb(155, 98, 107)"
+                            : "rgb(175, 118, 127)",
                           transition: "ease all 0.5s"
                         }}
                       >
@@ -164,10 +286,7 @@ const Dermarolling = () => {
                             : "LEARN MORE"}
                         </p>
                         <span className="card_bottom_spacer" />
-                        <FontAwesomeIcon
-                          className="card_description_icon"
-                          icon={faPlus}
-                        />
+                        {addOnBounce()}
                       </div>
                     </div>
                   </div>

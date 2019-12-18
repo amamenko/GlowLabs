@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Spring, animated } from "react-spring/renderprops";
+import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
@@ -72,6 +72,119 @@ const NanoNeedling = () => {
     }
   };
 
+  const cardDescriptionHandler = () => {
+    if (nanoneedlingToggle) {
+      return (
+        <>
+          <div className="card_description_paragraph_toggle">
+            <div className="card_description_icon_wrapper_container">
+              <div className="card_description_paragraph_icon_wrapper">
+                <FontAwesomeIcon
+                  className="card_description_icon"
+                  icon={faClock}
+                />
+                <p className="card_description_paragraph_title">Duration</p>
+              </div>
+              <div className="card_description_paragraph_value">
+                <p>10 minutes</p>
+              </div>
+              <div className="card_description_paragraph_icon_wrapper">
+                <FontAwesomeIcon
+                  className="card_description_icon"
+                  icon={faTag}
+                />
+                <p className="card_description_paragraph_title">Price</p>
+              </div>
+              <div className="card_description_paragraph_value">
+                <p>$20</p>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <p
+          className="card_description_paragraph"
+          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
+        >
+          This "no needle" alternative to microneedling moves a nano cartridge
+          up and down onto skin, stimulating nutritional absorption and collagen
+          production.
+        </p>
+      );
+    }
+  };
+
+  const SuitcaseBounce = Keyframes.Spring({
+    suitcaseBounce: [
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 100 }
+      },
+      {
+        marginTop: "-5px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 300 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-5",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-3px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      }
+    ]
+  });
+
+  const addOnBounce = () => {
+    if (nanoneedlingToggle) {
+      return (
+        <SuitcaseBounce state="suitcaseBounce">
+          {styles => (
+            <FontAwesomeIcon
+              className="card_suitcase_icon"
+              style={styles}
+              icon={faPlus}
+            />
+          )}
+        </SuitcaseBounce>
+      );
+    } else {
+      return (
+        <FontAwesomeIcon
+          className="card_suitcase_icon"
+          style={{
+            color: nanoneedlingToggle
+              ? "rgb(155, 98, 107)"
+              : "rgb(175, 118, 127)",
+            transition: "ease all 0.5s"
+          }}
+          icon={faPlus}
+        />
+      );
+    }
+  };
+
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
@@ -87,8 +200,13 @@ const NanoNeedling = () => {
                   <div
                     className="card_image"
                     style={{
-                      backgroundColor: "rgba(211, 211, 211, 0.4)",
-                      boxShadow: "0px -1px 1px 0px rgba(207, 207, 196, 0.1)"
+                      backgroundColor: nanoneedlingToggle
+                        ? "rgb(255, 198, 207)"
+                        : "rgba(211, 211, 211, 0.4)",
+                      boxShadow: nanoneedlingToggle
+                        ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
+                        : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
+                      transition: "ease all 0.5s"
                     }}
                   >
                     <Spring
@@ -107,7 +225,11 @@ const NanoNeedling = () => {
                             cx="28"
                             cy="28"
                             r="26"
-                            stroke="rgba(191, 191, 191)"
+                            stroke={
+                              nanoneedlingToggle
+                                ? "rgb(235, 178, 187)"
+                                : "rgba(191, 191, 191)"
+                            }
                             strokeWidth="0.5"
                             fill="white"
                           />
@@ -128,15 +250,21 @@ const NanoNeedling = () => {
                     <div
                       className="card_border_right"
                       style={{
-                        borderRight: "1px solid rgbA(211, 211, 211)"
+                        borderRight: nanoneedlingToggle
+                          ? "1px solid rgbA(155, 98, 107, 0.4)"
+                          : "1px solid rgbA(211, 211, 211)"
                       }}
                     />
                   </div>
                   <div
                     className="card_description"
                     style={{
-                      backgroundColor: "rgba(235, 235, 235, 0.3)",
-                      boxShadow: "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
+                      backgroundColor: nanoneedlingToggle
+                        ? "rgba(255, 198, 207, 0.2)"
+                        : "rgba(235, 235, 235, 0.1)",
+                      boxShadow: nanoneedlingToggle
+                        ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
+                        : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
                       transition: "ease all 0.5s"
                     }}
                   >
@@ -144,14 +272,7 @@ const NanoNeedling = () => {
                       <h2 style={{ fontWeight: 400 }}>
                         NANO NEEDLING INFUSION
                       </h2>
-                      <p
-                        className="card_description_paragraph"
-                        style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-                      >
-                        This "no needle" alternative to microneedling moves a
-                        nano cartridge up and down onto skin, stimulating
-                        nutritional absorption and collagen production.
-                      </p>
+                      {cardDescriptionHandler()}
                       <div
                         className="card_bottom_wrapper"
                         style={{
@@ -165,10 +286,7 @@ const NanoNeedling = () => {
                             : "LEARN MORE"}
                         </p>
                         <span className="card_bottom_spacer" />
-                        <FontAwesomeIcon
-                          className="card_description_icon"
-                          icon={faPlus}
-                        />
+                        {addOnBounce()}
                       </div>
                     </div>
                   </div>
