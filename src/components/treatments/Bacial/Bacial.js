@@ -17,8 +17,9 @@ import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermap
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./Bacial.css";
+import "../../treatments_pages/Page_1/TreatmentsPage1.css";
 
-const Bacial = () => {
+const Bacial = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -109,10 +110,7 @@ const Bacial = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Bacial is a back treatment that uses many of the same skin cleansing
           techniques and antibacterial ingredients as the Clarify facial.
         </p>
@@ -188,7 +186,10 @@ const Bacial = () => {
   };
 
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="bacial_wrapping" ref={ref}>
           {inView ? (

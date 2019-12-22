@@ -9,3 +9,15 @@
     "rejuvenate_card rejuvenate_card rejuvenate_card";
   row-gap: 1.5rem;
 }
+
+@media only screen and (min-width: 768px) {
+  .treatments_page_2_container {
+    height: 60vh;
+    grid-template-columns: repeat(auto-fit, minmax(33.333vw, 1fr));
+    grid-template-areas:
+      "glow_card glow_card rejuvenate_card rejuvenate_card quench_card quench_card"
+      "glow_card glow_card rejuvenate_card rejuvenate_card quench_card quench_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+  }
+}

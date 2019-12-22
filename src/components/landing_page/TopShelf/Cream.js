@@ -1,12 +1,15 @@
 import React from "react";
 import { Spring } from "react-spring/renderprops";
 
-const Cream = () => {
+const Cream = props => {
   return (
     <Spring
       from={{ display: "none", opacity: "0" }}
       to={{ display: "inline", opacity: "1" }}
-      config={{ delay: 4000, duration: 1500 }}
+      config={{
+        delay: props.initialScreenSize >= 768 ? 5000 : 4000,
+        duration: 1500
+      }}
     >
       {props => (
         <svg

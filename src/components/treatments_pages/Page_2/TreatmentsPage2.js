@@ -2,13 +2,15 @@ import React from "react";
 import Bacial from "../../treatments/Bacial/Bacial";
 import Glow from "../../treatments/Glow/Glow";
 import Rejuvenate from "../../treatments/Rejuvenate/Rejuvenate";
+import Quench from "../../treatments/Quench/Quench";
 import "./TreatmentsPage2.css";
 
-const TreatmentsPage2 = () => (
+const TreatmentsPage2 = props => (
   <div className="treatments_page_2_container">
-    <Bacial />
+    {props.initialScreenSize >= 768 ? null : <Bacial />}
     <Glow />
     <Rejuvenate />
+    {props.initialScreenSize >= 768 ? <Quench /> : null}
   </div>
 );
 

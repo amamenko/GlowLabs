@@ -109,10 +109,7 @@ const Rejuvenate = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Fine-lines, pigmentation and elasticity loss all come with aging skin.
           Rejuvenate can help pause and even reverse these issues.
         </p>

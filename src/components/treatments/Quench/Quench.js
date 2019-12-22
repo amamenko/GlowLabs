@@ -17,6 +17,7 @@ import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermap
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./Quench.css";
+import "../../treatments_pages/Page_2/TreatmentsPage2.css";
 
 const Quench = () => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
@@ -109,10 +110,7 @@ const Quench = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Quench helps dehydrated, dry and irritated skin look dewy, glowing and
           healthy by bringing water content back in.
         </p>

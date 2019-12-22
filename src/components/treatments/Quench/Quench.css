@@ -11,3 +11,9 @@
 .quench_icon_path {
   transform: scale(1);
 }
+
+@media only screen and (min-width: 768px) {
+  .quench_wrapping {
+    margin-top: 0rem;
+  }
+}

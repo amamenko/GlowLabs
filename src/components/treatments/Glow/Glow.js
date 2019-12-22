@@ -109,10 +109,7 @@ const Glow = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Accelerate brightening and clarify skin with Glow. Hyper-pigmentation
           and sun damage don’t stand a chance.
         </p>

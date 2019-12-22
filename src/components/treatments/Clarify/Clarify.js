@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
 import "./Clarify.css";
 
-const Clarify = () => {
+const Clarify = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -109,10 +109,7 @@ const Clarify = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Dealing with pimples and irritation? Clarify employs deep-tissue
           cleansing to remove excess oils, prevent breakouts and soothe skin.
         </p>
@@ -188,7 +185,10 @@ const Clarify = () => {
   };
 
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="clarify_wrapping" ref={ref}>
           {inView ? (

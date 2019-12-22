@@ -79,6 +79,8 @@
   flex: 1;
   justify-content: center;
   align-items: center;
+  font-size: 0.8rem;
+  line-height: 20px;
 }
 
 .card_description_paragraph_toggle {
@@ -165,4 +167,43 @@
   bottom: 0;
   left: auto;
   right: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 2rem;
+  }
+
+  .card_description_subheader {
+    font-size: 1.1rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.9rem;
+    line-height: 22px;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 3rem;
+  }
+
+  .card_description_subheader {
+    font-size: 2rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 1.5rem;
+    line-height: 40px;
+  }
+
+  .card_toggler {
+    font-size: 2rem;
+  }
+
+  .card_suitcase_icon {
+    font-size: 2rem;
+  }
 }

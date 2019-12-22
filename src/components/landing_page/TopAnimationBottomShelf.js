@@ -6,15 +6,39 @@ const TopAnimationBottomShelf = props => {
   return (
     <Spring
       from={{ top: "-50%" }}
-      to={{ top: "38%" }}
-      config={{ delay: 2000, duration: 2000 }}
+      to={{ top: props.initialScreenSize >= 768 ? "73%" : "38%" }}
+      config={{
+        delay: props.initialScreenSize >= 768 ? 3000 : 2000,
+        duration: 2000
+      }}
     >
-      {props => (
+      {styles => (
         <div
           className="top_content_bottom_shelf"
-          style={{ top: `${props.top}` }}
+          style={{
+            top:
+              props.currentScreenSize === ""
+                ? `${styles.top}`
+                : props.currentScreenSize >= 768
+                ? "73%"
+                : "38%"
+          }}
         >
-          <svg width="100%" height="7rem" viewBox="0 0 100 100">
+          <svg
+            width="100%"
+            height={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 768
+                  ? props.initialScreenSize >= 1800
+                    ? "35rem"
+                    : "20rem"
+                  : "7rem"
+                : props.currentScreenSize >= 768
+                ? "20rem"
+                : "7rem"
+            }
+            viewBox="0 0 100 100"
+          >
             <g transform="translate(-30 -62)">
               <path
                 d="M.068 83.709c.127-1.353.321-2.324.855-2.733.387-.392.839-.562 1.374-.667.702-.105 79.644-.067 79.644-.067s80.133.075 80.165-.047c.522.226.835.549.948.782.294.604.633 1.379.76 2.732l.031 2.029c-.156.016-81.904-.031-81.904-.031s-81.647.022-81.78 0z"

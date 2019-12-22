@@ -1,7 +1,7 @@
 .treatments_page_1_container {
   height: 92vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100, 1fr));
   grid-auto-rows: auto;
   grid-template-areas:
     "header header header"
@@ -29,9 +29,13 @@
   padding-top: 0.5rem;
 }
 
+.treatments_page_1_header h3 p {
+  text-align: center;
+}
+
 .title_underline {
-  border-bottom: 3px solid rgb(215, 156, 165);
   animation: line 1s linear forwards;
+  border-bottom: 3px solid rgb(215, 156, 165);
 }
 
 @keyframes line {
@@ -43,9 +47,71 @@
   }
 }
 
+@keyframes line_768 {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 30%;
+  }
+}
+
 .treatments_page_1_header h3 {
   font-size: 1.79rem;
   font-weight: 400;
   padding-bottom: 0.5rem;
   color: rgba(0, 0, 0, 0.8);
+}
+
+@media only screen and (min-width: 768px) {
+  .treatments_page_1_container {
+    height: 60vh;
+    grid-template-columns: repeat(auto-fit, minmax(33.333vw, 1fr));
+    grid-template-areas:
+      "header header header header header header"
+      "calm_card calm_card clarify_card clarify_card bacial_card bacial_card"
+      "calm_card calm_card clarify_card clarify_card bacial_card bacial_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+  }
+
+  .treatments_page_1_header h2 {
+    display: flex;
+    align-self: center;
+    font-size: 3rem;
+    line-height: 3rem;
+    text-align: left;
+    margin-right: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .treatments_page_1_header h3 p {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .treatments_page_1_header h3 p br {
+    display: none;
+  }
+
+  .title_underline {
+    animation: line_768 1s forwards;
+    display: flex;
+    align-self: center;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .treatments_page_1_header h2 {
+    font-size: 5rem;
+    line-height: 8rem;
+    margin-top: 2rem;
+  }
+
+  .treatments_page_1_header h3 p {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: 4rem;
+  }
 }

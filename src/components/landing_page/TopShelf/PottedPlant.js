@@ -1,12 +1,15 @@
 import React from "react";
 import { Spring } from "react-spring/renderprops";
 
-const PottedPlant = () => {
+const PottedPlant = props => {
   return (
     <Spring
       from={{ display: "none", opacity: "0" }}
       to={{ display: "block", opacity: "1" }}
-      config={{ delay: 4000, duration: 1500 }}
+      config={{
+        delay: props.initialScreenSize >= 768 ? 5000 : 4000,
+        duration: 1500
+      }}
     >
       {props => (
         <svg
@@ -19,7 +22,7 @@ const PottedPlant = () => {
         >
           <g
             id="g1518"
-            transform="matrix(.82136 0 0 .78846 14.038 3.843) scale(1.25)"
+            transform="matrix(.82136 0 0 .78846 14.038 0) scale(1.25)"
             strokeWidth=".32"
           >
             <path

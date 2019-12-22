@@ -1,12 +1,15 @@
 import React from "react";
 import { Spring } from "react-spring/renderprops";
 
-const Mirror = () => {
+const Mirror = props => {
   return (
     <Spring
       from={{ display: "none", opacity: "0" }}
       to={{ display: "inline", opacity: "1" }}
-      config={{ delay: 4000, duration: 1500 }}
+      config={{
+        delay: props.initialScreenSize >= 768 ? 5000 : 4000,
+        duration: 1500
+      }}
     >
       {props => (
         <svg
@@ -18,7 +21,7 @@ const Mirror = () => {
           }}
           viewBox="0 0 50 50"
         >
-          <g transform="translate(0 -1130) scale(4)">
+          <g transform="translate(0 -1135) scale(4)">
             <g
               id="g826"
               transform="matrix(.18327 0 0 .18644 67.39 303.176)"

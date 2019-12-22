@@ -1,5 +1,5 @@
 import * as smoothscroll from "smoothscroll-polyfill";
-import React, { useRef } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -31,13 +31,34 @@ const store = createStore(
 
 const App = () => {
   const Treatments1Ref = useRef(null);
+  const [initialScreenSize] = useState(window.innerWidth);
+  const [currentScreenSize, changeCurrentScreenSize] = useState("");
+
+  useLayoutEffect(() => {
+    const updateSize = () => {
+      changeCurrentScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", updateSize);
+    return () => {
+      window.removeEventListener("resize", updateSize);
+    };
+  }, [currentScreenSize, initialScreenSize]);
 
   return (
     <>
       <NavigationMenu />
-      <LandingPage Treatments1Ref={Treatments1Ref} />
-      <TreatmentsPage1 Treatments1Ref={Treatments1Ref} />
-      <TreatmentsPage2 />
+      <LandingPage
+        currentScreenSize={currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        Treatments1Ref={Treatments1Ref}
+      />
+      <TreatmentsPage1
+        currentScreenSize={currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        Treatments1Ref={Treatments1Ref}
+      />
+      <TreatmentsPage2 initialScreenSize={initialScreenSize} />
       <TreatmentsPage3 />
       <TreatmentsPage4 />
       <AddOnsPage1 />

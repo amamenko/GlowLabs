@@ -4,11 +4,11 @@ import Quickie from "../../treatments/Quickie/Quickie";
 import ChemicalPeel from "../../treatments/ChemicalPeel/ChemicalPeel";
 import "./TreatmentsPage3.css";
 
-const TreatmentsPage3 = () => (
+const TreatmentsPage3 = props => (
   <div className="treatments_page_3_container">
-    <Quench />
+    {props.initialScreenSize >= 768 ? null : <Quench />}
     <Quickie />
-    <ChemicalPeel />
+    {props.initialScreenSize >= 768 ? <ChemicalPeel /> : null}
   </div>
 );
 

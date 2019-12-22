@@ -44,7 +44,14 @@ const LandingPage = props => {
   };
 
   const changeScroll = useCallback(() => {
-    const userScroll = window.scrollY < 345;
+    const userScroll =
+      props.currentScreenSize === ""
+        ? props.initialScreenSize >= 768
+          ? window.scrollY < 10
+          : window.scrollY < 345
+        : props.currentScreenSize >= 768
+        ? window.scrollY < 10
+        : window.scrollY < 345;
     const userLineRenderScroll = window.scrollY < 40;
 
     if (!userScroll) {
@@ -58,15 +65,19 @@ const LandingPage = props => {
     } else {
       setLineRenderScroll(false);
     }
-  }, [setScroll, setLineRenderScroll]);
+  }, [
+    setScroll,
+    setLineRenderScroll,
+    props.currentScreenSize,
+    props.initialScreenSize
+  ]);
 
   useEffect(() => {
     if (bodyScrollToggle === "visible") {
-      document.body.style.overflow = bodyScrollToggle;
+      document.body.style.overflow = "visible";
+    } else if (bodyScrollToggle === "hidden") {
+      document.body.style.overflow = "hidden";
     }
-    return () => {
-      document.body.style.overflow = bodyScrollToggle;
-    };
   }, [bodyScrollToggle]);
 
   useEffect(() => {
@@ -79,18 +90,24 @@ const LandingPage = props => {
   useEffect(() => {
     disableBodyScroll(ScrollLockRef.current);
 
-    let timerEnableScroll = setTimeout(() => {
-      enableBodyScroll(ScrollLockRef.current);
-    }, 4000);
+    let timerEnableScroll = setTimeout(
+      () => {
+        enableBodyScroll(ScrollLockRef.current);
+      },
+      props.initialScreenSize >= 768 ? 5300 : 4000
+    );
 
-    let bodyScrollTimer = setTimeout(() => {
-      dispatch(ACTION_BODY_SCROLL_ALLOW());
-    }, 4000);
+    let bodyScrollTimer = setTimeout(
+      () => {
+        dispatch(ACTION_BODY_SCROLL_ALLOW());
+      },
+      props.initialScreenSize >= 768 ? 5300 : 4000
+    );
 
     return () => {
       clearTimeout(timerEnableScroll, bodyScrollTimer);
     };
-  }, [dispatch]);
+  }, [dispatch, props.initialScreenSize]);
 
   const handleClickToScroll = async ref => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
@@ -105,45 +122,86 @@ const LandingPage = props => {
   return (
     <div className="landing_page_container" ref={ScrollLockRef}>
       <Spring
-        from={{ marginTop: "-100px" }}
+        from={{
+          marginTop: props.initialScreenSize >= 768 ? "-200px" : "-100px"
+        }}
         to={{ marginTop: "0px" }}
-        config={{ delay: 2500, duration: 1500 }}
+        config={{
+          delay: props.initialScreenSize >= 768 ? 4600 : 2500,
+          duration: props.initialScreenSize >= 768 ? 1000 : 1500
+        }}
       >
-        {props => (
+        {styles => (
           <header
             className="header"
-            style={{ marginTop: `${props.marginTop}` }}
+            style={{ marginTop: `${styles.marginTop}` }}
           >
             <NavigationBar
               scroll={scroll}
               onClick={handleNavbarToggle}
               navbarToggle={navbarToggle}
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
             />
           </header>
         )}
       </Spring>
       <section className="main_content">
-        <PottedPlant />
-        <SmallPlant />
-        <Cream />
-        <HandCream />
-        <TopAnimationTopShelf />
-        <Mirror />
-        <Bottle />
-        <Qtips />
-        <Sunscreen />
-        <TopAnimationBottomShelf />
+        <PottedPlant initialScreenSize={props.initialScreenSize} />
+        <SmallPlant initialScreenSize={props.initialScreenSize} />
+        <Cream initialScreenSize={props.initialScreenSize} />
+        <HandCream initialScreenSize={props.initialScreenSize} />
+        <TopAnimationTopShelf
+          currentScreenSize={props.currentScreenSize}
+          initialScreenSize={props.initialScreenSize}
+        />
+        <Mirror initialScreenSize={props.initialScreenSize} />
+        <Bottle initialScreenSize={props.initialScreenSize} />
+        <Qtips initialScreenSize={props.initialScreenSize} />
+        <Sunscreen initialScreenSize={props.initialScreenSize} />
+        <TopAnimationBottomShelf
+          currentScreenSize={props.currentScreenSize}
+          initialScreenSize={props.initialScreenSize}
+        />
         <Spring
-          from={{ top: "100%" }}
-          to={{ top: "50%" }}
-          config={{ delay: 2000, duration: 2000 }}
+          from={{
+            top: props.initialScreenSize >= 768 ? "0%" : "100%",
+            right: props.initialScreenSize >= 768 ? "100%" : "0%"
+          }}
+          to={{
+            top: props.initialScreenSize >= 768 ? "0%" : "50%",
+            right: props.initialScreenSize >= 768 ? "50%" : "0%"
+          }}
+          config={{
+            delay: props.initialScreenSize >= 768 ? 3000 : 2000,
+            duration: 2000
+          }}
         >
-          {props => (
-            <div className="bottom_content" style={{ top: `${props.top}` }}>
+          {styles => (
+            <div
+              className="bottom_content"
+              style={{
+                top:
+                  props.currentScreenSize === ""
+                    ? `${styles.top}`
+                    : props.currentScreenSize >= 768
+                    ? "0%"
+                    : "50%",
+                right:
+                  props.currentScreenSize === ""
+                    ? `${styles.right}`
+                    : props.currentScreenSize >= 768
+                    ? "50%"
+                    : "0%"
+              }}
+            >
               <Spring
                 from={{ opacity: 0 }}
                 to={{ opacity: 1 }}
-                config={{ delay: 4000, duration: 500 }}
+                config={{
+                  delay: props.initialScreenSize >= 768 ? 5000 : 4000,
+                  duration: 500
+                }}
               >
                 {props => (
                   <div className="landing_page_text_block">
@@ -160,6 +218,12 @@ const LandingPage = props => {
                       listen to that Peruvian pan flute music. We'll figure out
                       the rest.
                     </p>
+                    <div
+                      className="call_to_action_button"
+                      style={{ opacity: `${props.opacity}` }}
+                    >
+                      <p>GET STARTED</p>
+                    </div>
                     <div
                       style={{
                         opacity: `${props.opacity}`,
@@ -201,7 +265,7 @@ const LandingPage = props => {
                                 height: `${rendered.height}`
                               }}
                               className="cta_line"
-                            ></span>
+                            />
                           ))
                         }
                       </Transition>

@@ -19,7 +19,7 @@ import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
 
-const Calm = () => {
+const Calm = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -110,10 +110,7 @@ const Calm = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Calm reduces inflammation of sensitive skin caused by the environment,
           rosacea, acne, laser treatments or natural disposition.
         </p>
@@ -189,7 +186,10 @@ const Calm = () => {
   };
 
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="calm_wrapping" ref={ref}>
           {inView ? (
