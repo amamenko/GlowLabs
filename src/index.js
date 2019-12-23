@@ -59,8 +59,8 @@ const App = () => {
         Treatments1Ref={Treatments1Ref}
       />
       <TreatmentsPage2 initialScreenSize={initialScreenSize} />
-      <TreatmentsPage3 />
-      <TreatmentsPage4 />
+      <TreatmentsPage3 initialScreenSize={initialScreenSize} />
+      <TreatmentsPage4 initialScreenSize={initialScreenSize} />
       <AddOnsPage1 />
       <AddOnsPage2 />
       <AddOnsPage3 />

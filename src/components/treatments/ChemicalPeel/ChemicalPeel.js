@@ -18,7 +18,7 @@ import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./ChemicalPeel.css";
 
-const ChemicalPeel = () => {
+const ChemicalPeel = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -109,10 +109,7 @@ const ChemicalPeel = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Chemical peels exfoliate and smoothen the texture of skin. They also
           minimize sun damage and pigmentation from acne scarring.
         </p>
@@ -189,7 +186,10 @@ const ChemicalPeel = () => {
     }
   };
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="chemical_peel_wrapping" ref={ref}>
           {inView ? (

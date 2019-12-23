@@ -187,7 +187,7 @@ const Calm = props => {
 
   return (
     <InView
-      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
+      threshold={props.initialScreenSize >= 768 ? 0.3 : 0.2}
       triggerOnce={true}
     >
       {({ inView, ref }) => (

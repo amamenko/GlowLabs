@@ -18,7 +18,7 @@ import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./Glow.css";
 
-const Glow = () => {
+const Glow = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -184,7 +184,10 @@ const Glow = () => {
     }
   };
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 768 ? 0.3 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="glow_wrapping" ref={ref}>
           {inView ? (

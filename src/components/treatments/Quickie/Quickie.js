@@ -18,7 +18,7 @@ import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./Quickie.css";
 
-const Quickie = () => {
+const Quickie = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -109,10 +109,7 @@ const Quickie = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Quickie is an all-encompassing, fast, focused treatment meant to give
           you a boost for a night out or big event.
         </p>
@@ -187,7 +184,10 @@ const Quickie = () => {
     }
   };
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 768 ? 0.3 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="quickie_wrapping" ref={ref}>
           {inView ? (

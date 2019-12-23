@@ -142,6 +142,8 @@ const LandingPage = props => {
               navbarToggle={navbarToggle}
               currentScreenSize={props.currentScreenSize}
               initialScreenSize={props.initialScreenSize}
+              handleClickToScroll={handleClickToScroll}
+              Treatments1Ref={props.Treatments1Ref}
             />
           </header>
         )}
@@ -222,7 +224,13 @@ const LandingPage = props => {
                       className="call_to_action_button"
                       style={{ opacity: `${props.opacity}` }}
                     >
-                      <p>GET STARTED</p>
+                      <p
+                        onClick={() =>
+                          handleClickToScroll(props.Treatments1Ref)
+                        }
+                      >
+                        GET STARTED
+                      </p>
                     </div>
                     <div
                       style={{

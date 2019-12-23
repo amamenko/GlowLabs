@@ -12,10 +12,13 @@
 
 @media only screen and (min-width: 768px) {
   .treatments_page_3_container {
-    height: 60vh;
+    height: 28.6666667vh;
     grid-template-columns: repeat(auto-fit, minmax(33.333vw, 1fr));
     grid-template-areas:
       "quickie_card quickie_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card"
       "quickie_card quickie_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: 3rem;
   }
 }

@@ -17,8 +17,9 @@ import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermap
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import "./Dermaplaning.css";
+import "../../treatments_pages/Page_3/TreatmentsPage3.css";
 
-const Dermaplaning = () => {
+const Dermaplaning = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -109,10 +110,7 @@ const Dermaplaning = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Dermaplaning minimizes fine lines on skin by shaving its surface,
           removing the top layer of dead skin along with fine hair.
         </p>
@@ -189,7 +187,10 @@ const Dermaplaning = () => {
     }
   };
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="dermaplaning_wrapping" ref={ref}>
           {inView ? (

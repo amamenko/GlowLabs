@@ -3,7 +3,7 @@ import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
 
 class NavigationBar extends React.PureComponent {
-  render() {
+  render(props) {
     return (
       <nav
         className="navbar"
@@ -71,7 +71,13 @@ class NavigationBar extends React.PureComponent {
         <div className="nav_links">
           <ul>
             <li>HOME</li>
-            <li>TREATMENTS</li>
+            <li
+              onClick={() =>
+                this.props.handleClickToScroll(this.props.Treatments1Ref)
+              }
+            >
+              TREATMENTS
+            </li>
             <li>ADD-ONS</li>
             <li>REAL CLIENTS</li>
             <li>ABOUT</li>

@@ -12,7 +12,7 @@
 
 @media only screen and (min-width: 768px) {
   .treatments_page_2_container {
-    height: 60vh;
+    height: 28.6666667vh;
     grid-template-columns: repeat(auto-fit, minmax(33.333vw, 1fr));
     grid-template-areas:
       "glow_card glow_card rejuvenate_card rejuvenate_card quench_card quench_card"
