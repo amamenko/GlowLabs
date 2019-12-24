@@ -12,7 +12,8 @@
   transform: scale(1);
 }
 
-@media only screen and (min-width: 768px) {
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
   .quench_wrapping {
     margin-top: 0rem;
   }

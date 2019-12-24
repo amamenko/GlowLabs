@@ -63,10 +63,11 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
-@media only screen and (min-width: 768px) {
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
   .treatments_page_1_container {
     height: 60vh;
-    grid-template-columns: repeat(auto-fit, minmax(33.333vw, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
     grid-template-areas:
       "header header header header header header"
       "calm_card calm_card clarify_card clarify_card bacial_card bacial_card"
@@ -87,6 +88,7 @@
 
   .treatments_page_1_header h3 p {
     margin-top: 1.5rem;
+    margin-bottom: 2rem;
     font-size: 2rem;
   }
 

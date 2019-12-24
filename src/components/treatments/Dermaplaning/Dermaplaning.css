@@ -12,7 +12,7 @@
   transform: scale(0.8);
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1200px) {
   .dermaplaning_wrapping {
     margin-top: 0rem;
   }

@@ -73,7 +73,12 @@
   display: none;
 }
 
-@media only screen and (min-width: 768px) {
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .logo {
+    margin-left: 3.1rem;
+  }
+
   .burger,
   .nav_menu {
     display: none;
@@ -91,12 +96,13 @@
     flex-direction: row;
     align-items: stretch;
     justify-content: space-evenly;
+    margin-left: 3.1rem;
   }
 
   .nav_links li {
     display: flex;
     list-style: none;
-    font-size: 1.25rem;
+    font-size: 1.19rem;
     font-weight: 500;
     margin-left: 1.5rem;
     margin-right: 1.5rem;
@@ -111,12 +117,7 @@
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
-  .logo {
-    margin-left: 3.1rem;
-  }
-
   .nav_links ul {
-    margin-left: 3.1rem;
     justify-content: space-between;
   }
 

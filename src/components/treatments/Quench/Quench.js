@@ -19,7 +19,7 @@ import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microne
 import "./Quench.css";
 import "../../treatments_pages/Page_2/TreatmentsPage2.css";
 
-const Quench = () => {
+const Quench = props => {
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -185,7 +185,10 @@ const Quench = () => {
     }
   };
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 1200 ? 0.7 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="quench_wrapping" ref={ref}>
           {inView ? (

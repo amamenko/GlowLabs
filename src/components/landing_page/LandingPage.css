@@ -101,6 +101,7 @@
   align-items: center;
   color: rgba(107, 107, 96, 0.89);
   font-size: 14px;
+  font-weight: 500;
   line-height: 1.5rem;
   text-align: center;
   margin-right: 2rem;
@@ -115,6 +116,7 @@
   align-items: center;
   justify-content: center;
   color: transparent;
+  cursor: pointer;
 }
 
 .call_to_action_button {
@@ -131,6 +133,7 @@
   right: 0;
   top: 0;
   bottom: 0;
+  cursor: pointer;
 }
 
 .cta_line {
@@ -248,8 +251,8 @@
   filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
 }
 
-/* CSS for Landscape Phones */
-@media only screen and (min-width: 768px) {
+/* CSS for Regular Desktops and Tablets */
+@media only screen and (min-width: 1200px) {
   .bottom_content {
     background: rgb(251, 251, 251);
   }
@@ -259,7 +262,7 @@
     align-self: flex-start;
     margin-left: 3.1rem;
     text-align: left;
-    font-size: 3.75rem;
+    font-size: 3.6rem;
     padding-top: 7rem;
     padding-bottom: 1.2rem;
     margin-right: 3rem;
@@ -279,7 +282,7 @@
     display: flex;
     position: relative;
     align-items: flex-start;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 2.5rem;
     text-align: left;
     margin-left: 3.1rem;
@@ -288,6 +291,13 @@
 
   .landing_page_cta {
     display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
   .call_to_action_button {
@@ -305,10 +315,22 @@
     cursor: pointer;
   }
 
+  .call_to_action_button.book_now {
+    background: transparent;
+    color: rgb(107, 107, 96);
+    border: 1px rgb(107, 107, 96) solid;
+  }
+
+  .call_to_action_button.book_now:hover {
+    background: rgb(255, 198, 207);
+    color: black;
+    border: 1px transparent solid;
+  }
+
   .call_to_action_button:hover {
     background: rgb(255, 198, 207);
     color: black;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
   }
 
   .bottom_content {
@@ -391,7 +413,7 @@
 @media only screen and (min-width: 1800px) {
   .bottom_content h1 {
     text-align: left;
-    font-size: 6.3rem;
+    font-size: 6.1rem;
     padding-top: 7rem;
     padding-bottom: 3rem;
   }

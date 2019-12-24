@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { useSelector, useDispatch } from "react-redux";
 import NavigationBar from "../nav_bar/NavigationBar";
@@ -22,10 +22,10 @@ import ACTION_NAVBAR_TOGGLE from "../../actions/Nav/ACTION_NAVBAR_TOGGLE";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 
-const LandingPage = props => {
+const LandingPage = React.forwardRef((props, ref) => {
+  const { Treatments1Ref, LandingPageRef } = ref;
   const [scroll, setScroll] = useState(false);
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
-  const ScrollLockRef = useRef(null);
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
   const bodyScrollToggle = useSelector(
     state => state.bodyScrollToggle.overflow
@@ -46,10 +46,10 @@ const LandingPage = props => {
   const changeScroll = useCallback(() => {
     const userScroll =
       props.currentScreenSize === ""
-        ? props.initialScreenSize >= 768
+        ? props.initialScreenSize >= 1200
           ? window.scrollY < 10
           : window.scrollY < 345
-        : props.currentScreenSize >= 768
+        : props.currentScreenSize >= 1200
         ? window.scrollY < 10
         : window.scrollY < 345;
     const userLineRenderScroll = window.scrollY < 40;
@@ -88,47 +88,37 @@ const LandingPage = props => {
   }, [scroll, changeScroll]);
 
   useEffect(() => {
-    disableBodyScroll(ScrollLockRef.current);
+    disableBodyScroll(LandingPageRef.current);
 
     let timerEnableScroll = setTimeout(
       () => {
-        enableBodyScroll(ScrollLockRef.current);
+        enableBodyScroll(LandingPageRef.current);
       },
-      props.initialScreenSize >= 768 ? 5300 : 4000
+      props.initialScreenSize >= 1200 ? 5300 : 4000
     );
 
     let bodyScrollTimer = setTimeout(
       () => {
         dispatch(ACTION_BODY_SCROLL_ALLOW());
       },
-      props.initialScreenSize >= 768 ? 5300 : 4000
+      props.initialScreenSize >= 1200 ? 5300 : 4000
     );
 
     return () => {
       clearTimeout(timerEnableScroll, bodyScrollTimer);
     };
-  }, [dispatch, props.initialScreenSize]);
-
-  const handleClickToScroll = async ref => {
-    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
-      await import("scroll-behavior-polyfill");
-    }
-    window.scrollTo({
-      top: props.Treatments1Ref.current.offsetTop - 80,
-      behavior: "smooth"
-    });
-  };
+  }, [dispatch, props.initialScreenSize, LandingPageRef]);
 
   return (
-    <div className="landing_page_container" ref={ScrollLockRef}>
+    <div className="landing_page_container" ref={LandingPageRef}>
       <Spring
         from={{
-          marginTop: props.initialScreenSize >= 768 ? "-200px" : "-100px"
+          marginTop: props.initialScreenSize >= 1200 ? "-200px" : "-100px"
         }}
         to={{ marginTop: "0px" }}
         config={{
-          delay: props.initialScreenSize >= 768 ? 4600 : 2500,
-          duration: props.initialScreenSize >= 768 ? 1000 : 1500
+          delay: props.initialScreenSize >= 1200 ? 4600 : 2500,
+          duration: props.initialScreenSize >= 1200 ? 1000 : 1500
         }}
       >
         {styles => (
@@ -138,12 +128,15 @@ const LandingPage = props => {
           >
             <NavigationBar
               scroll={scroll}
-              onClick={handleNavbarToggle}
+              handleNavbarToggle={handleNavbarToggle}
               navbarToggle={navbarToggle}
               currentScreenSize={props.currentScreenSize}
               initialScreenSize={props.initialScreenSize}
-              handleClickToScroll={handleClickToScroll}
-              Treatments1Ref={props.Treatments1Ref}
+              handleClickToScrollToHome={props.handleClickToScrollToHome}
+              handleClickToScrollToTreatments={
+                props.handleClickToScrollToTreatments
+              }
+              ref={ref}
             />
           </header>
         )}
@@ -167,15 +160,15 @@ const LandingPage = props => {
         />
         <Spring
           from={{
-            top: props.initialScreenSize >= 768 ? "0%" : "100%",
-            right: props.initialScreenSize >= 768 ? "100%" : "0%"
+            top: props.initialScreenSize >= 1200 ? "0%" : "100%",
+            right: props.initialScreenSize >= 1200 ? "100%" : "0%"
           }}
           to={{
-            top: props.initialScreenSize >= 768 ? "0%" : "50%",
-            right: props.initialScreenSize >= 768 ? "50%" : "0%"
+            top: props.initialScreenSize >= 1200 ? "0%" : "50%",
+            right: props.initialScreenSize >= 1200 ? "50%" : "0%"
           }}
           config={{
-            delay: props.initialScreenSize >= 768 ? 3000 : 2000,
+            delay: props.initialScreenSize >= 1200 ? 3000 : 2000,
             duration: 2000
           }}
         >
@@ -186,13 +179,13 @@ const LandingPage = props => {
                 top:
                   props.currentScreenSize === ""
                     ? `${styles.top}`
-                    : props.currentScreenSize >= 768
+                    : props.currentScreenSize >= 1200
                     ? "0%"
                     : "50%",
                 right:
                   props.currentScreenSize === ""
                     ? `${styles.right}`
-                    : props.currentScreenSize >= 768
+                    : props.currentScreenSize >= 1200
                     ? "50%"
                     : "0%"
               }}
@@ -201,40 +194,58 @@ const LandingPage = props => {
                 from={{ opacity: 0 }}
                 to={{ opacity: 1 }}
                 config={{
-                  delay: props.initialScreenSize >= 768 ? 5000 : 4000,
+                  delay: props.initialScreenSize >= 1200 ? 5000 : 4000,
                   duration: 500
                 }}
               >
-                {props => (
+                {style => (
                   <div className="landing_page_text_block">
-                    <h1 style={{ opacity: `${props.opacity}` }}>
+                    <h1 style={{ opacity: `${style.opacity}` }}>
                       Customized skin care,
                       <br /> down to a science.
                     </h1>
                     <p
                       className="landing_page_description"
-                      style={{ opacity: `${props.opacity}` }}
+                      style={{ opacity: `${style.opacity}` }}
                     >
                       We've reimagined the traditional idea of a facial so that
                       we can do the thinking for you. Lay back, relax, and
                       listen to that Peruvian pan flute music. We'll figure out
                       the rest.
                     </p>
-                    <div
-                      className="call_to_action_button"
-                      style={{ opacity: `${props.opacity}` }}
-                    >
-                      <p
-                        onClick={() =>
-                          handleClickToScroll(props.Treatments1Ref)
-                        }
+                    <div className="call_to_action_buttons_container">
+                      <div
+                        className="call_to_action_button"
+                        style={{ opacity: `${style.opacity}` }}
                       >
-                        GET STARTED
-                      </p>
+                        <p
+                          onClick={() =>
+                            props.handleClickToScrollToTreatments(
+                              Treatments1Ref
+                            )
+                          }
+                        >
+                          GET STARTED
+                        </p>
+                      </div>
+                      <div
+                        className="call_to_action_button book_now"
+                        style={{ opacity: `${style.opacity}` }}
+                      >
+                        <p
+                          onClick={() =>
+                            props.handleClickToScrollToTreatments(
+                              Treatments1Ref
+                            )
+                          }
+                        >
+                          BOOK NOW
+                        </p>
+                      </div>
                     </div>
                     <div
                       style={{
-                        opacity: `${props.opacity}`,
+                        opacity: `${style.opacity}`,
                         marginTop: lineRenderScroll
                           ? CSS.supports(`(-webkit-overflow-scrolling: touch)`)
                             ? "8rem"
@@ -244,7 +255,9 @@ const LandingPage = props => {
                           : "1.5rem"
                       }}
                       className="landing_page_cta"
-                      onClick={() => handleClickToScroll(props.Treatments1Ref)}
+                      onClick={() =>
+                        props.handleClickToScrollToTreatments(Treatments1Ref)
+                      }
                     >
                       <Transition
                         items={lineRenderScroll}
@@ -294,6 +307,6 @@ const LandingPage = props => {
       </section>
     </div>
   );
-};
+});
 
 export default LandingPage;

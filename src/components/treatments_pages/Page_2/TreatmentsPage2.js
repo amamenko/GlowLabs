@@ -7,10 +7,26 @@ import "./TreatmentsPage2.css";
 
 const TreatmentsPage2 = props => (
   <div className="treatments_page_2_container">
-    {props.initialScreenSize >= 768 ? null : <Bacial />}
-    <Glow initialScreenSize={props.initialScreenSize} />
-    <Rejuvenate />
-    {props.initialScreenSize >= 768 ? <Quench /> : null}
+    {props.initialScreenSize >= 1200 ? null : (
+      <Bacial
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+    )}
+    <Glow
+      initialScreenSize={props.initialScreenSize}
+      currentScreenSize={props.currentScreenSize}
+    />
+    <Rejuvenate
+      initialScreenSize={props.initialScreenSize}
+      currentScreenSize={props.currentScreenSize}
+    />
+    {props.initialScreenSize >= 1200 ? (
+      <Quench
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+    ) : null}
   </div>
 );
 

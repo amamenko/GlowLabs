@@ -31,6 +31,7 @@ const store = createStore(
 
 const App = () => {
   const Treatments1Ref = useRef(null);
+  const LandingPageRef = useRef(null);
   const [initialScreenSize] = useState(window.innerWidth);
   const [currentScreenSize, changeCurrentScreenSize] = useState("");
 
@@ -45,13 +46,55 @@ const App = () => {
     };
   }, [currentScreenSize, initialScreenSize]);
 
+  const handleClickToScrollToTreatments = async ref => {
+    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
+      await import("scroll-behavior-polyfill");
+    }
+    window.scrollTo({
+      top:
+        currentScreenSize === ""
+          ? initialScreenSize >= 1800
+            ? Treatments1Ref.current.offsetTop - 105
+            : initialScreenSize >= 1200
+            ? Treatments1Ref.current.offsetTop - 50
+            : Treatments1Ref.current.offsetTop - 80
+          : currentScreenSize >= 1800
+          ? Treatments1Ref.current.offsetTop - 105
+          : currentScreenSize >= 1200
+          ? Treatments1Ref.current.offsetTop - 50
+          : Treatments1Ref.current.offsetTop - 80,
+      behavior: "smooth"
+    });
+  };
+
+  const handleClickToScrollToHome = async ref => {
+    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
+      await import("scroll-behavior-polyfill");
+    }
+    window.scrollTo({
+      top: LandingPageRef.current.offsetTop,
+      behavior: "smooth"
+    });
+  };
+
+  const ref = {
+    Treatments1Ref: Treatments1Ref,
+    LandingPageRef: LandingPageRef
+  };
+
   return (
     <>
-      <NavigationMenu />
+      <NavigationMenu
+        handleClickToScrollToHome={handleClickToScrollToHome}
+        handleClickToScrollToTreatments={handleClickToScrollToTreatments}
+        ref={ref}
+      />
       <LandingPage
         currentScreenSize={currentScreenSize}
         initialScreenSize={initialScreenSize}
-        Treatments1Ref={Treatments1Ref}
+        handleClickToScrollToHome={handleClickToScrollToHome}
+        handleClickToScrollToTreatments={handleClickToScrollToTreatments}
+        ref={ref}
       />
       <TreatmentsPage1
         currentScreenSize={currentScreenSize}

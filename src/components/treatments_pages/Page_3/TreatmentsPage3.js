@@ -7,10 +7,26 @@ import "./TreatmentsPage3.css";
 
 const TreatmentsPage3 = props => (
   <div className="treatments_page_3_container">
-    {props.initialScreenSize >= 768 ? null : <Quench />}
-    <Quickie />
-    <ChemicalPeel />
-    {props.initialScreenSize >= 768 ? <Dermaplaning /> : null}
+    {props.initialScreenSize >= 1200 ? null : (
+      <Quench
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+    )}
+    <Quickie
+      initialScreenSize={props.initialScreenSize}
+      currentScreenSize={props.currentScreenSize}
+    />
+    <ChemicalPeel
+      initialScreenSize={props.initialScreenSize}
+      currentScreenSize={props.currentScreenSize}
+    />
+    {props.initialScreenSize >= 1200 ? (
+      <Dermaplaning
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+    ) : null}
   </div>
 );
 

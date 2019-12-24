@@ -185,9 +185,87 @@ const Bacial = props => {
     }
   };
 
+  const dynamicScreenSizeBottomCardRender = () => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        return (
+          <div className="big_screen_entire_bottom_wrapper">
+            <div className="big_screen_price_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faTag}
+              />
+              <p className="big_screen_price">$70</p>
+            </div>
+            <div className="big_screen_duration_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faClock}
+              />
+              <p className="big_screen_duration">50 minutes</p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div
+            className="card_bottom_wrapper"
+            style={{
+              color: bacialToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+              transition: "ease all 0.5s"
+            }}
+          >
+            <p className="card_toggler" onClick={handleToggle}>
+              {bacialToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+            </p>
+            <span className="card_bottom_spacer" />
+            {bookButtonBounce()}
+          </div>
+        );
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        return (
+          <div className="big_screen_entire_bottom_wrapper">
+            <div className="big_screen_price_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faTag}
+              />
+              <p className="big_screen_price">$70</p>
+            </div>
+            <div className="big_screen_duration_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faClock}
+              />
+              <p className="big_screen_duration">50 minutes</p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div
+            className="card_bottom_wrapper"
+            style={{
+              color: bacialToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+              transition: "ease all 0.5s"
+            }}
+          >
+            <p className="card_toggler" onClick={handleToggle}>
+              {bacialToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+            </p>
+            <span className="card_bottom_spacer" />
+            {bookButtonBounce()}
+          </div>
+        );
+      }
+    }
+  };
+
   return (
     <InView
-      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
+      threshold={props.initialScreenSize >= 1200 ? 0.7 : 0.2}
       triggerOnce={true}
     >
       {({ inView, ref }) => (
@@ -198,8 +276,8 @@ const Bacial = props => {
               to={{ position: "relative", opacity: 1 }}
               config={{ duration: 1000 }}
             >
-              {props => (
-                <section className="card" style={props}>
+              {styleprops => (
+                <section className="card" style={styleprops}>
                   <div
                     className="card_image"
                     style={{
@@ -217,50 +295,67 @@ const Bacial = props => {
                       to={{ x: 0, fill: "rgba(150,221,225, 0.5)" }}
                       config={{ delay: 300, duration: 1500 }}
                     >
-                      {props => (
-                        <svg
-                          className="card_svg"
-                          width="100%"
-                          height="15rem"
-                          viewBox="0 0 56 56"
-                        >
-                          <circle
-                            cx="28"
-                            cy="28"
-                            r="25"
-                            stroke={
-                              bacialToggle
-                                ? "rgb(235, 178, 187)"
-                                : "rgba(191, 191, 191)"
-                            }
-                            strokeWidth="0.5"
-                            fill="white"
-                          />
-                          <g
-                            id="layer1"
-                            fill="none"
-                            stroke="#000"
-                            transform="translate(10, -174)"
+                      {styles => (
+                        <>
+                          <div className="big_screen_book_now_wrapper">
+                            <FontAwesomeIcon
+                              className="big_screen_card_description_icon suitcase"
+                              icon={faSuitcase}
+                            />
+                            <p>BOOK NOW</p>
+                          </div>
+                          <svg
+                            className="card_svg"
+                            width="100%"
+                            height="15rem"
+                            viewBox="0 0 56 56"
                           >
-                            <animated.path
-                              fill={`${props.fill}`}
-                              strokeDasharray="200"
-                              strokeDashoffset={`${props.x}`}
-                              className="bacial_icon_path"
-                              d="M6.953 276.362l35.653-.064-17.396-18.032-3.872 6.694-1.533-2.274-2.446 4.323-5.109 4.324-.134-1.921z"
-                              strokeWidth=".5"
+                            <circle
+                              cx="28"
+                              cy="28"
+                              r={
+                                props.currentScreenSize === ""
+                                  ? props.initialScreenSize >= 1200
+                                    ? "21"
+                                    : "25"
+                                  : props.currentScreenSize >= 1200
+                                  ? "21"
+                                  : "25"
+                              }
+                              stroke={
+                                bacialToggle
+                                  ? "rgb(235, 178, 187)"
+                                  : "rgba(191, 191, 191)"
+                              }
+                              strokeWidth="0.5"
+                              fill="white"
                             />
-                            <animated.path
-                              fill="#fff"
-                              transform="translate(2, -140)"
-                              strokeDasharray="200"
-                              strokeDashoffset={`${props.x}`}
-                              className="bacial_icon_path"
-                              d="M8.136 274.808l3.066-3.203.134 1.217 3.415-2.562.806 1.12 2.205-3.138 1.586 3.01 2.608-4.387.216 5.092 2.742-9.576 1.264 4.676.269-4.004 2.796 6.246.188-3.043 11.938 8.904-15.621-16.462-.296-.289-.054-.032-4.033 7.11-1.56-2.402-2.016 3.876-5.78 4.74-.135-1.89z"
-                              strokeWidth=".265"
-                            />
-                          </g>
-                        </svg>
+                            <g
+                              id="layer1"
+                              fill="none"
+                              stroke="#000"
+                              transform="translate(10, -174)"
+                            >
+                              <animated.path
+                                fill={`${styles.fill}`}
+                                strokeDasharray="200"
+                                strokeDashoffset={`${styles.x}`}
+                                className="bacial_icon_path"
+                                d="M6.953 276.362l35.653-.064-17.396-18.032-3.872 6.694-1.533-2.274-2.446 4.323-5.109 4.324-.134-1.921z"
+                                strokeWidth=".5"
+                              />
+                              <animated.path
+                                fill="#fff"
+                                transform="translate(2, -140)"
+                                strokeDasharray="200"
+                                strokeDashoffset={`${styles.x}`}
+                                className="bacial_icon_path"
+                                d="M8.136 274.808l3.066-3.203.134 1.217 3.415-2.562.806 1.12 2.205-3.138 1.586 3.01 2.608-4.387.216 5.092 2.742-9.576 1.264 4.676.269-4.004 2.796 6.246.188-3.043 11.938 8.904-15.621-16.462-.296-.289-.054-.032-4.033 7.11-1.56-2.402-2.016 3.876-5.78 4.74-.135-1.89z"
+                                strokeWidth=".265"
+                              />
+                            </g>
+                          </svg>
+                        </>
                       )}
                     </Spring>
                     <div
@@ -293,21 +388,7 @@ const Bacial = props => {
                         Back acne-fighting
                       </p>
                       {cardDescriptionHandler()}
-                      <div
-                        className="card_bottom_wrapper"
-                        style={{
-                          color: bacialToggle
-                            ? "rgb(155, 98, 107)"
-                            : "rgb(175, 118, 127)",
-                          transition: "ease all 0.5s"
-                        }}
-                      >
-                        <p className="card_toggler" onClick={handleToggle}>
-                          {bacialToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-                        </p>
-                        <span className="card_bottom_spacer" />
-                        {bookButtonBounce()}
-                      </div>
+                      {dynamicScreenSizeBottomCardRender()}
                     </div>
                   </div>
                 </section>

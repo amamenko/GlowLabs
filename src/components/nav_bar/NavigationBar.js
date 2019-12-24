@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
 
-class NavigationBar extends React.PureComponent {
+class NavigationBar extends Component {
   render(props) {
     return (
       <nav
@@ -10,12 +10,12 @@ class NavigationBar extends React.PureComponent {
         style={{
           background:
             this.props.currentScreenSize === ""
-              ? this.props.initialScreenSize >= 768
+              ? this.props.initialScreenSize >= 1200
                 ? this.props.scroll
                   ? "rgb(255, 198, 207)"
                   : "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(255, 198, 207) 50.05%, rgb(255, 198, 207) 100%)"
                 : "rgb(255, 198, 207)"
-              : this.props.currentScreenSize >= 768
+              : this.props.currentScreenSize >= 1200
               ? this.props.scroll
                 ? "rgb(255, 198, 207)"
                 : "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(255, 198, 207) 50.05%, rgb(255, 198, 207) 100%)"
@@ -37,7 +37,7 @@ class NavigationBar extends React.PureComponent {
                     ? "8rem"
                     : "5rem"
                   : this.props.currentScreenSize >= 1800
-                  ? "8ßrem"
+                  ? "8rem"
                   : "5rem"
               }
               viewBox="0 0 463.021 463.021"
@@ -65,15 +65,25 @@ class NavigationBar extends React.PureComponent {
         </h1>
         <div className="spacer" />
         <Hamburger
-          onClick={this.props.onClick}
+          onClick={this.props.handleNavbarToggle}
           navbarToggle={this.props.navbarToggle}
         />
         <div className="nav_links">
           <ul>
-            <li>HOME</li>
             <li
               onClick={() =>
-                this.props.handleClickToScroll(this.props.Treatments1Ref)
+                this.props.handleClickToScrollToHome(
+                  this.props.innerRef.LandingPageRef
+                )
+              }
+            >
+              HOME
+            </li>
+            <li
+              onClick={() =>
+                this.props.handleClickToScrollToTreatments(
+                  this.props.innerRef.Treatments1Ref
+                )
               }
             >
               TREATMENTS
@@ -88,4 +98,15 @@ class NavigationBar extends React.PureComponent {
   }
 }
 
-export default NavigationBar;
+export default React.forwardRef((props, ref) => (
+  <NavigationBar
+    innerRef={ref}
+    scroll={props.scroll}
+    handleNavbarToggle={props.handleNavbarToggle}
+    navbarToggle={props.navbarToggle}
+    currentScreenSize={props.currentScreenSize}
+    initialScreenSize={props.initialScreenSize}
+    handleClickToScrollToHome={props.handleClickToScrollToHome}
+    handleClickToScrollToTreatments={props.handleClickToScrollToTreatments}
+  />
+));

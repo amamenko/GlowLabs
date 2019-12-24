@@ -185,7 +185,7 @@ const Glow = props => {
   };
   return (
     <InView
-      threshold={props.initialScreenSize >= 768 ? 0.3 : 0.2}
+      threshold={props.initialScreenSize >= 1200 ? 0.3 : 0.2}
       triggerOnce={true}
     >
       {({ inView, ref }) => (
