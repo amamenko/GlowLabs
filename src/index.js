@@ -17,6 +17,7 @@ import AddOnsPage2 from "./components/add_ons_pages/Page_2/AddOnsPage2";
 import AddOnsPage3 from "./components/add_ons_pages/Page_3/AddOnsPage3";
 import AddOnsPage4 from "./components/add_ons_pages/Page_4/AddOnsPage4";
 import "./styles.css";
+import Instagram from "./components/instagram/Instagram";
 
 require("intersection-observer");
 
@@ -101,13 +102,23 @@ const App = () => {
         initialScreenSize={initialScreenSize}
         Treatments1Ref={Treatments1Ref}
       />
-      <TreatmentsPage2 initialScreenSize={initialScreenSize} />
-      <TreatmentsPage3 initialScreenSize={initialScreenSize} />
-      <TreatmentsPage4 initialScreenSize={initialScreenSize} />
+      <TreatmentsPage2
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+      />
+      <TreatmentsPage3
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+      />
+      <TreatmentsPage4
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+      />
       <AddOnsPage1 />
       <AddOnsPage2 />
       <AddOnsPage3 />
       <AddOnsPage4 />
+      <Instagram />
     </>
   );
 };

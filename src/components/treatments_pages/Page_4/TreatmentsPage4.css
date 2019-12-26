@@ -10,3 +10,25 @@
     "microneedle_card microneedle_card microneedle_card";
   margin-top: 1.5rem;
 }
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .treatments_page_4_container {
+    height: 28.6666667vh;
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+    grid-template-areas:
+      ". cbd_card cbd_card . microneedle_card microneedle_card ."
+      ". cbd_card cbd_card . microneedle_card microneedle_card .";
+    margin-left: 12.9%;
+    margin-right: 12.9%;
+    margin-top: 2.7rem;
+    grid-gap: 6%;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .treatments_page_4_container {
+    margin-top: 3rem;
+  }
+}

@@ -57,7 +57,7 @@ const NavigationMenu = React.forwardRef((props, ref) => {
         <li onClick={() => navMenuScrollToTreatments()}>Treatments</li>
         <li onClick={navbarItemSelect}>Add-Ons</li>
         <li onClick={navbarItemSelect}>Real Clients</li>
-        <li onClick={navbarItemSelect}>About</li>
+        <li onClick={navbarItemSelect}>Contact</li>
       </ul>
     </div>
   );

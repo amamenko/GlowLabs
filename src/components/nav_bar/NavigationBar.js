@@ -90,7 +90,7 @@ class NavigationBar extends Component {
             </li>
             <li>ADD-ONS</li>
             <li>REAL CLIENTS</li>
-            <li>ABOUT</li>
+            <li>CONTACT</li>
           </ul>
         </div>
       </nav>

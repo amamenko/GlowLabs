@@ -298,7 +298,7 @@ const Clarify = props => {
                         <>
                           <div className="big_screen_book_now_wrapper">
                             <FontAwesomeIcon
-                              className="big_screen_card_description_icon suitcase"
+                              className="big_screen_card_description_suitcase"
                               icon={faSuitcase}
                             />
                             <p>BOOK NOW</p>

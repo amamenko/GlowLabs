@@ -1,0 +1,29 @@
+.instagram_page_wrapping {
+  height: 92vh;
+}
+
+.instagram_images_wrapping {
+  height: 25%;
+  width: 100%;
+}
+
+.instagram_images_top_wrapping,
+.instagram_images_bottom_wrapping {
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  width: 100%;
+}
+
+.instagram_image {
+  display: block;
+  height: auto;
+  width: 47%;
+  margin-top: 1.5rem;
+}
+
+.instagram_image.left {
+  margin-right: 1.5rem;
+}

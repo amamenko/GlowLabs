@@ -183,6 +183,85 @@ const Glow = props => {
       );
     }
   };
+
+  const dynamicScreenSizeBottomCardRender = () => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        return (
+          <div className="big_screen_entire_bottom_wrapper">
+            <div className="big_screen_price_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faTag}
+              />
+              <p className="big_screen_price">$70</p>
+            </div>
+            <div className="big_screen_duration_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faClock}
+              />
+              <p className="big_screen_duration">50 minutes</p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div
+            className="card_bottom_wrapper"
+            style={{
+              color: glowToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+              transition: "ease all 0.5s"
+            }}
+          >
+            <p className="card_toggler" onClick={handleToggle}>
+              {glowToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+            </p>
+            <span className="card_bottom_spacer" />
+            {bookButtonBounce()}
+          </div>
+        );
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        return (
+          <div className="big_screen_entire_bottom_wrapper">
+            <div className="big_screen_price_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faTag}
+              />
+              <p className="big_screen_price">$70</p>
+            </div>
+            <div className="big_screen_duration_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faClock}
+              />
+              <p className="big_screen_duration">50 minutes</p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div
+            className="card_bottom_wrapper"
+            style={{
+              color: glowToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+              transition: "ease all 0.5s"
+            }}
+          >
+            <p className="card_toggler" onClick={handleToggle}>
+              {glowToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+            </p>
+            <span className="card_bottom_spacer" />
+            {bookButtonBounce()}
+          </div>
+        );
+      }
+    }
+  };
+
   return (
     <InView
       threshold={props.initialScreenSize >= 1200 ? 0.3 : 0.2}
@@ -196,8 +275,8 @@ const Glow = props => {
               to={{ position: "relative", opacity: 1 }}
               config={{ duration: 1000 }}
             >
-              {props => (
-                <section className="card" style={props}>
+              {styleprops => (
+                <section className="card" style={styleprops}>
                   <div
                     className="card_image"
                     style={{
@@ -219,46 +298,63 @@ const Glow = props => {
                       }}
                       config={{ delay: 300, duration: 1000 }}
                     >
-                      {props => (
-                        <svg
-                          className="card_svg"
-                          width="100%"
-                          height="15rem"
-                          viewBox="0 0 50.006 50.006"
-                        >
-                          <circle
-                            cx="25"
-                            cy="25"
-                            r="23"
-                            stroke={
-                              glowToggle
-                                ? "rgb(235, 178, 187)"
-                                : "rgba(191, 191, 191)"
-                            }
-                            strokeWidth="0.5"
-                            fill="white"
-                          />
-                          <g transform="translate(14, -97.5)">
-                            <animated.path
-                              className="glow_icon_path"
-                              strokeDasharray="210"
-                              strokeDashoffset={`${props.x}`}
-                              stroke="#000"
-                              strokeWidth="0.8"
-                              fill={`${props.fill1}`}
-                              d="M22.28 292.51c1.195-.877 2.3-1.595 2.457-1.595.156 0 1.357.792 2.67 1.76 1.378 1.017 2.465 1.683 2.574 1.577.104-.1.772-1.291 1.485-2.647 1.537-2.922 1.315-2.831 5.064-2.072 1.39.282 2.568.47 2.62.42.051-.052.146-1.446.21-3.1.065-1.653.177-3.064.25-3.136.073-.072 1.4-.465 2.948-.873s2.88-.782 2.959-.83c.078-.047-.372-1.253-1-2.678-.63-1.425-1.144-2.772-1.144-2.992 0-.252.822-1.09 2.211-2.257 1.216-1.021 2.21-1.954 2.21-2.074 0-.12-.994-1.053-2.21-2.074-1.39-1.166-2.21-2.005-2.21-2.257 0-.22.514-1.567 1.142-2.992.63-1.425 1.08-2.63 1-2.679-.078-.047-1.41-.42-2.958-.829-1.549-.408-2.875-.801-2.948-.873-.073-.072-.185-1.483-.25-3.137-.064-1.653-.159-3.047-.21-3.098-.052-.051-1.23.137-2.62.419-3.75.76-3.527.85-5.064-2.072-.713-1.356-1.381-2.547-1.485-2.648-.11-.105-1.196.56-2.575 1.578-1.312.968-2.512 1.76-2.667 1.76-.156 0-1.356-.792-2.668-1.76-1.38-1.017-2.466-1.683-2.575-1.578-.104.1-.772 1.292-1.485 2.648-1.537 2.922-1.315 2.831-5.064 2.072-1.39-.282-2.568-.47-2.62-.42-.051.052-.146 1.446-.21 3.1-.065 1.653-.177 3.064-.25 3.136-.072.072-1.399.465-2.948.873-1.548.408-2.88.782-2.958.83-.08.047.37 1.253 1 2.678.629 1.425 1.143 2.772 1.143 2.992 0 .252-.822 1.09-2.21 2.257-1.217 1.021-2.212 1.954-2.212 2.074 0 .12.995 1.053 2.211 2.074 1.39 1.166 2.211 2.005 2.211 2.257 0 .22-.514 1.567-1.143 2.992-.63 1.425-1.08 2.63-1 2.678.078.048 1.41.422 2.958.83 1.549.408 2.876.801 2.948.873.073.072.185 1.483.25 3.136.064 1.654.159 3.048.21 3.1.052.05 1.23-.138 2.62-.42 3.74-.757 3.53-.841 5.042 2.011 1.607 3.031 1.575 2.984 1.873 2.751.134-.105 1.222-.908 2.417-1.785z"
+                      {styles => (
+                        <>
+                          <div className="big_screen_book_now_wrapper">
+                            <FontAwesomeIcon
+                              className="big_screen_card_description_suitcase"
+                              icon={faSuitcase}
                             />
-                            <animated.path
-                              className="glow_icon_path"
-                              strokeDasharray="210"
-                              strokeDashoffset={`${props.x}`}
-                              stroke="#000"
-                              strokeWidth="0.8"
-                              d="M22.779 287.564c-5.25-.7-9.61-3.737-12.053-8.39-1.225-2.334-1.712-4.372-1.712-7.161 0-6.082 3.24-11.281 8.747-14.032 4.271-2.133 9.684-2.133 13.955 0 4.14 2.068 7.155 5.736 8.31 10.108.589 2.231.589 5.617 0 7.848-.53 2.007-1.785 4.437-3.165 6.127-3.192 3.91-9 6.18-14.082 5.5z"
-                              fill={`${props.fill2}`}
+                            <p>BOOK NOW</p>
+                          </div>
+                          <svg
+                            className="card_svg"
+                            width="100%"
+                            height="15rem"
+                            viewBox="0 0 50.006 50.006"
+                          >
+                            <circle
+                              cx="25"
+                              cy="25"
+                              r={
+                                props.currentScreenSize === ""
+                                  ? props.initialScreenSize >= 1200
+                                    ? "20"
+                                    : "23"
+                                  : props.currentScreenSize >= 1200
+                                  ? "20"
+                                  : "23"
+                              }
+                              stroke={
+                                glowToggle
+                                  ? "rgb(235, 178, 187)"
+                                  : "rgba(191, 191, 191)"
+                              }
+                              strokeWidth="0.5"
+                              fill="white"
                             />
-                          </g>
-                        </svg>
+                            <g transform="translate(14, -97.5)">
+                              <animated.path
+                                className="glow_icon_path"
+                                strokeDasharray="210"
+                                strokeDashoffset={`${styles.x}`}
+                                stroke="#000"
+                                strokeWidth="0.8"
+                                fill={`${styles.fill1}`}
+                                d="M22.28 292.51c1.195-.877 2.3-1.595 2.457-1.595.156 0 1.357.792 2.67 1.76 1.378 1.017 2.465 1.683 2.574 1.577.104-.1.772-1.291 1.485-2.647 1.537-2.922 1.315-2.831 5.064-2.072 1.39.282 2.568.47 2.62.42.051-.052.146-1.446.21-3.1.065-1.653.177-3.064.25-3.136.073-.072 1.4-.465 2.948-.873s2.88-.782 2.959-.83c.078-.047-.372-1.253-1-2.678-.63-1.425-1.144-2.772-1.144-2.992 0-.252.822-1.09 2.211-2.257 1.216-1.021 2.21-1.954 2.21-2.074 0-.12-.994-1.053-2.21-2.074-1.39-1.166-2.21-2.005-2.21-2.257 0-.22.514-1.567 1.142-2.992.63-1.425 1.08-2.63 1-2.679-.078-.047-1.41-.42-2.958-.829-1.549-.408-2.875-.801-2.948-.873-.073-.072-.185-1.483-.25-3.137-.064-1.653-.159-3.047-.21-3.098-.052-.051-1.23.137-2.62.419-3.75.76-3.527.85-5.064-2.072-.713-1.356-1.381-2.547-1.485-2.648-.11-.105-1.196.56-2.575 1.578-1.312.968-2.512 1.76-2.667 1.76-.156 0-1.356-.792-2.668-1.76-1.38-1.017-2.466-1.683-2.575-1.578-.104.1-.772 1.292-1.485 2.648-1.537 2.922-1.315 2.831-5.064 2.072-1.39-.282-2.568-.47-2.62-.42-.051.052-.146 1.446-.21 3.1-.065 1.653-.177 3.064-.25 3.136-.072.072-1.399.465-2.948.873-1.548.408-2.88.782-2.958.83-.08.047.37 1.253 1 2.678.629 1.425 1.143 2.772 1.143 2.992 0 .252-.822 1.09-2.21 2.257-1.217 1.021-2.212 1.954-2.212 2.074 0 .12.995 1.053 2.211 2.074 1.39 1.166 2.211 2.005 2.211 2.257 0 .22-.514 1.567-1.143 2.992-.63 1.425-1.08 2.63-1 2.678.078.048 1.41.422 2.958.83 1.549.408 2.876.801 2.948.873.073.072.185 1.483.25 3.136.064 1.654.159 3.048.21 3.1.052.05 1.23-.138 2.62-.42 3.74-.757 3.53-.841 5.042 2.011 1.607 3.031 1.575 2.984 1.873 2.751.134-.105 1.222-.908 2.417-1.785z"
+                              />
+                              <animated.path
+                                className="glow_icon_path"
+                                strokeDasharray="210"
+                                strokeDashoffset={`${styles.x}`}
+                                stroke="#000"
+                                strokeWidth="0.8"
+                                d="M22.779 287.564c-5.25-.7-9.61-3.737-12.053-8.39-1.225-2.334-1.712-4.372-1.712-7.161 0-6.082 3.24-11.281 8.747-14.032 4.271-2.133 9.684-2.133 13.955 0 4.14 2.068 7.155 5.736 8.31 10.108.589 2.231.589 5.617 0 7.848-.53 2.007-1.785 4.437-3.165 6.127-3.192 3.91-9 6.18-14.082 5.5z"
+                                fill={`${styles.fill2}`}
+                              />
+                            </g>
+                          </svg>
+                        </>
                       )}
                     </Spring>
                     <div
@@ -291,21 +387,7 @@ const Glow = props => {
                         Brightening
                       </p>
                       {cardDescriptionHandler()}
-                      <div
-                        className="card_bottom_wrapper"
-                        style={{
-                          color: glowToggle
-                            ? "rgb(155, 98, 107)"
-                            : "rgb(175, 118, 127)",
-                          transition: "ease all 0.5s"
-                        }}
-                      >
-                        <p className="card_toggler" onClick={handleToggle}>
-                          {glowToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-                        </p>
-                        <span className="card_bottom_spacer" />
-                        {bookButtonBounce()}
-                      </div>
+                      {dynamicScreenSizeBottomCardRender()}
                     </div>
                   </div>
                 </section>
