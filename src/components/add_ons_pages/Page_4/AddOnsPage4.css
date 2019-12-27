@@ -6,3 +6,10 @@
   grid-template-areas: "beard_card beard_card beard_card";
   margin-top: 1.5rem;
 }
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .add_ons_page_4_container {
+    display: none;
+  }
+}

@@ -88,8 +88,24 @@ class NavigationBar extends Component {
             >
               TREATMENTS
             </li>
-            <li>ADD-ONS</li>
-            <li>REAL CLIENTS</li>
+            <li
+              onClick={() =>
+                this.props.handleClickToScrollToAddOns(
+                  this.props.innerRef.AddOnsRef
+                )
+              }
+            >
+              ADD-ONS
+            </li>
+            <li
+              onClick={() =>
+                this.props.handleClickToScrollToInstagram(
+                  this.props.innerRef.InstagramRef
+                )
+              }
+            >
+              REAL CLIENTS
+            </li>
             <li>CONTACT</li>
           </ul>
         </div>
@@ -108,5 +124,7 @@ export default React.forwardRef((props, ref) => (
     initialScreenSize={props.initialScreenSize}
     handleClickToScrollToHome={props.handleClickToScrollToHome}
     handleClickToScrollToTreatments={props.handleClickToScrollToTreatments}
+    handleClickToScrollToAddOns={props.handleClickToScrollToAddOns}
+    handleClickToScrollToInstagram={props.handleClickToScrollToInstagram}
   />
 ));

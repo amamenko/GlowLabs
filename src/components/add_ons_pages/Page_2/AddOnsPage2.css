@@ -9,3 +9,24 @@
     "microdermabrasion_card microdermabrasion_card microdermabrasion_card";
   row-gap: 1.5rem;
 }
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .add_ons_page_2_container {
+    height: 28.6666667vh;
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+    grid-template-areas:
+      "microcurrent_card microcurrent_card microdermabrasion_card microdermabrasion_card dermarolling_card dermarolling_card"
+      "microcurrent_card microcurrent_card microdermabrasion_card microdermabrasion_card dermarolling_card dermarolling_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: 1.6rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .add_ons_page_2_container {
+    margin-top: 0rem;
+  }
+}

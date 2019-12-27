@@ -33,12 +33,12 @@
   text-align: center;
 }
 
-.title_underline {
-  animation: line 1s linear forwards;
+.treatments_title_underline {
+  animation: treatments_line 1s linear forwards;
   border-bottom: 3px solid rgb(215, 156, 165);
 }
 
-@keyframes line {
+@keyframes treatments_line {
   from {
     width: 0%;
   }
@@ -47,12 +47,12 @@
   }
 }
 
-@keyframes line_768 {
+@keyframes big_screen_treatments_line {
   from {
     width: 0%;
   }
   to {
-    width: 30%;
+    width: 31%;
   }
 }
 
@@ -96,10 +96,11 @@
     display: none;
   }
 
-  .title_underline {
-    animation: line_768 1s forwards;
+  .treatments_title_underline {
+    animation: big_screen_treatments_line 1s forwards;
     display: flex;
     align-self: center;
+    margin-right: 1.3rem;
   }
 }
 

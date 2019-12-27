@@ -136,6 +136,10 @@ const LandingPage = React.forwardRef((props, ref) => {
               handleClickToScrollToTreatments={
                 props.handleClickToScrollToTreatments
               }
+              handleClickToScrollToAddOns={props.handleClickToScrollToAddOns}
+              handleClickToScrollToInstagram={
+                props.handleClickToScrollToInstagram
+              }
               ref={ref}
             />
           </header>

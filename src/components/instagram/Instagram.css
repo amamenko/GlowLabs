@@ -1,29 +1,156 @@
 .instagram_page_wrapping {
-  height: 92vh;
+  height: 76vh;
+  margin-top: 17vh;
 }
 
 .instagram_images_wrapping {
-  height: 25%;
+  padding-top: 6vh;
+  height: 43vh;
   width: 100%;
 }
 
 .instagram_images_top_wrapping,
 .instagram_images_bottom_wrapping {
-  height: 20vh;
+  overflow: hidden;
+  height: 23vh;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: stretch;
+  justify-content: space-between;
+}
+
+.instagram_images_bottom_wrapping {
+  margin-top: 1.5rem;
+}
+
+.instagram_top_page_wrapping {
+  height: 48vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 }
 
 .instagram_image {
   display: block;
   height: auto;
-  width: 47%;
-  margin-top: 1.5rem;
+  width: 50%;
 }
 
 .instagram_image.left {
   margin-right: 1.5rem;
+}
+
+.instagram_page_header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 100%;
+  z-index: -1;
+}
+
+.instagram_top_page_wrapping h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: rgba(215, 156, 165);
+  line-height: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+}
+
+.instagram_top_page_wrapping h3 p {
+  text-align: center;
+}
+
+.real_clients_instagram_icon {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 5rem;
+  color: rgba(215, 156, 165);
+  cursor: pointer;
+  top: 1.5rem;
+}
+
+.real_clients_instagram_icon:hover {
+  color: rgb(155, 98, 107);
+  transition: all 0.5s ease;
+}
+
+.real_clients_title_underline {
+  animation: treatments_line 1s linear forwards;
+  border-bottom: 3px solid rgb(215, 156, 165);
+}
+
+@keyframes real_clients_line {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 45%;
+  }
+}
+
+@keyframes big_real_clients_line {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 31%;
+  }
+}
+
+.instagram_page_header h3 {
+  font-size: 1.79rem;
+  font-weight: 400;
+  padding-bottom: 0.5rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .instagram_top_page_wrapping h2 {
+    display: flex;
+    align-self: center;
+    font-size: 3rem;
+    line-height: 3rem;
+    text-align: left;
+    margin-right: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .instagram_top_page_wrapping h3 p br {
+    display: none;
+  }
+
+  .real_clients_title_underline {
+    animation: big_real_clients_line 1s forwards;
+    display: flex;
+    align-self: center;
+    margin-right: 1.3rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .instagram_top_page_wrapping h2 {
+    font-size: 5rem;
+    line-height: 8rem;
+    margin-top: 2rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: 4rem;
+  }
 }

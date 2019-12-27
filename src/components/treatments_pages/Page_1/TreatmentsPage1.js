@@ -22,11 +22,11 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
               animation:
                 props.currentScreenSize === ""
                   ? props.initialScreenSize >= 1200
-                    ? "line_768 1s forwards"
-                    : "line 1s forwards"
+                    ? "big_screen_treatments_line 1s forwards"
+                    : "treatments_line 1s forwards"
                   : props.currentScreenSize >= 1200
-                  ? "line_768 1s forwards"
-                  : "line 1s forwards"
+                  ? "big_screen_treatments_line forwards"
+                  : "treatments_line 1s forwards"
             }}
             to={{ position: "relative", opacity: 1 }}
             config={{ duration: 1000 }}
@@ -47,7 +47,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
                     opacity: `${styles.opacity}`,
                     animation: `${styles.animation}`
                   }}
-                  className="title_underline"
+                  className="treatments_title_underline"
                 />
                 <br />
                 <h3

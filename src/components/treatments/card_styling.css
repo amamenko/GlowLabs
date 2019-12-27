@@ -208,8 +208,8 @@
 
   .big_screen_card_description_icon,
   .big_screen_card_description_suitcase {
-    font-size: 1.5rem;
-    margin-right: 1rem;
+    font-size: 1rem;
+    margin-right: 0.7rem;
   }
 
   .big_screen_card_description_icon {
@@ -252,15 +252,21 @@
   }
 
   .big_screen_book_now_wrapper:hover {
-    background: rgb(255, 198, 207);
-    color: black;
+    background: rgb(155, 98, 107);
+    color: #fff;
     border: 1px solid transparent;
     transition: all 0.5s ease;
   }
 
   .big_screen_book_now_wrapper p {
-    font-size: 0.75rem;
+    display: flex;
+    align-self: center;
+    font-size: 0.8rem;
     font-weight: 600;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 0.6rem;
   }
 }
 
@@ -302,7 +308,17 @@
     margin-right: 1rem;
   }
 
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+
   .big_screen_book_now_wrapper p {
     font-size: 1.5rem;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 1.2rem;
   }
 }

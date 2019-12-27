@@ -30,17 +30,26 @@
   padding-top: 0.5rem;
 }
 
-.title_underline {
+.add_ons_title_underline {
+  animation: add_ons_line 1s linear forwards;
   border-bottom: 3px solid rgb(215, 156, 165);
-  animation: line 1s linear forwards;
 }
 
-@keyframes line {
+@keyframes add_ons_line {
   from {
     width: 0%;
   }
   to {
-    width: 50%;
+    width: 45%;
+  }
+}
+
+@keyframes big_screen_add_ons_line {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 25%;
   }
 }
 
@@ -49,4 +58,66 @@
   font-weight: 400;
   padding-bottom: 0.5rem;
   color: rgba(0, 0, 0, 0.8);
+}
+
+.add_ons_page_1_header h3 p {
+  text-align: center;
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .add_ons_page_1_container {
+    height: 60vh;
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+    grid-template-areas:
+      "header header header header header header"
+      "extra_extractions_card extra_extractions_card hydro_jelly_card hydro_jelly_card led_therapy_card led_therapy_card"
+      "extra_extractions_card extra_extractions_card hydro_jelly_card hydro_jelly_card led_therapy_card led_therapy_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: 1rem;
+  }
+
+  .add_ons_page_1_header h2 {
+    display: flex;
+    align-self: center;
+    font-size: 3rem;
+    line-height: 3rem;
+    text-align: left;
+    margin-right: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .add_ons_page_1_header h3 p {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .add_ons_page_1_header h3 p br {
+    display: none;
+  }
+
+  .add_ons_title_underline {
+    animation: big_screen_add_ons_line 1s forwards;
+    display: flex;
+    align-self: center;
+    margin-right: 1.25rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .add_ons_page_1_header h2 {
+    font-size: 5rem;
+    line-height: 8rem;
+    margin-top: 2rem;
+  }
+
+  .add_ons_page_1_header h3 p {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: 4rem;
+  }
 }

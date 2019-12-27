@@ -17,7 +17,7 @@ import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEAR
 import "./ExtraExtractions.css";
 import "../../treatments/card_styling.css";
 
-const ExtraExtractions = () => {
+const ExtraExtractions = props => {
   const extraExtractionsToggle = useSelector(
     state => state.extraExtractionsToggle.toggle
   );
@@ -104,20 +104,16 @@ const ExtraExtractions = () => {
       );
     } else {
       return (
-        <p
-          className="card_description_paragraph"
-          style={{ fontSize: "0.8rem", lineHeight: "20px" }}
-        >
+        <p className="card_description_paragraph">
           Extractions are one of the most important parts of a facial for those
-          with acne. Ensure you get extra cleaning without booking an extra
-          facial with this add-on.
+          with acne. Ensure you get extra cleaning with this add-on.
         </p>
       );
     }
   };
 
-  const SuitcaseBounce = Keyframes.Spring({
-    suitcaseBounce: [
+  const PlusBounce = Keyframes.Spring({
+    plusBounce: [
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
@@ -159,7 +155,7 @@ const ExtraExtractions = () => {
   const addOnBounce = () => {
     if (extraExtractionsToggle) {
       return (
-        <SuitcaseBounce state="suitcaseBounce">
+        <PlusBounce state="plusBounce">
           {styles => (
             <FontAwesomeIcon
               className="card_suitcase_icon"
@@ -167,7 +163,7 @@ const ExtraExtractions = () => {
               icon={faPlus}
             />
           )}
-        </SuitcaseBounce>
+        </PlusBounce>
       );
     } else {
       return (
@@ -185,8 +181,105 @@ const ExtraExtractions = () => {
     }
   };
 
+  const dynamicScreenSizeBottomCardRender = () => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        return (
+          <div className="big_screen_entire_bottom_wrapper">
+            <div className="big_screen_price_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faTag}
+              />
+              <p className="big_screen_price">$10</p>
+            </div>
+            <div className="big_screen_duration_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faClock}
+              />
+              <p className="big_screen_duration">10 minutes</p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div
+            className="card_bottom_wrapper"
+            style={{
+              color: extraExtractionsToggle
+                ? "rgb(155, 98, 107)"
+                : "rgb(175, 118, 127)",
+              transition: "ease all 0.5s"
+            }}
+          >
+            <p className="card_toggler" onClick={handleToggle}>
+              {extraExtractionsToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+            </p>
+            <span className="card_bottom_spacer" />
+            {addOnBounce()}
+          </div>
+        );
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        return (
+          <div className="big_screen_entire_bottom_wrapper">
+            <div className="big_screen_price_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faTag}
+              />
+              <p className="big_screen_price">$10</p>
+            </div>
+            <div className="big_screen_duration_wrapper">
+              <FontAwesomeIcon
+                className="big_screen_card_description_icon"
+                icon={faClock}
+              />
+              <p className="big_screen_duration">10 minutes</p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div
+            className="card_bottom_wrapper"
+            style={{
+              color: extraExtractionsToggle
+                ? "rgb(155, 98, 107)"
+                : "rgb(175, 118, 127)",
+              transition: "ease all 0.5s"
+            }}
+          >
+            <p className="card_toggler" onClick={handleToggle}>
+              {extraExtractionsToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+            </p>
+            <span className="card_bottom_spacer" />
+            {addOnBounce()}
+          </div>
+        );
+      }
+    }
+  };
+
+  const renderAddOnButton = () => {
+    return (
+      <div className="big_screen_book_now_wrapper">
+        <FontAwesomeIcon
+          className="big_screen_card_description_suitcase"
+          icon={faPlus}
+        />
+        <p className="big_screen_card_add_on_button">ADD TO FACIAL</p>
+      </div>
+    );
+  };
+
   return (
-    <InView threshold={0.2} triggerOnce={true}>
+    <InView
+      threshold={props.initialScreenSize >= 1200 ? 0.3 : 0.2}
+      triggerOnce={true}
+    >
       {({ inView, ref }) => (
         <div className="extra_extractions_wrapping" ref={ref}>
           {inView ? (
@@ -195,8 +288,8 @@ const ExtraExtractions = () => {
               to={{ position: "relative", opacity: 1 }}
               config={{ duration: 1000 }}
             >
-              {props => (
-                <section className="card" style={props}>
+              {styleprops => (
+                <section className="card" style={styleprops}>
                   <div
                     className="card_image"
                     style={{
@@ -214,40 +307,56 @@ const ExtraExtractions = () => {
                       to={{ x: 0 }}
                       config={{ duration: 3000 }}
                     >
-                      {props => (
-                        <svg
-                          width="100%"
-                          height="15rem"
-                          viewBox="0 0 56.356 56.356"
-                          className="card_svg"
-                        >
-                          <circle
-                            cx="28"
-                            cy="28"
-                            r="26"
-                            stroke={
-                              extraExtractionsToggle
-                                ? "rgb(235, 178, 187)"
-                                : "rgba(191, 191, 191)"
-                            }
-                            strokeWidth="0.5"
-                            fill="white"
-                          />
-                          <g transform="translate(10.5 10)">
-                            <animated.path
-                              className="extra_extractions_icon_path"
-                              strokeDasharray="400"
-                              strokeDashoffset={`${props.x}`}
-                              stroke="#000"
-                              strokeWidth="1.2"
-                              d="M24.135 49.56c-.073-.145-.11-3.025-.11-8.554v-8.334h-7.857c-5.21 0-7.925-.04-8.062-.117-.198-.113-.207-.278-.207-4.075s.009-3.962.207-4.074c.137-.078 2.851-.118 8.062-.118h7.856v-8.334c0-5.528.038-8.408.111-8.554.106-.21.262-.219 3.84-.219 3.58 0 3.735.01 3.841.22.074.145.11 3.025.11 8.553v8.334h7.883c6.27 0 7.92.03 8.07.147.175.135.188.442.179 4.05-.01 3.507-.029 3.918-.189 4.045-.139.11-1.92.142-8.06.142h-7.882v8.335c0 5.528-.037 8.408-.11 8.553-.107.21-.263.22-3.841.22-3.579 0-3.735-.01-3.841-.22z"
-                              fill="none"
+                      {styles => (
+                        <>
+                          {props.currentScreenSize === ""
+                            ? props.initialScreenSize >= 1200
+                              ? renderAddOnButton()
+                              : null
+                            : props.currentScreenSize >= 1200
+                            ? renderAddOnButton()
+                            : null}
+                          <svg
+                            width="100%"
+                            height="15rem"
+                            viewBox="0 0 56.356 56.356"
+                            className="card_svg"
+                          >
+                            <circle
+                              cx="28"
+                              cy="28"
+                              r={
+                                props.currentScreenSize === ""
+                                  ? props.initialScreenSize >= 1200
+                                    ? "22.25"
+                                    : "26"
+                                  : props.currentScreenSize >= 1200
+                                  ? "22.25"
+                                  : "26"
+                              }
+                              stroke={
+                                extraExtractionsToggle
+                                  ? "rgb(235, 178, 187)"
+                                  : "rgba(191, 191, 191)"
+                              }
+                              strokeWidth="0.5"
+                              fill="white"
                             />
-                          </g>
-                        </svg>
+                            <g transform="translate(10.5 10)">
+                              <animated.path
+                                className="extra_extractions_icon_path"
+                                strokeDasharray="400"
+                                strokeDashoffset={`${styles.x}`}
+                                stroke="#000"
+                                strokeWidth="1.2"
+                                d="M24.135 49.56c-.073-.145-.11-3.025-.11-8.554v-8.334h-7.857c-5.21 0-7.925-.04-8.062-.117-.198-.113-.207-.278-.207-4.075s.009-3.962.207-4.074c.137-.078 2.851-.118 8.062-.118h7.856v-8.334c0-5.528.038-8.408.111-8.554.106-.21.262-.219 3.84-.219 3.58 0 3.735.01 3.841.22.074.145.11 3.025.11 8.553v8.334h7.883c6.27 0 7.92.03 8.07.147.175.135.188.442.179 4.05-.01 3.507-.029 3.918-.189 4.045-.139.11-1.92.142-8.06.142h-7.882v8.335c0 5.528-.037 8.408-.11 8.553-.107.21-.263.22-3.841.22-3.579 0-3.735-.01-3.841-.22z"
+                                fill="none"
+                              />
+                            </g>
+                          </svg>
+                        </>
                       )}
                     </Spring>
-
                     <div
                       className="card_border_right"
                       style={{
@@ -272,23 +381,7 @@ const ExtraExtractions = () => {
                     <div className="card_description_inner_wrapper">
                       <h2 style={{ fontWeight: 400 }}>EXTRA EXTRACTIONS</h2>
                       {cardDescriptionHandler()}
-                      <div
-                        className="card_bottom_wrapper"
-                        style={{
-                          color: extraExtractionsToggle
-                            ? "rgb(155, 98, 107)"
-                            : "rgb(175, 118, 127)",
-                          transition: "ease all 0.5s"
-                        }}
-                      >
-                        <p className="card_toggler" onClick={handleToggle}>
-                          {extraExtractionsToggle
-                            ? "SEE DESCRIPTION"
-                            : "LEARN MORE"}
-                        </p>
-                        <span className="card_bottom_spacer" />
-                        {addOnBounce()}
-                      </div>
+                      {dynamicScreenSizeBottomCardRender()}
                     </div>
                   </div>
                 </section>

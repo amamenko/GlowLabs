@@ -5,7 +5,7 @@ import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_R
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 
 const NavigationMenu = React.forwardRef((props, ref) => {
-  const { Treatments1Ref, LandingPageRef } = ref;
+  const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
   const Nav_Ref = useRef(null);
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
 
@@ -42,6 +42,22 @@ const NavigationMenu = React.forwardRef((props, ref) => {
     }, 300);
   };
 
+  const navMenuScrollToAddOns = () => {
+    navbarItemSelect();
+    clearTimeout(navbarItemSelect());
+    setTimeout(() => {
+      props.handleClickToScrollToAddOns(AddOnsRef);
+    }, 300);
+  };
+
+  const navMenuScrollToInstagram = () => {
+    navbarItemSelect();
+    clearTimeout(navbarItemSelect());
+    setTimeout(() => {
+      props.handleClickToScrollToInstagram(InstagramRef);
+    }, 300);
+  };
+
   return (
     <div
       className="nav_menu"
@@ -55,8 +71,8 @@ const NavigationMenu = React.forwardRef((props, ref) => {
       <ul className="navbar_items">
         <li onClick={() => navMenuScrollToHome()}>Home</li>
         <li onClick={() => navMenuScrollToTreatments()}>Treatments</li>
-        <li onClick={navbarItemSelect}>Add-Ons</li>
-        <li onClick={navbarItemSelect}>Real Clients</li>
+        <li onClick={() => navMenuScrollToAddOns()}>Add-Ons</li>
+        <li onClick={() => navMenuScrollToInstagram()}>Real Clients</li>
         <li onClick={navbarItemSelect}>Contact</li>
       </ul>
     </div>
