@@ -187,80 +187,57 @@ const CBD = props => {
     }
   };
 
+  const bigScreenBottomWrapperRender = () => {
+    return (
+      <div className="big_screen_entire_bottom_wrapper">
+        <div className="big_screen_price_wrapper">
+          <FontAwesomeIcon
+            className="big_screen_card_description_icon"
+            icon={faTag}
+          />
+          <p className="big_screen_price">$120</p>
+        </div>
+        <div className="big_screen_duration_wrapper">
+          <FontAwesomeIcon
+            className="big_screen_card_description_icon"
+            icon={faClock}
+          />
+          <p className="big_screen_duration">1 hour</p>
+        </div>
+      </div>
+    );
+  };
+
+  const smallScreenBottomWrapperRender = () => {
+    return (
+      <div
+        className="card_bottom_wrapper"
+        style={{
+          color: cbdToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+          transition: "ease all 0.5s"
+        }}
+      >
+        <p className="card_toggler" onClick={handleToggle}>
+          {cbdToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+        </p>
+        <span className="card_bottom_spacer" />
+        {bookButtonBounce()}
+      </div>
+    );
+  };
+
   const dynamicScreenSizeBottomCardRender = () => {
     if (props.currentScreenSize === "") {
       if (props.initialScreenSize >= 1200) {
-        return (
-          <div className="big_screen_entire_bottom_wrapper">
-            <div className="big_screen_price_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faTag}
-              />
-              <p className="big_screen_price">$120</p>
-            </div>
-            <div className="big_screen_duration_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faClock}
-              />
-              <p className="big_screen_duration">1 hour</p>
-            </div>
-          </div>
-        );
+        return bigScreenBottomWrapperRender();
       } else {
-        return (
-          <div
-            className="card_bottom_wrapper"
-            style={{
-              color: cbdToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
-              transition: "ease all 0.5s"
-            }}
-          >
-            <p className="card_toggler" onClick={handleToggle}>
-              {cbdToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-            </p>
-            <span className="card_bottom_spacer" />
-            {bookButtonBounce()}
-          </div>
-        );
+        return smallScreenBottomWrapperRender();
       }
     } else {
       if (props.currentScreenSize >= 1200) {
-        return (
-          <div className="big_screen_entire_bottom_wrapper">
-            <div className="big_screen_price_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faTag}
-              />
-              <p className="big_screen_price">$120</p>
-            </div>
-            <div className="big_screen_duration_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faClock}
-              />
-              <p className="big_screen_duration">1 hour</p>
-            </div>
-          </div>
-        );
+        return bigScreenBottomWrapperRender();
       } else {
-        return (
-          <div
-            className="card_bottom_wrapper"
-            style={{
-              color: cbdToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
-              transition: "ease all 0.5s"
-            }}
-          >
-            <p className="card_toggler" onClick={handleToggle}>
-              {cbdToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-            </p>
-            <span className="card_bottom_spacer" />
-            {bookButtonBounce()}
-          </div>
-        );
+        return smallScreenBottomWrapperRender();
       }
     }
   };

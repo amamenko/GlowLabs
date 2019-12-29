@@ -96,7 +96,7 @@ const HydroJellyMask = props => {
                 <p className="card_description_paragraph_title">Price</p>
               </div>
               <div className="card_description_paragraph_value">
-                <p>$10</p>
+                <p>$15</p>
               </div>
             </div>
           </div>
@@ -181,84 +181,57 @@ const HydroJellyMask = props => {
     }
   };
 
+  const bigScreenBottomWrapperRender = () => {
+    return (
+      <div className="big_screen_entire_bottom_wrapper">
+        <div className="big_screen_price_wrapper">
+          <FontAwesomeIcon
+            className="big_screen_card_description_icon"
+            icon={faTag}
+          />
+          <p className="big_screen_price">$15</p>
+        </div>
+        <div className="big_screen_duration_wrapper">
+          <FontAwesomeIcon
+            className="big_screen_card_description_icon"
+            icon={faClock}
+          />
+          <p className="big_screen_duration">10 minutes</p>
+        </div>
+      </div>
+    );
+  };
+
+  const smallScreenBottomWrapperRender = () => {
+    return (
+      <div
+        className="card_bottom_wrapper"
+        style={{
+          color: hydroJellyToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+          transition: "ease all 0.5s"
+        }}
+      >
+        <p className="card_toggler" onClick={handleToggle}>
+          {hydroJellyToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+        </p>
+        <span className="card_bottom_spacer" />
+        {addOnBounce()}
+      </div>
+    );
+  };
+
   const dynamicScreenSizeBottomCardRender = () => {
     if (props.currentScreenSize === "") {
       if (props.initialScreenSize >= 1200) {
-        return (
-          <div className="big_screen_entire_bottom_wrapper">
-            <div className="big_screen_price_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faTag}
-              />
-              <p className="big_screen_price">$10</p>
-            </div>
-            <div className="big_screen_duration_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faClock}
-              />
-              <p className="big_screen_duration">10 minutes</p>
-            </div>
-          </div>
-        );
+        return bigScreenBottomWrapperRender();
       } else {
-        return (
-          <div
-            className="card_bottom_wrapper"
-            style={{
-              color: hydroJellyToggle
-                ? "rgb(155, 98, 107)"
-                : "rgb(175, 118, 127)",
-              transition: "ease all 0.5s"
-            }}
-          >
-            <p className="card_toggler" onClick={handleToggle}>
-              {hydroJellyToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-            </p>
-            <span className="card_bottom_spacer" />
-            {addOnBounce()}
-          </div>
-        );
+        return smallScreenBottomWrapperRender();
       }
     } else {
       if (props.currentScreenSize >= 1200) {
-        return (
-          <div className="big_screen_entire_bottom_wrapper">
-            <div className="big_screen_price_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faTag}
-              />
-              <p className="big_screen_price">$10</p>
-            </div>
-            <div className="big_screen_duration_wrapper">
-              <FontAwesomeIcon
-                className="big_screen_card_description_icon"
-                icon={faClock}
-              />
-              <p className="big_screen_duration">10 minutes</p>
-            </div>
-          </div>
-        );
+        return bigScreenBottomWrapperRender();
       } else {
-        return (
-          <div
-            className="card_bottom_wrapper"
-            style={{
-              color: hydroJellyToggle
-                ? "rgb(155, 98, 107)"
-                : "rgb(175, 118, 127)",
-              transition: "ease all 0.5s"
-            }}
-          >
-            <p className="card_toggler" onClick={handleToggle}>
-              {hydroJellyToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-            </p>
-            <span className="card_bottom_spacer" />
-            {addOnBounce()}
-          </div>
-        );
+        return smallScreenBottomWrapperRender();
       }
     }
   };

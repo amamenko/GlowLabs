@@ -54,7 +54,7 @@ const App = () => {
       await import("scroll-behavior-polyfill");
     }
     window.scrollTo({
-      top: LandingPageRef.current.offsetTop,
+      top: LandingPageRef.current.offsetTop - 10,
       behavior: "smooth"
     });
   };
@@ -109,15 +109,15 @@ const App = () => {
       top:
         currentScreenSize === ""
           ? initialScreenSize >= 1800
-            ? InstagramRef.current.offsetTop - 105
+            ? InstagramRef.current.offsetTop - 300
             : initialScreenSize >= 1200
-            ? InstagramRef.current.offsetTop - 50
-            : InstagramRef.current.offsetTop - 70
+            ? InstagramRef.current.offsetTop - 80
+            : InstagramRef.current.offsetTop - 235
           : currentScreenSize >= 1800
-          ? InstagramRef.current.offsetTop - 105
+          ? InstagramRef.current.offsetTop - 300
           : currentScreenSize >= 1200
-          ? InstagramRef.current.offsetTop - 50
-          : InstagramRef.current.offsetTop - 70,
+          ? InstagramRef.current.offsetTop - 80
+          : InstagramRef.current.offsetTop - 235,
       behavior: "smooth"
     });
   };

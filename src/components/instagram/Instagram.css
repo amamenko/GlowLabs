@@ -1,10 +1,10 @@
 .instagram_page_wrapping {
-  height: 76vh;
-  margin-top: 17vh;
+  height: 45vh;
+  margin-top: 21vh;
 }
 
 .instagram_images_wrapping {
-  padding-top: 6vh;
+  padding-top: 19.5vh;
   height: 43vh;
   width: 100%;
 }
@@ -12,7 +12,7 @@
 .instagram_images_top_wrapping,
 .instagram_images_bottom_wrapping {
   overflow: hidden;
-  height: 23vh;
+  height: 22vh;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -63,16 +63,23 @@
 
 .instagram_top_page_wrapping h3 p {
   text-align: center;
+  margin-bottom: 1rem;
+}
+
+.insta_handle_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .real_clients_instagram_icon {
-  position: absolute;
+  position: relative;
   margin-left: auto;
   margin-right: auto;
   font-size: 5rem;
   color: rgba(215, 156, 165);
   cursor: pointer;
-  top: 1.5rem;
 }
 
 .real_clients_instagram_icon:hover {
@@ -99,7 +106,7 @@
     width: 0%;
   }
   to {
-    width: 31%;
+    width: 23.5%;
   }
 }
 
@@ -142,6 +149,10 @@
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
+  .instagram_page_wrapping {
+    margin-top: 17vh;
+  }
+
   .instagram_top_page_wrapping h2 {
     font-size: 5rem;
     line-height: 8rem;

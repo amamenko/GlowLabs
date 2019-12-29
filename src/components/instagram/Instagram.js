@@ -4,15 +4,15 @@ import { useInView } from "react-intersection-observer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import Hydrojelly from "../../images/Hydrojelly.jpg";
-import LED from "../../images/LED.jpg";
-import WoodsLamp from "../../images/WoodsLamp.jpg";
+import Clarify from "../../images/Clarify.jpg";
+import Dermaplaning from "../../images/Dermaplaning.jpg";
 import Hydrojelly2 from "../../images/Hydrojelly2.jpg";
 import "./Instagram.css";
 
 const Instagram = React.forwardRef((props, ref) => {
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2
+    threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2
   });
   return (
     <div className="instagram_page_wrapping" ref={props.InstagramRef}>
@@ -68,18 +68,23 @@ const Instagram = React.forwardRef((props, ref) => {
                     >
                       Follow us on <br />
                       Instagram <br />
-                      to see more <br />
-                      real treatments
+                      to see our <br />
+                      facials in action
                       <br />
-                      <FontAwesomeIcon
-                        className="real_clients_instagram_icon"
-                        style={{
-                          position: `${styles.position}`,
-                          opacity: `${styles.opacity}`
-                        }}
-                        icon={faInstagram}
-                      />
                     </p>
+                    <div className="insta_handle_wrapper">
+                      <a target="_self" href="https://instagram.com/glow.labs">
+                        <FontAwesomeIcon
+                          className="real_clients_instagram_icon"
+                          style={{
+                            position: `${styles.position}`,
+                            opacity: `${styles.opacity}`
+                          }}
+                          icon={faInstagram}
+                        />
+                      </a>
+                      @glow.labs
+                    </div>
                   </h3>
                 </div>
                 <div className="instagram_images_wrapping">
@@ -95,8 +100,8 @@ const Instagram = React.forwardRef((props, ref) => {
                     />
                     <img
                       className="instagram_image"
-                      alt="Hydrojelly + LED"
-                      src={LED}
+                      alt="Hydrojelly Mask"
+                      src={Hydrojelly2}
                       style={{
                         position: `${styles.position}`,
                         opacity: `${styles.opacity}`
@@ -106,8 +111,8 @@ const Instagram = React.forwardRef((props, ref) => {
                   <div className="instagram_images_bottom_wrapping">
                     <img
                       className="instagram_image left"
-                      alt="Woodslamp Analysis"
-                      src={WoodsLamp}
+                      alt="Clarify facial"
+                      src={Clarify}
                       style={{
                         position: `${styles.position}`,
                         opacity: `${styles.opacity}`
@@ -115,8 +120,8 @@ const Instagram = React.forwardRef((props, ref) => {
                     />
                     <img
                       className="instagram_image"
-                      alt="Hydrojelly Mask"
-                      src={Hydrojelly2}
+                      alt="Dermaplaning"
+                      src={Dermaplaning}
                       style={{
                         position: `${styles.position}`,
                         opacity: `${styles.opacity}`
