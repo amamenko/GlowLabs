@@ -1,0 +1,9 @@
+const USER_SCROLLED_RESET = "USER_SCROLLED_RESET";
+
+const ACTION_USER_SCROLLED_RESET = () => {
+  return {
+    type: USER_SCROLLED_RESET
+  };
+};
+
+export default ACTION_USER_SCROLLED_RESET;

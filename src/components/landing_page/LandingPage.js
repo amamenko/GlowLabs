@@ -21,15 +21,17 @@ import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_R
 import ACTION_NAVBAR_TOGGLE from "../../actions/Nav/ACTION_NAVBAR_TOGGLE";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import ACTION_USER_SCROLLED from "../../actions/Scroll/ACTION_USER_SCROLLED";
+import ACTION_USER_SCROLLED_RESET from "../../actions/Scroll/ACTION_USER_SCROLLED_RESET";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
-  const [scroll, setScroll] = useState(false);
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
   const bodyScrollToggle = useSelector(
     state => state.bodyScrollToggle.overflow
   );
+  const scroll = useSelector(state => state.scrollToggle.scroll);
 
   const dispatch = useDispatch();
 
@@ -46,18 +48,18 @@ const LandingPage = React.forwardRef((props, ref) => {
   const changeScroll = useCallback(() => {
     const userScroll =
       props.currentScreenSize === ""
-        ? props.initialScreenSize >= 1200
+        ? props.initialScreenSize >= 600
           ? window.scrollY < 10
           : window.scrollY < 345
-        : props.currentScreenSize >= 1200
+        : props.currentScreenSize >= 600
         ? window.scrollY < 10
         : window.scrollY < 345;
     const userLineRenderScroll = window.scrollY < 40;
 
     if (!userScroll) {
-      setScroll(true);
+      dispatch(ACTION_USER_SCROLLED());
     } else {
-      setScroll(false);
+      dispatch(ACTION_USER_SCROLLED_RESET());
     }
 
     if (!userLineRenderScroll) {
@@ -66,7 +68,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       setLineRenderScroll(false);
     }
   }, [
-    setScroll,
+    dispatch,
     setLineRenderScroll,
     props.currentScreenSize,
     props.initialScreenSize
@@ -94,14 +96,14 @@ const LandingPage = React.forwardRef((props, ref) => {
       () => {
         enableBodyScroll(LandingPageRef.current);
       },
-      props.initialScreenSize >= 1200 ? 5300 : 4000
+      props.initialScreenSize >= 600 ? 5300 : 4000
     );
 
     let bodyScrollTimer = setTimeout(
       () => {
         dispatch(ACTION_BODY_SCROLL_ALLOW());
       },
-      props.initialScreenSize >= 1200 ? 5300 : 4000
+      props.initialScreenSize >= 600 ? 5300 : 4000
     );
 
     return () => {
@@ -113,12 +115,12 @@ const LandingPage = React.forwardRef((props, ref) => {
     <div className="landing_page_container" ref={LandingPageRef}>
       <Spring
         from={{
-          marginTop: props.initialScreenSize >= 1200 ? "-200px" : "-100px"
+          marginTop: props.initialScreenSize >= 600 ? "-200px" : "-100px"
         }}
         to={{ marginTop: "0px" }}
         config={{
-          delay: props.initialScreenSize >= 1200 ? 4600 : 2500,
-          duration: props.initialScreenSize >= 1200 ? 1000 : 1500
+          delay: props.initialScreenSize >= 600 ? 4600 : 2500,
+          duration: props.initialScreenSize >= 600 ? 1000 : 1500
         }}
       >
         {styles => (
@@ -164,15 +166,15 @@ const LandingPage = React.forwardRef((props, ref) => {
         />
         <Spring
           from={{
-            top: props.initialScreenSize >= 1200 ? "0%" : "100%",
-            right: props.initialScreenSize >= 1200 ? "100%" : "0%"
+            top: props.initialScreenSize >= 600 ? "0%" : "100%",
+            right: props.initialScreenSize >= 600 ? "100%" : "0%"
           }}
           to={{
-            top: props.initialScreenSize >= 1200 ? "0%" : "50%",
-            right: props.initialScreenSize >= 1200 ? "50%" : "0%"
+            top: props.initialScreenSize >= 600 ? "0%" : "50%",
+            right: props.initialScreenSize >= 600 ? "50%" : "0%"
           }}
           config={{
-            delay: props.initialScreenSize >= 1200 ? 3000 : 2000,
+            delay: props.initialScreenSize >= 600 ? 3000 : 2000,
             duration: 2000
           }}
         >
@@ -183,13 +185,13 @@ const LandingPage = React.forwardRef((props, ref) => {
                 top:
                   props.currentScreenSize === ""
                     ? `${styles.top}`
-                    : props.currentScreenSize >= 1200
+                    : props.currentScreenSize >= 600
                     ? "0%"
                     : "50%",
                 right:
                   props.currentScreenSize === ""
                     ? `${styles.right}`
-                    : props.currentScreenSize >= 1200
+                    : props.currentScreenSize >= 600
                     ? "50%"
                     : "0%"
               }}
@@ -198,7 +200,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                 from={{ opacity: 0 }}
                 to={{ opacity: 1 }}
                 config={{
-                  delay: props.initialScreenSize >= 1200 ? 5000 : 4000,
+                  delay: props.initialScreenSize >= 600 ? 5000 : 4000,
                   duration: 500
                 }}
               >

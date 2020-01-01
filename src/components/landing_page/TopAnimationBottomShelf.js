@@ -6,9 +6,9 @@ const TopAnimationBottomShelf = props => {
   return (
     <Spring
       from={{ top: "-50%" }}
-      to={{ top: props.initialScreenSize >= 1200 ? "73%" : "38%" }}
+      to={{ top: props.initialScreenSize >= 600 ? "73%" : "38%" }}
       config={{
-        delay: props.initialScreenSize >= 1200 ? 3000 : 2000,
+        delay: props.initialScreenSize >= 600 ? 3000 : 2000,
         duration: 2000
       }}
     >
@@ -28,13 +28,19 @@ const TopAnimationBottomShelf = props => {
             width="100%"
             height={
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1200
-                  ? props.initialScreenSize >= 1800
-                    ? "35rem"
-                    : "20rem"
+                ? props.initialScreenSize >= 1800
+                  ? "35rem"
+                  : props.initialScreenSize >= 1600
+                  ? "20rem"
+                  : props.initialScreenSize >= 1200
+                  ? "15rem"
                   : "7rem"
-                : props.currentScreenSize >= 1200
+                : props.currentScreenSize >= 1800
+                ? "35rem"
+                : props.currentScreenSize >= 1600
                 ? "20rem"
+                : props.currentScreenSize >= 1200
+                ? "15rem"
                 : "7rem"
             }
             viewBox="0 0 100 100"

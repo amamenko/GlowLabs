@@ -21,6 +21,7 @@ import ledTherapyToggle from "./reducers/AddOns/LEDTherapy/ledTherapyToggleReduc
 import microcurrentToggleReducer from "./reducers/AddOns/Microcurrent/microcurrentToggleReducer";
 import microdermabrasionToggleReducer from "./reducers/AddOns/Microdermabrasion/microdermabrasionToggleReducer";
 import nanoneedlingToggleReducer from "./reducers/AddOns/Nanoneedling/nanoneedlingToggleReducer";
+import scrollReducer from "./reducers/Scroll/scrollReducer";
 
 const RootReducer = combineReducers({
   calmToggle: calmToggleReducer,
@@ -44,7 +45,8 @@ const RootReducer = combineReducers({
   ledTherapyToggle: ledTherapyToggle,
   microcurrentToggle: microcurrentToggleReducer,
   microdermabrasionToggle: microdermabrasionToggleReducer,
-  nanoneedlingToggle: nanoneedlingToggleReducer
+  nanoneedlingToggle: nanoneedlingToggleReducer,
+  scrollToggle: scrollReducer
 });
 
 export default RootReducer;

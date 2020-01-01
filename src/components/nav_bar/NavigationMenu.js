@@ -8,6 +8,7 @@ const NavigationMenu = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
   const Nav_Ref = useRef(null);
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
+  const scroll = useSelector(state => state.scrollToggle.scroll);
 
   const dispatch = useDispatch();
 
@@ -64,8 +65,19 @@ const NavigationMenu = React.forwardRef((props, ref) => {
       ref={Nav_Ref}
       style={{
         backgroundColor: "rgb(255, 198, 207)",
-        left: navbarToggle ? 0 : 500,
-        transition: "all 0.4s ease"
+        left: navbarToggle ? 0 : 825,
+        transition:
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 600
+              ? scroll
+                ? "all 0.4s ease"
+                : "all 0s"
+              : "all 0.4s ease"
+            : props.currentScreenSize >= 600
+            ? scroll
+              ? "all 0.4s ease"
+              : "all 0s"
+            : "all 0.4s ease"
       }}
     >
       <ul className="navbar_items">

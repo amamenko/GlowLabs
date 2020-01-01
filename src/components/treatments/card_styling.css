@@ -180,7 +180,7 @@
   }
 
   .card_description_inner_wrapper h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 
   .card_description_subheader {
@@ -188,13 +188,13 @@
   }
 
   .card_description_paragraph {
-    font-size: 0.85rem;
-    line-height: 22px;
+    font-size: 0.75em;
+    line-height: 16px;
   }
 
   .big_screen_price,
   .big_screen_duration {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 500;
     color: rgba(155, 98, 107, 1);
   }
@@ -208,7 +208,7 @@
 
   .big_screen_card_description_icon,
   .big_screen_card_description_suitcase {
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-right: 0.7rem;
   }
 
@@ -261,8 +261,39 @@
   .big_screen_book_now_wrapper p {
     display: flex;
     align-self: center;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     font-weight: 600;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 0.5rem;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.8rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.85rem;
+    line-height: 22px;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 1.3rem;
+  }
+
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    font-size: 1rem;
+    margin-right: 0.7rem;
+  }
+
+  .big_screen_book_now_wrapper p {
+    font-size: 0.8rem;
   }
 
   .big_screen_book_now_wrapper p.big_screen_card_add_on_button {

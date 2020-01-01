@@ -130,8 +130,10 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className="main_container">
       <NavigationMenu
+        currentScreenSize={currentScreenSize}
+        initialScreenSize={initialScreenSize}
         handleClickToScrollToHome={handleClickToScrollToHome}
         handleClickToScrollToTreatments={handleClickToScrollToTreatments}
         handleClickToScrollToAddOns={handleClickToScrollToAddOns}
@@ -186,7 +188,7 @@ const App = () => {
         currentScreenSize={currentScreenSize}
         InstagramRef={InstagramRef}
       />
-    </>
+    </div>
   );
 };
 

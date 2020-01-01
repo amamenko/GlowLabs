@@ -73,10 +73,30 @@
   display: none;
 }
 
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .navbar {
+    height: 12vh;
+  }
+
+  .navbar_items {
+    height: 88vh;
+  }
+
+  .navbar_items li {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .logo {
     margin-left: 3.1rem;
+  }
+
+  .navbar {
+    height: 8vh;
   }
 
   .burger,
@@ -102,16 +122,25 @@
   .nav_links li {
     display: flex;
     list-style: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     cursor: pointer;
   }
 
   .nav_links li:hover {
     color: white;
     transition: all 0.5s ease;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .nav_links li {
+    font-size: 1.1rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
   }
 }
 
