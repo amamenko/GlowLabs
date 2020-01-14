@@ -10,6 +10,20 @@
   row-gap: 1.5rem;
 }
 
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .add_ons_page_2_container {
+    height: 85vh;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    grid-template-areas:
+      "led_therapy_card led_therapy_card led_therapy_card microcurrent_card microcurrent_card microcurrent_card"
+      "led_therapy_card led_therapy_card led_therapy_card microcurrent_card microcurrent_card microcurrent_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: 6.2rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .add_ons_page_2_container {

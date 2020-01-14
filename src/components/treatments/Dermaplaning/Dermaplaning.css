@@ -12,8 +12,16 @@
   transform: scale(0.8);
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 600px) {
   .dermaplaning_wrapping {
     margin-top: 0rem;
+    height: 64%;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .dermaplaning_wrapping {
+    height: auto;
   }
 }

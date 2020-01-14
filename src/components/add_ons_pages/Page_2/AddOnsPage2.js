@@ -17,10 +17,21 @@ const AddOnsPage2 = props => (
       initialScreenSize={props.initialScreenSize}
       currentScreenSize={props.currentScreenSize}
     />
-    <Microdermabrasion
-      initialScreenSize={props.initialScreenSize}
-      currentScreenSize={props.currentScreenSize}
-    />
+    {props.currentScreenSize === "" ? (
+      props.initialScreenSize >= 600 &&
+      props.initialScreenSize <= 1200 ? null : (
+        <Microdermabrasion
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      )
+    ) : props.currentScreenSize >= 600 &&
+      props.currentScreenSize <= 1200 ? null : (
+      <Microdermabrasion
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+    )}
     {props.initialScreenSize >= 1200 ? (
       <Dermarolling
         initialScreenSize={props.initialScreenSize}

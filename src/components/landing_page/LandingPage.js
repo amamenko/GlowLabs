@@ -49,10 +49,10 @@ const LandingPage = React.forwardRef((props, ref) => {
     const userScroll =
       props.currentScreenSize === ""
         ? props.initialScreenSize >= 600
-          ? window.scrollY < 10
+          ? window.scrollY < 50
           : window.scrollY < 345
         : props.currentScreenSize >= 600
-        ? window.scrollY < 10
+        ? window.scrollY < 50
         : window.scrollY < 345;
     const userLineRenderScroll = window.scrollY < 40;
 
@@ -77,6 +77,7 @@ const LandingPage = React.forwardRef((props, ref) => {
   useEffect(() => {
     if (bodyScrollToggle === "visible") {
       document.body.style.overflow = "visible";
+      document.body.style.overflowX = "hidden";
     } else if (bodyScrollToggle === "hidden") {
       document.body.style.overflow = "hidden";
     }
@@ -111,6 +112,22 @@ const LandingPage = React.forwardRef((props, ref) => {
     };
   }, [dispatch, props.initialScreenSize, LandingPageRef]);
 
+  const portraitOverscroll = () => {
+    if (window.scrollY <= 50) {
+      document.body.style.setProperty("background", "rgb(255, 198, 207)");
+    } else {
+      document.body.style.setProperty("background", "rgb(255, 255, 255)");
+    }
+  };
+
+  props.currentScreenSize === ""
+    ? props.initialScreenSize <= 600
+      ? portraitOverscroll()
+      : document.body.style.setProperty("background", "rgb(255, 255, 255)")
+    : props.currentScreenSize <= 600
+    ? portraitOverscroll()
+    : document.body.style.setProperty("background", "rgb(255, 255, 255)");
+
   return (
     <div className="landing_page_container" ref={LandingPageRef}>
       <Spring
@@ -126,7 +143,63 @@ const LandingPage = React.forwardRef((props, ref) => {
         {styles => (
           <header
             className="header"
-            style={{ marginTop: `${styles.marginTop}` }}
+            style={{
+              marginTop:
+                props.currentScreenSize === ""
+                  ? props.initialScreenSize >= 1200
+                    ? `${styles.marginTop}`
+                    : props.navbarVisible
+                    ? `${styles.marginTop}`
+                    : "-200px"
+                  : props.currentScreenSize >= 1200
+                  ? `${styles.marginTop}`
+                  : props.navbarVisible
+                  ? `${styles.marginTop}`
+                  : "-200px",
+              transition: "margin-top 0.5s ease",
+              height:
+                props.currentScreenSize === ""
+                  ? props.initialScreenSize <= 1000 &&
+                    props.initialScreenSize >= 600
+                    ? window.scrollY <= 1
+                      ? "30vh"
+                      : "15vh"
+                    : "8vh"
+                  : props.currentScreenSize <= 1000 &&
+                    props.currentScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "30vh"
+                    : "15vh"
+                  : "8vh",
+              paddingTop:
+                props.currentScreenSize === ""
+                  ? props.initialScreenSize <= 1000 &&
+                    props.initialScreenSize >= 600
+                    ? window.scrollY <= 1
+                      ? "15vh"
+                      : "0vh"
+                    : "0vh"
+                  : props.currentScreenSize <= 1000 &&
+                    props.currentScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "15vh"
+                    : "0vh"
+                  : "0vh",
+              paddingBottom:
+                props.currentScreenSize === ""
+                  ? props.initialScreenSize <= 1000 &&
+                    props.initialScreenSize >= 600
+                    ? window.scrollY <= 1
+                      ? "15vh"
+                      : "0vh"
+                    : "0vh"
+                  : props.currentScreenSize <= 1000 &&
+                    props.currentScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "15vh"
+                    : "0vh"
+                  : "0vh"
+            }}
           >
             <NavigationBar
               scroll={scroll}
@@ -148,22 +221,46 @@ const LandingPage = React.forwardRef((props, ref) => {
         )}
       </Spring>
       <section className="main_content">
-        <PottedPlant initialScreenSize={props.initialScreenSize} />
-        <SmallPlant initialScreenSize={props.initialScreenSize} />
-        <Cream initialScreenSize={props.initialScreenSize} />
-        <HandCream initialScreenSize={props.initialScreenSize} />
-        <TopAnimationTopShelf
-          currentScreenSize={props.currentScreenSize}
-          initialScreenSize={props.initialScreenSize}
-        />
-        <Mirror initialScreenSize={props.initialScreenSize} />
-        <Bottle initialScreenSize={props.initialScreenSize} />
-        <Qtips initialScreenSize={props.initialScreenSize} />
-        <Sunscreen initialScreenSize={props.initialScreenSize} />
-        <TopAnimationBottomShelf
-          currentScreenSize={props.currentScreenSize}
-          initialScreenSize={props.initialScreenSize}
-        />
+        <div
+          className="landing_page_drawing"
+          style={{
+            zIndex:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize <= 1000 &&
+                  props.initialScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? navbarToggle
+                      ? "1"
+                      : "500"
+                    : "1"
+                  : "1"
+                : props.currentScreenSize <= 1000 &&
+                  props.currentScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? navbarToggle
+                    ? "1"
+                    : "500"
+                  : "1"
+                : "1"
+          }}
+        >
+          <PottedPlant initialScreenSize={props.initialScreenSize} />
+          <SmallPlant initialScreenSize={props.initialScreenSize} />
+          <Cream initialScreenSize={props.initialScreenSize} />
+          <HandCream initialScreenSize={props.initialScreenSize} />
+          <TopAnimationTopShelf
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />
+          <Mirror initialScreenSize={props.initialScreenSize} />
+          <Bottle initialScreenSize={props.initialScreenSize} />
+          <Qtips initialScreenSize={props.initialScreenSize} />
+          <Sunscreen initialScreenSize={props.initialScreenSize} />
+          <TopAnimationBottomShelf
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />
+        </div>
         <Spring
           from={{
             top: props.initialScreenSize >= 600 ? "0%" : "100%",
@@ -204,15 +301,37 @@ const LandingPage = React.forwardRef((props, ref) => {
                   duration: 500
                 }}
               >
-                {style => (
-                  <div className="landing_page_text_block">
-                    <h1 style={{ opacity: `${style.opacity}` }}>
+                {styleprops => (
+                  <div
+                    className="landing_page_text_block"
+                    style={{
+                      zIndex:
+                        props.currentScreenSize === ""
+                          ? props.initialScreenSize <= 1000 &&
+                            props.initialScreenSize >= 600
+                            ? window.scrollY <= 2
+                              ? navbarToggle
+                                ? "1"
+                                : "500"
+                              : "1"
+                            : "1"
+                          : props.currentScreenSize <= 1000 &&
+                            props.currentScreenSize >= 600
+                          ? window.scrollY <= 2
+                            ? navbarToggle
+                              ? "1"
+                              : "500"
+                            : "1"
+                          : "1"
+                    }}
+                  >
+                    <h1 style={{ opacity: `${styleprops.opacity}` }}>
                       Customized skin care,
                       <br /> down to a science.
                     </h1>
                     <p
                       className="landing_page_description"
-                      style={{ opacity: `${style.opacity}` }}
+                      style={{ opacity: `${styleprops.opacity}` }}
                     >
                       We've reimagined the traditional idea of a facial so that
                       we can do the thinking for you. Lay back, relax, and
@@ -222,7 +341,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                     <div className="call_to_action_buttons_container">
                       <div
                         className="call_to_action_button"
-                        style={{ opacity: `${style.opacity}` }}
+                        style={{ opacity: `${styleprops.opacity}` }}
                       >
                         <p
                           onClick={() =>
@@ -236,7 +355,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       </div>
                       <div
                         className="call_to_action_button book_now"
-                        style={{ opacity: `${style.opacity}` }}
+                        style={{ opacity: `${styleprops.opacity}` }}
                       >
                         <p
                           onClick={() =>
@@ -251,7 +370,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                     </div>
                     <div
                       style={{
-                        opacity: `${style.opacity}`,
+                        opacity: `${styleprops.opacity}`,
                         marginTop: lineRenderScroll
                           ? CSS.supports(`(-webkit-overflow-scrolling: touch)`)
                             ? "8rem"
@@ -307,7 +426,7 @@ const LandingPage = React.forwardRef((props, ref) => {
             </div>
           )}
         </Spring>
-        <div className="main_heading">
+        <div className="splash_screen">
           <SplashScreen />
         </div>
       </section>

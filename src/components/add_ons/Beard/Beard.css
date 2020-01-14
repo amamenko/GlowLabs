@@ -10,3 +10,19 @@
 .beard_icon_path {
   transform: scale(2.5);
 }
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .beard_wrapping {
+    height: 64%;
+    width: 50%;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .beard_wrapping {
+    height: 28.6666667vh;
+    width: auto;
+  }
+}

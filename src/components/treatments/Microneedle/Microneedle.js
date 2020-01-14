@@ -16,6 +16,8 @@ import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/Chemi
 import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
+import { store } from "react-notifications-component";
+import MicroneedleNotification from "./MicroneedleNotification";
 import "./Microneedle.css";
 
 const Microneedle = props => {
@@ -82,7 +84,25 @@ const Microneedle = props => {
       return (
         <>
           <div className="card_description_paragraph_toggle">
-            <div className="card_description_icon_wrapper_container">
+            <div
+              className="card_description_icon_wrapper_container"
+              style={{
+                paddingTop:
+                  props.currentScreenSize === ""
+                    ? props.initialScreenSize >= 600 &&
+                      props.initialScreenSize <= 1200
+                      ? microneedleToggle
+                        ? "0.2rem"
+                        : "0.7rem"
+                      : "0rem"
+                    : props.currentScreenSize >= 600 &&
+                      props.currentScreenSize <= 1200
+                    ? microneedleToggle
+                      ? "0.2rem"
+                      : "0.7rem"
+                    : "0rem"
+              }}
+            >
               <div className="card_description_paragraph_icon_wrapper">
                 <FontAwesomeIcon
                   className="card_description_icon"
@@ -93,7 +113,10 @@ const Microneedle = props => {
               <div className="card_description_paragraph_value">
                 <p>50 minutes</p>
               </div>
-              <div className="card_description_paragraph_icon_wrapper">
+              <div
+                className="card_description_paragraph_icon_wrapper"
+                style={{ paddingTop: "0px" }}
+              >
                 <FontAwesomeIcon
                   className="card_description_icon"
                   icon={faTag}
@@ -213,7 +236,21 @@ const Microneedle = props => {
         className="card_bottom_wrapper"
         style={{
           color: microneedleToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
-          transition: "ease all 0.5s"
+          paddingTop:
+            props.currentScreenSize === ""
+              ? props.initialScreenSize >= 600 &&
+                props.initialScreenSize <= 1200
+                ? microneedleToggle
+                  ? "0.2rem"
+                  : "0.7rem"
+                : "0rem"
+              : props.currentScreenSize >= 600 &&
+                props.currentScreenSize <= 1200
+              ? microneedleToggle
+                ? "0.2rem"
+                : "0.7rem"
+              : "0rem",
+          transition: "color 0.5s ease"
         }}
       >
         <p className="card_toggler" onClick={handleToggle}>
@@ -247,7 +284,23 @@ const Microneedle = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div className="microneedle_wrapping" ref={ref}>
+        <div
+          className="microneedle_wrapping"
+          ref={ref}
+          onClick={() =>
+            store.addNotification({
+              content: MicroneedleNotification,
+              insert: "top",
+              container: "bottom-right",
+              dismiss: {
+                duration: 5000,
+                onScreen: false
+              },
+              isMobile: true,
+              width: 400
+            })
+          }
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

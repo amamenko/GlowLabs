@@ -16,6 +16,8 @@ import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
+import { store } from "react-notifications-component";
+import CalmNotification from "./CalmNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
 
@@ -246,7 +248,23 @@ const Calm = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div className="calm_wrapping" ref={ref}>
+        <div
+          className="calm_wrapping"
+          ref={ref}
+          onClick={() =>
+            store.addNotification({
+              content: CalmNotification,
+              insert: "top",
+              container: "bottom-right",
+              dismiss: {
+                duration: 5000,
+                onScreen: false
+              },
+              isMobile: true,
+              width: 400
+            })
+          }
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

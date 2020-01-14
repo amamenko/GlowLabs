@@ -10,3 +10,17 @@
 .quickie_icon_path {
   transform: scale(0.5);
 }
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 600px) {
+  .quickie_wrapping {
+    height: 64%;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .quickie_wrapping {
+    height: auto;
+  }
+}

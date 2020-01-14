@@ -2,7 +2,6 @@
   background: transparent;
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: 3rem;
   width: 30%;
   border: none;
@@ -30,7 +29,6 @@
 .logo {
   display: flex;
   flex: 1;
-  align-self: center;
   margin-left: 1.5rem;
   padding: 0;
   color: #000;
@@ -42,17 +40,18 @@
 }
 
 .nav_menu {
-  height: 100vh;
+  margin-top: 8vh;
+  height: 92vh;
   width: 100%;
   position: fixed;
   z-index: 5;
 }
 
 .navbar_items {
-  height: 100vh;
+  height: 46vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -73,19 +72,73 @@
   display: none;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar_social_media_icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.navbar_social_media_icons a {
+  margin-left: 1rem;
+}
+
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
+  .logo {
+    margin-left: 3.1rem;
+  }
+
   .navbar {
-    height: 12vh;
+    border-top: 17vh
+      linear-gradient(
+        to right,
+        rgb(251, 251, 251) 0%,
+        rgb(251, 251, 251) 50%,
+        rgb(255, 198, 207) 50.05%,
+        rgb(255, 198, 207) 100%
+      )
+      solid;
+    border-bottom: 17vh
+      linear-gradient(
+        to right,
+        rgb(251, 251, 251) 0%,
+        rgb(251, 251, 251) 50%,
+        rgb(255, 198, 207) 50.05%,
+        rgb(255, 198, 207) 100%
+      )
+      solid;
+  }
+
+  .nav_menu {
+    margin-top: 12vh;
+    height: 85vh;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
   }
 
   .navbar_items {
-    height: 88vh;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10vh;
   }
 
   .navbar_items li {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    margin-bottom: 2rem;
   }
 }
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
@@ -65,27 +67,37 @@ const NavigationMenu = React.forwardRef((props, ref) => {
       ref={Nav_Ref}
       style={{
         backgroundColor: "rgb(255, 198, 207)",
-        left: navbarToggle ? 0 : 825,
+        left: navbarToggle ? 0 : 950,
         transition:
           props.currentScreenSize === ""
             ? props.initialScreenSize >= 600
               ? scroll
-                ? "all 0.4s ease"
+                ? "all 0.7s ease"
                 : "all 0s"
-              : "all 0.4s ease"
+              : "all 0.7s ease"
             : props.currentScreenSize >= 600
             ? scroll
-              ? "all 0.4s ease"
+              ? "all 0.7s ease"
               : "all 0s"
-            : "all 0.4s ease"
+            : "all 0.7s ease"
       }}
     >
       <ul className="navbar_items">
         <li onClick={() => navMenuScrollToHome()}>Home</li>
         <li onClick={() => navMenuScrollToTreatments()}>Treatments</li>
         <li onClick={() => navMenuScrollToAddOns()}>Add-Ons</li>
+      </ul>
+      <ul className="navbar_items">
         <li onClick={() => navMenuScrollToInstagram()}>Real Clients</li>
         <li onClick={navbarItemSelect}>Contact</li>
+        <li className="navbar_social_media_icons">
+          <a target="_self" href="https://instagram.com/glow.labs">
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <a target="_self" href="https://facebook.com/glowlabsLI/">
+            <FontAwesomeIcon icon={faFacebook} />
+          </a>
+        </li>
       </ul>
     </div>
   );

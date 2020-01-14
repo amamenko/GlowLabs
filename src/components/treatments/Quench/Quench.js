@@ -16,6 +16,8 @@ import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/Chemi
 import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
+import { store } from "react-notifications-component";
+import QuenchNotification from "./QuenchNotification";
 import "./Quench.css";
 import "../../treatments_pages/Page_2/TreatmentsPage2.css";
 
@@ -246,7 +248,23 @@ const Quench = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div className="quench_wrapping" ref={ref}>
+        <div
+          className="quench_wrapping"
+          ref={ref}
+          onClick={() =>
+            store.addNotification({
+              content: QuenchNotification,
+              insert: "top",
+              container: "bottom-right",
+              dismiss: {
+                duration: 5000,
+                onScreen: false
+              },
+              isMobile: true,
+              width: 400
+            })
+          }
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

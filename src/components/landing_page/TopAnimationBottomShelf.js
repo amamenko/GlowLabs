@@ -6,7 +6,14 @@ const TopAnimationBottomShelf = props => {
   return (
     <Spring
       from={{ top: "-50%" }}
-      to={{ top: props.initialScreenSize >= 600 ? "73%" : "38%" }}
+      to={{
+        top:
+          props.initialScreenSize >= 1200
+            ? "73%"
+            : props.initialScreenSize >= 600
+            ? "27%"
+            : "38%"
+      }}
       config={{
         delay: props.initialScreenSize >= 600 ? 3000 : 2000,
         duration: 2000
@@ -21,6 +28,8 @@ const TopAnimationBottomShelf = props => {
                 ? `${styles.top}`
                 : props.currentScreenSize >= 1200
                 ? "73%"
+                : props.currentScreenSize >= 600
+                ? "27%"
                 : "38%"
           }}
         >

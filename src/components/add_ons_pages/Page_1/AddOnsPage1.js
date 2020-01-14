@@ -3,8 +3,8 @@ import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
 import ExtraExtractions from "../../add_ons/ExtraExtractions/ExraExtractions";
 import HydroJellyMask from "../../add_ons/HydroJellyMask/HydroJellyMask";
-import "./AddOnsPage1.css";
 import LEDTherapy from "../../add_ons/LEDTherapy/LEDTherapy";
+import "./AddOnsPage1.css";
 
 const AddOnsPage1 = React.forwardRef((props, ref) => {
   const [inViewRef, inView] = useInView({
@@ -19,16 +19,17 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
             from={{
               position: "relative",
               opacity: 0,
-              animation:
-                props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1200
-                    ? "big_screen_add_ons_line 1s forwards"
-                    : "add_ons_line 1s forwards"
-                  : props.currentScreenSize >= 1200
-                  ? "big_screen_add_ons_line 1s forwards"
-                  : "add_ons_line 1s forwards"
+              width_desktop: "0%",
+              width_landscape: "0%",
+              width_mobile: "0%"
             }}
-            to={{ position: "relative", opacity: 1 }}
+            to={{
+              position: "relative",
+              opacity: 1,
+              width_desktop: "25%",
+              width_landscape: "30%",
+              width_mobile: "45%"
+            }}
             config={{ duration: 1000 }}
           >
             {styles => (
@@ -45,7 +46,18 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
                   style={{
                     position: `${styles.position}`,
                     opacity: `${styles.opacity}`,
-                    animation: `${styles.animation}`
+                    width:
+                      props.currentScreenSize === ""
+                        ? props.initialScreenSize >= 1200
+                          ? `${styles.width_desktop}`
+                          : props.initialScreenSize >= 600
+                          ? `${styles.width_landscape}`
+                          : `${styles.width_mobile}`
+                        : props.currentScreenSize >= 1200
+                        ? `${styles.width_desktop}`
+                        : props.currentScreenSize >= 600
+                        ? `${styles.width_landscape}`
+                        : `${styles.width_mobile}`
                   }}
                   className="add_ons_title_underline"
                 />
@@ -76,7 +88,14 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
-      {props.initialScreenSize >= 1200 ? (
+      {props.currentScreenSize === "" ? (
+        props.initialScreenSize >= 1200 ? (
+          <LEDTherapy
+            initialScreenSize={props.initialScreenSize}
+            currentScreenSize={props.currentScreenSize}
+          />
+        ) : null
+      ) : props.currentScreenSize >= 1200 ? (
         <LEDTherapy
           initialScreenSize={props.initialScreenSize}
           currentScreenSize={props.currentScreenSize}

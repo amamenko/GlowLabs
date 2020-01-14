@@ -14,6 +14,8 @@ import ACTION_DERMAROLLING_TOGGLE_RESET from "../../../actions/AddOns/Dermarolli
 import ACTION_NANONEEDLING_TOGGLE_RESET from "../../../actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
 import ACTION_GUASHA_TOGGLE_RESET from "../../../actions/AddOns/GuaSha/ACTION_GUASHA_TOGGLE_RESET";
 import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEARD_TOGGLE_RESET";
+import { store } from "react-notifications-component";
+import MicrocurrentNotification from "./MicrocurrentNotification";
 import "./Microcurrent.css";
 import "../../treatments/card_styling.css";
 
@@ -106,7 +108,7 @@ const Microcurrent = props => {
       return (
         <p className="card_description_paragraph">
           This painless “natural” facelift helps erase fine lines and wrinkles
-          while firming your skin. It improves muscle tone, reduces puffiness,
+          while firming skin. It improves muscle tone, reduces puffiness,
           increases cellular activity, and tightens pores.
         </p>
       );
@@ -257,7 +259,23 @@ const Microcurrent = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div className="microcurrent_wrapping" ref={ref}>
+        <div
+          className="microcurrent_wrapping"
+          ref={ref}
+          onClick={() =>
+            store.addNotification({
+              content: MicrocurrentNotification,
+              insert: "top",
+              container: "bottom-right",
+              dismiss: {
+                duration: 5000,
+                onScreen: false
+              },
+              isMobile: true,
+              width: 400
+            })
+          }
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

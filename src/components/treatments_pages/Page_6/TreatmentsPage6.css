@@ -1,0 +1,26 @@
+.treatments_page_6_container {
+  display: none;
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .treatments_page_6_container {
+    display: grid;
+    height: 85vh;
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+    grid-template-areas:
+      ". microneedle_card ."
+      ". microneedle_card .";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: -5.3rem;
+    justify-items: center;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .treatments_page_6_container {
+    display: none;
+  }
+}

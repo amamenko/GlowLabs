@@ -14,6 +14,8 @@ import ACTION_DERMAROLLING_TOGGLE_RESET from "../../../actions/AddOns/Dermarolli
 import ACTION_NANONEEDLING_TOGGLE_RESET from "../../../actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
 import ACTION_GUASHA_TOGGLE_RESET from "../../../actions/AddOns/GuaSha/ACTION_GUASHA_TOGGLE_RESET";
 import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEARD_TOGGLE_RESET";
+import { store } from "react-notifications-component";
+import GuaShaNotification from "./GuaShaNotification";
 import "./GuaSha.css";
 import "../../treatments/card_styling.css";
 
@@ -252,7 +254,23 @@ const GuaSha = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div className="guasha_wrapping" ref={ref}>
+        <div
+          className="guasha_wrapping"
+          ref={ref}
+          onClick={() =>
+            store.addNotification({
+              content: GuaShaNotification,
+              insert: "top",
+              container: "bottom-right",
+              dismiss: {
+                duration: 5000,
+                onScreen: false
+              },
+              isMobile: true,
+              width: 400
+            })
+          }
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

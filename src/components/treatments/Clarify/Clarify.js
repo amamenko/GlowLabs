@@ -16,6 +16,8 @@ import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
+import { store } from "react-notifications-component";
+import ClarifyNotification from "./ClarifyNotification";
 import "./Clarify.css";
 
 const Clarify = props => {
@@ -245,7 +247,23 @@ const Clarify = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div className="clarify_wrapping" ref={ref}>
+        <div
+          className="clarify_wrapping"
+          ref={ref}
+          onClick={() =>
+            store.addNotification({
+              content: ClarifyNotification,
+              insert: "top",
+              container: "bottom-right",
+              dismiss: {
+                duration: 5000,
+                onScreen: false
+              },
+              isMobile: true,
+              width: 400
+            })
+          }
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}
@@ -306,7 +324,7 @@ const Clarify = props => {
                               strokeWidth="0.5"
                               fill="white"
                             />
-                            <g fill="none" transform="translate(13, 12)">
+                            <g fill="none" transform="translate(14, 12)">
                               <animated.path
                                 fill={`${styles.fill}`}
                                 strokeDasharray="200"

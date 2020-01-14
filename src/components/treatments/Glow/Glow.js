@@ -16,6 +16,8 @@ import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/Chemi
 import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
+import { store } from "react-notifications-component";
+import GlowNotification from "./GlowNotification";
 import "./Glow.css";
 
 const Glow = props => {
@@ -110,8 +112,8 @@ const Glow = props => {
     } else {
       return (
         <p className="card_description_paragraph">
-          Accelerate brightening and clarify skin with Glow. Hyper-pigmentation
-          and sun damage don’t stand a chance.
+          Accelerate brightening and clarify your skin with Glow.
+          Hyper-pigmentation and sun damage simply don’t stand a chance.
         </p>
       );
     }
@@ -245,7 +247,23 @@ const Glow = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div className="glow_wrapping" ref={ref}>
+        <div
+          className="glow_wrapping"
+          ref={ref}
+          onClick={() =>
+            store.addNotification({
+              content: GlowNotification,
+              insert: "top",
+              container: "bottom-right",
+              dismiss: {
+                duration: 5000,
+                onScreen: false
+              },
+              isMobile: true,
+              width: 400
+            })
+          }
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}
@@ -271,7 +289,7 @@ const Glow = props => {
                       to={{
                         x: 0,
                         fill1: "rgba(253, 253, 150, 0.7)",
-                        fill2: "255, 179, 71, 0.6"
+                        fill2: "rgba(255, 179, 71, 0.6)"
                       }}
                       config={{ delay: 300, duration: 1000 }}
                     >

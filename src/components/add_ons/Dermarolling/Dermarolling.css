@@ -10,3 +10,17 @@
 .dermarolling_icon_path {
   transform: scale(0.6);
 }
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 600px) {
+  .dermarolling_wrapping {
+    height: 55.5vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .dermarolling_wrapping {
+    height: 28.6666667vh;
+  }
+}

@@ -13,8 +13,16 @@
 }
 
 /* CSS for laptops and regular-sized desktops */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 600px) {
   .quench_wrapping {
     margin-top: 0rem;
+    height: 64%;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .quench_wrapping {
+    height: auto;
   }
 }

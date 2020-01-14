@@ -169,6 +169,70 @@
   right: 0;
 }
 
+.notification_container {
+  background-color: rgb(255, 198, 207);
+  border-radius: 3px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.notification_text_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-right: 0.7rem;
+}
+
+.notification_text_container h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.notification_text_container p {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .card_description_icon_wrapper_container {
+    padding-top: 0.7rem;
+  }
+
+  .card_description_paragraph_toggle {
+    width: 45vw;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.8rem;
+    line-height: 20px;
+    padding-top: 0.7rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.95rem;
+    padding-left: 1.2rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.8rem;
+  }
+
+  .card_description_icon {
+    font-size: 0.8rem;
+  }
+
+  .card_bottom_wrapper {
+    padding-top: 0.7rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .card_svg {
@@ -190,6 +254,7 @@
   .card_description_paragraph {
     font-size: 0.75em;
     line-height: 16px;
+    padding-top: 0rem;
   }
 
   .big_screen_price,

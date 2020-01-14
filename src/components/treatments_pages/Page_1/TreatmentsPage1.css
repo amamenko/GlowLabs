@@ -7,6 +7,7 @@
     "header header header"
     "calm_card calm_card calm_card"
     "clarify_card clarify_card clarify_card";
+  background: #fff;
 }
 
 .treatments_page_1_header {
@@ -17,7 +18,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  z-index: -1;
+  z-index: 0;
 }
 
 .treatments_page_1_header h2 {
@@ -34,26 +35,7 @@
 }
 
 .treatments_title_underline {
-  animation: treatments_line 1s linear forwards;
   border-bottom: 3px solid rgb(215, 156, 165);
-}
-
-@keyframes treatments_line {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 50%;
-  }
-}
-
-@keyframes big_screen_treatments_line {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 31%;
-  }
 }
 
 .treatments_page_1_header h3 {
@@ -61,6 +43,47 @@
   font-weight: 400;
   padding-bottom: 0.5rem;
   color: rgba(0, 0, 0, 0.8);
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .treatments_page_1_container {
+    height: 85vh;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    grid-template-areas:
+      "header header header header header header"
+      "calm_card calm_card calm_card clarify_card clarify_card clarify_card"
+      "calm_card calm_card calm_card clarify_card clarify_card clarify_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+  }
+
+  .treatments_page_1_header h2 {
+    display: flex;
+    align-self: center;
+    font-size: 2rem;
+    line-height: 1.5rem;
+    text-align: left;
+    margin-right: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .treatments_page_1_header h3 p {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .treatments_page_1_header h3 p br {
+    display: none;
+  }
+
+  .treatments_title_underline {
+    display: flex;
+    align-self: center;
+    margin-right: 1.3rem;
+    animation: none;
+  }
 }
 
 /* CSS for laptops and regular-sized desktops */
@@ -97,7 +120,6 @@
   }
 
   .treatments_title_underline {
-    animation: big_screen_treatments_line 1s forwards;
     display: flex;
     align-self: center;
     margin-right: 1.3rem;
