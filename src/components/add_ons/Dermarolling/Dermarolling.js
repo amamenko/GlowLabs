@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faSquare,
+  faClock,
+  faTag
+} from "@fortawesome/free-solid-svg-icons";
 import ACTION_DERMAROLLING_TOGGLE from "../../../actions/AddOns/Dermarolling/ACTION_DERMAROLLING_TOGGLE";
 import ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET from "../../../actions/AddOns/ExtraExtractions/ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET";
 import ACTION_HYDRO_JELLY_TOGGLE_RESET from "../../../actions/AddOns/HydroJellyMask/ACTION_HYDRO_JELLY_TOGGLE_RESET";
@@ -14,6 +19,7 @@ import ACTION_DERMAROLLING_TOGGLE_RESET from "../../../actions/AddOns/Dermarolli
 import ACTION_NANONEEDLING_TOGGLE_RESET from "../../../actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
 import ACTION_GUASHA_TOGGLE_RESET from "../../../actions/AddOns/GuaSha/ACTION_GUASHA_TOGGLE_RESET";
 import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEARD_TOGGLE_RESET";
+import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { store } from "react-notifications-component";
 import DermarollingNotification from "./DermarollingNotification";
 import "./Dermarolling.css";
@@ -123,7 +129,7 @@ const Dermarolling = props => {
         config: { duration: 100 }
       },
       {
-        marginTop: "-5px",
+        marginTop: "-9px",
         color: "rgb(155, 98, 107)",
         config: { duration: 300 }
       },
@@ -133,7 +139,7 @@ const Dermarolling = props => {
         config: { duration: 200 }
       },
       {
-        marginTop: "-5",
+        marginTop: "-6",
         color: "rgb(155, 98, 107)",
         config: { duration: 200 }
       },
@@ -143,7 +149,7 @@ const Dermarolling = props => {
         config: { duration: 200 }
       },
       {
-        marginTop: "-3px",
+        marginTop: "-4px",
         color: "rgb(155, 98, 107)",
         config: { duration: 200 }
       },
@@ -155,31 +161,51 @@ const Dermarolling = props => {
     ]
   });
 
+  const addToCart = () => {
+    dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    store.addNotification({
+      content: DermarollingNotification,
+      insert: "top",
+      container: "bottom-right",
+      dismiss: {
+        duration: 5000,
+        onScreen: false
+      },
+      isMobile: true,
+      width: 400
+    });
+  };
+
   const addOnBounce = () => {
     if (dermarollingToggle) {
       return (
         <PlusBounce state="plusBounce">
           {styles => (
-            <FontAwesomeIcon
-              className="card_suitcase_icon"
+            <span
               style={styles}
-              icon={faPlus}
-            />
+              className="fa-layers fa-fw"
+              onClick={() => addToCart()}
+            >
+              <FontAwesomeIcon
+                color="rgb(255, 198, 207, 0.8)"
+                transform="grow-20"
+                icon={faSquare}
+              />
+              <FontAwesomeIcon color="rgb(155, 98, 107)" icon={faPlus} />
+            </span>
           )}
         </PlusBounce>
       );
     } else {
       return (
-        <FontAwesomeIcon
-          className="card_suitcase_icon"
-          style={{
-            color: dermarollingToggle
-              ? "rgb(155, 98, 107)"
-              : "rgb(175, 118, 127)",
-            transition: "ease all 0.5s"
-          }}
-          icon={faPlus}
-        />
+        <span className="fa-layers fa-fw" onClick={() => addToCart()}>
+          <FontAwesomeIcon
+            color="rgb(255, 198, 207, 0.6)"
+            transform="grow-20"
+            icon={faSquare}
+          />
+          <FontAwesomeIcon color="rgb(175, 118, 127)" icon={faPlus} />
+        </span>
       );
     }
   };
@@ -259,23 +285,7 @@ const Dermarolling = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div
-          className="dermarolling_wrapping"
-          ref={ref}
-          onClick={() =>
-            store.addNotification({
-              content: DermarollingNotification,
-              insert: "top",
-              container: "bottom-right",
-              dismiss: {
-                duration: 5000,
-                onScreen: false
-              },
-              isMobile: true,
-              width: 400
-            })
-          }
-        >
+        <div className="dermarolling_wrapping" ref={ref}>
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

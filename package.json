@@ -13,6 +13,7 @@
     "body-scroll-lock": "^2.6.4",
     "intersection-observer": "^0.7.0",
     "react": "16.8.6",
+    "react-activation": "^0.3.5",
     "react-dom": "16.8.6",
     "react-instafeed": "^1.0.0",
     "react-intersection-observer": "^8.25.1",

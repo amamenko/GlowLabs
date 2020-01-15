@@ -188,6 +188,15 @@ a {
   }
 }
 
+.shopping_cart {
+  color: rgb(0, 0, 0);
+  position: absolute;
+  right: 0.5rem;
+  left: auto;
+  top: 0.85rem;
+  bottom: auto;
+}
+
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
   .nav_links li {

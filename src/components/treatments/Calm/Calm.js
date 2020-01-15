@@ -14,8 +14,14 @@ import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/Chemi
 import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
+import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSuitcase, faClock, faTag } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSuitcase,
+  faSquare,
+  faClock,
+  faTag
+} from "@fortawesome/free-solid-svg-icons";
 import { store } from "react-notifications-component";
 import CalmNotification from "./CalmNotification";
 import "./Calm.css";
@@ -128,7 +134,7 @@ const Calm = props => {
         config: { duration: 100 }
       },
       {
-        marginTop: "-5px",
+        marginTop: "-9px",
         color: "rgb(155, 98, 107)",
         config: { duration: 300 }
       },
@@ -138,7 +144,7 @@ const Calm = props => {
         config: { duration: 200 }
       },
       {
-        marginTop: "-5",
+        marginTop: "-6",
         color: "rgb(155, 98, 107)",
         config: { duration: 200 }
       },
@@ -148,7 +154,7 @@ const Calm = props => {
         config: { duration: 200 }
       },
       {
-        marginTop: "-3px",
+        marginTop: "-4px",
         color: "rgb(155, 98, 107)",
         config: { duration: 200 }
       },
@@ -160,29 +166,51 @@ const Calm = props => {
     ]
   });
 
+  const addToCart = () => {
+    dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    store.addNotification({
+      content: CalmNotification,
+      insert: "top",
+      container: "bottom-right",
+      dismiss: {
+        duration: 5000,
+        onScreen: false
+      },
+      isMobile: true,
+      width: 400
+    });
+  };
+
   const bookButtonBounce = () => {
     if (calmToggle) {
       return (
         <SuitcaseBounce state="suitcaseBounce">
           {styles => (
-            <FontAwesomeIcon
-              className="card_suitcase_icon"
+            <span
               style={styles}
-              icon={faSuitcase}
-            />
+              className="fa-layers fa-fw"
+              onClick={() => addToCart()}
+            >
+              <FontAwesomeIcon
+                color="rgb(255, 198, 207, 0.8)"
+                transform="grow-20"
+                icon={faSquare}
+              />
+              <FontAwesomeIcon color="rgb(155, 98, 107)" icon={faSuitcase} />
+            </span>
           )}
         </SuitcaseBounce>
       );
     } else {
       return (
-        <FontAwesomeIcon
-          className="card_suitcase_icon"
-          style={{
-            color: calmToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
-            transition: "ease all 0.5s"
-          }}
-          icon={faSuitcase}
-        />
+        <span className="fa-layers fa-fw" onClick={() => addToCart()}>
+          <FontAwesomeIcon
+            color="rgb(255, 198, 207, 0.6)"
+            transform="grow-20"
+            icon={faSquare}
+          />
+          <FontAwesomeIcon color="rgb(175, 118, 127)" icon={faSuitcase} />
+        </span>
       );
     }
   };
@@ -248,23 +276,7 @@ const Calm = props => {
       triggerOnce={true}
     >
       {({ inView, ref }) => (
-        <div
-          className="calm_wrapping"
-          ref={ref}
-          onClick={() =>
-            store.addNotification({
-              content: CalmNotification,
-              insert: "top",
-              container: "bottom-right",
-              dismiss: {
-                duration: 5000,
-                onScreen: false
-              },
-              isMobile: true,
-              width: 400
-            })
-          }
-        >
+        <div className="calm_wrapping" ref={ref}>
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

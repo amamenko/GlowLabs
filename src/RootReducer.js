@@ -22,6 +22,7 @@ import microcurrentToggleReducer from "./reducers/AddOns/Microcurrent/microcurre
 import microdermabrasionToggleReducer from "./reducers/AddOns/Microdermabrasion/microdermabrasionToggleReducer";
 import nanoneedlingToggleReducer from "./reducers/AddOns/Nanoneedling/nanoneedlingToggleReducer";
 import scrollReducer from "./reducers/Scroll/scrollReducer";
+import navbarIsVisibleReducer from "./reducers/NavbarIsVisible/navbarIsVisibleReducer";
 
 const RootReducer = combineReducers({
   calmToggle: calmToggleReducer,
@@ -46,7 +47,8 @@ const RootReducer = combineReducers({
   microcurrentToggle: microcurrentToggleReducer,
   microdermabrasionToggle: microdermabrasionToggleReducer,
   nanoneedlingToggle: nanoneedlingToggleReducer,
-  scrollToggle: scrollReducer
+  scrollToggle: scrollReducer,
+  navbarIsVisibleReducer: navbarIsVisibleReducer
 });
 
 export default RootReducer;

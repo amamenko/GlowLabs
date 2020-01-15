@@ -144,6 +144,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  overflow: visible;
 }
 
 .card_toggler {
@@ -158,19 +159,8 @@
   flex-grow: 1;
 }
 
-.suitcase_icon {
-  position: absolute;
-  z-index: 5;
-  cursor: pointer;
-  margin-top: 0px;
-  top: 0;
-  bottom: 0;
-  left: auto;
-  right: 0;
-}
-
 .notification_container {
-  background-color: rgb(255, 198, 207);
+  background-color: rgba(255, 198, 207);
   border-radius: 3px;
   width: 100%;
   display: flex;

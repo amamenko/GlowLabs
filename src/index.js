@@ -1,11 +1,15 @@
 import * as smoothscroll from "smoothscroll-polyfill";
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { Spring } from "react-spring/renderprops";
 import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
+import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
+import NavigationBar from "./components/nav_bar/NavigationBar";
 import LandingPage from "./components/landing_page/LandingPage";
 import TreatmentsPage1 from "./components/treatments_pages/Page_1/TreatmentsPage1";
 import TreatmentsPage2 from "./components/treatments_pages/Page_2/TreatmentsPage2";
@@ -20,7 +24,14 @@ import AddOnsPage3 from "./components/add_ons_pages/Page_3/AddOnsPage3";
 import AddOnsPage4 from "./components/add_ons_pages/Page_4/AddOnsPage4";
 import AddOnsPage5 from "./components/add_ons_pages/Page_5/AddOnsPage5";
 import Instagram from "./components/instagram/Instagram";
+import ShoppingCart from "./components/shopping_cart/ShoppingCart";
+import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
+import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
+import ACTION_BODY_SCROLL_ALLOW from "./actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_BODY_SCROLL_RESET from "./actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ReactNotification from "react-notifications-component";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import KeepAlive, { AliveScope } from "react-activation";
 import "react-notifications-component/dist/theme.css";
 import "./styles.css";
 
@@ -45,7 +56,24 @@ const App = () => {
   const [previousScrollPosition, setPreviousScrollPosition] = useState(
     window.pageYOffset
   );
-  const [navbarVisible, setNavbarVisible] = useState(true);
+
+  const navbarVisible = useSelector(
+    state => state.navbarIsVisibleReducer.visible
+  );
+  const navbarToggle = useSelector(state => state.navbarToggle.toggle);
+  const scroll = useSelector(state => state.scrollToggle.scroll);
+
+  const dispatch = useDispatch();
+
+  const handleNavbarToggle = () => {
+    if (navbarToggle) {
+      dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+      dispatch(ACTION_BODY_SCROLL_ALLOW());
+    } else {
+      dispatch(ACTION_NAVBAR_TOGGLE());
+      dispatch(ACTION_BODY_SCROLL_RESET());
+    }
+  };
 
   useLayoutEffect(() => {
     const updateSize = () => {
@@ -172,21 +200,101 @@ const App = () => {
         currentScrollPosition > 0
       ) {
         if (navbarVisible) {
-          setNavbarVisible(false);
+          dispatch(ACTION_NAVBAR_NOT_VISIBLE());
         }
       } else {
-        setNavbarVisible(true);
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
       }
       setPreviousScrollPosition(currentScrollPosition);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [previousScrollPosition, navbarVisible]);
+  }, [previousScrollPosition, navbarVisible, dispatch]);
 
   return (
-    <div className="main_container">
-      <ReactNotification />
+    <>
+      <Spring
+        from={{
+          marginTop: initialScreenSize >= 600 ? "-200px" : "-100px"
+        }}
+        to={{ marginTop: "0px" }}
+        config={{
+          delay: initialScreenSize >= 600 ? 4600 : 2500,
+          duration: initialScreenSize >= 600 ? 1000 : 1500
+        }}
+      >
+        {styles => (
+          <header
+            className="header"
+            style={{
+              marginTop:
+                currentScreenSize === ""
+                  ? initialScreenSize >= 1200
+                    ? `${styles.marginTop}`
+                    : navbarVisible
+                    ? `${styles.marginTop}`
+                    : "-200px"
+                  : currentScreenSize >= 1200
+                  ? `${styles.marginTop}`
+                  : navbarVisible
+                  ? `${styles.marginTop}`
+                  : "-200px",
+              transition: "margin-top 0.5s ease",
+              height:
+                currentScreenSize === ""
+                  ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                    ? window.scrollY <= 1
+                      ? "30vh"
+                      : "15vh"
+                    : "8vh"
+                  : currentScreenSize <= 1000 && currentScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "30vh"
+                    : "15vh"
+                  : "8vh",
+              paddingTop:
+                currentScreenSize === ""
+                  ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                    ? window.scrollY <= 1
+                      ? "15vh"
+                      : "0vh"
+                    : "0vh"
+                  : currentScreenSize <= 1000 && currentScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "15vh"
+                    : "0vh"
+                  : "0vh",
+              paddingBottom:
+                currentScreenSize === ""
+                  ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                    ? window.scrollY <= 1
+                      ? "15vh"
+                      : "0vh"
+                    : "0vh"
+                  : currentScreenSize <= 1000 && currentScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "15vh"
+                    : "0vh"
+                  : "0vh"
+            }}
+          >
+            <NavigationBar
+              scroll={scroll}
+              handleNavbarToggle={handleNavbarToggle}
+              navbarToggle={navbarToggle}
+              currentScreenSize={currentScreenSize}
+              initialScreenSize={initialScreenSize}
+              handleClickToScrollToHome={handleClickToScrollToHome}
+              handleClickToScrollToTreatments={handleClickToScrollToTreatments}
+              handleClickToScrollToAddOns={handleClickToScrollToAddOns}
+              handleClickToScrollToInstagram={handleClickToScrollToInstagram}
+              ref={ref}
+            />
+          </header>
+        )}
+      </Spring>
+
       <NavigationMenu
         currentScreenSize={currentScreenSize}
         initialScreenSize={initialScreenSize}
@@ -196,75 +304,94 @@ const App = () => {
         handleClickToScrollToInstagram={handleClickToScrollToInstagram}
         ref={ref}
       />
-      <LandingPage
-        currentScreenSize={currentScreenSize}
-        initialScreenSize={initialScreenSize}
-        handleClickToScrollToHome={handleClickToScrollToHome}
-        handleClickToScrollToTreatments={handleClickToScrollToTreatments}
-        handleClickToScrollToAddOns={handleClickToScrollToAddOns}
-        handleClickToScrollToInstagram={handleClickToScrollToInstagram}
-        navbarVisible={navbarVisible}
-        ref={ref}
-      />
-      <TreatmentsPage1
-        currentScreenSize={currentScreenSize}
-        initialScreenSize={initialScreenSize}
-        Treatments1Ref={Treatments1Ref}
-      />
-      <TreatmentsPage2
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <TreatmentsPage3
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <TreatmentsPage4
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <TreatmentsPage5
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <TreatmentsPage6
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <AddOnsPage1
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        AddOnsRef={AddOnsRef}
-      />
-      <AddOnsPage2
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <AddOnsPage3
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <AddOnsPage4
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <AddOnsPage5
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <Instagram
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        InstagramRef={InstagramRef}
-      />
-    </div>
+
+      <Switch>
+        <Route exact path="/">
+          <KeepAlive saveScrollPosition="screen">
+            <div className="main_container">
+              <ReactNotification />
+              <LandingPage
+                currentScreenSize={currentScreenSize}
+                initialScreenSize={initialScreenSize}
+                handleClickToScrollToHome={handleClickToScrollToHome}
+                handleClickToScrollToTreatments={
+                  handleClickToScrollToTreatments
+                }
+                handleClickToScrollToAddOns={handleClickToScrollToAddOns}
+                handleClickToScrollToInstagram={handleClickToScrollToInstagram}
+                navbarVisible={navbarVisible}
+                ref={ref}
+              />
+              <TreatmentsPage1
+                currentScreenSize={currentScreenSize}
+                initialScreenSize={initialScreenSize}
+                Treatments1Ref={Treatments1Ref}
+              />
+              <TreatmentsPage2
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <TreatmentsPage3
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <TreatmentsPage4
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <TreatmentsPage5
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <TreatmentsPage6
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <AddOnsPage1
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+                AddOnsRef={AddOnsRef}
+              />
+              <AddOnsPage2
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <AddOnsPage3
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <AddOnsPage4
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <AddOnsPage5
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+              <Instagram
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+                InstagramRef={InstagramRef}
+              />
+            </div>
+          </KeepAlive>
+        </Route>
+        <Route path="/cart">
+          <ShoppingCart />
+        </Route>
+      </Switch>
+    </>
   );
 };
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Router>
+    <Provider store={store}>
+      <AliveScope>
+        <App />
+      </AliveScope>
+    </Provider>
+  </Router>,
   rootElement
 );
