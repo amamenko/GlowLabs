@@ -160,7 +160,7 @@
 }
 
 .notification_container {
-  background-color: rgba(255, 198, 207);
+  background-color: rgb(255, 226, 231);
   border-radius: 3px;
   width: 100%;
   display: flex;

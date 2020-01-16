@@ -1,0 +1,9 @@
+const REJUVENATE_IN_CART = "REJUVENATE_IN_CART";
+
+const ACTION_REJUVENATE_IN_CART = () => {
+  return {
+    type: REJUVENATE_IN_CART
+  };
+};
+
+export default ACTION_REJUVENATE_IN_CART;

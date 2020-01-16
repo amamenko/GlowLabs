@@ -39,6 +39,10 @@
   flex: 40;
 }
 
+.shopping_cart {
+  margin-right: 5rem;
+}
+
 .nav_menu {
   margin-top: 8vh;
   height: 92vh;

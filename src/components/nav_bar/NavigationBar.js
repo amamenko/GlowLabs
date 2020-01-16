@@ -2,9 +2,13 @@ import React from "react";
 import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
+
+  const dispatch = useDispatch();
 
   const changeNavBarColor = () => {
     if (props.currentScreenSize === "") {
@@ -160,10 +164,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
         </a>
       </h1>
       <div className="spacer" />
-      <Link to="/cart">
+      <Link to="/cart" onClick={() => dispatch(ACTION_BODY_SCROLL_RESET())}>
         <svg
           className="shopping_cart"
-          width="50%"
+          width="10%"
           height="2.1rem"
           stroke="#000"
           strokeWidth="0.1px"

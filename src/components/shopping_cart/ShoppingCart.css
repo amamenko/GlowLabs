@@ -1,13 +1,19 @@
 .shopping_cart_container {
+  position: fixed;
   padding-top: 8vh;
   height: 100vh;
   background: rgb(255, 255, 255);
-  overflow: hidden;
+}
+
+.shopping_cart_container h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
 }
 
 .shopping_cart_header {
+  color: rgb(215, 156, 165);
   height: 8vh;
-  border-bottom: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(215, 156, 165);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -17,6 +23,7 @@
 
 .empty_cart_container {
   display: flex;
+  align-self: center;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -27,8 +34,12 @@
 }
 
 .cart_statement {
-  margin-left: 1.6rem;
-  margin-right: 1.6rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  margin: 0 auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
   text-align: center;
@@ -50,16 +61,17 @@
 .continue_shopping_button {
   display: flex;
   margin: 0 auto;
-  width: 50%;
+  width: 60%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1rem;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  background: pink;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  background: rgb(255, 198, 207);
+  border-radius: 30px;
 }
