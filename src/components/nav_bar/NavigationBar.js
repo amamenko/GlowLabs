@@ -3,6 +3,7 @@ import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 
 const NavigationBar = React.forwardRef((props, ref) => {
@@ -40,6 +41,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
         return "rgb(255, 198, 207)";
       }
     }
+  };
+
+  const handleShoppingCartClick = () => {
+    dispatch(ACTION_BODY_SCROLL_RESET());
+    toast.dismiss();
   };
 
   return (
@@ -164,7 +170,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
         </a>
       </h1>
       <div className="spacer" />
-      <Link to="/cart" onClick={() => dispatch(ACTION_BODY_SCROLL_RESET())}>
+      <Link to="/cart" onClick={handleShoppingCartClick}>
         <svg
           className="shopping_cart"
           width="10%"

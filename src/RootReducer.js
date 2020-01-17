@@ -23,8 +23,30 @@ import microdermabrasionToggleReducer from "./reducers/AddOns/Microdermabrasion/
 import nanoneedlingToggleReducer from "./reducers/AddOns/Nanoneedling/nanoneedlingToggleReducer";
 import scrollReducer from "./reducers/Scroll/scrollReducer";
 import navbarIsVisibleReducer from "./reducers/NavbarIsVisible/navbarIsVisibleReducer";
+import calmInCartReducer from "./reducers/InCart/Treatments/Calm/calmInCartReducer";
+import clarifyInCartReducer from "./reducers/InCart/Treatments/Clarify/clarifyInCartReducer";
+import bacialInCartReducer from "./reducers/InCart/Treatments/Bacial/bacialInCartReducer";
+import glowInCartReducer from "./reducers/InCart/Treatments/Glow/glowInCartReducer";
+import cbdInCartReducer from "./reducers/InCart/Treatments/CBD/cbdInCartReducer";
+import chemicalPeelInCartReducer from "./reducers/InCart/Treatments/ChemicalPeel/chemicalPeelInCartReducer";
+import dermaplaningInCartReducer from "./reducers/InCart/Treatments/Dermaplaning/dermaplaningInCartReducer";
+import microneedleInCartReducer from "./reducers/InCart/Treatments/Microneedle/microneedleInCartReducer";
+import quenchInCartReducer from "./reducers/InCart/Treatments/Quench/quenchInCartReducer";
+import quickieInCartReducer from "./reducers/InCart/Treatments/Quickie/quickieInCartReducer";
+import rejuvenateInCartReducer from "./reducers/InCart/Treatments/Rejuvenate/rejuvenateInCartReducer";
+import beardInCartReducer from "./reducers/InCart/AddOns/Beard/beardInCartReducer";
+import dermarollingInCartReducer from "./reducers/InCart/AddOns/Dermarolling/dermarollingInCartReducer";
+import extraExtractionsInCartReducer from "./reducers/InCart/AddOns/ExtraExtractions/extraExtractionsInCartReducer";
+import guashaInCartReducer from "./reducers/InCart/AddOns/GuaSha/guashaInCartReducer";
+import hydroJellyInCartReducer from "./reducers/InCart/AddOns/HydroJellyMask/hydrojellyInCartReducer";
+import ledInCartReducer from "./reducers/InCart/AddOns/LEDTherapy/ledInCartReducer";
+import microcurrentInCartReducer from "./reducers/InCart/AddOns/Microcurrent/microcurrentInCartReducer";
+import microdermabrasionInCartReducer from "./reducers/InCart/AddOns/Microdermabrasion/microdermabrasionInCartReducer";
+import nanoneedlingInCartReducer from "./reducers/InCart/AddOns/NanoNeedling/nanoneedlingInCartReducer";
 
 const RootReducer = combineReducers({
+  // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
+  // Treatments
   calmToggle: calmToggleReducer,
   clarifyToggle: clarifyToggleReducer,
   bacialToggle: bacialToggleReducer,
@@ -36,8 +58,8 @@ const RootReducer = combineReducers({
   dermaplaningToggle: dermaplaningToggleReducer,
   cbdToggle: cbdToggleReducer,
   microneedleToggle: microneedleToggleReducer,
-  navbarToggle: navbarToggleReducer,
-  bodyScrollToggle: bodyScrollReducer,
+
+  // Add-Ons
   beardToggle: beardToggleReducer,
   dermarollingToggle: dermarollingToggleReducer,
   extraExtractionsToggle: extraExtractionsToggleReducer,
@@ -47,6 +69,35 @@ const RootReducer = combineReducers({
   microcurrentToggle: microcurrentToggleReducer,
   microdermabrasionToggle: microdermabrasionToggleReducer,
   nanoneedlingToggle: nanoneedlingToggleReducer,
+
+  // Reducers for adding and removing treatments/add-ons to and from cart
+  // Treatments
+  calmInCart: calmInCartReducer,
+  clarifyInCart: clarifyInCartReducer,
+  bacialInCart: bacialInCartReducer,
+  glowInCart: glowInCartReducer,
+  cbdInCart: cbdInCartReducer,
+  chemicalPeelInCart: chemicalPeelInCartReducer,
+  dermaplaningInCart: dermaplaningInCartReducer,
+  microneedleInCart: microneedleInCartReducer,
+  quenchInCart: quenchInCartReducer,
+  quickieInCart: quickieInCartReducer,
+  rejuvenateInCart: rejuvenateInCartReducer,
+
+  // Add-Ons
+  beardInCart: beardInCartReducer,
+  dermarollingInCart: dermarollingInCartReducer,
+  extraExtractionsInCart: extraExtractionsInCartReducer,
+  guashaInCart: guashaInCartReducer,
+  hydroJellyInCart: hydroJellyInCartReducer,
+  ledInCart: ledInCartReducer,
+  microcurrentInCart: microcurrentInCartReducer,
+  microdermabrasionInCart: microdermabrasionInCartReducer,
+  nanoneedlingInCart: nanoneedlingInCartReducer,
+
+  // Reducers for navbar/body interactions
+  navbarToggle: navbarToggleReducer,
+  bodyScrollToggle: bodyScrollReducer,
   scrollToggle: scrollReducer,
   navbarIsVisibleReducer: navbarIsVisibleReducer
 });

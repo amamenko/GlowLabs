@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
@@ -14,6 +14,8 @@ import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/Chemi
 import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
+import ACTION_CALM_IN_CART from "../../../actions/InCart/Treatments/Calm/ACTION_CALM_IN_CART";
+import ACTION_CALM_NOT_IN_CART from "../../../actions/InCart/Treatments/Calm/ACTION_CALM_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,12 +24,13 @@ import {
   faClock,
   faTag
 } from "@fortawesome/free-solid-svg-icons";
-import { store } from "react-notifications-component";
+import { toast } from "react-toastify";
 import CalmNotification from "./CalmNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
 
 const Calm = props => {
+  // "Learn More" states
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -45,6 +48,11 @@ const Calm = props => {
   const microneedleToggle = useSelector(
     state => state.microneedleToggle.toggle
   );
+
+  // In Cart states
+  const calmInCart = useSelector(state => state.calmInCart.in_cart);
+
+  const [cartClicked, changeCartClicked] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -126,6 +134,8 @@ const Calm = props => {
     }
   };
 
+  console.log(cartClicked);
+
   const SuitcaseBounce = Keyframes.Spring({
     suitcaseBounce: [
       {
@@ -166,53 +176,90 @@ const Calm = props => {
     ]
   });
 
-  const addToCart = () => {
-    dispatch(ACTION_NAVBAR_IS_VISIBLE());
-    store.addNotification({
-      content: CalmNotification,
-      insert: "top",
-      container: "bottom-right",
-      dismiss: {
-        duration: 5000,
-        onScreen: false
-      },
-      isMobile: true,
-      width: 400
-    });
-  };
+  const checkMark = useMemo(() => {
+    return (
+      <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
+        {styles => (
+          <svg
+            width="100%"
+            height="2rem"
+            style={{
+              marginTop: "-0.5rem",
+              display: calmInCart ? "block" : "none"
+            }}
+            viewBox="0 0 13.229 13.229"
+          >
+            <path
+              d="M2.851 7.56l2.45 2.482 5.36-6.958"
+              fill="none"
+              stroke="#000"
+              strokeDasharray="100"
+              strokeDashoffset={
+                cartClicked ? (calmInCart ? `${styles.x}` : 0) : 0
+              }
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
+            />
+          </svg>
+        )}
+      </Spring>
+    );
+  }, [calmInCart, cartClicked]);
+
+  const addToCart = useCallback(() => {
+    if (calmInCart) {
+      dispatch(ACTION_CALM_NOT_IN_CART());
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    } else {
+      dispatch(ACTION_CALM_IN_CART());
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      changeCartClicked(true);
+      setTimeout(() => changeCartClicked(false), 200);
+      toast(<CalmNotification />);
+    }
+  }, [calmInCart, dispatch]);
 
   const bookButtonBounce = () => {
-    if (calmToggle) {
-      return (
-        <SuitcaseBounce state="suitcaseBounce">
-          {styles => (
-            <span
-              style={styles}
-              className="fa-layers fa-fw"
-              onClick={() => addToCart()}
-            >
-              <FontAwesomeIcon
-                color="rgb(255, 198, 207, 0.8)"
-                transform="grow-20"
-                icon={faSquare}
-              />
-              <FontAwesomeIcon color="rgb(155, 98, 107)" icon={faSuitcase} />
-            </span>
-          )}
-        </SuitcaseBounce>
-      );
-    } else {
-      return (
-        <span className="fa-layers fa-fw" onClick={() => addToCart()}>
-          <FontAwesomeIcon
-            color="rgb(255, 198, 207, 0.6)"
-            transform="grow-20"
-            icon={faSquare}
-          />
-          <FontAwesomeIcon color="rgb(175, 118, 127)" icon={faSuitcase} />
-        </span>
-      );
-    }
+    return (
+      <SuitcaseBounce state="suitcaseBounce">
+        {styles => (
+          <span
+            className="fa-layers fa-fw"
+            style={
+              calmToggle
+                ? calmInCart
+                  ? { position: "relative" }
+                  : styles
+                : calmInCart
+                ? { position: "relative" }
+                : { position: "relative" }
+            }
+            onClick={() => addToCart()}
+          >
+            <FontAwesomeIcon
+              color={
+                calmToggle
+                  ? calmInCart
+                    ? "rgb(119, 221, 119, 0.6)"
+                    : "rgb(255, 198, 207, 0.8)"
+                  : calmInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : "rgb(255, 198, 207, 0.6)"
+              }
+              transform="grow-20"
+              icon={faSquare}
+            />
+            {checkMark}
+            <FontAwesomeIcon
+              style={{ display: calmInCart ? "none" : "block" }}
+              color="rgb(175, 118, 127)"
+              icon={faSuitcase}
+            />
+          </span>
+        )}
+      </SuitcaseBounce>
+    );
   };
 
   const bigScreenBottomWrapperRender = () => {

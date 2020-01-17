@@ -22,7 +22,7 @@ import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermap
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
-import { store } from "react-notifications-component";
+import { toast } from "react-toastify";
 import QuickieNotification from "./QuickieNotification";
 import "./Quickie.css";
 
@@ -167,17 +167,7 @@ const Quickie = props => {
 
   const addToCart = () => {
     dispatch(ACTION_NAVBAR_IS_VISIBLE());
-    store.addNotification({
-      content: QuickieNotification,
-      insert: "top",
-      container: "bottom-right",
-      dismiss: {
-        duration: 5000,
-        onScreen: false
-      },
-      isMobile: true,
-      width: 400
-    });
+    toast(<QuickieNotification />);
   };
 
   const bookButtonBounce = () => {

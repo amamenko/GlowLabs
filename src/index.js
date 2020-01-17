@@ -29,10 +29,10 @@ import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET
 import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
 import ACTION_BODY_SCROLL_ALLOW from "./actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_BODY_SCROLL_RESET from "./actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
-import ReactNotification from "react-notifications-component";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
-import "react-notifications-component/dist/theme.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
 
 require("intersection-observer");
@@ -72,6 +72,7 @@ const App = () => {
     } else {
       dispatch(ACTION_NAVBAR_TOGGLE());
       dispatch(ACTION_BODY_SCROLL_RESET());
+      toast.dismiss();
     }
   };
 
@@ -295,6 +296,18 @@ const App = () => {
         )}
       </Spring>
 
+      <ToastContainer
+        toastClassName="toast_container"
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnVisibilityChange
+        draggable={true}
+        draggablePercent={40}
+      />
+
       <NavigationMenu
         currentScreenSize={currentScreenSize}
         initialScreenSize={initialScreenSize}
@@ -309,7 +322,6 @@ const App = () => {
         <Route exact path="/">
           <KeepAlive saveScrollPosition="screen">
             <div className="main_container">
-              <ReactNotification />
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}

@@ -160,9 +160,8 @@
 }
 
 .notification_container {
-  background-color: rgb(255, 226, 231);
-  border-radius: 3px;
   width: 100%;
+  background-color: rgb(255, 226, 231);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -174,15 +173,16 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  padding-right: 0.7rem;
 }
 
 .notification_text_container h3 {
+  color: rgb(0, 0, 0);
   font-size: 1rem;
   font-weight: 600;
 }
 
 .notification_text_container p {
+  color: rgb(0, 0, 0);
   margin-top: 0.3rem;
   font-size: 0.8rem;
   font-weight: 400;

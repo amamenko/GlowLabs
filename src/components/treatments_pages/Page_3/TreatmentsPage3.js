@@ -43,7 +43,7 @@ const TreatmentsPage3 = props => {
           </>
         )
       ) : props.currentScreenSize >= 600 &&
-        props.initialScreenSize <= 1200 ? null : (
+        props.currentScreenSize <= 1200 ? null : (
         <>
           <Quickie
             initialScreenSize={props.initialScreenSize}

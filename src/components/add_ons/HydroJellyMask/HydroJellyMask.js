@@ -20,7 +20,7 @@ import ACTION_NANONEEDLING_TOGGLE_RESET from "../../../actions/AddOns/Nanoneedli
 import ACTION_GUASHA_TOGGLE_RESET from "../../../actions/AddOns/GuaSha/ACTION_GUASHA_TOGGLE_RESET";
 import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEARD_TOGGLE_RESET";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
-import { store } from "react-notifications-component";
+import { toast } from "react-toastify";
 import HydroJellyMaskNotification from "./HydroJellyMaskNotification";
 import "./HydroJellyMask.css";
 import "../../treatments/card_styling.css";
@@ -162,17 +162,7 @@ const HydroJellyMask = props => {
 
   const addToCart = () => {
     dispatch(ACTION_NAVBAR_IS_VISIBLE());
-    store.addNotification({
-      content: HydroJellyMaskNotification,
-      insert: "top",
-      container: "bottom-right",
-      dismiss: {
-        duration: 5000,
-        onScreen: false
-      },
-      isMobile: true,
-      width: 400
-    });
+    toast(<HydroJellyMaskNotification />);
   };
 
   const addOnBounce = () => {

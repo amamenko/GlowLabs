@@ -22,7 +22,7 @@ import {
   faClock,
   faTag
 } from "@fortawesome/free-solid-svg-icons";
-import { store } from "react-notifications-component";
+import { toast } from "react-toastify";
 import ClarifyNotification from "./ClarifyNotification";
 import "./Clarify.css";
 
@@ -167,17 +167,7 @@ const Clarify = props => {
 
   const addToCart = () => {
     dispatch(ACTION_NAVBAR_IS_VISIBLE());
-    store.addNotification({
-      content: ClarifyNotification,
-      insert: "top",
-      container: "bottom-right",
-      dismiss: {
-        duration: 5000,
-        onScreen: false
-      },
-      isMobile: true,
-      width: 400
-    });
+    toast(<ClarifyNotification />);
   };
 
   const bookButtonBounce = () => {

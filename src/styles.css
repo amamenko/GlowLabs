@@ -19,6 +19,20 @@ body {
   }
 }
 
+.toast_container {
+  font-family: "Montserrat", sans-serif;
+  background-color: rgb(255, 226, 231);
+  margin-bottom: 1rem;
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .toast_container {
+    width: 42vw;
+    margin-left: -5.8rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   /* Prevent larger browser scrollbar view */
