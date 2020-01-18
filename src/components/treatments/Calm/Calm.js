@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
@@ -26,6 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import CalmNotification from "./CalmNotification";
+import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
 
@@ -51,6 +52,22 @@ const Calm = props => {
 
   // In Cart states
   const calmInCart = useSelector(state => state.calmInCart.in_cart);
+  const clarifyInCart = useSelector(state => state.clarifyInCart.in_cart);
+  const bacialInCart = useSelector(state => state.bacialInCart.in_cart);
+  const glowInCart = useSelector(state => state.glowInCart.in_cart);
+  const cbdInCart = useSelector(state => state.cbdInCart.in_cart);
+  const chemicalPeelInCart = useSelector(
+    state => state.chemicalPeelInCart.in_cart
+  );
+  const dermaplaningInCart = useSelector(
+    state => state.dermaplaningInCart.in_cart
+  );
+  const microneedleInCart = useSelector(
+    state => state.microneedleInCart.in_cart
+  );
+  const quenchInCart = useSelector(state => state.quenchInCart.in_cart);
+  const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
+  const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
 
   const [cartClicked, changeCartClicked] = useState(false);
 
@@ -134,8 +151,6 @@ const Calm = props => {
     }
   };
 
-  console.log(cartClicked);
-
   const SuitcaseBounce = Keyframes.Spring({
     suitcaseBounce: [
       {
@@ -176,7 +191,7 @@ const Calm = props => {
     ]
   });
 
-  const checkMark = useMemo(() => {
+  const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
         {styles => (
@@ -205,20 +220,42 @@ const Calm = props => {
         )}
       </Spring>
     );
-  }, [calmInCart, cartClicked]);
+  };
 
-  const addToCart = useCallback(() => {
-    if (calmInCart) {
-      dispatch(ACTION_CALM_NOT_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+  const inCartToastId = "facial_already_in_cart";
+
+  const addToCart = () => {
+    if (
+      bacialInCart |
+      cbdInCart |
+      chemicalPeelInCart |
+      clarifyInCart |
+      dermaplaningInCart |
+      glowInCart |
+      microneedleInCart |
+      quenchInCart |
+      quickieInCart |
+      rejuvenateInCart
+    ) {
+      if (!toast.isActive(inCartToastId)) {
+        toast(<FacialInCartErrorNotification />, {
+          className: "toast_error_container",
+          toastId: inCartToastId
+        });
+      }
     } else {
-      dispatch(ACTION_CALM_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      changeCartClicked(true);
-      setTimeout(() => changeCartClicked(false), 200);
-      toast(<CalmNotification />);
+      if (calmInCart) {
+        dispatch(ACTION_CALM_NOT_IN_CART());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      } else {
+        dispatch(ACTION_CALM_IN_CART());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        changeCartClicked(true);
+        setTimeout(() => changeCartClicked(false), 200);
+        toast(<CalmNotification />);
+      }
     }
-  }, [calmInCart, dispatch]);
+  };
 
   const bookButtonBounce = () => {
     return (
@@ -228,11 +265,19 @@ const Calm = props => {
             className="fa-layers fa-fw"
             style={
               calmToggle
-                ? calmInCart
+                ? calmInCart |
+                  bacialInCart |
+                  cbdInCart |
+                  chemicalPeelInCart |
+                  clarifyInCart |
+                  dermaplaningInCart |
+                  glowInCart |
+                  microneedleInCart |
+                  quenchInCart |
+                  quickieInCart |
+                  rejuvenateInCart
                   ? { position: "relative" }
                   : styles
-                : calmInCart
-                ? { position: "relative" }
                 : { position: "relative" }
             }
             onClick={() => addToCart()}
@@ -241,19 +286,54 @@ const Calm = props => {
               color={
                 calmToggle
                   ? calmInCart
-                    ? "rgb(119, 221, 119, 0.6)"
-                    : "rgb(255, 198, 207, 0.8)"
+                    ? "rgba(119, 221, 119, 0.6)"
+                    : bacialInCart |
+                      cbdInCart |
+                      chemicalPeelInCart |
+                      clarifyInCart |
+                      dermaplaningInCart |
+                      glowInCart |
+                      microneedleInCart |
+                      quenchInCart |
+                      quickieInCart |
+                      rejuvenateInCart
+                    ? "rgba(211, 211, 211, 0.8"
+                    : "rgba(255, 198, 207, 0.8)"
                   : calmInCart
                   ? "rgb(119, 221, 119, 0.6)"
-                  : "rgb(255, 198, 207, 0.6)"
+                  : bacialInCart |
+                    cbdInCart |
+                    chemicalPeelInCart |
+                    clarifyInCart |
+                    dermaplaningInCart |
+                    glowInCart |
+                    microneedleInCart |
+                    quenchInCart |
+                    quickieInCart |
+                    rejuvenateInCart
+                  ? "rgba(211, 211, 211, 0.8"
+                  : "rgba(255, 198, 207, 0.6)"
               }
               transform="grow-20"
               icon={faSquare}
             />
-            {checkMark}
+            {checkMark()}
             <FontAwesomeIcon
               style={{ display: calmInCart ? "none" : "block" }}
-              color="rgb(175, 118, 127)"
+              color={
+                bacialInCart |
+                cbdInCart |
+                chemicalPeelInCart |
+                clarifyInCart |
+                dermaplaningInCart |
+                glowInCart |
+                microneedleInCart |
+                quenchInCart |
+                quickieInCart |
+                rejuvenateInCart
+                  ? "rgb(151, 151, 151)"
+                  : "rgb(175, 118, 127)"
+              }
               icon={faSuitcase}
             />
           </span>

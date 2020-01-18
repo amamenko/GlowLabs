@@ -299,7 +299,7 @@ const App = () => {
       <ToastContainer
         toastClassName="toast_container"
         position="bottom-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar
         newestOnTop
         closeOnClick

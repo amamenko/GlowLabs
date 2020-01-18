@@ -20,13 +20,20 @@ body {
 }
 
 .toast_container {
-  font-family: "Montserrat", sans-serif;
   background-color: rgb(255, 226, 231);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 1rem;
+}
+
+.toast_error_container {
+  background-color: rgb(225, 225, 225);
+  font-family: "Montserrat", sans-serif;
   margin-bottom: 1rem;
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
+  .toast_error_container,
   .toast_container {
     width: 42vw;
     margin-left: -5.8rem;

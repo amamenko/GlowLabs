@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,13 +21,17 @@ import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "../../../actions/Treatments/Chemi
 import ACTION_DERMAPLANING_TOGGLE_RESET from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
 import ACTION_CBD_TOGGLE_RESET from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
 import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
+import ACTION_DERMAPLANE_IN_CART from "../../../actions/InCart/Treatments/Dermaplaning/ACTION_DERMAPLANE_IN_CART";
+import ACTION_DERMAPLANE_NOT_IN_CART from "../../../actions/InCart/Treatments/Dermaplaning/ACTION_DERMAPLANE_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import DermaplaningNotification from "./DermaplaningNotification";
+import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Dermaplaning.css";
 import "../../treatments_pages/Page_3/TreatmentsPage3.css";
 
 const Dermaplaning = props => {
+  // "Learn More" states
   const calmToggle = useSelector(state => state.calmToggle.toggle);
   const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
   const bacialToggle = useSelector(state => state.bacialToggle.toggle);
@@ -45,6 +49,27 @@ const Dermaplaning = props => {
   const microneedleToggle = useSelector(
     state => state.microneedleToggle.toggle
   );
+
+  // In Cart states
+  const calmInCart = useSelector(state => state.calmInCart.in_cart);
+  const clarifyInCart = useSelector(state => state.clarifyInCart.in_cart);
+  const bacialInCart = useSelector(state => state.bacialInCart.in_cart);
+  const glowInCart = useSelector(state => state.glowInCart.in_cart);
+  const cbdInCart = useSelector(state => state.cbdInCart.in_cart);
+  const chemicalPeelInCart = useSelector(
+    state => state.chemicalPeelInCart.in_cart
+  );
+  const dermaplaningInCart = useSelector(
+    state => state.dermaplaningInCart.in_cart
+  );
+  const microneedleInCart = useSelector(
+    state => state.microneedleInCart.in_cart
+  );
+  const quenchInCart = useSelector(state => state.quenchInCart.in_cart);
+  const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
+  const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
+
+  const [cartClicked, changeCartClicked] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -166,43 +191,155 @@ const Dermaplaning = props => {
     ]
   });
 
+  const checkMark = () => {
+    return (
+      <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
+        {styles => (
+          <svg
+            width="100%"
+            height="2rem"
+            style={{
+              marginTop: "-0.5rem",
+              display: dermaplaningInCart ? "block" : "none"
+            }}
+            viewBox="0 0 13.229 13.229"
+          >
+            <path
+              d="M2.851 7.56l2.45 2.482 5.36-6.958"
+              fill="none"
+              stroke="#000"
+              strokeDasharray="100"
+              strokeDashoffset={
+                cartClicked ? (dermaplaningInCart ? `${styles.x}` : 0) : 0
+              }
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
+            />
+          </svg>
+        )}
+      </Spring>
+    );
+  };
+
+  const inCartToastId = "facial_already_in_cart";
+
   const addToCart = () => {
-    dispatch(ACTION_NAVBAR_IS_VISIBLE());
-    toast(<DermaplaningNotification />);
+    if (
+      calmInCart |
+      cbdInCart |
+      quickieInCart |
+      clarifyInCart |
+      chemicalPeelInCart |
+      bacialInCart |
+      microneedleInCart |
+      rejuvenateInCart |
+      quenchInCart |
+      glowInCart
+    ) {
+      if (!toast.isActive(inCartToastId)) {
+        toast(<FacialInCartErrorNotification />, {
+          className: "toast_error_container",
+          toastId: inCartToastId
+        });
+      }
+    } else {
+      if (dermaplaningInCart) {
+        dispatch(ACTION_DERMAPLANE_NOT_IN_CART());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      } else {
+        dispatch(ACTION_DERMAPLANE_IN_CART());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        changeCartClicked(true);
+        setTimeout(() => changeCartClicked(false), 200);
+        toast(<DermaplaningNotification />);
+      }
+    }
   };
 
   const bookButtonBounce = () => {
-    if (dermaplaningToggle) {
-      return (
-        <SuitcaseBounce state="suitcaseBounce">
-          {styles => (
-            <span
-              style={styles}
-              className="fa-layers fa-fw"
-              onClick={() => addToCart()}
-            >
-              <FontAwesomeIcon
-                color="rgb(255, 198, 207, 0.8)"
-                transform="grow-20"
-                icon={faSquare}
-              />
-              <FontAwesomeIcon color="rgb(155, 98, 107)" icon={faSuitcase} />
-            </span>
-          )}
-        </SuitcaseBounce>
-      );
-    } else {
-      return (
-        <span className="fa-layers fa-fw" onClick={() => addToCart()}>
-          <FontAwesomeIcon
-            color="rgb(255, 198, 207, 0.6)"
-            transform="grow-20"
-            icon={faSquare}
-          />
-          <FontAwesomeIcon color="rgb(175, 118, 127)" icon={faSuitcase} />
-        </span>
-      );
-    }
+    return (
+      <SuitcaseBounce state="suitcaseBounce">
+        {styles => (
+          <span
+            className="fa-layers fa-fw"
+            style={
+              dermaplaningToggle
+                ? clarifyInCart |
+                  bacialInCart |
+                  cbdInCart |
+                  chemicalPeelInCart |
+                  calmInCart |
+                  dermaplaningInCart |
+                  glowInCart |
+                  microneedleInCart |
+                  quenchInCart |
+                  quickieInCart |
+                  rejuvenateInCart
+                  ? { position: "relative" }
+                  : styles
+                : { position: "relative" }
+            }
+            onClick={() => addToCart()}
+          >
+            <FontAwesomeIcon
+              color={
+                dermaplaningToggle
+                  ? dermaplaningInCart
+                    ? "rgba(119, 221, 119, 0.6)"
+                    : calmInCart |
+                      cbdInCart |
+                      quickieInCart |
+                      clarifyInCart |
+                      chemicalPeelInCart |
+                      bacialInCart |
+                      microneedleInCart |
+                      rejuvenateInCart |
+                      quenchInCart |
+                      glowInCart
+                    ? "rgba(211, 211, 211, 0.8"
+                    : "rgba(255, 198, 207, 0.8)"
+                  : dermaplaningInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : calmInCart |
+                    cbdInCart |
+                    quickieInCart |
+                    clarifyInCart |
+                    chemicalPeelInCart |
+                    bacialInCart |
+                    microneedleInCart |
+                    rejuvenateInCart |
+                    quenchInCart |
+                    glowInCart
+                  ? "rgba(211, 211, 211, 0.8"
+                  : "rgba(255, 198, 207, 0.6)"
+              }
+              transform="grow-20"
+              icon={faSquare}
+            />
+            {checkMark()}
+            <FontAwesomeIcon
+              style={{ display: dermaplaningInCart ? "none" : "block" }}
+              color={
+                calmInCart |
+                cbdInCart |
+                quickieInCart |
+                clarifyInCart |
+                chemicalPeelInCart |
+                bacialInCart |
+                microneedleInCart |
+                rejuvenateInCart |
+                quenchInCart |
+                glowInCart
+                  ? "rgb(151, 151, 151)"
+                  : "rgb(175, 118, 127)"
+              }
+              icon={faSuitcase}
+            />
+          </span>
+        )}
+      </SuitcaseBounce>
+    );
   };
 
   const bigScreenBottomWrapperRender = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
@@ -19,6 +19,8 @@ import ACTION_DERMAROLLING_TOGGLE_RESET from "../../../actions/AddOns/Dermarolli
 import ACTION_NANONEEDLING_TOGGLE_RESET from "../../../actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
 import ACTION_GUASHA_TOGGLE_RESET from "../../../actions/AddOns/GuaSha/ACTION_GUASHA_TOGGLE_RESET";
 import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEARD_TOGGLE_RESET";
+import ACTION_EXTRACTION_IN_CART from "../../../actions/InCart/AddOns/ExtraExtractions/ACTION_EXTRACTION_IN_CART";
+import ACTION_EXTRACTION_NOT_IN_CART from "../../../actions/InCart/AddOns/ExtraExtractions/ACTION_EXTRACTION_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import ExtraExtractionsNotification from "./ExtraExtractionsNotification";
@@ -26,6 +28,7 @@ import "./ExtraExtractions.css";
 import "../../treatments/card_styling.css";
 
 const ExtraExtractions = props => {
+  // "Learn More" states
   const extraExtractionsToggle = useSelector(
     state => state.extraExtractionsToggle.toggle
   );
@@ -45,6 +48,13 @@ const ExtraExtractions = props => {
   );
   const guashaToggle = useSelector(state => state.guashaToggle.toggle);
   const beardToggle = useSelector(state => state.beardToggle.toggle);
+
+  // In Cart states
+  const extraExtractionsInCart = useSelector(
+    state => state.extraExtractionsInCart.in_cart
+  );
+
+  const [cartClicked, changeCartClicked] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -160,43 +170,88 @@ const ExtraExtractions = props => {
     ]
   });
 
+  const checkMark = () => {
+    return (
+      <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
+        {styles => (
+          <svg
+            width="100%"
+            height="2rem"
+            style={{
+              marginTop: "-0.5rem",
+              display: extraExtractionsInCart ? "block" : "none"
+            }}
+            viewBox="0 0 13.229 13.229"
+          >
+            <path
+              d="M2.851 7.56l2.45 2.482 5.36-6.958"
+              fill="none"
+              stroke="#000"
+              strokeDasharray="100"
+              strokeDashoffset={
+                cartClicked ? (extraExtractionsInCart ? `${styles.x}` : 0) : 0
+              }
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
+            />
+          </svg>
+        )}
+      </Spring>
+    );
+  };
+
   const addToCart = () => {
-    dispatch(ACTION_NAVBAR_IS_VISIBLE());
-    toast(<ExtraExtractionsNotification />);
+    if (extraExtractionsInCart) {
+      dispatch(ACTION_EXTRACTION_NOT_IN_CART());
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    } else {
+      dispatch(ACTION_EXTRACTION_IN_CART());
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      changeCartClicked(true);
+      setTimeout(() => changeCartClicked(false), 200);
+      toast(<ExtraExtractionsNotification />);
+    }
   };
 
   const addOnBounce = () => {
-    if (extraExtractionsToggle) {
-      return (
-        <PlusBounce state="plusBounce">
-          {styles => (
-            <span
-              style={styles}
-              className="fa-layers fa-fw"
-              onClick={() => addToCart()}
-            >
-              <FontAwesomeIcon
-                color="rgb(255, 198, 207, 0.8)"
-                transform="grow-20"
-                icon={faSquare}
-              />
-              <FontAwesomeIcon color="rgb(155, 98, 107)" icon={faPlus} />
-            </span>
-          )}
-        </PlusBounce>
-      );
-    } else {
-      return (
-        <span className="fa-layers fa-fw" onClick={() => addToCart()}>
-          <FontAwesomeIcon
-            color="rgb(255, 198, 207, 0.6)"
-            transform="grow-20"
-            icon={faSquare}
-          />
-          <FontAwesomeIcon color="rgb(175, 118, 127)" icon={faPlus} />
-        </span>
-      );
-    }
+    return (
+      <PlusBounce state="plusBounce">
+        {styles => (
+          <span
+            className="fa-layers fa-fw"
+            style={
+              extraExtractionsToggle
+                ? extraExtractionsInCart
+                  ? { position: "relative" }
+                  : styles
+                : { position: "relative" }
+            }
+            onClick={() => addToCart()}
+          >
+            <FontAwesomeIcon
+              color={
+                extraExtractionsToggle
+                  ? extraExtractionsInCart
+                    ? "rgb(119, 221, 119, 0.6)"
+                    : "rgb(255, 198, 207, 0.8)"
+                  : extraExtractionsInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : "rgb(255, 198, 207, 0.6)"
+              }
+              transform="grow-20"
+              icon={faSquare}
+            />
+            {checkMark()}
+            <FontAwesomeIcon
+              style={{ display: extraExtractionsInCart ? "none" : "block" }}
+              color="rgb(175, 118, 127)"
+              icon={faPlus}
+            />
+          </span>
+        )}
+      </PlusBounce>
+    );
   };
 
   const bigScreenBottomWrapperRender = () => {
