@@ -24,6 +24,8 @@ import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microne
 import ACTION_CHEM_PEEL_IN_CART from "../../../actions/InCart/Treatments/ChemicalPeel/ACTION_CHEM_PEEL_IN_CART";
 import ACTION_CHEM_PEEL_NOT_IN_CART from "../../../actions/InCart/Treatments/ChemicalPeel/ACTION_CHEM_PEEL_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
+import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import { toast } from "react-toastify";
 import ChemicalPeelNotification from "./ChemicalPeelNotification";
 import ChemicalPeelRemovedNotification from "./ChemicalPeelRemovedNotification";
@@ -248,6 +250,7 @@ const ChemicalPeel = props => {
       if (chemicalPeelInCart) {
         toast.dismiss();
         dispatch(ACTION_CHEM_PEEL_NOT_IN_CART());
+        dispatch(ACTION_DECREMENT_COUNTER());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         toast(<ChemicalPeelRemovedNotification />, {
           className: "toast_removed_container"
@@ -255,6 +258,7 @@ const ChemicalPeel = props => {
       } else {
         toast.dismiss();
         dispatch(ACTION_CHEM_PEEL_IN_CART());
+        dispatch(ACTION_INCREMENT_COUNTER());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);

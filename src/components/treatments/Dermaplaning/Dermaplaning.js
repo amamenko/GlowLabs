@@ -24,6 +24,8 @@ import ACTION_MICRONEEDLE_TOGGLE_RESET from "../../../actions/Treatments/Microne
 import ACTION_DERMAPLANE_IN_CART from "../../../actions/InCart/Treatments/Dermaplaning/ACTION_DERMAPLANE_IN_CART";
 import ACTION_DERMAPLANE_NOT_IN_CART from "../../../actions/InCart/Treatments/Dermaplaning/ACTION_DERMAPLANE_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
+import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import { toast } from "react-toastify";
 import DermaplaningNotification from "./DermaplaningNotification";
 import DermaplaningRemovedNotification from "./DermaplaningRemovedNotification";
@@ -249,6 +251,7 @@ const Dermaplaning = props => {
       if (dermaplaningInCart) {
         toast.dismiss();
         dispatch(ACTION_DERMAPLANE_NOT_IN_CART());
+        dispatch(ACTION_DECREMENT_COUNTER());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         toast(<DermaplaningRemovedNotification />, {
           className: "toast_removed_container"
@@ -256,6 +259,7 @@ const Dermaplaning = props => {
       } else {
         toast.dismiss();
         dispatch(ACTION_DERMAPLANE_IN_CART());
+        dispatch(ACTION_INCREMENT_COUNTER());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);

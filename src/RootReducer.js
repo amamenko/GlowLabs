@@ -43,6 +43,7 @@ import ledInCartReducer from "./reducers/InCart/AddOns/LEDTherapy/ledInCartReduc
 import microcurrentInCartReducer from "./reducers/InCart/AddOns/Microcurrent/microcurrentInCartReducer";
 import microdermabrasionInCartReducer from "./reducers/InCart/AddOns/Microdermabrasion/microdermabrasionInCartReducer";
 import nanoneedlingInCartReducer from "./reducers/InCart/AddOns/NanoNeedling/nanoneedlingInCartReducer";
+import counterReducer from "./reducers/Counter/counterReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -99,7 +100,10 @@ const RootReducer = combineReducers({
   navbarToggle: navbarToggleReducer,
   bodyScrollToggle: bodyScrollReducer,
   scrollToggle: scrollReducer,
-  navbarIsVisibleReducer: navbarIsVisibleReducer
+  navbarIsVisibleReducer: navbarIsVisibleReducer,
+
+  // Counter Reducer
+  counterReducer: counterReducer
 });
 
 export default RootReducer;

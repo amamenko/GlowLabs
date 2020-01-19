@@ -22,9 +22,12 @@ import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEAR
 import ACTION_LED_IN_CART from "../../../actions/InCart/AddOns/LEDTherapy/ACTION_LED_IN_CART";
 import ACTION_LED_NOT_IN_CART from "../../../actions/InCart/AddOns/LEDTherapy/ACTION_LED_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
+import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import { toast } from "react-toastify";
 import LEDTherapyNotification from "./LEDTherapyNotification";
 import LEDTherapyRemovedNotification from "./LEDTherapyRemovedNotification";
+import AddOnsChemPeelErrorNotification from "../AddOnsChemPeelErrorNotification";
 import "./LEDTherapy.css";
 import "../../treatments/card_styling.css";
 
@@ -51,6 +54,9 @@ const LEDTherapy = props => {
 
   // In Cart states
   const ledInCart = useSelector(state => state.ledInCart.in_cart);
+  const chemicalPeelInCart = useSelector(
+    state => state.chemicalPeelInCart.in_cart
+  );
 
   const [cartClicked, changeCartClicked] = useState(false);
 
@@ -200,21 +206,35 @@ const LEDTherapy = props => {
     );
   };
 
+  const chemPeelAddOnErrorToastId = "chem_peel_add_on_error";
+
   const addToCart = () => {
-    if (ledInCart) {
-      toast.dismiss();
-      dispatch(ACTION_LED_NOT_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      toast(<LEDTherapyRemovedNotification />, {
-        className: "toast_removed_container"
-      });
+    if (chemicalPeelInCart) {
+      if (!toast.isActive(chemPeelAddOnErrorToastId)) {
+        toast.dismiss();
+        toast(<AddOnsChemPeelErrorNotification />, {
+          className: "toast_error_container",
+          toastId: chemPeelAddOnErrorToastId
+        });
+      }
     } else {
-      toast.dismiss();
-      dispatch(ACTION_LED_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      changeCartClicked(true);
-      setTimeout(() => changeCartClicked(false), 200);
-      toast(<LEDTherapyNotification />);
+      if (ledInCart) {
+        toast.dismiss();
+        dispatch(ACTION_LED_NOT_IN_CART());
+        dispatch(ACTION_DECREMENT_COUNTER());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<LEDTherapyRemovedNotification />, {
+          className: "toast_removed_container"
+        });
+      } else {
+        toast.dismiss();
+        dispatch(ACTION_LED_IN_CART());
+        dispatch(ACTION_INCREMENT_COUNTER());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        changeCartClicked(true);
+        setTimeout(() => changeCartClicked(false), 200);
+        toast(<LEDTherapyNotification />);
+      }
     }
   };
 
@@ -228,6 +248,8 @@ const LEDTherapy = props => {
               ledTherapyToggle
                 ? ledInCart
                   ? { position: "relative" }
+                  : chemicalPeelInCart
+                  ? { position: "relative" }
                   : styles
                 : { position: "relative" }
             }
@@ -238,9 +260,13 @@ const LEDTherapy = props => {
                 ledTherapyToggle
                   ? ledInCart
                     ? "rgb(119, 221, 119, 0.6)"
+                    : chemicalPeelInCart
+                    ? "rgb(211, 211, 211)"
                     : "rgb(255, 198, 207, 0.8)"
                   : ledInCart
                   ? "rgb(119, 221, 119, 0.6)"
+                  : chemicalPeelInCart
+                  ? "rgb(211, 211, 211)"
                   : "rgb(255, 198, 207, 0.6)"
               }
               transform="grow-20"
@@ -249,7 +275,9 @@ const LEDTherapy = props => {
             {checkMark()}
             <FontAwesomeIcon
               style={{ display: ledInCart ? "none" : "block" }}
-              color="rgb(175, 118, 127)"
+              color={
+                chemicalPeelInCart ? "rgb(151, 151, 151)" : "rgb(175, 118, 127)"
+              }
               icon={faPlus}
             />
           </span>

@@ -22,9 +22,13 @@ import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEAR
 import ACTION_BEARD_IN_CART from "../../../actions/InCart/AddOns/Beard/ACTION_BEARD_IN_CART";
 import ACTION_BEARD_NOT_IN_CART from "../../../actions/InCart/AddOns/Beard/ACTION_BEARD_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
+import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import { toast } from "react-toastify";
 import BeardNotification from "./BeardNotification";
 import BeardRemovedNotification from "./BeardRemovedNotification";
+import AddOnsChemPeelErrorNotification from "../AddOnsChemPeelErrorNotification";
+import AddOnsMicroneedlingErrorNotification from "../AddOnsMicroneedlingErrorNotification";
 import "./Beard.css";
 import "../../treatments/card_styling.css";
 
@@ -51,6 +55,12 @@ const Beard = props => {
 
   // In Cart states
   const beardInCart = useSelector(state => state.beardInCart.in_cart);
+  const microneedleInCart = useSelector(
+    state => state.microneedleInCart.in_cart
+  );
+  const chemicalPeelInCart = useSelector(
+    state => state.chemicalPeelInCart.in_cart
+  );
 
   const [cartClicked, changeCartClicked] = useState(false);
 
@@ -199,21 +209,46 @@ const Beard = props => {
     );
   };
 
+  const chemPeelAddOnErrorToastId = "chem_peel_add_on_error";
+  const microneedlingAddOnErrorToastId = "microneedling_add_on_error";
+
   const addToCart = () => {
-    if (beardInCart) {
-      toast.dismiss();
-      dispatch(ACTION_BEARD_NOT_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      toast(<BeardRemovedNotification />, {
-        className: "toast_removed_container"
-      });
+    if (chemicalPeelInCart) {
+      if (!toast.isActive(chemPeelAddOnErrorToastId)) {
+        toast.dismiss();
+        toast(<AddOnsChemPeelErrorNotification />, {
+          className: "toast_error_container",
+          toastId: chemPeelAddOnErrorToastId
+        });
+      }
     } else {
-      toast.dismiss();
-      dispatch(ACTION_BEARD_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      changeCartClicked(true);
-      setTimeout(() => changeCartClicked(false), 200);
-      toast(<BeardNotification />);
+      if (microneedleInCart) {
+        if (!toast.isActive(microneedlingAddOnErrorToastId)) {
+          toast.dismiss();
+          toast(<AddOnsMicroneedlingErrorNotification />, {
+            className: "toast_error_container",
+            toastId: microneedlingAddOnErrorToastId
+          });
+        }
+      } else {
+        if (beardInCart) {
+          toast.dismiss();
+          dispatch(ACTION_BEARD_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          toast(<BeardRemovedNotification />, {
+            className: "toast_removed_container"
+          });
+        } else {
+          toast.dismiss();
+          dispatch(ACTION_BEARD_IN_CART());
+          dispatch(ACTION_INCREMENT_COUNTER());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          changeCartClicked(true);
+          setTimeout(() => changeCartClicked(false), 200);
+          toast(<BeardNotification />);
+        }
+      }
     }
   };
 
@@ -227,6 +262,8 @@ const Beard = props => {
               beardToggle
                 ? beardInCart
                   ? { position: "relative" }
+                  : microneedleInCart | chemicalPeelInCart
+                  ? { position: "relative" }
                   : styles
                 : { position: "relative" }
             }
@@ -237,9 +274,13 @@ const Beard = props => {
                 beardToggle
                   ? beardInCart
                     ? "rgb(119, 221, 119, 0.6)"
+                    : microneedleInCart | chemicalPeelInCart
+                    ? "rgb(211, 211, 211)"
                     : "rgb(255, 198, 207, 0.8)"
                   : beardInCart
                   ? "rgb(119, 221, 119, 0.6)"
+                  : microneedleInCart | chemicalPeelInCart
+                  ? "rgb(211, 211, 211)"
                   : "rgb(255, 198, 207, 0.6)"
               }
               transform="grow-20"
@@ -248,7 +289,11 @@ const Beard = props => {
             {checkMark()}
             <FontAwesomeIcon
               style={{ display: beardInCart ? "none" : "block" }}
-              color="rgb(175, 118, 127)"
+              color={
+                microneedleInCart | chemicalPeelInCart
+                  ? "rgb(151, 151, 151)"
+                  : "rgb(175, 118, 127)"
+              }
               icon={faPlus}
             />
           </span>

@@ -43,6 +43,21 @@
   margin-right: 5rem;
 }
 
+.cart_item_number_circle {
+  position: absolute;
+  top: 0.7rem;
+  right: 5.5rem;
+}
+
+.cart_item_number_circle p {
+  color: rgb(175, 116, 125);
+  font-weight: 700;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 0.1rem;
+  right: 0.05rem;
+}
+
 .nav_menu {
   margin-top: 8vh;
   height: 92vh;

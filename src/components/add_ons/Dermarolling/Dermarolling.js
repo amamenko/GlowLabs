@@ -22,9 +22,13 @@ import ACTION_BEARD_TOGGLE_RESET from "../../../actions/AddOns/Beard/ACTION_BEAR
 import ACTION_DERMAROLLING_IN_CART from "../../../actions/InCart/AddOns/Dermarolling/ACTION_DERMAROLLING_IN_CART";
 import ACTION_DERMAROLLING_NOT_IN_CART from "../../../actions/InCart/AddOns/Dermarolling/ACTION_DERMAROLLING_NOT_IN_CART";
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
+import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import { toast } from "react-toastify";
 import DermarollingNotification from "./DermarollingNotification";
 import DermarollingRemovedNotification from "./DermarollingRemovedNotification";
+import AddOnsChemPeelErrorNotification from "../AddOnsChemPeelErrorNotification";
+import AddOnsMicroneedlingErrorNotification from "../AddOnsMicroneedlingErrorNotification";
 import "./Dermarolling.css";
 import "../../treatments/card_styling.css";
 
@@ -52,6 +56,12 @@ const Dermarolling = props => {
   // In Cart states
   const dermarollingInCart = useSelector(
     state => state.dermarollingInCart.in_cart
+  );
+  const microneedleInCart = useSelector(
+    state => state.microneedleInCart.in_cart
+  );
+  const chemicalPeelInCart = useSelector(
+    state => state.chemicalPeelInCart.in_cart
   );
 
   const [cartClicked, changeCartClicked] = useState(false);
@@ -202,21 +212,46 @@ const Dermarolling = props => {
     );
   };
 
+  const chemPeelAddOnErrorToastId = "chem_peel_add_on_error";
+  const microneedlingAddOnErrorToastId = "microneedling_add_on_error";
+
   const addToCart = () => {
-    if (dermarollingInCart) {
-      toast.dismiss();
-      dispatch(ACTION_DERMAROLLING_NOT_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      toast(<DermarollingRemovedNotification />, {
-        className: "toast_removed_container"
-      });
+    if (chemicalPeelInCart) {
+      if (!toast.isActive(chemPeelAddOnErrorToastId)) {
+        toast.dismiss();
+        toast(<AddOnsChemPeelErrorNotification />, {
+          className: "toast_error_container",
+          toastId: chemPeelAddOnErrorToastId
+        });
+      }
     } else {
-      toast.dismiss();
-      dispatch(ACTION_DERMAROLLING_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      changeCartClicked(true);
-      setTimeout(() => changeCartClicked(false), 200);
-      toast(<DermarollingNotification />);
+      if (microneedleInCart) {
+        if (!toast.isActive(microneedlingAddOnErrorToastId)) {
+          toast.dismiss();
+          toast(<AddOnsMicroneedlingErrorNotification />, {
+            className: "toast_error_container",
+            toastId: microneedlingAddOnErrorToastId
+          });
+        }
+      } else {
+        if (dermarollingInCart) {
+          toast.dismiss();
+          dispatch(ACTION_DERMAROLLING_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          toast(<DermarollingRemovedNotification />, {
+            className: "toast_removed_container"
+          });
+        } else {
+          toast.dismiss();
+          dispatch(ACTION_DERMAROLLING_IN_CART());
+          dispatch(ACTION_INCREMENT_COUNTER());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          changeCartClicked(true);
+          setTimeout(() => changeCartClicked(false), 200);
+          toast(<DermarollingNotification />);
+        }
+      }
     }
   };
 
@@ -230,6 +265,8 @@ const Dermarolling = props => {
               dermarollingToggle
                 ? dermarollingInCart
                   ? { position: "relative" }
+                  : microneedleInCart | chemicalPeelInCart
+                  ? { position: "relative" }
                   : styles
                 : { position: "relative" }
             }
@@ -240,9 +277,13 @@ const Dermarolling = props => {
                 dermarollingToggle
                   ? dermarollingInCart
                     ? "rgb(119, 221, 119, 0.6)"
+                    : microneedleInCart | chemicalPeelInCart
+                    ? "rgb(211, 211, 211)"
                     : "rgb(255, 198, 207, 0.8)"
                   : dermarollingInCart
                   ? "rgb(119, 221, 119, 0.6)"
+                  : microneedleInCart | chemicalPeelInCart
+                  ? "rgb(211, 211, 211)"
                   : "rgb(255, 198, 207, 0.6)"
               }
               transform="grow-20"
@@ -251,7 +292,11 @@ const Dermarolling = props => {
             {checkMark()}
             <FontAwesomeIcon
               style={{ display: dermarollingInCart ? "none" : "block" }}
-              color="rgb(175, 118, 127)"
+              color={
+                microneedleInCart | chemicalPeelInCart
+                  ? "rgb(151, 151, 151)"
+                  : "rgb(175, 118, 127)"
+              }
               icon={faPlus}
             />
           </span>
