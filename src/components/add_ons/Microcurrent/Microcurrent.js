@@ -230,7 +230,8 @@ const Microcurrent = props => {
       if (rejuvenateInCart) {
         toast.dismiss();
         toast(<MicrocurrentRejuvenateErrorNotification />, {
-          className: "toast_error_container"
+          className: "toast_error_container",
+          autoClose: 6000
         });
       } else {
         if (microneedleInCart) {
@@ -238,7 +239,8 @@ const Microcurrent = props => {
             toast.dismiss();
             toast(<AddOnsMicroneedlingErrorNotification />, {
               className: "toast_error_container",
-              toastId: microneedlingAddOnErrorToastId
+              toastId: microneedlingAddOnErrorToastId,
+              autoClose: 6000
             });
           }
         } else {

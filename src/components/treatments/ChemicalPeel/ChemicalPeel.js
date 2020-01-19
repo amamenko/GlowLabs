@@ -26,6 +26,18 @@ import ACTION_CHEM_PEEL_NOT_IN_CART from "../../../actions/InCart/Treatments/Che
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
+
+// Add-Ons Reset Actions
+import ACTION_BEARD_NOT_IN_CART from "../../../actions/InCart/AddOns/Beard/ACTION_BEARD_NOT_IN_CART";
+import ACTION_DERMAROLLING_NOT_IN_CART from "../../../actions/InCart/AddOns/Dermarolling/ACTION_DERMAROLLING_NOT_IN_CART";
+import ACTION_EXTRACTION_NOT_IN_CART from "../../../actions/InCart/AddOns/ExtraExtractions/ACTION_EXTRACTION_NOT_IN_CART";
+import ACTION_GUASHA_NOT_IN_CART from "../../../actions/InCart/AddOns/GuaSha/ACTION_GUASHA_NOT_IN_CART";
+import ACTION_HYDROJELLY_NOT_IN_CART from "../../../actions/InCart/AddOns/HydroJellyMask/ACTION_HYDROJELLY_NOT_IN_CART";
+import ACTION_LED_NOT_IN_CART from "../../../actions/InCart/AddOns/LEDTherapy/ACTION_LED_NOT_IN_CART";
+import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
+import ACTION_MICRODERMABRASION_NOT_IN_CART from "../../../actions/InCart/AddOns/Microdermabrasion/ACTION_MICRODERMABRASION_NOT_IN_CART";
+import ACTION_NANONEEDLING_NOT_IN_CART from "../../../actions/InCart/AddOns/NanoNeedling/ACTION_NANONEEDLING_NOT_IN_CART";
+
 import { toast } from "react-toastify";
 import ChemicalPeelNotification from "./ChemicalPeelNotification";
 import ChemicalPeelRemovedNotification from "./ChemicalPeelRemovedNotification";
@@ -53,6 +65,7 @@ const ChemicalPeel = props => {
   );
 
   // In Cart states
+  // Treatments
   const calmInCart = useSelector(state => state.calmInCart.in_cart);
   const clarifyInCart = useSelector(state => state.clarifyInCart.in_cart);
   const bacialInCart = useSelector(state => state.bacialInCart.in_cart);
@@ -70,6 +83,27 @@ const ChemicalPeel = props => {
   const quenchInCart = useSelector(state => state.quenchInCart.in_cart);
   const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
   const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
+
+  // Add-Ons
+  const beardInCart = useSelector(state => state.beardInCart.in_cart);
+  const dermarollingInCart = useSelector(
+    state => state.dermarollingInCart.in_cart
+  );
+  const extraExtractionsInCart = useSelector(
+    state => state.extraExtractionsInCart.in_cart
+  );
+  const guashaInCart = useSelector(state => state.guashaInCart.in_cart);
+  const hydroJellyInCart = useSelector(state => state.hydroJellyInCart.in_cart);
+  const ledInCart = useSelector(state => state.ledInCart.in_cart);
+  const microcurrentInCart = useSelector(
+    state => state.microcurrentInCart.in_cart
+  );
+  const microdermabrasionInCart = useSelector(
+    state => state.microdermabrasionInCart.in_cart
+  );
+  const nanoneedlingInCart = useSelector(
+    state => state.nanoneedlingInCart.in_cart
+  );
 
   const [cartClicked, changeCartClicked] = useState(false);
 
@@ -263,6 +297,42 @@ const ChemicalPeel = props => {
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
         toast(<ChemicalPeelNotification />, { autoClose: 6000 });
+        if (beardInCart) {
+          dispatch(ACTION_BEARD_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (dermarollingInCart) {
+          dispatch(ACTION_DERMAROLLING_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (extraExtractionsInCart) {
+          dispatch(ACTION_EXTRACTION_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (guashaInCart) {
+          dispatch(ACTION_GUASHA_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (hydroJellyInCart) {
+          dispatch(ACTION_HYDROJELLY_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (ledInCart) {
+          dispatch(ACTION_LED_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (microcurrentInCart) {
+          dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (microdermabrasionInCart) {
+          dispatch(ACTION_MICRODERMABRASION_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (nanoneedlingInCart) {
+          dispatch(ACTION_NANONEEDLING_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
       }
     }
   };

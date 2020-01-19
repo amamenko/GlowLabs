@@ -26,6 +26,7 @@ import ACTION_REJUVENATE_NOT_IN_CART from "../../../actions/InCart/Treatments/Re
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
+import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
 import { toast } from "react-toastify";
 import RejuvenateNotification from "./RejuvenateNotification";
 import RejuvenateRemovedNotification from "./RejuvenateRemovedNotification";
@@ -70,6 +71,9 @@ const Rejuvenate = props => {
   const quenchInCart = useSelector(state => state.quenchInCart.in_cart);
   const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
   const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
+  const microcurrentInCart = useSelector(
+    state => state.microcurrentInCart.in_cart
+  );
 
   const [cartClicked, changeCartClicked] = useState(false);
 
@@ -263,6 +267,10 @@ const Rejuvenate = props => {
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
         toast(<RejuvenateNotification />, { autoClose: 6000 });
+        if (microcurrentInCart) {
+          dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
       }
     }
   };

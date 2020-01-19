@@ -22,7 +22,7 @@ body {
 .toast_container {
   background-color: rgb(255, 226, 231);
   font-family: "Montserrat", sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   position: absolute;
   bottom: 0;
 }
@@ -30,7 +30,7 @@ body {
 .toast_removed_container {
   background-color: rgb(240, 211, 216);
   font-family: "Montserrat", sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   position: absolute;
   bottom: 0;
 }
@@ -38,7 +38,7 @@ body {
 .toast_error_container {
   background-color: rgb(225, 225, 225);
   font-family: "Montserrat", sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   position: absolute;
   bottom: 0;
 }
