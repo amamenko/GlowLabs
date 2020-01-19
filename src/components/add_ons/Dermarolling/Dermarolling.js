@@ -24,6 +24,7 @@ import ACTION_DERMAROLLING_NOT_IN_CART from "../../../actions/InCart/AddOns/Derm
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import DermarollingNotification from "./DermarollingNotification";
+import DermarollingRemovedNotification from "./DermarollingRemovedNotification";
 import "./Dermarolling.css";
 import "../../treatments/card_styling.css";
 
@@ -203,9 +204,14 @@ const Dermarolling = props => {
 
   const addToCart = () => {
     if (dermarollingInCart) {
+      toast.dismiss();
       dispatch(ACTION_DERMAROLLING_NOT_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      toast(<DermarollingRemovedNotification />, {
+        className: "toast_removed_container"
+      });
     } else {
+      toast.dismiss();
       dispatch(ACTION_DERMAROLLING_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
       changeCartClicked(true);

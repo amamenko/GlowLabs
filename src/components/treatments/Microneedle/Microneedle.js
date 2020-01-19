@@ -26,6 +26,7 @@ import ACTION_MICRO_NOT_IN_CART from "../../../actions/InCart/Treatments/Microne
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import MicroneedleNotification from "./MicroneedleNotification";
+import MicroneedleRemovedNotification from "./MicroneedleRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Microneedle.css";
 
@@ -258,6 +259,7 @@ const Microneedle = props => {
       rejuvenateInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -265,14 +267,19 @@ const Microneedle = props => {
       }
     } else {
       if (microneedleInCart) {
+        toast.dismiss();
         dispatch(ACTION_MICRO_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<MicroneedleRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_MICRO_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
-        toast(<MicroneedleNotification />);
+        toast(<MicroneedleNotification />, { autoClose: 6000 });
       }
     }
   };
@@ -319,7 +326,7 @@ const Microneedle = props => {
                       rejuvenateInCart
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(255, 198, 207, 0.8)"
-                  : microneedleToggle
+                  : microneedleInCart
                   ? "rgb(119, 221, 119, 0.6)"
                   : bacialInCart |
                     cbdInCart |
@@ -331,7 +338,7 @@ const Microneedle = props => {
                     quenchInCart |
                     quickieInCart |
                     rejuvenateInCart
-                  ? "rgba(211, 211, 211, 0.8"
+                  ? "rgba(211, 211, 211, 0.8)"
                   : "rgba(255, 198, 207, 0.6)"
               }
               transform="grow-20"

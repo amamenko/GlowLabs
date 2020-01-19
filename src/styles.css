@@ -23,12 +23,24 @@ body {
   background-color: rgb(255, 226, 231);
   font-family: "Montserrat", sans-serif;
   margin-bottom: 1rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.toast_removed_container {
+  background-color: rgb(240, 211, 216);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 1rem;
+  position: absolute;
+  bottom: 0;
 }
 
 .toast_error_container {
   background-color: rgb(225, 225, 225);
   font-family: "Montserrat", sans-serif;
   margin-bottom: 1rem;
+  position: absolute;
+  bottom: 0;
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */

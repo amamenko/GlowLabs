@@ -24,6 +24,7 @@ import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Micr
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import MicrocurrentNotification from "./MicrocurrentNotification";
+import MicrocurrentRemovedNotification from "./MicrocurrentRemovedNotification";
 import "./Microcurrent.css";
 import "../../treatments/card_styling.css";
 
@@ -52,6 +53,7 @@ const Microcurrent = props => {
   const microcurrentInCart = useSelector(
     state => state.microcurrentInCart.in_cart
   );
+  const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
 
   const [cartClicked, changeCartClicked] = useState(false);
 
@@ -202,15 +204,24 @@ const Microcurrent = props => {
   };
 
   const addToCart = () => {
-    if (microcurrentInCart) {
-      dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    if (rejuvenateInCart) {
+      toast.dismiss();
     } else {
-      dispatch(ACTION_MICROCURRENT_IN_CART());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      changeCartClicked(true);
-      setTimeout(() => changeCartClicked(false), 200);
-      toast(<MicrocurrentNotification />);
+      if (microcurrentInCart) {
+        toast.dismiss();
+        dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<MicrocurrentRemovedNotification />, {
+          className: "toast_removed_container"
+        });
+      } else {
+        toast.dismiss();
+        dispatch(ACTION_MICROCURRENT_IN_CART());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        changeCartClicked(true);
+        setTimeout(() => changeCartClicked(false), 200);
+        toast(<MicrocurrentNotification />);
+      }
     }
   };
 
@@ -224,6 +235,8 @@ const Microcurrent = props => {
               microcurrentToggle
                 ? microcurrentInCart
                   ? { position: "relative" }
+                  : rejuvenateInCart
+                  ? { position: "relative" }
                   : styles
                 : { position: "relative" }
             }
@@ -234,9 +247,13 @@ const Microcurrent = props => {
                 microcurrentToggle
                   ? microcurrentInCart
                     ? "rgb(119, 221, 119, 0.6)"
+                    : rejuvenateInCart
+                    ? "rgb(211, 211, 211)"
                     : "rgb(255, 198, 207, 0.8)"
                   : microcurrentInCart
                   ? "rgb(119, 221, 119, 0.6)"
+                  : rejuvenateInCart
+                  ? "rgb(211, 211, 211)"
                   : "rgb(255, 198, 207, 0.6)"
               }
               transform="grow-20"
@@ -245,7 +262,9 @@ const Microcurrent = props => {
             {checkMark()}
             <FontAwesomeIcon
               style={{ display: microcurrentInCart ? "none" : "block" }}
-              color="rgb(175, 118, 127)"
+              color={
+                rejuvenateInCart ? "rgb(151, 151, 151)" : "rgb(175, 118, 127)"
+              }
               icon={faPlus}
             />
           </span>

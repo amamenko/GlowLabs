@@ -24,6 +24,7 @@ import ACTION_GUASHA_NOT_IN_CART from "../../../actions/InCart/AddOns/GuaSha/ACT
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import GuaShaNotification from "./GuaShaNotification";
+import GuaShaRemovedNotification from "./GuaShaRemovedNotification";
 import "./GuaSha.css";
 import "../../treatments/card_styling.css";
 
@@ -200,9 +201,14 @@ const GuaSha = props => {
 
   const addToCart = () => {
     if (guashaInCart) {
+      toast.dismiss();
       dispatch(ACTION_GUASHA_NOT_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      toast(<GuaShaRemovedNotification />, {
+        className: "toast_removed_container"
+      });
     } else {
+      toast.dismiss();
       dispatch(ACTION_GUASHA_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
       changeCartClicked(true);

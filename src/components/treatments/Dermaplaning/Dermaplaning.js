@@ -26,6 +26,7 @@ import ACTION_DERMAPLANE_NOT_IN_CART from "../../../actions/InCart/Treatments/De
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import DermaplaningNotification from "./DermaplaningNotification";
+import DermaplaningRemovedNotification from "./DermaplaningRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Dermaplaning.css";
 import "../../treatments_pages/Page_3/TreatmentsPage3.css";
@@ -238,6 +239,7 @@ const Dermaplaning = props => {
       glowInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -245,9 +247,14 @@ const Dermaplaning = props => {
       }
     } else {
       if (dermaplaningInCart) {
+        toast.dismiss();
         dispatch(ACTION_DERMAPLANE_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<DermaplaningRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_DERMAPLANE_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);

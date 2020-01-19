@@ -26,6 +26,7 @@ import ACTION_CBD_NOT_IN_CART from "../../../actions/InCart/Treatments/CBD/ACTIO
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import CBDNotification from "./CBDNotification";
+import CBDRemovedNotification from "./CBDRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./CBD.css";
 
@@ -240,6 +241,7 @@ const CBD = props => {
       glowInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -247,9 +249,14 @@ const CBD = props => {
       }
     } else {
       if (cbdInCart) {
+        toast.dismiss();
         dispatch(ACTION_CBD_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<CBDRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_CBD_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);

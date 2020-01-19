@@ -2,20 +2,20 @@ import React from "react";
 import "./CBD.css";
 import "../../treatments/card_styling.css";
 
-const CBDNotification = () => {
+const CBDRemovedDNotification = () => {
   return (
-    <div className="notification_container">
+    <div className="notification_removed_container">
       <svg width="25%" height="5rem" viewBox="0 0 50.006 50.006">
         <circle
           cx="25"
           cy="25"
           r="19.5"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(220, 191, 196)"
           strokeWidth="0.5"
           fill="white"
         />
         <g
-          fill="rgba(119, 221, 119, 0.7)"
+          fill="rgba(211, 211, 211, 0.7)"
           stroke="#000"
           strokeWidth="0.8"
           transform="translate(14, 13)"
@@ -28,11 +28,11 @@ const CBDNotification = () => {
         </g>
       </svg>
       <div className="notification_text_container">
-        <h3>CBD Added</h3>
-        <p>The CBD facial treatment has been added to your cart</p>
+        <h3>CBD Removed</h3>
+        <p>The CBD facial treatment has been removed from your cart</p>
       </div>
     </div>
   );
 };
 
-export default CBDNotification;
+export default CBDRemovedDNotification;

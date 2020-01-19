@@ -168,6 +168,15 @@
   justify-content: space-evenly;
 }
 
+.notification_removed_container {
+  width: 100%;
+  background-color: rgb(240, 211, 216);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .notification_text_container {
   display: flex;
   flex-direction: column;

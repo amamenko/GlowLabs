@@ -26,6 +26,7 @@ import ACTION_REJUVENATE_NOT_IN_CART from "../../../actions/InCart/Treatments/Re
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import RejuvenateNotification from "./RejuvenateNotification";
+import RejuvenateRemovedNotification from "./RejuvenateRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Rejuvenate.css";
 
@@ -237,6 +238,7 @@ const Rejuvenate = props => {
       glowInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -244,14 +246,19 @@ const Rejuvenate = props => {
       }
     } else {
       if (rejuvenateInCart) {
+        toast.dismiss();
         dispatch(ACTION_REJUVENATE_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<RejuvenateRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_REJUVENATE_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
-        toast(<RejuvenateNotification />);
+        toast(<RejuvenateNotification />, { autoClose: 6000 });
       }
     }
   };

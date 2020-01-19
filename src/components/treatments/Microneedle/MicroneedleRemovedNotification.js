@@ -1,12 +1,10 @@
 import React from "react";
 import "./Microneedle.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../treatments/card_styling.css";
 
-const MicroneedleNotification = () => {
+const MicroneedleRemovedNotification = () => {
   return (
-    <div className="notification_container">
+    <div className="notification_removed_container">
       <svg width="34%" height="5rem" viewBox="0 0 132.292 132.292">
         <circle
           cx="66.146"
@@ -17,7 +15,7 @@ const MicroneedleNotification = () => {
           fill="white"
         />
         <g
-          fill="rgba(253, 253, 150, 0.3)"
+          fill="rgba(211, 211, 211, 0.6)"
           stroke="#000"
           strokeWidth="1.8"
           transform="translate(37, 35)"
@@ -37,26 +35,14 @@ const MicroneedleNotification = () => {
         </g>
       </svg>
       <div className="notification_text_container">
-        <h3>Microneedle Infusion Added</h3>
+        <h3>Microneedle Infusion Removed</h3>
         <p>
-          The Microneedle Infusion facial treatment has been added to your cart
-        </p>
-        <p
-          style={{
-            fontSize: "0.8rem",
-            fontWeight: "500",
-            color: "rgb(81, 81, 81)"
-          }}
-        >
-          <FontAwesomeIcon
-            style={{ color: "rgb(131, 131, 131)" }}
-            icon={faExclamationCircle}
-          />{" "}
-          Pairs with LED Therapy add-on only
+          The Microneedle Infusion facial treatment has been removed from your
+          cart
         </p>
       </div>
     </div>
   );
 };
 
-export default MicroneedleNotification;
+export default MicroneedleRemovedNotification;

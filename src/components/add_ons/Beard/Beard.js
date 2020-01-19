@@ -24,6 +24,7 @@ import ACTION_BEARD_NOT_IN_CART from "../../../actions/InCart/AddOns/Beard/ACTIO
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import BeardNotification from "./BeardNotification";
+import BeardRemovedNotification from "./BeardRemovedNotification";
 import "./Beard.css";
 import "../../treatments/card_styling.css";
 
@@ -200,9 +201,14 @@ const Beard = props => {
 
   const addToCart = () => {
     if (beardInCart) {
+      toast.dismiss();
       dispatch(ACTION_BEARD_NOT_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      toast(<BeardRemovedNotification />, {
+        className: "toast_removed_container"
+      });
     } else {
+      toast.dismiss();
       dispatch(ACTION_BEARD_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
       changeCartClicked(true);

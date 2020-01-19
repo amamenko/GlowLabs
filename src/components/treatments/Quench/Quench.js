@@ -26,6 +26,7 @@ import ACTION_QUENCH_NOT_IN_CART from "../../../actions/InCart/Treatments/Quench
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import QuenchNotification from "./QuenchNotification";
+import QuenchRemovedNotification from "./QuenchRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Quench.css";
 import "../../treatments_pages/Page_2/TreatmentsPage2.css";
@@ -238,6 +239,7 @@ const Quench = props => {
       glowInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -245,9 +247,14 @@ const Quench = props => {
       }
     } else {
       if (quenchInCart) {
+        toast.dismiss();
         dispatch(ACTION_QUENCH_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<QuenchRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_QUENCH_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);

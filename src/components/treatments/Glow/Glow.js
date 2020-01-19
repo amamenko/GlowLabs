@@ -26,6 +26,7 @@ import ACTION_GLOW_NOT_IN_CART from "../../../actions/InCart/Treatments/Glow/ACT
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import GlowNotification from "./GlowNotification";
+import GlowRemovedNotification from "./GlowRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Glow.css";
 
@@ -237,6 +238,7 @@ const Glow = props => {
       rejuvenateInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -244,9 +246,14 @@ const Glow = props => {
       }
     } else {
       if (glowInCart) {
+        toast.dismiss();
         dispatch(ACTION_GLOW_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<GlowRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_GLOW_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);

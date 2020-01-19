@@ -24,6 +24,7 @@ import ACTION_EXTRACTION_NOT_IN_CART from "../../../actions/InCart/AddOns/ExtraE
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import ExtraExtractionsNotification from "./ExtraExtractionsNotification";
+import ExtraExtractionsRemovedNotification from "./ExtraExtractionsRemovedNotification";
 import "./ExtraExtractions.css";
 import "../../treatments/card_styling.css";
 
@@ -203,9 +204,14 @@ const ExtraExtractions = props => {
 
   const addToCart = () => {
     if (extraExtractionsInCart) {
+      toast.dismiss();
       dispatch(ACTION_EXTRACTION_NOT_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      toast(<ExtraExtractionsRemovedNotification />, {
+        className: "toast_removed_container"
+      });
     } else {
+      toast.dismiss();
       dispatch(ACTION_EXTRACTION_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
       changeCartClicked(true);

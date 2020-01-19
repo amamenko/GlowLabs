@@ -14,7 +14,7 @@ const FacialInCartErrorNotification = () => {
       />
       <div
         className="notification_text_container"
-        style={{ paddingBottom: "1rem", paddingTop: "1rem" }}
+        style={{ paddingBottom: "0.8rem", paddingTop: "0.8rem" }}
       >
         <h3>Cart Contains Facial</h3>
         <p>You already have a facial treatment in your cart</p>

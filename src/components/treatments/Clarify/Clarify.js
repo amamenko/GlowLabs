@@ -26,6 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import ClarifyNotification from "./ClarifyNotification";
+import ClarifyRemovedNotification from "./ClarifyRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Clarify.css";
 
@@ -237,6 +238,7 @@ const Clarify = props => {
       rejuvenateInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -244,9 +246,14 @@ const Clarify = props => {
       }
     } else {
       if (clarifyInCart) {
+        toast.dismiss();
         dispatch(ACTION_CLARIFY_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<ClarifyRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_CLARIFY_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);

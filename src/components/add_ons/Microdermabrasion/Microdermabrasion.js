@@ -24,6 +24,7 @@ import ACTION_MICRODERMABRASION_NOT_IN_CART from "../../../actions/InCart/AddOns
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import MicrodermabrasionNotification from "./MicrodermabrasionNotification";
+import MicrodermabrasionRemovedNotification from "./MicrodermabrasionRemovedNotification";
 import "./Microdermabrasion.css";
 import "../../treatments/card_styling.css";
 
@@ -202,9 +203,14 @@ const Microdermabrasion = props => {
 
   const addToCart = () => {
     if (microdermabrasionInCart) {
+      toast.dismiss();
       dispatch(ACTION_MICRODERMABRASION_NOT_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      toast(<MicrodermabrasionRemovedNotification />, {
+        className: "toast_removed_container"
+      });
     } else {
+      toast.dismiss();
       dispatch(ACTION_MICRODERMABRASION_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
       changeCartClicked(true);

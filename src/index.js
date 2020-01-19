@@ -300,12 +300,12 @@ const App = () => {
         toastClassName="toast_container"
         position="bottom-right"
         autoClose={3000}
+        newestOnTop={false}
         hideProgressBar
-        newestOnTop
         closeOnClick
         pauseOnVisibilityChange
         draggable={true}
-        draggablePercent={40}
+        draggablePercent={20}
       />
 
       <NavigationMenu

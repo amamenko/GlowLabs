@@ -26,6 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import CalmNotification from "./CalmNotification";
+import CalmRemovedNotification from "./CalmRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
@@ -238,6 +239,7 @@ const Calm = props => {
       rejuvenateInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -245,9 +247,14 @@ const Calm = props => {
       }
     } else {
       if (calmInCart) {
+        toast.dismiss();
         dispatch(ACTION_CALM_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<CalmRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_CALM_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
@@ -297,7 +304,7 @@ const Calm = props => {
                       quenchInCart |
                       quickieInCart |
                       rejuvenateInCart
-                    ? "rgba(211, 211, 211, 0.8"
+                    ? "rgba(211, 211, 211, 0.8)"
                     : "rgba(255, 198, 207, 0.8)"
                   : calmInCart
                   ? "rgb(119, 221, 119, 0.6)"
@@ -311,7 +318,7 @@ const Calm = props => {
                     quenchInCart |
                     quickieInCart |
                     rejuvenateInCart
-                  ? "rgba(211, 211, 211, 0.8"
+                  ? "rgba(211, 211, 211, 0.8)"
                   : "rgba(255, 198, 207, 0.6)"
               }
               transform="grow-20"

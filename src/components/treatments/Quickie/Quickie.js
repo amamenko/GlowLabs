@@ -26,6 +26,7 @@ import ACTION_QUICKIE_NOT_IN_CART from "../../../actions/InCart/Treatments/Quick
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import QuickieNotification from "./QuickieNotification";
+import QuickieRemovedNotification from "./QuickieRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Quickie.css";
 
@@ -237,6 +238,7 @@ const Quickie = props => {
       glowInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -244,9 +246,14 @@ const Quickie = props => {
       }
     } else {
       if (quickieInCart) {
+        toast.dismiss();
         dispatch(ACTION_QUICKIE_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<QuickieRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_QUICKIE_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);

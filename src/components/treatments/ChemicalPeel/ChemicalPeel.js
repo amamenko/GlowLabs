@@ -26,6 +26,7 @@ import ACTION_CHEM_PEEL_NOT_IN_CART from "../../../actions/InCart/Treatments/Che
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import ChemicalPeelNotification from "./ChemicalPeelNotification";
+import ChemicalPeelRemovedNotification from "./ChemicalPeelRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./ChemicalPeel.css";
 
@@ -237,6 +238,7 @@ const ChemicalPeel = props => {
       glowInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -244,14 +246,19 @@ const ChemicalPeel = props => {
       }
     } else {
       if (chemicalPeelInCart) {
+        toast.dismiss();
         dispatch(ACTION_CHEM_PEEL_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<ChemicalPeelRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_CHEM_PEEL_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
-        toast(<ChemicalPeelNotification />);
+        toast(<ChemicalPeelNotification />, { autoClose: 6000 });
       }
     }
   };

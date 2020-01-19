@@ -1,24 +1,22 @@
 import React from "react";
 import "./Rejuvenate.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../treatments/card_styling.css";
 
-const RejuvenateNotification = () => {
+const RejuvenateRemovedNotification = () => {
   return (
-    <div className="notification_container">
+    <div className="notification_removed_container">
       <svg width="30%" height="5rem" viewBox="0 0 50.006 50.006">
         <circle
           cx="25"
           cy="25"
           r="20"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(220, 191, 196)"
           strokeWidth="0.5"
           fill="white"
         />
         <g fill="none" transform="translate(13, 12)">
           <path
-            fill="rgba(177, 156, 217, 0.4)"
+            fill="rgba(211, 211, 211, 0.5)"
             stroke="black"
             strokeWidth="0.8"
             className="rejuvenate_icon_path"
@@ -27,24 +25,11 @@ const RejuvenateNotification = () => {
         </g>
       </svg>
       <div className="notification_text_container">
-        <h3>Rejuvenate Added</h3>
-        <p>The Rejuvenate facial treatment has been added to your cart</p>
-        <p
-          style={{
-            fontSize: "0.8rem",
-            fontWeight: "500",
-            color: "rgb(81, 81, 81)"
-          }}
-        >
-          <FontAwesomeIcon
-            style={{ color: "rgb(131, 131, 131)" }}
-            icon={faExclamationCircle}
-          />{" "}
-          Microcurrent add-on included in facial
-        </p>
+        <h3>Rejuvenate Removed</h3>
+        <p>The Rejuvenate facial treatment has been removed from your cart</p>
       </div>
     </div>
   );
 };
 
-export default RejuvenateNotification;
+export default RejuvenateRemovedNotification;

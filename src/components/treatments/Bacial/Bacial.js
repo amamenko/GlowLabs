@@ -26,6 +26,7 @@ import ACTION_BACIAL_NOT_IN_CART from "../../../actions/InCart/Treatments/Bacial
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import BacialNotification from "./BacialNotification";
+import BacialRemovedNotification from "./BacialRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Bacial.css";
 import "../../treatments_pages/Page_1/TreatmentsPage1.css";
@@ -238,6 +239,7 @@ const Bacial = props => {
       rejuvenateInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
+        toast.dismiss();
         toast(<FacialInCartErrorNotification />, {
           className: "toast_error_container",
           toastId: inCartToastId
@@ -245,9 +247,14 @@ const Bacial = props => {
       }
     } else {
       if (bacialInCart) {
+        toast.dismiss();
         dispatch(ACTION_BACIAL_NOT_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        toast(<BacialRemovedNotification />, {
+          className: "toast_removed_container"
+        });
       } else {
+        toast.dismiss();
         dispatch(ACTION_BACIAL_IN_CART());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);

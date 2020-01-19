@@ -24,6 +24,7 @@ import ACTION_HYDROJELLY_NOT_IN_CART from "../../../actions/InCart/AddOns/HydroJ
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import HydroJellyMaskNotification from "./HydroJellyMaskNotification";
+import HydroJellyMaskRemovedNotification from "./HydroJellyMaskRemovedNotification";
 import "./HydroJellyMask.css";
 import "../../treatments/card_styling.css";
 
@@ -200,9 +201,14 @@ const HydroJellyMask = props => {
 
   const addToCart = () => {
     if (hydroJellyInCart) {
+      toast.dismiss();
       dispatch(ACTION_HYDROJELLY_NOT_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      toast(<HydroJellyMaskRemovedNotification />, {
+        className: "toast_removed_container"
+      });
     } else {
+      toast.dismiss();
       dispatch(ACTION_HYDROJELLY_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
       changeCartClicked(true);

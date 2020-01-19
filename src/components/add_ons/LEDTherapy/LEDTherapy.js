@@ -24,6 +24,7 @@ import ACTION_LED_NOT_IN_CART from "../../../actions/InCart/AddOns/LEDTherapy/AC
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import { toast } from "react-toastify";
 import LEDTherapyNotification from "./LEDTherapyNotification";
+import LEDTherapyRemovedNotification from "./LEDTherapyRemovedNotification";
 import "./LEDTherapy.css";
 import "../../treatments/card_styling.css";
 
@@ -201,9 +202,14 @@ const LEDTherapy = props => {
 
   const addToCart = () => {
     if (ledInCart) {
+      toast.dismiss();
       dispatch(ACTION_LED_NOT_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      toast(<LEDTherapyRemovedNotification />, {
+        className: "toast_removed_container"
+      });
     } else {
+      toast.dismiss();
       dispatch(ACTION_LED_IN_CART());
       dispatch(ACTION_NAVBAR_IS_VISIBLE());
       changeCartClicked(true);
