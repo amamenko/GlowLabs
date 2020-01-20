@@ -34,6 +34,7 @@ import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
+import Contact from "./components/contact/Contact";
 
 require("intersection-observer");
 
@@ -385,6 +386,7 @@ const App = () => {
                 currentScreenSize={currentScreenSize}
                 InstagramRef={InstagramRef}
               />
+              <Contact />
             </div>
           </KeepAlive>
         </Route>

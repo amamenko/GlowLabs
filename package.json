@@ -11,6 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "axios": "^0.19.0",
     "body-scroll-lock": "^2.6.4",
+    "google-maps-react": "^2.0.2",
     "intersection-observer": "^0.7.0",
     "react": "16.8.6",
     "react-activation": "^0.3.5",
