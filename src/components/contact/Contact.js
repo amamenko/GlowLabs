@@ -1,34 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Contact.css";
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
-import Logo from "../../svgs/GlowLabsSmallLogo.svg";
+import GoogleMapReact from "google-map-react";
+import ContactCustomMarker from "./ContactCustomMarker";
 
-const Contact = props => (
-  <div className="contact_page_container">
-    <Map
-      style={{
-        width: "100%",
-        height: "20vh"
-      }}
-      initialCenter={{
-        lat: 40.62322,
-        lng: -73.722809
-      }}
-      google={props.google}
-      zoom={14}
-    >
-      <Marker
-        title={"Glow Labs"}
-        name={"Glow Labs"}
-        icon={{
-          url: Logo,
-          scaledSize: new props.google.maps.Size(50, 35)
+const Contact = props => {
+  const [height, changeHeight] = useState("34.11335");
+  const [width, changeWidth] = useState("34.11335");
+
+  const mapChildClick = () => {
+    if (height === "34.11335" && width === "34.11335") {
+      changeHeight("68.2267");
+      changeWidth("68.2267");
+    } else {
+      changeHeight("34.11335");
+      changeWidth("34.11335");
+    }
+  };
+  return (
+    <div className="contact_page_container">
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: "AIzaSyCXxihdTmGU3eTyO7CCTqDv37OVz6Rl420" }}
+        defaultCenter={{
+          lat: 40.62322,
+          lng: -73.722809
         }}
-      />
-    </Map>
-  </div>
-);
+        defaultZoom={14}
+        onChildClick={mapChildClick}
+      >
+        <ContactCustomMarker
+          height={height}
+          width={width}
+          lat={40.62322}
+          lng={-73.722809}
+          text="Glow Labs"
+        />
+      </GoogleMapReact>
+    </div>
+  );
+};
 
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyCXxihdTmGU3eTyO7CCTqDv37OVz6Rl420"
-})(Contact);
+export default Contact;
