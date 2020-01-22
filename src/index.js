@@ -36,6 +36,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
 import Contact from "./components/contact/Contact";
 
+require("dotenv").config();
 require("intersection-observer");
 
 smoothscroll.polyfill();
