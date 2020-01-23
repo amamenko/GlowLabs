@@ -3,10 +3,10 @@ import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import Sunscreen from "../../images/Sunscreen.jpg";
+import Facial_Mask_Sheets from "../../images/Facial_Mask_Sheets.jpg";
 import Facial_Masks from "../../images/Facial_Masks.jpg";
-import Glass_Skin from "../../images/Glass_Skin.jpg";
-import Peach_Fuzz from "../../images/Peach_Fuzz.jpg";
+import Facial_Masks_Cream from "../../images/Facial_Masks_Cream.jpg";
+import Acne from "../../images/Acne.jpg";
 import "./Instagram.css";
 
 const Instagram = React.forwardRef((props, ref) => {
@@ -91,28 +91,8 @@ const Instagram = React.forwardRef((props, ref) => {
                   <div className="instagram_images_top_wrapping">
                     <img
                       className="instagram_image left"
-                      alt="Glass Skin"
-                      src={Glass_Skin}
-                      style={{
-                        position: `${styles.position}`,
-                        opacity: `${styles.opacity}`
-                      }}
-                    />
-                    <img
-                      className="instagram_image"
-                      alt="Sunscreen"
-                      src={Sunscreen}
-                      style={{
-                        position: `${styles.position}`,
-                        opacity: `${styles.opacity}`
-                      }}
-                    />
-                  </div>
-                  <div className="instagram_images_bottom_wrapping">
-                    <img
-                      className="instagram_image left"
-                      alt="Peach Fuzz"
-                      src={Peach_Fuzz}
+                      alt="Facial_Masks_Cream"
+                      src={Facial_Masks_Cream}
                       style={{
                         position: `${styles.position}`,
                         opacity: `${styles.opacity}`
@@ -122,6 +102,26 @@ const Instagram = React.forwardRef((props, ref) => {
                       className="instagram_image"
                       alt="Facial masks"
                       src={Facial_Masks}
+                      style={{
+                        position: `${styles.position}`,
+                        opacity: `${styles.opacity}`
+                      }}
+                    />
+                  </div>
+                  <div className="instagram_images_bottom_wrapping">
+                    <img
+                      className="instagram_image left"
+                      alt="Acne"
+                      src={Acne}
+                      style={{
+                        position: `${styles.position}`,
+                        opacity: `${styles.opacity}`
+                      }}
+                    />
+                    <img
+                      className="instagram_image"
+                      alt="Facial_Mask_Sheets"
+                      src={Facial_Mask_Sheets}
                       style={{
                         position: `${styles.position}`,
                         opacity: `${styles.opacity}`

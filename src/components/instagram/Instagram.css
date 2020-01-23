@@ -1,5 +1,5 @@
 .instagram_page_wrapping {
-  height: 45vh;
+  height: 82vh;
   margin-top: 21vh;
 }
 
@@ -12,7 +12,7 @@
 .instagram_images_top_wrapping,
 .instagram_images_bottom_wrapping {
   overflow: hidden;
-  height: 22vh;
+  height: 25vh;
   display: flex;
   flex-direction: row;
   align-items: center;

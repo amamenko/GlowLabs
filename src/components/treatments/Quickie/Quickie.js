@@ -408,10 +408,7 @@ const Quickie = props => {
   };
 
   return (
-    <InView
-      threshold={props.initialScreenSize >= 768 ? 0.3 : 0.2}
-      triggerOnce={true}
-    >
+    <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
         <div className="quickie_wrapping" ref={ref}>
           {inView ? (

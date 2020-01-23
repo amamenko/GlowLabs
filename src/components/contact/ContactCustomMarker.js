@@ -4,8 +4,8 @@ const ContactCustomMarker = props => {
   return (
     <svg
       className="contact_custom_marker"
-      width="100"
-      height="100"
+      width="75"
+      height="75"
       viewBox="0 0 13.229 13.229"
     >
       <g transform="translate(0 -283.77)">

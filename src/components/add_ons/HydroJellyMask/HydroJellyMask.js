@@ -370,10 +370,7 @@ const HydroJellyMask = props => {
   };
 
   return (
-    <InView
-      threshold={props.initialScreenSize >= 1200 ? 0.7 : 0.2}
-      triggerOnce={true}
-    >
+    <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
         <div className="hydro_jelly_mask_wrapping" ref={ref}>
           {inView ? (

@@ -62,10 +62,10 @@ const LandingPage = React.forwardRef((props, ref) => {
 
   useEffect(() => {
     if (bodyScrollToggle === "visible") {
-      document.body.style.overflow = "visible";
-      document.body.style.overflowX = "hidden";
+      document.body.classList.add("scroll_reset");
     } else if (bodyScrollToggle === "hidden") {
-      document.body.style.overflow = "hidden";
+      document.body.classList.remove("scroll_reset");
+      document.body.classList.add("no_scroll");
     }
   }, [bodyScrollToggle]);
 

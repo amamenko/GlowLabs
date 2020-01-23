@@ -409,10 +409,7 @@ const Calm = props => {
   };
 
   return (
-    <InView
-      threshold={props.initialScreenSize >= 1200 ? 0.3 : 0.2}
-      triggerOnce={true}
-    >
+    <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
         <div className="calm_wrapping" ref={ref}>
           {inView ? (

@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
-import "./Contact.css";
 import GoogleMapReact from "google-map-react";
+import Footer from "../footer/Footer";
 import ContactCustomMarker from "./ContactCustomMarker";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
+import "./Contact.css";
 
 const Contact = React.forwardRef((props, ref) => {
+  const GoogleMapRef = useRef(null);
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
     threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2
   });
+  const today = new Date().getDay();
+
+  const hours_today = () => {
+    if (today === 0) {
+      return <p className="open_status">Open today until 6:00 PM</p>;
+    } else if ((today === 1) | (today === 6)) {
+      return <p className="open_status">Closed today</p>;
+    } else if (today === 5) {
+      return <p className="open_status">Open today until 4:00 PM</p>;
+    } else {
+      return <p className="open_status">Open today until 8:00 PM</p>;
+    }
+  };
+
   return (
     <div className="contact_page_container" ref={inViewRef}>
       {inView ? (
@@ -48,8 +66,9 @@ const Contact = React.forwardRef((props, ref) => {
                 className="contacts_title_underline"
               />
               <br />
-              <div style={{ width: "100vw", height: "40vh" }}>
+              <div className="contacts_map_container">
                 <GoogleMapReact
+                  ref={GoogleMapRef}
                   options={{
                     gestureHandling: "none",
                     zoomControl: true,
@@ -62,7 +81,7 @@ const Contact = React.forwardRef((props, ref) => {
                   bootstrapURLKeys={{
                     key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
                   }}
-                  defaultCenter={{
+                  center={{
                     lat: 40.62322,
                     lng: -73.722809
                   }}
@@ -74,13 +93,48 @@ const Contact = React.forwardRef((props, ref) => {
                     height: "100%"
                   }}
                 >
-                  <ContactCustomMarker
-                    lat={40.62322}
-                    lng={-73.722809}
-                    text="Glow Labs"
-                  />
+                  <ContactCustomMarker text="Glow Labs" />
                 </GoogleMapReact>
               </div>
+              <div className="contacts_text_container">
+                <h3>By Appointment Only</h3>
+                <p style={{ fontWeight: "600", marginBottom: "0.7rem" }}>
+                  Glow Labs
+                </p>
+                <p>561 Willow Avenue,</p>
+                <p>Located Inside "Angelica's Salon"</p>
+                <p>Cedarhurst, NY, 11516</p>
+                <p>
+                  <FontAwesomeIcon className="contact_icon" icon={faEnvelope} />{" "}
+                  glowlabs@yahoo.com
+                </p>
+                <p>
+                  <FontAwesomeIcon className="contact_icon" icon={faPhone} />{" "}
+                  (347) 417-3883
+                </p>
+              </div>
+              <div className="day_and_time_container">
+                <div className="days_container">
+                  <p>Sun</p>
+                  <p>Mon</p>
+                  <p>Tue</p>
+                  <p>Wed</p>
+                  <p>Thu</p>
+                  <p>Fri</p>
+                  <p>Sat</p>
+                </div>
+                <div className="hours_container">
+                  <p>10:00 AM - 6:00 PM</p>
+                  <p>Closed</p>
+                  <p>10:00 AM - 8:00 PM</p>
+                  <p>10:00 AM - 8:00 PM</p>
+                  <p>10:00 AM - 8:00 PM</p>
+                  <p>10:00 AM - 4:00 PM</p>
+                  <p>Closed</p>
+                </div>
+              </div>
+              {hours_today()}
+              <Footer />
             </div>
           )}
         </Spring>

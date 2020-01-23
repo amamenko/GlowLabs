@@ -480,10 +480,7 @@ const ChemicalPeel = props => {
   };
 
   return (
-    <InView
-      threshold={props.initialScreenSize >= 768 ? 0.7 : 0.2}
-      triggerOnce={true}
-    >
+    <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
         <div className="chemical_peel_wrapping" ref={ref}>
           {inView ? (

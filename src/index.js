@@ -24,6 +24,7 @@ import AddOnsPage3 from "./components/add_ons_pages/Page_3/AddOnsPage3";
 import AddOnsPage4 from "./components/add_ons_pages/Page_4/AddOnsPage4";
 import AddOnsPage5 from "./components/add_ons_pages/Page_5/AddOnsPage5";
 import Instagram from "./components/instagram/Instagram";
+import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
 import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
 import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
@@ -34,7 +35,6 @@ import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
-import Contact from "./components/contact/Contact";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -176,12 +176,16 @@ const App = () => {
             ? InstagramRef.current.offsetTop - 300
             : initialScreenSize >= 1200
             ? InstagramRef.current.offsetTop - 80
-            : InstagramRef.current.offsetTop - 170
+            : previousScrollPosition < 6400
+            ? InstagramRef.current.offsetTop - 170
+            : InstagramRef.current.offsetTop - 230
           : currentScreenSize >= 1800
           ? InstagramRef.current.offsetTop - 300
           : currentScreenSize >= 1200
           ? InstagramRef.current.offsetTop - 80
-          : InstagramRef.current.offsetTop - 170,
+          : previousScrollPosition < 6400
+          ? InstagramRef.current.offsetTop - 170
+          : InstagramRef.current.offsetTop - 230,
       behavior: "smooth"
     });
   };
@@ -387,7 +391,10 @@ const App = () => {
                 currentScreenSize={currentScreenSize}
                 InstagramRef={InstagramRef}
               />
-              <Contact />
+              <Contact
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
             </div>
           </KeepAlive>
         </Route>

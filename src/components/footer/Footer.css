@@ -1,0 +1,34 @@
+.footer_container {
+  width: 100%;
+  height: 10vh;
+  background-color: rgb(225, 166, 175);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  position: absolute;
+  top: auto;
+  bottom: 0;
+}
+
+.footer_icon {
+  color: #fff;
+  font-size: 1.8rem;
+  margin-bottom: 0.1rem;
+}
+
+.footer_insta_wrapping,
+.footer_facebook_wrapping {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer_insta_wrapping p,
+.footer_facebook_wrapping p {
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9rem;
+}

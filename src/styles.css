@@ -12,6 +12,15 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.no_scroll {
+  overflow: hidden;
+}
+
+.scroll_reset {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     --scroll-behavior: auto;
