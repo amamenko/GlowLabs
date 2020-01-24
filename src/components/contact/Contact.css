@@ -1,6 +1,7 @@
 .contact_page_container {
   height: 110vh;
   position: relative;
+  background: rgb(255, 255, 255);
 }
 
 .contacts_title_underline {

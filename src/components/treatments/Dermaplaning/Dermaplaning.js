@@ -413,7 +413,11 @@ const Dermaplaning = props => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="dermaplaning_wrapping" ref={ref}>
+        <div
+          className="dermaplaning_wrapping"
+          ref={ref}
+          style={{ display: props.dermaplaningRendered }}
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

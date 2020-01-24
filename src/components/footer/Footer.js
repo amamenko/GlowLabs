@@ -1,21 +1,44 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import {
+  faInstagram,
+  faFacebookSquare
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faPhoneSquare,
+  faEnvelopeSquare
+} from "@fortawesome/free-solid-svg-icons";
 import "./Footer.css";
 
-const Footer = props => {
+const Footer = () => {
   return (
     <div className="footer_container">
       <div className="footer_insta_wrapping">
-        <a target="_self" href="https://instagram.com/glow.labs">
+        <div
+          onClick={() =>
+            window.open("https://instagram.com/glow.labs", "_blank")
+          }
+        >
           <FontAwesomeIcon className="footer_icon" icon={faInstagram} />
-          <p>Instagram</p>
-        </a>
+        </div>
       </div>
       <div className="footer_facebook_wrapping">
-        <a target="_self" href="https://facebook.com/glowlabsLI/">
-          <FontAwesomeIcon className="footer_icon" icon={faFacebook} />
-          <p>Facebook</p>
+        <div
+          onClick={() =>
+            window.open("https://facebook.com/glowlabsLI/", "_blank")
+          }
+        >
+          <FontAwesomeIcon className="footer_icon" icon={faFacebookSquare} />
+        </div>
+      </div>
+      <div className="footer_phone_wrapping">
+        <a href="tel:1 (347) 417-3883">
+          <FontAwesomeIcon className="footer_icon" icon={faPhoneSquare} />
+        </a>
+      </div>
+      <div className="footer_email_wrapping">
+        <a href="mailto:glowlabs@yahoo.com?subject=Help! What do I book?">
+          <FontAwesomeIcon className="footer_icon" icon={faEnvelopeSquare} />
         </a>
       </div>
     </div>

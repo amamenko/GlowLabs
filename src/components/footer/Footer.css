@@ -1,7 +1,7 @@
 .footer_container {
   width: 100%;
   height: 10vh;
-  background-color: rgb(225, 166, 175);
+  background-color: rgb(215, 156, 165);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,14 +11,10 @@
   bottom: 0;
 }
 
-.footer_icon {
-  color: #fff;
-  font-size: 1.8rem;
-  margin-bottom: 0.1rem;
-}
-
 .footer_insta_wrapping,
-.footer_facebook_wrapping {
+.footer_facebook_wrapping,
+.footer_phone_wrapping,
+.footer_email_wrapping {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,9 +22,7 @@
   text-align: center;
 }
 
-.footer_insta_wrapping p,
-.footer_facebook_wrapping p {
+.footer_icon {
   color: #fff;
-  font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 2rem;
 }

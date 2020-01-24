@@ -53,6 +53,7 @@ const App = () => {
   const Treatments1Ref = useRef(null);
   const AddOnsRef = useRef(null);
   const InstagramRef = useRef(null);
+  const ContactRef = useRef(null);
   const [initialScreenSize] = useState(window.innerWidth);
   const [currentScreenSize, changeCurrentScreenSize] = useState("");
   const [previousScrollPosition, setPreviousScrollPosition] = useState(
@@ -190,11 +191,37 @@ const App = () => {
     });
   };
 
+  const handleClickToScrollToContact = async ref => {
+    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
+      await import("scroll-behavior-polyfill");
+    }
+    window.scrollTo({
+      top:
+        currentScreenSize === ""
+          ? initialScreenSize >= 1800
+            ? ContactRef.current.offsetTop - 300
+            : initialScreenSize >= 1200
+            ? ContactRef.current.offsetTop - 80
+            : previousScrollPosition < 6400
+            ? ContactRef.current.offsetTop - 10
+            : ContactRef.current.offsetTop - 80
+          : currentScreenSize >= 1800
+          ? ContactRef.current.offsetTop - 300
+          : currentScreenSize >= 1200
+          ? ContactRef.current.offsetTop - 80
+          : previousScrollPosition < 7200
+          ? ContactRef.current.offsetTop - 10
+          : ContactRef.current.offsetTop - 80,
+      behavior: "smooth"
+    });
+  };
+
   const ref = {
     LandingPageRef: LandingPageRef,
     Treatments1Ref: Treatments1Ref,
     AddOnsRef: AddOnsRef,
-    InstagramRef: InstagramRef
+    InstagramRef: InstagramRef,
+    ContactRef: ContactRef
   };
 
   useEffect(() => {
@@ -296,6 +323,7 @@ const App = () => {
               handleClickToScrollToTreatments={handleClickToScrollToTreatments}
               handleClickToScrollToAddOns={handleClickToScrollToAddOns}
               handleClickToScrollToInstagram={handleClickToScrollToInstagram}
+              handleClickToScrollToContact={handleClickToScrollToContact}
               ref={ref}
             />
           </header>
@@ -321,6 +349,7 @@ const App = () => {
         handleClickToScrollToTreatments={handleClickToScrollToTreatments}
         handleClickToScrollToAddOns={handleClickToScrollToAddOns}
         handleClickToScrollToInstagram={handleClickToScrollToInstagram}
+        handleClickToScrollToContact={handleClickToScrollToContact}
         ref={ref}
       />
 
@@ -337,6 +366,7 @@ const App = () => {
                 }
                 handleClickToScrollToAddOns={handleClickToScrollToAddOns}
                 handleClickToScrollToInstagram={handleClickToScrollToInstagram}
+                handleClickToScrollToContact={handleClickToScrollToContact}
                 navbarVisible={navbarVisible}
                 ref={ref}
               />
@@ -394,6 +424,7 @@ const App = () => {
               <Contact
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                ContactRef={ContactRef}
               />
             </div>
           </KeepAlive>

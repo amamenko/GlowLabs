@@ -418,7 +418,11 @@ const Rejuvenate = props => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="rejuvenate_wrapping" ref={ref}>
+        <div
+          className="rejuvenate_wrapping"
+          ref={ref}
+          style={{ display: props.rejuvenateRendered }}
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

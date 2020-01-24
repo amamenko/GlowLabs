@@ -9,7 +9,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 const NavigationBar = React.forwardRef((props, ref) => {
-  const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
+  const {
+    LandingPageRef,
+    Treatments1Ref,
+    AddOnsRef,
+    InstagramRef,
+    ContactRef
+  } = ref;
 
   const counter = useSelector(state => state.counterReducer.counter);
 
@@ -234,7 +240,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
           >
             REAL CLIENTS
           </li>
-          <li>CONTACT</li>
+          <li onClick={() => props.handleClickToScrollToContact(ContactRef)}>
+            CONTACT
+          </li>
         </ul>
       </div>
     </nav>

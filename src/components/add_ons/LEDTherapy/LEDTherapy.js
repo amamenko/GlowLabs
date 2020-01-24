@@ -356,7 +356,11 @@ const LEDTherapy = props => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="led_therapy_wrapping" ref={ref}>
+        <div
+          className="led_therapy_wrapping"
+          ref={ref}
+          style={{ display: props.ledRendered }}
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

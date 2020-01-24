@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
 import ExtraExtractions from "../../add_ons/ExtraExtractions/ExraExtractions";
@@ -11,6 +11,24 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
     triggerOnce: true,
     threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2
   });
+  const [ledRendered, changeLEDRendered] = useState("grid");
+
+  useEffect(() => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        changeLEDRendered("grid");
+      } else {
+        changeLEDRendered("none");
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        changeLEDRendered("grid");
+      } else {
+        changeLEDRendered("none");
+      }
+    }
+  }, [changeLEDRendered, props.currentScreenSize, props.initialScreenSize]);
+
   return (
     <div className="add_ons_page_1_container" ref={props.AddOnsRef}>
       <header className="add_ons_page_1_header" ref={inViewRef}>
@@ -88,19 +106,11 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
-      {props.currentScreenSize === "" ? (
-        props.initialScreenSize >= 1200 ? (
-          <LEDTherapy
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
-          />
-        ) : null
-      ) : props.currentScreenSize >= 1200 ? (
-        <LEDTherapy
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
-        />
-      ) : null}
+      <LEDTherapy
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+        ledRendered={ledRendered}
+      />
     </div>
   );
 });

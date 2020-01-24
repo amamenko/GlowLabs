@@ -411,7 +411,11 @@ const Quench = props => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="quench_wrapping" ref={ref}>
+        <div
+          className="quench_wrapping"
+          ref={ref}
+          style={{ display: props.quenchRendered }}
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

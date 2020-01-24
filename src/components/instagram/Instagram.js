@@ -73,7 +73,15 @@ const Instagram = React.forwardRef((props, ref) => {
                       <br />
                     </p>
                     <div className="insta_handle_wrapper">
-                      <a target="_self" href="https://instagram.com/glow.labs">
+                      <div
+                        onClick={() =>
+                          window.open(
+                            "https://instagram.com/glow.labs",
+                            "_blank"
+                          )
+                        }
+                        href="#"
+                      >
                         <FontAwesomeIcon
                           className="real_clients_instagram_icon"
                           style={{
@@ -82,7 +90,7 @@ const Instagram = React.forwardRef((props, ref) => {
                           }}
                           icon={faInstagram}
                         />
-                      </a>
+                      </div>
                       @glow.labs
                     </div>
                   </h3>

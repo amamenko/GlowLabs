@@ -101,6 +101,8 @@ const LandingPage = React.forwardRef((props, ref) => {
   const portraitOverscroll = () => {
     if (window.scrollY <= 50) {
       document.body.style.setProperty("background", "rgb(255, 198, 207)");
+    } else if (window.scrollY >= 7100) {
+      document.body.style.setProperty("background", "rgb(215, 156, 165)");
     } else {
       document.body.style.setProperty("background", "rgb(255, 255, 255)");
     }

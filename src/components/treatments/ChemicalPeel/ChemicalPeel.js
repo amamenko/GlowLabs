@@ -482,7 +482,11 @@ const ChemicalPeel = props => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="chemical_peel_wrapping" ref={ref}>
+        <div
+          className="chemical_peel_wrapping"
+          ref={ref}
+          style={{ display: props.quickieChemPeelRendered }}
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

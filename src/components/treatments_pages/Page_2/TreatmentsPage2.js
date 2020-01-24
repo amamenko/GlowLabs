@@ -1,58 +1,90 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Bacial from "../../treatments/Bacial/Bacial";
 import Glow from "../../treatments/Glow/Glow";
 import Rejuvenate from "../../treatments/Rejuvenate/Rejuvenate";
 import Quench from "../../treatments/Quench/Quench";
 import "./TreatmentsPage2.css";
 
-const TreatmentsPage2 = props => (
-  <div className="treatments_page_2_container">
-    {props.currentScreenSize === "" ? (
-      props.initialScreenSize >= 1200 ? null : (
-        <Bacial
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
-        />
-      )
-    ) : props.currentScreenSize >= 1200 ? null : (
+const TreatmentsPage2 = props => {
+  const [bacialRendered, changeBacialRendered] = useState("none");
+  const [rejuvenateRendered, changeRejuvenateRendered] = useState("none");
+  const [quenchRendered, changeQuenchRendered] = useState("grid");
+
+  useEffect(() => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        changeBacialRendered("none");
+      } else {
+        changeBacialRendered("grid");
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        changeBacialRendered("none");
+      } else {
+        changeBacialRendered("grid");
+      }
+    }
+  }, [changeBacialRendered, props.currentScreenSize, props.initialScreenSize]);
+
+  useEffect(() => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 600 && props.initialScreenSize <= 1200) {
+        changeRejuvenateRendered("none");
+      } else {
+        changeRejuvenateRendered("grid");
+      }
+    } else {
+      if (props.currentScreenSize >= 600 && props.currentScreenSize <= 1200) {
+        changeRejuvenateRendered("none");
+      } else {
+        changeRejuvenateRendered("grid");
+      }
+    }
+  }, [
+    changeRejuvenateRendered,
+    props.currentScreenSize,
+    props.initialScreenSize
+  ]);
+
+  useEffect(() => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        changeQuenchRendered("grid");
+      } else {
+        changeQuenchRendered("none");
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        changeQuenchRendered("grid");
+      } else {
+        changeQuenchRendered("none");
+      }
+    }
+  }, [changeQuenchRendered, props.currentScreenSize, props.initialScreenSize]);
+
+  return (
+    <div className="treatments_page_2_container">
       <Bacial
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        bacialRendered={bacialRendered}
       />
-    )}
-    <Glow
-      initialScreenSize={props.initialScreenSize}
-      currentScreenSize={props.currentScreenSize}
-    />
-    {props.currentScreenSize === "" ? (
-      props.initialScreenSize >= 600 &&
-      props.initialScreenSize <= 1200 ? null : (
-        <Rejuvenate
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
-        />
-      )
-    ) : props.currentScreenSize >= 600 &&
-      props.currentScreenSize <= 1200 ? null : (
+      <Glow
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
       <Rejuvenate
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        rejuvenateRendered={rejuvenateRendered}
       />
-    )}
-    {props.currentScreenSize === "" ? (
-      props.initialScreenSize >= 1200 ? (
-        <Quench
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
-        />
-      ) : null
-    ) : props.currentScreenSize >= 1200 ? (
       <Quench
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        quenchRendered={quenchRendered}
       />
-    ) : null}
-  </div>
-);
+    </div>
+  );
+};
 
 export default TreatmentsPage2;

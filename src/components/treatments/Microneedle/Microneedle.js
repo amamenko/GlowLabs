@@ -508,7 +508,11 @@ const Microneedle = props => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="microneedle_wrapping" ref={ref}>
+        <div
+          className="microneedle_wrapping"
+          ref={ref}
+          style={{ display: props.cbdMicroneedlingRendered }}
+        >
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Calm from "../../treatments/Calm/Calm";
 import Clarify from "../../treatments/Clarify/Clarify";
 import Bacial from "../../treatments/Bacial/Bacial";
@@ -11,6 +11,24 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
     triggerOnce: true,
     threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2
   });
+  const [bacialRendered, changeBacialRendered] = useState("grid");
+
+  useEffect(() => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        changeBacialRendered("grid");
+      } else {
+        changeBacialRendered("none");
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        changeBacialRendered("grid");
+      } else {
+        changeBacialRendered("none");
+      }
+    }
+  }, [changeBacialRendered, props.currentScreenSize, props.initialScreenSize]);
+
   return (
     <div className="treatments_page_1_container" ref={props.Treatments1Ref}>
       <header className="treatments_page_1_header" ref={inViewRef}>
@@ -88,19 +106,11 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
-      {props.currentScreenSize === "" ? (
-        props.initialScreenSize >= 1200 ? (
-          <Bacial
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
-          />
-        ) : null
-      ) : props.currentScreenSize >= 1200 ? (
-        <Bacial
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
-        />
-      ) : null}
+      <Bacial
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+        bacialRendered={bacialRendered}
+      />
     </div>
   );
 });

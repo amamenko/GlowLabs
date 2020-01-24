@@ -7,7 +7,13 @@ import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_R
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 
 const NavigationMenu = React.forwardRef((props, ref) => {
-  const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
+  const {
+    LandingPageRef,
+    Treatments1Ref,
+    AddOnsRef,
+    InstagramRef,
+    ContactRef
+  } = ref;
   const Nav_Ref = useRef(null);
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
   const scroll = useSelector(state => state.scrollToggle.scroll);
@@ -61,6 +67,14 @@ const NavigationMenu = React.forwardRef((props, ref) => {
     }, 300);
   };
 
+  const navMenuScrollToContact = () => {
+    navbarItemSelect();
+    clearTimeout(navbarItemSelect());
+    setTimeout(() => {
+      props.handleClickToScrollToContact(ContactRef);
+    }, 300);
+  };
+
   return (
     <div
       className="nav_menu"
@@ -89,7 +103,7 @@ const NavigationMenu = React.forwardRef((props, ref) => {
       </ul>
       <ul className="navbar_items">
         <li onClick={() => navMenuScrollToInstagram()}>Real Clients</li>
-        <li onClick={navbarItemSelect}>Contact</li>
+        <li onClick={() => navMenuScrollToContact()}>Contact</li>
         <li className="navbar_social_media_icons">
           <a target="_self" href="https://instagram.com/glow.labs">
             <FontAwesomeIcon icon={faInstagram} />
