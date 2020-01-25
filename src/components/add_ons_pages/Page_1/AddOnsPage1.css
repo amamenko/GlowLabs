@@ -25,6 +25,7 @@
   font-size: 1.5rem;
   font-weight: 900;
   color: rgba(215, 156, 165);
+  -webkit-text-fill-color: rgb(215, 156, 165);
   line-height: 1rem;
   padding-bottom: 1rem;
   padding-top: 0.5rem;

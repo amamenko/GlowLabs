@@ -31,6 +31,16 @@ const LandingPage = React.forwardRef((props, ref) => {
 
   const dispatch = useDispatch();
 
+  const [isSafari, changeIsSafari] = useState(false);
+
+  useEffect(() => {
+    if (navigator.vendor === "Apple Computer, Inc.") {
+      changeIsSafari(true);
+    } else {
+      changeIsSafari(false);
+    }
+  }, [changeIsSafari]);
+
   const changeScroll = useCallback(() => {
     const userScroll =
       props.currentScreenSize === ""
@@ -61,13 +71,33 @@ const LandingPage = React.forwardRef((props, ref) => {
   ]);
 
   useEffect(() => {
+    const preventScroll = e => e.preventDefault();
+
     if (bodyScrollToggle === "visible") {
       document.body.classList.add("scroll_reset");
     } else if (bodyScrollToggle === "hidden") {
       document.body.classList.remove("scroll_reset");
       document.body.classList.add("no_scroll");
+
+      // Required for iOS Landscape Scroll Disabling During Splash Screen
+      if (LandingPageRef) {
+        LandingPageRef.current.addEventListener(
+          "touchmove",
+          preventScroll,
+          false
+        );
+        setTimeout(
+          () =>
+            LandingPageRef.current.removeEventListener(
+              "touchmove",
+              preventScroll,
+              false
+            ),
+          props.initialScreenSize >= 600 ? 5300 : 4000
+        );
+      }
     }
-  }, [bodyScrollToggle]);
+  }, [bodyScrollToggle, LandingPageRef, props.initialScreenSize]);
 
   useEffect(() => {
     document.addEventListener("scroll", changeScroll);
@@ -98,6 +128,7 @@ const LandingPage = React.forwardRef((props, ref) => {
     };
   }, [dispatch, props.initialScreenSize, LandingPageRef]);
 
+  // For iOS Rubberbanding Effect on Navbar / Footer
   const portraitOverscroll = () => {
     if (window.scrollY <= 50) {
       document.body.style.setProperty("background", "rgb(255, 198, 207)");
@@ -149,6 +180,7 @@ const LandingPage = React.forwardRef((props, ref) => {
           <TopAnimationTopShelf
             currentScreenSize={props.currentScreenSize}
             initialScreenSize={props.initialScreenSize}
+            isSafari={isSafari}
           />
           <Mirror initialScreenSize={props.initialScreenSize} />
           <Bottle initialScreenSize={props.initialScreenSize} />
@@ -157,6 +189,7 @@ const LandingPage = React.forwardRef((props, ref) => {
           <TopAnimationBottomShelf
             currentScreenSize={props.currentScreenSize}
             initialScreenSize={props.initialScreenSize}
+            isSafari={isSafari}
           />
         </div>
         <Spring

@@ -55,7 +55,8 @@ body {
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .toast_error_container,
-  .toast_container {
+  .toast_container,
+  .toast_removed_container {
     width: 42vw;
     margin-left: -5.8rem;
   }

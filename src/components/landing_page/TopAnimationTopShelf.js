@@ -9,7 +9,9 @@ const TopAnimationTopShelf = props => {
       to={{
         top:
           props.initialScreenSize >= 1200
-            ? "30%"
+            ? props.isSafari
+              ? "13%"
+              : "30%"
             : props.initialScreenSize >= 600
             ? "12%"
             : "19.5%"
@@ -27,7 +29,9 @@ const TopAnimationTopShelf = props => {
               props.currentScreenSize === ""
                 ? `${styles.top}`
                 : props.currentScreenSize >= 1200
-                ? "30%"
+                ? props.isSafari
+                  ? "13%"
+                  : "30%"
                 : props.currentScreenSize >= 600
                 ? "12%"
                 : "19.5%"
@@ -38,19 +42,19 @@ const TopAnimationTopShelf = props => {
             height={
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800
-                  ? "35rem"
+                  ? "35em"
                   : props.initialScreenSize >= 1600
-                  ? "20rem"
+                  ? "20em"
                   : props.initialScreenSize >= 1200
-                  ? "15rem"
-                  : "7rem"
+                  ? "15em"
+                  : "7em"
                 : props.currentScreenSize >= 1800
-                ? "35rem"
+                ? "35em"
                 : props.currentScreenSize >= 1600
-                ? "20rem"
+                ? "20em"
                 : props.currentScreenSize >= 1200
-                ? "15rem"
-                : "7rem"
+                ? "15em"
+                : "7em"
             }
             viewBox="0 0 100 100"
           >

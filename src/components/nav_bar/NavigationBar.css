@@ -159,6 +159,14 @@ a {
     font-size: 3rem;
     margin-bottom: 2rem;
   }
+
+  .shopping_cart {
+    position: absolute;
+  }
+
+  .cart_item_number_circle {
+    right: 7rem;
+  }
 }
 
 /* CSS for laptops and regular-sized desktops */

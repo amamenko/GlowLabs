@@ -255,7 +255,7 @@
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .splash_screen {
-    transform: scale(0.8) translate(0vh, -60vh);
+    transform: scale(0.7) translate(0vh, -70vh);
   }
 
   .bottom_content {
@@ -420,6 +420,7 @@
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .splash_screen {
+    font-size: 3em;
     transform: scale(1.3) translate(0vh, 10vh);
   }
 
@@ -580,6 +581,71 @@
     width: 10%;
     top: 62%;
     left: 81%;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .splash_screen {
+        font-size: 2em;
+        transform: scale(0.6) translate(0vh, -60vh);
+      }
+
+      .potted_plant {
+        height: 10%;
+        width: 10%;
+        top: 7%;
+        left: 60%;
+      }
+
+      .small_plant {
+        height: 12%;
+        width: 12%;
+        top: 11.25%;
+        left: 63%;
+      }
+
+      .cream {
+        height: 11%;
+        width: 11%;
+        top: 8%;
+        left: 70%;
+      }
+
+      .hand_cream {
+        height: 10%;
+        width: 10%;
+        top: 9.25%;
+        left: 80%;
+      }
+
+      .mirror {
+        height: 11%;
+        width: 11%;
+        top: 27%;
+        left: 59%;
+      }
+
+      .bottle {
+        height: 11%;
+        top: 29.5%;
+        left: 61%;
+      }
+
+      .q_tips {
+        height: 15%;
+        width: 15%;
+        top: 31.75%;
+        left: 77%;
+      }
+
+      .sun_screen {
+        height: 12%;
+        width: 12%;
+        margin-top: -58em;
+        left: 81%;
+      }
+    }
   }
 }
 
