@@ -12,6 +12,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.reset_scroll_behavior {
+  scroll-behavior: auto;
+}
+
 .no_scroll {
   overflow: hidden;
 }

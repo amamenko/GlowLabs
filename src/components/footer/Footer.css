@@ -29,9 +29,16 @@
   color: #fff;
   font-size: 2rem;
   z-index: 1;
+  transition: color 0.5s ease;
 }
 
-.insta_logo {
-  position: absolute;
-  z-index: 2;
+.footer_icon:hover {
+  color: black;
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .footer_icon {
+    font-size: 3rem;
+  }
 }

@@ -254,7 +254,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
           <li
             onClick={() => props.handleClickToScrollToInstagram(InstagramRef)}
           >
-            REAL CLIENTS
+            FOLLOW US
           </li>
           <li onClick={() => props.handleClickToScrollToContact(ContactRef)}>
             CONTACT

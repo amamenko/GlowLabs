@@ -98,6 +98,7 @@ const App = () => {
       top: LandingPageRef.current.offsetTop - 10,
       behavior: "smooth"
     });
+    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToTreatments = async ref => {
@@ -131,6 +132,7 @@ const App = () => {
           : Treatments1Ref.current.offsetTop - 80,
       behavior: "smooth"
     });
+    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToAddOns = async ref => {
@@ -164,6 +166,7 @@ const App = () => {
           : AddOnsRef.current.offsetTop - 70,
       behavior: "smooth"
     });
+    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToInstagram = async ref => {
@@ -174,14 +177,14 @@ const App = () => {
       top:
         currentScreenSize === ""
           ? initialScreenSize >= 1800
-            ? InstagramRef.current.offsetTop - 300
+            ? InstagramRef.current.offsetTop - 320
             : initialScreenSize >= 1200
             ? InstagramRef.current.offsetTop - 80
             : previousScrollPosition < 6400
             ? InstagramRef.current.offsetTop - 170
             : InstagramRef.current.offsetTop - 230
           : currentScreenSize >= 1800
-          ? InstagramRef.current.offsetTop - 300
+          ? InstagramRef.current.offsetTop - 320
           : currentScreenSize >= 1200
           ? InstagramRef.current.offsetTop - 80
           : previousScrollPosition < 6400
@@ -189,6 +192,7 @@ const App = () => {
           : InstagramRef.current.offsetTop - 230,
       behavior: "smooth"
     });
+    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToContact = async ref => {
@@ -214,6 +218,7 @@ const App = () => {
           : ContactRef.current.offsetTop - 80,
       behavior: "smooth"
     });
+    window.addEventListener("scroll", () => {});
   };
 
   const ref = {

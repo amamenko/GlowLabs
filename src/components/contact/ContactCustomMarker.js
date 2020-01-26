@@ -4,8 +4,24 @@ const ContactCustomMarker = props => {
   return (
     <svg
       className="contact_custom_marker"
-      width="75"
-      height="75"
+      width={
+        props.currentScreenSize === ""
+          ? props.initialScreenSize >= 1200
+            ? "130"
+            : "75"
+          : props.currentScreenSize >= 1200
+          ? "130"
+          : "75"
+      }
+      height={
+        props.currentScreenSize === ""
+          ? props.initialScreenSize >= 1200
+            ? "130"
+            : "75"
+          : props.currentScreenSize >= 1200
+          ? "130"
+          : "75"
+      }
       viewBox="0 0 13.229 13.229"
     >
       <g transform="translate(0 -283.77)">

@@ -102,7 +102,7 @@ const NavigationMenu = React.forwardRef((props, ref) => {
         <li onClick={() => navMenuScrollToAddOns()}>Add-Ons</li>
       </ul>
       <ul className="navbar_items">
-        <li onClick={() => navMenuScrollToInstagram()}>Real Clients</li>
+        <li onClick={() => navMenuScrollToInstagram()}>Follow Us</li>
         <li onClick={() => navMenuScrollToContact()}>Contact</li>
         <li className="navbar_social_media_icons">
           <a target="_self" href="https://instagram.com/glow.labs">
