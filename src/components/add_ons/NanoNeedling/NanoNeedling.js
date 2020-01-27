@@ -65,6 +65,7 @@ const NanoNeedling = props => {
   );
 
   const [cartClicked, changeCartClicked] = useState(false);
+  const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -185,10 +186,25 @@ const NanoNeedling = props => {
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
         {styles => (
           <svg
-            width="100%"
+            width={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1200
+                  ? "2rem"
+                  : "100%"
+                : props.currentScreenSize >= 1200
+                ? "2rem"
+                : "100%"
+            }
             height="2rem"
             style={{
-              marginTop: "-0.5rem",
+              marginTop:
+                props.currentScreenSize === ""
+                  ? props.initialScreenSize >= 1200
+                    ? "-0.2rem"
+                    : "-0.5rem"
+                  : props.currentScreenSize >= 1200
+                  ? "-0.2rem"
+                  : "-0.5rem",
               display: nanoneedlingInCart ? "block" : "none"
             }}
             viewBox="0 0 13.229 13.229"
@@ -362,15 +378,24 @@ const NanoNeedling = props => {
   };
 
   const renderAddOnButton = () => {
-    return (
-      <div className="big_screen_book_now_wrapper">
-        <FontAwesomeIcon
-          className="big_screen_card_description_suitcase"
-          icon={faPlus}
-        />
-        <p className="big_screen_card_add_on_button">ADD TO FACIAL</p>
-      </div>
-    );
+    if (nanoneedlingInCart) {
+      return (
+        <>
+          {checkMark()}
+          <p style={{ paddingLeft: "10%" }}>IN CART</p>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <FontAwesomeIcon
+            className="big_screen_card_description_suitcase"
+            icon={faPlus}
+          />
+          <p className="big_screen_card_add_on_button">ADD TO FACIAL</p>
+        </>
+      );
+    }
   };
 
   return (
@@ -408,13 +433,58 @@ const NanoNeedling = props => {
                     >
                       {styles => (
                         <>
-                          {props.currentScreenSize === ""
-                            ? props.initialScreenSize >= 1200
-                              ? renderAddOnButton()
-                              : null
-                            : props.currentScreenSize >= 1200
-                            ? renderAddOnButton()
-                            : null}
+                          <div
+                            className="big_screen_book_now_wrapper"
+                            onClick={() => addToCart()}
+                            style={{
+                              background: bookNowButtonHovered
+                                ? nanoneedlingInCart
+                                  ? "rgba(69, 171, 69, 0.6)"
+                                  : chemicalPeelInCart | microneedleInCart
+                                  ? "rgb(201, 201, 201)"
+                                  : "rgb(155, 98, 107)"
+                                : nanoneedlingInCart
+                                ? "rgba(119, 221, 119, 0.6)"
+                                : chemicalPeelInCart | microneedleInCart
+                                ? "rgb(201, 201, 201)"
+                                : "transparent",
+                              border: bookNowButtonHovered
+                                ? nanoneedlingInCart
+                                  ? "1px solid rgb(69, 171, 69, 0.8)"
+                                  : chemicalPeelInCart | microneedleInCart
+                                  ? "1px solid transparent"
+                                  : "1px solid rgb(155, 98, 107)"
+                                : nanoneedlingInCart
+                                ? "1px solid rgb(69, 171, 69, 0.8)"
+                                : chemicalPeelInCart | microneedleInCart
+                                ? "1px solid transparent"
+                                : "1px solid rgb(155, 98, 107)",
+                              color: bookNowButtonHovered
+                                ? nanoneedlingInCart
+                                  ? "rgb(0, 0, 0)"
+                                  : chemicalPeelInCart | microneedleInCart
+                                  ? "rgb(141, 141, 141)"
+                                  : "rgb(255, 255, 255)"
+                                : nanoneedlingInCart
+                                ? "rgb(0, 0, 0)"
+                                : chemicalPeelInCart | microneedleInCart
+                                ? "rgb(141, 141, 141)"
+                                : "rgb(155, 98, 107)",
+                              cursor:
+                                chemicalPeelInCart | microneedleInCart
+                                  ? "auto"
+                                  : "pointer",
+                              transition: "all 0.5s ease"
+                            }}
+                            onMouseEnter={() =>
+                              changeBookNowButtonHovered(true)
+                            }
+                            onMouseLeave={() =>
+                              changeBookNowButtonHovered(false)
+                            }
+                          >
+                            {renderAddOnButton()}
+                          </div>
                           <svg
                             width="100%"
                             height="15rem"

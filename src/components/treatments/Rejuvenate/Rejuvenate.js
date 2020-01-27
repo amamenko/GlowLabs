@@ -76,6 +76,7 @@ const Rejuvenate = props => {
   );
 
   const [cartClicked, changeCartClicked] = useState(false);
+  const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -202,10 +203,25 @@ const Rejuvenate = props => {
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
         {styles => (
           <svg
-            width="100%"
+            width={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1200
+                  ? "2rem"
+                  : "100%"
+                : props.currentScreenSize >= 1200
+                ? "2rem"
+                : "100%"
+            }
             height="2rem"
             style={{
-              marginTop: "-0.5rem",
+              marginTop:
+                props.currentScreenSize === ""
+                  ? props.initialScreenSize >= 1200
+                    ? "-0.2rem"
+                    : "-0.5rem"
+                  : props.currentScreenSize >= 1200
+                  ? "-0.2rem"
+                  : "-0.5rem",
               display: rejuvenateInCart ? "block" : "none"
             }}
             viewBox="0 0 13.229 13.229"
@@ -415,6 +431,27 @@ const Rejuvenate = props => {
     }
   };
 
+  const bigScreenAddToCartButton = () => {
+    if (rejuvenateInCart) {
+      return (
+        <>
+          {checkMark()}
+          <p style={{ paddingLeft: "10%" }}>IN CART</p>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <FontAwesomeIcon
+            className="big_screen_card_description_suitcase"
+            icon={faSuitcase}
+          />
+          <p>BOOK NOW</p>
+        </>
+      );
+    }
+  };
+
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
@@ -450,12 +487,120 @@ const Rejuvenate = props => {
                     >
                       {styles => (
                         <>
-                          <div className="big_screen_book_now_wrapper">
-                            <FontAwesomeIcon
-                              className="big_screen_card_description_suitcase"
-                              icon={faSuitcase}
-                            />
-                            <p>BOOK NOW</p>
+                          <div
+                            className="big_screen_book_now_wrapper"
+                            onClick={() => addToCart()}
+                            style={{
+                              background: bookNowButtonHovered
+                                ? rejuvenateInCart
+                                  ? "rgba(69, 171, 69, 0.6)"
+                                  : calmInCart |
+                                    cbdInCart |
+                                    chemicalPeelInCart |
+                                    clarifyInCart |
+                                    dermaplaningInCart |
+                                    bacialInCart |
+                                    microneedleInCart |
+                                    quenchInCart |
+                                    quickieInCart |
+                                    glowInCart
+                                  ? "rgb(201, 201, 201)"
+                                  : "rgb(155, 98, 107)"
+                                : rejuvenateInCart
+                                ? "rgba(119, 221, 119, 0.6)"
+                                : calmInCart |
+                                  cbdInCart |
+                                  chemicalPeelInCart |
+                                  clarifyInCart |
+                                  dermaplaningInCart |
+                                  bacialInCart |
+                                  microneedleInCart |
+                                  quenchInCart |
+                                  quickieInCart |
+                                  glowInCart
+                                ? "rgb(201, 201, 201)"
+                                : "transparent",
+                              border: bookNowButtonHovered
+                                ? rejuvenateInCart
+                                  ? "1px solid rgb(69, 171, 69, 0.8)"
+                                  : calmInCart |
+                                    cbdInCart |
+                                    chemicalPeelInCart |
+                                    clarifyInCart |
+                                    dermaplaningInCart |
+                                    bacialInCart |
+                                    microneedleInCart |
+                                    quenchInCart |
+                                    quickieInCart |
+                                    glowInCart
+                                  ? "1px solid transparent"
+                                  : "1px solid rgb(155, 98, 107)"
+                                : rejuvenateInCart
+                                ? "1px solid rgb(69, 171, 69, 0.8)"
+                                : calmInCart |
+                                  cbdInCart |
+                                  chemicalPeelInCart |
+                                  clarifyInCart |
+                                  dermaplaningInCart |
+                                  bacialInCart |
+                                  microneedleInCart |
+                                  quenchInCart |
+                                  quickieInCart |
+                                  glowInCart
+                                ? "1px solid transparent"
+                                : "1px solid rgb(155, 98, 107)",
+                              color: bookNowButtonHovered
+                                ? rejuvenateInCart
+                                  ? "rgb(0, 0, 0)"
+                                  : calmInCart |
+                                    cbdInCart |
+                                    chemicalPeelInCart |
+                                    clarifyInCart |
+                                    dermaplaningInCart |
+                                    bacialInCart |
+                                    microneedleInCart |
+                                    quenchInCart |
+                                    quickieInCart |
+                                    glowInCart
+                                  ? "rgb(141, 141, 141)"
+                                  : "rgb(255, 255, 255)"
+                                : rejuvenateInCart
+                                ? "rgb(0, 0, 0)"
+                                : calmInCart |
+                                  cbdInCart |
+                                  chemicalPeelInCart |
+                                  clarifyInCart |
+                                  dermaplaningInCart |
+                                  bacialInCart |
+                                  microneedleInCart |
+                                  quenchInCart |
+                                  quickieInCart |
+                                  glowInCart
+                                ? "rgb(141, 141, 141)"
+                                : "rgb(155, 98, 107)",
+                              cursor:
+                                calmInCart |
+                                cbdInCart |
+                                chemicalPeelInCart |
+                                clarifyInCart |
+                                dermaplaningInCart |
+                                bacialInCart |
+                                microneedleInCart |
+                                quenchInCart |
+                                quickieInCart |
+                                glowInCart
+                                  ? "auto"
+                                  : "pointer",
+                              transition: "all 0.5s ease"
+                            }}
+                            onMouseEnter={() =>
+                              changeBookNowButtonHovered(true)
+                            }
+                            onMouseLeave={() =>
+                              changeBookNowButtonHovered(false)
+                            }
+                          >
+                            {bigScreenAddToCartButton()}
                           </div>
                           <svg
                             className="card_svg"

@@ -22,7 +22,6 @@
 .cbd_card_new {
   position: absolute;
   z-index: 5;
-  cursor: pointer;
   top: 0;
   bottom: 0;
   left: auto;

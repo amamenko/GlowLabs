@@ -111,6 +111,19 @@
   display: none;
 }
 
+/* Safari Only */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .instagram_top_page_wrapping {
+      margin-top: 20vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: 20vh;
+    }
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .instagram_images_top_wrapping,

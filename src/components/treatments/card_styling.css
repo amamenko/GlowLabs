@@ -197,6 +197,10 @@
   font-weight: 400;
 }
 
+.big_screen_book_now_wrapper {
+  display: none;
+}
+
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .card_description_icon_wrapper_container {
@@ -280,6 +284,12 @@
     color: rgba(155, 98, 107, 1);
   }
 
+  .big_screen_card_add_on_button,
+  .big_screen_card_description_suitcase {
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+  }
+
   .big_screen_duration_wrapper,
   .big_screen_price_wrapper {
     display: flex;
@@ -296,6 +306,7 @@
   }
 
   .big_screen_book_now_wrapper {
+    width: 14em;
     display: flex;
     flex-direction: row;
     justify-items: center;
@@ -308,7 +319,6 @@
     margin-bottom: 1rem;
     padding-right: 0.8rem;
     padding-left: 0.8rem;
-    background: transparent;
     border: 1px solid rgba(155, 98, 107, 1);
     border-radius: 20px;
     cursor: pointer;
@@ -316,7 +326,6 @@
   }
 
   .big_screen_book_now_wrapper:hover {
-    background: rgb(155, 98, 107);
     color: #fff;
     border: 1px solid transparent;
     transition: all 0.5s ease;

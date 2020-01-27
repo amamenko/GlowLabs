@@ -1,5 +1,6 @@
 import React from "react";
 import { animated, Keyframes } from "react-spring/renderprops";
+import "./LandingPage.css";
 
 class SplashScreen extends React.PureComponent {
   render() {
@@ -101,7 +102,12 @@ class SplashScreen extends React.PureComponent {
       ]
     });
     return (
-      <svg width="100%" height="100%" viewBox="0 0 463.021 463.021">
+      <svg
+        className="glow_labs_logo_animation"
+        width="100%"
+        height="100%"
+        viewBox="0 0 463.021 463.021"
+      >
         <GlowChain state="glowAnimation">
           {styles => (
             <>

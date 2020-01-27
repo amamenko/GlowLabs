@@ -181,15 +181,15 @@ const App = () => {
             : initialScreenSize >= 1200
             ? InstagramRef.current.offsetTop - 80
             : previousScrollPosition < 6400
-            ? InstagramRef.current.offsetTop - 170
-            : InstagramRef.current.offsetTop - 230
+            ? InstagramRef.current.offsetTop - 290
+            : InstagramRef.current.offsetTop - 350
           : currentScreenSize >= 1800
           ? InstagramRef.current.offsetTop - 320
           : currentScreenSize >= 1200
           ? InstagramRef.current.offsetTop - 80
           : previousScrollPosition < 6400
-          ? InstagramRef.current.offsetTop - 170
-          : InstagramRef.current.offsetTop - 230,
+          ? InstagramRef.current.offsetTop - 290
+          : InstagramRef.current.offsetTop - 350,
       behavior: "smooth"
     });
     window.addEventListener("scroll", () => {});
@@ -206,7 +206,7 @@ const App = () => {
             ? ContactRef.current.offsetTop - 300
             : initialScreenSize >= 1200
             ? ContactRef.current.offsetTop - 80
-            : previousScrollPosition < 6400
+            : previousScrollPosition < 7200
             ? ContactRef.current.offsetTop - 10
             : ContactRef.current.offsetTop - 80
           : currentScreenSize >= 1800

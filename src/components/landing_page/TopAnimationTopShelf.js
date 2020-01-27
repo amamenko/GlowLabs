@@ -5,12 +5,19 @@ import "./LandingPage.css";
 const TopAnimationTopShelf = props => {
   return (
     <Spring
-      from={{ top: "-50%" }}
+      from={{
+        top:
+          props.initialScreenSize >= 1200
+            ? props.isSafari
+              ? "4%"
+              : "-50%"
+            : "-50%"
+      }}
       to={{
         top:
           props.initialScreenSize >= 1200
             ? props.isSafari
-              ? "13%"
+              ? "4%"
               : "30%"
             : props.initialScreenSize >= 600
             ? "12%"
@@ -30,7 +37,7 @@ const TopAnimationTopShelf = props => {
                 ? `${styles.top}`
                 : props.currentScreenSize >= 1200
                 ? props.isSafari
-                  ? "13%"
+                  ? "auto"
                   : "30%"
                 : props.currentScreenSize >= 600
                 ? "12%"
