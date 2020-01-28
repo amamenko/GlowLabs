@@ -2,10 +2,30 @@ import React from "react";
 import "./Clarify.css";
 import "../../treatments/card_styling.css";
 
-const ClarifyRemovedNotification = () => {
+const ClarifyRemovedNotification = props => {
   return (
     <div className="notification_removed_container">
-      <svg width="26%" height="5rem" viewBox="0 0 50.006 50.006">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "24%"
+              : "26%"
+            : props.currentScreenSize >= 1200
+            ? "24%"
+            : "26%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 50.006 50.006"
+      >
         <circle
           cx="25"
           cy="25"

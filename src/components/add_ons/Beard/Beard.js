@@ -186,22 +186,54 @@ const Beard = props => {
           <svg
             width={
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1200
+                ? props.initialScreenSize >= 1800
                   ? "2rem"
+                  : props.initialScreenSize >= 1600
+                  ? "1rem"
+                  : props.initialScreenSize >= 1200
+                  ? "0.5rem"
                   : "100%"
-                : props.currentScreenSize >= 1200
+                : props.currentScreenSize >= 1800
                 ? "2rem"
+                : props.currentScreenSize >= 1600
+                ? "1rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
                 : "100%"
             }
-            height="2rem"
+            height={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1800
+                  ? "2rem"
+                  : props.initialScreenSize >= 1600
+                  ? "1.3rem"
+                  : props.initialScreenSize >= 1200
+                  ? "0.5rem"
+                  : "2rem"
+                : props.currentScreenSize >= 1800
+                ? "2rem"
+                : props.currentScreenSize >= 1600
+                ? "1.3rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
+                : "2rem"
+            }
             style={{
               marginTop:
                 props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1200
+                  ? props.initialScreenSize >= 1800
                     ? "-0.2rem"
+                    : props.initialScreenSize >= 1600
+                    ? "-0.2rem"
+                    : props.initialScreenSize >= 1200
+                    ? "-0.5rem"
                     : "-0.5rem"
-                  : props.currentScreenSize >= 1200
+                  : props.currentScreenSize >= 1800
                   ? "-0.2rem"
+                  : props.currentScreenSize >= 1600
+                  ? "-0.2rem"
+                  : props.currentScreenSize >= 1200
+                  ? "-0.5rem"
                   : "-0.5rem",
               display: beardInCart ? "block" : "none"
             }}
@@ -378,7 +410,7 @@ const Beard = props => {
       return (
         <>
           {checkMark()}
-          <p style={{ paddingLeft: "10%" }}>IN CART</p>
+          <p className="big_screen_in_cart">IN CART</p>
         </>
       );
     } else {

@@ -3,6 +3,7 @@
   padding-top: 8vh;
   height: 100vh;
   background: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 .shopping_cart_container h2 {

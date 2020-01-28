@@ -2,10 +2,30 @@ import React from "react";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
 
-const CalmNotification = () => {
+const CalmNotification = props => {
   return (
     <div className="notification_container">
-      <svg width="25%" height="5rem" viewBox="0 0 56.356 56.356">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "18%"
+              : "25%"
+            : props.currentScreenSize >= 1200
+            ? "18%"
+            : "25%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 56.356 56.356"
+      >
         <circle
           cx="28"
           cy="28"

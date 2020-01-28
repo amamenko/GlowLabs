@@ -253,22 +253,54 @@ const Microneedle = props => {
           <svg
             width={
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1200
+                ? props.initialScreenSize >= 1800
                   ? "2rem"
+                  : props.initialScreenSize >= 1600
+                  ? "1rem"
+                  : props.initialScreenSize >= 1200
+                  ? "0.5rem"
                   : "100%"
-                : props.currentScreenSize >= 1200
+                : props.currentScreenSize >= 1800
                 ? "2rem"
+                : props.currentScreenSize >= 1600
+                ? "1rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
                 : "100%"
             }
-            height="2rem"
+            height={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1800
+                  ? "2rem"
+                  : props.initialScreenSize >= 1600
+                  ? "1.3rem"
+                  : props.initialScreenSize >= 1200
+                  ? "0.5rem"
+                  : "2rem"
+                : props.currentScreenSize >= 1800
+                ? "2rem"
+                : props.currentScreenSize >= 1600
+                ? "1.3rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
+                : "2rem"
+            }
             style={{
               marginTop:
                 props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1200
+                  ? props.initialScreenSize >= 1800
                     ? "-0.2rem"
+                    : props.initialScreenSize >= 1600
+                    ? "-0.2rem"
+                    : props.initialScreenSize >= 1200
+                    ? "-0.5rem"
                     : "-0.5rem"
-                  : props.currentScreenSize >= 1200
+                  : props.currentScreenSize >= 1800
                   ? "-0.2rem"
+                  : props.currentScreenSize >= 1600
+                  ? "-0.2rem"
+                  : props.currentScreenSize >= 1200
+                  ? "-0.5rem"
                   : "-0.5rem",
               display: microneedleInCart ? "block" : "none"
             }}
@@ -309,10 +341,16 @@ const Microneedle = props => {
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
-        toast(<FacialInCartErrorNotification />, {
-          className: "toast_error_container",
-          toastId: inCartToastId
-        });
+        toast(
+          <FacialInCartErrorNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          {
+            className: "toast_error_container",
+            toastId: inCartToastId
+          }
+        );
       }
     } else {
       if (microneedleInCart) {
@@ -320,9 +358,15 @@ const Microneedle = props => {
         dispatch(ACTION_MICRO_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
-        toast(<MicroneedleRemovedNotification />, {
-          className: "toast_removed_container"
-        });
+        toast(
+          <MicroneedleRemovedNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          {
+            className: "toast_removed_container"
+          }
+        );
       } else {
         toast.dismiss();
         dispatch(ACTION_MICRO_IN_CART());
@@ -330,7 +374,13 @@ const Microneedle = props => {
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
-        toast(<MicroneedleNotification />, { autoClose: 6000 });
+        toast(
+          <MicroneedleNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          { autoClose: 6000 }
+        );
         if (beardInCart) {
           dispatch(ACTION_BEARD_NOT_IN_CART());
           dispatch(ACTION_DECREMENT_COUNTER());
@@ -526,7 +576,7 @@ const Microneedle = props => {
       return (
         <>
           {checkMark()}
-          <p style={{ paddingLeft: "10%" }}>IN CART</p>
+          <p className="big_screen_in_cart">IN CART</p>
         </>
       );
     } else {

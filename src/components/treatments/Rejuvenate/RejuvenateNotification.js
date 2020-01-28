@@ -4,10 +4,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../treatments/card_styling.css";
 
-const RejuvenateNotification = () => {
+const RejuvenateNotification = props => {
   return (
     <div className="notification_container">
-      <svg width="30%" height="5rem" viewBox="0 0 50.006 50.006">
+      <svg
+        width="30%"
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 50.006 50.006"
+      >
         <circle
           cx="25"
           cy="25"
@@ -31,7 +43,22 @@ const RejuvenateNotification = () => {
         <p>The Rejuvenate facial treatment has been added to your cart</p>
         <p
           style={{
-            fontSize: "0.8rem",
+            paddingTop:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1200
+                  ? "0.5rem"
+                  : "0rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
+                : "0rem",
+            fontSize:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1200
+                  ? "1rem"
+                  : "0.8rem"
+                : props.currentScreenSize >= 1200
+                ? "1rem"
+                : "0.8rem",
             fontWeight: "500",
             color: "rgb(81, 81, 81)"
           }}

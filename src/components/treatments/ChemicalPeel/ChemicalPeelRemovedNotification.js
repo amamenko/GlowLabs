@@ -2,10 +2,30 @@ import React from "react";
 import "./ChemicalPeel.css";
 import "../../treatments/card_styling.css";
 
-const ChemicalPeelRemovedNotification = () => {
+const ChemicalPeelRemovedNotification = props => {
   return (
     <div className="notification_removed_container">
-      <svg width="31%" height="5rem" viewBox="0 0 66.146 66.146">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "27%"
+              : "31%"
+            : props.currentScreenSize >= 1200
+            ? "27%"
+            : "31%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 66.146 66.146"
+      >
         <circle
           cx="33.073"
           cy="33.073"

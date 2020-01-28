@@ -9,6 +9,10 @@ import { useDispatch } from "react-redux";
 const ShoppingCart = () => {
   const dispatch = useDispatch();
 
+  const enableScroll = () => {
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+  };
+
   return (
     <div className="shopping_cart_container">
       <h2 className="shopping_cart_header">MY CART</h2>
@@ -23,7 +27,7 @@ const ShoppingCart = () => {
       <p className="cart_statement">
         You do not have any facial treatments or add-ons in your cart right now
       </p>
-      <Link to="/" onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}>
+      <Link to="/" onClick={enableScroll()}>
         <div className="continue_shopping_button">
           <p>Continue Shopping</p>
         </div>

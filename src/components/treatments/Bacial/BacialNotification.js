@@ -2,10 +2,30 @@ import React from "react";
 import "./Bacial.css";
 import "../../treatments/card_styling.css";
 
-const BacialNotification = () => {
+const BacialNotification = props => {
   return (
     <div className="notification_container">
-      <svg width="26%" height="5rem" viewBox="0 0 56 56">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "18%"
+              : "26%"
+            : props.currentScreenSize >= 1200
+            ? "18%"
+            : "26%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 56 56"
+      >
         <circle
           cx="28"
           cy="28"

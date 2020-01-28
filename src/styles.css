@@ -78,4 +78,12 @@ body {
   ::-webkit-scrollbar {
     display: none; /* Chrome Safari */
   }
+
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 30.8vw;
+    margin-left: -31.6rem;
+    border: 1px solid rgb(211, 211, 211);
+  }
 }

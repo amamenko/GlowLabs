@@ -2,10 +2,30 @@ import React from "react";
 import "./Microneedle.css";
 import "../../treatments/card_styling.css";
 
-const MicroneedleRemovedNotification = () => {
+const MicroneedleRemovedNotification = props => {
   return (
     <div className="notification_removed_container">
-      <svg width="34%" height="5rem" viewBox="0 0 132.292 132.292">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "30%"
+              : "34%"
+            : props.currentScreenSize >= 1200
+            ? "30%"
+            : "34%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 132.292 132.292"
+      >
         <circle
           cx="66.146"
           cy="66.146"

@@ -2,10 +2,30 @@ import React from "react";
 import "./Quench.css";
 import "../../treatments/card_styling.css";
 
-const QuenchNotification = () => {
+const QuenchNotification = props => {
   return (
     <div className="notification_container">
-      <svg width="28%" height="5rem" viewBox="0 0 50.006 50.006">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "27%"
+              : "28%"
+            : props.currentScreenSize >= 1200
+            ? "27%"
+            : "28%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 50.006 50.006"
+      >
         <circle
           cx="25"
           cy="25"

@@ -32,13 +32,13 @@
   transition: color 0.5s ease;
 }
 
-.footer_icon:hover {
-  color: black;
-}
-
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .footer_icon {
     font-size: 3rem;
+  }
+
+  .footer_icon:hover {
+    color: black;
   }
 }

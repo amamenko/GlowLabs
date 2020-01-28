@@ -337,7 +337,7 @@ const App = () => {
 
       <ToastContainer
         toastClassName="toast_container"
-        position="bottom-right"
+        position={"bottom-right"}
         autoClose={3000}
         newestOnTop={false}
         hideProgressBar

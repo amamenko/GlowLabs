@@ -4,10 +4,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../treatments/card_styling.css";
 
-const MicroneedleNotification = () => {
+const MicroneedleNotification = props => {
   return (
     <div className="notification_container">
-      <svg width="34%" height="5rem" viewBox="0 0 132.292 132.292">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "30%"
+              : "34%"
+            : props.currentScreenSize >= 1200
+            ? "30%"
+            : "34%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1200
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 132.292 132.292"
+      >
         <circle
           cx="66.146"
           cy="66.146"
@@ -43,7 +63,22 @@ const MicroneedleNotification = () => {
         </p>
         <p
           style={{
-            fontSize: "0.8rem",
+            paddingTop:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1200
+                  ? "0.5rem"
+                  : "0rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
+                : "0rem",
+            fontSize:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1200
+                  ? "1rem"
+                  : "0.8rem"
+                : props.currentScreenSize >= 1200
+                ? "1rem"
+                : "0.8rem",
             fontWeight: "500",
             color: "rgb(81, 81, 81)"
           }}

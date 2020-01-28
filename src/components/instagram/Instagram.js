@@ -128,7 +128,6 @@ const Instagram = React.forwardRef((props, ref) => {
                       </div>
                       <div className="instagram_image">
                         <img
-                          className="instagram_image"
                           alt="Dryness_Pink"
                           src={Dryness_Pink}
                           style={{

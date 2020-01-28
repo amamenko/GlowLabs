@@ -86,12 +86,6 @@
   cursor: pointer;
 }
 
-.real_clients_instagram_icon:hover {
-  color: rgb(155, 98, 107);
-  -webkit-text-fill-color: rgb(155, 98, 107);
-  transition: all 0.5s ease;
-}
-
 .real_clients_title_underline {
   border-bottom: 3px solid rgb(215, 156, 165);
 }
@@ -168,6 +162,12 @@
     margin-right: 1.3rem;
   }
 
+  .real_clients_instagram_icon:hover {
+    color: rgb(155, 98, 107);
+    -webkit-text-fill-color: rgb(155, 98, 107);
+    transition: all 0.5s ease;
+  }
+
   .large_screen {
     display: block;
   }
@@ -226,10 +226,59 @@
   }
 }
 
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .instagram_page_wrapping {
+    margin-top: 17vh;
+  }
+
+  .large_screen_follow_prompt {
+    padding-left: 7em;
+    padding-right: 7em;
+  }
+
+  .large_screen_follow_prompt p {
+    font-size: 3em;
+    font-weight: 500;
+    margin-bottom: 1em;
+    margin-top: 70vh;
+  }
+
+  .real_clients_instagram_icon {
+    font-size: 2em;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 3rem;
+    line-height: 3rem;
+    margin-top: 2rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  .instagram_image {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+  }
+
+  .instagram_image img {
+    visibility: hidden;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .instagram_page_wrapping {
-    margin-top: 17vh;
+    margin-top: 13vh;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: -2vh;
   }
 
   .instagram_top_page_wrapping h2 {
@@ -242,5 +291,15 @@
     margin-top: 1rem;
     margin-bottom: 3rem;
     font-size: 4rem;
+  }
+
+  .instagram_image {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+  }
+
+  .instagram_image img {
+    visibility: visible;
   }
 }

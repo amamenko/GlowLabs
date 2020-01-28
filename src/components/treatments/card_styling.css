@@ -365,6 +365,18 @@
     margin-right: 0.7rem;
   }
 
+  .big_screen_in_cart {
+    padding-left: 15%;
+  }
+
+  .big_screen_card_description_suitcase {
+    margin-bottom: 0.1rem;
+  }
+
+  .big_screen_book_now_wrapper {
+    width: 9em;
+  }
+
   .big_screen_book_now_wrapper p {
     font-size: 0.8rem;
   }
@@ -401,6 +413,10 @@
     font-size: 2rem;
   }
 
+  .big_screen_in_cart {
+    padding-left: 10%;
+  }
+
   .big_screen_price,
   .big_screen_duration {
     font-size: 2.3rem;
@@ -418,11 +434,28 @@
     margin-right: 1rem;
   }
 
+  .big_screen_book_now_wrapper {
+    width: 14em;
+  }
+
   .big_screen_book_now_wrapper p {
     font-size: 1.5rem;
   }
 
   .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
     font-size: 1.2rem;
+  }
+
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .notification_text_container p {
+    color: rgb(0, 0, 0);
+    margin-top: 0.3rem;
+    font-size: 1.3rem;
+    font-weight: 400;
   }
 }
