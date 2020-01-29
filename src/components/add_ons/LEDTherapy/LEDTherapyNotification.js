@@ -2,10 +2,30 @@ import React from "react";
 import "./LEDTherapy";
 import "../../treatments/card_styling.css";
 
-const LEDTherapyNotification = () => {
+const LEDTherapyNotification = props => {
   return (
     <div className="notification_container">
-      <svg width="29%" height="5rem" viewBox="0 0 56.356 56.356">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "20%"
+              : "29%"
+            : props.currentScreenSize >= 1800
+            ? "20%"
+            : "29%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1800
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 56.356 56.356"
+      >
         <circle
           cx="28"
           cy="28"

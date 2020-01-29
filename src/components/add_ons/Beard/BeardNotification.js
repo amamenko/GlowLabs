@@ -2,10 +2,30 @@ import React from "react";
 import "./Beard";
 import "../../treatments/card_styling.css";
 
-const BeardNotification = () => {
+const BeardNotification = props => {
   return (
     <div className="notification_container">
-      <svg width="36%" height="5rem" viewBox="0 0 56.356 56.356">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "29%"
+              : "36%"
+            : props.currentScreenSize >= 1800
+            ? "29%"
+            : "36%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1800
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 56.356 56.356"
+      >
         <circle
           cx="28"
           cy="28"

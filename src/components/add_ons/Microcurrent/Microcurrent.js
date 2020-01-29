@@ -264,6 +264,7 @@ const Microcurrent = props => {
 
   const chemPeelAddOnErrorToastId = "chem_peel_add_on_error";
   const microneedlingAddOnErrorToastId = "microneedling_add_on_error";
+  const microcurrentRejuvenateErrorToastId = "microcurrent_rejuvenate_error";
 
   const addToCart = () => {
     if (chemicalPeelInCart) {
@@ -276,20 +277,35 @@ const Microcurrent = props => {
       }
     } else {
       if (rejuvenateInCart) {
-        toast.dismiss();
-        toast(<MicrocurrentRejuvenateErrorNotification />, {
-          className: "toast_error_container",
-          autoClose: 6000
-        });
+        if (!toast.isActive(microcurrentRejuvenateErrorToastId)) {
+          toast.dismiss();
+          toast(
+            <MicrocurrentRejuvenateErrorNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_error_container",
+              toastId: microcurrentRejuvenateErrorToastId,
+              autoClose: 6000
+            }
+          );
+        }
       } else {
         if (microneedleInCart) {
           if (!toast.isActive(microneedlingAddOnErrorToastId)) {
             toast.dismiss();
-            toast(<AddOnsMicroneedlingErrorNotification />, {
-              className: "toast_error_container",
-              toastId: microneedlingAddOnErrorToastId,
-              autoClose: 6000
-            });
+            toast(
+              <AddOnsMicroneedlingErrorNotification
+                currentScreenSize={props.currentScreenSize}
+                initialScreenSize={props.initialScreenSize}
+              />,
+              {
+                className: "toast_error_container",
+                toastId: microneedlingAddOnErrorToastId,
+                autoClose: 6000
+              }
+            );
           }
         } else {
           if (microcurrentInCart) {
@@ -297,9 +313,15 @@ const Microcurrent = props => {
             dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
             dispatch(ACTION_DECREMENT_COUNTER());
             dispatch(ACTION_NAVBAR_IS_VISIBLE());
-            toast(<MicrocurrentRemovedNotification />, {
-              className: "toast_removed_container"
-            });
+            toast(
+              <MicrocurrentRemovedNotification
+                currentScreenSize={props.currentScreenSize}
+                initialScreenSize={props.initialScreenSize}
+              />,
+              {
+                className: "toast_removed_container"
+              }
+            );
           } else {
             toast.dismiss();
             dispatch(ACTION_MICROCURRENT_IN_CART());
@@ -307,7 +329,12 @@ const Microcurrent = props => {
             dispatch(ACTION_NAVBAR_IS_VISIBLE());
             changeCartClicked(true);
             setTimeout(() => changeCartClicked(false), 200);
-            toast(<MicrocurrentNotification />);
+            toast(
+              <MicrocurrentNotification
+                currentScreenSize={props.currentScreenSize}
+                initialScreenSize={props.initialScreenSize}
+              />
+            );
           }
         }
       }

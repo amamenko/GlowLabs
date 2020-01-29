@@ -2,10 +2,30 @@ import React from "react";
 import "./Microcurrent.css";
 import "../../treatments/card_styling.css";
 
-const MicrocurrentRemovedNotification = () => {
+const MicrocurrentRemovedNotification = props => {
   return (
     <div className="notification_removed_container">
-      <svg width="29%" height="5rem" viewBox="0 0 56.356 56.356">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "25%"
+              : "29%"
+            : props.currentScreenSize >= 1800
+            ? "25%"
+            : "29%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1800
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 56.356 56.356"
+      >
         <circle
           cx="28"
           cy="28"

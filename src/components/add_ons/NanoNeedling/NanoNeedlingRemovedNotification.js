@@ -2,10 +2,30 @@ import React from "react";
 import "./NanoNeedling.css";
 import "../../treatments/card_styling.css";
 
-const NanoNeedlingRemovedNotification = () => {
+const NanoNeedlingRemovedNotification = props => {
   return (
     <div className="notification_removed_container">
-      <svg width="40%" height="5rem" viewBox="0 0 56.356 56.356">
+      <svg
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "31%"
+              : "40%"
+            : props.currentScreenSize >= 1800
+            ? "31%"
+            : "40%"
+        }
+        height={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "8rem"
+              : "5rem"
+            : props.currentScreenSize >= 1800
+            ? "8rem"
+            : "5rem"
+        }
+        viewBox="0 0 56.356 56.356"
+      >
         <circle
           cx="28"
           cy="28"
@@ -26,7 +46,20 @@ const NanoNeedlingRemovedNotification = () => {
         </g>
       </svg>
       <div className="notification_text_container">
-        <h3 style={{ fontSize: "0.9rem" }}>Nano Needling Infusion Removed</h3>
+        <h3
+          style={{
+            fontSize:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1800
+                  ? "1.5rem"
+                  : "0.9rem"
+                : props.currentScreenSize >= 1800
+                ? "1.5rem"
+                : "0.9rem"
+          }}
+        >
+          Nano Needling Infusion Removed
+        </h3>
         <p>The Nano Needling Infusion add-on has been removed from your cart</p>
       </div>
     </div>

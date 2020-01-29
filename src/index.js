@@ -6,6 +6,10 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
+import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
+import ACTION_BODY_SCROLL_ALLOW from "./actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_BODY_SCROLL_RESET from "./actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
@@ -26,10 +30,6 @@ import AddOnsPage5 from "./components/add_ons_pages/Page_5/AddOnsPage5";
 import Instagram from "./components/instagram/Instagram";
 import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
-import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
-import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
-import ACTION_BODY_SCROLL_ALLOW from "./actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
-import ACTION_BODY_SCROLL_RESET from "./actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
@@ -72,9 +72,11 @@ const App = () => {
     if (navbarToggle) {
       dispatch(ACTION_NAVBAR_TOGGLE_RESET());
       dispatch(ACTION_BODY_SCROLL_ALLOW());
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
     } else {
       dispatch(ACTION_NAVBAR_TOGGLE());
       dispatch(ACTION_BODY_SCROLL_RESET());
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
       toast.dismiss();
     }
   };
@@ -177,16 +179,24 @@ const App = () => {
       top:
         currentScreenSize === ""
           ? initialScreenSize >= 1800
-            ? InstagramRef.current.offsetTop - 320
+            ? InstagramRef.current.offsetTop - 280
             : initialScreenSize >= 1200
-            ? InstagramRef.current.offsetTop - 80
+            ? InstagramRef.current.offsetTop - 250
+            : initialScreenSize >= 600
+            ? previousScrollPosition < 3700
+              ? InstagramRef.current.offsetTop - 150
+              : InstagramRef.current.offsetTop - 220
             : previousScrollPosition < 6400
             ? InstagramRef.current.offsetTop - 290
             : InstagramRef.current.offsetTop - 350
           : currentScreenSize >= 1800
-          ? InstagramRef.current.offsetTop - 320
+          ? InstagramRef.current.offsetTop - 280
           : currentScreenSize >= 1200
-          ? InstagramRef.current.offsetTop - 80
+          ? InstagramRef.current.offsetTop - 250
+          : currentScreenSize >= 600
+          ? previousScrollPosition < 3700
+            ? InstagramRef.current.offsetTop - 150
+            : InstagramRef.current.offsetTop - 220
           : previousScrollPosition < 6400
           ? InstagramRef.current.offsetTop - 290
           : InstagramRef.current.offsetTop - 350,
@@ -203,14 +213,14 @@ const App = () => {
       top:
         currentScreenSize === ""
           ? initialScreenSize >= 1800
-            ? ContactRef.current.offsetTop - 300
+            ? ContactRef.current.offsetTop - 260
             : initialScreenSize >= 1200
             ? ContactRef.current.offsetTop - 80
             : previousScrollPosition < 7200
             ? ContactRef.current.offsetTop - 10
             : ContactRef.current.offsetTop - 80
           : currentScreenSize >= 1800
-          ? ContactRef.current.offsetTop - 300
+          ? ContactRef.current.offsetTop - 260
           : currentScreenSize >= 1200
           ? ContactRef.current.offsetTop - 80
           : previousScrollPosition < 7200
@@ -239,7 +249,11 @@ const App = () => {
         currentScrollPosition > 0
       ) {
         if (navbarVisible) {
-          dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+          if (navbarToggle) {
+            dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          } else {
+            dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+          }
         }
       } else {
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
@@ -249,7 +263,7 @@ const App = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [previousScrollPosition, navbarVisible, dispatch]);
+  }, [previousScrollPosition, navbarVisible, navbarToggle, dispatch]);
 
   return (
     <>

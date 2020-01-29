@@ -78,7 +78,21 @@ body {
   ::-webkit-scrollbar {
     display: none; /* Chrome Safari */
   }
+}
 
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 29.4vw;
+    margin-left: -11.75rem;
+    border: 1px solid rgb(211, 211, 211);
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
   .toast_error_container,
   .toast_container,
   .toast_removed_container {

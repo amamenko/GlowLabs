@@ -9,10 +9,10 @@ const FacialInCartErrorNotification = props => {
       style={{
         paddingRight:
           props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
+            ? props.initialScreenSize >= 1800
               ? "3rem"
               : "0rem"
-            : props.currentScreenSize >= 1200
+            : props.currentScreenSize >= 1800
             ? "3rem"
             : "0rem",
         backgroundColor: "rgb(225, 225, 225)"
@@ -22,18 +22,18 @@ const FacialInCartErrorNotification = props => {
         style={{
           width:
             props.currentScreenSize === ""
-              ? props.initialScreenSize >= 1200
+              ? props.initialScreenSize >= 1800
                 ? "14%"
                 : "22%"
-              : props.currentScreenSize >= 1200
+              : props.currentScreenSize >= 1800
               ? "14%"
               : "22%",
           height:
             props.currentScreenSize === ""
-              ? props.initialScreenSize >= 1200
+              ? props.initialScreenSize >= 1800
                 ? "6rem"
                 : "3.2rem"
-              : props.currentScreenSize >= 1200
+              : props.currentScreenSize >= 1800
               ? "6rem"
               : "3.2rem",
           color: "rgb(0, 0, 0)"
@@ -45,18 +45,18 @@ const FacialInCartErrorNotification = props => {
         style={{
           paddingBottom:
             props.currentScreenSize === ""
-              ? props.initialScreenSize >= 1200
+              ? props.initialScreenSize >= 1800
                 ? "2rem"
                 : "0.8rem"
-              : props.currentScreenSize >= 1200
+              : props.currentScreenSize >= 1800
               ? "2rem"
               : "0.8rem",
           paddingTop:
             props.currentScreenSize === ""
-              ? props.initialScreenSize >= 1200
+              ? props.initialScreenSize >= 1800
                 ? "2rem"
                 : "0.8rem"
-              : props.currentScreenSize >= 1200
+              : props.currentScreenSize >= 1800
               ? "2rem"
               : "0.8rem"
         }}

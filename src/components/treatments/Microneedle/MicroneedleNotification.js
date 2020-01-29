@@ -10,19 +10,19 @@ const MicroneedleNotification = props => {
       <svg
         width={
           props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
+            ? props.initialScreenSize >= 1800
               ? "30%"
               : "34%"
-            : props.currentScreenSize >= 1200
+            : props.currentScreenSize >= 1800
             ? "30%"
             : "34%"
         }
         height={
           props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
+            ? props.initialScreenSize >= 1800
               ? "8rem"
               : "5rem"
-            : props.currentScreenSize >= 1200
+            : props.currentScreenSize >= 1800
             ? "8rem"
             : "5rem"
         }
@@ -65,18 +65,18 @@ const MicroneedleNotification = props => {
           style={{
             paddingTop:
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1200
+                ? props.initialScreenSize >= 1800
                   ? "0.5rem"
                   : "0rem"
-                : props.currentScreenSize >= 1200
+                : props.currentScreenSize >= 1800
                 ? "0.5rem"
                 : "0rem",
             fontSize:
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1200
+                ? props.initialScreenSize >= 1800
                   ? "1rem"
                   : "0.8rem"
-                : props.currentScreenSize >= 1200
+                : props.currentScreenSize >= 1800
                 ? "1rem"
                 : "0.8rem",
             fontWeight: "500",

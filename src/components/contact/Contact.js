@@ -44,7 +44,7 @@ const Contact = React.forwardRef((props, ref) => {
               position: "relative",
               opacity: 1,
               width_desktop: "16%",
-              width_landscape: "38%",
+              width_landscape: "18%",
               width_mobile: "30%"
             }}
             config={{ duration: 1000 }}
@@ -117,9 +117,9 @@ const Contact = React.forwardRef((props, ref) => {
                   <div className="contact_written_content_flex_container">
                     <div className="contacts_text_container">
                       <h3>By Appointment Only</h3>
-                      <p style={{ fontWeight: "600", marginBottom: "0.7rem" }}>
+                      <h4 style={{ fontWeight: "600", marginBottom: "0.7rem" }}>
                         Glow Labs
-                      </p>
+                      </h4>
                       <p>561 Willow Avenue,</p>
                       <p>Located Inside "Angelica's Salon"</p>
                       <p>Cedarhurst, NY, 11516</p>
@@ -139,6 +139,7 @@ const Contact = React.forwardRef((props, ref) => {
                       </p>
                     </div>
                     <div className="open_status_flex_container">
+                      <h3>By Appointment Only</h3>
                       <div className="day_and_time_container">
                         <div className="days_container">
                           <p>Sun</p>

@@ -266,19 +266,31 @@ const Microdermabrasion = props => {
     if (chemicalPeelInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
-        toast(<AddOnsChemPeelErrorNotification />, {
-          className: "toast_error_container",
-          toastId: chemPeelAddOnErrorToastId
-        });
+        toast(
+          <AddOnsChemPeelErrorNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          {
+            className: "toast_error_container",
+            toastId: chemPeelAddOnErrorToastId
+          }
+        );
       }
     } else {
       if (microneedleInCart) {
         if (!toast.isActive(microneedlingAddOnErrorToastId)) {
           toast.dismiss();
-          toast(<AddOnsMicroneedlingErrorNotification />, {
-            className: "toast_error_container",
-            toastId: microneedlingAddOnErrorToastId
-          });
+          toast(
+            <AddOnsMicroneedlingErrorNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_error_container",
+              toastId: microneedlingAddOnErrorToastId
+            }
+          );
         }
       } else {
         if (microdermabrasionInCart) {
@@ -286,9 +298,15 @@ const Microdermabrasion = props => {
           dispatch(ACTION_MICRODERMABRASION_NOT_IN_CART());
           dispatch(ACTION_DECREMENT_COUNTER());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
-          toast(<MicrodermabrasionRemovedNotification />, {
-            className: "toast_removed_container"
-          });
+          toast(
+            <MicrodermabrasionRemovedNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_removed_container"
+            }
+          );
         } else {
           toast.dismiss();
           dispatch(ACTION_MICRODERMABRASION_IN_CART());
@@ -296,7 +314,12 @@ const Microdermabrasion = props => {
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
           changeCartClicked(true);
           setTimeout(() => changeCartClicked(false), 200);
-          toast(<MicrodermabrasionNotification />);
+          toast(
+            <MicrodermabrasionNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />
+          );
         }
       }
     }

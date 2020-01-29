@@ -6,13 +6,21 @@ const RejuvenateRemovedNotification = props => {
   return (
     <div className="notification_removed_container">
       <svg
-        width="30%"
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "26%"
+              : "30%"
+            : props.currentScreenSize >= 1800
+            ? "26%"
+            : "30%"
+        }
         height={
           props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
+            ? props.initialScreenSize >= 1800
               ? "8rem"
               : "5rem"
-            : props.currentScreenSize >= 1200
+            : props.currentScreenSize >= 1800
             ? "8rem"
             : "5rem"
         }

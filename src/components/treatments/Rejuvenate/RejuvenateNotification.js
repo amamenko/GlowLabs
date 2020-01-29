@@ -8,13 +8,21 @@ const RejuvenateNotification = props => {
   return (
     <div className="notification_container">
       <svg
-        width="30%"
+        width={
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1800
+              ? "26%"
+              : "30%"
+            : props.currentScreenSize >= 1800
+            ? "26%"
+            : "30%"
+        }
         height={
           props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
+            ? props.initialScreenSize >= 1800
               ? "8rem"
               : "5rem"
-            : props.currentScreenSize >= 1200
+            : props.currentScreenSize >= 1800
             ? "8rem"
             : "5rem"
         }
@@ -45,18 +53,18 @@ const RejuvenateNotification = props => {
           style={{
             paddingTop:
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1200
+                ? props.initialScreenSize >= 1800
                   ? "0.5rem"
                   : "0rem"
-                : props.currentScreenSize >= 1200
+                : props.currentScreenSize >= 1800
                 ? "0.5rem"
                 : "0rem",
             fontSize:
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1200
+                ? props.initialScreenSize >= 1800
                   ? "1rem"
                   : "0.8rem"
-                : props.currentScreenSize >= 1200
+                : props.currentScreenSize >= 1800
                 ? "1rem"
                 : "0.8rem",
             fontWeight: "500",

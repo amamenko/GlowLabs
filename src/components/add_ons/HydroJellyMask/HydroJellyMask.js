@@ -264,19 +264,31 @@ const HydroJellyMask = props => {
     if (chemicalPeelInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
-        toast(<AddOnsChemPeelErrorNotification />, {
-          className: "toast_error_container",
-          toastId: chemPeelAddOnErrorToastId
-        });
+        toast(
+          <AddOnsChemPeelErrorNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          {
+            className: "toast_error_container",
+            toastId: chemPeelAddOnErrorToastId
+          }
+        );
       }
     } else {
       if (microneedleInCart) {
         if (!toast.isActive(microneedlingAddOnErrorToastId)) {
           toast.dismiss();
-          toast(<AddOnsMicroneedlingErrorNotification />, {
-            className: "toast_error_container",
-            toastId: microneedlingAddOnErrorToastId
-          });
+          toast(
+            <AddOnsMicroneedlingErrorNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_error_container",
+              toastId: microneedlingAddOnErrorToastId
+            }
+          );
         }
       } else {
         if (hydroJellyInCart) {
@@ -284,9 +296,15 @@ const HydroJellyMask = props => {
           dispatch(ACTION_HYDROJELLY_NOT_IN_CART());
           dispatch(ACTION_DECREMENT_COUNTER());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
-          toast(<HydroJellyMaskRemovedNotification />, {
-            className: "toast_removed_container"
-          });
+          toast(
+            <HydroJellyMaskRemovedNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_removed_container"
+            }
+          );
         } else {
           toast.dismiss();
           dispatch(ACTION_HYDROJELLY_IN_CART());
@@ -294,7 +312,12 @@ const HydroJellyMask = props => {
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
           changeCartClicked(true);
           setTimeout(() => changeCartClicked(false), 200);
-          toast(<HydroJellyMaskNotification />);
+          toast(
+            <HydroJellyMaskNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />
+          );
         }
       }
     }

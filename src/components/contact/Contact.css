@@ -53,7 +53,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: 2.2rem;
+  margin-left: 3rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -68,6 +68,10 @@
   line-height: 1.6rem;
 }
 
+.contacts_text_container h4 {
+  font-size: 1rem;
+}
+
 .contact_icon {
   margin-right: 0.7rem;
 }
@@ -78,7 +82,11 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: 2.2rem;
+  margin-left: 3rem;
+}
+
+.open_status_flex_container h3 {
+  display: none;
 }
 
 .day_and_time_container {
@@ -119,10 +127,75 @@
   align-self: flex-start;
 }
 
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .contact_page_container {
+    margin-top: -17vh;
+    overflow-x: hidden;
+  }
+
+  .contacts_map_container {
+    width: 40vw;
+    height: 60vh;
+    margin-left: 15rem;
+  }
+
+  .contacts_content_flex_wrapper {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7vh;
+  }
+
+  .contact_written_content_flex_container {
+    align-self: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 2rem;
+    line-height: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+
+  .contacts_text_container h3 {
+    display: none;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+
+  .open_status_flex_container {
+    width: 50vw;
+    margin-right: 1.5rem;
+    margin-left: 2rem;
+  }
+
+  .open_status_flex_container h3 {
+    display: block;
+  }
+
+  .open_status {
+    font-size: 0.8rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .contact_page_container {
     height: 92vh;
+    margin-top: 0vh;
     background: rgb(255, 255, 255);
     overflow-x: visible;
   }
@@ -132,6 +205,7 @@
     margin-top: 3vh;
     flex-direction: column;
     align-items: flex-start;
+    margin-top: 0vh;
   }
 
   .contacts_page_wrapping h2 {
@@ -141,11 +215,15 @@
     line-height: 8rem;
     margin-top: -12vh;
     text-align: left;
+    padding-bottom: 0rem;
+    padding-top: 0rem;
   }
 
   .contacts_map_container {
     width: 100vw;
     height: 40vh;
+    margin-left: 0rem;
+    margin-top: 5vh;
   }
 
   .contact_written_content_flex_container {
@@ -157,14 +235,18 @@
     align-items: center;
   }
 
-  .contacts_text_container h3 {
-    font-size: 3rem;
-    margin-bottom: 4vh;
+  .contacts_text_container {
+    margin-top: 2rem;
   }
 
   .contacts_text_container p {
     font-size: 2rem;
-    line-height: 3rem;
+    line-height: 3.3rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 4rem;
+    padding-bottom: 1.5rem;
   }
 
   .day_and_time_container {
@@ -173,8 +255,8 @@
 
   .days_container p,
   .hours_container p {
-    font-size: 2rem;
-    line-height: 3rem;
+    font-size: 1.8rem;
+    line-height: 2.7rem;
   }
 
   .open_status_flex_container {
@@ -184,6 +266,16 @@
     align-items: center;
     justify-content: flex-end;
     margin-left: 15vw;
+    margin-right: 0vw;
+    margin-top: 1rem;
+  }
+
+  .open_status_flex_container h3 {
+    font-size: 2rem;
+    margin-bottom: 2vh;
+    align-self: flex-start;
+    color: rgb(215, 156, 165);
+    -webkit-text-fill-color: rgb(215, 156, 165);
   }
 
   .open_status {

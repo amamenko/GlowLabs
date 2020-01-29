@@ -260,10 +260,16 @@ const LEDTherapy = props => {
     if (chemicalPeelInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
-        toast(<AddOnsChemPeelErrorNotification />, {
-          className: "toast_error_container",
-          toastId: chemPeelAddOnErrorToastId
-        });
+        toast(
+          <AddOnsChemPeelErrorNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          {
+            className: "toast_error_container",
+            toastId: chemPeelAddOnErrorToastId
+          }
+        );
       }
     } else {
       if (ledInCart) {
@@ -271,9 +277,15 @@ const LEDTherapy = props => {
         dispatch(ACTION_LED_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
-        toast(<LEDTherapyRemovedNotification />, {
-          className: "toast_removed_container"
-        });
+        toast(
+          <LEDTherapyRemovedNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          {
+            className: "toast_removed_container"
+          }
+        );
       } else {
         toast.dismiss();
         dispatch(ACTION_LED_IN_CART());
@@ -281,7 +293,12 @@ const LEDTherapy = props => {
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
-        toast(<LEDTherapyNotification />);
+        toast(
+          <LEDTherapyNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />
+        );
       }
     }
   };

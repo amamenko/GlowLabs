@@ -184,7 +184,19 @@ const NavigationBar = React.forwardRef((props, ref) => {
         <svg
           className="shopping_cart"
           width="10%"
-          height="2.1rem"
+          height={
+            props.currentScreenSize === ""
+              ? props.initialScreenSize >= 1800
+                ? "2.5rem"
+                : props.initialScreenSize >= 1200
+                ? "1.8rem"
+                : "2.1rem"
+              : props.currentScreenSize >= 1800
+              ? "2.5rem"
+              : props.currentScreenSize >= 1200
+              ? "1.8rem"
+              : "2.1rem"
+          }
           stroke="#000"
           strokeWidth="0.1px"
           viewBox="0 0 13.229 13.229"
@@ -213,7 +225,19 @@ const NavigationBar = React.forwardRef((props, ref) => {
             display: counter < 1 ? "none" : "block"
           }}
         >
-          <FontAwesomeIcon color="white" transform="grow-5" icon={faCircle} />
+          <FontAwesomeIcon
+            color="white"
+            transform={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1800
+                  ? "grow-15"
+                  : "grow-5"
+                : props.currentScreenSize >= 1800
+                ? "grow-15"
+                : "grow-5"
+            }
+            icon={faCircle}
+          />
           <p
             style={{
               right:

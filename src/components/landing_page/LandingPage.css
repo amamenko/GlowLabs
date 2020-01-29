@@ -323,24 +323,6 @@
     cursor: pointer;
   }
 
-  .call_to_action_button.book_now {
-    background: transparent;
-    color: rgb(107, 107, 96);
-    border: 1px rgb(107, 107, 96) solid;
-  }
-
-  .call_to_action_button.book_now:hover {
-    background: rgb(255, 198, 207);
-    color: black;
-    border: 1px transparent solid;
-  }
-
-  .call_to_action_button:hover {
-    background: rgb(255, 198, 207);
-    color: black;
-    transition: all 0.5s ease;
-  }
-
   .bottom_content {
     right: 50%;
   }
@@ -477,7 +459,6 @@
 
   .call_to_action_button {
     display: inline-block;
-    background: rgb(215, 156, 165);
     color: white;
     font-size: 1.4rem;
     font-weight: 500;
@@ -490,21 +471,9 @@
     cursor: pointer;
   }
 
-  .call_to_action_button.book_now {
-    background: transparent;
-    color: rgb(107, 107, 96);
-    border: 1px rgb(107, 107, 96) solid;
-  }
-
-  .call_to_action_button.book_now:hover {
-    background: rgb(255, 198, 207);
-    color: black;
-    border: 1px transparent solid;
-  }
-
   .call_to_action_button:hover {
     background: rgb(255, 198, 207);
-    color: black;
+    color: rgb(0, 0, 0);
     transition: all 0.5s ease;
   }
 

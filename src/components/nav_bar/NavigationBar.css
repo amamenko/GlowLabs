@@ -136,7 +136,7 @@ a {
 
   .nav_menu {
     margin-top: 12vh;
-    height: 85vh;
+    height: 85%;
     width: 100%;
     position: fixed;
     z-index: 1000;
@@ -213,36 +213,59 @@ a {
     color: white;
     transition: all 0.5s ease;
   }
-}
 
-.shopping_cart {
-  color: rgb(0, 0, 0);
-  position: absolute;
-  right: 0.5rem;
-  left: auto;
-  top: 0.85rem;
-  bottom: auto;
+  .shopping_cart {
+    color: rgb(0, 0, 0);
+    position: absolute;
+    right: 0.5rem;
+    left: auto;
+    top: 0.85rem;
+    bottom: auto;
+  }
 }
 
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
+  .nav_links ul {
+    margin-left: -1.5rem;
+  }
+
   .nav_links li {
-    font-size: 1.1rem;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    font-size: 1rem;
+    margin-left: -2.3rem;
+    margin-right: -2.3rem;
+  }
+
+  .shopping_cart {
+    right: -5.8rem;
+  }
+
+  .cart_item_number_circle {
+    right: 2.55rem;
   }
 }
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
-  .nav_links ul {
-    justify-content: space-between;
-  }
-
   .nav_links li {
     display: flex;
     list-style: none;
     font-size: 2rem;
     font-weight: 500;
+  }
+
+  .shopping_cart {
+    right: -9rem;
+    margin-top: 1.1rem;
+  }
+
+  .cart_item_number_circle {
+    margin-top: 1rem;
+  }
+
+  .cart_item_number_circle p {
+    font-size: 1.3rem;
+    top: -0.2rem;
+    margin-right: -0.12rem;
   }
 }

@@ -267,19 +267,31 @@ const Dermarolling = props => {
     if (chemicalPeelInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
-        toast(<AddOnsChemPeelErrorNotification />, {
-          className: "toast_error_container",
-          toastId: chemPeelAddOnErrorToastId
-        });
+        toast(
+          <AddOnsChemPeelErrorNotification
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />,
+          {
+            className: "toast_error_container",
+            toastId: chemPeelAddOnErrorToastId
+          }
+        );
       }
     } else {
       if (microneedleInCart) {
         if (!toast.isActive(microneedlingAddOnErrorToastId)) {
           toast.dismiss();
-          toast(<AddOnsMicroneedlingErrorNotification />, {
-            className: "toast_error_container",
-            toastId: microneedlingAddOnErrorToastId
-          });
+          toast(
+            <AddOnsMicroneedlingErrorNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_error_container",
+              toastId: microneedlingAddOnErrorToastId
+            }
+          );
         }
       } else {
         if (dermarollingInCart) {
@@ -287,9 +299,15 @@ const Dermarolling = props => {
           dispatch(ACTION_DERMAROLLING_NOT_IN_CART());
           dispatch(ACTION_DECREMENT_COUNTER());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
-          toast(<DermarollingRemovedNotification />, {
-            className: "toast_removed_container"
-          });
+          toast(
+            <DermarollingRemovedNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_removed_container"
+            }
+          );
         } else {
           toast.dismiss();
           dispatch(ACTION_DERMAROLLING_IN_CART());
@@ -297,7 +315,12 @@ const Dermarolling = props => {
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
           changeCartClicked(true);
           setTimeout(() => changeCartClicked(false), 200);
-          toast(<DermarollingNotification />);
+          toast(
+            <DermarollingNotification
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />
+          );
         }
       }
     }

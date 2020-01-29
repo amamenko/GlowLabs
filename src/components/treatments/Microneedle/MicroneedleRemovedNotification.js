@@ -8,19 +8,19 @@ const MicroneedleRemovedNotification = props => {
       <svg
         width={
           props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
+            ? props.initialScreenSize >= 1800
               ? "30%"
               : "34%"
-            : props.currentScreenSize >= 1200
+            : props.currentScreenSize >= 1800
             ? "30%"
             : "34%"
         }
         height={
           props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
+            ? props.initialScreenSize >= 1800
               ? "8rem"
               : "5rem"
-            : props.currentScreenSize >= 1200
+            : props.currentScreenSize >= 1800
             ? "8rem"
             : "5rem"
         }

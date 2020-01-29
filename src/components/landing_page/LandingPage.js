@@ -281,21 +281,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                             )
                           }
                         >
-                          GET STARTED
-                        </p>
-                      </div>
-                      <div
-                        className="call_to_action_button book_now"
-                        style={{ opacity: `${styleprops.opacity}` }}
-                      >
-                        <p
-                          onClick={() =>
-                            props.handleClickToScrollToTreatments(
-                              Treatments1Ref
-                            )
-                          }
-                        >
-                          BOOK NOW
+                          GET STARTED NOW
                         </p>
                       </div>
                     </div>
