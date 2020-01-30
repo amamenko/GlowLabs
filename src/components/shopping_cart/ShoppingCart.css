@@ -14,7 +14,6 @@
 .shopping_cart_header {
   color: rgb(215, 156, 165);
   height: 8vh;
-  border-bottom: 1px solid rgb(215, 156, 165);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -75,4 +74,22 @@
   padding-right: 0.8rem;
   background: rgb(255, 198, 207);
   border-radius: 30px;
+}
+
+.my_facial_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.my_facial_header p {
+  color: rgb(101, 101, 101);
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+  margin-left: 1.5rem;
 }

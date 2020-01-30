@@ -117,11 +117,11 @@ const Contact = React.forwardRef((props, ref) => {
                   <div className="contact_written_content_flex_container">
                     <div className="contacts_text_container">
                       <h3>By Appointment Only</h3>
-                      <h4 style={{ fontWeight: "600", marginBottom: "0.7rem" }}>
-                        Glow Labs
-                      </h4>
+                      <h4>Glow Labs</h4>
                       <p>561 Willow Avenue,</p>
-                      <p>Located Inside "Angelica's Salon"</p>
+                      <p>
+                        Located Inside <br /> "Angelica's Salon"
+                      </p>
                       <p>Cedarhurst, NY, 11516</p>
                       <p>
                         <FontAwesomeIcon
@@ -160,7 +160,6 @@ const Contact = React.forwardRef((props, ref) => {
                           <p>Closed</p>
                         </div>
                       </div>
-
                       {hours_today()}
                     </div>
                   </div>

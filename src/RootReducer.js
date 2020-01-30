@@ -44,6 +44,7 @@ import microcurrentInCartReducer from "./reducers/InCart/AddOns/Microcurrent/mic
 import microdermabrasionInCartReducer from "./reducers/InCart/AddOns/Microdermabrasion/microdermabrasionInCartReducer";
 import nanoneedlingInCartReducer from "./reducers/InCart/AddOns/NanoNeedling/nanoneedlingInCartReducer";
 import counterReducer from "./reducers/Counter/counterReducer";
+import cartIsActiveReducer from "./reducers/CartIsActive/cartIsActiveReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -102,7 +103,8 @@ const RootReducer = combineReducers({
   scrollToggle: scrollReducer,
   navbarIsVisibleReducer: navbarIsVisibleReducer,
 
-  // Counter Reducer
+  // Cart Reducers
+  cartIsActive: cartIsActiveReducer,
   counterReducer: counterReducer
 });
 

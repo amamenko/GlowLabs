@@ -70,6 +70,8 @@
 
 .contacts_text_container h4 {
   font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
 }
 
 .contact_icon {
@@ -284,9 +286,128 @@
   }
 }
 
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .contact_page_container {
+    height: 85vh;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 3rem;
+    line-height: 5rem;
+    margin-top: -17vh;
+  }
+
+  .contacts_map_container {
+    margin-top: 0vh;
+  }
+
+  .contact_written_content_flex_container {
+    margin-top: 0vh;
+  }
+
+  .contacts_text_container {
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 3rem;
+    padding-bottom: 0.2rem;
+    margin-top: 1rem;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .open_status_flex_container {
+    margin-top: 0rem;
+  }
+
+  .open_status_flex_container h3 {
+    font-size: 1rem;
+    margin-bottom: 2vh;
+  }
+
+  .open_status {
+    font-size: 1rem;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
+  .contact_page_container {
+    height: 92vh;
+  }
+
+  .contacts_text_container {
+    width: 16vw;
+    position: absolute;
+    top: 6.1rem;
+    right: 10.5rem;
+    z-index: 5;
+    border: 1px solid transparent;
+    padding: 3rem;
+    background: rgb(255, 255, 255);
+    border-radius: 30px;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 5rem;
+    margin-top: -11vh;
+    padding-bottom: 2.5rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 1.5rem;
+    line-height: 2.3rem;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 3rem;
+    line-height: 5rem;
+  }
+
+  .contacts_map_container {
+    margin-top: 5vh;
+    width: 50vw;
+    height: 65vh;
+    margin-left: 45vw;
+    position: relative;
+    z-index: 1;
+  }
+
   .contacts_page_wrapping {
     margin-top: 8vh;
+  }
+
+  .open_status_flex_container {
+    margin-top: -65vh;
+    margin-left: -50vw;
+    width: 50vw;
+  }
+
+  .open_status_flex_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .open_status {
+    font-size: 3rem;
   }
 }

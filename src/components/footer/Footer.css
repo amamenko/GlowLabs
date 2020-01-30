@@ -42,3 +42,17 @@
     color: black;
   }
 }
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .footer_icon {
+    font-size: 2rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .footer_icon {
+    font-size: 3rem;
+  }
+}

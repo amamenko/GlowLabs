@@ -28,6 +28,7 @@ const LandingPage = React.forwardRef((props, ref) => {
     state => state.bodyScrollToggle.overflow
   );
   const scroll = useSelector(state => state.scrollToggle.scroll);
+  const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
 
   const dispatch = useDispatch();
 
@@ -80,24 +81,26 @@ const LandingPage = React.forwardRef((props, ref) => {
       document.body.classList.add("no_scroll");
 
       // Required for iOS Landscape Scroll Disabling During Splash Screen
-      if (LandingPageRef) {
-        LandingPageRef.current.addEventListener(
-          "touchmove",
-          preventScroll,
-          false
-        );
-        setTimeout(
-          () =>
-            LandingPageRef.current.removeEventListener(
-              "touchmove",
-              preventScroll,
-              false
-            ),
-          props.initialScreenSize >= 600 ? 5300 : 4000
-        );
+      if (!cartIsActive) {
+        if (LandingPageRef) {
+          LandingPageRef.current.addEventListener(
+            "touchmove",
+            preventScroll,
+            false
+          );
+          setTimeout(
+            () =>
+              LandingPageRef.current.removeEventListener(
+                "touchmove",
+                preventScroll,
+                false
+              ),
+            props.initialScreenSize >= 600 ? 5300 : 4000
+          );
+        }
       }
     }
-  }, [bodyScrollToggle, LandingPageRef, props.initialScreenSize]);
+  }, [bodyScrollToggle, LandingPageRef, props.initialScreenSize, cartIsActive]);
 
   useEffect(() => {
     document.addEventListener("scroll", changeScroll);

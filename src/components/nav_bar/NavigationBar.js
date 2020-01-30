@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -54,6 +55,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
   };
 
   const handleShoppingCartClick = () => {
+    dispatch(ACTION_CART_IS_ACTIVE());
     dispatch(ACTION_BODY_SCROLL_RESET());
     toast.dismiss();
   };
@@ -188,11 +190,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1800
                 ? "2.5rem"
+                : props.initialScreenSize >= 1600
+                ? "1.5rem"
                 : props.initialScreenSize >= 1200
                 ? "1.8rem"
                 : "2.1rem"
               : props.currentScreenSize >= 1800
               ? "2.5rem"
+              : props.currentScreenSize >= 1600
+              ? "1.5rem"
               : props.currentScreenSize >= 1200
               ? "1.8rem"
               : "2.1rem"

@@ -65,14 +65,20 @@ const App = () => {
   );
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
   const scroll = useSelector(state => state.scrollToggle.scroll);
+  const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
 
   const dispatch = useDispatch();
 
   const handleNavbarToggle = () => {
     if (navbarToggle) {
-      dispatch(ACTION_NAVBAR_TOGGLE_RESET());
-      dispatch(ACTION_BODY_SCROLL_ALLOW());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      if (!cartIsActive) {
+        dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+        dispatch(ACTION_BODY_SCROLL_ALLOW());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      } else {
+        dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      }
     } else {
       dispatch(ACTION_NAVBAR_TOGGLE());
       dispatch(ACTION_BODY_SCROLL_RESET());
@@ -100,7 +106,6 @@ const App = () => {
       top: LandingPageRef.current.offsetTop - 10,
       behavior: "smooth"
     });
-    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToTreatments = async ref => {
@@ -134,7 +139,6 @@ const App = () => {
           : Treatments1Ref.current.offsetTop - 80,
       behavior: "smooth"
     });
-    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToAddOns = async ref => {
@@ -168,7 +172,6 @@ const App = () => {
           : AddOnsRef.current.offsetTop - 70,
       behavior: "smooth"
     });
-    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToInstagram = async ref => {
@@ -202,7 +205,6 @@ const App = () => {
           : InstagramRef.current.offsetTop - 350,
       behavior: "smooth"
     });
-    window.addEventListener("scroll", () => {});
   };
 
   const handleClickToScrollToContact = async ref => {
@@ -213,22 +215,21 @@ const App = () => {
       top:
         currentScreenSize === ""
           ? initialScreenSize >= 1800
-            ? ContactRef.current.offsetTop - 260
+            ? ContactRef.current.offsetTop - 310
             : initialScreenSize >= 1200
-            ? ContactRef.current.offsetTop - 80
+            ? ContactRef.current.offsetTop - 210
             : previousScrollPosition < 7200
             ? ContactRef.current.offsetTop - 10
             : ContactRef.current.offsetTop - 80
           : currentScreenSize >= 1800
-          ? ContactRef.current.offsetTop - 260
+          ? ContactRef.current.offsetTop - 310
           : currentScreenSize >= 1200
-          ? ContactRef.current.offsetTop - 80
+          ? ContactRef.current.offsetTop - 210
           : previousScrollPosition < 7200
           ? ContactRef.current.offsetTop - 10
           : ContactRef.current.offsetTop - 80,
       behavior: "smooth"
     });
-    window.addEventListener("scroll", () => {});
   };
 
   const ref = {
