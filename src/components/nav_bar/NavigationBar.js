@@ -4,7 +4,6 @@ import "./NavigationBar.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
@@ -56,7 +55,6 @@ const NavigationBar = React.forwardRef((props, ref) => {
 
   const handleShoppingCartClick = () => {
     dispatch(ACTION_CART_IS_ACTIVE());
-    dispatch(ACTION_BODY_SCROLL_RESET());
     toast.dismiss();
   };
 

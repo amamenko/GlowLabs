@@ -1,12 +1,11 @@
 .shopping_cart_container {
   position: fixed;
   padding-top: 8vh;
-  height: 100vh;
+  height: 100%;
   background: rgb(255, 255, 255);
-  overflow: hidden;
 }
 
-.shopping_cart_container h2 {
+.shopping_cart_container h1 {
   font-size: 1.5rem;
   font-weight: 900;
 }
@@ -68,15 +67,12 @@
   text-align: center;
   font-weight: 500;
   font-size: 1rem;
-  padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
-  padding-left: 0.8rem;
-  padding-right: 0.8rem;
+  padding: 0.8rem;
   background: rgb(255, 198, 207);
   border-radius: 30px;
 }
 
-.my_facial_header {
+.cart_header {
   width: 100%;
   height: 5vh;
   background: rgb(211, 211, 211);
@@ -86,10 +82,19 @@
   justify-content: flex-start;
 }
 
-.my_facial_header p {
+.cart_header h2 {
   color: rgb(101, 101, 101);
+  font-size: 1rem;
   font-weight: 600;
   display: flex;
   align-self: center;
   margin-left: 1.5rem;
+}
+
+.shopping_cart_facial_container {
+  width: 100%;
+  height: 23vh;
+  padding-right: 50vw;
+  padding-left: 50vw;
+  background: black;
 }

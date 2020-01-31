@@ -241,30 +241,38 @@ const App = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPosition = window.pageYOffset;
+    if (!cartIsActive) {
+      const handleScroll = () => {
+        const currentScrollPosition = window.pageYOffset;
 
-      if (
-        previousScrollPosition < currentScrollPosition &&
-        previousScrollPosition > 0 &&
-        currentScrollPosition > 0
-      ) {
-        if (navbarVisible) {
-          if (navbarToggle) {
-            dispatch(ACTION_NAVBAR_IS_VISIBLE());
-          } else {
-            dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+        if (
+          previousScrollPosition < currentScrollPosition &&
+          previousScrollPosition > 0 &&
+          currentScrollPosition > 0
+        ) {
+          if (navbarVisible) {
+            if (navbarToggle) {
+              dispatch(ACTION_NAVBAR_IS_VISIBLE());
+            } else {
+              dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+            }
           }
+        } else {
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
         }
-      } else {
-        dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      }
-      setPreviousScrollPosition(currentScrollPosition);
-    };
+        setPreviousScrollPosition(currentScrollPosition);
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [previousScrollPosition, navbarVisible, navbarToggle, dispatch]);
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [
+    previousScrollPosition,
+    navbarVisible,
+    navbarToggle,
+    cartIsActive,
+    dispatch
+  ]);
 
   return (
     <>

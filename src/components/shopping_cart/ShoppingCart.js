@@ -3,9 +3,28 @@ import "./ShoppingCart.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import { useDispatch, useSelector } from "react-redux";
+import CalmCard from "./Treatment_Cards/Calm/CalmCard";
+import ClarifyCard from "./Treatment_Cards/Clarify/ClarifyCard";
+import CBDCard from "./Treatment_Cards/CBD/CBDCard";
+import GlowCard from "./Treatment_Cards/Glow/GlowCard";
+import DermaplaningCard from "./Treatment_Cards/Dermaplaning/DermaplaningCard";
+import ChemicalPeelCard from "./Treatment_Cards/ChemicalPeel/ChemicalPeelCard";
+import BacialCard from "./Treatment_Cards/Bacial/BacialCard";
+import MicroneedleCard from "./Treatment_Cards/Microneedle/MicroneedleCard";
+import RejuvenateCard from "./Treatment_Cards/Rejuvenate/RejuvenateCard";
+import QuickieCard from "./Treatment_Cards/Quickie/QuickieCard";
+import QuenchCard from "./Treatment_Cards/Quench/QuenchCard";
+import ExtraExtractionsCard from "./Add_On_Cards/ExtraExtractions/ExtraExtractionsCard";
+import HydroJellyMaskCard from "./Add_On_Cards/HydroJellyMask/HydroJellyMaskCard";
+import LEDTherapyCard from "./Add_On_Cards/LEDTherapy/LEDTherapyCard";
+import MicrocurrentCard from "./Add_On_Cards/Microcurrent/MicrocurrentCard";
+import MicrodermabrasionCard from "./Add_On_Cards/Microdermabrasion/MicrodermabrasionCard";
+import DermarollingCard from "./Add_On_Cards/Dermarolling/DermarollingCard";
+import NanoNeedlingCard from "./Add_On_Cards/NanoNeedling/NanoNeedlingCard";
+import GuaShaCard from "./Add_On_Cards/GuaSha/GuaShaCard";
+import BeardCard from "./Add_On_Cards/Beard/BeardCard";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -55,10 +74,9 @@ const ShoppingCart = () => {
 
   const backToHome = () => {
     dispatch(ACTION_CART_IS_NOT_ACTIVE());
-    dispatch(ACTION_BODY_SCROLL_ALLOW());
   };
 
-  const renderCartContents = () => {
+  const renderCartFacials = () => {
     if (counter === 0) {
       return (
         <>
@@ -82,39 +100,97 @@ const ShoppingCart = () => {
         </>
       );
     } else {
-      return (
-        <div
-          style={{
-            width: "100%",
-            height: "23vh",
-            paddingRight: "50vw",
-            paddingLeft: "50vw",
-            background: "black"
-          }}
-        >
-          Hi
-        </div>
-      );
+      if (calmInCart) {
+        return <CalmCard />;
+      } else if (clarifyInCart) {
+        return <ClarifyCard />;
+      } else if (cbdInCart) {
+        return <CBDCard />;
+      } else if (glowInCart) {
+        return <GlowCard />;
+      } else if (dermaplaningInCart) {
+        return <DermaplaningCard />;
+      } else if (chemicalPeelInCart) {
+        return <ChemicalPeelCard />;
+      } else if (bacialInCart) {
+        return <BacialCard />;
+      } else if (microneedleInCart) {
+        return <MicroneedleCard />;
+      } else if (rejuvenateInCart) {
+        return <RejuvenateCard />;
+      } else if (quickieInCart) {
+        return <QuickieCard />;
+      } else if (quenchInCart) {
+        return <QuenchCard />;
+      }
+    }
+  };
+
+  const renderedAddOnArr = [];
+
+  const addOnsPush = () => {
+    if (extraExtractionsInCart) {
+      renderedAddOnArr.push(<ExtraExtractionsCard />);
+    }
+    if (hydroJellyInCart) {
+      renderedAddOnArr.push(<HydroJellyMaskCard />);
+    }
+    if (ledInCart) {
+      renderedAddOnArr.push(<LEDTherapyCard />);
+    }
+    if (microcurrentInCart) {
+      renderedAddOnArr.push(<MicrocurrentCard />);
+    }
+    if (microdermabrasionInCart) {
+      renderedAddOnArr.push(<MicrodermabrasionCard />);
+    }
+    if (dermarollingInCart) {
+      renderedAddOnArr.push(<DermarollingCard />);
+    }
+    if (nanoneedlingInCart) {
+      renderedAddOnArr.push(<NanoNeedlingCard />);
+    }
+    if (guashaInCart) {
+      renderedAddOnArr.push(<GuaShaCard />);
+    }
+    if (beardInCart) {
+      renderedAddOnArr.push(<BeardCard />);
+    }
+  };
+
+  addOnsPush();
+
+  const renderCartAddOns = () => {
+    for (let i = 0; i < renderedAddOnArr.length + 1; i++) {
+      console.log(renderedAddOnArr[i]);
+      return renderedAddOnArr[i];
     }
   };
 
   return (
     <div className="shopping_cart_container">
-      <h2
+      <h1
         className="shopping_cart_header"
         style={{
           borderBottom: counter === 0 ? "1px solid rgb(215, 156, 165" : "none"
         }}
       >
         MY CART
-      </h2>
+      </h1>
       <div
-        className="my_facial_header"
+        className="cart_header"
         style={{ display: counter === 0 ? "none" : "flex" }}
       >
-        <p>MY FACIAL</p>
+        <h2>MY FACIAL</h2>
       </div>
-      {renderCartContents()}
+      {renderCartFacials()}
+      <div
+        className="cart_header"
+        style={{ display: counter === 0 ? "none" : "flex" }}
+      >
+        <h2>MY ADD-ONS</h2>
+      </div>
+      {renderCartAddOns()}
     </div>
   );
 };
