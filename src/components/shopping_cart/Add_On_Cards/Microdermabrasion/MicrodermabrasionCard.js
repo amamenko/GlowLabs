@@ -30,7 +30,7 @@ const MicrodermabrasionCard = props => {
       </div>
       <div className="shopping_cart_card_description">
         <div className="cart_card_top_container">
-          <h3>Microdermabrasion</h3>
+          <h3 style={{ fontSize: "1.35rem" }}>Microdermabrasion</h3>
           <p className="shopping_cart_duration">Duration: 15 minutes</p>
         </div>
         <div className="cart_card_bottom_container">

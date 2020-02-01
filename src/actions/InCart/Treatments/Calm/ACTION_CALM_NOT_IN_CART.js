@@ -2,7 +2,10 @@ const CALM_NOT_IN_CART = "CALM_NOT_IN_CART";
 
 const ACTION_CALM_NOT_IN_CART = () => {
   return {
-    type: CALM_NOT_IN_CART
+    type: CALM_NOT_IN_CART,
+    payload: {
+      name: "Calm"
+    }
   };
 };
 

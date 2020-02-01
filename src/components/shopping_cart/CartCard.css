@@ -11,6 +11,7 @@
     "image_circle image_circle description description description description";
   border-top: 2px solid rgb(211, 211, 211);
   border-bottom: 2px solid rgb(211, 211, 211);
+  margin-top: -2px;
 }
 
 .shopping_cart_card_image_circle {

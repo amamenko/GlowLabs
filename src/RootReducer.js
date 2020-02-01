@@ -43,8 +43,10 @@ import ledInCartReducer from "./reducers/InCart/AddOns/LEDTherapy/ledInCartReduc
 import microcurrentInCartReducer from "./reducers/InCart/AddOns/Microcurrent/microcurrentInCartReducer";
 import microdermabrasionInCartReducer from "./reducers/InCart/AddOns/Microdermabrasion/microdermabrasionInCartReducer";
 import nanoneedlingInCartReducer from "./reducers/InCart/AddOns/NanoNeedling/nanoneedlingInCartReducer";
+import addOnsArrReducer from "./reducers/InCart/AddOns/addOnsArrReducer";
 import counterReducer from "./reducers/Counter/counterReducer";
 import cartIsActiveReducer from "./reducers/CartIsActive/cartIsActiveReducer";
+import treatmentsArrReducer from "./reducers/InCart/Treatments/treatmentsArrReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -85,6 +87,7 @@ const RootReducer = combineReducers({
   quenchInCart: quenchInCartReducer,
   quickieInCart: quickieInCartReducer,
   rejuvenateInCart: rejuvenateInCartReducer,
+  treatmentsArr: treatmentsArrReducer,
 
   // Add-Ons
   beardInCart: beardInCartReducer,
@@ -96,6 +99,7 @@ const RootReducer = combineReducers({
   microcurrentInCart: microcurrentInCartReducer,
   microdermabrasionInCart: microdermabrasionInCartReducer,
   nanoneedlingInCart: nanoneedlingInCartReducer,
+  addOnsArr: addOnsArrReducer,
 
   // Reducers for navbar/body interactions
   navbarToggle: navbarToggleReducer,

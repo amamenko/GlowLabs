@@ -2,7 +2,11 @@ const CALM_IN_CART = "CALM_IN_CART";
 
 const ACTION_CALM_IN_CART = () => {
   return {
-    type: CALM_IN_CART
+    type: CALM_IN_CART,
+    payload: {
+      name: "Calm",
+      price: 70
+    }
   };
 };
 

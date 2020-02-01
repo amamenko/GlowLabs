@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ShoppingCart.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -69,7 +69,10 @@ const ShoppingCart = () => {
   const nanoneedlingInCart = useSelector(
     state => state.nanoneedlingInCart.in_cart
   );
-
+  const addOnsArr = useSelector(state => state.addOnsArr.add_ons_arr);
+  const treatmentsArr = useSelector(
+    state => state.treatmentsArr.treatments_arr
+  );
   const counter = useSelector(state => state.counterReducer.counter);
 
   const backToHome = () => {
@@ -126,46 +129,52 @@ const ShoppingCart = () => {
     }
   };
 
-  const renderedAddOnArr = [];
+  const addOnsCardComponentsArr = [
+    { name: "ExtraExtractions", component: <ExtraExtractionsCard /> },
+    { name: "HydroJelly", component: <HydroJellyMaskCard /> },
+    { name: "LED", component: <LEDTherapyCard /> },
+    { name: "Microcurrent", component: <MicrocurrentCard /> },
+    { name: "Microdermabrasion", component: <MicrodermabrasionCard /> },
+    { name: "Dermarolling", component: <DermarollingCard /> },
+    { name: "NanoNeedling", component: <NanoNeedlingCard /> },
+    { name: "GuaSha", component: <GuaShaCard /> },
+    { name: "Beard", component: <BeardCard /> }
+  ];
 
-  const addOnsPush = () => {
-    if (extraExtractionsInCart) {
-      renderedAddOnArr.push(<ExtraExtractionsCard />);
-    }
-    if (hydroJellyInCart) {
-      renderedAddOnArr.push(<HydroJellyMaskCard />);
-    }
-    if (ledInCart) {
-      renderedAddOnArr.push(<LEDTherapyCard />);
-    }
-    if (microcurrentInCart) {
-      renderedAddOnArr.push(<MicrocurrentCard />);
-    }
-    if (microdermabrasionInCart) {
-      renderedAddOnArr.push(<MicrodermabrasionCard />);
-    }
-    if (dermarollingInCart) {
-      renderedAddOnArr.push(<DermarollingCard />);
-    }
-    if (nanoneedlingInCart) {
-      renderedAddOnArr.push(<NanoNeedlingCard />);
-    }
-    if (guashaInCart) {
-      renderedAddOnArr.push(<GuaShaCard />);
-    }
-    if (beardInCart) {
-      renderedAddOnArr.push(<BeardCard />);
-    }
-  };
-
-  addOnsPush();
+  const componentNames = addOnsArr.map(item => item.name);
 
   const renderCartAddOns = () => {
-    for (let i = 0; i < renderedAddOnArr.length + 1; i++) {
-      console.log(renderedAddOnArr[i]);
-      return renderedAddOnArr[i];
+    let componentsArr = [];
+    for (let i = 0; i < addOnsCardComponentsArr.length; i++) {
+      if (componentNames.indexOf(addOnsCardComponentsArr[i].name) > -1) {
+        componentsArr.push(addOnsCardComponentsArr[i].component);
+      }
+    }
+    return componentsArr.map((item, index) => <div key={index}>{item}</div>);
+  };
+
+  const calculateSubtotal = () => {
+    let treatmentsPriceArr = [];
+    let addOnsPriceArr = [];
+    let cartSubtotal = null;
+
+    if (treatmentsArr.length > 0) {
+      treatmentsPriceArr = [treatmentsArr[0].price];
+    }
+
+    if (addOnsArr.length > 0) {
+      addOnsPriceArr = addOnsArr.map(item => item.price);
+    }
+    let totalPricesArr = addOnsPriceArr.concat(treatmentsPriceArr);
+
+    if (totalPricesArr.length > 0) {
+      cartSubtotal = totalPricesArr.reduce((a, b) => a + b);
+
+      return cartSubtotal;
     }
   };
+
+  calculateSubtotal();
 
   return (
     <div className="shopping_cart_container">

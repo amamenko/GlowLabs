@@ -55,6 +55,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
 
   const handleShoppingCartClick = () => {
     dispatch(ACTION_CART_IS_ACTIVE());
+    document.body.style.setProperty("background", "rgb(255, 255, 255)");
     toast.dismiss();
   };
 
