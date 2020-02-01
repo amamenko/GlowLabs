@@ -29,6 +29,20 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
+  margin-right: 1.5rem;
+}
+
+.book_a_facial_statement {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgb(161, 161, 161);
+}
+
+.no_facial_selected {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  color: rgb(161, 161, 161);
 }
 
 .shopping_cart_card_description h3 {

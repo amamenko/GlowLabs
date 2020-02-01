@@ -8,8 +8,8 @@ const CHEM_PEEL_IN_CART = "CHEM_PEEL_IN_CART";
 const CHEM_PEEL_NOT_IN_CART = "CHEM_PEEL_NOT_IN_CART";
 const CLARIFY_IN_CART = "CLARIFY_IN_CART";
 const CLARIFY_NOT_IN_CART = "CLARIFY_NOT_IN_CART";
-const DERMAPLANING_IN_CART = "DERMAPLANING_IN_CART";
-const DERMAPLANING_NOT_IN_CART = "DERMAPLANING_NOT_IN_CART";
+const DERMAPLANE_IN_CART = "DERMAPLANE_IN_CART";
+const DERMAPLANE_NOT_IN_CART = "DERMAPLANE_NOT_IN_CART";
 const GLOW_IN_CART = "GLOW_IN_CART";
 const GLOW_NOT_IN_CART = "GLOW_NOT_IN_CART";
 const MICRO_IN_CART = "MICRO_IN_CART";
@@ -30,7 +30,7 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
     case CBD_IN_CART:
     case CHEM_PEEL_IN_CART:
     case CLARIFY_IN_CART:
-    case DERMAPLANING_IN_CART:
+    case DERMAPLANE_IN_CART:
     case GLOW_IN_CART:
     case MICRO_IN_CART:
     case QUENCH_IN_CART:
@@ -48,7 +48,7 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
     case CBD_NOT_IN_CART:
     case CHEM_PEEL_NOT_IN_CART:
     case CLARIFY_NOT_IN_CART:
-    case DERMAPLANING_NOT_IN_CART:
+    case DERMAPLANE_NOT_IN_CART:
     case GLOW_NOT_IN_CART:
     case MICRO_NOT_IN_CART:
     case QUENCH_NOT_IN_CART:

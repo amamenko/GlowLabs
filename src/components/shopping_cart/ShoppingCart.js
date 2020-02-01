@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./ShoppingCart.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faChevronLeft
+} from "@fortawesome/free-solid-svg-icons";
 import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import { useDispatch, useSelector } from "react-redux";
 import CalmCard from "./Treatment_Cards/Calm/CalmCard";
@@ -25,6 +28,7 @@ import DermarollingCard from "./Add_On_Cards/Dermarolling/DermarollingCard";
 import NanoNeedlingCard from "./Add_On_Cards/NanoNeedling/NanoNeedlingCard";
 import GuaShaCard from "./Add_On_Cards/GuaSha/GuaShaCard";
 import BeardCard from "./Add_On_Cards/Beard/BeardCard";
+import NoFacialSelected from "./Treatment_Cards/NoFacialSelected";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -49,26 +53,6 @@ const ShoppingCart = () => {
   const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
   const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
 
-  // Add-Ons
-  const beardInCart = useSelector(state => state.beardInCart.in_cart);
-  const dermarollingInCart = useSelector(
-    state => state.dermarollingInCart.in_cart
-  );
-  const extraExtractionsInCart = useSelector(
-    state => state.extraExtractionsInCart.in_cart
-  );
-  const guashaInCart = useSelector(state => state.guashaInCart.in_cart);
-  const hydroJellyInCart = useSelector(state => state.hydroJellyInCart.in_cart);
-  const ledInCart = useSelector(state => state.ledInCart.in_cart);
-  const microcurrentInCart = useSelector(
-    state => state.microcurrentInCart.in_cart
-  );
-  const microdermabrasionInCart = useSelector(
-    state => state.microdermabrasionInCart.in_cart
-  );
-  const nanoneedlingInCart = useSelector(
-    state => state.nanoneedlingInCart.in_cart
-  );
   const addOnsArr = useSelector(state => state.addOnsArr.add_ons_arr);
   const treatmentsArr = useSelector(
     state => state.treatmentsArr.treatments_arr
@@ -95,11 +79,6 @@ const ShoppingCart = () => {
             You do not have any facial treatments or add-ons in your cart right
             now
           </p>
-          <Link to="/" onClick={backToHome}>
-            <div className="continue_shopping_button">
-              <p>Continue Shopping</p>
-            </div>
-          </Link>
         </>
       );
     } else {
@@ -125,6 +104,10 @@ const ShoppingCart = () => {
         return <QuickieCard />;
       } else if (quenchInCart) {
         return <QuenchCard />;
+      } else {
+        if (addOnsArr.length > 0) {
+          return <NoFacialSelected />;
+        }
       }
     }
   };
@@ -174,18 +157,22 @@ const ShoppingCart = () => {
     }
   };
 
-  calculateSubtotal();
-
   return (
     <div className="shopping_cart_container">
-      <h1
+      <div
         className="shopping_cart_header"
         style={{
-          borderBottom: counter === 0 ? "1px solid rgb(215, 156, 165" : "none"
+          borderBottom: counter === 0 ? "1px solid rgb(215, 156, 165)" : "none"
         }}
       >
-        MY CART
-      </h1>
+        <Link to="/" onClick={backToHome}>
+          <FontAwesomeIcon
+            className="shopping_cart_back_arrow"
+            icon={faChevronLeft}
+          />
+        </Link>
+        <h1> MY CART</h1>
+      </div>
       <div
         className="cart_header"
         style={{ display: counter === 0 ? "none" : "flex" }}
@@ -195,11 +182,37 @@ const ShoppingCart = () => {
       {renderCartFacials()}
       <div
         className="cart_header"
-        style={{ display: counter === 0 ? "none" : "flex" }}
+        style={{ display: addOnsArr.length === 0 ? "none" : "flex" }}
       >
-        <h2>MY ADD-ONS</h2>
+        <h2>MY ADD-ON{addOnsArr.length > 1 ? "S" : null}</h2>
       </div>
       {renderCartAddOns()}
+      <div
+        className="cart_subtotal"
+        style={{ display: counter === 0 ? "none" : "flex" }}
+      >
+        <p>Cart Subtotal</p>
+        <p>${calculateSubtotal()}</p>
+      </div>
+      <Link to="/" onClick={backToHome}>
+        <div
+          className="search_availabiliy_button"
+          style={{
+            display: treatmentsArr.length === 0 ? "none" : "flex",
+            marginTop: counter === 0 ? "0vh" : "5vh"
+          }}
+        >
+          <p>Search Availability</p>
+        </div>
+      </Link>
+      <Link to="/" onClick={backToHome}>
+        <div
+          className="continue_shopping_button"
+          style={{ marginTop: counter === 0 ? "0vh" : "1.5rem" }}
+        >
+          <p>Continue Shopping</p>
+        </div>
+      </Link>
     </div>
   );
 };

@@ -78,6 +78,7 @@ const App = () => {
       } else {
         dispatch(ACTION_NAVBAR_TOGGLE_RESET());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        dispatch(ACTION_BODY_SCROLL_ALLOW());
       }
     } else {
       dispatch(ACTION_NAVBAR_TOGGLE());
