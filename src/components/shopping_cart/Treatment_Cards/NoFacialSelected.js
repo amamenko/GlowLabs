@@ -15,7 +15,8 @@ const NoFacialSelected = props => {
             No Facial Selected
           </h3>
           <p className="book_a_facial_statement">
-            Book a facial to go along with your add-on!
+            Book a facial to go along with your add-on
+            {props.addOnsArr.length > 1 ? "s" : null}!
           </p>
         </div>
       </div>

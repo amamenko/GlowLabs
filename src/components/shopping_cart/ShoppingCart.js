@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ShoppingCart.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
@@ -32,6 +32,7 @@ import NoFacialSelected from "./Treatment_Cards/NoFacialSelected";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
+  let location = useLocation();
 
   // In Cart states
   // Treatments
@@ -106,7 +107,7 @@ const ShoppingCart = () => {
         return <QuenchCard />;
       } else {
         if (addOnsArr.length > 0) {
-          return <NoFacialSelected />;
+          return <NoFacialSelected addOnsArr={addOnsArr} />;
         }
       }
     }
@@ -156,6 +157,12 @@ const ShoppingCart = () => {
       return cartSubtotal;
     }
   };
+
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   return (
     <div className="shopping_cart_container">
