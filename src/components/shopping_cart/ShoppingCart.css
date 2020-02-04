@@ -32,6 +32,16 @@
   bottom: 0;
 }
 
+.shopping_cart_forward_arrow {
+  color: rgb(215, 156, 165);
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
 .empty_cart_container {
   display: flex;
   align-self: center;

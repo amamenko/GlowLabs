@@ -1,8 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Spring, animated, Keyframes } from "react-spring/renderprops";
+import {
+  Spring,
+  animated,
+  Keyframes,
+  Transition
+} from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
-import Popup from "reactjs-popup";
 import ACTION_CALM_TOGGLE from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE";
 import ACTION_CALM_TOGGLE_RESET from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE_RESET";
 import ACTION_CLARIFY_TOGGLE_RESET from "../../../actions/Treatments/Clarify/ACTION_CLARIFY_TOGGLE_RESET";
@@ -23,9 +27,9 @@ import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSuitcase,
+  faSquare,
   faClock,
-  faTag,
-  faSquare
+  faTag
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import CalmNotification from "./CalmNotification";
@@ -33,7 +37,6 @@ import CalmRemovedNotification from "./CalmRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
-import CalmSuitcase from "./CalmSuitcase";
 
 const Calm = props => {
   // "Learn More" states
@@ -76,9 +79,10 @@ const Calm = props => {
 
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
+  const [userHasNotClicked, changeUserHasNotClicked] = useState(true);
+  const [userHasScrolledDown, changeUserHasScrolledDown] = useState(false);
 
   const dispatch = useDispatch();
-  const ref = useRef(null);
 
   const handleToggle = () => {
     if (!calmToggle) {
@@ -157,6 +161,46 @@ const Calm = props => {
       );
     }
   };
+
+  const SuitcaseBounce = Keyframes.Spring({
+    suitcaseBounce: [
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 100 }
+      },
+      {
+        marginTop: "-9px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 300 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-6",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "-4px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      },
+      {
+        marginTop: "0px",
+        color: "rgb(155, 98, 107)",
+        config: { duration: 200 }
+      }
+    ]
+  });
 
   const checkMark = () => {
     return (
@@ -296,119 +340,56 @@ const Calm = props => {
     }
   };
 
-  const SuitcaseBounce = Keyframes.Spring({
-    suitcaseBounce: [
-      {
-        marginTop: "0px",
-        color: "rgb(155, 98, 107)",
-        config: { duration: 100 }
-      },
-      {
-        marginTop: "-9px",
-        color: "rgb(155, 98, 107)",
-        config: { duration: 300 }
-      },
-      {
-        marginTop: "0px",
-        color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      },
-      {
-        marginTop: "-6",
-        color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      },
-      {
-        marginTop: "0px",
-        color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      },
-      {
-        marginTop: "-4px",
-        color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      },
-      {
-        marginTop: "0px",
-        color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      }
-    ]
-  });
+  const renderPopUp = () => {
+    return (
+      <Transition
+        items={userHasNotClicked}
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1, delay: 1000 }}
+        leave={{ opacity: 0 }}
+      >
+        {userHasNotClicked =>
+          userHasNotClicked &&
+          (props => (
+            <animated.p style={props} className="book_now_pop_up">
+              Click here to book now
+            </animated.p>
+          ))
+        }
+      </Transition>
+    );
+  };
 
   const bookButtonBounce = () => {
-    if (!calmToggle) {
-      return (
-        <Popup
-          defaultOpen
-          trigger={open => (
-            <CalmSuitcase
-              addToCart={addToCart}
-              calmInCart={calmInCart}
-              bacialInCart={bacialInCart}
-              cbdInCart={cbdInCart}
-              chemicalPeelInCart={chemicalPeelInCart}
-              clarifyInCart={clarifyInCart}
-              dermaplaningInCart={dermaplaningInCart}
-              glowInCart={glowInCart}
-              microneedleInCart={microneedleInCart}
-              quenchInCart={quenchInCart}
-              quickieInCart={quickieInCart}
-              rejuvenateInCart={rejuvenateInCart}
-              checkMark={checkMark}
-              ref={ref}
-              open={open}
-            />
-          )}
-          position="bottom right"
-        >
-          Click here to book now!
-        </Popup>
-      );
-    } else {
-      return (
-        <SuitcaseBounce state="suitcaseBounce">
-          {styles => (
-            <span
-              className="fa-layers fa-fw"
-              style={
+    return (
+      <SuitcaseBounce state="suitcaseBounce">
+        {styles => (
+          <span
+            className="fa-layers fa-fw"
+            style={
+              calmToggle
+                ? calmInCart |
+                  bacialInCart |
+                  cbdInCart |
+                  chemicalPeelInCart |
+                  clarifyInCart |
+                  dermaplaningInCart |
+                  glowInCart |
+                  microneedleInCart |
+                  quenchInCart |
+                  quickieInCart |
+                  rejuvenateInCart
+                  ? { position: "relative" }
+                  : styles
+                : { position: "relative" }
+            }
+            onClick={() => addToCart()}
+          >
+            <FontAwesomeIcon
+              color={
                 calmToggle
-                  ? calmInCart |
-                    bacialInCart |
-                    cbdInCart |
-                    chemicalPeelInCart |
-                    clarifyInCart |
-                    dermaplaningInCart |
-                    glowInCart |
-                    microneedleInCart |
-                    quenchInCart |
-                    quickieInCart |
-                    rejuvenateInCart
-                    ? { position: "relative" }
-                    : styles
-                  : { position: "relative" }
-              }
-              onClick={() => addToCart()}
-            >
-              <FontAwesomeIcon
-                color={
-                  calmToggle
-                    ? calmInCart
-                      ? "rgba(119, 221, 119, 0.6)"
-                      : bacialInCart |
-                        cbdInCart |
-                        chemicalPeelInCart |
-                        clarifyInCart |
-                        dermaplaningInCart |
-                        glowInCart |
-                        microneedleInCart |
-                        quenchInCart |
-                        quickieInCart |
-                        rejuvenateInCart
-                      ? "rgba(211, 211, 211, 0.8)"
-                      : "rgba(255, 198, 207, 0.8)"
-                    : calmInCart
-                    ? "rgb(119, 221, 119, 0.6)"
+                  ? calmInCart
+                    ? "rgba(119, 221, 119, 0.6)"
                     : bacialInCart |
                       cbdInCart |
                       chemicalPeelInCart |
@@ -420,35 +401,48 @@ const Calm = props => {
                       quickieInCart |
                       rejuvenateInCart
                     ? "rgba(211, 211, 211, 0.8)"
-                    : "rgba(255, 198, 207, 0.6)"
-                }
-                transform="grow-20"
-                icon={faSquare}
-              />
-              {checkMark()}
-              <FontAwesomeIcon
-                style={{ display: calmInCart ? "none" : "block" }}
-                color={
-                  bacialInCart |
-                  cbdInCart |
-                  chemicalPeelInCart |
-                  clarifyInCart |
-                  dermaplaningInCart |
-                  glowInCart |
-                  microneedleInCart |
-                  quenchInCart |
-                  quickieInCart |
-                  rejuvenateInCart
-                    ? "rgb(151, 151, 151)"
-                    : "rgb(175, 118, 127)"
-                }
-                icon={faSuitcase}
-              />
-            </span>
-          )}
-        </SuitcaseBounce>
-      );
-    }
+                    : "rgba(255, 198, 207, 0.8)"
+                  : calmInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : bacialInCart |
+                    cbdInCart |
+                    chemicalPeelInCart |
+                    clarifyInCart |
+                    dermaplaningInCart |
+                    glowInCart |
+                    microneedleInCart |
+                    quenchInCart |
+                    quickieInCart |
+                    rejuvenateInCart
+                  ? "rgba(211, 211, 211, 0.8)"
+                  : "rgba(255, 198, 207, 0.6)"
+              }
+              transform="grow-20"
+              icon={faSquare}
+            />
+            {checkMark()}
+            <FontAwesomeIcon
+              style={{ display: calmInCart ? "none" : "block" }}
+              color={
+                bacialInCart |
+                cbdInCart |
+                chemicalPeelInCart |
+                clarifyInCart |
+                dermaplaningInCart |
+                glowInCart |
+                microneedleInCart |
+                quenchInCart |
+                quickieInCart |
+                rejuvenateInCart
+                  ? "rgb(151, 151, 151)"
+                  : "rgb(175, 118, 127)"
+              }
+              icon={faSuitcase}
+            />
+          </span>
+        )}
+      </SuitcaseBounce>
+    );
   };
 
   const bigScreenBottomWrapperRender = () => {
@@ -486,6 +480,7 @@ const Calm = props => {
         </p>
         <span className="card_bottom_spacer" />
         {bookButtonBounce()}
+        {renderPopUp()}
       </div>
     );
   };
@@ -526,6 +521,31 @@ const Calm = props => {
       );
     }
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 600) {
+        changeUserHasScrolledDown(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (userHasScrolledDown) {
+      const handleUserClicked = () => {
+        changeUserHasNotClicked(false);
+      };
+
+      document.addEventListener("mousedown", handleUserClicked);
+      return () => {
+        document.removeEventListener("mousedown", handleUserClicked);
+      };
+    }
+  }, [userHasScrolledDown]);
 
   return (
     <InView threshold={0.2} triggerOnce={true}>

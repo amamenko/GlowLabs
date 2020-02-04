@@ -10,3 +10,38 @@
 .calm_icon_path {
   transform: scale(0.48);
 }
+
+.book_now_pop_up {
+  background-color: rgb(101, 101, 101);
+  border-radius: 15px;
+  position: absolute;
+  padding-top: 0.2rem;
+  left: 1.9rem;
+  width: 11rem;
+  height: 1.5rem;
+  top: 2rem;
+  font-size: 0.8rem;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.book_now_pop_up::before {
+  content: "";
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  top: -1.1rem;
+  left: 8.5rem;
+  border-width: 10px;
+  border-color: transparent transparent rgb(101, 101, 101) transparent;
+  border-style: solid;
+}
+
+/* Safari Only */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .book_now_pop_up {
+      left: 3.2rem;
+    }
+  }
+}

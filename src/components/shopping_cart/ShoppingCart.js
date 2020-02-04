@@ -4,9 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
-  faChevronLeft
+  faChevronLeft,
+  faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
 import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import ACTION_AVAILABILITY_CLICKED from "../../actions/AvailabilityClicked/ACTION_AVAILABILITY_CLICKED";
 import { useDispatch, useSelector } from "react-redux";
 import CalmCard from "./Treatment_Cards/Calm/CalmCard";
 import ClarifyCard from "./Treatment_Cards/Clarify/ClarifyCard";
@@ -59,9 +61,18 @@ const ShoppingCart = () => {
     state => state.treatmentsArr.treatments_arr
   );
   const counter = useSelector(state => state.counterReducer.counter);
+  const availabilityClicked = useSelector(
+    state => state.availabilityClicked.availabilityClicked
+  );
 
   const backToHome = () => {
     dispatch(ACTION_CART_IS_NOT_ACTIVE());
+  };
+
+  const availabilityHasBeenClicked = () => {
+    if (!availabilityClicked) {
+      dispatch(ACTION_AVAILABILITY_CLICKED());
+    }
   };
 
   const renderCartFacials = () => {
@@ -179,6 +190,13 @@ const ShoppingCart = () => {
           />
         </Link>
         <h1> MY CART</h1>
+        <Link to="/availability">
+          <FontAwesomeIcon
+            className="shopping_cart_forward_arrow"
+            style={{ display: availabilityClicked ? "block" : "none" }}
+            icon={faChevronRight}
+          />
+        </Link>
       </div>
       <div
         className="cart_header"
@@ -201,12 +219,12 @@ const ShoppingCart = () => {
         <p>Cart Subtotal</p>
         <p>${calculateSubtotal()}</p>
       </div>
-      <Link to="/" onClick={backToHome}>
+      <Link to="/availability" onClick={availabilityHasBeenClicked}>
         <div
           className="search_availabiliy_button"
           style={{
             display: treatmentsArr.length === 0 ? "none" : "flex",
-            marginTop: counter === 0 ? "0vh" : "5vh"
+            marginTop: counter === 0 ? "0vh" : "2vh"
           }}
         >
           <p>Search Availability</p>

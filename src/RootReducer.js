@@ -46,6 +46,7 @@ import nanoneedlingInCartReducer from "./reducers/InCart/AddOns/NanoNeedling/nan
 import addOnsArrReducer from "./reducers/InCart/AddOns/addOnsArrReducer";
 import counterReducer from "./reducers/Counter/counterReducer";
 import cartIsActiveReducer from "./reducers/CartIsActive/cartIsActiveReducer";
+import availabilityClickedReducer from "./reducers/AvailabilityClicked/availabilityClickedReducer";
 import treatmentsArrReducer from "./reducers/InCart/Treatments/treatmentsArrReducer";
 
 const RootReducer = combineReducers({
@@ -109,6 +110,7 @@ const RootReducer = combineReducers({
 
   // Cart Reducers
   cartIsActive: cartIsActiveReducer,
+  availabilityClicked: availabilityClickedReducer,
   counterReducer: counterReducer
 });
 
