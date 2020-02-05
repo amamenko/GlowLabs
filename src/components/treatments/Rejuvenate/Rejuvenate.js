@@ -26,6 +26,7 @@ import ACTION_REJUVENATE_NOT_IN_CART from "../../../actions/InCart/Treatments/Re
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
+import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
 import { toast } from "react-toastify";
 import RejuvenateNotification from "./RejuvenateNotification";
@@ -309,6 +310,7 @@ const Rejuvenate = props => {
         toast.dismiss();
         dispatch(ACTION_REJUVENATE_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
+        dispatch(ACTION_AVAILABILITY_RESET());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         toast(
           <RejuvenateRemovedNotification

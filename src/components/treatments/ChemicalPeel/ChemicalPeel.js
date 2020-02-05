@@ -26,6 +26,7 @@ import ACTION_CHEM_PEEL_NOT_IN_CART from "../../../actions/InCart/Treatments/Che
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
+import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 
 // Add-Ons Reset Actions
 import ACTION_BEARD_NOT_IN_CART from "../../../actions/InCart/AddOns/Beard/ACTION_BEARD_NOT_IN_CART";
@@ -339,6 +340,7 @@ const ChemicalPeel = props => {
         toast.dismiss();
         dispatch(ACTION_CHEM_PEEL_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
+        dispatch(ACTION_AVAILABILITY_RESET());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         toast(
           <ChemicalPeelRemovedNotification

@@ -26,6 +26,7 @@ import ACTION_DERMAPLANE_NOT_IN_CART from "../../../actions/InCart/Treatments/De
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
+import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import { toast } from "react-toastify";
 import DermaplaningNotification from "./DermaplaningNotification";
 import DermaplaningRemovedNotification from "./DermaplaningRemovedNotification";
@@ -306,6 +307,7 @@ const Dermaplaning = props => {
         toast.dismiss();
         dispatch(ACTION_DERMAPLANE_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
+        dispatch(ACTION_AVAILABILITY_RESET());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         toast(
           <DermaplaningRemovedNotification

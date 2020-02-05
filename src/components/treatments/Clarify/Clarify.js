@@ -19,6 +19,7 @@ import ACTION_CLARIFY_NOT_IN_CART from "../../../actions/InCart/Treatments/Clari
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
+import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSuitcase,
@@ -305,6 +306,7 @@ const Clarify = props => {
         toast.dismiss();
         dispatch(ACTION_CLARIFY_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
+        dispatch(ACTION_AVAILABILITY_RESET());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         toast(
           <ClarifyRemovedNotification

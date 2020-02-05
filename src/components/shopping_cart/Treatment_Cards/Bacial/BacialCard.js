@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import ACTION_BACIAL_NOT_IN_CART from "../../../../actions/InCart/Treatments/Bacial/ACTION_BACIAL_NOT_IN_CART";
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
+import ACTION_AVAILABILITY_RESET from "../../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import "../../CartCard.css";
 
 const BacialCard = props => {
@@ -10,6 +11,7 @@ const BacialCard = props => {
   const handleRemove = () => {
     dispatch(ACTION_BACIAL_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
+    dispatch(ACTION_AVAILABILITY_RESET());
   };
 
   return (

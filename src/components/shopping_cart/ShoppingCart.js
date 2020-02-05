@@ -72,6 +72,7 @@ const ShoppingCart = () => {
   const availabilityHasBeenClicked = () => {
     if (!availabilityClicked) {
       dispatch(ACTION_AVAILABILITY_CLICKED());
+      document.body.style.setProperty("background", "rgb(255, 255, 255)");
     }
   };
 

@@ -1,0 +1,174 @@
+.availability_container {
+  padding-top: 8vh;
+  height: 100%;
+  background: rgb(255, 255, 255);
+}
+
+.availability_container h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.availability_container_header {
+  color: rgb(215, 156, 165);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+}
+
+.availability_back_arrow {
+  color: rgb(215, 156, 165);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.select_a_date_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.select_a_date_header h2 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+  margin-left: 1.5rem;
+}
+
+.availability_statement {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.calendar_tiles {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.react-calendar {
+  width: 100%;
+  border: 1px solid transparent;
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  padding-top: 1vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+.react-calendar__navigation {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-calendar__navigation button {
+  background: none;
+}
+
+.react-calendar__month-view__weekdays {
+  color: black;
+}
+
+.react-calendar__navigation__prev-button {
+  font-size: 1.2rem;
+  padding-left: 1.5rem;
+}
+
+.react-calendar__navigation__next-button {
+  font-size: 1.2rem;
+  padding-right: 1.5rem;
+}
+
+.react-calendar__navigation button[disabled] {
+  background-color: transparent;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: transparent;
+}
+
+.react-calendar__navigation__label {
+  font-size: 1rem;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+button:disabled {
+  color: rgb(201, 201, 201);
+}
+
+.react-calendar__tile:enabled:hover {
+  background: transparent;
+}
+
+.react-calendar__tile--active {
+  border-radius: 50%;
+  height: 10%;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: rgb(0, 0, 0);
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: rgb(215, 158, 167);
+  color: rgb(255, 255, 255);
+}
+
+/* Hide react-calendar's week numbers - Strictly using week numbers per month for margin calculations */
+.react-calendar__month-view__weekNumbers {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+.select_time_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 30px;
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .react-calendar__tile:enabled:hover {
+    background: rgb(231, 231, 231);
+  }
+}

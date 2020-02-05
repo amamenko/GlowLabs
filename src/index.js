@@ -30,7 +30,7 @@ import AddOnsPage5 from "./components/add_ons_pages/Page_5/AddOnsPage5";
 import Instagram from "./components/instagram/Instagram";
 import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
-import Availability from "./components/availability/Availability";
+import Availability from "./components/availability/Date/Availability";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
