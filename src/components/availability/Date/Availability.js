@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_SELECTED_DAY from "../../../actions/SelectedDay/ACTION_SELECTED_DAY";
+import ACTION_SELECT_TIME_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -16,6 +17,9 @@ const Availability = () => {
   const [numberOfWeeks, changeNumberOfWeeks] = useState(null);
 
   const selectedDay = useSelector(state => state.selectedDay.selectedDay);
+  const selectTimeActive = useSelector(
+    state => state.selectTimeActive.selectTimeActive
+  );
 
   const monthsArr = [
     { Jan: "January" },
@@ -62,6 +66,7 @@ const Availability = () => {
     }
   };
 
+  // Keeps user-selected date marker viewable even when traversing to other routes
   useEffect(() => {
     if (location.pathname) {
       for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
@@ -83,35 +88,12 @@ const Availability = () => {
             [i].parentElement.classList.add(
               "react-calendar__tile--rangeBothEnds)"
             );
-        } else {
-          document
-            .getElementsByTagName("ABBR")
-            [i].parentElement.classList.remove("react-calendar__tile--active");
-          document
-            .getElementsByTagName("ABBR")
-            [i].parentElement.classList.remove(
-              "react-calendar__tile--rangeStart"
-            );
-          document
-            .getElementsByTagName("ABBR")
-            [i].parentElement.classList.remove(
-              "react-calendar__tile--rangeEnd"
-            );
-          document
-            .getElementsByTagName("ABBR")
-            [i].parentElement.classList.remove(
-              "react-calendar__tile--rangeBothEnds)"
-            );
         }
       }
     }
   }, [reformattedDate, location.pathname]);
 
   formatDate();
-
-  const changeSelectedDay = day => {
-    dispatch(ACTION_SELECTED_DAY(day));
-  };
 
   useEffect(() => {
     if (location.pathname) {
@@ -169,6 +151,56 @@ const Availability = () => {
     changeNumberOfWeeks(weekNumberValues[0].childElementCount);
   }, [numberOfWeeks, weekNumberValues]);
 
+  // Selects new date while preventing two markers from being active at the same time
+  const handleValueClick = day => {
+    dispatch(ACTION_SELECTED_DAY(day));
+    for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
+      document
+        .getElementsByTagName("ABBR")
+        [i].parentElement.classList.remove("react-calendar__tile--active");
+      document
+        .getElementsByTagName("ABBR")
+        [i].parentElement.classList.remove("react-calendar__tile--rangeStart");
+      document
+        .getElementsByTagName("ABBR")
+        [i].parentElement.classList.remove("react-calendar__tile--rangeEnd");
+      document
+        .getElementsByTagName("ABBR")
+        [i].parentElement.classList.remove(
+          "react-calendar__tile--rangeBothEnds"
+        );
+    }
+  };
+
+  const handleActiveMonthChange = () => {
+    changeNumberOfWeeks(weekNumberValues[0].childElementCount);
+    for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
+      if (
+        document.getElementsByTagName("ABBR")[i].attributes[0].nodeValue ===
+        reformattedDate
+      ) {
+        document
+          .getElementsByTagName("ABBR")
+          [i].parentElement.classList.add("react-calendar__tile--active");
+        document
+          .getElementsByTagName("ABBR")
+          [i].parentElement.classList.add("react-calendar__tile--rangeStart");
+        document
+          .getElementsByTagName("ABBR")
+          [i].parentElement.classList.add("react-calendar__tile--rangeEnd");
+        document
+          .getElementsByTagName("ABBR")
+          [i].parentElement.classList.add(
+            "react-calendar__tile--rangeBothEnds)"
+          );
+      }
+    }
+  };
+
+  const handleSelectTimeButtonClick = () => {
+    dispatch(ACTION_SELECT_TIME_ACTIVE());
+  };
+
   return (
     <div className="availability_container">
       <div className="availability_container_header">
@@ -179,6 +211,13 @@ const Availability = () => {
           />
         </Link>
         <h1>AVAILABILITY</h1>
+        <Link to={location => `${location.pathname}/timepreference`}>
+          <FontAwesomeIcon
+            className="availability_forward_arrow"
+            style={{ display: selectTimeActive ? "block" : "none" }}
+            icon={faChevronRight}
+          />
+        </Link>
       </div>
       <div className="select_a_date_header">
         <h2>SELECT A DATE</h2>
@@ -189,6 +228,7 @@ const Availability = () => {
       </p>
       <Calendar
         calendarType="ISO 8601"
+        activeStartDate={selectedDay ? selectedDay : today}
         minDate={handleMinDate()}
         maxDate={new Date(sixtyDaysFromNow)}
         maxDetail={"month"}
@@ -196,28 +236,32 @@ const Availability = () => {
         prevLabel={<FontAwesomeIcon icon={faChevronLeft} />}
         next2Label={null}
         prev2Label={null}
-        onActiveDateChange={() =>
-          changeNumberOfWeeks(weekNumberValues[0].childElementCount)
-        }
+        onActiveDateChange={() => handleActiveMonthChange()}
         showNeighboringMonth={false}
         showWeekNumbers={true}
         tileClassName="calendar_tiles"
         tileDisabled={({ date }) =>
           (date.getDay() === 1) | (date.getDay() === 6)
         }
-        onClickDay={value => changeSelectedDay(value)}
+        onClickDay={value => handleValueClick(value)}
       />
-      <div
-        className="select_time_button"
-        style={{
-          marginTop: numberOfWeeks < 6 ? "4vh" : "2vh",
-          background: selectedDay ? "rgb(215, 156, 165)" : "#f0f0f0",
-          color: selectedDay ? "rgb(255, 255, 255)" : "rgb(201, 201, 201)",
-          transition: "background 0.5s ease, color 0.5s ease"
-        }}
+      <Link
+        to={location => `${location.pathname}/timepreference`}
+        style={{ pointerEvents: selectedDay ? "auto" : "none" }}
+        onClick={handleSelectTimeButtonClick}
       >
-        <p>Select a Time</p>
-      </div>
+        <div
+          className="select_time_button"
+          style={{
+            marginTop: numberOfWeeks < 6 ? "4vh" : "2vh",
+            background: selectedDay ? "rgb(215, 156, 165)" : "#f0f0f0",
+            color: selectedDay ? "rgb(255, 255, 255)" : "rgb(201, 201, 201)",
+            transition: "background 0.5s ease, color 0.5s ease"
+          }}
+        >
+          <p>Select a Time</p>
+        </div>
+      </Link>
     </div>
   );
 };

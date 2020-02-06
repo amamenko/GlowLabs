@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import ACTION_GLOW_NOT_IN_CART from "../../../../actions/InCart/Treatments/Glow/ACTION_GLOW_NOT_IN_CART";
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import ACTION_AVAILABILITY_RESET from "../../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
+import ACTION_SELECTED_DAY_RESET from "../../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
+import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 import "../../CartCard.css";
 
 const GlowCard = props => {
@@ -12,6 +14,8 @@ const GlowCard = props => {
     dispatch(ACTION_GLOW_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
     dispatch(ACTION_AVAILABILITY_RESET());
+    dispatch(ACTION_SELECTED_DAY_RESET());
+    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
   };
 
   return (

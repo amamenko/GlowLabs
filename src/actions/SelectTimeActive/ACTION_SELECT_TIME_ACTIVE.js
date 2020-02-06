@@ -1,0 +1,9 @@
+const SELECT_TIME_ACTIVE = "SELECT_TIME_ACTIVE";
+
+const ACTION_SELECT_TIME_ACTIVE = () => {
+  return {
+    type: SELECT_TIME_ACTIVE
+  };
+};
+
+export default ACTION_SELECT_TIME_ACTIVE;

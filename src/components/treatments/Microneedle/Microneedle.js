@@ -27,6 +27,8 @@ import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NA
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
+import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
+import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 
 // Add-Ons Reset Actions
 import ACTION_BEARD_NOT_IN_CART from "../../../actions/InCart/AddOns/Beard/ACTION_BEARD_NOT_IN_CART";
@@ -359,6 +361,8 @@ const Microneedle = props => {
         dispatch(ACTION_MICRO_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
         dispatch(ACTION_AVAILABILITY_RESET());
+        dispatch(ACTION_SELECTED_DAY_RESET());
+        dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         toast(
           <MicroneedleRemovedNotification

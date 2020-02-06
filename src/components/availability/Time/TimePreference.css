@@ -1,0 +1,109 @@
+.select_time_container {
+  padding-top: 8vh;
+  height: 100%;
+  background: rgb(255, 255, 255);
+}
+
+.select_time_container h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.select_time_container_header {
+  color: rgb(215, 156, 165);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+}
+
+.select_time_back_arrow {
+  color: rgb(215, 156, 165);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.select_time_forward_arrow {
+  color: rgb(215, 156, 165);
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.time_statement {
+  margin-top: 2vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.select_a_time_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.select_a_time_header h2 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+  margin-left: 1.5rem;
+}
+
+.time_of_day_selectors_wrapper {
+  height: 100%;
+  margin-top: 8vh;
+}
+
+.time_of_day_selector {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 6vh;
+  width: 85%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 0.8rem;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(215, 156, 165);
+  border-radius: 30px;
+  color: rgb(215, 156, 165);
+}
+
+.select_available_times_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 30px;
+  background: #f0f0f0;
+  color: rgb(201, 201, 201);
+  margin-top: 8vh;
+}
