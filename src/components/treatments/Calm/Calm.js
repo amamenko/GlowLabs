@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Spring,
@@ -84,6 +84,7 @@ const Calm = props => {
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
   const [userHasNotClicked, changeUserHasNotClicked] = useState(true);
   const [userHasScrolledDown, changeUserHasScrolledDown] = useState(false);
+  const [calmClicked, changeCalmClicked] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -285,7 +286,7 @@ const Calm = props => {
 
   const inCartToastId = "facial_already_in_cart";
 
-  const addToCart = () => {
+  const addToCart = useCallback(() => {
     if (
       bacialInCart |
       cbdInCart |
@@ -344,7 +345,22 @@ const Calm = props => {
         );
       }
     }
-  };
+  }, [
+    bacialInCart,
+    calmInCart,
+    cbdInCart,
+    chemicalPeelInCart,
+    clarifyInCart,
+    dermaplaningInCart,
+    dispatch,
+    glowInCart,
+    microneedleInCart,
+    props.currentScreenSize,
+    props.initialScreenSize,
+    quenchInCart,
+    quickieInCart,
+    rejuvenateInCart
+  ]);
 
   const renderPopUp = () => {
     return (
@@ -371,7 +387,7 @@ const Calm = props => {
       <SuitcaseBounce state="suitcaseBounce">
         {styles => (
           <span
-            className="fa-layers fa-fw"
+            className="fa-layers fa-fw calm_suitcase_wrapping calm_suitcase_selector"
             style={
               calmToggle
                 ? calmInCart |
@@ -389,7 +405,7 @@ const Calm = props => {
                   : styles
                 : { position: "relative" }
             }
-            onClick={() => addToCart()}
+            onClick={addToCart}
           >
             <FontAwesomeIcon
               color={
@@ -542,21 +558,31 @@ const Calm = props => {
 
   useEffect(() => {
     if (userHasScrolledDown) {
-      const handleUserClicked = () => {
+      // Required for single click add to cart for Calm instead of double click with pop-up
+      const handleUserClicked = e => {
+        if (e.target.closest(".calm_suitcase_selector")) {
+          addToCart();
+        }
         changeUserHasNotClicked(false);
       };
 
-      document.addEventListener("mousedown", handleUserClicked);
+      document.body.addEventListener("click", handleUserClicked);
       return () => {
-        document.removeEventListener("mousedown", handleUserClicked);
+        document.body.removeEventListener("click", handleUserClicked);
       };
     }
-  }, [userHasScrolledDown]);
+  }, [userHasScrolledDown, addToCart]);
+
+  const handleCalmClicked = () => {
+    if (!calmClicked) {
+      changeCalmClicked(true);
+    }
+  };
 
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="calm_wrapping" ref={ref}>
+        <div className="calm_wrapping" ref={ref} onClick={handleCalmClicked}>
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

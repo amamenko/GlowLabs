@@ -47,6 +47,8 @@ import addOnsArrReducer from "./reducers/InCart/AddOns/addOnsArrReducer";
 import counterReducer from "./reducers/Counter/counterReducer";
 import cartIsActiveReducer from "./reducers/CartIsActive/cartIsActiveReducer";
 import selectedDayReducer from "./reducers/SelectedDay/selectedDayReducer";
+import reformattedDayReducer from "./reducers/SelectedDay/ReformattedDay/reformattedDayReducer";
+import dayOfTheWeekReducer from "./reducers/SelectedDay/DayOfTheWeek/dayOfTheWeekReducer";
 import availabilityClickedReducer from "./reducers/AvailabilityClicked/availabilityClickedReducer";
 import selectTimeActiveReducer from "./reducers/SelectTimeActive/selectTimeActiveReducer";
 import treatmentsArrReducer from "./reducers/InCart/Treatments/treatmentsArrReducer";
@@ -114,6 +116,8 @@ const RootReducer = combineReducers({
   cartIsActive: cartIsActiveReducer,
   availabilityClicked: availabilityClickedReducer,
   selectedDay: selectedDayReducer,
+  reformattedDay: reformattedDayReducer,
+  dayOfTheWeek: dayOfTheWeekReducer,
   selectTimeActive: selectTimeActiveReducer,
   counterReducer: counterReducer
 });

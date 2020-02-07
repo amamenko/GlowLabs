@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_SELECTED_DAY from "../../../actions/SelectedDay/ACTION_SELECTED_DAY";
 import ACTION_SELECT_TIME_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_ACTIVE";
+import ACTION_REFORMATTED_DAY from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -63,6 +64,7 @@ const Availability = () => {
       }
 
       reformattedDate = monthAllLetters.concat(" ", dayAndYear);
+      dispatch(ACTION_REFORMATTED_DAY(reformattedDate));
     }
   };
 

@@ -70,13 +70,12 @@
 
 .time_of_day_selectors_wrapper {
   height: 100%;
-  margin-top: 8vh;
 }
 
 .time_of_day_selector {
   display: flex;
   margin: 0 auto;
-  margin-top: 6vh;
+  margin-top: 8vh;
   width: 85%;
   flex-direction: row;
   align-items: center;
