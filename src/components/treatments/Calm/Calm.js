@@ -560,7 +560,7 @@ const Calm = props => {
     if (userHasScrolledDown) {
       // Required for single click add to cart for Calm instead of double click with pop-up
       const handleUserClicked = e => {
-        if (e.target.closest(".calm_suitcase_selector")) {
+        if (e.target.closest(".calm_suitcase_selector") && userHasNotClicked) {
           addToCart();
         }
         changeUserHasNotClicked(false);
@@ -571,7 +571,7 @@ const Calm = props => {
         document.body.removeEventListener("click", handleUserClicked);
       };
     }
-  }, [userHasScrolledDown, addToCart]);
+  }, [userHasScrolledDown, addToCart, userHasNotClicked]);
 
   const handleCalmClicked = () => {
     if (!calmClicked) {

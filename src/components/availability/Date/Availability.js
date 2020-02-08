@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_SELECTED_DAY from "../../../actions/SelectedDay/ACTION_SELECTED_DAY";
+import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_ACTIVE";
+import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 import ACTION_REFORMATTED_DAY from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY";
+import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -21,6 +24,11 @@ const Availability = () => {
   const selectTimeActive = useSelector(
     state => state.selectTimeActive.selectTimeActive
   );
+  const reformattedDay = useSelector(
+    state => state.reformattedDay.reformattedDay
+  );
+  const [firstCalendarSelection, changeFirstCalendarSelection] = useState("");
+  const [secondCalendarSelection, changeSecondCalendarSelection] = useState("");
 
   const monthsArr = [
     { Jan: "January" },
@@ -153,24 +161,102 @@ const Availability = () => {
     changeNumberOfWeeks(weekNumberValues[0].childElementCount);
   }, [numberOfWeeks, weekNumberValues]);
 
+  console.log(reformattedDate);
+  console.log(reformattedDay);
   // Selects new date while preventing two markers from being active at the same time
   const handleValueClick = day => {
-    dispatch(ACTION_SELECTED_DAY(day));
-    for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
-      document
-        .getElementsByTagName("ABBR")
-        [i].parentElement.classList.remove("react-calendar__tile--active");
-      document
-        .getElementsByTagName("ABBR")
-        [i].parentElement.classList.remove("react-calendar__tile--rangeStart");
-      document
-        .getElementsByTagName("ABBR")
-        [i].parentElement.classList.remove("react-calendar__tile--rangeEnd");
-      document
-        .getElementsByTagName("ABBR")
-        [i].parentElement.classList.remove(
-          "react-calendar__tile--rangeBothEnds"
-        );
+    if (selectedDay.toString() === "") {
+      changeFirstCalendarSelection(day.toString());
+      dispatch(ACTION_SELECTED_DAY(day));
+      for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
+        if (
+          document.getElementsByTagName("ABBR")[i].attributes[0].nodeValue ===
+          reformattedDay
+        ) {
+          document
+            .getElementsByTagName("ABBR")
+            [i].parentElement.classList.add("react-calendar__tile--active");
+          document
+            .getElementsByTagName("ABBR")
+            [i].parentElement.classList.add("react-calendar__tile--rangeStart");
+          document
+            .getElementsByTagName("ABBR")
+            [i].parentElement.classList.add("react-calendar__tile--rangeEnd");
+          document
+            .getElementsByTagName("ABBR")
+            [i].parentElement.classList.add(
+              "react-calendar__tile--rangeBothEnds)"
+            );
+        }
+
+        changeSecondCalendarSelection(day.toString());
+      }
+    } else {
+      if (firstCalendarSelection === secondCalendarSelection) {
+        dispatch(ACTION_SELECTED_DAY_RESET());
+        dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+        changeFirstCalendarSelection("");
+        changeSecondCalendarSelection("");
+        for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
+          if (
+            document.getElementsByTagName("ABBR")[i].attributes[0].nodeValue ===
+            reformattedDay
+          ) {
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--active"
+              );
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--rangeStart"
+              );
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--rangeEnd"
+              );
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--rangeBothEnds)"
+              );
+          }
+        }
+      } else {
+        dispatch(ACTION_SELECTED_DAY(day));
+        dispatch(ACTION_SELECT_TIME_ACTIVE());
+        changeFirstCalendarSelection(secondCalendarSelection);
+        changeSecondCalendarSelection("");
+        for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
+          if (
+            document.getElementsByTagName("ABBR")[i].attributes[0].nodeValue ===
+            reformattedDay
+          ) {
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--active"
+              );
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--rangeStart"
+              );
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--rangeEnd"
+              );
+            document
+              .getElementsByTagName("ABBR")
+              [i].parentElement.classList.remove(
+                "react-calendar__tile--rangeBothEnds)"
+              );
+          }
+        }
+      }
     }
   };
 
