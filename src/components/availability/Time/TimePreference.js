@@ -5,6 +5,7 @@ import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/AC
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "./TimePreference.css";
+import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
 
 const TimePreference = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const TimePreference = () => {
           <FontAwesomeIcon
             className="select_time_back_arrow"
             icon={faChevronLeft}
+            onClick={() => dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET)}
           />
         </Link>
         <h1>AVAILABILITY</h1>

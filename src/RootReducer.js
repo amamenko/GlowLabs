@@ -48,6 +48,7 @@ import counterReducer from "./reducers/Counter/counterReducer";
 import cartIsActiveReducer from "./reducers/CartIsActive/cartIsActiveReducer";
 import selectedDayReducer from "./reducers/SelectedDay/selectedDayReducer";
 import reformattedDayReducer from "./reducers/SelectedDay/ReformattedDay/reformattedDayReducer";
+import reformattedDayCloneReducer from "./reducers/SelectedDay/ReformattedDayClone/reformattedDayCloneReducer";
 import dayOfTheWeekReducer from "./reducers/SelectedDay/DayOfTheWeek/dayOfTheWeekReducer";
 import availabilityClickedReducer from "./reducers/AvailabilityClicked/availabilityClickedReducer";
 import selectTimeActiveReducer from "./reducers/SelectTimeActive/selectTimeActiveReducer";
@@ -117,6 +118,7 @@ const RootReducer = combineReducers({
   availabilityClicked: availabilityClickedReducer,
   selectedDay: selectedDayReducer,
   reformattedDay: reformattedDayReducer,
+  reformattedDayClone: reformattedDayCloneReducer,
   dayOfTheWeek: dayOfTheWeekReducer,
   selectTimeActive: selectTimeActiveReducer,
   counterReducer: counterReducer

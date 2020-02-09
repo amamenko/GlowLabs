@@ -1,0 +1,10 @@
+const REFORMATTED_DAY_CLONE = "REFORMATTED_DAY_CLONE";
+
+const ACTION_REFORMATTED_DAY_CLONE = day => {
+  return {
+    type: REFORMATTED_DAY_CLONE,
+    day
+  };
+};
+
+export default ACTION_REFORMATTED_DAY_CLONE;
