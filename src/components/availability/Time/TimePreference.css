@@ -84,25 +84,27 @@
   font-weight: 600;
   font-size: 1.5rem;
   padding: 0.8rem;
-  background: rgb(255, 255, 255);
-  border: 2px solid rgb(215, 156, 165);
+  background: rgb(215, 156, 165);
   border-radius: 30px;
-  color: rgb(215, 156, 165);
+  color: rgb(255, 255, 255);
 }
 
-.select_available_times_button {
+.inner_times_wrapper {
   display: flex;
-  margin: 0 auto;
-  width: 60%;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.8rem;
+  width: 100%;
+}
+
+.individual_time_wrapper {
+  border: 2px solid rgb(215, 156, 165);
+  color: rgb(215, 156, 165);
+  font-size: 1.5rem;
   border-radius: 30px;
-  background: #f0f0f0;
-  color: rgb(201, 201, 201);
-  margin-top: 8vh;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  margin-top: 4vh;
 }

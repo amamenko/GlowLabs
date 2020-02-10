@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
+import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
+import { Collapse } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "./TimePreference.css";
-import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
+
+// Minified Bootstrap CSS file (for Collapse feature)
+import "../../../bootstrap.min.css";
 
 const TimePreference = () => {
   const dispatch = useDispatch();
+  const [morningCollapseIsOpen, changeMorningCollapseIsOpen] = useState(false);
 
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
@@ -43,6 +48,12 @@ const TimePreference = () => {
 
   getFullDayOfTheWeek();
 
+  const handleMorningCollapse = () => {
+    changeMorningCollapseIsOpen(!morningCollapseIsOpen);
+  };
+
+  console.log(morningCollapseIsOpen);
+
   return (
     <div className="select_time_container">
       <div className="select_time_container_header">
@@ -62,9 +73,16 @@ const TimePreference = () => {
         Choose a time for your appointment on {dayOfTheWeek}, {reformattedDay}.
       </p>
       <div className="time_of_day_selectors_wrapper">
-        <div className="time_of_day_selector">
+        <div className="time_of_day_selector" onClick={handleMorningCollapse}>
           <p>MORNING</p>
         </div>
+        <Collapse isOpen={morningCollapseIsOpen}>
+          <div className="inner_times_wrapper">
+            <div className="individual_time_wrapper">
+              <p>10:00 AM</p>
+            </div>
+          </div>
+        </Collapse>
         <div className="time_of_day_selector">
           <p>AFTERNOON</p>
         </div>

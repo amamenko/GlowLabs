@@ -232,13 +232,25 @@ const Availability = () => {
   const handleActiveMonthChange = () => {
     changeNumberOfWeeks(weekNumberValues[0].childElementCount);
     for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
-      if (
-        document.getElementsByTagName("ABBR")[i].attributes[0].nodeValue ===
-        reformattedDate
-      ) {
+      if (selectedDay !== "") {
+        if (
+          document.getElementsByTagName("ABBR")[i].attributes[0].nodeValue ===
+          reformattedDay
+        ) {
+          document
+            .getElementsByTagName("ABBR")
+            [i].parentElement.classList.add(
+              "react-calendar__tile--active",
+              "react-calendar__tile--rangeStart",
+              "react-calendar__tile--rangeEnd",
+              "react-calendar__tile--rangeBothEnds"
+            );
+        }
+      } else {
+        dispatch(ACTION_REFORMATTED_DAY_RESET());
         document
           .getElementsByTagName("ABBR")
-          [i].parentElement.classList.add(
+          [i].parentElement.classList.remove(
             "react-calendar__tile--active",
             "react-calendar__tile--rangeStart",
             "react-calendar__tile--rangeEnd",
@@ -249,7 +261,11 @@ const Availability = () => {
   };
 
   const handleSelectTimeButtonClick = () => {
-    dispatch(ACTION_SELECT_TIME_ACTIVE());
+    if (selectedDay !== "") {
+      dispatch(ACTION_SELECT_TIME_ACTIVE());
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -304,7 +320,10 @@ const Availability = () => {
       />
       <Link
         to={location => `${location.pathname}/timepreference`}
-        style={{ pointerEvents: selectedDay ? "auto" : "none" }}
+        style={{
+          display: "block",
+          pointerEvents: selectedDay !== "" ? "auto" : "none"
+        }}
         onClick={handleSelectTimeButtonClick}
       >
         <div
@@ -313,6 +332,7 @@ const Availability = () => {
             marginTop: numberOfWeeks < 6 ? "4vh" : "2vh",
             background: selectedDay ? "rgb(215, 156, 165)" : "#f0f0f0",
             color: selectedDay ? "rgb(255, 255, 255)" : "rgb(201, 201, 201)",
+            pointerEvents: selectedDay !== "" ? "auto" : "none",
             transition: "background 0.5s ease, color 0.5s ease"
           }}
         >
