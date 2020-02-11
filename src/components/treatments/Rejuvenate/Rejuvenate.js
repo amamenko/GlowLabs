@@ -29,6 +29,7 @@ import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_
 import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
+import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
 
 import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
 import { toast } from "react-toastify";
@@ -79,8 +80,12 @@ const Rejuvenate = props => {
     state => state.microcurrentInCart.in_cart
   );
 
+  // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
+  const reformattedDay = useSelector(
+    state => state.reformattedDay.reformattedDay
+  );
 
   const dispatch = useDispatch();
 
@@ -317,6 +322,9 @@ const Rejuvenate = props => {
         dispatch(ACTION_SELECTED_DAY_RESET());
         dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        if (reformattedDay) {
+          dispatch(ACTION_REFORMATTED_DAY_RESET());
+        }
         toast(
           <RejuvenateRemovedNotification
             currentScreenSize={props.currentScreenSize}

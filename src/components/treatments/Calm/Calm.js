@@ -27,6 +27,7 @@ import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_
 import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
+import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSuitcase,
@@ -80,8 +81,14 @@ const Calm = props => {
   const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
   const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
 
+  // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
+  const reformattedDay = useSelector(
+    state => state.reformattedDay.reformattedDay
+  );
+
+  // Pop-Up States
   const [userHasNotClicked, changeUserHasNotClicked] = useState(true);
   const [userHasScrolledDown, changeUserHasScrolledDown] = useState(false);
   const [calmClicked, changeCalmClicked] = useState(false);
@@ -321,6 +328,9 @@ const Calm = props => {
         dispatch(ACTION_SELECTED_DAY_RESET());
         dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+        if (reformattedDay) {
+          dispatch(ACTION_REFORMATTED_DAY_RESET());
+        }
         toast(
           <CalmRemovedNotification
             currentScreenSize={props.currentScreenSize}
@@ -359,7 +369,8 @@ const Calm = props => {
     props.initialScreenSize,
     quenchInCart,
     quickieInCart,
-    rejuvenateInCart
+    rejuvenateInCart,
+    reformattedDay
   ]);
 
   const renderPopUp = () => {

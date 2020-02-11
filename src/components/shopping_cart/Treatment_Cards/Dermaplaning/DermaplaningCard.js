@@ -1,14 +1,19 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ACTION_DERMAPLANE_NOT_IN_CART from "../../../../actions/InCart/Treatments/Dermaplaning/ACTION_DERMAPLANE_NOT_IN_CART";
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import ACTION_AVAILABILITY_RESET from "../../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_SELECTED_DAY_RESET from "../../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
+import ACTION_REFORMATTED_DAY_RESET from "../../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
 import "../../CartCard.css";
 
 const DermaplaningCard = props => {
   const dispatch = useDispatch();
+
+  const reformattedDay = useSelector(
+    state => state.reformattedDay.reformattedDay
+  );
 
   const handleRemove = () => {
     dispatch(ACTION_DERMAPLANE_NOT_IN_CART());
@@ -16,6 +21,9 @@ const DermaplaningCard = props => {
     dispatch(ACTION_AVAILABILITY_RESET());
     dispatch(ACTION_SELECTED_DAY_RESET());
     dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+    if (reformattedDay) {
+      dispatch(ACTION_REFORMATTED_DAY_RESET());
+    }
   };
 
   return (
