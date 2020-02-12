@@ -70,43 +70,58 @@
 
 .time_of_day_selectors_wrapper {
   height: 100%;
+  margin-top: 2vh;
 }
 
-.time_of_day_selector {
+.time_of_day_card_container {
+  border-top: 1px solid rgb(211, 211, 211);
+  padding: 1.5rem;
+}
+
+.time_of_day_card_top_wrapping {
   display: flex;
-  margin: 0 auto;
-  margin-top: 8vh;
-  width: 85%;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-between;
+  padding-bottom: 2vh;
+}
+
+.time_of_day_card_show_more {
+  font-size: 1rem;
   font-weight: 600;
+  color: rgb(185, 126, 135);
+}
+
+.time_of_day_heading {
   font-size: 1.5rem;
-  padding: 0.8rem;
-  background: rgb(215, 156, 165);
-  border-radius: 30px;
-  color: rgb(255, 255, 255);
+  font-weight: 700;
 }
 
 .inner_times_wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  justify-content: flex-start;
+  min-width: 101%;
+  flex-wrap: wrap;
   margin-bottom: -8vh;
-  padding-bottom: 4vh;
+  margin-bottom: 1vh;
+  margin-right: -2rem;
+  margin: 0 -1px;
 }
 
 .individual_time_wrapper {
-  border: 2px solid rgb(215, 156, 165);
+  text-align: center;
+  border: 3px solid rgb(215, 156, 165);
+  /* background: rgb(215, 156, 165); */
+  min-width: 32%;
   color: rgb(215, 156, 165);
-  font-size: 1.5rem;
+  /* color: rgb(255, 255, 255); */
+  font-size: 1.2rem;
+  font-weight: 700;
   border-radius: 30px;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
-  margin-top: 4vh;
+  padding-top: 0.6em;
+  padding-bottom: 0.6rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 2vh;
+  margin-right: 0.275rem;
 }

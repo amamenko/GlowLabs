@@ -13,6 +13,7 @@ import "../../../bootstrap.min.css";
 
 const TimePreference = () => {
   const dispatch = useDispatch();
+
   const [morningCollapseIsOpen, changeMorningCollapseIsOpen] = useState(false);
   const [afternoonCollapseIsOpen, changeAfternoonCollapseIsOpen] = useState(
     false
@@ -83,6 +84,7 @@ const TimePreference = () => {
   };
 
   const fifteenMinuteIntervals = ["00", "15", "30", "45"];
+  let initialMorningTimesArr = [];
   const morningTimesArr = [];
 
   const createMorningTimeInstances = () => {
@@ -102,25 +104,28 @@ const TimePreference = () => {
 
     for (let i = 0; i < multipleHours.length; i++) {
       morningTimesArr.push(
-        multipleHours[i].toString() + ":" + minutes[i].toString() + " AM"
+        multipleHours[i].toString() + ":" + minutes[i].toString()
       );
     }
   };
 
   createMorningTimeInstances();
 
+  initialMorningTimesArr = morningTimesArr.splice(0, 3);
+
+  let initialAfternoonTimesArr = [];
   const afternoonTimesArr = [];
 
   const createAfternoonTimeInstances = () => {
     let hours = [];
-    let minutes = new Array(20)
+    let minutes = new Array(dayOfTheWeek === "Friday" ? 16 : 20)
       .fill(fifteenMinuteIntervals)
       .reduce(
         (accumulator, currentValue) => accumulator.concat(currentValue),
         []
       );
 
-    for (let i = 12; i < 17; i++) {
+    for (let i = 12; i < (dayOfTheWeek === "Friday" ? 16 : 17); i++) {
       hours.push(i);
     }
 
@@ -133,25 +138,28 @@ const TimePreference = () => {
 
     for (let i = 0; i < multipleHours.length; i++) {
       afternoonTimesArr.push(
-        multipleHours[i].toString() + ":" + minutes[i].toString() + " PM"
+        multipleHours[i].toString() + ":" + minutes[i].toString()
       );
     }
   };
 
   createAfternoonTimeInstances();
 
+  initialAfternoonTimesArr = afternoonTimesArr.splice(0, 3);
+
+  let initialEveningTimesArr = [];
   const eveningTimesArr = [];
 
   const createEveningTimeInstances = () => {
     let hours = [];
-    let minutes = new Array(12)
+    let minutes = new Array(dayOfTheWeek === "Sunday" ? 5 : 12)
       .fill(fifteenMinuteIntervals)
       .reduce(
         (accumulator, currentValue) => accumulator.concat(currentValue),
         []
       );
 
-    for (let i = 17; i < 20; i++) {
+    for (let i = 17; i < (dayOfTheWeek === "Sunday" ? 19 : 20); i++) {
       hours.push(i);
     }
 
@@ -164,12 +172,14 @@ const TimePreference = () => {
 
     for (let i = 0; i < multipleHours.length; i++) {
       eveningTimesArr.push(
-        multipleHours[i].toString() + ":" + minutes[i].toString() + " PM"
+        multipleHours[i].toString() + ":" + minutes[i].toString()
       );
     }
   };
 
   createEveningTimeInstances();
+
+  initialEveningTimesArr = eveningTimesArr.splice(0, 3);
 
   return (
     <div className="select_time_container">
@@ -190,44 +200,110 @@ const TimePreference = () => {
         Choose a time for your appointment on {dayOfTheWeek}, {reformattedDay}.
       </p>
       <div className="time_of_day_selectors_wrapper">
-        <div className="time_of_day_selector" onClick={handleMorningCollapse}>
-          <p>MORNING</p>
-        </div>
-        <Collapse isOpen={morningCollapseIsOpen}>
+        <div className="time_of_day_card_container">
+          <div className="time_of_day_card_top_wrapping">
+            <div className="time_of_day_heading">
+              <p>Morning</p>
+            </div>
+            <p
+              className="time_of_day_card_show_more"
+              onClick={handleMorningCollapse}
+            >
+              Show {morningCollapseIsOpen ? "Less" : "More"}
+            </p>
+          </div>
+
           <div className="inner_times_wrapper">
-            {morningTimesArr.map((item, i) => (
+            {initialMorningTimesArr.map((item, i) => (
               <div key={i} className="individual_time_wrapper">
                 <p>{item}</p>
               </div>
             ))}
+            <Collapse isOpen={morningCollapseIsOpen}>
+              <div className="inner_times_wrapper">
+                {morningTimesArr.map((item, i) => (
+                  <div key={i} className="individual_time_wrapper">
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </Collapse>
           </div>
-        </Collapse>
-        <div className="time_of_day_selector" onClick={handleAfternoonCollapse}>
-          <p>AFTERNOON</p>
         </div>
-        <Collapse isOpen={afternoonCollapseIsOpen}>
+        <div className="time_of_day_card_container">
+          <div className="time_of_day_card_top_wrapping">
+            <div className="time_of_day_heading">
+              <p>Afternoon</p>
+            </div>
+            <p
+              className="time_of_day_card_show_more"
+              onClick={handleAfternoonCollapse}
+            >
+              Show {afternoonCollapseIsOpen ? "Less" : "More"}
+            </p>
+          </div>
+
           <div className="inner_times_wrapper">
-            {afternoonTimesArr.map((item, i) => (
+            {initialAfternoonTimesArr.map((item, i) => (
               <div key={i} className="individual_time_wrapper">
                 <p>{item}</p>
               </div>
             ))}
+            <Collapse isOpen={afternoonCollapseIsOpen}>
+              <div className="inner_times_wrapper">
+                {afternoonTimesArr.map((item, i) => (
+                  <div key={i} className="individual_time_wrapper">
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </Collapse>
           </div>
-        </Collapse>
-        <div className="time_of_day_selector" onClick={handleEveningCollapse}>
-          <p>EVENING</p>
         </div>
-        <Collapse isOpen={eveningCollapseIsOpen}>
-          <div className="inner_times_wrapper">
+        {dayOfTheWeek === "Friday" ? null : (
+          <div className="time_of_day_card_container">
+            <div className="time_of_day_card_top_wrapping">
+              <div className="time_of_day_heading">
+                <p>Evening</p>
+              </div>
+              <p
+                className="time_of_day_card_show_more"
+                onClick={handleEveningCollapse}
+              >
+                Show {eveningCollapseIsOpen ? "Less" : "More"}
+              </p>
+            </div>
             <div className="inner_times_wrapper">
-              {eveningTimesArr.map((item, i) => (
+              {initialEveningTimesArr.map((item, i) => (
                 <div key={i} className="individual_time_wrapper">
                   <p>{item}</p>
                 </div>
               ))}
+              <Collapse isOpen={eveningCollapseIsOpen}>
+                <div className="inner_times_wrapper">
+                  <div className="inner_times_wrapper">
+                    {eveningTimesArr.map((item, i) => (
+                      <div
+                        key={i}
+                        className="individual_time_wrapper"
+                        style={{
+                          opacity:
+                            dayOfTheWeek === "Sunday"
+                              ? parseInt(item[0]) > 5
+                                ? 0
+                                : 1
+                              : 1
+                        }}
+                      >
+                        <p>{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Collapse>
             </div>
           </div>
-        </Collapse>
+        )}
       </div>
     </div>
   );
