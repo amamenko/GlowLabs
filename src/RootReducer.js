@@ -52,6 +52,7 @@ import reformattedDayCloneReducer from "./reducers/SelectedDay/ReformattedDayClo
 import dayOfTheWeekReducer from "./reducers/SelectedDay/DayOfTheWeek/dayOfTheWeekReducer";
 import availabilityClickedReducer from "./reducers/AvailabilityClicked/availabilityClickedReducer";
 import selectTimeActiveReducer from "./reducers/SelectTimeActive/selectTimeActiveReducer";
+import selectedTimeReducer from "./reducers/SelectedTime/selectedTimeReducer";
 import treatmentsArrReducer from "./reducers/InCart/Treatments/treatmentsArrReducer";
 
 const RootReducer = combineReducers({
@@ -121,6 +122,7 @@ const RootReducer = combineReducers({
   reformattedDayClone: reformattedDayCloneReducer,
   dayOfTheWeek: dayOfTheWeekReducer,
   selectTimeActive: selectTimeActiveReducer,
+  selectedTime: selectedTimeReducer,
   counterReducer: counterReducer
 });
 

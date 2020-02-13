@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_SELECTED_DAY from "../../../actions/SelectedDay/ACTION_SELECTED_DAY";
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
+import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 import ACTION_SELECT_TIME_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_ACTIVE";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 import ACTION_REFORMATTED_DAY from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY";
@@ -25,6 +26,7 @@ const Availability = () => {
   const selectTimeActive = useSelector(
     state => state.selectTimeActive.selectTimeActive
   );
+  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
   );
@@ -180,6 +182,9 @@ const Availability = () => {
             "react-calendar__tile--rangeBothEnds"
           );
       }
+      if (selectedTime) {
+        dispatch(ACTION_SELECTED_TIME_RESET());
+      }
     }
     if (selectedDay.toString() !== day.toString()) {
       dispatch(ACTION_SELECTED_DAY(day));
@@ -199,6 +204,9 @@ const Availability = () => {
               );
           }
         }
+        if (selectedTime) {
+          dispatch(ACTION_SELECTED_TIME_RESET());
+        }
       } else {
         dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
@@ -211,6 +219,9 @@ const Availability = () => {
               "react-calendar__tile--rangeEnd",
               "react-calendar__tile--rangeBothEnds"
             );
+        }
+        if (selectedTime) {
+          dispatch(ACTION_SELECTED_TIME_RESET());
         }
       }
     } else {
@@ -225,6 +236,9 @@ const Availability = () => {
             "react-calendar__tile--rangeEnd",
             "react-calendar__tile--rangeBothEnds"
           );
+      }
+      if (selectedTime) {
+        dispatch(ACTION_SELECTED_TIME_RESET());
       }
     }
   };

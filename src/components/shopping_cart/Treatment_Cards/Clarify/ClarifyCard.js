@@ -6,6 +6,7 @@ import ACTION_AVAILABILITY_RESET from "../../../../actions/AvailabilityClicked/A
 import ACTION_SELECTED_DAY_RESET from "../../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 import ACTION_REFORMATTED_DAY_RESET from "../../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
+import ACTION_SELECTED_TIME_RESET from "../../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 import "../../CartCard.css";
 
 const ClarifyCard = props => {
@@ -14,6 +15,7 @@ const ClarifyCard = props => {
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
   );
+  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
 
   const handleRemove = () => {
     dispatch(ACTION_CLARIFY_NOT_IN_CART());
@@ -23,6 +25,9 @@ const ClarifyCard = props => {
     dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
     if (reformattedDay) {
       dispatch(ACTION_REFORMATTED_DAY_RESET());
+    }
+    if (selectedTime) {
+      dispatch(ACTION_SELECTED_TIME_RESET());
     }
   };
 

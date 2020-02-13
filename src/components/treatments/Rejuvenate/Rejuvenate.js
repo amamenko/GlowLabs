@@ -30,6 +30,7 @@ import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTI
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
+import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 
 import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
 import { toast } from "react-toastify";
@@ -86,6 +87,7 @@ const Rejuvenate = props => {
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
   );
+  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
 
   const dispatch = useDispatch();
 
@@ -324,6 +326,9 @@ const Rejuvenate = props => {
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         if (reformattedDay) {
           dispatch(ACTION_REFORMATTED_DAY_RESET());
+        }
+        if (selectedTime) {
+          dispatch(ACTION_SELECTED_TIME_RESET());
         }
         toast(
           <RejuvenateRemovedNotification

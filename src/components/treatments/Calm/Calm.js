@@ -28,6 +28,7 @@ import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTI
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
+import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSuitcase,
@@ -87,6 +88,7 @@ const Calm = props => {
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
   );
+  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
 
   // Pop-Up States
   const [userHasNotClicked, changeUserHasNotClicked] = useState(true);
@@ -331,6 +333,9 @@ const Calm = props => {
         if (reformattedDay) {
           dispatch(ACTION_REFORMATTED_DAY_RESET());
         }
+        if (selectedTime) {
+          dispatch(ACTION_SELECTED_TIME_RESET());
+        }
         toast(
           <CalmRemovedNotification
             currentScreenSize={props.currentScreenSize}
@@ -370,7 +375,8 @@ const Calm = props => {
     quenchInCart,
     quickieInCart,
     rejuvenateInCart,
-    reformattedDay
+    reformattedDay,
+    selectedTime
   ]);
 
   const renderPopUp = () => {
