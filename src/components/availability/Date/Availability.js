@@ -9,6 +9,7 @@ import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACT
 import ACTION_REFORMATTED_DAY from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY";
 import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
 import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
+import ACTION_ALL_COLLAPSE_RESET from "../../../actions/SelectedTime/CollapseIsOpen/ACTION_ALL_COLLAPSE_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -172,6 +173,7 @@ const Availability = () => {
   const handleValueClick = day => {
     if (reformattedDay === reformattedDayClone) {
       dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+      dispatch(ACTION_ALL_COLLAPSE_RESET());
       for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
         document
           .getElementsByTagName("ABBR")
@@ -188,6 +190,7 @@ const Availability = () => {
     }
     if (selectedDay.toString() !== day.toString()) {
       dispatch(ACTION_SELECTED_DAY(day));
+      dispatch(ACTION_ALL_COLLAPSE_RESET());
       if (selectedDay === "") {
         for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
           if (
@@ -227,6 +230,7 @@ const Availability = () => {
     } else {
       dispatch(ACTION_SELECTED_DAY_RESET());
       dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+      dispatch(ACTION_ALL_COLLAPSE_RESET());
       for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
         document
           .getElementsByTagName("ABBR")

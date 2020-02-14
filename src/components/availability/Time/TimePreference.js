@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
 import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
+import ACTION_SELECTED_TIME from "../../../actions/SelectedTime/ACTION_SELECTED_TIME";
+import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
+import ACTION_AFTERNOON_OPEN from "../../../actions/SelectedTime/CollapseIsOpen/Afternoon/ACTION_AFTERNOON_OPEN";
+import ACTION_AFTERNOON_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/Afternoon/ACTION_AFTERNOON_CLOSED";
+import ACTION_LATE_AFTERNOON_OPEN from "../../../actions/SelectedTime/CollapseIsOpen/LateAfternoon/ACTION_LATE_AFTERNOON_OPEN";
+import ACTION_LATE_AFTERNOON_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/LateAfternoon/ACTION_LATE_AFTERNOON_CLOSED";
+import ACTION_MORNING_OPEN from "../../../actions/SelectedTime/CollapseIsOpen/Morning/ACTION_MORNING_OPEN";
+import ACTION_MORNING_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/Morning/ACTION_MORNING_CLOSED";
+import ACTION_EVENING_OPEN from "../../../actions/SelectedTime/CollapseIsOpen/Evening/ACTION_EVENING_OPEN";
+import ACTION_EVENING_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/Evening/ACTION_EVENING_CLOSED";
 import { Collapse } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -10,21 +20,9 @@ import "./TimePreference.css";
 
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../bootstrap.min.css";
-import ACTION_SELECTED_TIME from "../../../actions/SelectedTime/ACTION_SELECTED_TIME";
-import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 
 const TimePreference = () => {
   const dispatch = useDispatch();
-
-  const [morningCollapseIsOpen, changeMorningCollapseIsOpen] = useState(false);
-  const [afternoonCollapseIsOpen, changeAfternoonCollapseIsOpen] = useState(
-    false
-  );
-  const [
-    lateAfternoonCollapseIsOpen,
-    changeLateAfternoonCollapseIsOpen
-  ] = useState(false);
-  const [eveningCollapseIsOpen, changeEveningCollapseIsOpen] = useState(false);
 
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
@@ -32,6 +30,18 @@ const TimePreference = () => {
   const selectedDay = useSelector(state => state.selectedDay.selectedDay);
   const dayOfTheWeek = useSelector(state => state.dayOfTheWeek.dayOfTheWeek);
   const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const morningCollapseIsOpen = useSelector(
+    state => state.morningCollapse.collapseIsOpen
+  );
+  const afternoonCollapseIsOpen = useSelector(
+    state => state.afternoonCollapse.collapseIsOpen
+  );
+  const lateAfternoonCollapseIsOpen = useSelector(
+    state => state.lateAfternoonCollapse.collapseIsOpen
+  );
+  const eveningCollapseIsOpen = useSelector(
+    state => state.eveningCollapse.collapseIsOpen
+  );
 
   const daysOfTheWeekArr = [
     { Mon: "Monday" },
@@ -61,54 +71,70 @@ const TimePreference = () => {
   getFullDayOfTheWeek();
 
   const handleMorningCollapse = () => {
-    changeMorningCollapseIsOpen(!morningCollapseIsOpen);
+    if (morningCollapseIsOpen) {
+      dispatch(ACTION_MORNING_CLOSED());
+    } else {
+      dispatch(ACTION_MORNING_OPEN());
+    }
     if (afternoonCollapseIsOpen) {
-      changeAfternoonCollapseIsOpen(false);
+      dispatch(ACTION_AFTERNOON_CLOSED());
     }
     if (eveningCollapseIsOpen) {
-      changeEveningCollapseIsOpen(false);
+      dispatch(ACTION_EVENING_CLOSED());
     }
     if (lateAfternoonCollapseIsOpen) {
-      changeLateAfternoonCollapseIsOpen(false);
+      dispatch(ACTION_LATE_AFTERNOON_CLOSED());
     }
   };
 
   const handleAfternoonCollapse = () => {
-    changeAfternoonCollapseIsOpen(!afternoonCollapseIsOpen);
+    if (afternoonCollapseIsOpen) {
+      dispatch(ACTION_AFTERNOON_CLOSED());
+    } else {
+      dispatch(ACTION_AFTERNOON_OPEN());
+    }
     if (morningCollapseIsOpen) {
-      changeMorningCollapseIsOpen(false);
+      dispatch(ACTION_MORNING_CLOSED());
     }
     if (eveningCollapseIsOpen) {
-      changeEveningCollapseIsOpen(false);
+      dispatch(ACTION_EVENING_CLOSED());
     }
     if (lateAfternoonCollapseIsOpen) {
-      changeLateAfternoonCollapseIsOpen(false);
+      dispatch(ACTION_LATE_AFTERNOON_CLOSED());
     }
   };
 
   const handleLateAfternoonCollapse = () => {
-    changeLateAfternoonCollapseIsOpen(!lateAfternoonCollapseIsOpen);
+    if (lateAfternoonCollapseIsOpen) {
+      dispatch(ACTION_LATE_AFTERNOON_CLOSED());
+    } else {
+      dispatch(ACTION_LATE_AFTERNOON_OPEN());
+    }
     if (morningCollapseIsOpen) {
-      changeMorningCollapseIsOpen(false);
+      dispatch(ACTION_MORNING_CLOSED());
     }
     if (afternoonCollapseIsOpen) {
-      changeAfternoonCollapseIsOpen(false);
+      dispatch(ACTION_AFTERNOON_CLOSED());
     }
     if (eveningCollapseIsOpen) {
-      changeEveningCollapseIsOpen(false);
+      dispatch(ACTION_EVENING_CLOSED());
     }
   };
 
   const handleEveningCollapse = () => {
-    changeEveningCollapseIsOpen(!eveningCollapseIsOpen);
+    if (eveningCollapseIsOpen) {
+      dispatch(ACTION_EVENING_CLOSED());
+    } else {
+      dispatch(ACTION_EVENING_OPEN());
+    }
     if (morningCollapseIsOpen) {
-      changeMorningCollapseIsOpen(false);
+      dispatch(ACTION_MORNING_CLOSED());
     }
     if (afternoonCollapseIsOpen) {
-      changeAfternoonCollapseIsOpen(false);
+      dispatch(ACTION_AFTERNOON_CLOSED());
     }
     if (lateAfternoonCollapseIsOpen) {
-      changeLateAfternoonCollapseIsOpen(false);
+      dispatch(ACTION_LATE_AFTERNOON_CLOSED());
     }
   };
 
@@ -265,8 +291,7 @@ const TimePreference = () => {
                   color:
                     item === selectedTime
                       ? "rgb(255, 255, 255)"
-                      : "rgb(215, 156, 165)",
-                  transition: "all 0.3s ease"
+                      : "rgb(215, 156, 165)"
                 }}
               >
                 <p>{item}</p>
@@ -287,8 +312,7 @@ const TimePreference = () => {
                       color:
                         item === selectedTime
                           ? "rgb(255, 255, 255)"
-                          : "rgb(215, 156, 165)",
-                      transition: "all 0.3s ease"
+                          : "rgb(215, 156, 165)"
                     }}
                   >
                     <p>{item}</p>
@@ -325,8 +349,7 @@ const TimePreference = () => {
                   color:
                     item === selectedTime
                       ? "rgb(255, 255, 255)"
-                      : "rgb(215, 156, 165)",
-                  transition: "all 0.3s ease"
+                      : "rgb(215, 156, 165)"
                 }}
               >
                 <p>{item}</p>
@@ -347,8 +370,7 @@ const TimePreference = () => {
                       color:
                         item === selectedTime
                           ? "rgb(255, 255, 255)"
-                          : "rgb(215, 156, 165)",
-                      transition: "all 0.3s ease"
+                          : "rgb(215, 156, 165)"
                     }}
                   >
                     <p>{item}</p>
@@ -385,8 +407,7 @@ const TimePreference = () => {
                   color:
                     item === selectedTime
                       ? "rgb(255, 255, 255)"
-                      : "rgb(215, 156, 165)",
-                  transition: "all 0.3s ease"
+                      : "rgb(215, 156, 165)"
                 }}
               >
                 <p>{item}</p>
@@ -402,7 +423,7 @@ const TimePreference = () => {
                     style={{
                       opacity:
                         dayOfTheWeek === "Friday"
-                          ? parseInt(item[0]) > 3
+                          ? parseInt(item[0], 10) > 3
                             ? 0
                             : 1
                           : 1,
@@ -413,8 +434,7 @@ const TimePreference = () => {
                       color:
                         item === selectedTime
                           ? "rgb(255, 255, 255)"
-                          : "rgb(215, 156, 165)",
-                      transition: "background 0.3s ease, color 0.3s ease"
+                          : "rgb(215, 156, 165)"
                     }}
                   >
                     <p>{item}</p>
@@ -451,8 +471,7 @@ const TimePreference = () => {
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
-                        : "rgb(215, 156, 165)",
-                    transition: "all 0.3s ease"
+                        : "rgb(215, 156, 165)"
                   }}
                 >
                   <p>{item}</p>
@@ -469,7 +488,7 @@ const TimePreference = () => {
                         style={{
                           opacity:
                             dayOfTheWeek === "Sunday"
-                              ? parseInt(item[0]) > 5
+                              ? parseInt(item[0], 10) > 5
                                 ? 0
                                 : 1
                               : 1,
@@ -480,8 +499,7 @@ const TimePreference = () => {
                           color:
                             item === selectedTime
                               ? "rgb(255, 255, 255)"
-                              : "rgb(215, 156, 165)",
-                          transition: "all 0.3s ease"
+                              : "rgb(215, 156, 165)"
                         }}
                       >
                         <p>{item}</p>
@@ -493,6 +511,51 @@ const TimePreference = () => {
             </div>
           </div>
         )}
+        <div
+          className="time_preference_bottom_buttons_container"
+          style={{
+            marginTop:
+              dayOfTheWeek === "Friday"
+                ? lateAfternoonCollapseIsOpen
+                  ? "-5vh"
+                  : "2vh"
+                : dayOfTheWeek === "Sunday"
+                ? eveningCollapseIsOpen
+                  ? "-5vh"
+                  : "2vh"
+                : "2vh"
+          }}
+        >
+          <Link
+            to="/checkout"
+            style={{
+              display: "block",
+              pointerEvents: selectedTime !== "" ? "auto" : "none"
+            }}
+          >
+            <div
+              className="time_preference_continue_button"
+              style={{
+                border: selectedTime
+                  ? "2px solid transparent"
+                  : "2px solid rgb(231, 231, 231)",
+                background: selectedTime ? "rgb(215, 156, 165)" : "#f0f0f0",
+                color: selectedTime
+                  ? "rgb(255, 255, 255)"
+                  : "rgb(201, 201, 201)",
+                transition:
+                  "background 0.5s ease, color 0.5s ease, border 0.5s ease"
+              }}
+            >
+              <p>Continue Checkout</p>
+            </div>
+          </Link>
+          <Link to="/availability">
+            <div className="change_date_button">
+              <p>Change Date</p>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );

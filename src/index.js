@@ -31,6 +31,7 @@ import Instagram from "./components/instagram/Instagram";
 import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
 import AvailabilityRouter from "./components/availability/AvailabilityRouter";
+import GuestCheckout from "./components/checkout/GuestCheckout";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
@@ -461,6 +462,7 @@ const App = () => {
         </Route>
         <Route path="/cart" component={ShoppingCart} />
         <Route path="/availability" component={AvailabilityRouter} />
+        <Route path="/checkout" component={GuestCheckout} />
       </Switch>
     </>
   );

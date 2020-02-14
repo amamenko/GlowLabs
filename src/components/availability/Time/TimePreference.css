@@ -123,3 +123,47 @@
   margin-top: 2vh;
   margin-right: 0.275rem;
 }
+
+.time_preference_bottom_buttons_container {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin-bottom: 6vh;
+}
+
+.time_preference_continue_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  background: rgb(215, 156, 165);
+  border-radius: 30px;
+  color: white;
+}
+
+.change_date_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(215, 156, 165);
+  border-radius: 30px;
+  color: rgb(215, 156, 165);
+  margin-top: 1.5rem;
+}

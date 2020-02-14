@@ -1,0 +1,9 @@
+const LATE_AFTERNOON_OPEN = "LATE_AFTERNOON_OPEN";
+
+const ACTION_LATE_AFTERNOON_OPEN = () => {
+  return {
+    type: LATE_AFTERNOON_OPEN
+  };
+};
+
+export default ACTION_LATE_AFTERNOON_OPEN;

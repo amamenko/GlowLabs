@@ -1,0 +1,9 @@
+const AFTERNOON_CLOSED = "AFTERNOON_CLOSED";
+
+const ACTION_AFTERNOON_CLOSED = () => {
+  return {
+    type: AFTERNOON_CLOSED
+  };
+};
+
+export default ACTION_AFTERNOON_CLOSED;

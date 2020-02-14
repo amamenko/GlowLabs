@@ -54,6 +54,10 @@ import availabilityClickedReducer from "./reducers/AvailabilityClicked/availabil
 import selectTimeActiveReducer from "./reducers/SelectTimeActive/selectTimeActiveReducer";
 import selectedTimeReducer from "./reducers/SelectedTime/selectedTimeReducer";
 import treatmentsArrReducer from "./reducers/InCart/Treatments/treatmentsArrReducer";
+import afternoonCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Afternoon/afternoonCollapseReducer";
+import lateAfternoonCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/LateAfternoon/lateAfternoonCollapseReducer";
+import morningCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Morning/morningCollapseReducer";
+import eveningCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Evening/eveningCollapseReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -123,7 +127,11 @@ const RootReducer = combineReducers({
   dayOfTheWeek: dayOfTheWeekReducer,
   selectTimeActive: selectTimeActiveReducer,
   selectedTime: selectedTimeReducer,
-  counterReducer: counterReducer
+  counterReducer: counterReducer,
+  afternoonCollapse: afternoonCollapseReducer,
+  lateAfternoonCollapse: lateAfternoonCollapseReducer,
+  morningCollapse: morningCollapseReducer,
+  eveningCollapse: eveningCollapseReducer
 });
 
 export default RootReducer;
