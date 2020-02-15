@@ -139,7 +139,6 @@ const TimePreference = () => {
   };
 
   const fifteenMinuteIntervals = ["00", "15", "30", "45"];
-  let initialMorningTimesArr = [];
   const morningTimesArr = [];
 
   const createMorningTimeInstances = () => {
@@ -166,9 +165,6 @@ const TimePreference = () => {
 
   createMorningTimeInstances();
 
-  initialMorningTimesArr = morningTimesArr.splice(0, 3);
-
-  let initialAfternoonTimesArr = [];
   const afternoonTimesArr = [];
 
   const createAfternoonTimeInstances = () => {
@@ -200,11 +196,8 @@ const TimePreference = () => {
 
   createAfternoonTimeInstances();
 
-  initialAfternoonTimesArr = afternoonTimesArr.splice(0, 3);
-  let lateAfternoonTimesArr = afternoonTimesArr.splice(9, 8);
-  const initialLateAfternoonTimesArr = lateAfternoonTimesArr.splice(0, 3);
+  let lateAfternoonTimesArr = afternoonTimesArr.splice(12, 10);
 
-  let initialEveningTimesArr = [];
   const eveningTimesArr = [];
 
   const createEveningTimeInstances = () => {
@@ -235,8 +228,6 @@ const TimePreference = () => {
   };
 
   createEveningTimeInstances();
-
-  initialEveningTimesArr = eveningTimesArr.splice(0, 3);
 
   const handleTimeClick = e => {
     dispatch(ACTION_SELECTED_TIME(e.target.innerText));
@@ -276,51 +267,29 @@ const TimePreference = () => {
               Show {morningCollapseIsOpen ? "Less" : "More"}
             </p>
           </div>
-
-          <div className="inner_times_wrapper">
-            {initialMorningTimesArr.map((item, i) => (
-              <div
-                key={i}
-                className="individual_time_wrapper"
-                onClick={handleTimeClick}
-                style={{
-                  background:
-                    item === selectedTime
-                      ? "rgb(215, 156, 165)"
-                      : "rgb(255, 255, 255)",
-                  color:
-                    item === selectedTime
-                      ? "rgb(255, 255, 255)"
-                      : "rgb(215, 156, 165)"
-                }}
-              >
-                <p>{item}</p>
-              </div>
-            ))}
-            <Collapse isOpen={morningCollapseIsOpen}>
-              <div className="inner_times_wrapper">
-                {morningTimesArr.map((item, i) => (
-                  <div
-                    key={i}
-                    className="individual_time_wrapper"
-                    onClick={handleTimeClick}
-                    style={{
-                      background:
-                        item === selectedTime
-                          ? "rgb(215, 156, 165)"
-                          : "rgb(255, 255, 255)",
-                      color:
-                        item === selectedTime
-                          ? "rgb(255, 255, 255)"
-                          : "rgb(215, 156, 165)"
-                    }}
-                  >
-                    <p>{item}</p>
-                  </div>
-                ))}
-              </div>
-            </Collapse>
-          </div>
+          <Collapse isOpen={morningCollapseIsOpen}>
+            <div className="inner_times_wrapper">
+              {morningTimesArr.map((item, i) => (
+                <div
+                  key={i}
+                  className="individual_time_wrapper"
+                  onClick={handleTimeClick}
+                  style={{
+                    background:
+                      item === selectedTime
+                        ? "rgb(215, 156, 165)"
+                        : "rgb(255, 255, 255)",
+                    color:
+                      item === selectedTime
+                        ? "rgb(255, 255, 255)"
+                        : "rgb(0, 0, 0)"
+                  }}
+                >
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </Collapse>
         </div>
         <div className="time_of_day_card_container">
           <div className="time_of_day_card_top_wrapping">
@@ -334,51 +303,29 @@ const TimePreference = () => {
               Show {afternoonCollapseIsOpen ? "Less" : "More"}
             </p>
           </div>
-
-          <div className="inner_times_wrapper">
-            {initialAfternoonTimesArr.map((item, i) => (
-              <div
-                key={i}
-                className="individual_time_wrapper"
-                onClick={handleTimeClick}
-                style={{
-                  background:
-                    item === selectedTime
-                      ? "rgb(215, 156, 165)"
-                      : "rgb(255, 255, 255)",
-                  color:
-                    item === selectedTime
-                      ? "rgb(255, 255, 255)"
-                      : "rgb(215, 156, 165)"
-                }}
-              >
-                <p>{item}</p>
-              </div>
-            ))}
-            <Collapse isOpen={afternoonCollapseIsOpen}>
-              <div className="inner_times_wrapper">
-                {afternoonTimesArr.map((item, i) => (
-                  <div
-                    key={i}
-                    className="individual_time_wrapper"
-                    onClick={handleTimeClick}
-                    style={{
-                      background:
-                        item === selectedTime
-                          ? "rgb(215, 156, 165)"
-                          : "rgb(255, 255, 255)",
-                      color:
-                        item === selectedTime
-                          ? "rgb(255, 255, 255)"
-                          : "rgb(215, 156, 165)"
-                    }}
-                  >
-                    <p>{item}</p>
-                  </div>
-                ))}
-              </div>
-            </Collapse>
-          </div>
+          <Collapse isOpen={afternoonCollapseIsOpen}>
+            <div className="inner_times_wrapper">
+              {afternoonTimesArr.map((item, i) => (
+                <div
+                  key={i}
+                  className="individual_time_wrapper"
+                  onClick={handleTimeClick}
+                  style={{
+                    background:
+                      item === selectedTime
+                        ? "rgb(215, 156, 165)"
+                        : "rgb(255, 255, 255)",
+                    color:
+                      item === selectedTime
+                        ? "rgb(255, 255, 255)"
+                        : "rgb(0, 0, 0)"
+                  }}
+                >
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </Collapse>
         </div>
         <div className="time_of_day_card_container">
           <div className="time_of_day_card_top_wrapping">
@@ -392,57 +339,35 @@ const TimePreference = () => {
               Show {lateAfternoonCollapseIsOpen ? "Less" : "More"}
             </p>
           </div>
-
-          <div className="inner_times_wrapper">
-            {initialLateAfternoonTimesArr.map((item, i) => (
-              <div
-                key={i}
-                className="individual_time_wrapper"
-                onClick={handleTimeClick}
-                style={{
-                  background:
-                    item === selectedTime
-                      ? "rgb(215, 156, 165)"
-                      : "rgb(255, 255, 255)",
-                  color:
-                    item === selectedTime
-                      ? "rgb(255, 255, 255)"
-                      : "rgb(215, 156, 165)"
-                }}
-              >
-                <p>{item}</p>
-              </div>
-            ))}
-            <Collapse isOpen={lateAfternoonCollapseIsOpen}>
-              <div className="inner_times_wrapper">
-                {lateAfternoonTimesArr.map((item, i) => (
-                  <div
-                    key={i}
-                    className="individual_time_wrapper"
-                    onClick={handleTimeClick}
-                    style={{
-                      opacity:
-                        dayOfTheWeek === "Friday"
-                          ? parseInt(item[0], 10) > 3
-                            ? 0
-                            : 1
-                          : 1,
-                      background:
-                        item === selectedTime
-                          ? "rgb(215, 156, 165)"
-                          : "rgb(255, 255, 255)",
-                      color:
-                        item === selectedTime
-                          ? "rgb(255, 255, 255)"
-                          : "rgb(215, 156, 165)"
-                    }}
-                  >
-                    <p>{item}</p>
-                  </div>
-                ))}
-              </div>
-            </Collapse>
-          </div>
+          <Collapse isOpen={lateAfternoonCollapseIsOpen}>
+            <div className="inner_times_wrapper">
+              {lateAfternoonTimesArr.map((item, i) => (
+                <div
+                  key={i}
+                  className="individual_time_wrapper"
+                  onClick={handleTimeClick}
+                  style={{
+                    opacity:
+                      dayOfTheWeek === "Friday"
+                        ? parseInt(item[0], 10) > 3
+                          ? 0
+                          : 1
+                        : 1,
+                    background:
+                      item === selectedTime
+                        ? "rgb(215, 156, 165)"
+                        : "rgb(255, 255, 255)",
+                    color:
+                      item === selectedTime
+                        ? "rgb(255, 255, 255)"
+                        : "rgb(0, 0, 0)"
+                  }}
+                >
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </Collapse>
         </div>
         {dayOfTheWeek === "Friday" ? null : (
           <div className="time_of_day_card_container">
@@ -457,58 +382,35 @@ const TimePreference = () => {
                 Show {eveningCollapseIsOpen ? "Less" : "More"}
               </p>
             </div>
-            <div className="inner_times_wrapper">
-              {initialEveningTimesArr.map((item, i) => (
-                <div
-                  key={i}
-                  className="individual_time_wrapper"
-                  onClick={handleTimeClick}
-                  style={{
-                    background:
-                      item === selectedTime
-                        ? "rgb(215, 156, 165)"
-                        : "rgb(255, 255, 255)",
-                    color:
-                      item === selectedTime
-                        ? "rgb(255, 255, 255)"
-                        : "rgb(215, 156, 165)"
-                  }}
-                >
-                  <p>{item}</p>
-                </div>
-              ))}
-              <Collapse isOpen={eveningCollapseIsOpen}>
-                <div className="inner_times_wrapper">
-                  <div className="inner_times_wrapper">
-                    {eveningTimesArr.map((item, i) => (
-                      <div
-                        key={i}
-                        className="individual_time_wrapper"
-                        onClick={handleTimeClick}
-                        style={{
-                          opacity:
-                            dayOfTheWeek === "Sunday"
-                              ? parseInt(item[0], 10) > 5
-                                ? 0
-                                : 1
-                              : 1,
-                          background:
-                            item === selectedTime
-                              ? "rgb(215, 156, 165)"
-                              : "rgb(255, 255, 255)",
-                          color:
-                            item === selectedTime
-                              ? "rgb(255, 255, 255)"
-                              : "rgb(215, 156, 165)"
-                        }}
-                      >
-                        <p>{item}</p>
-                      </div>
-                    ))}
+            <Collapse isOpen={eveningCollapseIsOpen}>
+              <div className="inner_times_wrapper">
+                {eveningTimesArr.map((item, i) => (
+                  <div
+                    key={i}
+                    className="individual_time_wrapper"
+                    onClick={handleTimeClick}
+                    style={{
+                      opacity:
+                        dayOfTheWeek === "Sunday"
+                          ? parseInt(item[0], 10) > 5
+                            ? 0
+                            : 1
+                          : 1,
+                      background:
+                        item === selectedTime
+                          ? "rgb(215, 156, 165)"
+                          : "rgb(255, 255, 255)",
+                      color:
+                        item === selectedTime
+                          ? "rgb(255, 255, 255)"
+                          : "rgb(0, 0, 0)"
+                    }}
+                  >
+                    <p>{item}</p>
                   </div>
-                </div>
-              </Collapse>
-            </div>
+                ))}
+              </div>
+            </Collapse>
           </div>
         )}
         <div
@@ -518,12 +420,12 @@ const TimePreference = () => {
               dayOfTheWeek === "Friday"
                 ? lateAfternoonCollapseIsOpen
                   ? "-5vh"
-                  : "2vh"
+                  : "5vh"
                 : dayOfTheWeek === "Sunday"
                 ? eveningCollapseIsOpen
                   ? "-5vh"
-                  : "2vh"
-                : "2vh"
+                  : "5vh"
+                : "5vh"
           }}
         >
           <Link
