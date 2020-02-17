@@ -50,12 +50,20 @@
   margin-left: 1.5rem;
 }
 
+.top_form_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .required_fields_container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 1rem;
+  justify-content: flex-end;
+  width: 59vw;
+  font-size: 0.6rem;
 }
 
 .required_label {
@@ -71,11 +79,10 @@
 
 .red_asterisk {
   color: red;
-  margin-right: 0.5rem;
+  margin-right: 0.2rem;
 }
 
 .required_fields_statement {
-  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -87,13 +94,17 @@
 
 .input_field {
   font-size: 1.3rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
   padding-left: 0.5rem;
 }
 
 .form_appointment_notes {
   font-size: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 3rem;
 }
 
 .form_appointment_notes_caption {

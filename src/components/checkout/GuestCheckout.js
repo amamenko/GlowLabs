@@ -24,16 +24,18 @@ const GuestCheckout = () => {
         <h2>CHECKOUT AS GUEST</h2>
       </div>
       <div className="guest_checkout_form_container">
-        <div className="required_fields_container">
-          <p className="red_asterisk">* </p>{" "}
-          <p className="required_fields_statement"> Required Fields</p>
-        </div>
         <Form>
           <FormGroup>
             <Label for="firstName">
               {" "}
-              <div className="required_label">
-                First Name<p className="required_label red_asterisk">* </p>
+              <div className="top_form_container">
+                <div className="required_label">
+                  First Name<p className="required_label red_asterisk">* </p>
+                </div>
+                <div className="required_fields_container">
+                  <p className="red_asterisk">* </p>{" "}
+                  <p className="required_fields_statement"> Required Fields</p>
+                </div>
               </div>
             </Label>
             <Input type="text" name="firstName" className="input_field" />

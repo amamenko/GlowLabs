@@ -70,7 +70,7 @@
 }
 
 .time_of_day_card_container {
-  border-bottom: 1px solid rgba(211, 211, 211, 0.5);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .time_of_day_selectors_wrapper {
@@ -85,7 +85,7 @@
   justify-content: space-between;
   padding-bottom: 2vh;
   padding-top: 1.5rem;
-  background: rgba(231, 231, 231, 0.2);
+  background: rgba(231, 231, 231, 0.8);
 }
 
 .time_of_day_card_show_more {
@@ -117,7 +117,6 @@
   text-align: center;
   border: 2px solid rgb(0, 0, 0);
   min-width: 32%;
-  color: rgb(0, 0, 0);
   font-size: 1.2rem;
   font-weight: 700;
   border-radius: 30px;

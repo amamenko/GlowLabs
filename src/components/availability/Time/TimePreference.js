@@ -282,7 +282,9 @@ const TimePreference = () => {
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
-                        : "rgb(0, 0, 0)"
+                        : "rgb(0, 0, 0)",
+                    border:
+                      item === selectedTime ? "none" : "2px solid rgb(0, 0, 0)"
                   }}
                 >
                   <p>{item}</p>
@@ -318,7 +320,9 @@ const TimePreference = () => {
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
-                        : "rgb(0, 0, 0)"
+                        : "rgb(0, 0, 0)",
+                    border:
+                      item === selectedTime ? "none" : "2px solid rgb(0, 0, 0)"
                   }}
                 >
                   <p>{item}</p>
@@ -353,6 +357,12 @@ const TimePreference = () => {
                           ? 0
                           : 1
                         : 1,
+                    pointerEvents:
+                      dayOfTheWeek === "Friday"
+                        ? parseInt(item[0], 10) > 3
+                          ? "none"
+                          : "auto"
+                        : "auto",
                     background:
                       item === selectedTime
                         ? "rgb(215, 156, 165)"
@@ -360,7 +370,9 @@ const TimePreference = () => {
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
-                        : "rgb(0, 0, 0)"
+                        : "rgb(0, 0, 0)",
+                    border:
+                      item === selectedTime ? "none" : "2px solid rgb(0, 0, 0)"
                   }}
                 >
                   <p>{item}</p>
@@ -396,6 +408,12 @@ const TimePreference = () => {
                             ? 0
                             : 1
                           : 1,
+                      pointerEvents:
+                        dayOfTheWeek === "Sunday"
+                          ? parseInt(item[0], 10) > 5
+                            ? "none"
+                            : "auto"
+                          : "auto",
                       background:
                         item === selectedTime
                           ? "rgb(215, 156, 165)"
@@ -403,7 +421,11 @@ const TimePreference = () => {
                       color:
                         item === selectedTime
                           ? "rgb(255, 255, 255)"
-                          : "rgb(0, 0, 0)"
+                          : "rgb(0, 0, 0)",
+                      border:
+                        item === selectedTime
+                          ? "none"
+                          : "2px solid rgb(0, 0, 0)"
                     }}
                   >
                     <p>{item}</p>
@@ -416,16 +438,29 @@ const TimePreference = () => {
         <div
           className="time_preference_bottom_buttons_container"
           style={{
-            marginTop:
-              dayOfTheWeek === "Friday"
-                ? lateAfternoonCollapseIsOpen
-                  ? "-5vh"
-                  : "5vh"
-                : dayOfTheWeek === "Sunday"
+            paddingTop:
+              dayOfTheWeek === "Sunday"
                 ? eveningCollapseIsOpen
-                  ? "-5vh"
+                  ? "-11vh"
                   : "5vh"
-                : "5vh"
+                : dayOfTheWeek === "Friday"
+                ? lateAfternoonCollapseIsOpen
+                  ? "-8vh"
+                  : "5vh"
+                : eveningCollapseIsOpen
+                ? "1vh"
+                : "5vh",
+            marginTop:
+              dayOfTheWeek === "Sunday"
+                ? eveningCollapseIsOpen
+                  ? "-13vh"
+                  : "0vh"
+                : dayOfTheWeek === "Friday"
+                ? lateAfternoonCollapseIsOpen
+                  ? "-13vh"
+                  : "0vh"
+                : "0vh",
+            transition: "margin-top 0.4s ease"
           }}
         >
           <Link
@@ -438,9 +473,6 @@ const TimePreference = () => {
             <div
               className="time_preference_continue_button"
               style={{
-                border: selectedTime
-                  ? "2px solid transparent"
-                  : "2px solid rgb(231, 231, 231)",
                 background: selectedTime ? "rgb(215, 156, 165)" : "#f0f0f0",
                 color: selectedTime
                   ? "rgb(255, 255, 255)"
