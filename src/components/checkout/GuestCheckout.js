@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_FIRST_NAME from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME";
 import ACTION_LAST_NAME from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME";
+import ACTION_FIRST_NAME_RESET from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME_RESET";
+import ACTION_LAST_NAME_RESET from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME_RESET";
+import ACTION_EMAIL from "../../actions/GuestCheckoutForm/Email/ACTION_EMAIL";
+import ACTION_EMAIL_RESET from "../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { Form, FormGroup, FormText, Label, Input } from "reactstrap";
+import {
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Label,
+  Input
+} from "reactstrap";
 import "./GuestCheckout.css";
 
 // Minified Bootstrap CSS file (for Forms)
@@ -13,9 +24,16 @@ import "../../bootstrap_forms.min.css";
 
 const GuestCheckout = () => {
   const dispatch = useDispatch();
+  const ref = useRef(null);
+
+  const firstNameRef = ref;
 
   const firstName = useSelector(state => state.firstName.first_name);
   const lastName = useSelector(state => state.lastName.last_name);
+  const email = useSelector(state => state.email.email);
+
+  const [emailIsValid, changeEmailIsValid] = useState(false);
+  const [emailIsInvalid, changeEmailIsInvalid] = useState(false);
 
   const handleFirstName = e => {
     dispatch(ACTION_FIRST_NAME(e.currentTarget.value));
@@ -25,8 +43,35 @@ const GuestCheckout = () => {
     dispatch(ACTION_LAST_NAME(e.currentTarget.value));
   };
 
-  console.log(firstName);
-  console.log(lastName);
+  const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]+$/;
+
+  const validateEmail = e => {
+    const validEmail = emailReg.test(e.currentTarget.value);
+    dispatch(ACTION_EMAIL(e.currentTarget.value));
+    if (validEmail) {
+      changeEmailIsInvalid(false);
+      changeEmailIsValid(true);
+    } else {
+      changeEmailIsInvalid(true);
+      changeEmailIsValid(false);
+    }
+  };
+
+  const firstNameTyping = () => {
+    dispatch(ACTION_FIRST_NAME_RESET());
+  };
+
+  const lastNameTyping = () => {
+    dispatch(ACTION_LAST_NAME_RESET());
+  };
+
+  const emailTyping = () => {
+    dispatch(ACTION_EMAIL_RESET());
+  };
+
+  useEffect(() => {
+    console.log(firstNameRef.current.props);
+  }, [firstNameRef]);
 
   return (
     <div className="checkout_container">
@@ -60,10 +105,12 @@ const GuestCheckout = () => {
             <Input
               type="text"
               name="firstName"
+              ref={firstNameRef}
               style={{ display: "block" }}
               className="input_field"
-              onChange={handleFirstName}
-              valid
+              onBlur={handleFirstName}
+              onChange={firstNameTyping}
+              valid={firstName === "" ? false : true}
             />
           </FormGroup>
           <FormGroup>
@@ -75,8 +122,10 @@ const GuestCheckout = () => {
             <Input
               type="text"
               name="lastName"
-              onChange={handleLastName}
+              onChange={lastNameTyping}
+              onBlur={handleLastName}
               className="input_field"
+              valid={lastName === "" ? false : true}
             />
           </FormGroup>
           <FormGroup>
@@ -85,7 +134,18 @@ const GuestCheckout = () => {
                 Email<p className="required_label red_asterisk">* </p>
               </div>
             </Label>
-            <Input type="email" name="email" className="input_field" />
+            <Input
+              type="email"
+              name="email"
+              className="input_field"
+              onChange={emailTyping}
+              onBlur={validateEmail}
+              invalid={email === "" ? false : emailIsInvalid ? true : false}
+              valid={email === "" ? false : emailIsValid ? true : false}
+            />
+            <FormFeedback invalid>
+              Please enter a valid email address.
+            </FormFeedback>
           </FormGroup>
           <FormGroup>
             <Label for="phoneNumber">

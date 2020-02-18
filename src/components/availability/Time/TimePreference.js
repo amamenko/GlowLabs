@@ -13,9 +13,13 @@ import ACTION_MORNING_OPEN from "../../../actions/SelectedTime/CollapseIsOpen/Mo
 import ACTION_MORNING_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/Morning/ACTION_MORNING_CLOSED";
 import ACTION_EVENING_OPEN from "../../../actions/SelectedTime/CollapseIsOpen/Evening/ACTION_EVENING_OPEN";
 import ACTION_EVENING_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/Evening/ACTION_EVENING_CLOSED";
+import ACTION_CONTINUE_BUTTON_ACTIVE from "../../../actions/ContinueToCheckoutButtonActive/ACTION_CONTINUE_BUTTON_ACTIVE";
 import { Collapse } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight
+} from "@fortawesome/free-solid-svg-icons";
 import "./TimePreference.css";
 
 // Minified Bootstrap CSS file (for Collapse feature)
@@ -30,6 +34,9 @@ const TimePreference = () => {
   const selectedDay = useSelector(state => state.selectedDay.selectedDay);
   const dayOfTheWeek = useSelector(state => state.dayOfTheWeek.dayOfTheWeek);
   const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const continueToCheckoutButton = useSelector(
+    state => state.continueToCheckoutButton.continueButtonActive
+  );
   const morningCollapseIsOpen = useSelector(
     state => state.morningCollapse.collapseIsOpen
   );
@@ -136,6 +143,11 @@ const TimePreference = () => {
     if (lateAfternoonCollapseIsOpen) {
       dispatch(ACTION_LATE_AFTERNOON_CLOSED());
     }
+  };
+
+  const handleContinueCheckoutButtonClick = () => {
+    dispatch(ACTION_CONTINUE_BUTTON_ACTIVE());
+    dispatch(ACTION_DAY_OF_THE_WEEK(dayOfTheWeek));
   };
 
   const fifteenMinuteIntervals = ["00", "15", "30", "45"];
@@ -247,6 +259,13 @@ const TimePreference = () => {
           />
         </Link>
         <h1>AVAILABILITY</h1>
+        <Link to="/checkout">
+          <FontAwesomeIcon
+            className="select_time_forward_arrow"
+            style={{ display: continueToCheckoutButton ? "block" : "none" }}
+            icon={faChevronRight}
+          />
+        </Link>
       </div>
       <div className="select_a_time_header">
         <h2>SELECT A TIME</h2>
@@ -441,14 +460,16 @@ const TimePreference = () => {
             paddingTop:
               dayOfTheWeek === "Sunday"
                 ? eveningCollapseIsOpen
-                  ? "-11vh"
+                  ? continueToCheckoutButton
+                    ? "5vh"
+                    : "-11vh"
                   : "5vh"
                 : dayOfTheWeek === "Friday"
                 ? lateAfternoonCollapseIsOpen
-                  ? "-8vh"
+                  ? continueToCheckoutButton
+                    ? "5vh"
+                    : "-8vh"
                   : "5vh"
-                : eveningCollapseIsOpen
-                ? "1vh"
                 : "5vh",
             marginTop:
               dayOfTheWeek === "Sunday"
@@ -459,8 +480,10 @@ const TimePreference = () => {
                 ? lateAfternoonCollapseIsOpen
                   ? "-13vh"
                   : "0vh"
+                : eveningCollapseIsOpen
+                ? "-4vh"
                 : "0vh",
-            transition: "margin-top 0.4s ease"
+            transition: "margin-top 0.4s ease, padding-top 0.4s ease"
           }}
         >
           <Link
@@ -469,6 +492,7 @@ const TimePreference = () => {
               display: "block",
               pointerEvents: selectedTime !== "" ? "auto" : "none"
             }}
+            onClick={handleContinueCheckoutButtonClick}
           >
             <div
               className="time_preference_continue_button"

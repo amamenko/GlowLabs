@@ -60,6 +60,8 @@ import morningCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Morni
 import eveningCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Evening/eveningCollapseReducer";
 import firstNameReducer from "./reducers/GuestCheckoutForm/FirstName/firstNameReducer";
 import lastNameReducer from "./reducers/GuestCheckoutForm/LastName/lastNameReducer";
+import continueToCheckoutButtonReducer from "./reducers/ContinueToCheckoutButtonActive/continueToCheckoutReducer";
+import emailReducer from "./reducers/GuestCheckoutForm/Email/emailReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -137,7 +139,9 @@ const RootReducer = combineReducers({
 
   // Guest Checkout Form Reducers
   firstName: firstNameReducer,
-  lastName: lastNameReducer
+  lastName: lastNameReducer,
+  email: emailReducer,
+  continueToCheckoutButton: continueToCheckoutButtonReducer
 });
 
 export default RootReducer;
