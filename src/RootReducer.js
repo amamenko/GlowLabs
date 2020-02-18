@@ -58,6 +58,8 @@ import afternoonCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Aft
 import lateAfternoonCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/LateAfternoon/lateAfternoonCollapseReducer";
 import morningCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Morning/morningCollapseReducer";
 import eveningCollapseReducer from "./reducers/SelectedTime/CollapseIsOpen/Evening/eveningCollapseReducer";
+import firstNameReducer from "./reducers/GuestCheckoutForm/FirstName/firstNameReducer";
+import lastNameReducer from "./reducers/GuestCheckoutForm/LastName/lastNameReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -131,7 +133,11 @@ const RootReducer = combineReducers({
   afternoonCollapse: afternoonCollapseReducer,
   lateAfternoonCollapse: lateAfternoonCollapseReducer,
   morningCollapse: morningCollapseReducer,
-  eveningCollapse: eveningCollapseReducer
+  eveningCollapse: eveningCollapseReducer,
+
+  // Guest Checkout Form Reducers
+  firstName: firstNameReducer,
+  lastName: lastNameReducer
 });
 
 export default RootReducer;

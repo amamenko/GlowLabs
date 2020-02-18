@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ACTION_FIRST_NAME from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME";
+import ACTION_LAST_NAME from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Form, FormGroup, FormText, Label, Input } from "reactstrap";
@@ -9,6 +12,22 @@ import "./GuestCheckout.css";
 import "../../bootstrap_forms.min.css";
 
 const GuestCheckout = () => {
+  const dispatch = useDispatch();
+
+  const firstName = useSelector(state => state.firstName.first_name);
+  const lastName = useSelector(state => state.lastName.last_name);
+
+  const handleFirstName = e => {
+    dispatch(ACTION_FIRST_NAME(e.currentTarget.value));
+  };
+
+  const handleLastName = e => {
+    dispatch(ACTION_LAST_NAME(e.currentTarget.value));
+  };
+
+  console.log(firstName);
+  console.log(lastName);
+
   return (
     <div className="checkout_container">
       <div className="checkout_container_header">
@@ -38,7 +57,14 @@ const GuestCheckout = () => {
                 </div>
               </div>
             </Label>
-            <Input type="text" name="firstName" className="input_field" />
+            <Input
+              type="text"
+              name="firstName"
+              style={{ display: "block" }}
+              className="input_field"
+              onChange={handleFirstName}
+              valid
+            />
           </FormGroup>
           <FormGroup>
             <Label for="lastName">
@@ -46,7 +72,12 @@ const GuestCheckout = () => {
                 Last Name<p className="required_label red_asterisk">* </p>
               </div>
             </Label>
-            <Input type="text" name="lastName" className="input_field" />
+            <Input
+              type="text"
+              name="lastName"
+              onChange={handleLastName}
+              className="input_field"
+            />
           </FormGroup>
           <FormGroup>
             <Label for="guestEmail">
