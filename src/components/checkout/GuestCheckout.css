@@ -55,6 +55,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  width: 87vw;
 }
 
 .required_fields_container {
@@ -62,7 +63,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 59.2vw;
   font-size: 0.6rem;
 }
 

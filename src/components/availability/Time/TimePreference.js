@@ -14,6 +14,12 @@ import ACTION_MORNING_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/
 import ACTION_EVENING_OPEN from "../../../actions/SelectedTime/CollapseIsOpen/Evening/ACTION_EVENING_OPEN";
 import ACTION_EVENING_CLOSED from "../../../actions/SelectedTime/CollapseIsOpen/Evening/ACTION_EVENING_CLOSED";
 import ACTION_CONTINUE_BUTTON_ACTIVE from "../../../actions/ContinueToCheckoutButtonActive/ACTION_CONTINUE_BUTTON_ACTIVE";
+import ACTION_CONTINUE_BUTTON_RESET from "../../../actions/ContinueToCheckoutButtonActive/ACTION_CONTINUE_BUTTON_RESET";
+import ACTION_FIRST_NAME_RESET from "../../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME_RESET";
+import ACTION_LAST_NAME_RESET from "../../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME_RESET";
+import ACTION_EMAIL_RESET from "../../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
+import ACTION_EMAIL_NOT_INVALID from "../../../actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
+import ACTION_EMAIL_NOT_VALID from "../../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
 import { Collapse } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -48,6 +54,15 @@ const TimePreference = () => {
   );
   const eveningCollapseIsOpen = useSelector(
     state => state.eveningCollapse.collapseIsOpen
+  );
+
+  // Checkout Form States
+  const firstName = useSelector(state => state.firstName.first_name);
+  const lastName = useSelector(state => state.lastName.last_name);
+  const email = useSelector(state => state.email.email);
+  const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
+  const emailIsInvalid = useSelector(
+    state => state.emailIsInvalid.email_invalid
   );
 
   const daysOfTheWeekArr = [
@@ -245,6 +260,22 @@ const TimePreference = () => {
     dispatch(ACTION_SELECTED_TIME(e.target.innerText));
     if (selectedTime === e.target.innerText) {
       dispatch(ACTION_SELECTED_TIME_RESET());
+      dispatch(ACTION_CONTINUE_BUTTON_RESET());
+      if (firstName) {
+        dispatch(ACTION_FIRST_NAME_RESET());
+      }
+      if (lastName) {
+        dispatch(ACTION_LAST_NAME_RESET());
+      }
+      if (email) {
+        dispatch(ACTION_EMAIL_RESET());
+      }
+      if (emailIsInvalid) {
+        dispatch(ACTION_EMAIL_NOT_INVALID());
+      }
+      if (emailIsValid) {
+        dispatch(ACTION_EMAIL_NOT_VALID());
+      }
     }
   };
 

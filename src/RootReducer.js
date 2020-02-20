@@ -62,6 +62,9 @@ import firstNameReducer from "./reducers/GuestCheckoutForm/FirstName/firstNameRe
 import lastNameReducer from "./reducers/GuestCheckoutForm/LastName/lastNameReducer";
 import continueToCheckoutButtonReducer from "./reducers/ContinueToCheckoutButtonActive/continueToCheckoutReducer";
 import emailReducer from "./reducers/GuestCheckoutForm/Email/emailReducer";
+import emailValidReducer from "./reducers/EmailValidation/Valid/emailValidReducer";
+import emailInvalidReducer from "./reducers/EmailValidation/Invalid/emailInvalidReducer";
+import phoneNumberReducer from "./reducers/GuestCheckoutForm/PhoneNumber/phoneNumberReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -141,7 +144,10 @@ const RootReducer = combineReducers({
   firstName: firstNameReducer,
   lastName: lastNameReducer,
   email: emailReducer,
-  continueToCheckoutButton: continueToCheckoutButtonReducer
+  emailIsValid: emailValidReducer,
+  emailIsInvalid: emailInvalidReducer,
+  continueToCheckoutButton: continueToCheckoutButtonReducer,
+  phoneNumber: phoneNumberReducer
 });
 
 export default RootReducer;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_FIRST_NAME from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME";
@@ -7,6 +7,12 @@ import ACTION_FIRST_NAME_RESET from "../../actions/GuestCheckoutForm/FirstName/A
 import ACTION_LAST_NAME_RESET from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME_RESET";
 import ACTION_EMAIL from "../../actions/GuestCheckoutForm/Email/ACTION_EMAIL";
 import ACTION_EMAIL_RESET from "../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
+import ACTION_EMAIL_NOT_INVALID from "../../actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
+import ACTION_EMAIL_VALID from "../../actions/EmailValidation/Valid/ACTION_EMAIL_VALID";
+import ACTION_EMAIL_INVALID from "../../actions/EmailValidation/Invalid/ACTION_EMAIL_INVALID";
+import ACTION_EMAIL_NOT_VALID from "../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
+import ACTION_PHONE_NUMBER from "../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER";
+import ACTION_PHONE_NUMBER_RESET from "../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -24,16 +30,15 @@ import "../../bootstrap_forms.min.css";
 
 const GuestCheckout = () => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
-
-  const firstNameRef = ref;
 
   const firstName = useSelector(state => state.firstName.first_name);
   const lastName = useSelector(state => state.lastName.last_name);
   const email = useSelector(state => state.email.email);
-
-  const [emailIsValid, changeEmailIsValid] = useState(false);
-  const [emailIsInvalid, changeEmailIsInvalid] = useState(false);
+  const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
+  const emailIsInvalid = useSelector(
+    state => state.emailIsInvalid.email_invalid
+  );
+  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
 
   const handleFirstName = e => {
     dispatch(ACTION_FIRST_NAME(e.currentTarget.value));
@@ -43,17 +48,22 @@ const GuestCheckout = () => {
     dispatch(ACTION_LAST_NAME(e.currentTarget.value));
   };
 
+  const handlePhoneNumber = e => {
+    dispatch(ACTION_PHONE_NUMBER(e.currentTarget.value));
+  };
+
+  // Regular Expression for Email Validation - allows only one @ and only one period while not allowing special characters or spaces
   const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]+$/;
 
   const validateEmail = e => {
     const validEmail = emailReg.test(e.currentTarget.value);
     dispatch(ACTION_EMAIL(e.currentTarget.value));
     if (validEmail) {
-      changeEmailIsInvalid(false);
-      changeEmailIsValid(true);
+      dispatch(ACTION_EMAIL_NOT_INVALID());
+      dispatch(ACTION_EMAIL_VALID());
     } else {
-      changeEmailIsInvalid(true);
-      changeEmailIsValid(false);
+      dispatch(ACTION_EMAIL_INVALID());
+      dispatch(ACTION_EMAIL_NOT_VALID());
     }
   };
 
@@ -69,9 +79,56 @@ const GuestCheckout = () => {
     dispatch(ACTION_EMAIL_RESET());
   };
 
-  useEffect(() => {
-    console.log(firstNameRef.current.props);
-  }, [firstNameRef]);
+  const phoneNumberTyping = e => {
+    console.log(e.currentTarget.value);
+    let currentTyping = e.currentTarget.value;
+
+    console.log(currentTyping.length);
+
+    dispatch(ACTION_PHONE_NUMBER_RESET());
+    if (currentTyping.length === 3) {
+      currentTyping = currentTyping.split("");
+      currentTyping.unshift("(");
+      currentTyping.push(") ");
+
+      currentTyping = currentTyping.join("");
+    } else {
+      if (currentTyping.indexOf("(") === 0 && currentTyping.indexOf(")") < 0) {
+        currentTyping = currentTyping.split("");
+        currentTyping.splice(currentTyping.indexOf("("), 1);
+
+        currentTyping = currentTyping.join("");
+      } else {
+        if (currentTyping.length === 9 && currentTyping.indexOf("-") < 0) {
+          currentTyping = currentTyping.split("");
+          currentTyping.push("-");
+
+          currentTyping = currentTyping.join("");
+        } else {
+          if (currentTyping.indexOf("-") > 0 && currentTyping.length === 9) {
+            currentTyping = currentTyping.split("");
+            currentTyping.splice(currentTyping.indexOf("-"), 1);
+
+            currentTyping = currentTyping.join("");
+          }
+        }
+      }
+    }
+
+    e.currentTarget.value = currentTyping;
+  };
+
+  const phoneNumberKeyTyping = e => {
+    if (
+      (e.keyCode >= 8 && e.keyCode <= 46) ||
+      (e.keyCode >= 96 && e.keyCode <= 105) ||
+      (e.keyCode >= 48 && e.keyCode <= 57)
+    ) {
+      return e.keyCode;
+    } else {
+      e.preventDefault();
+    }
+  };
 
   return (
     <div className="checkout_container">
@@ -105,7 +162,7 @@ const GuestCheckout = () => {
             <Input
               type="text"
               name="firstName"
-              ref={firstNameRef}
+              defaultValue={firstName}
               style={{ display: "block" }}
               className="input_field"
               onBlur={handleFirstName}
@@ -122,6 +179,7 @@ const GuestCheckout = () => {
             <Input
               type="text"
               name="lastName"
+              defaultValue={lastName}
               onChange={lastNameTyping}
               onBlur={handleLastName}
               className="input_field"
@@ -137,13 +195,14 @@ const GuestCheckout = () => {
             <Input
               type="email"
               name="email"
+              defaultValue={email}
               className="input_field"
               onChange={emailTyping}
               onBlur={validateEmail}
               invalid={email === "" ? false : emailIsInvalid ? true : false}
               valid={email === "" ? false : emailIsValid ? true : false}
             />
-            <FormFeedback invalid>
+            <FormFeedback invalid="true">
               Please enter a valid email address.
             </FormFeedback>
           </FormGroup>
@@ -153,7 +212,15 @@ const GuestCheckout = () => {
                 Phone Number<p className="required_label red_asterisk">* </p>
               </div>
             </Label>
-            <Input type="tel" name="phoneNumber" className="input_field" />
+            <Input
+              type="tel"
+              name="phoneNumber"
+              onKeyDown={phoneNumberKeyTyping}
+              defaultValue={phoneNumber}
+              onChange={phoneNumberTyping}
+              onBlur={handlePhoneNumber}
+              className="input_field"
+            />
           </FormGroup>
           <FormGroup>
             <Label for="appointmentNotes">Appointment Notes</Label>
