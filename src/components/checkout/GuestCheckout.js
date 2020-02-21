@@ -13,8 +13,17 @@ import ACTION_EMAIL_INVALID from "../../actions/EmailValidation/Invalid/ACTION_E
 import ACTION_EMAIL_NOT_VALID from "../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
 import ACTION_PHONE_NUMBER from "../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER";
 import ACTION_PHONE_NUMBER_RESET from "../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
+import ACTION_PHONE_VALID from "../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_VALID";
+import ACTION_PHONE_NOT_INVALID from "../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
+import ACTION_PHONE_NOT_VALID from "../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
+import ACTION_PHONE_INVALID from "../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_INVALID";
+import ACTION_APPOINTMENT_NOTES from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES";
+import ACTION_BOOKING_SUMMARY_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight
+} from "@fortawesome/free-solid-svg-icons";
 import {
   Form,
   FormGroup,
@@ -33,12 +42,26 @@ const GuestCheckout = () => {
 
   const firstName = useSelector(state => state.firstName.first_name);
   const lastName = useSelector(state => state.lastName.last_name);
+  const appointmentNotes = useSelector(
+    state => state.appointmentNotes.appointment_notes
+  );
+  const continueToBookingSummaryActive = useSelector(
+    state => state.continueToBookingSummaryActive.bookingSummaryActive
+  );
+
+  // Email States
   const email = useSelector(state => state.email.email);
   const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
   const emailIsInvalid = useSelector(
     state => state.emailIsInvalid.email_invalid
   );
+
+  // Phone Number States
   const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
+  const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
+  const phoneIsInvalid = useSelector(
+    state => state.phoneIsInvalid.phone_invalid
+  );
 
   const handleFirstName = e => {
     dispatch(ACTION_FIRST_NAME(e.currentTarget.value));
@@ -48,7 +71,27 @@ const GuestCheckout = () => {
     dispatch(ACTION_LAST_NAME(e.currentTarget.value));
   };
 
+  // Regular Expression for Phone Number Validation - allows only phone numbers in the format (xxx) xxx - xxx, with x values being digits
+  const phoneNumberReg = /^(\(\d\d\d\))+\s+(\d\d\d)+\s+(-)+\s+(\d\d\d\d)$/g;
+
+  // Regular Expression for Autocompleted Phone Numbers - allows phone numbers in the format 1xxxxxxxxxx, with x values being digits and the leading 1 country code being optional.
+  const phoneNumberAutocompleteReg = /^(1*\d{10})$/g;
+
+  const validatePhoneNumber = number => {
+    const validPhoneNumber = phoneNumberReg.test(number);
+    const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
+
+    if (validPhoneNumber | validPhoneAutocomplete) {
+      dispatch(ACTION_PHONE_VALID());
+      dispatch(ACTION_PHONE_NOT_INVALID());
+    } else {
+      dispatch(ACTION_PHONE_NOT_VALID());
+      dispatch(ACTION_PHONE_INVALID());
+    }
+  };
+
   const handlePhoneNumber = e => {
+    validatePhoneNumber(e.currentTarget.value);
     dispatch(ACTION_PHONE_NUMBER(e.currentTarget.value));
   };
 
@@ -80,12 +123,11 @@ const GuestCheckout = () => {
   };
 
   const phoneNumberTyping = e => {
-    console.log(e.currentTarget.value);
     let currentTyping = e.currentTarget.value;
 
-    console.log(currentTyping.length);
-
     dispatch(ACTION_PHONE_NUMBER_RESET());
+
+    // Formatting for US Phone Numbers
     if (currentTyping.length === 3) {
       currentTyping = currentTyping.split("");
       currentTyping.unshift("(");
@@ -93,28 +135,76 @@ const GuestCheckout = () => {
 
       currentTyping = currentTyping.join("");
     } else {
-      if (currentTyping.indexOf("(") === 0 && currentTyping.indexOf(")") < 0) {
-        currentTyping = currentTyping.split("");
-        currentTyping.splice(currentTyping.indexOf("("), 1);
-
-        currentTyping = currentTyping.join("");
-      } else {
-        if (currentTyping.length === 9 && currentTyping.indexOf("-") < 0) {
+      if (currentTyping.length === 4) {
+        if (
+          currentTyping.indexOf("(") === 0 &&
+          currentTyping.indexOf(")") < 0
+        ) {
           currentTyping = currentTyping.split("");
-          currentTyping.push("-");
+          currentTyping.splice(currentTyping.indexOf("("), 1);
 
           currentTyping = currentTyping.join("");
         } else {
-          if (currentTyping.indexOf("-") > 0 && currentTyping.length === 9) {
+          if (
+            currentTyping.indexOf("(") < 0 &&
+            currentTyping.indexOf(")") < 0
+          ) {
             currentTyping = currentTyping.split("");
-            currentTyping.splice(currentTyping.indexOf("-"), 1);
+            currentTyping.unshift("(");
+            currentTyping.splice(4, 0, ") ");
 
             currentTyping = currentTyping.join("");
           }
         }
+      } else {
+        if (currentTyping.length === 6) {
+          if (currentTyping.indexOf(" ") < 0) {
+            currentTyping = currentTyping.split("");
+            currentTyping.splice(5, 0, " ");
+
+            currentTyping = currentTyping.join("");
+          }
+        } else {
+          if (currentTyping.length === 10) {
+            if (currentTyping.lastIndexOf(" ") === 5) {
+              currentTyping = currentTyping.split("");
+              currentTyping.splice(9, 0, " - ");
+
+              currentTyping = currentTyping.join("");
+            } else {
+              if (currentTyping.indexOf("(") < 0) {
+                currentTyping = currentTyping.split("");
+                currentTyping.unshift("(");
+                currentTyping.splice(4, 0, ") ");
+                currentTyping.splice(8, 0, " - ");
+                currentTyping = currentTyping.join("");
+              }
+            }
+          } else {
+            if (currentTyping.length === 11) {
+              if (
+                currentTyping.lastIndexOf(" ") === 9 &&
+                currentTyping.indexOf("-") < 0
+              ) {
+                currentTyping = currentTyping.split("");
+                currentTyping.splice(9, 0, " -");
+
+                currentTyping = currentTyping.join("");
+              }
+            } else {
+              if (currentTyping.length === 12) {
+                if (currentTyping.lastIndexOf(" ") === 9) {
+                  currentTyping = currentTyping.split("");
+                  currentTyping.splice(11, 0, " ");
+
+                  currentTyping = currentTyping.join("");
+                }
+              }
+            }
+          }
+        }
       }
     }
-
     e.currentTarget.value = currentTyping;
   };
 
@@ -130,6 +220,14 @@ const GuestCheckout = () => {
     }
   };
 
+  const appointmentNotesTyping = e => {
+    dispatch(ACTION_APPOINTMENT_NOTES(e.currentTarget.value));
+  };
+
+  const handleConfirmDetailsButtonClick = () => {
+    dispatch(ACTION_BOOKING_SUMMARY_ACTIVE());
+  };
+
   return (
     <div className="checkout_container">
       <div className="checkout_container_header">
@@ -140,6 +238,15 @@ const GuestCheckout = () => {
           />
         </Link>
         <h1>CHECKOUT</h1>
+        <Link to="/checkout/confirmation">
+          <FontAwesomeIcon
+            className="checkout_forward_arrow"
+            style={{
+              display: continueToBookingSummaryActive ? "block" : "none"
+            }}
+            icon={faChevronRight}
+          />
+        </Link>
       </div>
       <div className="checkout_header">
         <h2>CHECKOUT AS GUEST</h2>
@@ -163,7 +270,7 @@ const GuestCheckout = () => {
               type="text"
               name="firstName"
               defaultValue={firstName}
-              style={{ display: "block" }}
+              maxLength={50}
               className="input_field"
               onBlur={handleFirstName}
               onChange={firstNameTyping}
@@ -180,6 +287,7 @@ const GuestCheckout = () => {
               type="text"
               name="lastName"
               defaultValue={lastName}
+              maxLength={50}
               onChange={lastNameTyping}
               onBlur={handleLastName}
               className="input_field"
@@ -196,6 +304,7 @@ const GuestCheckout = () => {
               type="email"
               name="email"
               defaultValue={email}
+              maxLength={128}
               className="input_field"
               onChange={emailTyping}
               onBlur={validateEmail}
@@ -213,32 +322,91 @@ const GuestCheckout = () => {
               </div>
             </Label>
             <Input
-              type="tel"
+              type="tel-national"
               name="phoneNumber"
+              maxLength={16}
               onKeyDown={phoneNumberKeyTyping}
               defaultValue={phoneNumber}
               onChange={phoneNumberTyping}
               onBlur={handlePhoneNumber}
               className="input_field"
+              invalid={
+                phoneNumber === "" ? false : phoneIsInvalid ? true : false
+              }
+              valid={phoneNumber === "" ? false : phoneIsValid ? true : false}
             />
+            <FormFeedback invalid="true">
+              Please enter a valid phone number.
+            </FormFeedback>
           </FormGroup>
           <FormGroup>
             <Label for="appointmentNotes">Appointment Notes</Label>
             <Input
               type="textarea"
               className="form_appointment_notes"
+              maxLength={500}
+              defaultValue={appointmentNotes}
               style={{ fontFamily: "Montserrat" }}
               name="appointmentNotes"
+              onChange={appointmentNotesTyping}
             />
             <FormText
               className="form_appointment_notes_caption"
               style={{ color: "rgb(151, 151, 151)" }}
             >
-              To protect your privacy, do not include any privileged material
-              such as personal health information.
+              <p>
+                To protect your privacy, do not include any privileged material
+                such as personal health information.{" "}
+              </p>
+              <p
+                style={{
+                  color:
+                    500 - appointmentNotes.length > 10
+                      ? "rgb(151, 151, 151)"
+                      : "rgb(255, 22, 34)"
+                }}
+              >
+                {500 - appointmentNotes.length} character
+                {500 - appointmentNotes.length === 1 ? "" : "s"} remaining.
+              </p>
             </FormText>
           </FormGroup>
         </Form>
+        <div className="guest_checkout_bottom_buttons_container">
+          <Link
+            to="/checkout/confirmation"
+            style={{
+              display: "block",
+              pointerEvents:
+                firstName && lastName && emailIsValid && phoneIsValid
+                  ? "auto"
+                  : "none"
+            }}
+            onClick={handleConfirmDetailsButtonClick}
+          >
+            <div
+              className="confirm_details_button"
+              style={{
+                background:
+                  firstName && lastName && emailIsValid && phoneIsValid
+                    ? "rgb(215, 156, 165)"
+                    : "#f0f0f0",
+                color:
+                  firstName && lastName && emailIsValid && phoneIsValid
+                    ? "rgb(255, 255, 255)"
+                    : "rgb(201, 201, 201)",
+                transition: "background 0.5s ease, color 0.5s ease"
+              }}
+            >
+              <p>Confirm Details</p>
+            </div>
+          </Link>
+          <Link to="/availability/timepreference">
+            <div className="change_time_button">
+              <p>Change Time</p>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );

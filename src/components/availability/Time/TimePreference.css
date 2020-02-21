@@ -114,13 +114,14 @@
 }
 
 .individual_time_wrapper {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   text-align: center;
-  border: 2px solid rgb(0, 0, 0);
   min-width: 32%;
   font-size: 1.2rem;
   font-weight: 700;
   border-radius: 30px;
-  padding-top: 0.6em;
+  padding-top: 0.6rem;
   padding-bottom: 0.6rem;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -136,6 +137,7 @@
   right: 0;
   width: 100%;
   margin-bottom: 6vh;
+  padding-bottom: 6vh;
 }
 
 .time_preference_continue_button {

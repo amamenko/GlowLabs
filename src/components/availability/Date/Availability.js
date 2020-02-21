@@ -10,6 +10,16 @@ import ACTION_REFORMATTED_DAY from "../../../actions/SelectedDay/ReformattedDay/
 import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
 import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
 import ACTION_ALL_COLLAPSE_RESET from "../../../actions/SelectedTime/CollapseIsOpen/ACTION_ALL_COLLAPSE_RESET";
+import ACTION_CONTINUE_BUTTON_RESET from "../../../actions/ContinueToCheckoutButtonActive/ACTION_CONTINUE_BUTTON_RESET";
+import ACTION_FIRST_NAME_RESET from "../../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME_RESET";
+import ACTION_LAST_NAME_RESET from "../../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME_RESET";
+import ACTION_EMAIL_RESET from "../../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
+import ACTION_EMAIL_NOT_INVALID from "../../../actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
+import ACTION_EMAIL_NOT_VALID from "../../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
+import ACTION_PHONE_NUMBER_RESET from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
+import ACTION_PHONE_NOT_INVALID from "../../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
+import ACTION_PHONE_NOT_VALID from "../../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
+import ACTION_APPOINTMENT_NOTES_RESET from "../../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -33,6 +43,30 @@ const Availability = () => {
   );
   const reformattedDayClone = useSelector(
     state => state.reformattedDayClone.reformattedDayClone
+  );
+  const continueToCheckoutButton = useSelector(
+    state => state.continueToCheckoutButton.continueButtonActive
+  );
+
+  // Checkout Form States
+  const firstName = useSelector(state => state.firstName.first_name);
+  const lastName = useSelector(state => state.lastName.last_name);
+  const appointmentNotes = useSelector(
+    state => state.appointmentNotes.appointment_notes
+  );
+
+  // Email States
+  const email = useSelector(state => state.email.email);
+  const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
+  const emailIsInvalid = useSelector(
+    state => state.emailIsInvalid.email_invalid
+  );
+
+  // Phone Number States
+  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
+  const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
+  const phoneIsInvalid = useSelector(
+    state => state.phoneIsInvalid.phone_invalid
   );
 
   const monthsArr = [
@@ -187,6 +221,36 @@ const Availability = () => {
       if (selectedTime) {
         dispatch(ACTION_SELECTED_TIME_RESET());
       }
+      if (continueToCheckoutButton) {
+        dispatch(ACTION_CONTINUE_BUTTON_RESET());
+      }
+      if (firstName) {
+        dispatch(ACTION_FIRST_NAME_RESET());
+      }
+      if (lastName) {
+        dispatch(ACTION_LAST_NAME_RESET());
+      }
+      if (email) {
+        dispatch(ACTION_EMAIL_RESET());
+      }
+      if (emailIsInvalid) {
+        dispatch(ACTION_EMAIL_NOT_INVALID());
+      }
+      if (emailIsValid) {
+        dispatch(ACTION_EMAIL_NOT_VALID());
+      }
+      if (phoneNumber) {
+        dispatch(ACTION_PHONE_NUMBER_RESET());
+      }
+      if (phoneIsInvalid) {
+        dispatch(ACTION_PHONE_NOT_INVALID());
+      }
+      if (phoneIsValid) {
+        dispatch(ACTION_PHONE_NOT_VALID());
+      }
+      if (appointmentNotes) {
+        dispatch(ACTION_APPOINTMENT_NOTES_RESET());
+      }
     }
     if (selectedDay.toString() !== day.toString()) {
       dispatch(ACTION_SELECTED_DAY(day));
@@ -210,6 +274,36 @@ const Availability = () => {
         if (selectedTime) {
           dispatch(ACTION_SELECTED_TIME_RESET());
         }
+        if (continueToCheckoutButton) {
+          dispatch(ACTION_CONTINUE_BUTTON_RESET());
+        }
+        if (firstName) {
+          dispatch(ACTION_FIRST_NAME_RESET());
+        }
+        if (lastName) {
+          dispatch(ACTION_LAST_NAME_RESET());
+        }
+        if (email) {
+          dispatch(ACTION_EMAIL_RESET());
+        }
+        if (emailIsInvalid) {
+          dispatch(ACTION_EMAIL_NOT_INVALID());
+        }
+        if (emailIsValid) {
+          dispatch(ACTION_EMAIL_NOT_VALID());
+        }
+        if (phoneNumber) {
+          dispatch(ACTION_PHONE_NUMBER_RESET());
+        }
+        if (phoneIsInvalid) {
+          dispatch(ACTION_PHONE_NOT_INVALID());
+        }
+        if (phoneIsValid) {
+          dispatch(ACTION_PHONE_NOT_VALID());
+        }
+        if (appointmentNotes) {
+          dispatch(ACTION_APPOINTMENT_NOTES_RESET());
+        }
       } else {
         dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         for (let i = 0; i < document.getElementsByTagName("ABBR").length; i++) {
@@ -225,6 +319,36 @@ const Availability = () => {
         }
         if (selectedTime) {
           dispatch(ACTION_SELECTED_TIME_RESET());
+        }
+        if (continueToCheckoutButton) {
+          dispatch(ACTION_CONTINUE_BUTTON_RESET());
+        }
+        if (firstName) {
+          dispatch(ACTION_FIRST_NAME_RESET());
+        }
+        if (lastName) {
+          dispatch(ACTION_LAST_NAME_RESET());
+        }
+        if (email) {
+          dispatch(ACTION_EMAIL_RESET());
+        }
+        if (emailIsInvalid) {
+          dispatch(ACTION_EMAIL_NOT_INVALID());
+        }
+        if (emailIsValid) {
+          dispatch(ACTION_EMAIL_NOT_VALID());
+        }
+        if (phoneNumber) {
+          dispatch(ACTION_PHONE_NUMBER_RESET());
+        }
+        if (phoneIsInvalid) {
+          dispatch(ACTION_PHONE_NOT_INVALID());
+        }
+        if (phoneIsValid) {
+          dispatch(ACTION_PHONE_NOT_VALID());
+        }
+        if (appointmentNotes) {
+          dispatch(ACTION_APPOINTMENT_NOTES_RESET());
         }
       }
     } else {
@@ -243,6 +367,36 @@ const Availability = () => {
       }
       if (selectedTime) {
         dispatch(ACTION_SELECTED_TIME_RESET());
+      }
+      if (continueToCheckoutButton) {
+        dispatch(ACTION_CONTINUE_BUTTON_RESET());
+      }
+      if (firstName) {
+        dispatch(ACTION_FIRST_NAME_RESET());
+      }
+      if (lastName) {
+        dispatch(ACTION_LAST_NAME_RESET());
+      }
+      if (email) {
+        dispatch(ACTION_EMAIL_RESET());
+      }
+      if (emailIsInvalid) {
+        dispatch(ACTION_EMAIL_NOT_INVALID());
+      }
+      if (emailIsValid) {
+        dispatch(ACTION_EMAIL_NOT_VALID());
+      }
+      if (phoneNumber) {
+        dispatch(ACTION_PHONE_NUMBER_RESET());
+      }
+      if (phoneIsInvalid) {
+        dispatch(ACTION_PHONE_NOT_INVALID());
+      }
+      if (phoneIsValid) {
+        dispatch(ACTION_PHONE_NOT_VALID());
+      }
+      if (appointmentNotes) {
+        dispatch(ACTION_APPOINTMENT_NOTES_RESET());
       }
     }
   };

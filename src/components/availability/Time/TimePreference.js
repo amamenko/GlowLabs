@@ -20,6 +20,10 @@ import ACTION_LAST_NAME_RESET from "../../../actions/GuestCheckoutForm/LastName/
 import ACTION_EMAIL_RESET from "../../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
 import ACTION_EMAIL_NOT_INVALID from "../../../actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
 import ACTION_EMAIL_NOT_VALID from "../../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
+import ACTION_PHONE_NUMBER_RESET from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
+import ACTION_PHONE_NOT_INVALID from "../../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
+import ACTION_PHONE_NOT_VALID from "../../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
+import ACTION_APPOINTMENT_NOTES_RESET from "../../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_RESET";
 import { Collapse } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -59,10 +63,22 @@ const TimePreference = () => {
   // Checkout Form States
   const firstName = useSelector(state => state.firstName.first_name);
   const lastName = useSelector(state => state.lastName.last_name);
+  const appointmentNotes = useSelector(
+    state => state.appointmentNotes.appointment_notes
+  );
+
+  // Email States
   const email = useSelector(state => state.email.email);
   const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
   const emailIsInvalid = useSelector(
     state => state.emailIsInvalid.email_invalid
+  );
+
+  // Phone Number States
+  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
+  const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
+  const phoneIsInvalid = useSelector(
+    state => state.phoneIsInvalid.phone_invalid
   );
 
   const daysOfTheWeekArr = [
@@ -257,8 +273,17 @@ const TimePreference = () => {
   createEveningTimeInstances();
 
   const handleTimeClick = e => {
-    dispatch(ACTION_SELECTED_TIME(e.target.innerText));
-    if (selectedTime === e.target.innerText) {
+    let renderedTime = "";
+
+    // Required for button border click to trigger selected time on mobile
+    if (e.target.lastChild.innerText) {
+      renderedTime = e.target.lastChild.innerText;
+    } else {
+      renderedTime = e.target.innerText;
+    }
+
+    dispatch(ACTION_SELECTED_TIME(renderedTime));
+    if (selectedTime === renderedTime) {
       dispatch(ACTION_SELECTED_TIME_RESET());
       dispatch(ACTION_CONTINUE_BUTTON_RESET());
       if (firstName) {
@@ -275,6 +300,18 @@ const TimePreference = () => {
       }
       if (emailIsValid) {
         dispatch(ACTION_EMAIL_NOT_VALID());
+      }
+      if (phoneNumber) {
+        dispatch(ACTION_PHONE_NUMBER_RESET());
+      }
+      if (phoneIsInvalid) {
+        dispatch(ACTION_PHONE_NOT_INVALID());
+      }
+      if (phoneIsValid) {
+        dispatch(ACTION_PHONE_NOT_VALID());
+      }
+      if (appointmentNotes) {
+        dispatch(ACTION_APPOINTMENT_NOTES_RESET());
       }
     }
   };
@@ -334,7 +371,9 @@ const TimePreference = () => {
                         ? "rgb(255, 255, 255)"
                         : "rgb(0, 0, 0)",
                     border:
-                      item === selectedTime ? "none" : "2px solid rgb(0, 0, 0)"
+                      item === selectedTime
+                        ? "2px solid transparent"
+                        : "2px solid rgb(0, 0, 0)"
                   }}
                 >
                   <p>{item}</p>
@@ -532,8 +571,7 @@ const TimePreference = () => {
                 color: selectedTime
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",
-                transition:
-                  "background 0.5s ease, color 0.5s ease, border 0.5s ease"
+                transition: "background 0.5s ease, color 0.5s ease"
               }}
             >
               <p>Continue Checkout</p>

@@ -65,6 +65,10 @@ import emailReducer from "./reducers/GuestCheckoutForm/Email/emailReducer";
 import emailValidReducer from "./reducers/EmailValidation/Valid/emailValidReducer";
 import emailInvalidReducer from "./reducers/EmailValidation/Invalid/emailInvalidReducer";
 import phoneNumberReducer from "./reducers/GuestCheckoutForm/PhoneNumber/phoneNumberReducer";
+import phoneValidReducer from "./reducers/PhoneNumberValidation/Valid/phoneValidReducer";
+import phoneInvalidReducer from "./reducers/PhoneNumberValidation/Invalid/phoneInvalidReducer";
+import appointmentNotesReducer from "./reducers/GuestCheckoutForm/AppointmentNotes/appointmentNotesReducer";
+import continueToBookingSummaryReducer from "./reducers/ContinueToBookingSummaryButtonActive/continueToBookingSummaryReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -147,7 +151,11 @@ const RootReducer = combineReducers({
   emailIsValid: emailValidReducer,
   emailIsInvalid: emailInvalidReducer,
   continueToCheckoutButton: continueToCheckoutButtonReducer,
-  phoneNumber: phoneNumberReducer
+  phoneNumber: phoneNumberReducer,
+  phoneIsValid: phoneValidReducer,
+  phoneIsInvalid: phoneInvalidReducer,
+  appointmentNotes: appointmentNotesReducer,
+  continueToBookingSummaryActive: continueToBookingSummaryReducer
 });
 
 export default RootReducer;
