@@ -271,6 +271,7 @@ const GuestCheckout = () => {
               name="firstName"
               defaultValue={firstName}
               maxLength={50}
+              placeholder="First name"
               className="input_field"
               onBlur={handleFirstName}
               onChange={firstNameTyping}
@@ -288,6 +289,7 @@ const GuestCheckout = () => {
               name="lastName"
               defaultValue={lastName}
               maxLength={50}
+              placeholder="Last name"
               onChange={lastNameTyping}
               onBlur={handleLastName}
               className="input_field"
@@ -305,6 +307,7 @@ const GuestCheckout = () => {
               name="email"
               defaultValue={email}
               maxLength={128}
+              placeholder="Email address"
               className="input_field"
               onChange={emailTyping}
               onBlur={validateEmail}
@@ -322,11 +325,12 @@ const GuestCheckout = () => {
               </div>
             </Label>
             <Input
-              type="tel-national"
+              type="tel"
               name="phoneNumber"
               maxLength={16}
               onKeyDown={phoneNumberKeyTyping}
               defaultValue={phoneNumber}
+              placeholder="Phone number"
               onChange={phoneNumberTyping}
               onBlur={handlePhoneNumber}
               className="input_field"
@@ -345,6 +349,7 @@ const GuestCheckout = () => {
               type="textarea"
               className="form_appointment_notes"
               maxLength={500}
+              placeholder="Enter any skin care issues or concerns you may have here."
               defaultValue={appointmentNotes}
               style={{ fontFamily: "Montserrat" }}
               name="appointmentNotes"
@@ -354,20 +359,21 @@ const GuestCheckout = () => {
               className="form_appointment_notes_caption"
               style={{ color: "rgb(151, 151, 151)" }}
             >
-              <p>
-                To protect your privacy, do not include any privileged material
-                such as personal health information.{" "}
-              </p>
               <p
                 style={{
                   color:
-                    500 - appointmentNotes.length > 10
-                      ? "rgb(151, 151, 151)"
-                      : "rgb(255, 22, 34)"
+                    500 - appointmentNotes.length <= 0
+                      ? "rgb(255, 22, 34)"
+                      : "rgb(151, 151, 151)"
                 }}
               >
-                {500 - appointmentNotes.length} character
-                {500 - appointmentNotes.length === 1 ? "" : "s"} remaining.
+                Maximum 500 characters ({500 - appointmentNotes.length}{" "}
+                character
+                {500 - appointmentNotes.length === 1 ? "" : "s"} remaining)
+              </p>
+              <p>
+                To protect your privacy, do not include any privileged material
+                such as personal health information.{" "}
               </p>
             </FormText>
           </FormGroup>

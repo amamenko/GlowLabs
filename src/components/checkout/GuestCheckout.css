@@ -121,10 +121,6 @@
   color: rgb(211, 211, 211);
 }
 
-.form_appointment_notes_caption p {
-  display: inline;
-}
-
 .guest_checkout_bottom_buttons_container {
   position: absolute;
   margin-left: auto;
