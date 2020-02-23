@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_FIRST_NAME from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME";
 import ACTION_LAST_NAME from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME";
@@ -19,6 +19,8 @@ import ACTION_PHONE_NOT_VALID from "../../actions/PhoneNumberValidation/Valid/AC
 import ACTION_PHONE_INVALID from "../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_INVALID";
 import ACTION_APPOINTMENT_NOTES from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES";
 import ACTION_BOOKING_SUMMARY_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_ACTIVE";
+import ACTION_APPOINTMENT_NOTES_INVALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_INVALID";
+import ACTION_APPOINTMENT_NOTES_VALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_VALID";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -39,12 +41,10 @@ import "../../bootstrap_forms.min.css";
 
 const GuestCheckout = () => {
   const dispatch = useDispatch();
+  let location = useLocation();
 
   const firstName = useSelector(state => state.firstName.first_name);
   const lastName = useSelector(state => state.lastName.last_name);
-  const appointmentNotes = useSelector(
-    state => state.appointmentNotes.appointment_notes
-  );
   const continueToBookingSummaryActive = useSelector(
     state => state.continueToBookingSummaryActive.bookingSummaryActive
   );
@@ -61,6 +61,14 @@ const GuestCheckout = () => {
   const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
   const phoneIsInvalid = useSelector(
     state => state.phoneIsInvalid.phone_invalid
+  );
+
+  // Appointment Notes States
+  const appointmentNotes = useSelector(
+    state => state.appointmentNotes.appointment_notes
+  );
+  const appointmentNotesValid = useSelector(
+    state => state.appointmentNotesValid.appointmentNotesValid
   );
 
   const handleFirstName = e => {
@@ -228,6 +236,42 @@ const GuestCheckout = () => {
     dispatch(ACTION_BOOKING_SUMMARY_ACTIVE());
   };
 
+  const renderRemainingCharacters = () => {
+    let remainingCharacters = [];
+
+    if (appointmentNotes) {
+      remainingCharacters.unshift("(", Math.abs(500 - appointmentNotes.length));
+
+      if (500 - appointmentNotes.length === 1) {
+        remainingCharacters.push(" character remaining).");
+
+        if (!appointmentNotesValid) {
+          dispatch(ACTION_APPOINTMENT_NOTES_VALID());
+        }
+      } else {
+        if (500 - appointmentNotes.length < 0) {
+          remainingCharacters.push(" too many).");
+          if (appointmentNotesValid) {
+            dispatch(ACTION_APPOINTMENT_NOTES_INVALID());
+          }
+        } else {
+          remainingCharacters.push(" characters remaining).");
+
+          if (!appointmentNotesValid) {
+            dispatch(ACTION_APPOINTMENT_NOTES_VALID());
+          }
+        }
+      }
+    }
+    return remainingCharacters.join("");
+  };
+
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
   return (
     <div className="checkout_container">
       <div className="checkout_container_header">
@@ -348,10 +392,12 @@ const GuestCheckout = () => {
             <Input
               type="textarea"
               className="form_appointment_notes"
-              maxLength={500}
+              maxLength={1000}
               placeholder="Enter any skin care issues or concerns you may have here."
               defaultValue={appointmentNotes}
-              style={{ fontFamily: "Montserrat" }}
+              style={{
+                fontFamily: "Montserrat"
+              }}
               name="appointmentNotes"
               onChange={appointmentNotesTyping}
             />
@@ -362,14 +408,14 @@ const GuestCheckout = () => {
               <p
                 style={{
                   color:
-                    500 - appointmentNotes.length <= 0
+                    500 - appointmentNotes.length < 0
                       ? "rgb(255, 22, 34)"
-                      : "rgb(151, 151, 151)"
+                      : "rgb(151, 151, 151)",
+                  transition: "color 0.5s ease"
                 }}
+                className="notes_character_limit"
               >
-                Maximum 500 characters ({500 - appointmentNotes.length}{" "}
-                character
-                {500 - appointmentNotes.length === 1 ? "" : "s"} remaining)
+                Maximum 500 characters {renderRemainingCharacters()}
               </p>
               <p>
                 To protect your privacy, do not include any privileged material
@@ -384,7 +430,11 @@ const GuestCheckout = () => {
             style={{
               display: "block",
               pointerEvents:
-                firstName && lastName && emailIsValid && phoneIsValid
+                firstName &&
+                lastName &&
+                emailIsValid &&
+                phoneIsValid &&
+                appointmentNotesValid
                   ? "auto"
                   : "none"
             }}
@@ -394,17 +444,25 @@ const GuestCheckout = () => {
               className="confirm_details_button"
               style={{
                 background:
-                  firstName && lastName && emailIsValid && phoneIsValid
+                  firstName &&
+                  lastName &&
+                  emailIsValid &&
+                  phoneIsValid &&
+                  appointmentNotesValid
                     ? "rgb(215, 156, 165)"
                     : "#f0f0f0",
                 color:
-                  firstName && lastName && emailIsValid && phoneIsValid
+                  firstName &&
+                  lastName &&
+                  emailIsValid &&
+                  phoneIsValid &&
+                  appointmentNotesValid
                     ? "rgb(255, 255, 255)"
                     : "rgb(201, 201, 201)",
                 transition: "background 0.5s ease, color 0.5s ease"
               }}
             >
-              <p>Confirm Details</p>
+              <p>Review Details</p>
             </div>
           </Link>
           <Link to="/availability/timepreference">

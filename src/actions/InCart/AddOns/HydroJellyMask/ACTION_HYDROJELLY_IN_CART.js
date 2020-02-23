@@ -5,7 +5,8 @@ const ACTION_HYDROJELLY_IN_CART = () => {
     type: HYDROJELLY_IN_CART,
     payload: {
       name: "HydroJelly",
-      price: 15
+      price: 15,
+      duration: 10
     }
   };
 };

@@ -5,7 +5,8 @@ const ACTION_CALM_IN_CART = () => {
     type: CALM_IN_CART,
     payload: {
       name: "Calm",
-      price: 70
+      price: 70,
+      duration: 50
     }
   };
 };

@@ -5,7 +5,8 @@ const ACTION_MICRODERMABRASION_IN_CART = () => {
     type: MICRODERMABRASION_IN_CART,
     payload: {
       name: "Microdermabrasion",
-      price: 20
+      price: 20,
+      duration: 15
     }
   };
 };

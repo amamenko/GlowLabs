@@ -5,7 +5,8 @@ const ACTION_EXTRACTION_IN_CART = () => {
     type: EXTRACTION_IN_CART,
     payload: {
       name: "ExtraExtractions",
-      price: 10
+      price: 10,
+      duration: 10
     }
   };
 };

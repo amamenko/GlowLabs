@@ -5,7 +5,8 @@ const ACTION_BEARD_IN_CART = () => {
     type: BEARD_IN_CART,
     payload: {
       name: "Beard",
-      price: 30
+      price: 30,
+      duration: 10
     }
   };
 };

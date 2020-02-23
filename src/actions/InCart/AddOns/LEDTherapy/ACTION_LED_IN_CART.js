@@ -5,7 +5,8 @@ const ACTION_LED_IN_CART = () => {
     type: LED_IN_CART,
     payload: {
       name: "LED",
-      price: 15
+      price: 15,
+      duration: 10
     }
   };
 };

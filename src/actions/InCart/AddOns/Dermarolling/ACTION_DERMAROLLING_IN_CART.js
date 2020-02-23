@@ -5,7 +5,8 @@ const ACTION_DERMAROLLING_IN_CART = () => {
     type: DERMAROLLING_IN_CART,
     payload: {
       name: "Dermarolling",
-      price: 15
+      price: 15,
+      duration: 10
     }
   };
 };

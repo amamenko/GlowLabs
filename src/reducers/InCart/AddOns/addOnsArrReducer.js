@@ -34,7 +34,8 @@ const addOnsArrReducer = (state = { add_ons_arr: [] }, action) => {
         ...state,
         add_ons_arr: add_ons_arr_clone.concat({
           name: action.payload.name,
-          price: action.payload.price
+          price: action.payload.price,
+          duration: action.payload.duration
         })
       };
     case BEARD_NOT_IN_CART:

@@ -5,7 +5,8 @@ const ACTION_QUICKIE_IN_CART = () => {
     type: QUICKIE_IN_CART,
     payload: {
       name: "Quickie",
-      price: 50
+      price: 50,
+      duration: 30
     }
   };
 };

@@ -5,7 +5,8 @@ const ACTION_GUASHA_IN_CART = () => {
     type: GUASHA_IN_CART,
     payload: {
       name: "GuaSha",
-      price: 30
+      price: 30,
+      duration: 10
     }
   };
 };

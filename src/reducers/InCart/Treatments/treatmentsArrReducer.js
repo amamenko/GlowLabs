@@ -40,7 +40,8 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
         ...state,
         treatments_arr: treatments_arr_clone.concat({
           name: action.payload.name,
-          price: action.payload.price
+          price: action.payload.price,
+          duration: action.payload.duration
         })
       };
     case BACIAL_NOT_IN_CART:

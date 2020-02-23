@@ -69,6 +69,7 @@ import phoneValidReducer from "./reducers/PhoneNumberValidation/Valid/phoneValid
 import phoneInvalidReducer from "./reducers/PhoneNumberValidation/Invalid/phoneInvalidReducer";
 import appointmentNotesReducer from "./reducers/GuestCheckoutForm/AppointmentNotes/appointmentNotesReducer";
 import continueToBookingSummaryReducer from "./reducers/ContinueToBookingSummaryButtonActive/continueToBookingSummaryReducer";
+import appointmentNotesValidationReducer from "./reducers/GuestCheckoutForm/AppointmentNotes/AppointmentNotesValidation/appointmentNotesValidationReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -155,6 +156,7 @@ const RootReducer = combineReducers({
   phoneIsValid: phoneValidReducer,
   phoneIsInvalid: phoneInvalidReducer,
   appointmentNotes: appointmentNotesReducer,
+  appointmentNotesValid: appointmentNotesValidationReducer,
   continueToBookingSummaryActive: continueToBookingSummaryReducer
 });
 
