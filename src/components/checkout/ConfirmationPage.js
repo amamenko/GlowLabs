@@ -36,10 +36,14 @@ const ConfirmationPage = () => {
   );
   const dayOfTheWeek = useSelector(state => state.dayOfTheWeek.dayOfTheWeek);
   const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const appointmentEndTime = useSelector(
+    state => state.appointmentEndTime.end_time
+  );
   const addOnsArr = useSelector(state => state.addOnsArr.add_ons_arr);
   const treatmentsArr = useSelector(
     state => state.treatmentsArr.treatments_arr
   );
+  const totalPrice = useSelector(state => state.totalPrice.totalPrice);
 
   const treatmentsSummaryCardComponentsArr = [
     { name: "Calm", component: <CalmSummaryCard /> },
@@ -144,6 +148,12 @@ const ConfirmationPage = () => {
             ? "PM"
             : Number(selectedTime.slice(0, 2)) < 12
             ? "AM"
+            : "PM"}{" "}
+          - {appointmentEndTime}{" "}
+          {Number(appointmentEndTime.slice(0, 1)) > 1
+            ? "PM"
+            : Number(appointmentEndTime.slice(0, 2)) < 12
+            ? "AM"
             : "PM"}
         </p>
       </div>
@@ -152,6 +162,15 @@ const ConfirmationPage = () => {
         {renderSummaryCardTreatments()}
       </div>
       {renderSummaryCardAddOnSection()}
+      <div className="summary_card_subtotal_container">
+        <p>TOTAL</p>
+        <p>${totalPrice}</p>
+      </div>
+      <Link to="/checkout/confirmation">
+        <div className="book_appointment_button">
+          <p>Book Appointment</p>
+        </div>
+      </Link>
     </div>
   );
 };

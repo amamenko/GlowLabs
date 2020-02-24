@@ -99,9 +99,43 @@
 .summary_add_ons_container h2 {
   font-size: 1rem;
   font-weight: 700;
-  border-top: 1px solid rgb(211, 211, 211);
-  border-bottom: 1px solid rgb(211, 211, 211);
   padding-left: 1.5rem;
   padding-top: 2vh;
   padding-bottom: 2vh;
+}
+
+.summary_card_subtotal_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-top: 1px solid rgb(211, 211, 211);
+  padding-top: 4vh;
+  margin-top: -1px;
+}
+
+.summary_card_subtotal_container p {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.book_appointment_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  background: rgb(215, 156, 165);
+  border-radius: 30px;
+  color: white;
+  margin-top: 6vh;
+  margin-bottom: 12vh;
 }

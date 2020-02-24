@@ -1,10 +1,11 @@
 import React from "react";
+import "../SummaryReviewCards.css";
 
 const CalmSummaryCard = () => {
   return (
     <div className="summary_card_container">
       <div className="summary_card_image_circle">
-        <svg width="100%" height="12rem" viewBox="0 0 56.356 56.356">
+        <svg width="100%" height="6rem" viewBox="0 0 56.356 56.356">
           <circle cx="28" cy="28" r="22" fill="rgb(241, 241, 241)" />
           <g
             id="layer1"
@@ -31,6 +32,15 @@ const CalmSummaryCard = () => {
             />
           </g>
         </svg>
+      </div>
+      <div className="summary_card_booking_description">
+        <div className="summary_card_booking_description_left_section">
+          <h2>Calm</h2>
+          <p>50 minutes</p>
+        </div>
+        <div className="summary_card_booking_description_right_section">
+          <p>$70</p>
+        </div>
       </div>
     </div>
   );

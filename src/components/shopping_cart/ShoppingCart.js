@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import "./ShoppingCart.css";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,6 +31,7 @@ import NanoNeedlingCard from "./Add_On_Cards/NanoNeedling/NanoNeedlingCard";
 import GuaShaCard from "./Add_On_Cards/GuaSha/GuaShaCard";
 import BeardCard from "./Add_On_Cards/Beard/BeardCard";
 import NoFacialSelected from "./Treatment_Cards/NoFacialSelected";
+import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const ShoppingCart = () => {
   const availabilityClicked = useSelector(
     state => state.availabilityClicked.availabilityClicked
   );
+  const totalPrice = useSelector(state => state.totalPrice.totalPrice);
 
   const backToHome = () => {
     dispatch(ACTION_CART_IS_NOT_ACTIVE());
@@ -149,7 +151,7 @@ const ShoppingCart = () => {
     return componentsArr.map((item, index) => <div key={index}>{item}</div>);
   };
 
-  const calculateSubtotal = () => {
+  const calculateSubtotal = useCallback(() => {
     let treatmentsPriceArr = [];
     let addOnsPriceArr = [];
     let cartSubtotal = null;
@@ -166,9 +168,11 @@ const ShoppingCart = () => {
     if (totalPricesArr.length > 0) {
       cartSubtotal = totalPricesArr.reduce((a, b) => a + b);
 
-      return cartSubtotal;
+      dispatch(ACTION_TOTAL_PRICE(cartSubtotal));
     }
-  };
+  }, [addOnsArr, treatmentsArr, dispatch]);
+
+  calculateSubtotal();
 
   useEffect(() => {
     if (location.pathname) {
@@ -218,7 +222,7 @@ const ShoppingCart = () => {
         style={{ display: counter === 0 ? "none" : "flex" }}
       >
         <p>Cart Subtotal</p>
-        <p>${calculateSubtotal()}</p>
+        <p>${totalPrice}</p>
       </div>
       <Link to="/availability" onClick={availabilityHasBeenClicked}>
         <div

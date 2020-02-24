@@ -70,6 +70,8 @@ import phoneInvalidReducer from "./reducers/PhoneNumberValidation/Invalid/phoneI
 import appointmentNotesReducer from "./reducers/GuestCheckoutForm/AppointmentNotes/appointmentNotesReducer";
 import continueToBookingSummaryReducer from "./reducers/ContinueToBookingSummaryButtonActive/continueToBookingSummaryReducer";
 import appointmentNotesValidationReducer from "./reducers/GuestCheckoutForm/AppointmentNotes/AppointmentNotesValidation/appointmentNotesValidationReducer";
+import appointmentEndTimeReducer from "./reducers/AppointmentEndTime/appointmentEndTimeReducer";
+import totalPriceReducer from "./reducers/TotalPrice/totalPriceReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -139,6 +141,8 @@ const RootReducer = combineReducers({
   dayOfTheWeek: dayOfTheWeekReducer,
   selectTimeActive: selectTimeActiveReducer,
   selectedTime: selectedTimeReducer,
+  appointmentEndTime: appointmentEndTimeReducer,
+  totalPrice: totalPriceReducer,
   counterReducer: counterReducer,
   afternoonCollapse: afternoonCollapseReducer,
   lateAfternoonCollapse: lateAfternoonCollapseReducer,

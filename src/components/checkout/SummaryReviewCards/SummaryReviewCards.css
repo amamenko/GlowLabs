@@ -1,0 +1,81 @@
+.summary_card_container {
+  width: 100%;
+  height: 15vh;
+  background: rgb(255, 255, 255);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: auto 1fr;
+  grid-template-areas:
+    "image_circle image_circle description description description description"
+    "image_circle image_circle description description description description"
+    "image_circle image_circle description description description description";
+}
+
+.summary_add_ons_card_container {
+  width: 100%;
+  height: 15vh;
+  background: rgb(255, 255, 255);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: auto 1fr;
+  grid-template-areas:
+    "image_circle image_circle description description description description"
+    "image_circle image_circle description description description description"
+    "image_circle image_circle description description description description";
+  border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.summary_card_image_circle {
+  grid-area: image_circle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary_card_booking_description {
+  grid-area: description;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary_card_booking_description_left_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.summary_card_booking_description_left_section h2 {
+  font-size: 1rem;
+  color: rgb(81, 81, 81);
+  font-weight: 500;
+  padding-bottom: 1vh;
+  padding-top: 0;
+  padding-left: 0;
+  border-top: none;
+  border-bottom: none;
+}
+
+.summary_card_booking_description_left_section p {
+  color: rgb(131, 131, 131);
+  font-weight: 300;
+}
+
+.summary_card_booking_description_right_section {
+  height: 40%;
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  margin-right: 1.5rem;
+}
+
+.summary_card_booking_description_right_section p {
+  color: rgb(81, 81, 81);
+  font-size: 2.2rem;
+  font-weight: 500;
+}

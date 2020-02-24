@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
@@ -34,10 +34,15 @@ import "./TimePreference.css";
 
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../bootstrap.min.css";
+import ACTION_APPOINTMENT_END_TIME from "../../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME";
 
 const TimePreference = () => {
   const dispatch = useDispatch();
 
+  const addOnsArr = useSelector(state => state.addOnsArr.add_ons_arr);
+  const treatmentsArr = useSelector(
+    state => state.treatmentsArr.treatments_arr
+  );
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
   );
@@ -315,6 +320,58 @@ const TimePreference = () => {
       }
     }
   };
+
+  const treatmentDurationArr = treatmentsArr.map(item => item.duration);
+  const addOnsDurationArr = addOnsArr.map(item => item.duration);
+  const totalDurationArr = treatmentDurationArr.concat(addOnsDurationArr);
+
+  const totalDurationValue = totalDurationArr.reduce((a, b) => a + b);
+
+  const handleAppointmentEndTime = useCallback(() => {
+    if (selectedTime) {
+      let endTotalTime = "";
+      let endMinutes =
+        Number(
+          selectedTime.slice(selectedTime.length - 2, selectedTime.length)
+        ) + totalDurationValue;
+      let endHours = Number(selectedTime.slice(0, selectedTime.indexOf(":")));
+
+      if (endMinutes >= 240) {
+        endMinutes -= 240;
+        endHours += 4;
+      } else {
+        if (endMinutes >= 180) {
+          endMinutes -= 180;
+          endHours += 3;
+        } else {
+          if (endMinutes >= 120) {
+            endMinutes -= 120;
+            endHours += 2;
+          } else {
+            if (endMinutes >= 60) {
+              endMinutes -= 60;
+              endHours += 1;
+            }
+          }
+        }
+      }
+
+      if (endHours > 12) {
+        endHours -= 12;
+      }
+
+      endMinutes = endMinutes.toString().split("");
+      if (endMinutes.toString().length < 2) {
+        endMinutes.splice(0, 0, "0");
+      }
+
+      endTotalTime = endHours.toString() + ":" + endMinutes.join("");
+
+      dispatch(ACTION_APPOINTMENT_END_TIME(endTotalTime));
+    }
+  }, [selectedTime, totalDurationValue, dispatch]);
+
+  handleAppointmentEndTime();
 
   return (
     <div className="select_time_container">
