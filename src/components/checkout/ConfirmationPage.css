@@ -87,6 +87,7 @@
 .summary_facial_container {
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid rgb(211, 211, 211);
 }
 
 .summary_add_ons_container {
@@ -102,6 +103,11 @@
   padding-left: 1.5rem;
   padding-top: 2vh;
   padding-bottom: 2vh;
+}
+
+.summary_facial_container_title,
+.summary_add_ons_container_title {
+  background: rgba(211, 211, 211, 0.3);
 }
 
 .summary_card_subtotal_container {

@@ -38,6 +38,7 @@ import "./GuestCheckout.css";
 
 // Minified Bootstrap CSS file (for Forms)
 import "../../bootstrap_forms.min.css";
+import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
 
 const GuestCheckout = () => {
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ const GuestCheckout = () => {
     } else {
       dispatch(ACTION_PHONE_NOT_VALID());
       dispatch(ACTION_PHONE_INVALID());
+      dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
     }
   };
 
@@ -115,6 +117,7 @@ const GuestCheckout = () => {
     } else {
       dispatch(ACTION_EMAIL_INVALID());
       dispatch(ACTION_EMAIL_NOT_VALID());
+      dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
     }
   };
 
@@ -251,6 +254,7 @@ const GuestCheckout = () => {
       } else {
         if (500 - appointmentNotes.length < 0) {
           remainingCharacters.push(" too many).");
+          dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
           if (appointmentNotesValid) {
             dispatch(ACTION_APPOINTMENT_NOTES_INVALID());
           }
@@ -393,7 +397,7 @@ const GuestCheckout = () => {
               type="textarea"
               className="form_appointment_notes"
               maxLength={1000}
-              placeholder="Enter any skin care issues or concerns you may have here."
+              placeholder="Enter any skin care issues/concerns here."
               defaultValue={appointmentNotes}
               style={{
                 fontFamily: "Montserrat"

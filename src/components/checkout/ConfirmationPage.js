@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -30,6 +30,7 @@ import GuaShaSummaryCard from "./SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "./SummaryReviewCards/AddOns/BeardSummaryCard";
 
 const ConfirmationPage = () => {
+  let location = useLocation();
   const counter = useSelector(state => state.counterReducer.counter);
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
@@ -44,6 +45,7 @@ const ConfirmationPage = () => {
     state => state.treatmentsArr.treatments_arr
   );
   const totalPrice = useSelector(state => state.totalPrice.totalPrice);
+  const totalDuration = useSelector(state => state.totalDuration.totalDuration);
 
   const treatmentsSummaryCardComponentsArr = [
     { name: "Calm", component: <CalmSummaryCard /> },
@@ -70,6 +72,12 @@ const ConfirmationPage = () => {
     { name: "GuaSha", component: <GuaShaSummaryCard /> },
     { name: "Beard", component: <BeardSummaryCard /> }
   ];
+
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   const treatmentsComponentNames = treatmentsArr.map(item => item.name);
 
@@ -106,7 +114,9 @@ const ConfirmationPage = () => {
     if (addOnsArr.length >= 1) {
       return (
         <div className="summary_add_ons_container">
-          <h2>My Add-On{addOnsArr.length > 1 ? "s" : null}</h2>
+          <h2 className="summary_add_ons_container_title">
+            My Add-On{addOnsArr.length > 1 ? "s" : null}
+          </h2>
           {renderSummaryCardAddOns()}
         </div>
       );
@@ -114,6 +124,30 @@ const ConfirmationPage = () => {
       return null;
     }
   };
+
+  const formatTotalDurationHour = useCallback(() => {
+    let firstDigit = (totalDuration / 60).toString().split("");
+    firstDigit = firstDigit[0];
+
+    if (firstDigit === "0") {
+      return null;
+    } else {
+      return firstDigit;
+    }
+  }, [totalDuration]);
+
+  const formatTotalDurationMinutes = useCallback(() => {
+    let minutes = "";
+    let hours = (totalDuration / 60).toString().split("");
+    hours = Number(hours[0]) * 60;
+    minutes = (totalDuration - hours).toString();
+
+    if (minutes === "0") {
+      return null;
+    } else {
+      return minutes;
+    }
+  }, [totalDuration]);
 
   return (
     <div className="confirmation_page_container">
@@ -154,11 +188,26 @@ const ConfirmationPage = () => {
             ? "PM"
             : Number(appointmentEndTime.slice(0, 2)) < 12
             ? "AM"
-            : "PM"}
+            : "PM"}{" "}
+          ({formatTotalDurationHour()}
+          {totalDuration / 60 >= 1 ? " " : null}
+          {totalDuration / 60 >= 1
+            ? totalDuration / 60 < 2
+              ? "hour"
+              : "hours"
+            : null}
+          {totalDuration / 60 >= 1
+            ? Number.isInteger(totalDuration / 60)
+              ? null
+              : " "
+            : null}
+          {formatTotalDurationMinutes()}
+          {Number.isInteger(totalDuration / 60) ? null : " "}
+          {Number.isInteger(totalDuration / 60) ? null : "minutes"})
         </p>
       </div>
       <div className="summary_facial_container">
-        <h2>My Facial</h2>
+        <h2 className="summary_facial_container_title">My Facial</h2>
         {renderSummaryCardTreatments()}
       </div>
       {renderSummaryCardAddOnSection()}

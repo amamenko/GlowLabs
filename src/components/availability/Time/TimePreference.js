@@ -35,6 +35,7 @@ import "./TimePreference.css";
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../bootstrap.min.css";
 import ACTION_APPOINTMENT_END_TIME from "../../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME";
+import ACTION_TOTAL_DURATION from "../../../actions/TotalDuration/ACTION_TOTAL_DURATION";
 
 const TimePreference = () => {
   const dispatch = useDispatch();
@@ -367,6 +368,7 @@ const TimePreference = () => {
 
       endTotalTime = endHours.toString() + ":" + endMinutes.join("");
 
+      dispatch(ACTION_TOTAL_DURATION(totalDurationValue));
       dispatch(ACTION_APPOINTMENT_END_TIME(endTotalTime));
     }
   }, [selectedTime, totalDurationValue, dispatch]);
