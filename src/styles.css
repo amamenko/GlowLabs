@@ -12,6 +12,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body {
+  height: 100%;
+}
+
 .reset_scroll_behavior {
   scroll-behavior: auto;
 }

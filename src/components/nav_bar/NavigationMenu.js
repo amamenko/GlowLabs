@@ -1,12 +1,19 @@
-import React, { useEffect, useRef } from "react";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import React, { useRef, useState, useMemo } from "react";
+import { useLocation, Redirect } from "react-router-dom";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks
+} from "body-scroll-lock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 
 const NavigationMenu = React.forwardRef((props, ref) => {
+  let location = useLocation();
   const {
     LandingPageRef,
     Treatments1Ref,
@@ -17,31 +24,64 @@ const NavigationMenu = React.forwardRef((props, ref) => {
   const Nav_Ref = useRef(null);
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
   const scroll = useSelector(state => state.scrollToggle.scroll);
+  const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
+
+  const [homeClicked, changeHomeClicked] = useState(false);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useMemo(() => {
+    const NavRefTarget = Nav_Ref.current;
+    clearAllBodyScrollLocks();
+
     if (navbarToggle) {
-      disableBodyScroll(Nav_Ref.current);
+      const handleDisableScroll = el => {
+        disableBodyScroll({ targetElement: el });
+      };
+
+      handleDisableScroll(NavRefTarget);
     } else {
-      enableBodyScroll(Nav_Ref.current);
+      const handleEnableScroll = el => {
+        enableBodyScroll({ targetElement: el });
+      };
+
+      handleEnableScroll(NavRefTarget);
     }
   }, [navbarToggle]);
 
   const navbarItemSelect = () => {
-    setTimeout(() => {
-      dispatch(ACTION_NAVBAR_TOGGLE_RESET());
-      dispatch(ACTION_BODY_SCROLL_ALLOW());
-    }, 200);
+    dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
   };
 
   const navMenuScrollToHome = () => {
     navbarItemSelect();
     clearTimeout(navbarItemSelect());
-    setTimeout(() => {
-      props.handleClickToScrollToHome(LandingPageRef);
-    }, 300);
+    if (cartIsActive) {
+      setTimeout(() => {
+        props.handleRedirectClickToHome(LandingPageRef);
+      }, 300);
+    } else {
+      setTimeout(() => {
+        props.handleClickToScrollToHome(LandingPageRef);
+      }, 300);
+    }
+    changeHomeClicked(true);
+    if (location.pathname !== "/") {
+      dispatch(ACTION_CART_IS_NOT_ACTIVE());
+      document.body.classList.remove("no_scroll");
+      document.body.style.setProperty("overflow", "scroll");
+    }
   };
+
+  if (homeClicked) {
+    setTimeout(() => {
+      changeHomeClicked(false);
+    }, 100);
+    if (location.pathname !== "/") {
+      return <Redirect to="/" />;
+    }
+  }
 
   const navMenuScrollToTreatments = () => {
     navbarItemSelect();

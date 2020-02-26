@@ -73,15 +73,9 @@ const App = () => {
 
   const handleNavbarToggle = () => {
     if (navbarToggle) {
-      if (!cartIsActive) {
-        dispatch(ACTION_NAVBAR_TOGGLE_RESET());
-        dispatch(ACTION_BODY_SCROLL_ALLOW());
-        dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      } else {
-        dispatch(ACTION_NAVBAR_TOGGLE_RESET());
-        dispatch(ACTION_NAVBAR_IS_VISIBLE());
-        dispatch(ACTION_BODY_SCROLL_ALLOW());
-      }
+      dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      dispatch(ACTION_BODY_SCROLL_ALLOW());
     } else {
       dispatch(ACTION_NAVBAR_TOGGLE());
       dispatch(ACTION_BODY_SCROLL_RESET());
@@ -108,6 +102,13 @@ const App = () => {
     window.scrollTo({
       top: LandingPageRef.current.offsetTop - 10,
       behavior: "smooth"
+    });
+  };
+
+  const handleRedirectClickToHome = () => {
+    window.scrollTo({
+      top: LandingPageRef.current.offsetTop - 10,
+      behavior: "auto"
     });
   };
 
@@ -377,6 +378,7 @@ const App = () => {
         currentScreenSize={currentScreenSize}
         initialScreenSize={initialScreenSize}
         handleClickToScrollToHome={handleClickToScrollToHome}
+        handleRedirectClickToHome={handleRedirectClickToHome}
         handleClickToScrollToTreatments={handleClickToScrollToTreatments}
         handleClickToScrollToAddOns={handleClickToScrollToAddOns}
         handleClickToScrollToInstagram={handleClickToScrollToInstagram}

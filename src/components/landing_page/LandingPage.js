@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks
+} from "body-scroll-lock";
 import { useSelector, useDispatch } from "react-redux";
 import { Spring, Transition } from "react-spring/renderprops";
 import SplashScreen from "./SplashScreen";
@@ -19,6 +23,7 @@ import Sunscreen from "./BottomShelf/Sunscreen";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_USER_SCROLLED from "../../actions/Scroll/ACTION_USER_SCROLLED";
 import ACTION_USER_SCROLLED_RESET from "../../actions/Scroll/ACTION_USER_SCROLLED_RESET";
+import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
@@ -29,6 +34,9 @@ const LandingPage = React.forwardRef((props, ref) => {
   );
   const scroll = useSelector(state => state.scrollToggle.scroll);
   const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
 
   const dispatch = useDispatch();
 
@@ -75,14 +83,16 @@ const LandingPage = React.forwardRef((props, ref) => {
     const preventScroll = e => e.preventDefault();
 
     if (bodyScrollToggle === "visible") {
+      document.body.classList.remove("no_scroll");
       document.body.classList.add("scroll_reset");
     } else if (bodyScrollToggle === "hidden") {
       document.body.classList.remove("scroll_reset");
       document.body.classList.add("no_scroll");
 
       // Required for iOS Landscape Scroll Disabling During Splash Screen
-      if (!cartIsActive) {
+      if (!splashScreenComplete) {
         if (LandingPageRef) {
+          console.log("wow holy wow");
           LandingPageRef.current.addEventListener(
             "touchmove",
             preventScroll,
@@ -100,7 +110,12 @@ const LandingPage = React.forwardRef((props, ref) => {
         }
       }
     }
-  }, [bodyScrollToggle, LandingPageRef, props.initialScreenSize, cartIsActive]);
+  }, [
+    bodyScrollToggle,
+    LandingPageRef,
+    props.initialScreenSize,
+    splashScreenComplete
+  ]);
 
   useEffect(() => {
     document.addEventListener("scroll", changeScroll);
@@ -110,26 +125,47 @@ const LandingPage = React.forwardRef((props, ref) => {
   }, [scroll, changeScroll]);
 
   useEffect(() => {
-    disableBodyScroll(LandingPageRef.current);
+    const LandingPageRefTargetElement = LandingPageRef.current;
 
-    let timerEnableScroll = setTimeout(
-      () => {
-        enableBodyScroll(LandingPageRef.current);
-      },
-      props.initialScreenSize >= 600 ? 5300 : 4000
-    );
+    if (!splashScreenComplete) {
+      const handleDisableScroll = el => {
+        disableBodyScroll({ targetElement: el });
+      };
 
-    let bodyScrollTimer = setTimeout(
-      () => {
-        dispatch(ACTION_BODY_SCROLL_ALLOW());
-      },
-      props.initialScreenSize >= 600 ? 5300 : 4000
-    );
+      handleDisableScroll(LandingPageRefTargetElement);
+    } else {
+      if (!cartIsActive) {
+        const handleEnableScroll = el => {
+          if (splashScreenComplete && !cartIsActive) {
+            enableBodyScroll({ targetElement: el });
+          }
+        };
 
-    return () => {
-      clearTimeout(timerEnableScroll, bodyScrollTimer);
-    };
-  }, [dispatch, props.initialScreenSize, LandingPageRef]);
+        handleEnableScroll(LandingPageRefTargetElement);
+      }
+    }
+
+    if (!splashScreenComplete) {
+      let bodyScrollTimer = setTimeout(
+        () => {
+          dispatch(ACTION_BODY_SCROLL_ALLOW());
+          dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+        },
+        props.initialScreenSize >= 600 ? 5300 : 4000
+      );
+
+      return () => {
+        clearAllBodyScrollLocks();
+        clearTimeout(bodyScrollTimer);
+      };
+    }
+  }, [
+    dispatch,
+    props.initialScreenSize,
+    LandingPageRef,
+    splashScreenComplete,
+    cartIsActive
+  ]);
 
   // For iOS Rubberbanding Effect on Navbar / Footer
   const portraitOverscroll = () => {

@@ -194,7 +194,7 @@ const ShoppingCart = () => {
             icon={faChevronLeft}
           />
         </Link>
-        <h1> MY CART</h1>
+        <h1>MY CART</h1>
         <Link to="/availability">
           <FontAwesomeIcon
             className="shopping_cart_forward_arrow"
