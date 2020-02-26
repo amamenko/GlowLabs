@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_FIRST_NAME from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME";
 import ACTION_LAST_NAME from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME";
@@ -21,6 +21,7 @@ import ACTION_APPOINTMENT_NOTES from "../../actions/GuestCheckoutForm/Appointmen
 import ACTION_BOOKING_SUMMARY_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_ACTIVE";
 import ACTION_APPOINTMENT_NOTES_INVALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_INVALID";
 import ACTION_APPOINTMENT_NOTES_VALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_VALID";
+import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -38,7 +39,6 @@ import "./GuestCheckout.css";
 
 // Minified Bootstrap CSS file (for Forms)
 import "../../bootstrap_forms.min.css";
-import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
 
 const GuestCheckout = () => {
   const dispatch = useDispatch();
@@ -48,6 +48,9 @@ const GuestCheckout = () => {
   const lastName = useSelector(state => state.lastName.last_name);
   const continueToBookingSummaryActive = useSelector(
     state => state.continueToBookingSummaryActive.bookingSummaryActive
+  );
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
   );
 
   // Email States
@@ -71,6 +74,12 @@ const GuestCheckout = () => {
   const appointmentNotesValid = useSelector(
     state => state.appointmentNotesValid.appointmentNotesValid
   );
+
+  const redirectToHome = () => {
+    if (!splashScreenComplete) {
+      return <Redirect to="/" />;
+    }
+  };
 
   const handleFirstName = e => {
     dispatch(ACTION_FIRST_NAME(e.currentTarget.value));
@@ -278,6 +287,7 @@ const GuestCheckout = () => {
 
   return (
     <div className="checkout_container">
+      {redirectToHome()}
       <div className="checkout_container_header">
         <Link to="/availability/timepreference">
           <FontAwesomeIcon

@@ -7,7 +7,12 @@ const Mirror = props => {
       from={{ display: "none", opacity: "0" }}
       to={{ display: "inline", opacity: "1" }}
       config={{
-        delay: props.initialScreenSize >= 600 ? 5000 : 4000,
+        delay:
+          props.initialScreenSize >= 600
+            ? props.currentScreenSize >= 600
+              ? 5000
+              : 4000
+            : 4000,
         duration: 1500
       }}
     >

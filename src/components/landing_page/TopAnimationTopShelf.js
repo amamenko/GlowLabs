@@ -1,13 +1,24 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Spring } from "react-spring/renderprops";
 import "./LandingPage.css";
 
 const TopAnimationTopShelf = props => {
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
+
   return (
     <Spring
       from={{
         top:
-          props.initialScreenSize >= 1200
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? props.isSafari
+                ? "4%"
+                : "-50%"
+              : "-50%"
+            : props.currentScreenSize >= 1200
             ? props.isSafari
               ? "4%"
               : "-50%"
@@ -15,16 +26,29 @@ const TopAnimationTopShelf = props => {
       }}
       to={{
         top:
-          props.initialScreenSize >= 1200
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? props.isSafari
+                ? "4%"
+                : "30%"
+              : props.initialScreenSize >= 600
+              ? "12%"
+              : "19.5%"
+            : props.currentScreenSize >= 1200
             ? props.isSafari
               ? "4%"
               : "30%"
-            : props.initialScreenSize >= 600
+            : props.currentScreenSize >= 600
             ? "12%"
             : "19.5%"
       }}
       config={{
-        delay: props.initialScreenSize >= 600 ? 3100 : 2100,
+        delay:
+          props.initialScreenSize >= 600
+            ? props.currentScreenSize >= 600
+              ? 3100
+              : 2100
+            : 2100,
         duration: 1900
       }}
     >
@@ -33,7 +57,7 @@ const TopAnimationTopShelf = props => {
           className="top_content_top_shelf"
           style={{
             top:
-              props.currentScreenSize === ""
+              props.currentScreenSize === "" || !splashScreenComplete
                 ? `${styles.top}`
                 : props.currentScreenSize >= 1200
                 ? props.isSafari

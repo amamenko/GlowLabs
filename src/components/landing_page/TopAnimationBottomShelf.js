@@ -1,13 +1,24 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Spring } from "react-spring/renderprops";
 import "./LandingPage.css";
 
 const TopAnimationBottomShelf = props => {
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
+
   return (
     <Spring
       from={{
         top:
-          props.initialScreenSize >= 1200
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? props.isSafari
+                ? "4%"
+                : "-50%"
+              : "-50%"
+            : props.currentScreenSize >= 1200
             ? props.isSafari
               ? "4%"
               : "-50%"
@@ -15,16 +26,29 @@ const TopAnimationBottomShelf = props => {
       }}
       to={{
         top:
-          props.initialScreenSize >= 1200
+          props.currentScreenSize === ""
+            ? props.initialScreenSize >= 1200
+              ? props.isSafari
+                ? "4%"
+                : "73%"
+              : props.initialScreenSize >= 600
+              ? "27%"
+              : "38%"
+            : props.currentScreenSize >= 1200
             ? props.isSafari
               ? "4%"
               : "73%"
-            : props.initialScreenSize >= 600
+            : props.currentScreenSize >= 600
             ? "27%"
             : "38%"
       }}
       config={{
-        delay: props.initialScreenSize >= 600 ? 3000 : 2000,
+        delay:
+          props.initialScreenSize >= 600
+            ? props.currentScreenSize >= 600
+              ? 3000
+              : 2000
+            : 2000,
         duration: 2000
       }}
     >
@@ -33,7 +57,7 @@ const TopAnimationBottomShelf = props => {
           className="top_content_bottom_shelf"
           style={{
             top:
-              props.currentScreenSize === ""
+              props.currentScreenSize === "" || !splashScreenComplete
                 ? `${styles.top}`
                 : props.currentScreenSize >= 1200
                 ? props.isSafari
@@ -47,7 +71,7 @@ const TopAnimationBottomShelf = props => {
           <svg
             width="100%"
             height={
-              props.currentScreenSize === ""
+              props.currentScreenSize === "" || !splashScreenComplete
                 ? props.initialScreenSize >= 1800
                   ? "35em"
                   : props.initialScreenSize >= 1600

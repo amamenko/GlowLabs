@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_SELECTED_DAY from "../../../actions/SelectedDay/ACTION_SELECTED_DAY";
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
@@ -47,6 +47,9 @@ const Availability = () => {
   const continueToCheckoutButton = useSelector(
     state => state.continueToCheckoutButton.continueButtonActive
   );
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
 
   // Checkout Form States
   const firstName = useSelector(state => state.firstName.first_name);
@@ -68,6 +71,12 @@ const Availability = () => {
   const phoneIsInvalid = useSelector(
     state => state.phoneIsInvalid.phone_invalid
   );
+
+  const redirectToHome = () => {
+    if (!splashScreenComplete) {
+      return <Redirect to="/" />;
+    }
+  };
 
   const monthsArr = [
     { Jan: "January" },
@@ -442,6 +451,7 @@ const Availability = () => {
 
   return (
     <div className="availability_container">
+      {redirectToHome()}
       <div className="availability_container_header">
         <Link to="/cart">
           <FontAwesomeIcon

@@ -68,6 +68,9 @@ const App = () => {
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
   const scroll = useSelector(state => state.scrollToggle.scroll);
   const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
 
   const dispatch = useDispatch();
 
@@ -282,12 +285,29 @@ const App = () => {
     <>
       <Spring
         from={{
-          marginTop: initialScreenSize >= 600 ? "-200px" : "-100px"
+          marginTop:
+            currentScreenSize === ""
+              ? initialScreenSize >= 600
+                ? "-200px"
+                : "-100px"
+              : currentScreenSize >= 600
+              ? "-200px"
+              : "-100px"
         }}
         to={{ marginTop: "0px" }}
         config={{
-          delay: initialScreenSize >= 600 ? 4600 : 2500,
-          duration: initialScreenSize >= 600 ? 1000 : 1500
+          delay:
+            initialScreenSize >= 600
+              ? currentScreenSize >= 600
+                ? 4600
+                : 2500
+              : 2500,
+          duration:
+            initialScreenSize >= 600
+              ? currentScreenSize >= 600
+                ? 1000
+                : 1500
+              : 1500
         }}
       >
         {styles => (
@@ -295,7 +315,7 @@ const App = () => {
             className="header"
             style={{
               marginTop:
-                currentScreenSize === ""
+                currentScreenSize === "" || !splashScreenComplete
                   ? initialScreenSize >= 1200
                     ? `${styles.marginTop}`
                     : navbarVisible

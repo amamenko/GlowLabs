@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import "./ShoppingCart.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
@@ -66,6 +66,15 @@ const ShoppingCart = () => {
     state => state.availabilityClicked.availabilityClicked
   );
   const totalPrice = useSelector(state => state.totalPrice.totalPrice);
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
+
+  const redirectToHome = () => {
+    if (!splashScreenComplete) {
+      return <Redirect to="/" />;
+    }
+  };
 
   const backToHome = () => {
     dispatch(ACTION_CART_IS_NOT_ACTIVE());
@@ -182,6 +191,7 @@ const ShoppingCart = () => {
 
   return (
     <div className="shopping_cart_container">
+      {redirectToHome()}
       <div
         className="shopping_cart_header"
         style={{

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
 import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
@@ -65,6 +65,9 @@ const TimePreference = () => {
   const eveningCollapseIsOpen = useSelector(
     state => state.eveningCollapse.collapseIsOpen
   );
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
 
   // Checkout Form States
   const firstName = useSelector(state => state.firstName.first_name);
@@ -86,6 +89,12 @@ const TimePreference = () => {
   const phoneIsInvalid = useSelector(
     state => state.phoneIsInvalid.phone_invalid
   );
+
+  const redirectToHome = () => {
+    if (!splashScreenComplete) {
+      return <Redirect to="/" />;
+    }
+  };
 
   const daysOfTheWeekArr = [
     { Mon: "Monday" },
@@ -377,6 +386,7 @@ const TimePreference = () => {
 
   return (
     <div className="select_time_container">
+      {redirectToHome()}
       <div className="select_time_container_header">
         <Link to="/availability">
           <FontAwesomeIcon

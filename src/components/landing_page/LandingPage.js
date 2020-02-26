@@ -92,7 +92,6 @@ const LandingPage = React.forwardRef((props, ref) => {
       // Required for iOS Landscape Scroll Disabling During Splash Screen
       if (!splashScreenComplete) {
         if (LandingPageRef) {
-          console.log("wow holy wow");
           LandingPageRef.current.addEventListener(
             "touchmove",
             preventScroll,
@@ -105,7 +104,13 @@ const LandingPage = React.forwardRef((props, ref) => {
                 preventScroll,
                 false
               ),
-            props.initialScreenSize >= 600 ? 5300 : 4000
+            props.currentScreenSize === ""
+              ? props.initialScreenSize >= 600
+                ? 5300
+                : 4000
+              : props.currentScreenSize >= 600
+              ? 5300
+              : 4000
           );
         }
       }
@@ -114,6 +119,7 @@ const LandingPage = React.forwardRef((props, ref) => {
     bodyScrollToggle,
     LandingPageRef,
     props.initialScreenSize,
+    props.currentScreenSize,
     splashScreenComplete
   ]);
 
@@ -151,7 +157,13 @@ const LandingPage = React.forwardRef((props, ref) => {
           dispatch(ACTION_BODY_SCROLL_ALLOW());
           dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
         },
-        props.initialScreenSize >= 600 ? 5300 : 4000
+        props.currentScreenSize === ""
+          ? props.initialScreenSize >= 600
+            ? 5300
+            : 4000
+          : props.currentScreenSize >= 600
+          ? 5300
+          : 4000
       );
 
       return () => {
@@ -162,6 +174,7 @@ const LandingPage = React.forwardRef((props, ref) => {
   }, [
     dispatch,
     props.initialScreenSize,
+    props.currentScreenSize,
     LandingPageRef,
     splashScreenComplete,
     cartIsActive
@@ -235,15 +248,43 @@ const LandingPage = React.forwardRef((props, ref) => {
         </div>
         <Spring
           from={{
-            top: props.initialScreenSize >= 600 ? "0%" : "100%",
+            top:
+              props.initialScreenSize >= 600
+                ? props.currentScreenSize >= 600
+                  ? "0%"
+                  : "100%"
+                : "100%",
             right: props.initialScreenSize >= 600 ? "100%" : "0%"
           }}
           to={{
-            top: props.initialScreenSize >= 600 ? "0%" : "50%",
-            right: props.initialScreenSize >= 600 ? "50%" : "0%"
+            top:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 600
+                  ? "0%"
+                  : "50%"
+                : props.initialScreenSize >= 600
+                ? props.currentScreenSize >= 600
+                  ? "0%"
+                  : "50%"
+                : "50%",
+            right:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 600
+                  ? "50%"
+                  : "0%"
+                : props.initialScreenSize >= 600
+                ? props.currentScreenSize >= 600
+                  ? "50%"
+                  : "0%"
+                : "0%"
           }}
           config={{
-            delay: props.initialScreenSize >= 600 ? 3000 : 2000,
+            delay:
+              props.initialScreenSize >= 600
+                ? props.currentScreenSize >= 600
+                  ? 3000
+                  : 2000
+                : 2000,
             duration: 2000
           }}
         >
@@ -251,25 +292,48 @@ const LandingPage = React.forwardRef((props, ref) => {
             <div
               className="bottom_content"
               style={{
-                top:
-                  props.currentScreenSize === ""
-                    ? `${styles.top}`
+                top: splashScreenComplete
+                  ? props.currentScreenSize === ""
+                    ? props.initialScreenSize >= 600
+                      ? "0%"
+                      : "50%"
                     : props.currentScreenSize >= 600
                     ? "0%"
-                    : "50%",
-                right:
-                  props.currentScreenSize === ""
-                    ? `${styles.right}`
+                    : "50%"
+                  : props.currentScreenSize === ""
+                  ? props.initialScreenSize >= 600
+                    ? "0%"
+                    : `${styles.top}`
+                  : props.currentScreenSize >= 600
+                  ? "0%"
+                  : `${styles.top}`,
+                right: splashScreenComplete
+                  ? props.currentScreenSize === ""
+                    ? props.initialScreenSize >= 600
+                      ? "50%"
+                      : "0%"
                     : props.currentScreenSize >= 600
                     ? "50%"
                     : "0%"
+                  : props.currentScreenSize === ""
+                  ? props.initialScreenSize >= 600
+                    ? `${styles.right}`
+                    : "0%"
+                  : props.currentScreenSize >= 600
+                  ? `${styles.right}`
+                  : "0%"
               }}
             >
               <Spring
                 from={{ opacity: 0 }}
                 to={{ opacity: 1 }}
                 config={{
-                  delay: props.initialScreenSize >= 600 ? 5000 : 4000,
+                  delay:
+                    props.initialScreenSize >= 600
+                      ? props.currentScreenSize >= 600
+                        ? 5000
+                        : 4000
+                      : 4000,
                   duration: 500
                 }}
               >

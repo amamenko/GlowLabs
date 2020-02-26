@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -46,6 +46,15 @@ const ConfirmationPage = () => {
   );
   const totalPrice = useSelector(state => state.totalPrice.totalPrice);
   const totalDuration = useSelector(state => state.totalDuration.totalDuration);
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
+
+  const redirectToHome = () => {
+    if (!splashScreenComplete) {
+      return <Redirect to="/" />;
+    }
+  };
 
   const treatmentsSummaryCardComponentsArr = [
     { name: "Calm", component: <CalmSummaryCard /> },
@@ -151,6 +160,7 @@ const ConfirmationPage = () => {
 
   return (
     <div className="confirmation_page_container">
+      {redirectToHome()}
       <div className="confirmation_page_container_header">
         <Link to="/checkout">
           <FontAwesomeIcon
