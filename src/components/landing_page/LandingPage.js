@@ -24,6 +24,11 @@ import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCRO
 import ACTION_USER_SCROLLED from "../../actions/Scroll/ACTION_USER_SCROLLED";
 import ACTION_USER_SCROLLED_RESET from "../../actions/Scroll/ACTION_USER_SCROLLED_RESET";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
+import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import ACTION_CHANGE_BIG_TO_SMALL from "../../actions/SplashScreenOrientationChanges/ACTION_CHANGE_BIG_TO_SMALL";
+import ACTION_BIG_TO_SMALL_RESET from "../../actions/SplashScreenOrientationChanges/ACTION_BIG_TO_SMALL_RESET";
+import ACTION_CHANGE_SMALL_TO_BIG from "../../actions/SplashScreenOrientationChanges/ACTION_CHANGE_SMALL_TO_BIG";
+import ACTION_SMALL_TO_BIG_RESET from "../../actions/SplashScreenOrientationChanges/ACTION_SMALL_TO_BIG_RESET";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
@@ -37,10 +42,63 @@ const LandingPage = React.forwardRef((props, ref) => {
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
+  const splashScreenHalfway = useSelector(
+    state => state.splashScreenHalfway.splashScreenHalfway
+  );
+  const splashBigToSmall = useSelector(
+    state => state.splashBigToSmall.splashBigToSmall
+  );
+  const splashSmallToBig = useSelector(
+    state => state.splashSmallToBig.splashSmallToBig
+  );
 
   const dispatch = useDispatch();
 
   const [isSafari, changeIsSafari] = useState(false);
+
+  const changeSplashOrientation = useCallback(() => {
+    let screenSizeSnapshot = null;
+
+    if (!splashScreenHalfway) {
+      if (props.currentScreenSize) {
+        screenSizeSnapshot = props.currentScreenSize.toString().slice();
+      }
+    }
+
+    if (!splashScreenComplete) {
+      if (splashScreenHalfway) {
+        if (props.initialScreenSize >= 600) {
+          if (
+            !props.currentScreenSize >= 600 &&
+            screenSizeSnapshot !== props.currentScreenSize.toString()
+          ) {
+            dispatch(ACTION_CHANGE_BIG_TO_SMALL());
+            setTimeout(() => {
+              dispatch(ACTION_BIG_TO_SMALL_RESET());
+            }, 1000);
+          }
+        } else {
+          if (
+            props.currentScreenSize >= 600 &&
+            screenSizeSnapshot !== props.currentScreenSize.toString()
+          ) {
+            dispatch(ACTION_CHANGE_SMALL_TO_BIG());
+            setTimeout(() => {
+              dispatch(ACTION_SMALL_TO_BIG_RESET());
+            }, 1000);
+          }
+        }
+      }
+    }
+  }, [
+    dispatch,
+    props.currentScreenSize,
+    props.initialScreenSize,
+    splashScreenHalfway,
+    splashScreenComplete
+  ]);
+
+  changeSplashOrientation();
 
   useEffect(() => {
     if (navigator.vendor === "Apple Computer, Inc.") {
@@ -253,8 +311,17 @@ const LandingPage = React.forwardRef((props, ref) => {
                 ? props.currentScreenSize >= 600
                   ? "0%"
                   : "100%"
+                : props.currentScreenSize >= 600
+                ? "0%"
                 : "100%",
-            right: props.initialScreenSize >= 600 ? "100%" : "0%"
+            right:
+              props.initialScreenSize >= 600
+                ? props.currentScreenSize >= 600
+                  ? "100%"
+                  : "0%"
+                : props.currentScreenSize >= 600
+                ? "100%"
+                : "0%"
           }}
           to={{
             top:
@@ -278,10 +345,18 @@ const LandingPage = React.forwardRef((props, ref) => {
                   : "0%"
                 : "0%"
           }}
+          onFrame={el =>
+            Number(el.top.substr(0, 3)) === 99
+              ? !splashScreenHalfway
+                ? dispatch(ACTION_SPLASH_SCREEN_HALFWAY())
+                : null
+              : null
+          }
           config={{
             delay:
               props.initialScreenSize >= 600
-                ? props.currentScreenSize >= 600
+                ? props.currentScreenSize >= 600 ||
+                  props.currentScreenSize === ""
                   ? 3000
                   : 2000
                 : 2000,
@@ -292,35 +367,35 @@ const LandingPage = React.forwardRef((props, ref) => {
             <div
               className="bottom_content"
               style={{
-                top: splashScreenComplete
-                  ? props.currentScreenSize === ""
-                    ? props.initialScreenSize >= 600
+                top: !splashScreenComplete
+                  ? splashScreenHalfway
+                    ? splashBigToSmall
+                      ? "50%"
+                      : splashSmallToBig
                       ? "0%"
-                      : "50%"
-                    : props.currentScreenSize >= 600
+                      : `${styles.top}`
+                    : `${styles.top}`
+                  : !props.currentScreenSize
+                  ? props.initialScreenSize >= 600
                     ? "0%"
                     : "50%"
-                  : props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 600
-                    ? "0%"
-                    : `${styles.top}`
                   : props.currentScreenSize >= 600
                   ? "0%"
-                  : `${styles.top}`,
-                right: splashScreenComplete
-                  ? props.currentScreenSize === ""
-                    ? props.initialScreenSize >= 600
+                  : "50%",
+                right: !splashScreenComplete
+                  ? splashScreenHalfway
+                    ? splashBigToSmall
+                      ? "0%"
+                      : splashSmallToBig
                       ? "50%"
-                      : "0%"
-                    : props.currentScreenSize >= 600
+                      : `${styles.right}`
+                    : `${styles.right}`
+                  : !props.currentScreenSize
+                  ? props.initialScreenSize >= 600
                     ? "50%"
                     : "0%"
-                  : props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 600
-                    ? `${styles.right}`
-                    : "0%"
                   : props.currentScreenSize >= 600
-                  ? `${styles.right}`
+                  ? "50%"
                   : "0%"
               }}
             >
@@ -330,7 +405,8 @@ const LandingPage = React.forwardRef((props, ref) => {
                 config={{
                   delay:
                     props.initialScreenSize >= 600
-                      ? props.currentScreenSize >= 600
+                      ? props.currentScreenSize >= 600 ||
+                        props.currentScreenSize === ""
                         ? 5000
                         : 4000
                       : 4000,
@@ -449,7 +525,7 @@ const LandingPage = React.forwardRef((props, ref) => {
           )}
         </Spring>
         <div className="splash_screen">
-          <SplashScreen />
+          <SplashScreen currentScreenSize={props.currentScreenSize} />
         </div>
       </section>
     </div>

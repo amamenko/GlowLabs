@@ -1,113 +1,114 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { animated, Keyframes } from "react-spring/renderprops";
+import { useSelector } from "react-redux";
 import "./LandingPage.css";
 
-class SplashScreen extends React.PureComponent {
-  render() {
-    const GlowChain = Keyframes.Spring({
-      glowAnimation: [
-        {
-          opacity: 0.2,
-          stroke: "rgba(255, 255, 255, 0.3)",
-          fill: "rgb(255, 198, 207)",
-          fillOpacity: "1",
-          stroke_width: "1",
-          config: { duration: 100 }
-        },
-        {
-          opacity: 1,
-          stroke: "rgba(255, 255, 255, 1)",
-          fill: "rgb(255, 198, 207)",
-          fillOpacity: "1",
-          stroke_width: "6",
-          config: { duration: 500 }
-        },
-        {
-          opacity: 0.2,
-          stroke: "rgba(255, 255, 255, 0.3)",
-          fill: "rgb(255, 198, 207)",
-          fillOpacity: "1",
-          stroke_width: "1",
-          config: { duration: 500 }
-        },
-        {
-          opacity: 1,
-          stroke: "rgba(255, 255, 255, 1)",
-          fill: "#fff",
-          fillOpacity: "1",
-          stroke_width: "5",
-          config: { duration: 500 }
-        },
-        {
-          opacity: 1,
-          stroke: "rgba(255, 255, 255, 1)",
-          fill: "#fff",
-          fillOpacity: "1",
-          stroke_width: "0",
-          config: { duration: 500 }
-        },
-        {
-          opacity: 0,
-          stroke: "rgba(255, 255, 255, 0)",
-          fill: "#fff",
-          fillOpacity: "0",
-          stroke_width: "0",
-          config: { delay: 300, duration: 1000 }
-        }
-      ]
-    });
+const SplashScreen = () => {
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
 
-    const LabsChain = Keyframes.Spring({
-      labsAnimation: [
-        {
-          x: "500",
-          strokeWidth: "2",
-          opacity_glow: "0",
-          fill: "rgb(255, 198, 207)",
-          fillOpacity: "1",
-          config: { duration: 100 }
-        },
-        {
-          x: "0",
-          strokeWidth: "2",
-          opacity_glow: "0",
-          fill: "rgb(255, 198, 207)",
-          fillOpacity: "1",
-          config: { duration: 1000 }
-        },
-        {
-          x: "0",
-          strokeWidth: "0",
-          opacity_glow: "1",
-          fill: "#fff",
-          fillOpacity: "1",
-          config: { duration: 500 }
-        },
-        {
-          x: "0",
-          strokeWidth: "0",
-          opacity_glow: "0",
-          fill: "#fff",
-          fillOpacity: "1",
-          config: { duration: 1000 }
-        },
-        {
-          x: "0",
-          strokeWidth: "0",
-          opacity_glow: "0",
-          fill: "#fff",
-          fillOpacity: "0",
-          config: { duration: 800 }
-        }
-      ]
-    });
-    return (
-      <svg
-        className="glow_labs_logo_animation"
-        width="100%"
-        height="100%"
-        viewBox="0 0 463.021 463.021"
-      >
+  const GlowChain = Keyframes.Spring({
+    glowAnimation: [
+      {
+        opacity: 0.2,
+        stroke: "rgba(255, 255, 255, 0.3)",
+        fill: "rgb(255, 198, 207)",
+        fillOpacity: "1",
+        stroke_width: "1",
+        config: { duration: 100 }
+      },
+      {
+        opacity: 1,
+        stroke: "rgba(255, 255, 255, 1)",
+        fill: "rgb(255, 198, 207)",
+        fillOpacity: "1",
+        stroke_width: "6",
+        config: { duration: 500 }
+      },
+      {
+        opacity: 0.2,
+        stroke: "rgba(255, 255, 255, 0.3)",
+        fill: "rgb(255, 198, 207)",
+        fillOpacity: "1",
+        stroke_width: "1",
+        config: { duration: 500 }
+      },
+      {
+        opacity: 1,
+        stroke: "rgba(255, 255, 255, 1)",
+        fill: "#fff",
+        fillOpacity: "1",
+        stroke_width: "5",
+        config: { duration: 500 }
+      },
+      {
+        opacity: 1,
+        stroke: "rgba(255, 255, 255, 1)",
+        fill: "#fff",
+        fillOpacity: "1",
+        stroke_width: "0",
+        config: { duration: 500 }
+      },
+      {
+        opacity: 0,
+        stroke: "rgba(255, 255, 255, 0)",
+        fill: "#fff",
+        fillOpacity: "0",
+        stroke_width: "0",
+        config: { delay: 300, duration: 1000 }
+      }
+    ]
+  });
+
+  const LabsChain = Keyframes.Spring({
+    labsAnimation: [
+      {
+        x: "500",
+        strokeWidth: "2",
+        opacity_glow: "0",
+        fill: "rgb(255, 198, 207)",
+        fillOpacity: "1",
+        config: { duration: 100 }
+      },
+      {
+        x: "0",
+        strokeWidth: "2",
+        opacity_glow: "0",
+        fill: "rgb(255, 198, 207)",
+        fillOpacity: "1",
+        config: { duration: 1000 }
+      },
+      {
+        x: "0",
+        strokeWidth: "0",
+        opacity_glow: "1",
+        fill: "#fff",
+        fillOpacity: "1",
+        config: { duration: 500 }
+      },
+      {
+        x: "0",
+        strokeWidth: "0",
+        opacity_glow: "0",
+        fill: "#fff",
+        fillOpacity: "1",
+        config: { duration: 1000 }
+      },
+      {
+        x: "0",
+        strokeWidth: "0",
+        opacity_glow: "0",
+        fill: "#fff",
+        fillOpacity: "0",
+        config: { duration: 800 }
+      }
+    ]
+  });
+
+  const renderGlow = useMemo(() => {
+    if (!splashScreenComplete) {
+      return (
         <GlowChain state="glowAnimation">
           {styles => (
             <>
@@ -140,6 +141,13 @@ class SplashScreen extends React.PureComponent {
             </>
           )}
         </GlowChain>
+      );
+    }
+  }, [splashScreenComplete]);
+
+  const renderLabs = useMemo(() => {
+    if (!splashScreenComplete) {
+      return (
         <LabsChain state="labsAnimation">
           {styles => (
             <g transform="translate(-5 100.146)">
@@ -236,9 +244,21 @@ class SplashScreen extends React.PureComponent {
             </g>
           )}
         </LabsChain>
-      </svg>
-    );
-  }
-}
+      );
+    }
+  }, [splashScreenComplete]);
+
+  return (
+    <svg
+      className="glow_labs_logo_animation"
+      width="100%"
+      height="100%"
+      viewBox="0 0 463.021 463.021"
+    >
+      {renderGlow}
+      {renderLabs}
+    </svg>
+  );
+};
 
 export default SplashScreen;

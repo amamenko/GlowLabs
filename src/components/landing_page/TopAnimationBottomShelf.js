@@ -45,7 +45,7 @@ const TopAnimationBottomShelf = props => {
       config={{
         delay:
           props.initialScreenSize >= 600
-            ? props.currentScreenSize >= 600
+            ? props.currentScreenSize >= 600 || props.currentScreenSize === ""
               ? 3000
               : 2000
             : 2000,

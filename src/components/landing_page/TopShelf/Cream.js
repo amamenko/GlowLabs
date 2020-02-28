@@ -9,7 +9,7 @@ const Cream = props => {
       config={{
         delay:
           props.initialScreenSize >= 600
-            ? props.currentScreenSize >= 600
+            ? props.currentScreenSize >= 600 || !props.currentScreenSize
               ? 5000
               : 4000
             : 4000,
