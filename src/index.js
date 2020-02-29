@@ -285,47 +285,55 @@ const App = () => {
     <>
       <Spring
         from={{
-          marginTop:
-            currentScreenSize === ""
-              ? initialScreenSize >= 600
-                ? "-200px"
-                : "-100px"
-              : currentScreenSize >= 600
+          marginTop: !currentScreenSize
+            ? initialScreenSize >= 600
               ? "-200px"
               : "-100px"
+            : initialScreenSize >= 600
+            ? currentScreenSize >= 600
+              ? "-200px"
+              : "-100px"
+            : "-100px"
         }}
         to={{ marginTop: "0px" }}
         config={{
-          delay:
-            initialScreenSize >= 600
-              ? currentScreenSize >= 600
-                ? 4600
-                : 2500
-              : 2500,
-          duration:
-            initialScreenSize >= 600
-              ? currentScreenSize >= 600
-                ? 1000
-                : 1500
+          delay: !currentScreenSize
+            ? initialScreenSize >= 600
+              ? 3000
+              : 2500
+            : initialScreenSize >= 600
+            ? currentScreenSize >= 600
+              ? 3000
+              : 2500
+            : 2500,
+          duration: !currentScreenSize
+            ? initialScreenSize >= 600
+              ? 2000
               : 1500
+            : initialScreenSize >= 600
+            ? currentScreenSize >= 600
+              ? 2000
+              : 1500
+            : 1500
         }}
       >
         {styles => (
           <header
             className="header"
             style={{
-              marginTop:
-                currentScreenSize === "" || !splashScreenComplete
+              marginTop: splashScreenComplete
+                ? !currentScreenSize
                   ? initialScreenSize >= 1200
                     ? `${styles.marginTop}`
                     : navbarVisible
-                    ? `${styles.marginTop}`
+                    ? "0px"
                     : "-200px"
                   : currentScreenSize >= 1200
                   ? `${styles.marginTop}`
                   : navbarVisible
-                  ? `${styles.marginTop}`
-                  : "-200px",
+                  ? "0px"
+                  : "-200px"
+                : `${styles.marginTop}`,
               transition: "margin-top 0.5s ease",
               height:
                 currentScreenSize === ""

@@ -25,10 +25,6 @@ import ACTION_USER_SCROLLED from "../../actions/Scroll/ACTION_USER_SCROLLED";
 import ACTION_USER_SCROLLED_RESET from "../../actions/Scroll/ACTION_USER_SCROLLED_RESET";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
-import ACTION_CHANGE_BIG_TO_SMALL from "../../actions/SplashScreenOrientationChanges/ACTION_CHANGE_BIG_TO_SMALL";
-import ACTION_BIG_TO_SMALL_RESET from "../../actions/SplashScreenOrientationChanges/ACTION_BIG_TO_SMALL_RESET";
-import ACTION_CHANGE_SMALL_TO_BIG from "../../actions/SplashScreenOrientationChanges/ACTION_CHANGE_SMALL_TO_BIG";
-import ACTION_SMALL_TO_BIG_RESET from "../../actions/SplashScreenOrientationChanges/ACTION_SMALL_TO_BIG_RESET";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
@@ -45,60 +41,56 @@ const LandingPage = React.forwardRef((props, ref) => {
   const splashScreenHalfway = useSelector(
     state => state.splashScreenHalfway.splashScreenHalfway
   );
-  const splashBigToSmall = useSelector(
-    state => state.splashBigToSmall.splashBigToSmall
-  );
-  const splashSmallToBig = useSelector(
-    state => state.splashSmallToBig.splashSmallToBig
-  );
+
+  // For comparison after splash screen halfway point
+  const [
+    currentOrientationSnapshot,
+    changeCurrentOrientationSnapshot
+  ] = useState(null);
 
   const dispatch = useDispatch();
 
   const [isSafari, changeIsSafari] = useState(false);
 
-  const changeSplashOrientation = useCallback(() => {
-    let screenSizeSnapshot = null;
-
-    if (!splashScreenHalfway) {
-      if (props.currentScreenSize) {
-        screenSizeSnapshot = props.currentScreenSize.toString().slice();
-      }
-    }
-
-    if (!splashScreenComplete) {
-      if (splashScreenHalfway) {
-        if (props.initialScreenSize >= 600) {
-          if (
-            !props.currentScreenSize >= 600 &&
-            screenSizeSnapshot !== props.currentScreenSize.toString()
-          ) {
-            dispatch(ACTION_CHANGE_BIG_TO_SMALL());
-            setTimeout(() => {
-              dispatch(ACTION_BIG_TO_SMALL_RESET());
-            }, 1000);
-          }
+  const handleSplashScreenHalfway = useCallback(
+    el => {
+      if (
+        Number(el.top.substr(0, 3)) === 100 ||
+        Number(el.right.substr(0, 3)) === 100
+      ) {
+        changeCurrentOrientationSnapshot(props.currentScreenSize);
+      } else {
+        if (!splashScreenHalfway) {
+          dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
         } else {
-          if (
-            props.currentScreenSize >= 600 &&
-            screenSizeSnapshot !== props.currentScreenSize.toString()
-          ) {
-            dispatch(ACTION_CHANGE_SMALL_TO_BIG());
-            setTimeout(() => {
-              dispatch(ACTION_SMALL_TO_BIG_RESET());
-            }, 1000);
+          if (currentOrientationSnapshot !== props.currentScreenSize) {
+            dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+            dispatch(ACTION_BODY_SCROLL_ALLOW());
           }
         }
       }
+    },
+    [
+      dispatch,
+      props.currentScreenSize,
+      splashScreenHalfway,
+      currentOrientationSnapshot
+    ]
+  );
+
+  useEffect(() => {
+    if (splashScreenHalfway) {
+      if (currentOrientationSnapshot !== props.currentScreenSize) {
+        dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+        dispatch(ACTION_BODY_SCROLL_ALLOW());
+      }
     }
   }, [
-    dispatch,
+    currentOrientationSnapshot,
     props.currentScreenSize,
-    props.initialScreenSize,
     splashScreenHalfway,
-    splashScreenComplete
+    dispatch
   ]);
-
-  changeSplashOrientation();
 
   useEffect(() => {
     if (navigator.vendor === "Apple Computer, Inc.") {
@@ -138,47 +130,18 @@ const LandingPage = React.forwardRef((props, ref) => {
   ]);
 
   useEffect(() => {
-    const preventScroll = e => e.preventDefault();
-
     if (bodyScrollToggle === "visible") {
       document.body.classList.remove("no_scroll");
       document.body.classList.add("scroll_reset");
     } else if (bodyScrollToggle === "hidden") {
       document.body.classList.remove("scroll_reset");
       document.body.classList.add("no_scroll");
-
-      // Required for iOS Landscape Scroll Disabling During Splash Screen
-      if (!splashScreenComplete) {
-        if (LandingPageRef) {
-          LandingPageRef.current.addEventListener(
-            "touchmove",
-            preventScroll,
-            false
-          );
-          setTimeout(
-            () =>
-              LandingPageRef.current.removeEventListener(
-                "touchmove",
-                preventScroll,
-                false
-              ),
-            props.currentScreenSize === ""
-              ? props.initialScreenSize >= 600
-                ? 5300
-                : 4000
-              : props.currentScreenSize >= 600
-              ? 5300
-              : 4000
-          );
-        }
-      }
     }
   }, [
     bodyScrollToggle,
     LandingPageRef,
     props.initialScreenSize,
-    props.currentScreenSize,
-    splashScreenComplete
+    props.currentScreenSize
   ]);
 
   useEffect(() => {
@@ -215,19 +178,21 @@ const LandingPage = React.forwardRef((props, ref) => {
           dispatch(ACTION_BODY_SCROLL_ALLOW());
           dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
         },
-        props.currentScreenSize === ""
+        !props.currentScreenSize
           ? props.initialScreenSize >= 600
             ? 5300
-            : 4000
+            : 5000
           : props.currentScreenSize >= 600
           ? 5300
-          : 4000
+          : 5000
       );
 
       return () => {
         clearAllBodyScrollLocks();
         clearTimeout(bodyScrollTimer);
       };
+    } else {
+      clearAllBodyScrollLocks();
     }
   }, [
     dispatch,
@@ -306,57 +271,48 @@ const LandingPage = React.forwardRef((props, ref) => {
         </div>
         <Spring
           from={{
-            top:
-              props.initialScreenSize >= 600
-                ? props.currentScreenSize >= 600
-                  ? "0%"
-                  : "100%"
-                : props.currentScreenSize >= 600
+            top: !props.currentScreenSize
+              ? "100%"
+              : props.initialScreenSize >= 600
+              ? props.currentScreenSize >= 600
                 ? "0%"
-                : "100%",
-            right:
-              props.initialScreenSize >= 600
-                ? props.currentScreenSize >= 600
-                  ? "100%"
-                  : "0%"
-                : props.currentScreenSize >= 600
+                : "100%"
+              : "100%",
+            right: !props.currentScreenSize
+              ? props.initialScreenSize >= 600
                 ? "100%"
                 : "0%"
+              : props.initialScreenSize >= 600
+              ? props.currentScreenSize >= 600
+                ? "100%"
+                : "0%"
+              : "0%"
           }}
           to={{
-            top:
-              props.currentScreenSize === ""
-                ? props.initialScreenSize >= 600
-                  ? "0%"
-                  : "50%"
-                : props.initialScreenSize >= 600
-                ? props.currentScreenSize >= 600
-                  ? "0%"
-                  : "50%"
-                : "50%",
-            right:
-              props.currentScreenSize === ""
-                ? props.initialScreenSize >= 600
-                  ? "50%"
-                  : "0%"
-                : props.initialScreenSize >= 600
-                ? props.currentScreenSize >= 600
-                  ? "50%"
-                  : "0%"
+            top: !props.currentScreenSize
+              ? props.initialScreenSize >= 600
+                ? "0%"
+                : "50%"
+              : props.initialScreenSize >= 600
+              ? props.currentScreenSize >= 600
+                ? "0%"
+                : "50%"
+              : "50%",
+            right: !props.currentScreenSize
+              ? props.initialScreenSize >= 600
+                ? "50%"
                 : "0%"
+              : props.initialScreenSize >= 600
+              ? props.currentScreenSize >= 600
+                ? "50%"
+                : "0%"
+              : "0%"
           }}
-          onFrame={el =>
-            Number(el.top.substr(0, 3)) === 99
-              ? !splashScreenHalfway
-                ? dispatch(ACTION_SPLASH_SCREEN_HALFWAY())
-                : null
-              : null
-          }
+          onFrame={el => handleSplashScreenHalfway(el)}
           config={{
             delay:
               props.initialScreenSize >= 600
-                ? props.currentScreenSize >= 600 ||
-                  props.currentScreenSize === ""
+                ? props.currentScreenSize >= 600 || !props.currentScreenSize
                   ? 3000
                   : 2000
                 : 2000,
@@ -367,35 +323,37 @@ const LandingPage = React.forwardRef((props, ref) => {
             <div
               className="bottom_content"
               style={{
-                top: !splashScreenComplete
-                  ? splashScreenHalfway
-                    ? splashBigToSmall
-                      ? "50%"
-                      : splashSmallToBig
+                top: splashScreenComplete
+                  ? !props.currentScreenSize
+                    ? props.initialScreenSize >= 600
                       ? "0%"
-                      : `${styles.top}`
-                    : `${styles.top}`
+                      : "50%"
+                    : props.currentScreenSize >= 600
+                    ? "0%"
+                    : "50%"
                   : !props.currentScreenSize
                   ? props.initialScreenSize >= 600
                     ? "0%"
-                    : "50%"
-                  : props.currentScreenSize >= 600
-                  ? "0%"
-                  : "50%",
-                right: !splashScreenComplete
-                  ? splashScreenHalfway
-                    ? splashBigToSmall
-                      ? "0%"
-                      : splashSmallToBig
+                    : `${styles.top}`
+                  : props.initialScreenSize >= 600
+                  ? props.currentScreenSize >= 600
+                    ? "0%"
+                    : `${styles.top}`
+                  : `${styles.top}`,
+                right: splashScreenComplete
+                  ? !props.currentScreenSize
+                    ? props.initialScreenSize >= 600
                       ? "50%"
-                      : `${styles.right}`
-                    : `${styles.right}`
-                  : !props.currentScreenSize
-                  ? props.initialScreenSize >= 600
+                      : "0%"
+                    : props.currentScreenSize >= 600
                     ? "50%"
                     : "0%"
+                  : !props.currentScreenSize
+                  ? props.initialScreenSize >= 600
+                    ? `${styles.right}`
+                    : "0%"
                   : props.currentScreenSize >= 600
-                  ? "50%"
+                  ? `${styles.right}`
                   : "0%"
               }}
             >
@@ -403,13 +361,15 @@ const LandingPage = React.forwardRef((props, ref) => {
                 from={{ opacity: 0 }}
                 to={{ opacity: 1 }}
                 config={{
-                  delay:
-                    props.initialScreenSize >= 600
-                      ? props.currentScreenSize >= 600 ||
-                        props.currentScreenSize === ""
-                        ? 5000
-                        : 4000
-                      : 4000,
+                  delay: !props.currentScreenSize
+                    ? props.initialScreenSize >= 600
+                      ? 5000
+                      : 4000
+                    : props.initialScreenSize >= 600
+                    ? props.currentScreenSize >= 600
+                      ? 5000
+                      : 4000
+                    : 4000,
                   duration: 500
                 }}
               >
@@ -437,13 +397,23 @@ const LandingPage = React.forwardRef((props, ref) => {
                           : "1"
                     }}
                   >
-                    <h1 style={{ opacity: `${styleprops.opacity}` }}>
+                    <h1
+                      style={{
+                        opacity: splashScreenComplete
+                          ? "1"
+                          : `${styleprops.opacity}`
+                      }}
+                    >
                       Customized skin care,
                       <br /> down to a science.
                     </h1>
                     <p
                       className="landing_page_description"
-                      style={{ opacity: `${styleprops.opacity}` }}
+                      style={{
+                        opacity: splashScreenComplete
+                          ? "1"
+                          : `${styleprops.opacity}`
+                      }}
                     >
                       We've reimagined the traditional idea of a facial so that
                       we can do the thinking for you. Lay back, relax, and
@@ -453,7 +423,11 @@ const LandingPage = React.forwardRef((props, ref) => {
                     <div className="call_to_action_buttons_container">
                       <div
                         className="call_to_action_button"
-                        style={{ opacity: `${styleprops.opacity}` }}
+                        style={{
+                          opacity: splashScreenComplete
+                            ? "1"
+                            : `${styleprops.opacity}`
+                        }}
                       >
                         <p
                           onClick={() =>
@@ -468,7 +442,9 @@ const LandingPage = React.forwardRef((props, ref) => {
                     </div>
                     <div
                       style={{
-                        opacity: `${styleprops.opacity}`,
+                        opacity: splashScreenComplete
+                          ? "1"
+                          : `${styleprops.opacity}`,
                         marginTop: lineRenderScroll
                           ? CSS.supports(`(-webkit-overflow-scrolling: touch)`)
                             ? "8rem"

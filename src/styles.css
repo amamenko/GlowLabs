@@ -22,11 +22,14 @@ body {
 
 .no_scroll {
   overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
 
 .scroll_reset {
   overflow: scroll;
   overflow-x: hidden;
+  position: static;
 }
 
 @media (prefers-reduced-motion: reduce) {

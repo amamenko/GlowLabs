@@ -1,7 +1,11 @@
 import React from "react";
 import { Spring } from "react-spring/renderprops";
+import { useSelector } from "react-redux";
 
 const PottedPlant = props => {
+  const splashScreenComplete = useSelector(
+    state => state.splashScreenComplete.splashScreenComplete
+  );
   return (
     <Spring
       from={{ display: "none", opacity: "0" }}
@@ -13,15 +17,15 @@ const PottedPlant = props => {
               ? 5000
               : 4000
             : 4000,
-        duration: 1500
+        duration: 550
       }}
     >
       {props => (
         <svg
           className="potted_plant"
           style={{
-            display: `${props.display}`,
-            opacity: `${props.opacity}`
+            display: splashScreenComplete ? "inline" : `${props.display}`,
+            opacity: splashScreenComplete ? "1" : `${props.opacity}`
           }}
           viewBox="0 0 50 50"
         >
