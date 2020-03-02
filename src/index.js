@@ -32,7 +32,12 @@ import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
 import AvailabilityRouter from "./components/availability/AvailabilityRouter";
 import GuestCheckoutRouter from "./components/checkout/GuestCheckoutRouter";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation
+} from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -51,6 +56,7 @@ const store = createStore(
 );
 
 const App = () => {
+  const location = useLocation();
   const LandingPageRef = useRef(null);
   const Treatments1Ref = useRef(null);
   const AddOnsRef = useRef(null);
@@ -109,10 +115,12 @@ const App = () => {
   };
 
   const handleRedirectClickToHome = () => {
-    window.scrollTo({
-      top: LandingPageRef.current.offsetTop - 10,
-      behavior: "auto"
-    });
+    if (location.pathname !== "/") {
+      window.scrollTo({
+        top: LandingPageRef.current.offsetTop - 10,
+        behavior: "auto"
+      });
+    }
   };
 
   const handleClickToScrollToTreatments = async ref => {
@@ -286,13 +294,13 @@ const App = () => {
       <Spring
         from={{
           marginTop: !currentScreenSize
-            ? initialScreenSize >= 600
-              ? "-200px"
-              : "-100px"
+            ? "-200px"
             : initialScreenSize >= 600
             ? currentScreenSize >= 600
               ? "-200px"
               : "-100px"
+            : currentScreenSize >= 600
+            ? "-200px"
             : "-100px"
         }}
         to={{ marginTop: "0px" }}
@@ -335,42 +343,39 @@ const App = () => {
                   : "-200px"
                 : `${styles.marginTop}`,
               transition: "margin-top 0.5s ease",
-              height:
-                currentScreenSize === ""
-                  ? initialScreenSize <= 1000 && initialScreenSize >= 600
-                    ? window.scrollY <= 1
-                      ? "30vh"
-                      : "15vh"
-                    : "8vh"
-                  : currentScreenSize <= 1000 && currentScreenSize >= 600
+              height: !currentScreenSize
+                ? initialScreenSize <= 1000 && initialScreenSize >= 600
                   ? window.scrollY <= 1
                     ? "30vh"
                     : "15vh"
-                  : "8vh",
-              paddingTop:
-                currentScreenSize === ""
-                  ? initialScreenSize <= 1000 && initialScreenSize >= 600
-                    ? window.scrollY <= 1
-                      ? "15vh"
-                      : "0vh"
-                    : "0vh"
-                  : currentScreenSize <= 1000 && currentScreenSize >= 600
-                  ? window.scrollY <= 1
-                    ? "15vh"
-                    : "0vh"
-                  : "0vh",
-              paddingBottom:
-                currentScreenSize === ""
-                  ? initialScreenSize <= 1000 && initialScreenSize >= 600
-                    ? window.scrollY <= 1
-                      ? "15vh"
-                      : "0vh"
-                    : "0vh"
-                  : currentScreenSize <= 1000 && currentScreenSize >= 600
+                  : "8vh"
+                : currentScreenSize <= 1000 && currentScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? "30vh"
+                  : "15vh"
+                : "8vh",
+              paddingTop: !currentScreenSize
+                ? initialScreenSize <= 1000 && initialScreenSize >= 600
                   ? window.scrollY <= 1
                     ? "15vh"
                     : "0vh"
                   : "0vh"
+                : currentScreenSize <= 1000 && currentScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? "15vh"
+                  : "0vh"
+                : "0vh",
+              paddingBottom: !currentScreenSize
+                ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "15vh"
+                    : "0vh"
+                  : "0vh"
+                : currentScreenSize <= 1000 && currentScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? "15vh"
+                  : "0vh"
+                : "0vh"
             }}
           >
             <NavigationBar

@@ -54,6 +54,7 @@ const LandingPage = React.forwardRef((props, ref) => {
 
   const handleSplashScreenHalfway = useCallback(
     el => {
+      console.log(el.top);
       if (
         Number(el.top.substr(0, 3)) === 100 ||
         Number(el.right.substr(0, 3)) === 100
@@ -80,14 +81,17 @@ const LandingPage = React.forwardRef((props, ref) => {
 
   useEffect(() => {
     if (splashScreenHalfway) {
-      if (currentOrientationSnapshot !== props.currentScreenSize) {
-        dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
-        dispatch(ACTION_BODY_SCROLL_ALLOW());
+      if (props.initialScreenSize >= 600) {
+        if (currentOrientationSnapshot !== props.currentScreenSize) {
+          dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+          dispatch(ACTION_BODY_SCROLL_ALLOW());
+        }
       }
     }
   }, [
     currentOrientationSnapshot,
     props.currentScreenSize,
+    props.initialScreenSize,
     splashScreenHalfway,
     dispatch
   ]);
@@ -101,14 +105,13 @@ const LandingPage = React.forwardRef((props, ref) => {
   }, [changeIsSafari]);
 
   const changeScroll = useCallback(() => {
-    const userScroll =
-      props.currentScreenSize === ""
-        ? props.initialScreenSize >= 600
-          ? window.scrollY < 50
-          : window.scrollY < 345
-        : props.currentScreenSize >= 600
+    const userScroll = !props.currentScreenSize
+      ? props.initialScreenSize >= 600
         ? window.scrollY < 50
-        : window.scrollY < 345;
+        : window.scrollY < 345
+      : props.currentScreenSize >= 600
+      ? window.scrollY < 50
+      : window.scrollY < 345;
     const userLineRenderScroll = window.scrollY < 40;
 
     if (!userScroll) {
@@ -130,18 +133,49 @@ const LandingPage = React.forwardRef((props, ref) => {
   ]);
 
   useEffect(() => {
+    const preventScroll = e => e.preventDefault();
+
     if (bodyScrollToggle === "visible") {
       document.body.classList.remove("no_scroll");
+      if (!navbarToggle) {
+        document.body.classList.remove("no_scroll_no_fixed");
+      }
       document.body.classList.add("scroll_reset");
     } else if (bodyScrollToggle === "hidden") {
       document.body.classList.remove("scroll_reset");
-      document.body.classList.add("no_scroll");
+      if (navbarToggle) {
+        document.body.classList.add("no_scroll_no_fixed");
+      } else {
+        document.body.classList.add("no_scroll");
+      }
+
+      // Required for iOS Landscape Scroll Disabling During Splash Screen
+      if (!cartIsActive) {
+        if (LandingPageRef) {
+          LandingPageRef.current.addEventListener(
+            "touchmove",
+            preventScroll,
+            false
+          );
+          setTimeout(
+            () =>
+              LandingPageRef.current.removeEventListener(
+                "touchmove",
+                preventScroll,
+                false
+              ),
+            props.initialScreenSize >= 600 ? 5300 : 4000
+          );
+        }
+      }
     }
   }, [
     bodyScrollToggle,
     LandingPageRef,
     props.initialScreenSize,
-    props.currentScreenSize
+    props.currentScreenSize,
+    navbarToggle,
+    cartIsActive
   ]);
 
   useEffect(() => {
@@ -181,10 +215,14 @@ const LandingPage = React.forwardRef((props, ref) => {
         !props.currentScreenSize
           ? props.initialScreenSize >= 600
             ? 5300
-            : 5000
+            : 4400
+          : props.initialScreenSize >= 600
+          ? props.currentScreenSize >= 600
+            ? 5300
+            : 4400
           : props.currentScreenSize >= 600
-          ? 5300
-          : 5000
+          ? 3000
+          : 4400
       );
 
       return () => {
@@ -277,15 +315,17 @@ const LandingPage = React.forwardRef((props, ref) => {
               ? props.currentScreenSize >= 600
                 ? "0%"
                 : "100%"
-              : "100%",
+              : props.currentScreenSize >= 600
+              ? "0%"
+              : "0%",
             right: !props.currentScreenSize
-              ? props.initialScreenSize >= 600
-                ? "100%"
-                : "0%"
+              ? "100%"
               : props.initialScreenSize >= 600
               ? props.currentScreenSize >= 600
                 ? "100%"
                 : "0%"
+              : props.currentScreenSize >= 600
+              ? "100%"
               : "0%"
           }}
           to={{
@@ -297,6 +337,8 @@ const LandingPage = React.forwardRef((props, ref) => {
               ? props.currentScreenSize >= 600
                 ? "0%"
                 : "50%"
+              : props.currentScreenSize >= 600
+              ? "0%"
               : "50%",
             right: !props.currentScreenSize
               ? props.initialScreenSize >= 600
@@ -306,16 +348,19 @@ const LandingPage = React.forwardRef((props, ref) => {
               ? props.currentScreenSize >= 600
                 ? "50%"
                 : "0%"
+              : props.currentScreenSize >= 600
+              ? "50%"
               : "0%"
           }}
           onFrame={el => handleSplashScreenHalfway(el)}
           config={{
-            delay:
-              props.initialScreenSize >= 600
-                ? props.currentScreenSize >= 600 || !props.currentScreenSize
-                  ? 3000
-                  : 2000
-                : 2000,
+            delay: !props.currentScreenSize
+              ? props.initialScreenSize >= 600
+                ? 3000
+                : 2000
+              : props.currentScreenSize >= 600
+              ? 500
+              : 2000,
             duration: 2000
           }}
         >
@@ -339,6 +384,8 @@ const LandingPage = React.forwardRef((props, ref) => {
                   ? props.currentScreenSize >= 600
                     ? "0%"
                     : `${styles.top}`
+                  : props.currentScreenSize >= 600
+                  ? "0%"
                   : `${styles.top}`,
                 right: splashScreenComplete
                   ? !props.currentScreenSize
@@ -350,6 +397,10 @@ const LandingPage = React.forwardRef((props, ref) => {
                     : "0%"
                   : !props.currentScreenSize
                   ? props.initialScreenSize >= 600
+                    ? `${styles.right}`
+                    : "0%"
+                  : props.initialScreenSize >= 600
+                  ? props.currentScreenSize >= 600
                     ? `${styles.right}`
                     : "0%"
                   : props.currentScreenSize >= 600

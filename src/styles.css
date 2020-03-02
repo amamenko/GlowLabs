@@ -26,6 +26,11 @@ body {
   width: 100%;
 }
 
+.no_scroll_no_fixed {
+  overflow: hidden;
+  width: 100%;
+}
+
 .scroll_reset {
   overflow: scroll;
   overflow-x: hidden;

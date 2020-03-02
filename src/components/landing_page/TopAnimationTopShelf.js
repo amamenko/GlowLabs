@@ -11,18 +11,17 @@ const TopAnimationTopShelf = props => {
   return (
     <Spring
       from={{
-        top:
-          props.currentScreenSize === ""
-            ? props.initialScreenSize >= 1200
-              ? props.isSafari
-                ? "4%"
-                : "-50%"
-              : "-50%"
-            : props.currentScreenSize >= 1200
+        top: !props.currentScreenSize
+          ? props.initialScreenSize >= 1200
             ? props.isSafari
               ? "4%"
               : "-50%"
             : "-50%"
+          : props.currentScreenSize >= 1200
+          ? props.isSafari
+            ? "4%"
+            : "-50%"
+          : "-50%"
       }}
       to={{
         top:
@@ -43,12 +42,17 @@ const TopAnimationTopShelf = props => {
             : "19.5%"
       }}
       config={{
-        delay:
-          props.initialScreenSize >= 600
-            ? props.currentScreenSize >= 600 || props.currentScreenSize === ""
-              ? 3100
-              : 2100
-            : 2100,
+        delay: !props.currentScreenSize
+          ? props.initialScreenSize >= 600
+            ? 3100
+            : 2100
+          : props.initialScreenSize >= 600
+          ? props.currentScreenSize >= 600
+            ? 800
+            : 2100
+          : props.currentScreenSize >= 600
+          ? 800
+          : 2100,
         duration: 1900
       }}
     >
@@ -57,7 +61,7 @@ const TopAnimationTopShelf = props => {
           className="top_content_top_shelf"
           style={{
             top:
-              props.currentScreenSize === "" || !splashScreenComplete
+              !props.currentScreenSize || !splashScreenComplete
                 ? `${styles.top}`
                 : props.currentScreenSize >= 1200
                 ? props.isSafari
@@ -71,7 +75,7 @@ const TopAnimationTopShelf = props => {
           <svg
             width="100%"
             height={
-              props.currentScreenSize === ""
+              !props.currentScreenSize
                 ? props.initialScreenSize >= 1800
                   ? "35em"
                   : props.initialScreenSize >= 1600
