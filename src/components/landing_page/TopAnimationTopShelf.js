@@ -82,14 +82,18 @@ const TopAnimationTopShelf = props => {
                   ? "20em"
                   : props.initialScreenSize >= 1200
                   ? "15em"
-                  : "7em"
+                  : props.initialScreenSize >= 375
+                  ? "7em"
+                  : "5em"
                 : props.currentScreenSize >= 1800
                 ? "35em"
                 : props.currentScreenSize >= 1600
                 ? "20em"
                 : props.currentScreenSize >= 1200
                 ? "15em"
-                : "7em"
+                : props.currentScreenSize >= 375
+                ? "7em"
+                : "5em"
             }
             viewBox="0 0 100 100"
           >

@@ -1,255 +1,329 @@
-.landing_page_container {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-auto-rows: auto 1fr;
-  grid-template-areas:
-    "header header header header"
-    "main main main main";
-  background: rgb(255, 198, 207);
-}
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .landing_page_container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: auto 1fr;
+    grid-template-areas:
+      "header header header header"
+      "main main main main";
+    background: rgb(255, 198, 207);
+  }
 
-.header {
-  grid-area: header;
-  height: 8vh;
-  width: 100%;
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 500;
-  background: rgb(255, 198, 207);
-}
+  .header {
+    grid-area: header;
+    height: 8vh;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 500;
+    background: rgb(255, 198, 207);
+  }
 
-.main_content {
-  display: flex;
-  position: relative;
-  flex: 1;
-  flex-direction: column;
-  grid-area: main;
-  align-items: center;
-  justify-content: center;
-  padding-top: 8vh;
-}
+  .main_content {
+    display: flex;
+    position: relative;
+    flex: 1;
+    flex-direction: column;
+    grid-area: main;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8vh;
+  }
 
-.splash_screen {
-  display: flex;
-  flex-direction: column;
-  justify-self: center;
-  align-self: center;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 4rem;
-}
+  .splash_screen {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 4rem;
+  }
 
-.splash_screen h1 {
-  display: flex;
-  font-size: 3rem;
-}
+  .splash_screen h1 {
+    display: flex;
+    font-size: 3rem;
+  }
 
-.top_content_top_shelf {
-  grid-area: main;
-  position: absolute;
-  bottom: auto;
-  left: 0;
-  right: 0;
-  filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
-}
+  .top_content_top_shelf {
+    grid-area: main;
+    position: absolute;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
+  }
 
-.top_content_bottom_shelf {
-  grid-area: main;
-  position: absolute;
-  bottom: auto;
-  left: 0;
-  right: 0;
-  filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
-}
+  .top_content_bottom_shelf {
+    grid-area: main;
+    position: absolute;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
+  }
 
-.bottom_content {
-  grid-area: main;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-}
+  .bottom_content {
+    grid-area: main;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 
-.bottom_content h1 {
-  text-align: center;
-  color: rgb(215, 156, 165);
-  font-size: 1.65rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-weight: 700;
-}
+  .bottom_content h1 {
+    text-align: center;
+    color: rgb(215, 156, 165);
+    font-size: 1.3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-weight: 700;
+  }
 
-.landing_page_text_block {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-}
+  .landing_page_text_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
 
-.landing_page_description {
-  display: flex;
-  position: relative;
-  align-items: center;
-  color: rgba(107, 107, 96, 0.89);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.5rem;
-  text-align: center;
-  margin-right: 2rem;
-  margin-left: 2rem;
-}
+  .landing_page_description {
+    display: flex;
+    position: relative;
+    align-items: center;
+    color: rgba(107, 107, 96, 0.89);
+    font-size: 10.2px;
+    font-weight: 500;
+    line-height: 1.2rem;
+    text-align: center;
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
 
-.landing_page_cta {
-  display: flex;
-  top: 5rem;
-  bottom: 5rem;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: transparent;
-  cursor: pointer;
-}
-
-.call_to_action_button {
-  display: none;
-}
-
-.landing_page_bottom_icon {
-  color: rgb(215, 156, 165);
-  font-size: 2rem;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  cursor: pointer;
-}
-
-.cta_line {
-  border-left: 5px solid rgb(215, 156, 165);
-  position: absolute;
-  text-align: center;
-  border-radius: 2px;
-}
-
-@supports (-webkit-overflow-scrolling: touch) {
-  /* CSS specific to iOS devices */
   .landing_page_cta {
-    min-height: 100%;
-    min-width: 100%;
-    position: -webkit-sticky;
+    display: flex;
+    top: 5rem;
+    bottom: 5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    cursor: pointer;
+  }
+
+  .call_to_action_button {
+    display: none;
   }
 
   .landing_page_bottom_icon {
-    margin-top: 1.5rem;
+    color: rgb(215, 156, 165);
+    font-size: 2rem;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
   }
 
   .cta_line {
-    margin-top: -1.5rem;
+    border-left: 5px solid rgb(215, 156, 165);
+    position: absolute;
+    text-align: center;
+    border-radius: 2px;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .landing_page_cta {
+      min-height: 100%;
+      min-width: 100%;
+      position: -webkit-sticky;
+    }
+
+    .landing_page_bottom_icon {
+      margin-top: 1.5rem;
+    }
+
+    .cta_line {
+      margin-top: -1.5rem;
+    }
+  }
+
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .landing_page_cta {
+      height: 100%;
+      width: 100%;
+      position: sticky;
+      transition: all 0.5s ease;
+    }
+
+    .cta_line {
+      margin-top: -2.8rem;
+    }
+  }
+
+  .potted_plant {
+    position: absolute;
+    height: 12%;
+    width: 25%;
+    top: 10.3%;
+    left: 22%;
+    filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .small_plant {
+    position: absolute;
+    z-index: 2;
+    height: 15%;
+    width: 25%;
+    top: 14.8%;
+    left: 28%;
+    filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .cream {
+    z-index: 2;
+    position: absolute;
+    height: 12%;
+    width: 25%;
+    top: 12%;
+    left: 38%;
+    filter: drop-shadow(5px 0px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .hand_cream {
+    position: absolute;
+    height: 12%;
+    width: 25%;
+    top: 12.8%;
+    left: 55%;
+    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .mirror {
+    z-index: 2;
+    position: absolute;
+    height: 12%;
+    width: 25%;
+    top: 28.8%;
+    left: 21%;
+    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .bottle {
+    z-index: 2;
+    position: absolute;
+    height: 12%;
+    width: 25%;
+    top: 31.5%;
+    left: 36%;
+    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .q_tips {
+    position: absolute;
+    z-index: 2;
+    height: 15%;
+    width: 25%;
+    top: 34.6%;
+    left: 52.5%;
+    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .sun_screen {
+    position: absolute;
+    height: 12%;
+    width: 25%;
+    top: 31%;
+    left: 57%;
+    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
   }
 }
 
-@supports not (-webkit-overflow-scrolling: touch) {
-  /* CSS for other than iOS devices */
-  .landing_page_cta {
-    height: 100%;
-    width: 100%;
-    position: sticky;
-    transition: all 0.5s ease;
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .potted_plant {
+    height: 15%;
+    top: 8%;
+    left: 20%;
   }
 
-  .cta_line {
-    margin-top: -2.8rem;
+  .cream {
+    height: 15%;
+    top: 10.3%;
+  }
+
+  .hand_cream {
+    height: 15%;
+    top: 11%;
+    left: 57%;
+  }
+
+  .mirror {
+    height: 15%;
+    top: 27.1%;
+    left: 20%;
+  }
+
+  .bottle {
+    height: 15%;
+    top: 29.8%;
+    left: 38%;
+  }
+
+  .q_tips {
+    left: 54%;
+    top: 34.25%;
+    left: 52%;
+  }
+
+  .sun_screen {
+    height: 15%;
+    top: 29.5%;
+    left: 59%;
+  }
+
+  .bottom_content h1 {
+    font-size: 1.65rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .landing_page_description {
+    font-size: 12.5px;
+    line-height: 1.5rem;
   }
 }
 
-.potted_plant {
-  position: absolute;
-  height: 15%;
-  width: 25%;
-  top: 8%;
-  left: 20%;
-  filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
-}
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .mirror {
+    top: 26.6%;
+  }
 
-.small_plant {
-  position: absolute;
-  z-index: 2;
-  height: 15%;
-  width: 25%;
-  top: 14.8%;
-  left: 28%;
-  filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
-}
+  .cream {
+    top: 10.3%;
+  }
 
-.cream {
-  z-index: 2;
-  position: absolute;
-  height: 15%;
-  width: 25%;
-  top: 10.3%;
-  left: 38%;
-  filter: drop-shadow(5px 0px 2px rgba(0, 0, 0, 0.1));
-}
-
-.hand_cream {
-  position: absolute;
-  height: 15%;
-  width: 25%;
-  top: 11%;
-  left: 57%;
-  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-}
-
-.mirror {
-  z-index: 2;
-  position: absolute;
-  height: 15%;
-  width: 25%;
-  top: 26.6%;
-  left: 20%;
-  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-}
-
-.bottle {
-  z-index: 2;
-  position: absolute;
-  height: 15%;
-  width: 25%;
-  top: 29.8%;
-  left: 38%;
-  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-}
-
-.q_tips {
-  position: absolute;
-  z-index: 2;
-  height: 15%;
-  width: 25%;
-  top: 34.25%;
-  left: 54%;
-  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-}
-
-.sun_screen {
-  position: absolute;
-  height: 15%;
-  width: 25%;
-  top: 29.5%;
-  left: 59%;
-  filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
+  .landing_page_description {
+    font-size: 14px;
+    line-height: 1.5rem;
+  }
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */

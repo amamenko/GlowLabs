@@ -54,7 +54,6 @@ const LandingPage = React.forwardRef((props, ref) => {
 
   const handleSplashScreenHalfway = useCallback(
     el => {
-      console.log(el.top);
       if (
         Number(el.top.substr(0, 3)) === 100 ||
         Number(el.right.substr(0, 3)) === 100
