@@ -82,7 +82,7 @@ const TopAnimationTopShelf = props => {
                   ? "20em"
                   : props.initialScreenSize >= 1200
                   ? "15em"
-                  : props.initialScreenSize >= 375
+                  : props.initialScreenSize >= 360
                   ? "7em"
                   : "5em"
                 : props.currentScreenSize >= 1800
@@ -91,7 +91,7 @@ const TopAnimationTopShelf = props => {
                 ? "20em"
                 : props.currentScreenSize >= 1200
                 ? "15em"
-                : props.currentScreenSize >= 375
+                : props.currentScreenSize >= 360
                 ? "7em"
                 : "5em"
             }

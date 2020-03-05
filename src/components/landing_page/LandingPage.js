@@ -496,12 +496,40 @@ const LandingPage = React.forwardRef((props, ref) => {
                           ? "1"
                           : `${styleprops.opacity}`,
                         marginTop: lineRenderScroll
-                          ? CSS.supports(`(-webkit-overflow-scrolling: touch)`)
+                          ? !props.currentScreenSize
+                            ? props.initialScreenSize >= 410
+                              ? "8rem"
+                              : props.initialScreenSize >= 360
+                              ? "5.5rem"
+                              : "4.5rem"
+                            : props.currentScreenSize >= 410
                             ? "8rem"
-                            : "8rem"
+                            : props.currentScreenSize >= 360
+                            ? "5.5rem"
+                            : "4.5rem"
                           : CSS.supports(`(-webkit-overflow-scrolling: touch)`)
-                          ? "8rem"
-                          : "1.5rem"
+                          ? !props.currentScreenSize
+                            ? props.initialScreenSize >= 410
+                              ? "8rem"
+                              : props.initialScreenSize >= 360
+                              ? "5.5rem"
+                              : "4.5rem"
+                            : props.currentScreenSize >= 410
+                            ? "8rem"
+                            : props.currentScreenSize >= 360
+                            ? "5.5rem"
+                            : "4.5rem"
+                          : !props.currentScreenSize
+                          ? props.initialScreenSize >= 410
+                            ? "1.5rem"
+                            : props.initialScreenSize >= 360
+                            ? "1.2rem"
+                            : "1rem"
+                          : props.currentScreenSize >= 410
+                          ? "1.5rem"
+                          : props.currentScreenSize >= 360
+                          ? "1.2rem"
+                          : "1rem"
                       }}
                       className="landing_page_cta"
                       onClick={() =>
@@ -512,12 +540,16 @@ const LandingPage = React.forwardRef((props, ref) => {
                         items={lineRenderScroll}
                         from={{
                           opacity: 0,
-                          height: "0vh",
+                          tiny_portrait_height: "0vh",
+                          small_portrait_height: "0vh",
+                          portrait_height: "0vh",
                           config: { duration: 100 }
                         }}
                         enter={{
                           opacity: 1,
-                          height: "16vh",
+                          tiny_portrait_height: "14vh",
+                          small_portrait_height: "13vh",
+                          portrait_height: "16vh",
                           config: { duration: 100 }
                         }}
                         leave={{
@@ -532,7 +564,17 @@ const LandingPage = React.forwardRef((props, ref) => {
                             <span
                               style={{
                                 opacity: `${rendered.opacity}`,
-                                height: `${rendered.height}`
+                                height: !props.currentScreenSize
+                                  ? props.initialScreenSize >= 410
+                                    ? `${rendered.portrait_height}`
+                                    : props.initialScreenSize >= 360
+                                    ? `${rendered.small_portrait_height}`
+                                    : `${rendered.tiny_portrait_height}`
+                                  : props.currentScreenSize >= 410
+                                  ? `${rendered.portrait_height}`
+                                  : props.currentScreenSize >= 360
+                                  ? `${rendered.small_portrait_height}`
+                                  : `${rendered.tiny_portrait_height}`
                               }}
                               className="cta_line"
                             />

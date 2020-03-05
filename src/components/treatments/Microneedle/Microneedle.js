@@ -286,14 +286,18 @@ const Microneedle = props => {
                   ? "1.3rem"
                   : props.initialScreenSize >= 1200
                   ? "0.5rem"
-                  : "2rem"
+                  : props.initialScreenSize >= 360
+                  ? "2rem"
+                  : "1rem"
                 : props.currentScreenSize >= 1800
                 ? "2rem"
                 : props.currentScreenSize >= 1600
                 ? "1.3rem"
                 : props.currentScreenSize >= 1200
                 ? "0.5rem"
-                : "2rem"
+                : props.currentScreenSize >= 360
+                ? "2rem"
+                : "1rem"
             }
             style={{
               marginTop:
@@ -304,14 +308,18 @@ const Microneedle = props => {
                     ? "-0.2rem"
                     : props.initialScreenSize >= 1200
                     ? "-0.5rem"
-                    : "-0.5rem"
+                    : props.initialScreenSize >= 360
+                    ? "-0.5rem"
+                    : "-0.1rem"
                   : props.currentScreenSize >= 1800
                   ? "-0.2rem"
                   : props.currentScreenSize >= 1600
                   ? "-0.2rem"
                   : props.currentScreenSize >= 1200
                   ? "-0.5rem"
-                  : "-0.5rem",
+                  : props.currentScreenSize >= 360
+                  ? "-0.5rem"
+                  : "-0.1rem",
               display: microneedleInCart ? "block" : "none"
             }}
             viewBox="0 0 13.229 13.229"
@@ -493,11 +501,20 @@ const Microneedle = props => {
                   ? "rgba(211, 211, 211, 0.8)"
                   : "rgba(255, 198, 207, 0.6)"
               }
-              transform="grow-20"
+              transform={
+                !props.currentScreenSize
+                  ? props.initialScreenSize >= 360
+                    ? "grow-20"
+                    : "grow-10"
+                  : props.currentScreenSize >= 360
+                  ? "grow-20"
+                  : "grow-10"
+              }
               icon={faSquare}
             />
             {checkMark()}
             <FontAwesomeIcon
+              className="small_screen_card_description_suitcase"
               style={{ display: microneedleInCart ? "none" : "block" }}
               color={
                 bacialInCart |

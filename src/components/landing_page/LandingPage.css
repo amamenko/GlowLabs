@@ -173,7 +173,7 @@
     }
 
     .cta_line {
-      margin-top: -2.8rem;
+      margin-top: -1.3rem;
     }
   }
 
@@ -256,11 +256,15 @@
 }
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
-@media only screen and (min-width: 375px) {
+@media only screen and (min-width: 360px) {
   .potted_plant {
     height: 15%;
     top: 8%;
     left: 20%;
+  }
+
+  .small_plant {
+    top: 15.7%;
   }
 
   .cream {
@@ -288,8 +292,7 @@
 
   .q_tips {
     left: 54%;
-    top: 34.25%;
-    left: 52%;
+    top: 35.2%;
   }
 
   .sun_screen {
@@ -308,6 +311,24 @@
     font-size: 12.5px;
     line-height: 1.5rem;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .landing_page_bottom_icon {
+      margin-top: 1.5rem;
+    }
+
+    .cta_line {
+      margin-top: -1.5rem;
+    }
+  }
+
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .cta_line {
+      margin-top: -1.5rem;
+    }
+  }
 }
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
@@ -316,13 +337,39 @@
     top: 26.6%;
   }
 
+  .small_plant {
+    top: 14.8%;
+  }
+
   .cream {
     top: 10.3%;
+  }
+
+  .q_tips {
+    top: 34.25%;
   }
 
   .landing_page_description {
     font-size: 14px;
     line-height: 1.5rem;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .landing_page_bottom_icon {
+      margin-top: 1.5rem;
+    }
+
+    .cta_line {
+      margin-top: -1.5rem;
+    }
+  }
+
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .cta_line {
+      margin-top: -2.8rem;
+    }
   }
 }
 

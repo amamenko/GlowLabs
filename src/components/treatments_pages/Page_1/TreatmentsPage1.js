@@ -39,14 +39,18 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
               opacity: 0,
               width_desktop: "0%",
               width_landscape: "0%",
-              width_mobile: "0%"
+              width_mobile: "0%",
+              width_mobile_small: "0%",
+              width_mobile_tiny: "0%"
             }}
             to={{
               position: "relative",
               opacity: 1,
               width_desktop: "31%",
               width_landscape: "38%",
-              width_mobile: "56%"
+              width_mobile: "56%",
+              width_mobile_small: "62%",
+              width_mobile_tiny: "63%"
             }}
             config={{ duration: 1000 }}
           >
@@ -70,12 +74,20 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
                           ? `${styles.width_desktop}`
                           : props.initialScreenSize >= 600
                           ? `${styles.width_landscape}`
-                          : `${styles.width_mobile}`
+                          : props.initialScreenSize >= 410
+                          ? `${styles.width_mobile}`
+                          : props.initialScreenSize >= 360
+                          ? `${styles.width_mobile_small}`
+                          : `${styles.width_mobile_tiny}`
                         : props.currentScreenSize >= 1200
                         ? `${styles.width_desktop}`
                         : props.currentScreenSize >= 600
                         ? `${styles.width_landscape}`
-                        : `${styles.width_mobile}`
+                        : props.currentScreenSize >= 410
+                        ? `${styles.width_mobile}`
+                        : props.currentScreenSize >= 360
+                        ? `${styles.width_mobile_small}`
+                        : `${styles.width_mobile_tiny}`
                   }}
                   className="treatments_title_underline"
                 />
