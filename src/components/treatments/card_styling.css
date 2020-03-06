@@ -68,7 +68,7 @@
   }
 
   .card_description_inner_wrapper h2 {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .card_description_subheader {
@@ -83,7 +83,7 @@
     justify-content: center;
     align-items: center;
     font-size: 0.6rem;
-    line-height: 14px;
+    line-height: 12px;
   }
 
   .card_description_paragraph_toggle {
@@ -93,14 +93,21 @@
     justify-content: center;
     align-items: flex-start;
     width: 100%;
+    height: 100%;
     margin-right: 5.7rem;
+    position: relative;
   }
 
   .card_description_icon_wrapper_container {
+    height: 20%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-items: flex-start;
+    position: absolute;
+    top: 5%;
+    left: 0;
+    bottom: 5%;
   }
 
   .card_description_paragraph_icon_wrapper {
@@ -109,19 +116,19 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.1rem;
   }
 
   .card_description_paragraph_value {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     display: flex;
     flex: 1;
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
     padding-left: 0.9rem;
-    padding-bottom: 0.1rem;
+    padding-bottom: 0.2rem;
     color: rgb(0, 0, 0);
     font-weight: 500;
   }
@@ -218,6 +225,20 @@
 
   .card_description_subheader {
     font-size: 0.9rem;
+  }
+
+  .card_description_icon_wrapper_container {
+    height: auto;
+    position: static;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .card_description_paragraph_value {
+    padding-bottom: 0.1rem;
   }
 
   .card_description_paragraph {
