@@ -1,5 +1,7 @@
 import * as smoothscroll from "smoothscroll-polyfill";
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
 import ReactDOM from "react-dom";
 import { Spring } from "react-spring/renderprops";
 import { createStore, applyMiddleware } from "redux";
@@ -54,6 +56,15 @@ const store = createStore(
   RootReducer,
   composeWithDevTools(applyMiddleware(...middleware))
 );
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql",
+  onError: ({ graphQLErrors }) => {
+    if (graphQLErrors) {
+      graphQLErrors.map(({ message }) => console.log(message));
+    }
+  }
+});
 
 const App = () => {
   const location = useLocation();
@@ -507,9 +518,11 @@ const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <AliveScope>
-        <App />
-      </AliveScope>
+      <ApolloProvider client={client}>
+        <AliveScope>
+          <App />
+        </AliveScope>
+      </ApolloProvider>
     </Provider>
   </Router>,
   rootElement

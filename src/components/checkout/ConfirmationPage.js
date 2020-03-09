@@ -1,4 +1,6 @@
 import React, { useEffect, useCallback } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { addAppointmentMutation } from "../../graphql/queries/queries";
 import { useSelector } from "react-redux";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -49,6 +51,58 @@ const ConfirmationPage = () => {
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
+  const firstName = useSelector(state => state.firstName.first_name);
+  const lastName = useSelector(state => state.lastName.last_name);
+  const email = useSelector(state => state.email.email);
+  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
+  const appointmentNotes = useSelector(
+    state => state.appointmentNotes.appointment_notes
+  );
+
+  const [addAppointment] = useMutation(addAppointmentMutation);
+
+  const handleSubmitBooking = e => {
+    e.preventDefault();
+    const variablesModel = {
+      date: reformattedDay,
+      time: selectedTime,
+      duration: totalDuration,
+      price: totalPrice,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      notes: appointmentNotes
+    };
+
+    const treatmentsMap = () => {
+      for (let i = 0; i < treatmentsArr.length; i++) {
+        return treatmentsArr.map(item => ({
+          treatment_name: item.name,
+          treatment_duration: Number(item.duration),
+          treatment_price: Number(item.price)
+        }))[i];
+      }
+    };
+
+    console.log(treatmentsMap());
+
+    const addOnsMap = () => {
+      for (let i = 0; i < addOnsArr.length; i++) {
+        return addOnsArr.map(item => ({
+          add_on_name: item.name,
+          add_on_duration: Number(item.duration),
+          add_on_price: Number(item.price)
+        }))[i];
+      }
+    };
+
+    console.log(addOnsMap());
+
+    addAppointment({
+      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() }
+    });
+  };
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -226,7 +280,7 @@ const ConfirmationPage = () => {
         <p>${totalPrice}</p>
       </div>
       <Link to="/checkout/confirmation">
-        <div className="book_appointment_button">
+        <div className="book_appointment_button" onClick={handleSubmitBooking}>
           <p>Book Appointment</p>
         </div>
       </Link>
