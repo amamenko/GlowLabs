@@ -88,12 +88,23 @@ const ConfirmationPage = () => {
     console.log(treatmentsMap());
 
     const addOnsMap = () => {
+      const newAddOnsArr = [];
       for (let i = 0; i < addOnsArr.length; i++) {
-        return addOnsArr.map(item => ({
-          add_on_name: item.name,
-          add_on_duration: Number(item.duration),
-          add_on_price: Number(item.price)
-        }))[i];
+        newAddOnsArr.push({
+          add_on_name: addOnsArr[i].name,
+          add_on_duration: Number(addOnsArr[i].duration),
+          add_on_price: Number(addOnsArr[i].price)
+        });
+      }
+
+      for (let i = 0; i < newAddOnsArr.length; i++) {
+        return {
+          addOns: {
+            name: newAddOnsArr[i].add_on_name,
+            duration: Number(newAddOnsArr[i].add_on_duration),
+            price: Number(newAddOnsArr[i].add_on_price)
+          }
+        };
       }
     };
 

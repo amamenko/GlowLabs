@@ -1,5 +1,13 @@
 import { gql } from "apollo-boost";
 
+gql`
+  input AddOnInput {
+    add_on_name: String!
+    add_on_duration: Int!
+    add_on_price: Int!
+  }
+`;
+
 const getClientsQuery = gql`
   {
     clients {
@@ -138,9 +146,7 @@ const addAppointmentMutation = gql`
     $treatment_name: String!
     $treatment_duration: Int!
     $treatment_price: Int!
-    $add_on_name: String
-    $add_on_duration: Int
-    $add_on_price: Int
+    $addOns: [AddOnInput]
     $notes: String
   ) {
     addAppointment(
@@ -161,9 +167,7 @@ const addAppointmentMutation = gql`
           price: $treatment_price
         }
       ]
-      addOns: [
-        { name: $add_on_name, duration: $add_on_duration, price: $add_on_price }
-      ]
+      addOns: $addOns
       notes: $notes
     ) {
       date
@@ -183,8 +187,8 @@ const addAppointmentMutation = gql`
       }
       addOns {
         name
-        price
         duration
+        price
       }
       notes
     }

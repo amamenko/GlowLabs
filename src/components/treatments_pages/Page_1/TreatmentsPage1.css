@@ -5,6 +5,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100, 1fr));
     grid-auto-rows: auto;
+    gap: 3vh;
     grid-template-areas:
       "header header header"
       "calm_card calm_card calm_card"
@@ -51,6 +52,10 @@
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
 @media only screen and (min-width: 360px) {
+  .treatments_page_1_container {
+    gap: 0;
+  }
+
   .treatments_page_1_header h2 {
     font-size: 1.5rem;
     line-height: 1rem;
