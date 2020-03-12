@@ -2,9 +2,15 @@ import { gql } from "apollo-boost";
 
 gql`
   input AddOnInput {
-    add_on_name: String!
-    add_on_duration: Int!
-    add_on_price: Int!
+    addOns: [AddOnType]
+  }
+`;
+
+gql`
+  type AddOnType {
+    name: String!
+    duration: Int!
+    price: Int!
   }
 `;
 
@@ -20,7 +26,36 @@ const getClientsQuery = gql`
   }
 `;
 
-const getAppointmentsQuery = gql`
+const getAllAppointmentsQuery = gql`
+  {
+    appointments {
+      date
+      time
+      duration
+      price
+      treatments {
+        name
+        duration
+        price
+      }
+      addOns {
+        name
+        duration
+        price
+      }
+      client {
+        id
+        firstName
+        lastName
+        email
+        phoneNumber
+      }
+      notes
+    }
+  }
+`;
+
+const getOwnAppointmentsQuery = gql`
   {
     appointments {
       date
@@ -51,14 +86,14 @@ const getAppointmentsQuery = gql`
 
 const getAppointmentQuery = gql`
   query getAppointmentQuery(
-    $date: String
-    $time: String
-    $duration: Int
-    $price: Int
-    $firstName: String
-    $lastName: String
-    $email: String
-    $phoneNumber: String
+    $date: String!
+    $time: String!
+    $duration: Int!
+    $price: Int!
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $phoneNumber: String!
   ) {
     appointment(
       date: $date
@@ -187,8 +222,8 @@ const addAppointmentMutation = gql`
       }
       addOns {
         name
-        duration
         price
+        duration
       }
       notes
     }
@@ -245,7 +280,8 @@ export {
   loginQuery,
   getClientsQuery,
   getClientQuery,
-  getAppointmentsQuery,
+  getOwnAppointmentsQuery,
+  getAllAppointmentsQuery,
   getAppointmentQuery,
   addAppointmentMutation,
   addClientMutation,

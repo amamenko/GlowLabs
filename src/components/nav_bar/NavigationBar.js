@@ -25,30 +25,30 @@ const NavigationBar = React.forwardRef((props, ref) => {
     if (props.currentScreenSize === "") {
       if (props.initialScreenSize >= 600) {
         if (props.navbarToggle) {
-          return "rgb(255, 198, 207)";
+          return "rgb(226, 188, 153)";
         } else {
           if (props.scroll) {
-            return "rgb(255, 198, 207)";
+            return "rgb(226, 188, 153)";
           } else {
-            return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(255, 198, 207) 50.05%, rgb(255, 198, 207) 100%)";
+            return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(226, 188, 153) 50.05%, rgb(226, 188, 153) 100%)";
           }
         }
       } else {
-        return "rgb(255, 198, 207)";
+        return "rgb(226, 188, 153)";
       }
     } else {
       if (props.currentScreenSize >= 600) {
         if (props.navbarToggle) {
-          return "rgb(255, 198, 207)";
+          return "rgb(226, 188, 153)";
         } else {
           if (props.scroll) {
-            return "rgb(255, 198, 207)";
+            return "rgb(226, 188, 153)";
           } else {
-            return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(255, 198, 207) 50.05%, rgb(255, 198, 207) 100%)";
+            return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(226, 188, 153) 50.05%, rgb(226, 188, 153) 100%)";
           }
         }
       } else {
-        return "rgb(255, 198, 207)";
+        return "rgb(226, 188, 153)";
       }
     }
   };

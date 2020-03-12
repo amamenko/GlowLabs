@@ -244,7 +244,7 @@ const LandingPage = React.forwardRef((props, ref) => {
   const portraitOverscroll = () => {
     if (!cartIsActive) {
       if (window.scrollY <= 50) {
-        document.body.style.setProperty("background", "rgb(255, 198, 207)");
+        document.body.style.setProperty("background", "rgb(226, 188, 153)");
       } else if (window.scrollY >= 7100) {
         document.body.style.setProperty("background", "rgb(215, 156, 165)");
       } else {

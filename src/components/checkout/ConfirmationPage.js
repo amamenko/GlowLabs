@@ -1,6 +1,10 @@
 import React, { useEffect, useCallback } from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { addAppointmentMutation } from "../../graphql/queries/queries";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { Spinner } from "reactstrap";
+import {
+  addAppointmentMutation,
+  getAppointmentQuery
+} from "../../graphql/queries/queries";
 import { useSelector } from "react-redux";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -61,19 +65,24 @@ const ConfirmationPage = () => {
 
   const [addAppointment] = useMutation(addAppointmentMutation);
 
+  const variablesModel = {
+    date: reformattedDay,
+    time: selectedTime,
+    duration: totalDuration,
+    price: totalPrice,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phoneNumber: phoneNumber,
+    notes: appointmentNotes
+  };
+
+  const { loading, data } = useQuery(getAppointmentQuery, {
+    variables: variablesModel
+  });
+
   const handleSubmitBooking = e => {
     e.preventDefault();
-    const variablesModel = {
-      date: reformattedDay,
-      time: selectedTime,
-      duration: totalDuration,
-      price: totalPrice,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phoneNumber: phoneNumber,
-      notes: appointmentNotes
-    };
 
     const treatmentsMap = () => {
       for (let i = 0; i < treatmentsArr.length; i++) {
@@ -85,34 +94,35 @@ const ConfirmationPage = () => {
       }
     };
 
-    console.log(treatmentsMap());
-
     const addOnsMap = () => {
-      const newAddOnsArr = [];
-      for (let i = 0; i < addOnsArr.length; i++) {
-        newAddOnsArr.push({
-          add_on_name: addOnsArr[i].name,
-          add_on_duration: Number(addOnsArr[i].duration),
-          add_on_price: Number(addOnsArr[i].price)
-        });
-      }
-
-      for (let i = 0; i < newAddOnsArr.length; i++) {
-        return {
-          addOns: {
-            name: newAddOnsArr[i].add_on_name,
-            duration: Number(newAddOnsArr[i].add_on_duration),
-            price: Number(newAddOnsArr[i].add_on_price)
-          }
-        };
-      }
+      return {
+        addOns: addOnsArr
+      };
     };
 
-    console.log(addOnsMap());
-
     addAppointment({
-      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() }
+      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() },
+      refetchQueries: [
+        { query: getAppointmentQuery, variables: variablesModel }
+      ]
     });
+  };
+
+  const bookedResult = () => {
+    if (loading) {
+      return <Spinner color="warning" />;
+    } else {
+      if (data) {
+        console.log(data);
+        if (data.appointment) {
+          return data.appointment.map(item => {
+            return <div>{item.date}</div>;
+          });
+        } else {
+          return <div>No appointment found.</div>;
+        }
+      }
+    }
   };
 
   const redirectToHome = () => {
@@ -295,6 +305,7 @@ const ConfirmationPage = () => {
           <p>Book Appointment</p>
         </div>
       </Link>
+      <div>{bookedResult()}</div>
     </div>
   );
 };
