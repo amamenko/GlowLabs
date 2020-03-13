@@ -4,6 +4,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ReactDOM from "react-dom";
 import { Spring } from "react-spring/renderprops";
+import Modal from "react-modal";
 import { createStore, applyMiddleware } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
@@ -88,6 +89,9 @@ const App = () => {
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
+  const touchScaling = useSelector(
+    state => state.fingerTouchScaling.touch_scaling
+  );
 
   const dispatch = useDispatch();
 
@@ -106,14 +110,16 @@ const App = () => {
 
   useLayoutEffect(() => {
     const updateSize = () => {
-      changeCurrentScreenSize(window.innerWidth);
+      if (!touchScaling) {
+        changeCurrentScreenSize(window.innerWidth);
+      }
     };
 
     window.addEventListener("resize", updateSize);
     return () => {
       window.removeEventListener("resize", updateSize);
     };
-  }, [currentScreenSize, initialScreenSize]);
+  }, [currentScreenSize, initialScreenSize, touchScaling]);
 
   const handleClickToScrollToHome = async ref => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
@@ -386,7 +392,9 @@ const App = () => {
                 ? window.scrollY <= 1
                   ? "15vh"
                   : "0vh"
-                : "0vh"
+                : "0vh",
+              zIndex:
+                location.pathname === "/checkout/confirmation" ? null : 500
             }}
           >
             <NavigationBar
@@ -515,6 +523,8 @@ const App = () => {
 };
 
 const rootElement = document.getElementById("root");
+Modal.setAppElement(rootElement);
+
 ReactDOM.render(
   <Router>
     <Provider store={store}>

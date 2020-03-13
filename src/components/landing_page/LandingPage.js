@@ -25,10 +25,14 @@ import ACTION_USER_SCROLLED from "../../actions/Scroll/ACTION_USER_SCROLLED";
 import ACTION_USER_SCROLLED_RESET from "../../actions/Scroll/ACTION_USER_SCROLLED_RESET";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import ACTION_TOUCH_SCALING_ACTIVE from "../../actions/FingerTouchScaling/ACTION_TOUCH_SCALING_ACTIVE";
+import ACTION_TOUCH_SCALING_RESET from "../../actions/FingerTouchScaling/ACTION_TOUCH_SCALING_RESET";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
+  const [twoFingerTouch, changeTwoFingerTouch] = useState(false);
+
   const navbarToggle = useSelector(state => state.navbarToggle.toggle);
   const bodyScrollToggle = useSelector(
     state => state.bodyScrollToggle.overflow
@@ -40,6 +44,9 @@ const LandingPage = React.forwardRef((props, ref) => {
   );
   const splashScreenHalfway = useSelector(
     state => state.splashScreenHalfway.splashScreenHalfway
+  );
+  const touchScaling = useSelector(
+    state => state.fingerTouchScaling.touch_scaling
   );
 
   // For comparison after splash screen halfway point
@@ -149,7 +156,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       }
 
       // Required for iOS Landscape Scroll Disabling During Splash Screen
-      if (!cartIsActive) {
+      if (!splashScreenComplete) {
         if (LandingPageRef) {
           LandingPageRef.current.addEventListener(
             "touchmove",
@@ -171,6 +178,7 @@ const LandingPage = React.forwardRef((props, ref) => {
   }, [
     bodyScrollToggle,
     LandingPageRef,
+    splashScreenComplete,
     props.initialScreenSize,
     props.currentScreenSize,
     navbarToggle,
@@ -244,7 +252,7 @@ const LandingPage = React.forwardRef((props, ref) => {
   const portraitOverscroll = () => {
     if (!cartIsActive) {
       if (window.scrollY <= 50) {
-        document.body.style.setProperty("background", "rgb(226, 188, 153)");
+        document.body.style.setProperty("background", "rgb(232, 210, 195)");
       } else if (window.scrollY >= 7100) {
         document.body.style.setProperty("background", "rgb(215, 156, 165)");
       } else {
@@ -261,8 +269,39 @@ const LandingPage = React.forwardRef((props, ref) => {
     ? portraitOverscroll()
     : document.body.style.setProperty("background", "rgb(255, 255, 255)");
 
+  const handleTouchStart = e => {
+    if (e.touches.length === 2) {
+      if (!twoFingerTouch) {
+        changeTwoFingerTouch(true);
+      }
+    }
+  };
+
+  const handleTouchMove = () => {
+    if (twoFingerTouch) {
+      if (!touchScaling) {
+        dispatch(ACTION_TOUCH_SCALING_ACTIVE());
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (twoFingerTouch) {
+      changeTwoFingerTouch(false);
+      if (touchScaling) {
+        dispatch(ACTION_TOUCH_SCALING_RESET());
+      }
+    }
+  };
+
   return (
-    <div className="landing_page_container" ref={LandingPageRef}>
+    <div
+      className="landing_page_container"
+      ref={LandingPageRef}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <section className="main_content">
         <div
           className="landing_page_drawing"

@@ -8,7 +8,7 @@
     grid-template-areas:
       "header header header header"
       "main main main main";
-    background: rgb(226, 188, 153);
+    background: rgb(232, 210, 195);
   }
 
   .header {
@@ -20,8 +20,7 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    z-index: 500;
-    background: rgb(226, 188, 153);
+    background: rgb(232, 210, 195);
   }
 
   .main_content {

@@ -10,7 +10,7 @@
 }
 
 .checkout_container_header {
-  color: rgb(215, 156, 165);
+  color: rgb(165, 138, 127);
   height: 8vh;
   display: flex;
   flex-direction: row;
@@ -22,7 +22,7 @@
 }
 
 .checkout_forward_arrow {
-  color: rgb(215, 156, 165);
+  color: rgb(165, 138, 127);
   position: absolute;
   right: 1.5rem;
   font-size: 1.5rem;
@@ -32,7 +32,7 @@
 }
 
 .checkout_back_arrow {
-  color: rgb(215, 156, 165);
+  color: rgb(165, 138, 127);
   position: absolute;
   left: 1.5rem;
   font-size: 1.5rem;
@@ -149,7 +149,7 @@
   font-weight: 500;
   font-size: 1rem;
   padding: 0.8rem;
-  background: rgb(215, 156, 165);
+  background: rgb(165, 138, 127);
   border-radius: 30px;
   color: white;
 }
@@ -166,8 +166,8 @@
   font-size: 1rem;
   padding: 0.8rem;
   background: rgb(255, 255, 255);
-  border: 2px solid rgb(215, 156, 165);
+  border: 2px solid rgb(165, 138, 127);
   border-radius: 30px;
-  color: rgb(215, 156, 165);
+  color: rgb(165, 138, 127);
   margin-top: 1.5rem;
 }

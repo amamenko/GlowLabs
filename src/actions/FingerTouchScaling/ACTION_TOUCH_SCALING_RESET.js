@@ -1,0 +1,9 @@
+const TOUCH_SCALING_RESET = "TOUCH_SCALING_RESET";
+
+const ACTION_TOUCH_SCALING_RESET = () => {
+  return {
+    type: TOUCH_SCALING_RESET
+  };
+};
+
+export default ACTION_TOUCH_SCALING_RESET;

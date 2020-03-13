@@ -1,10 +1,9 @@
-import React, { useEffect, useCallback } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { Spinner } from "reactstrap";
-import {
-  addAppointmentMutation,
-  getAppointmentQuery
-} from "../../graphql/queries/queries";
+import React, { useEffect, useCallback, useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { css } from "emotion";
+import { BounceLoader } from "react-spinners";
+import Modal from "react-modal";
+import { addAppointmentMutation } from "../../graphql/queries/queries";
 import { useSelector } from "react-redux";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -62,8 +61,21 @@ const ConfirmationPage = () => {
   const appointmentNotes = useSelector(
     state => state.appointmentNotes.appointment_notes
   );
+  const [loadingSpinner, changeLoadingSpinner] = useState(false);
 
-  const [addAppointment] = useMutation(addAppointmentMutation);
+  const [
+    addAppointment,
+    { loading: appLoading, error: appError, data }
+  ] = useMutation(addAppointmentMutation);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    top: 40%,
+    left: 25%;
+    right: 25%;
+    bottom: 50%;
+  `;
 
   const variablesModel = {
     date: reformattedDay,
@@ -76,10 +88,6 @@ const ConfirmationPage = () => {
     phoneNumber: phoneNumber,
     notes: appointmentNotes
   };
-
-  const { loading, data } = useQuery(getAppointmentQuery, {
-    variables: variablesModel
-  });
 
   const handleSubmitBooking = e => {
     e.preventDefault();
@@ -101,28 +109,8 @@ const ConfirmationPage = () => {
     };
 
     addAppointment({
-      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() },
-      refetchQueries: [
-        { query: getAppointmentQuery, variables: variablesModel }
-      ]
+      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() }
     });
-  };
-
-  const bookedResult = () => {
-    if (loading) {
-      return <Spinner color="warning" />;
-    } else {
-      if (data) {
-        console.log(data);
-        if (data.appointment) {
-          return data.appointment.map(item => {
-            return <div>{item.date}</div>;
-          });
-        } else {
-          return <div>No appointment found.</div>;
-        }
-      }
-    }
   };
 
   const redirectToHome = () => {
@@ -233,6 +221,20 @@ const ConfirmationPage = () => {
     }
   }, [totalDuration]);
 
+  const handleSpinner = useCallback(() => {
+    if (appLoading) {
+      if (!loadingSpinner) {
+        changeLoadingSpinner(true);
+      }
+    } else {
+      return setTimeout(() => {
+        changeLoadingSpinner(false);
+      }, 3000);
+    }
+  }, [appLoading, loadingSpinner]);
+
+  handleSpinner();
+
   return (
     <div className="confirmation_page_container">
       {redirectToHome()}
@@ -305,7 +307,36 @@ const ConfirmationPage = () => {
           <p>Book Appointment</p>
         </div>
       </Link>
-      <div>{bookedResult()}</div>
+      <Modal
+        isOpen={loadingSpinner}
+        style={{
+          content: {
+            position: "fixed",
+            opacity: "0.99",
+            zIndex: "10000",
+            height: "100%",
+            paddingBottom: "50%",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "85%",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)"
+          }
+        }}
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(232, 210, 195)"}
+          loading={loadingSpinner}
+        />
+      </Modal>
     </div>
   );
 };

@@ -433,7 +433,7 @@ const TimePreference = () => {
                   style={{
                     background:
                       item === selectedTime
-                        ? "rgb(215, 156, 165)"
+                        ? "rgb(165, 138, 127)"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
@@ -473,7 +473,7 @@ const TimePreference = () => {
                   style={{
                     background:
                       item === selectedTime
-                        ? "rgb(215, 156, 165)"
+                        ? "rgb(165, 138, 127)"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
@@ -523,7 +523,7 @@ const TimePreference = () => {
                         : "auto",
                     background:
                       item === selectedTime
-                        ? "rgb(215, 156, 165)"
+                        ? "rgb(165, 138, 127)"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
@@ -574,7 +574,7 @@ const TimePreference = () => {
                           : "auto",
                       background:
                         item === selectedTime
-                          ? "rgb(215, 156, 165)"
+                          ? "rgb(165, 138, 127)"
                           : "rgb(255, 255, 255)",
                       color:
                         item === selectedTime
@@ -636,7 +636,7 @@ const TimePreference = () => {
             <div
               className="time_preference_continue_button"
               style={{
-                background: selectedTime ? "rgb(215, 156, 165)" : "#f0f0f0",
+                background: selectedTime ? "rgb(165, 138, 127)" : "#f0f0f0",
                 color: selectedTime
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",

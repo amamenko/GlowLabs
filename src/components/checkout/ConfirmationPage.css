@@ -11,7 +11,7 @@
 }
 
 .confirmation_page_container_header {
-  color: rgb(215, 156, 165);
+  color: rgb(165, 138, 127);
   height: 8vh;
   display: flex;
   flex-direction: row;
@@ -23,7 +23,7 @@
 }
 
 .confirmation_page_back_arrow {
-  color: rgb(215, 156, 165);
+  color: rgb(165, 138, 127);
   position: absolute;
   left: 1.5rem;
   font-size: 1.5rem;
@@ -139,7 +139,7 @@
   font-weight: 500;
   font-size: 1rem;
   padding: 0.8rem;
-  background: rgb(215, 156, 165);
+  background: rgb(165, 138, 127);
   border-radius: 30px;
   color: white;
   margin-top: 6vh;

@@ -137,7 +137,7 @@
   .card_description_paragraph_title {
     display: flex;
     font-size: 0.55rem;
-    color: rgba(155, 98, 107, 0.7);
+    color: rgba(165, 138, 127, 0.7);
     padding-left: 0.3rem;
     font-weight: 500;
     position: absolute;
@@ -147,7 +147,7 @@
   .card_description_icon {
     display: flex;
     font-size: 0.55rem;
-    color: rgba(155, 98, 107, 0.6);
+    color: rgba(165, 138, 127, 0.6);
     position: absolute;
     left: 0;
     margin: 0 auto;

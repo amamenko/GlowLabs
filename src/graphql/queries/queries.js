@@ -86,14 +86,14 @@ const getOwnAppointmentsQuery = gql`
 
 const getAppointmentQuery = gql`
   query getAppointmentQuery(
-    $date: String!
-    $time: String!
-    $duration: Int!
-    $price: Int!
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $phoneNumber: String!
+    $date: String
+    $time: String
+    $duration: Int
+    $price: Int
+    $firstName: String
+    $lastName: String
+    $email: String
+    $phoneNumber: String
   ) {
     appointment(
       date: $date

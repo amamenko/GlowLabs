@@ -75,6 +75,7 @@ import totalPriceReducer from "./reducers/TotalPrice/totalPriceReducer";
 import totalDurationReducer from "./reducers/TotalDuration/totalDurationReducer";
 import splashScreenCompleteReducer from "./reducers/SplashScreenComplete/splashScreenCompleteReducer";
 import splashScreenHalfwayReducer from "./reducers/SplashScreenHalfway/splashScreenHalfwayReducer";
+import fingerTouchScalingReducer from "./reducers/FingerTouchScaling/fingerTouchScalingReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -136,6 +137,7 @@ const RootReducer = combineReducers({
   navbarIsVisibleReducer: navbarIsVisibleReducer,
   splashScreenHalfway: splashScreenHalfwayReducer,
   splashScreenComplete: splashScreenCompleteReducer,
+  fingerTouchScaling: fingerTouchScalingReducer,
 
   // Cart Reducers
   cartIsActive: cartIsActiveReducer,

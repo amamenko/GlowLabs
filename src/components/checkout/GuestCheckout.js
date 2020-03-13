@@ -463,7 +463,7 @@ const GuestCheckout = () => {
                   emailIsValid &&
                   phoneIsValid &&
                   appointmentNotesValid
-                    ? "rgb(215, 156, 165)"
+                    ? "rgb(165, 138, 127)"
                     : "#f0f0f0",
                 color:
                   firstName &&
