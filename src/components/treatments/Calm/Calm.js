@@ -448,7 +448,7 @@ const Calm = props => {
                       quickieInCart |
                       rejuvenateInCart
                     ? "rgba(211, 211, 211, 0.8)"
-                    : "rgba(255, 198, 207, 0.8)"
+                    : "rgb(186, 225, 253, 0.8)"
                   : calmInCart
                   ? "rgb(119, 221, 119, 0.6)"
                   : bacialInCart |
@@ -462,7 +462,7 @@ const Calm = props => {
                     quickieInCart |
                     rejuvenateInCart
                   ? "rgba(211, 211, 211, 0.8)"
-                  : "rgba(255, 198, 207, 0.6)"
+                  : "rgba(188, 214, 232, 0.6)"
               }
               transform={
                 !props.currentScreenSize
@@ -491,7 +491,7 @@ const Calm = props => {
                 quickieInCart |
                 rejuvenateInCart
                   ? "rgb(151, 151, 151)"
-                  : "rgb(175, 118, 127)"
+                  : "rgb(86, 125, 153)"
               }
               icon={faSuitcase}
             />
@@ -527,7 +527,7 @@ const Calm = props => {
       <div
         className="card_bottom_wrapper"
         style={{
-          color: calmToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
+          color: calmToggle ? "rgb(115, 88, 77)" : "rgb(135, 108, 97)",
           transition: "ease all 0.5s"
         }}
       >
@@ -629,7 +629,7 @@ const Calm = props => {
                     className="card_image"
                     style={{
                       backgroundColor: calmToggle
-                        ? "rgb(255, 198, 207)"
+                        ? "	rgba(186, 225, 253, 0.3)"
                         : "rgba(211, 211, 211, 0.4)",
                       boxShadow: calmToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
@@ -639,7 +639,7 @@ const Calm = props => {
                   >
                     <Spring
                       from={{ x: 500, fill: "white" }}
-                      to={{ x: 0, fill: "rgb(255, 198, 207)" }}
+                      to={{ x: 0, fill: "rgb(232, 210, 195)" }}
                       config={{ delay: 300, duration: 3000 }}
                     >
                       {styles => (
@@ -830,7 +830,7 @@ const Calm = props => {
                     className="card_description"
                     style={{
                       backgroundColor: calmToggle
-                        ? "rgba(255, 198, 207, 0.2)"
+                        ? "rgb(205, 178, 167, 0.2)"
                         : "rgba(235, 235, 235, 0.3)",
                       boxShadow: calmToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"

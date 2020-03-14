@@ -76,6 +76,8 @@ import totalDurationReducer from "./reducers/TotalDuration/totalDurationReducer"
 import splashScreenCompleteReducer from "./reducers/SplashScreenComplete/splashScreenCompleteReducer";
 import splashScreenHalfwayReducer from "./reducers/SplashScreenHalfway/splashScreenHalfwayReducer";
 import fingerTouchScalingReducer from "./reducers/FingerTouchScaling/fingerTouchScalingReducer";
+import loadingSpinnerReducer from "./reducers/LoadingSpinner/loadingSpinnerReducer";
+import finalBookButtonReducer from "./reducers/FinalBookButton/finalBookButtonReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -138,6 +140,7 @@ const RootReducer = combineReducers({
   splashScreenHalfway: splashScreenHalfwayReducer,
   splashScreenComplete: splashScreenCompleteReducer,
   fingerTouchScaling: fingerTouchScalingReducer,
+  loadingSpinnerActive: loadingSpinnerReducer,
 
   // Cart Reducers
   cartIsActive: cartIsActiveReducer,
@@ -156,6 +159,7 @@ const RootReducer = combineReducers({
   lateAfternoonCollapse: lateAfternoonCollapseReducer,
   morningCollapse: morningCollapseReducer,
   eveningCollapse: eveningCollapseReducer,
+  finalBookButton: finalBookButtonReducer,
 
   // Guest Checkout Form Reducers
   firstName: firstNameReducer,

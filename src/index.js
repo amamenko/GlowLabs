@@ -92,6 +92,9 @@ const App = () => {
   const touchScaling = useSelector(
     state => state.fingerTouchScaling.touch_scaling
   );
+  const finalBookButtonActive = useSelector(
+    state => state.finalBookButton.final_book_button_active
+  );
 
   const dispatch = useDispatch();
 
@@ -393,8 +396,7 @@ const App = () => {
                   ? "15vh"
                   : "0vh"
                 : "0vh",
-              zIndex:
-                location.pathname === "/checkout/confirmation" ? null : 500
+              zIndex: finalBookButtonActive ? "auto" : 500
             }}
           >
             <NavigationBar

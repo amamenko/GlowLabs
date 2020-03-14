@@ -1,10 +1,10 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import Modal from "react-modal";
 import { addAppointmentMutation } from "../../graphql/queries/queries";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -33,9 +33,13 @@ import DermarollingSummaryCard from "./SummaryReviewCards/AddOns/DermarollingSum
 import NanoNeedlingSummaryCard from "./SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "./SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "./SummaryReviewCards/AddOns/BeardSummaryCard";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_LOADING_SPINNER_RESET from "../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
+import ACTION_FINAL_BOOK_BUTTON_ACTIVE from "../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_ACTIVE";
 
 const ConfirmationPage = () => {
   let location = useLocation();
+  const dispatch = useDispatch();
   const counter = useSelector(state => state.counterReducer.counter);
   const reformattedDay = useSelector(
     state => state.reformattedDay.reformattedDay
@@ -61,7 +65,12 @@ const ConfirmationPage = () => {
   const appointmentNotes = useSelector(
     state => state.appointmentNotes.appointment_notes
   );
-  const [loadingSpinner, changeLoadingSpinner] = useState(false);
+  const loadingSpinnerActive = useSelector(
+    state => state.loadingSpinnerActive.loading_spinner
+  );
+  const finalBookButtonActive = useSelector(
+    state => state.finalBookButton.final_book_button_active
+  );
 
   const [
     addAppointment,
@@ -71,10 +80,8 @@ const ConfirmationPage = () => {
   const override = css`
     display: block;
     position: absolute;
-    top: 40%,
     left: 25%;
     right: 25%;
-    bottom: 50%;
   `;
 
   const variablesModel = {
@@ -91,6 +98,10 @@ const ConfirmationPage = () => {
 
   const handleSubmitBooking = e => {
     e.preventDefault();
+
+    if (!finalBookButtonActive) {
+      dispatch(ACTION_FINAL_BOOK_BUTTON_ACTIVE());
+    }
 
     const treatmentsMap = () => {
       for (let i = 0; i < treatmentsArr.length; i++) {
@@ -221,17 +232,44 @@ const ConfirmationPage = () => {
     }
   }, [totalDuration]);
 
+  const launchConfirmModal = useCallback(() => {
+    return (
+      <Modal
+        isOpen={finalBookButtonActive}
+        style={{
+          content: {
+            position: "fixed",
+            height: "80%",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "90vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center"
+          }
+        }}
+      />
+    );
+  }, [finalBookButtonActive]);
+
   const handleSpinner = useCallback(() => {
     if (appLoading) {
-      if (!loadingSpinner) {
-        changeLoadingSpinner(true);
+      if (!loadingSpinnerActive) {
+        dispatch(ACTION_LOADING_SPINNER_ACTIVE());
       }
     } else {
-      return setTimeout(() => {
-        changeLoadingSpinner(false);
+      setTimeout(() => {
+        dispatch(ACTION_LOADING_SPINNER_RESET());
       }, 3000);
+      launchConfirmModal();
     }
-  }, [appLoading, loadingSpinner]);
+  }, [appLoading, loadingSpinnerActive, dispatch, launchConfirmModal]);
 
   handleSpinner();
 
@@ -308,19 +346,21 @@ const ConfirmationPage = () => {
         </div>
       </Link>
       <Modal
-        isOpen={loadingSpinner}
+        isOpen={finalBookButtonActive}
         style={{
           content: {
             position: "fixed",
-            opacity: "0.99",
             zIndex: "10000",
             height: "100%",
-            paddingBottom: "50%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
             width: "100vw",
             top: "0",
             left: "0",
             right: "0",
-            bottom: "85%",
+            bottom: "0",
             border: "none",
             display: "flex",
             flexDirection: "column",
@@ -334,7 +374,7 @@ const ConfirmationPage = () => {
           size={100}
           css={override}
           color={"rgb(232, 210, 195)"}
-          loading={loadingSpinner}
+          loading={loadingSpinnerActive}
         />
       </Modal>
     </div>

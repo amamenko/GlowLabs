@@ -39,6 +39,8 @@ import "./GuestCheckout.css";
 
 // Minified Bootstrap CSS file (for Forms)
 import "../../bootstrap_forms.min.css";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { getClientQuery } from "../../graphql/queries/queries";
 
 const GuestCheckout = () => {
   const dispatch = useDispatch();
@@ -75,6 +77,20 @@ const GuestCheckout = () => {
     state => state.appointmentNotesValid.appointmentNotesValid
   );
 
+  const [clientQueryCalledEmail, { data: emailData }] = useLazyQuery(
+    getClientQuery,
+    {
+      variables: { email: email }
+    }
+  );
+
+  const [
+    clientQueryCalledPhoneNumber,
+    { data: phoneNumberData }
+  ] = useLazyQuery(getClientQuery, {
+    variables: { phoneNumber: phoneNumber }
+  });
+
   const redirectToHome = () => {
     if (!splashScreenComplete) {
       return <Redirect to="/" />;
@@ -110,16 +126,45 @@ const GuestCheckout = () => {
   };
 
   const handlePhoneNumber = e => {
+    clientQueryCalledPhoneNumber();
     validatePhoneNumber(e.currentTarget.value);
     dispatch(ACTION_PHONE_NUMBER(e.currentTarget.value));
   };
+
+  if (email !== "") {
+    if (emailData) {
+      if (
+        email === emailData.client.email &&
+        emailData.client.password !== null
+      ) {
+        dispatch(ACTION_EMAIL_INVALID());
+        dispatch(ACTION_EMAIL_NOT_VALID());
+        dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+      }
+    }
+  }
+
+  if (phoneNumber !== "") {
+    if (phoneNumberData) {
+      if (
+        phoneNumber === phoneNumberData.client.phoneNumber &&
+        phoneNumberData.client.password !== null
+      ) {
+        dispatch(ACTION_PHONE_NOT_VALID());
+        dispatch(ACTION_PHONE_INVALID());
+        dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+      }
+    }
+  }
 
   // Regular Expression for Email Validation - allows only one @ and only one period while not allowing special characters or spaces
   const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]+$/;
 
   const validateEmail = e => {
+    clientQueryCalledEmail();
     const validEmail = emailReg.test(e.currentTarget.value);
     dispatch(ACTION_EMAIL(e.currentTarget.value));
+
     if (validEmail) {
       dispatch(ACTION_EMAIL_NOT_INVALID());
       dispatch(ACTION_EMAIL_VALID());
@@ -372,9 +417,28 @@ const GuestCheckout = () => {
               invalid={email === "" ? false : emailIsInvalid ? true : false}
               valid={email === "" ? false : emailIsValid ? true : false}
             />
-            <FormFeedback invalid="true">
-              Please enter a valid email address.
-            </FormFeedback>
+            {email !== "" ? (
+              emailData ? (
+                email === emailData.client.email &&
+                emailData.client.password !== null ? (
+                  <FormFeedback invalid="true">
+                    This email has already been registered.
+                  </FormFeedback>
+                ) : (
+                  <FormFeedback invalid="true">
+                    Please enter a valid email address.
+                  </FormFeedback>
+                )
+              ) : (
+                <FormFeedback invalid="true">
+                  Please enter a valid email address.
+                </FormFeedback>
+              )
+            ) : (
+              <FormFeedback invalid="true">
+                Please enter a valid email address.
+              </FormFeedback>
+            )}
           </FormGroup>
           <FormGroup>
             <Label for="phoneNumber">
@@ -397,9 +461,28 @@ const GuestCheckout = () => {
               }
               valid={phoneNumber === "" ? false : phoneIsValid ? true : false}
             />
-            <FormFeedback invalid="true">
-              Please enter a valid phone number.
-            </FormFeedback>
+            {phoneNumber !== "" ? (
+              phoneNumberData ? (
+                phoneNumber === phoneNumberData.client.phoneNumber &&
+                phoneNumberData.client.password !== null ? (
+                  <FormFeedback invalid="true">
+                    This phone number has already been registered.
+                  </FormFeedback>
+                ) : (
+                  <FormFeedback invalid="true">
+                    Please enter a valid phone number.
+                  </FormFeedback>
+                )
+              ) : (
+                <FormFeedback invalid="true">
+                  Please enter a valid phone number.
+                </FormFeedback>
+              )
+            ) : (
+              <FormFeedback invalid="true">
+                Please enter a valid phone number.
+              </FormFeedback>
+            )}
           </FormGroup>
           <FormGroup>
             <Label for="appointmentNotes">Appointment Notes</Label>

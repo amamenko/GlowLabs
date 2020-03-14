@@ -335,7 +335,10 @@ const TimePreference = () => {
   const addOnsDurationArr = addOnsArr.map(item => item.duration);
   const totalDurationArr = treatmentDurationArr.concat(addOnsDurationArr);
 
-  const totalDurationValue = totalDurationArr.reduce((a, b) => a + b);
+  let totalDurationValue;
+  totalDurationArr[0] === undefined
+    ? (totalDurationValue = null)
+    : (totalDurationValue = totalDurationArr.reduce((a, b) => a + b));
 
   const handleAppointmentEndTime = useCallback(() => {
     if (selectedTime) {
@@ -420,7 +423,7 @@ const TimePreference = () => {
               className="time_of_day_card_show_more"
               onClick={handleMorningCollapse}
             >
-              Show {morningCollapseIsOpen ? "Less" : "More"}
+              Show {morningCollapseIsOpen ? "Less" : "Times"}
             </p>
           </div>
           <Collapse isOpen={morningCollapseIsOpen}>
@@ -460,7 +463,7 @@ const TimePreference = () => {
               className="time_of_day_card_show_more"
               onClick={handleAfternoonCollapse}
             >
-              Show {afternoonCollapseIsOpen ? "Less" : "More"}
+              Show {afternoonCollapseIsOpen ? "Less" : "Times"}
             </p>
           </div>
           <Collapse isOpen={afternoonCollapseIsOpen}>
@@ -498,7 +501,7 @@ const TimePreference = () => {
               className="time_of_day_card_show_more"
               onClick={handleLateAfternoonCollapse}
             >
-              Show {lateAfternoonCollapseIsOpen ? "Less" : "More"}
+              Show {lateAfternoonCollapseIsOpen ? "Less" : "Times"}
             </p>
           </div>
           <Collapse isOpen={lateAfternoonCollapseIsOpen}>
@@ -549,7 +552,7 @@ const TimePreference = () => {
                 className="time_of_day_card_show_more"
                 onClick={handleEveningCollapse}
               >
-                Show {eveningCollapseIsOpen ? "Less" : "More"}
+                Show {eveningCollapseIsOpen ? "Less" : "Times"}
               </p>
             </div>
             <Collapse isOpen={eveningCollapseIsOpen}>

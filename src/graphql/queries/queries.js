@@ -141,7 +141,7 @@ const getClientQuery = gql`
     $phoneNumber: String
     $createdAt: String
   ) {
-    appointment(
+    client(
       id: $id
       firstName: $firstName
       lastName: $lastName
@@ -155,6 +155,7 @@ const getClientQuery = gql`
       email
       phoneNumber
       createdAt
+      password
     }
   }
 `;

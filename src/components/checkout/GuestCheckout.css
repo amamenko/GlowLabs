@@ -171,3 +171,7 @@
   color: rgb(165, 138, 127);
   margin-top: 1.5rem;
 }
+
+:-webkit-autofill {
+  transition: none;
+}
