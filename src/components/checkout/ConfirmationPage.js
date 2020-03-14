@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
+import { Transition } from "react-spring/renderprops";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import Modal from "react-modal";
@@ -70,6 +71,9 @@ const ConfirmationPage = () => {
   );
   const finalBookButtonActive = useSelector(
     state => state.finalBookButton.final_book_button_active
+  );
+  const [finalBookingModalActive, changeFinalBookingModalActive] = useState(
+    false
   );
 
   const [
@@ -232,32 +236,6 @@ const ConfirmationPage = () => {
     }
   }, [totalDuration]);
 
-  const launchConfirmModal = useCallback(() => {
-    return (
-      <Modal
-        isOpen={finalBookButtonActive}
-        style={{
-          content: {
-            position: "fixed",
-            height: "80%",
-            paddingBottom: "10%",
-            borderRadius: "none",
-            width: "90vw",
-            top: "0",
-            left: "0",
-            right: "0",
-            bottom: "0",
-            border: "none",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center"
-          }
-        }}
-      />
-    );
-  }, [finalBookButtonActive]);
-
   const handleSpinner = useCallback(() => {
     if (appLoading) {
       if (!loadingSpinnerActive) {
@@ -266,10 +244,10 @@ const ConfirmationPage = () => {
     } else {
       setTimeout(() => {
         dispatch(ACTION_LOADING_SPINNER_RESET());
+        changeFinalBookingModalActive(true);
       }, 3000);
-      launchConfirmModal();
     }
-  }, [appLoading, loadingSpinnerActive, dispatch, launchConfirmModal]);
+  }, [appLoading, loadingSpinnerActive, dispatch]);
 
   handleSpinner();
 
@@ -376,6 +354,41 @@ const ConfirmationPage = () => {
           color={"rgb(232, 210, 195)"}
           loading={loadingSpinnerActive}
         />
+        <Transition
+          items={finalBookingModalActive}
+          from={{ opacity: 0 }}
+          enter={{ opacity: 1 }}
+          leave={{ opacity: 0 }}
+        >
+          {finalBookingModalActive =>
+            finalBookingModalActive ? (
+              <div
+                className="final_booking_modal"
+                style={{
+                  content: {
+                    position: "fixed",
+                    zIndex: "5",
+                    height: "60%",
+                    borderRadius: "none",
+                    width: "80vw",
+                    marginTop: "20vh",
+                    marginRight: "10vw",
+                    marginLeft: "10vw",
+                    border: "2px solid transparent",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }
+                }}
+              >
+                <svg width="50" height="50" viewBox="0 0 13.229 13.229">
+                  <path d="M1.637 12.36a.469.469 0 01-.263-.288c-.036-.131-.035-9.665 0-9.796a.484.484 0 01.287-.294c.058-.017.358-.027.814-.027h.721v-.264c0-.319.027-.423.142-.54.117-.12.214-.145.568-.145.284 0 .308.004.424.066.1.054.135.09.188.193.06.117.064.146.064.408v.282h4.156v-.264c0-.319.028-.423.142-.54.117-.12.214-.145.569-.145.284 0 .307.004.423.066.1.054.136.09.188.193.06.117.064.146.064.408v.282h.722c.455 0 .755.01.813.027a.484.484 0 01.287.294c.036.134.036 9.665 0 9.799a.484.484 0 01-.287.294c-.066.019-1.49.026-5.01.025-4.18 0-4.933-.006-5.012-.034zm9.873-4.117V4.565h-9.7v7.356h9.7zm0-4.983v-.83h-1.386v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H4.582v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H1.811v1.66h9.699zM4.12 2.192v-.711h-.462v1.423h.462zm5.542 0v-.711H9.2v1.423h.462z" />
+                </svg>
+              </div>
+            ) : null
+          }
+        </Transition>
       </Modal>
     </div>
   );

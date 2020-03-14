@@ -1,22 +1,12 @@
 import React, { useEffect } from "react";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Email from "./Form/Email";
+import PhoneNumber from "./Form/PhoneNumber";
 import ACTION_FIRST_NAME from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME";
 import ACTION_LAST_NAME from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME";
 import ACTION_FIRST_NAME_RESET from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME_RESET";
 import ACTION_LAST_NAME_RESET from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME_RESET";
-import ACTION_EMAIL from "../../actions/GuestCheckoutForm/Email/ACTION_EMAIL";
-import ACTION_EMAIL_RESET from "../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
-import ACTION_EMAIL_NOT_INVALID from "../../actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
-import ACTION_EMAIL_VALID from "../../actions/EmailValidation/Valid/ACTION_EMAIL_VALID";
-import ACTION_EMAIL_INVALID from "../../actions/EmailValidation/Invalid/ACTION_EMAIL_INVALID";
-import ACTION_EMAIL_NOT_VALID from "../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
-import ACTION_PHONE_NUMBER from "../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER";
-import ACTION_PHONE_NUMBER_RESET from "../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
-import ACTION_PHONE_VALID from "../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_VALID";
-import ACTION_PHONE_NOT_INVALID from "../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
-import ACTION_PHONE_NOT_VALID from "../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
-import ACTION_PHONE_INVALID from "../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_INVALID";
 import ACTION_APPOINTMENT_NOTES from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES";
 import ACTION_BOOKING_SUMMARY_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_ACTIVE";
 import ACTION_APPOINTMENT_NOTES_INVALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_INVALID";
@@ -27,20 +17,11 @@ import {
   faChevronLeft,
   faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  Form,
-  FormGroup,
-  FormText,
-  FormFeedback,
-  Label,
-  Input
-} from "reactstrap";
+import { Form, FormGroup, FormText, Label, Input } from "reactstrap";
 import "./GuestCheckout.css";
 
 // Minified Bootstrap CSS file (for Forms)
 import "../../bootstrap_forms.min.css";
-import { useLazyQuery } from "@apollo/react-hooks";
-import { getClientQuery } from "../../graphql/queries/queries";
 
 const GuestCheckout = () => {
   const dispatch = useDispatch();
@@ -56,18 +37,10 @@ const GuestCheckout = () => {
   );
 
   // Email States
-  const email = useSelector(state => state.email.email);
   const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
-  const emailIsInvalid = useSelector(
-    state => state.emailIsInvalid.email_invalid
-  );
 
   // Phone Number States
-  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
   const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
-  const phoneIsInvalid = useSelector(
-    state => state.phoneIsInvalid.phone_invalid
-  );
 
   // Appointment Notes States
   const appointmentNotes = useSelector(
@@ -76,20 +49,6 @@ const GuestCheckout = () => {
   const appointmentNotesValid = useSelector(
     state => state.appointmentNotesValid.appointmentNotesValid
   );
-
-  const [clientQueryCalledEmail, { data: emailData }] = useLazyQuery(
-    getClientQuery,
-    {
-      variables: { email: email }
-    }
-  );
-
-  const [
-    clientQueryCalledPhoneNumber,
-    { data: phoneNumberData }
-  ] = useLazyQuery(getClientQuery, {
-    variables: { phoneNumber: phoneNumber }
-  });
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -105,184 +64,12 @@ const GuestCheckout = () => {
     dispatch(ACTION_LAST_NAME(e.currentTarget.value));
   };
 
-  // Regular Expression for Phone Number Validation - allows only phone numbers in the format (xxx) xxx - xxx, with x values being digits
-  const phoneNumberReg = /^(\(\d\d\d\))+\s+(\d\d\d)+\s+(-)+\s+(\d\d\d\d)$/g;
-
-  // Regular Expression for Autocompleted Phone Numbers - allows phone numbers in the format 1xxxxxxxxxx, with x values being digits and the leading 1 country code being optional.
-  const phoneNumberAutocompleteReg = /^(1*\d{10})$/g;
-
-  const validatePhoneNumber = number => {
-    const validPhoneNumber = phoneNumberReg.test(number);
-    const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
-
-    if (validPhoneNumber | validPhoneAutocomplete) {
-      dispatch(ACTION_PHONE_VALID());
-      dispatch(ACTION_PHONE_NOT_INVALID());
-    } else {
-      dispatch(ACTION_PHONE_NOT_VALID());
-      dispatch(ACTION_PHONE_INVALID());
-      dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
-    }
-  };
-
-  const handlePhoneNumber = e => {
-    clientQueryCalledPhoneNumber();
-    validatePhoneNumber(e.currentTarget.value);
-    dispatch(ACTION_PHONE_NUMBER(e.currentTarget.value));
-  };
-
-  if (email !== "") {
-    if (emailData) {
-      if (
-        email === emailData.client.email &&
-        emailData.client.password !== null
-      ) {
-        dispatch(ACTION_EMAIL_INVALID());
-        dispatch(ACTION_EMAIL_NOT_VALID());
-        dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
-      }
-    }
-  }
-
-  if (phoneNumber !== "") {
-    if (phoneNumberData) {
-      if (
-        phoneNumber === phoneNumberData.client.phoneNumber &&
-        phoneNumberData.client.password !== null
-      ) {
-        dispatch(ACTION_PHONE_NOT_VALID());
-        dispatch(ACTION_PHONE_INVALID());
-        dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
-      }
-    }
-  }
-
-  // Regular Expression for Email Validation - allows only one @ and only one period while not allowing special characters or spaces
-  const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]+$/;
-
-  const validateEmail = e => {
-    clientQueryCalledEmail();
-    const validEmail = emailReg.test(e.currentTarget.value);
-    dispatch(ACTION_EMAIL(e.currentTarget.value));
-
-    if (validEmail) {
-      dispatch(ACTION_EMAIL_NOT_INVALID());
-      dispatch(ACTION_EMAIL_VALID());
-    } else {
-      dispatch(ACTION_EMAIL_INVALID());
-      dispatch(ACTION_EMAIL_NOT_VALID());
-      dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
-    }
-  };
-
   const firstNameTyping = () => {
     dispatch(ACTION_FIRST_NAME_RESET());
   };
 
   const lastNameTyping = () => {
     dispatch(ACTION_LAST_NAME_RESET());
-  };
-
-  const emailTyping = () => {
-    dispatch(ACTION_EMAIL_RESET());
-  };
-
-  const phoneNumberTyping = e => {
-    let currentTyping = e.currentTarget.value;
-
-    dispatch(ACTION_PHONE_NUMBER_RESET());
-
-    // Formatting for US Phone Numbers
-    if (currentTyping.length === 3) {
-      currentTyping = currentTyping.split("");
-      currentTyping.unshift("(");
-      currentTyping.push(") ");
-
-      currentTyping = currentTyping.join("");
-    } else {
-      if (currentTyping.length === 4) {
-        if (
-          currentTyping.indexOf("(") === 0 &&
-          currentTyping.indexOf(")") < 0
-        ) {
-          currentTyping = currentTyping.split("");
-          currentTyping.splice(currentTyping.indexOf("("), 1);
-
-          currentTyping = currentTyping.join("");
-        } else {
-          if (
-            currentTyping.indexOf("(") < 0 &&
-            currentTyping.indexOf(")") < 0
-          ) {
-            currentTyping = currentTyping.split("");
-            currentTyping.unshift("(");
-            currentTyping.splice(4, 0, ") ");
-
-            currentTyping = currentTyping.join("");
-          }
-        }
-      } else {
-        if (currentTyping.length === 6) {
-          if (currentTyping.indexOf(" ") < 0) {
-            currentTyping = currentTyping.split("");
-            currentTyping.splice(5, 0, " ");
-
-            currentTyping = currentTyping.join("");
-          }
-        } else {
-          if (currentTyping.length === 10) {
-            if (currentTyping.lastIndexOf(" ") === 5) {
-              currentTyping = currentTyping.split("");
-              currentTyping.splice(9, 0, " - ");
-
-              currentTyping = currentTyping.join("");
-            } else {
-              if (currentTyping.indexOf("(") < 0) {
-                currentTyping = currentTyping.split("");
-                currentTyping.unshift("(");
-                currentTyping.splice(4, 0, ") ");
-                currentTyping.splice(8, 0, " - ");
-                currentTyping = currentTyping.join("");
-              }
-            }
-          } else {
-            if (currentTyping.length === 11) {
-              if (
-                currentTyping.lastIndexOf(" ") === 9 &&
-                currentTyping.indexOf("-") < 0
-              ) {
-                currentTyping = currentTyping.split("");
-                currentTyping.splice(9, 0, " -");
-
-                currentTyping = currentTyping.join("");
-              }
-            } else {
-              if (currentTyping.length === 12) {
-                if (currentTyping.lastIndexOf(" ") === 9) {
-                  currentTyping = currentTyping.split("");
-                  currentTyping.splice(11, 0, " ");
-
-                  currentTyping = currentTyping.join("");
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    e.currentTarget.value = currentTyping;
-  };
-
-  const phoneNumberKeyTyping = e => {
-    if (
-      (e.keyCode >= 8 && e.keyCode <= 46) ||
-      (e.keyCode >= 96 && e.keyCode <= 105) ||
-      (e.keyCode >= 48 && e.keyCode <= 57)
-    ) {
-      return e.keyCode;
-    } else {
-      e.preventDefault();
-    }
   };
 
   const appointmentNotesTyping = e => {
@@ -399,91 +186,8 @@ const GuestCheckout = () => {
               valid={lastName === "" ? false : true}
             />
           </FormGroup>
-          <FormGroup>
-            <Label for="guestEmail">
-              <div className="required_label">
-                Email<p className="required_label red_asterisk">* </p>
-              </div>
-            </Label>
-            <Input
-              type="email"
-              name="email"
-              defaultValue={email}
-              maxLength={128}
-              placeholder="Email address"
-              className="input_field"
-              onChange={emailTyping}
-              onBlur={validateEmail}
-              invalid={email === "" ? false : emailIsInvalid ? true : false}
-              valid={email === "" ? false : emailIsValid ? true : false}
-            />
-            {email !== "" ? (
-              emailData ? (
-                email === emailData.client.email &&
-                emailData.client.password !== null ? (
-                  <FormFeedback invalid="true">
-                    This email has already been registered.
-                  </FormFeedback>
-                ) : (
-                  <FormFeedback invalid="true">
-                    Please enter a valid email address.
-                  </FormFeedback>
-                )
-              ) : (
-                <FormFeedback invalid="true">
-                  Please enter a valid email address.
-                </FormFeedback>
-              )
-            ) : (
-              <FormFeedback invalid="true">
-                Please enter a valid email address.
-              </FormFeedback>
-            )}
-          </FormGroup>
-          <FormGroup>
-            <Label for="phoneNumber">
-              <div className="required_label">
-                Phone Number<p className="required_label red_asterisk">* </p>
-              </div>
-            </Label>
-            <Input
-              type="tel"
-              name="phoneNumber"
-              maxLength={16}
-              onKeyDown={phoneNumberKeyTyping}
-              defaultValue={phoneNumber}
-              placeholder="Phone number"
-              onChange={phoneNumberTyping}
-              onBlur={handlePhoneNumber}
-              className="input_field"
-              invalid={
-                phoneNumber === "" ? false : phoneIsInvalid ? true : false
-              }
-              valid={phoneNumber === "" ? false : phoneIsValid ? true : false}
-            />
-            {phoneNumber !== "" ? (
-              phoneNumberData ? (
-                phoneNumber === phoneNumberData.client.phoneNumber &&
-                phoneNumberData.client.password !== null ? (
-                  <FormFeedback invalid="true">
-                    This phone number has already been registered.
-                  </FormFeedback>
-                ) : (
-                  <FormFeedback invalid="true">
-                    Please enter a valid phone number.
-                  </FormFeedback>
-                )
-              ) : (
-                <FormFeedback invalid="true">
-                  Please enter a valid phone number.
-                </FormFeedback>
-              )
-            ) : (
-              <FormFeedback invalid="true">
-                Please enter a valid phone number.
-              </FormFeedback>
-            )}
-          </FormGroup>
+          <Email />
+          <PhoneNumber />
           <FormGroup>
             <Label for="appointmentNotes">Appointment Notes</Label>
             <Input
