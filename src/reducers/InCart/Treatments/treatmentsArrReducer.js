@@ -20,6 +20,7 @@ const QUICKIE_IN_CART = "QUICKIE_IN_CART";
 const QUICKIE_NOT_IN_CART = "QUICKIE_NOT_IN_CART";
 const REJUVENATE_IN_CART = "REJUVENATE_IN_CART";
 const REJUVENATE_NOT_IN_CART = "REJUVENATE_NOT_IN_CART";
+const TREATMENTS_CART_RESET = "TREATMENTS_CART_RESET";
 
 const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
   const treatments_arr_clone = [...state.treatments_arr];
@@ -63,6 +64,12 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
                 item => item.name !== action.payload.name
               )
             : []
+      };
+
+    case TREATMENTS_CART_RESET:
+      return {
+        ...state,
+        treatments_arr: []
       };
     default:
       return { ...state };

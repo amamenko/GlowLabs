@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_PHONE_VALID from "../../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_VALID";
 import ACTION_PHONE_NOT_INVALID from "../../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
@@ -7,7 +7,7 @@ import ACTION_PHONE_INVALID from "../../../actions/PhoneNumberValidation/Invalid
 import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import { useQuery } from "@apollo/react-hooks";
-import { getClientByPhoneNumberQuery } from "../../../graphql/queries/queries";
+import { getClientsQuery } from "../../../graphql/queries/queries";
 import ACTION_PHONE_NUMBER_RESET from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
 import ACTION_PHONE_NUMBER from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER";
 import "../GuestCheckout.css";
@@ -20,6 +20,10 @@ const PhoneNumber = () => {
   const phoneIsInvalid = useSelector(
     state => state.phoneIsInvalid.phone_invalid
   );
+  const [
+    phoneNumberAlreadyRegistered,
+    changePhoneNumberAlreadyRegistered
+  ] = useState(false);
 
   // Regular Expression for Phone Number Validation - allows only phone numbers in the format (xxx) xxx - xxx, with x values being digits
   const phoneNumberReg = /^(\(\d\d\d\))+\s+(\d\d\d)+\s+(-)+\s+(\d\d\d\d)$/g;
@@ -27,16 +31,17 @@ const PhoneNumber = () => {
   // Regular Expression for Autocompleted Phone Numbers - allows phone numbers in the format 1xxxxxxxxxx, with x values being digits and the leading 1 country code being optional.
   const phoneNumberAutocompleteReg = /^(1*\d{10})$/g;
 
-  const { data: phoneNumberData } = useQuery(getClientByPhoneNumberQuery, {
-    variables: { phoneNumber: phoneNumber }
+  const { data } = useQuery(getClientsQuery, {
+    fetchPolicy: "no-cache"
   });
-
-  console.log(phoneNumberData);
 
   const validatePhoneNumber = number => {
     const validPhoneNumber = phoneNumberReg.test(number);
     const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
 
+    if (phoneNumberAlreadyRegistered) {
+      changePhoneNumberAlreadyRegistered(false);
+    }
     if (validPhoneNumber | validPhoneAutocomplete) {
       dispatch(ACTION_PHONE_VALID());
       dispatch(ACTION_PHONE_NOT_INVALID());
@@ -52,30 +57,23 @@ const PhoneNumber = () => {
     dispatch(ACTION_PHONE_NUMBER(e.currentTarget.value));
   };
 
-  const checkPhoneNumber = useCallback(
-    phoneNumber => {
-      if (phoneNumber !== "") {
-        if (phoneNumberData) {
+  useMemo(() => {
+    if (phoneNumber) {
+      if (data) {
+        for (let i = 0; i < data.clients.length; i++) {
           if (
-            phoneNumber === phoneNumberData.client.number &&
-            phoneNumberData.client.password !== null
+            data.clients[i].phoneNumber === phoneNumber &&
+            data.clients[i].password !== null
           ) {
+            changePhoneNumberAlreadyRegistered(true);
             dispatch(ACTION_PHONE_NOT_VALID());
             dispatch(ACTION_PHONE_INVALID());
             dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
           }
         }
       }
-    },
-    [dispatch, phoneNumberData]
-  );
-
-  useMemo(
-    phoneNumber => {
-      checkPhoneNumber(phoneNumber);
-    },
-    [checkPhoneNumber]
-  );
+    }
+  }, [data, phoneNumber, dispatch]);
 
   const phoneNumberTyping = e => {
     let currentTyping = e.currentTarget.value;
@@ -195,26 +193,13 @@ const PhoneNumber = () => {
         invalid={phoneNumber === "" ? false : phoneIsInvalid ? true : false}
         valid={phoneNumber === "" ? false : phoneIsValid ? true : false}
       />
-      {phoneNumber !== "" ? (
-        phoneNumberData ? (
-          phoneNumber === phoneNumberData.client.phoneNumber &&
-          phoneNumberData.client.password !== null ? (
-            <FormFeedback invalid="true">
-              This phone number has already been registered.
-            </FormFeedback>
-          ) : (
-            <FormFeedback invalid="true">
-              Please enter a valid phone number.
-            </FormFeedback>
-          )
-        ) : (
-          <FormFeedback invalid="true">
-            Please enter a valid phone number.
-          </FormFeedback>
-        )
+      {phoneNumberAlreadyRegistered ? (
+        <FormFeedback invalid="true">
+          This email has already been registered.
+        </FormFeedback>
       ) : (
         <FormFeedback invalid="true">
-          Please enter a valid phone number.
+          Please enter a valid email address.
         </FormFeedback>
       )}
     </FormGroup>

@@ -22,6 +22,7 @@ const getClientsQuery = gql`
       email
       phoneNumber
       id
+      password
     }
   }
 `;
@@ -132,34 +133,6 @@ const getAppointmentQuery = gql`
   }
 `;
 
-const getClientByEmailQuery = gql`
-  query getClientByEmailQuery($email: String) {
-    client(email: $email) {
-      id
-      firstName
-      lastName
-      email
-      phoneNumber
-      createdAt
-      password
-    }
-  }
-`;
-
-const getClientByPhoneNumberQuery = gql`
-  query getClientByPhoneNumberQuery($phoneNumber: String) {
-    client(phoneNumber: $phoneNumber) {
-      id
-      firstName
-      lastName
-      email
-      phoneNumber
-      createdAt
-      password
-    }
-  }
-`;
-
 const getClientQuery = gql`
   query(
     $id: ID
@@ -238,6 +211,7 @@ const addAppointmentMutation = gql`
       time
       duration
       price
+      createdAt
       client {
         firstName
         lastName
@@ -309,8 +283,6 @@ export {
   loginQuery,
   getClientsQuery,
   getClientQuery,
-  getClientByEmailQuery,
-  getClientByPhoneNumberQuery,
   getOwnAppointmentsQuery,
   getAllAppointmentsQuery,
   getAppointmentQuery,

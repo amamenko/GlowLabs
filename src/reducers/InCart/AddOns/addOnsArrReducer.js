@@ -16,6 +16,7 @@ const MICRODERMABRASION_IN_CART = "MICRODERMABRASION_IN_CART";
 const MICRODERMABRASION_NOT_IN_CART = "MICRODERMABRASION_NOT_IN_CART";
 const NANONEEDLING_IN_CART = "NANONEEDLING_IN_CART";
 const NANONEEDLING_NOT_IN_CART = "NANONEEDLING_NOT_IN_CART";
+const ADD_ONS_CART_RESET = "ADD_ONS_CART_RESET";
 
 const addOnsArrReducer = (state = { add_ons_arr: [] }, action) => {
   const add_ons_arr_clone = [...state.add_ons_arr];
@@ -52,6 +53,11 @@ const addOnsArrReducer = (state = { add_ons_arr: [] }, action) => {
         add_ons_arr: add_ons_arr_clone.filter(
           item => item.name !== action.payload.name
         )
+      };
+    case ADD_ONS_CART_RESET:
+      return {
+        ...state,
+        add_ons_arr: []
       };
     default:
       return { ...state };

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import ACTION_EMAIL from "../../../actions/GuestCheckoutForm/Email/ACTION_EMAIL";
@@ -9,7 +9,7 @@ import ACTION_EMAIL_INVALID from "../../../actions/EmailValidation/Invalid/ACTIO
 import ACTION_EMAIL_NOT_VALID from "../../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
 import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
 import { useQuery } from "@apollo/react-hooks";
-import { getClientByEmailQuery } from "../../../graphql/queries/queries";
+import { getClientsQuery } from "../../../graphql/queries/queries";
 import "../GuestCheckout.css";
 
 const Email = () => {
@@ -21,20 +21,24 @@ const Email = () => {
   const emailIsInvalid = useSelector(
     state => state.emailIsInvalid.email_invalid
   );
+  const [emailAlreadyRegistered, changeEmailAlreadyRegistered] = useState(
+    false
+  );
 
   // Regular Expression for Email Validation - allows only one @ and only one period while not allowing special characters or spaces
-  const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]$/;
+  const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]+$/;
 
-  const { data: emailData } = useQuery(getClientByEmailQuery, {
-    variables: { email: email }
+  const { data } = useQuery(getClientsQuery, {
+    fetchPolicy: "no-cache"
   });
-
-  console.log(emailData);
 
   const validateEmail = e => {
     const validEmail = emailReg.test(e.currentTarget.value);
     dispatch(ACTION_EMAIL(e.currentTarget.value.trim()));
 
+    if (emailAlreadyRegistered) {
+      changeEmailAlreadyRegistered(false);
+    }
     if (validEmail) {
       dispatch(ACTION_EMAIL_NOT_INVALID());
       dispatch(ACTION_EMAIL_VALID());
@@ -45,25 +49,23 @@ const Email = () => {
     }
   };
 
-  const checkEmail = useCallback(() => {
+  useMemo(() => {
     if (email) {
-      if (emailData) {
-        if (
-          email === emailData.client.email &&
-          emailData.client.password !== null
-        ) {
-          dispatch(ACTION_EMAIL_INVALID());
-          dispatch(ACTION_EMAIL_NOT_VALID());
-          dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
-        } else {
-          dispatch(ACTION_EMAIL_NOT_INVALID());
-          dispatch(ACTION_EMAIL_VALID());
+      if (data) {
+        for (let i = 0; i < data.clients.length; i++) {
+          if (
+            data.clients[i].email === email &&
+            data.clients[i].password !== null
+          ) {
+            changeEmailAlreadyRegistered(true);
+            dispatch(ACTION_EMAIL_INVALID());
+            dispatch(ACTION_EMAIL_NOT_VALID());
+            dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+          }
         }
       }
     }
-  }, [dispatch, emailData, email]);
-
-  checkEmail();
+  }, [dispatch, data, email]);
 
   const emailTyping = () => {
     dispatch(ACTION_EMAIL_RESET());
@@ -87,23 +89,10 @@ const Email = () => {
         invalid={email === "" ? false : emailIsInvalid ? true : false}
         valid={email === "" ? false : emailIsValid ? true : false}
       />
-      {email !== "" ? (
-        emailData ? (
-          email === emailData.client.email &&
-          emailData.client.password !== null ? (
-            <FormFeedback invalid="true">
-              This email has already been registered.
-            </FormFeedback>
-          ) : (
-            <FormFeedback invalid="true">
-              Please enter a valid email address.
-            </FormFeedback>
-          )
-        ) : (
-          <FormFeedback invalid="true">
-            Please enter a valid email address.
-          </FormFeedback>
-        )
+      {emailAlreadyRegistered ? (
+        <FormFeedback invalid="true">
+          This email has already been registered.
+        </FormFeedback>
       ) : (
         <FormFeedback invalid="true">
           Please enter a valid email address.

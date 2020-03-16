@@ -151,7 +151,153 @@
 }
 
 .final_booking_modal {
-  -webkit-box-shadow: -1px 2px 20px 4px rgba(194, 194, 194, 1);
-  -moz-box-shadow: -1px 2px 20px 4px rgba(194, 194, 194, 1);
-  box-shadow: -1px 2px 20px 4px rgba(194, 194, 194, 1);
+  -webkit-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  -moz-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  position: fixed;
+  z-index: 5;
+  height: 70%;
+  margin-top: -10%;
+  border-radius: 10px;
+  width: 80vw;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(234, 229, 233);
+}
+
+.modal_x {
+  position: absolute;
+  top: 3%;
+  right: 7%;
+  color: rgb(115, 88, 77);
+  font-size: 2rem;
+}
+
+.modal_calendar_icon {
+  position: absolute;
+  bottom: -15%;
+}
+
+.modal_calendar_icon_container {
+  position: relative;
+  width: 100%;
+  height: 5%;
+  padding-bottom: 24%;
+  background: -webkit-linear-gradient(
+    to left,
+    rgba(211, 211, 211, 0.3),
+    transparent 50%
+  );
+  background: -moz-linear-gradient(
+    to left,
+    rgba(211, 211, 211, 0.3),
+    transparent 50%
+  );
+  background: -ms-linear-gradient(
+    to left,
+    rgba(211, 211, 211, 0.3),
+    transparent 50%
+  );
+  background: linear-gradient(
+    to left,
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
+    transparent 60%
+  );
+}
+
+.modal_checkmark {
+  display: block;
+  height: 3rem;
+  position: absolute;
+  top: 5%;
+  bottom: 0;
+}
+
+.final_booking_modal_contents {
+  height: 100%;
+  padding-top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-right: 10%;
+  margin-left: 10%;
+  line-height: 1.3rem;
+}
+
+.modal_confirmation_statement {
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+.modal_appointment_time,
+.modal_appointment_provider,
+.modal_appointment_spacer {
+  font-weight: 600;
+  font-size: 1.3rem;
+  display: inline-block;
+}
+
+.modal_appointment_spacer {
+  color: rgb(203, 193, 191);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-weight: 500;
+}
+
+.modal_bold_details_container {
+  display: inline-block;
+}
+
+.modal_bottom_info_container {
+  width: 100%;
+}
+
+.modal_date_time_container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.modal_full_date_info {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgb(121, 121, 121);
+  text-align: center;
+}
+
+.modal_address_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.modal_address_container p {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgb(121, 121, 121);
+}
+
+.dismiss_modal_button {
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background: rgb(165, 138, 127);
+  border-radius: 30px;
+  color: white;
+  margin-bottom: 50%;
 }

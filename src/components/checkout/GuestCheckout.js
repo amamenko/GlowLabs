@@ -57,11 +57,11 @@ const GuestCheckout = () => {
   };
 
   const handleFirstName = e => {
-    dispatch(ACTION_FIRST_NAME(e.currentTarget.value));
+    dispatch(ACTION_FIRST_NAME(e.currentTarget.value.trim()));
   };
 
   const handleLastName = e => {
-    dispatch(ACTION_LAST_NAME(e.currentTarget.value));
+    dispatch(ACTION_LAST_NAME(e.currentTarget.value.trim()));
   };
 
   const firstNameTyping = () => {
@@ -73,7 +73,7 @@ const GuestCheckout = () => {
   };
 
   const appointmentNotesTyping = e => {
-    dispatch(ACTION_APPOINTMENT_NOTES(e.currentTarget.value));
+    dispatch(ACTION_APPOINTMENT_NOTES(e.currentTarget.value.trim()));
   };
 
   const handleConfirmDetailsButtonClick = () => {

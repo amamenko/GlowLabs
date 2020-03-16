@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { Transition } from "react-spring/renderprops";
+import { Transition, Spring } from "react-spring/renderprops";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import Modal from "react-modal";
@@ -11,7 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faCalendar,
-  faClock
+  faClock,
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 import "./ConfirmationPage.css";
 import CalmSummaryCard from "./SummaryReviewCards/Treatments/CalmSummaryCard";
@@ -37,6 +38,32 @@ import BeardSummaryCard from "./SummaryReviewCards/AddOns/BeardSummaryCard";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_LOADING_SPINNER_RESET from "../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_FINAL_BOOK_BUTTON_ACTIVE from "../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_ACTIVE";
+import ACTION_SELECT_TIME_NOT_ACTIVE from "../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
+import ACTION_SELECTED_TIME_RESET from "../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
+import ACTION_ALL_COLLAPSE_RESET from "../../actions/SelectedTime/CollapseIsOpen/ACTION_ALL_COLLAPSE_RESET";
+import ACTION_ADD_ONS_CART_RESET from "../../actions/InCart/AddOns/ACTION_ADD_ONS_CART_RESET";
+import ACTION_TREATMENTS_CART_RESET from "../../actions/InCart/Treatments/ACTION_TREATMENTS_CART_RESET";
+import ACTION_TOTAL_PRICE_RESET from "../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
+import ACTION_TOTAL_DURATION_RESET from "../../actions/TotalDuration/ACTION_TOTAL_DURATION_RESET";
+import ACTION_SELECTED_DAY_RESET from "../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
+import ACTION_REFORMATTED_DAY_RESET from "../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
+import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
+import ACTION_PHONE_NOT_VALID from "../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
+import ACTION_PHONE_NOT_INVALID from "../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
+import ACTION_APPOINTMENT_NOTES_RESET from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_RESET";
+import ACTION_EMAIL_RESET from "../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
+import ACTION_FIRST_NAME_RESET from "../../actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME_RESET";
+import ACTION_LAST_NAME_RESET from "../../actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME_RESET";
+import ACTION_PHONE_NUMBER_RESET from "../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
+import ACTION_FINAL_BOOK_BUTTON_RESET from "../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_RESET";
+import ACTION_EMAIL_NOT_INVALID from "../../actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
+import ACTION_EMAIL_NOT_VALID from "../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
+import ACTION_RESET_COUNTER from "../../actions/Counter/ACTION_RESET_COUNTER";
+import ACTION_CONTINUE_BUTTON_RESET from "../../actions/ContinueToCheckoutButtonActive/ACTION_CONTINUE_BUTTON_RESET";
+import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
+import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import ACTION_AVAILABILITY_RESET from "../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
+import ACTION_APPOINTMENT_END_TIME_RESET from "../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME_RESET";
 
 const ConfirmationPage = () => {
   let location = useLocation();
@@ -76,10 +103,9 @@ const ConfirmationPage = () => {
     false
   );
 
-  const [
-    addAppointment,
-    { loading: appLoading, error: appError, data }
-  ] = useMutation(addAppointmentMutation);
+  const [addAppointment, { loading: appLoading }] = useMutation(
+    addAppointmentMutation
+  );
 
   const override = css`
     display: block;
@@ -236,20 +262,53 @@ const ConfirmationPage = () => {
     }
   }, [totalDuration]);
 
-  const handleSpinner = useCallback(() => {
+  useEffect(() => {
     if (appLoading) {
       if (!loadingSpinnerActive) {
         dispatch(ACTION_LOADING_SPINNER_ACTIVE());
       }
     } else {
-      setTimeout(() => {
+      const bookingComplete = setTimeout(() => {
         dispatch(ACTION_LOADING_SPINNER_RESET());
         changeFinalBookingModalActive(true);
       }, 3000);
-    }
-  }, [appLoading, loadingSpinnerActive, dispatch]);
 
-  handleSpinner();
+      return () => {
+        if (finalBookingModalActive) {
+          clearTimeout(bookingComplete);
+        }
+      };
+    }
+  }, [appLoading, dispatch, loadingSpinnerActive, finalBookingModalActive]);
+
+  const handleModalBackToHome = () => {
+    dispatch(ACTION_TOTAL_PRICE_RESET());
+    dispatch(ACTION_TOTAL_DURATION_RESET());
+    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+    dispatch(ACTION_SELECTED_TIME_RESET());
+    dispatch(ACTION_SELECTED_DAY_RESET());
+    dispatch(ACTION_ALL_COLLAPSE_RESET());
+    dispatch(ACTION_TREATMENTS_CART_RESET());
+    dispatch(ACTION_ADD_ONS_CART_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+    dispatch(ACTION_PHONE_NOT_VALID());
+    dispatch(ACTION_PHONE_NOT_INVALID());
+    dispatch(ACTION_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_EMAIL_RESET());
+    dispatch(ACTION_FIRST_NAME_RESET());
+    dispatch(ACTION_LAST_NAME_RESET());
+    dispatch(ACTION_PHONE_NUMBER_RESET());
+    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
+    dispatch(ACTION_EMAIL_NOT_INVALID());
+    dispatch(ACTION_EMAIL_NOT_VALID());
+    dispatch(ACTION_RESET_COUNTER());
+    dispatch(ACTION_CONTINUE_BUTTON_RESET());
+    dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    dispatch(ACTION_AVAILABILITY_RESET());
+    dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
+  };
 
   return (
     <div className="confirmation_page_container">
@@ -356,37 +415,96 @@ const ConfirmationPage = () => {
         />
         <Transition
           items={finalBookingModalActive}
-          from={{ opacity: 0 }}
-          enter={{ opacity: 1 }}
-          leave={{ opacity: 0 }}
+          from={{ transform: "translate3d(0, -65%, 0)" }}
+          enter={{ transform: "translate3d(0, 0, 0)" }}
+          leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
           {finalBookingModalActive =>
-            finalBookingModalActive ? (
-              <div
-                className="final_booking_modal"
-                style={{
-                  content: {
-                    position: "fixed",
-                    zIndex: "5",
-                    height: "60%",
-                    borderRadius: "none",
-                    width: "80vw",
-                    marginTop: "20vh",
-                    marginRight: "10vw",
-                    marginLeft: "10vw",
-                    border: "2px solid transparent",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }
-                }}
-              >
-                <svg width="50" height="50" viewBox="0 0 13.229 13.229">
-                  <path d="M1.637 12.36a.469.469 0 01-.263-.288c-.036-.131-.035-9.665 0-9.796a.484.484 0 01.287-.294c.058-.017.358-.027.814-.027h.721v-.264c0-.319.027-.423.142-.54.117-.12.214-.145.568-.145.284 0 .308.004.424.066.1.054.135.09.188.193.06.117.064.146.064.408v.282h4.156v-.264c0-.319.028-.423.142-.54.117-.12.214-.145.569-.145.284 0 .307.004.423.066.1.054.136.09.188.193.06.117.064.146.064.408v.282h.722c.455 0 .755.01.813.027a.484.484 0 01.287.294c.036.134.036 9.665 0 9.799a.484.484 0 01-.287.294c-.066.019-1.49.026-5.01.025-4.18 0-4.933-.006-5.012-.034zm9.873-4.117V4.565h-9.7v7.356h9.7zm0-4.983v-.83h-1.386v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H4.582v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H1.811v1.66h9.699zM4.12 2.192v-.711h-.462v1.423h.462zm5.542 0v-.711H9.2v1.423h.462z" />
-                </svg>
+            finalBookingModalActive &&
+            (props => (
+              <div className="final_booking_modal" style={props}>
+                <div className="final_booking_modal_contents">
+                  <Link to="/">
+                    <FontAwesomeIcon
+                      className="modal_x"
+                      icon={faTimes}
+                      onClick={handleModalBackToHome}
+                    />
+                  </Link>
+                  <div className="modal_calendar_icon_container">
+                    <svg
+                      className="modal_calendar_icon"
+                      width="100%"
+                      height="6rem"
+                      viewBox="0 0 13.229 13.229"
+                    >
+                      <path d="M1.637 12.36a.469.469 0 01-.263-.288c-.036-.131-.035-9.665 0-9.796a.484.484 0 01.287-.294c.058-.017.358-.027.814-.027h.721v-.264c0-.319.027-.423.142-.54.117-.12.214-.145.568-.145.284 0 .308.004.424.066.1.054.135.09.188.193.06.117.064.146.064.408v.282h4.156v-.264c0-.319.028-.423.142-.54.117-.12.214-.145.569-.145.284 0 .307.004.423.066.1.054.136.09.188.193.06.117.064.146.064.408v.282h.722c.455 0 .755.01.813.027a.484.484 0 01.287.294c.036.134.036 9.665 0 9.799a.484.484 0 01-.287.294c-.066.019-1.49.026-5.01.025-4.18 0-4.933-.006-5.012-.034zm9.873-4.117V4.565h-9.7v7.356h9.7zm0-4.983v-.83h-1.386v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H4.582v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H1.811v1.66h9.699zM4.12 2.192v-.711h-.462v1.423h.462zm5.542 0v-.711H9.2v1.423h.462z" />
+                    </svg>
+                    <Spring
+                      from={{ x: 100 }}
+                      to={{ x: 0 }}
+                      config={{ delay: 500, duration: 2000 }}
+                    >
+                      {styles => (
+                        <svg
+                          width="100%"
+                          height="0.5rem"
+                          className="modal_checkmark"
+                          viewBox="0 0 13.229 13.229"
+                        >
+                          <path
+                            d="M2.851 7.56l2.45 2.482 5.36-6.958"
+                            fill="none"
+                            stroke="rgb(55, 55, 55)"
+                            strokeDasharray="100"
+                            strokeDashoffset={`${styles.x}`}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="3"
+                          />
+                        </svg>
+                      )}
+                    </Spring>
+                  </div>
+                  <p className="modal_confirmation_statement">
+                    {firstName}, your appointment has been confirmed.
+                  </p>
+                  <div className="modal_date_time_container">
+                    <div className="modal_bold_details_container">
+                      <p className="modal_appointment_time">
+                        {selectedTime}{" "}
+                        {Number(selectedTime.slice(0, 1)) > 1
+                          ? "PM"
+                          : Number(selectedTime.slice(0, 2)) < 12
+                          ? "AM"
+                          : "PM"}
+                      </p>
+                      <p className="modal_appointment_spacer">|</p>
+                      <p className="modal_appointment_provider">Glow Labs</p>
+                    </div>
+                    <div className="modal_bottom_info_container">
+                      <p className="modal_full_date_info">
+                        {dayOfTheWeek.toUpperCase()},{" "}
+                        {reformattedDay.toUpperCase()}
+                      </p>
+                      <div className="modal_address_container">
+                        <p>561 WILLOW AVENUE</p>
+                        <p>|</p>
+                        <p>CEDARHURST, NY</p>
+                      </div>
+                    </div>
+                  </div>
+                  <Link to="/">
+                    <div
+                      className="dismiss_modal_button"
+                      onClick={handleModalBackToHome}
+                    >
+                      <p>BACK TO HOME</p>
+                    </div>
+                  </Link>
+                </div>
               </div>
-            ) : null
+            ))
           }
         </Transition>
       </Modal>
