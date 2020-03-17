@@ -19,10 +19,14 @@ const MicroneedleRemovedNotification = props => {
           props.currentScreenSize === ""
             ? props.initialScreenSize >= 1800
               ? "8rem"
-              : "5rem"
+              : props.initialScreenSize >= 375
+              ? "5rem"
+              : "4rem"
             : props.currentScreenSize >= 1800
             ? "8rem"
-            : "5rem"
+            : props.currentScreenSize >= 375
+            ? "5rem"
+            : "4rem"
         }
         viewBox="0 0 132.292 132.292"
       >

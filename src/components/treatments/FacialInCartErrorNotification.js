@@ -32,10 +32,14 @@ const FacialInCartErrorNotification = props => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1800
                 ? "6rem"
-                : "3.2rem"
+                : props.initialScreenSize >= 375
+                ? "3.2rem"
+                : "2.5rem"
               : props.currentScreenSize >= 1800
               ? "6rem"
-              : "3.2rem",
+              : props.currentScreenSize >= 375
+              ? "3.2rem"
+              : "2.5rem",
           color: "rgb(0, 0, 0)"
         }}
         icon={faExclamationCircle}
@@ -47,18 +51,26 @@ const FacialInCartErrorNotification = props => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1800
                 ? "2rem"
-                : "0.8rem"
+                : props.initialScreenSize >= 375
+                ? "0.8rem"
+                : "0.5rem"
               : props.currentScreenSize >= 1800
               ? "2rem"
-              : "0.8rem",
+              : props.currentScreenSize >= 375
+              ? "0.8rem"
+              : "0.5rem",
           paddingTop:
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1800
                 ? "2rem"
-                : "0.8rem"
+                : props.initialScreenSize >= 375
+                ? "0.8rem"
+                : "0.5rem"
               : props.currentScreenSize >= 1800
               ? "2rem"
-              : "0.8rem"
+              : props.currentScreenSize >= 375
+              ? "0.8rem"
+              : "0.5rem"
         }}
       >
         <h3>Cart Contains Facial</h3>

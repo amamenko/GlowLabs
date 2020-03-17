@@ -31,7 +31,6 @@ import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELEC
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
 import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
 import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
-
 import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
 import { toast } from "react-toastify";
 import RejuvenateNotification from "./RejuvenateNotification";

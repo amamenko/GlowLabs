@@ -207,14 +207,14 @@
 
   .notification_text_container h3 {
     color: rgb(0, 0, 0);
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
   }
 
   .notification_text_container p {
     color: rgb(0, 0, 0);
     margin-top: 0.3rem;
-    font-size: 0.8rem;
+    font-size: 0.65rem;
     font-weight: 400;
   }
 
@@ -268,6 +268,15 @@
   .small_screen_card_description_plus,
   .small_screen_card_description_suitcase {
     font-size: 1rem;
+  }
+
+  .notification_text_container h3 {
+    font-size: 1rem;
+  }
+
+  .notification_text_container p {
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
   }
 }
 

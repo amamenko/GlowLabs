@@ -512,6 +512,7 @@ const Availability = () => {
           className="select_time_button"
           style={{
             marginTop: numberOfWeeks < 6 ? "4vh" : "2vh",
+            marginBottom: numberOfWeeks < 6 ? "0" : "15vh",
             background: selectedDay ? "rgb(165, 138, 127)" : "#f0f0f0",
             color: selectedDay ? "rgb(255, 255, 255)" : "rgb(201, 201, 201)",
             pointerEvents: selectedDay !== "" ? "auto" : "none",

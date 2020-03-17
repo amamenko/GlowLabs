@@ -39,12 +39,15 @@ const PhoneNumber = () => {
     const validPhoneNumber = phoneNumberReg.test(number);
     const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
 
-    if (phoneNumberAlreadyRegistered) {
-      changePhoneNumberAlreadyRegistered(false);
-    }
-    if (validPhoneNumber | validPhoneAutocomplete) {
-      dispatch(ACTION_PHONE_VALID());
-      dispatch(ACTION_PHONE_NOT_INVALID());
+    if (!phoneNumberAlreadyRegistered) {
+      if (validPhoneNumber | validPhoneAutocomplete) {
+        dispatch(ACTION_PHONE_VALID());
+        dispatch(ACTION_PHONE_NOT_INVALID());
+      } else {
+        dispatch(ACTION_PHONE_NOT_VALID());
+        dispatch(ACTION_PHONE_INVALID());
+        dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+      }
     } else {
       dispatch(ACTION_PHONE_NOT_VALID());
       dispatch(ACTION_PHONE_INVALID());
@@ -78,6 +81,7 @@ const PhoneNumber = () => {
   const phoneNumberTyping = e => {
     let currentTyping = e.currentTarget.value;
 
+    changePhoneNumberAlreadyRegistered(false);
     dispatch(ACTION_PHONE_NUMBER_RESET());
 
     // Formatting for US Phone Numbers
@@ -161,9 +165,11 @@ const PhoneNumber = () => {
     e.currentTarget.value = currentTyping;
   };
 
+  console.log(phoneNumberAlreadyRegistered);
+
   const phoneNumberKeyTyping = e => {
     if (
-      (e.keyCode >= 8 && e.keyCode <= 46) ||
+      (e.keyCode >= 8 && e.keyCode < 32) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||
       (e.keyCode >= 48 && e.keyCode <= 57)
     ) {
@@ -195,11 +201,11 @@ const PhoneNumber = () => {
       />
       {phoneNumberAlreadyRegistered ? (
         <FormFeedback invalid="true">
-          This email has already been registered.
+          This phone number has already been registered.
         </FormFeedback>
       ) : (
         <FormFeedback invalid="true">
-          Please enter a valid email address.
+          Please enter a valid phone number.
         </FormFeedback>
       )}
     </FormGroup>

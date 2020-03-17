@@ -21,10 +21,14 @@ const RejuvenateNotification = props => {
           props.currentScreenSize === ""
             ? props.initialScreenSize >= 1800
               ? "8rem"
-              : "5rem"
+              : props.initialScreenSize >= 375
+              ? "5rem"
+              : "4rem"
             : props.currentScreenSize >= 1800
             ? "8rem"
-            : "5rem"
+            : props.currentScreenSize >= 375
+            ? "5rem"
+            : "4rem"
         }
         viewBox="0 0 50.006 50.006"
       >
@@ -63,10 +67,14 @@ const RejuvenateNotification = props => {
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800
                   ? "1rem"
-                  : "0.8rem"
+                  : props.initialScreenSize >= 375
+                  ? "0.8rem"
+                  : "0.6rem"
                 : props.currentScreenSize >= 1800
                 ? "1rem"
-                : "0.8rem",
+                : props.currentScreenSize >= 375
+                ? "0.8rem"
+                : "0.6rem",
             fontWeight: "500",
             color: "rgb(81, 81, 81)"
           }}

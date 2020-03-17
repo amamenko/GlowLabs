@@ -74,7 +74,7 @@ const TopAnimationBottomShelf = props => {
           <svg
             width="100%"
             height={
-              !props.currentScreenSize || !splashScreenComplete
+              !props.currentScreenSize
                 ? props.initialScreenSize >= 1800
                   ? "35em"
                   : props.initialScreenSize >= 1600

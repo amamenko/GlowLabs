@@ -22,10 +22,14 @@ const MicrocurrentRejuvenateErrorNotification = props => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1800
                 ? "6rem"
-                : "3.2rem"
+                : props.initialScreenSize >= 375
+                ? "3.2rem"
+                : "2.5rem"
               : props.currentScreenSize >= 1800
               ? "6rem"
-              : "3.2rem",
+              : props.currentScreenSize >= 375
+              ? "3.2rem"
+              : "2.5rem",
           color: "rgb(0, 0, 0)"
         }}
         icon={faExclamationCircle}
@@ -57,10 +61,14 @@ const MicrocurrentRejuvenateErrorNotification = props => {
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800
                   ? "1.5rem"
-                  : "0.9rem"
+                  : props.initialScreenSize >= 375
+                  ? "0.9rem"
+                  : "0.8rem"
                 : props.currentScreenSize >= 1800
                 ? "1.5rem"
-                : "0.9rem"
+                : props.currentScreenSize >= 375
+                ? "0.9rem"
+                : "0.8rem"
           }}
         >
           Included with Rejuvenate Facial

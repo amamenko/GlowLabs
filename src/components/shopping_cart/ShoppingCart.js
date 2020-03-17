@@ -195,7 +195,7 @@ const ShoppingCart = () => {
       <div
         className="shopping_cart_header"
         style={{
-          borderBottom: counter === 0 ? "1px solid rgb(215, 156, 165)" : "none"
+          borderBottom: counter === 0 ? "1px solid rgb(165, 138, 127)" : "none"
         }}
       >
         <Link to="/" onClick={backToHome}>

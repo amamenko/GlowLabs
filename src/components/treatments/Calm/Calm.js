@@ -179,37 +179,37 @@ const Calm = props => {
     suitcaseBounce: [
       {
         marginTop: "0px",
-        color: "rgb(155, 98, 107)",
+        color: "rgb(45, 38, 27)",
         config: { duration: 100 }
       },
       {
         marginTop: "-9px",
-        color: "rgb(155, 98, 107)",
+        color: "rgb(45, 38, 27)",
         config: { duration: 300 }
       },
       {
         marginTop: "0px",
-        color: "rgb(155, 98, 107)",
+        color: "rgb(45, 38, 27)",
         config: { duration: 200 }
       },
       {
         marginTop: "-6",
-        color: "rgb(155, 98, 107)",
+        color: "rgb(45, 38, 27)",
         config: { duration: 200 }
       },
       {
         marginTop: "0px",
-        color: "rgb(155, 98, 107)",
+        color: "rgb(45, 38, 27)",
         config: { duration: 200 }
       },
       {
         marginTop: "-4px",
-        color: "rgb(155, 98, 107)",
+        color: "rgb(45, 38, 27)",
         config: { duration: 200 }
       },
       {
         marginTop: "0px",
-        color: "rgb(155, 98, 107)",
+        color: "rgb(45, 38, 27)",
         config: { duration: 200 }
       }
     ]
@@ -269,7 +269,7 @@ const Calm = props => {
                     ? "-0.5rem"
                     : props.initialScreenSize >= 360
                     ? "-0.5rem"
-                    : "-0.1rem"
+                    : "0rem"
                   : props.currentScreenSize >= 1800
                   ? "-0.2rem"
                   : props.currentScreenSize >= 1600
@@ -278,7 +278,7 @@ const Calm = props => {
                   ? "-0.5rem"
                   : props.currentScreenSize >= 360
                   ? "-0.5rem"
-                  : "-0.1rem",
+                  : "0rem",
               display: calmInCart ? "block" : "none"
             }}
             viewBox="0 0 13.229 13.229"
@@ -448,7 +448,7 @@ const Calm = props => {
                       quickieInCart |
                       rejuvenateInCart
                     ? "rgba(211, 211, 211, 0.8)"
-                    : "rgb(186, 225, 253, 0.8)"
+                    : "rgb(164, 137, 126, 0.7)"
                   : calmInCart
                   ? "rgb(119, 221, 119, 0.6)"
                   : bacialInCart |
@@ -462,7 +462,7 @@ const Calm = props => {
                     quickieInCart |
                     rejuvenateInCart
                   ? "rgba(211, 211, 211, 0.8)"
-                  : "rgba(188, 214, 232, 0.6)"
+                  : "rgb(165, 138, 127, 0.6)"
               }
               transform={
                 !props.currentScreenSize
@@ -491,7 +491,7 @@ const Calm = props => {
                 quickieInCart |
                 rejuvenateInCart
                   ? "rgb(151, 151, 151)"
-                  : "rgb(86, 125, 153)"
+                  : "rgb(95, 68, 57)"
               }
               icon={faSuitcase}
             />

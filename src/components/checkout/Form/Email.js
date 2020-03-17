@@ -36,12 +36,15 @@ const Email = () => {
     const validEmail = emailReg.test(e.currentTarget.value);
     dispatch(ACTION_EMAIL(e.currentTarget.value.trim()));
 
-    if (emailAlreadyRegistered) {
-      changeEmailAlreadyRegistered(false);
-    }
-    if (validEmail) {
-      dispatch(ACTION_EMAIL_NOT_INVALID());
-      dispatch(ACTION_EMAIL_VALID());
+    if (!emailAlreadyRegistered) {
+      if (validEmail) {
+        dispatch(ACTION_EMAIL_NOT_INVALID());
+        dispatch(ACTION_EMAIL_VALID());
+      } else {
+        dispatch(ACTION_EMAIL_INVALID());
+        dispatch(ACTION_EMAIL_NOT_VALID());
+        dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+      }
     } else {
       dispatch(ACTION_EMAIL_INVALID());
       dispatch(ACTION_EMAIL_NOT_VALID());
@@ -53,14 +56,13 @@ const Email = () => {
     if (email) {
       if (data) {
         for (let i = 0; i < data.clients.length; i++) {
-          if (
-            data.clients[i].email === email &&
-            data.clients[i].password !== null
-          ) {
-            changeEmailAlreadyRegistered(true);
-            dispatch(ACTION_EMAIL_INVALID());
-            dispatch(ACTION_EMAIL_NOT_VALID());
-            dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+          if (data.clients[i].email === email) {
+            if (data.clients[i].password !== null) {
+              changeEmailAlreadyRegistered(true);
+              dispatch(ACTION_EMAIL_INVALID());
+              dispatch(ACTION_EMAIL_NOT_VALID());
+              dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+            }
           }
         }
       }
@@ -69,7 +71,9 @@ const Email = () => {
 
   const emailTyping = () => {
     dispatch(ACTION_EMAIL_RESET());
+    changeEmailAlreadyRegistered(false);
   };
+
   return (
     <FormGroup>
       <Label for="guestEmail">
