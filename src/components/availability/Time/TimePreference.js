@@ -24,18 +24,20 @@ import ACTION_PHONE_NUMBER_RESET from "../../../actions/GuestCheckoutForm/PhoneN
 import ACTION_PHONE_NOT_INVALID from "../../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
 import ACTION_PHONE_NOT_VALID from "../../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
 import ACTION_APPOINTMENT_NOTES_RESET from "../../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_RESET";
+import ACTION_APPOINTMENT_END_TIME from "../../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME";
+import ACTION_TOTAL_DURATION from "../../../actions/TotalDuration/ACTION_TOTAL_DURATION";
 import { Collapse } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
+import { useQuery } from "@apollo/react-hooks";
+import { getAllAppointmentsQuery } from "../../../graphql/queries/queries";
 import "./TimePreference.css";
 
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../bootstrap.min.css";
-import ACTION_APPOINTMENT_END_TIME from "../../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME";
-import ACTION_TOTAL_DURATION from "../../../actions/TotalDuration/ACTION_TOTAL_DURATION";
 
 const TimePreference = () => {
   const dispatch = useDispatch();
@@ -89,6 +91,44 @@ const TimePreference = () => {
   const phoneIsInvalid = useSelector(
     state => state.phoneIsInvalid.phone_invalid
   );
+
+  const { data } = useQuery(getAllAppointmentsQuery, {
+    fetchPolicy: "no-cache"
+  });
+
+  const alreadyBookedAppointments = data
+    ? data.all_appointments.filter(item => item.date === reformattedDay)
+    : null;
+
+  const alreadyBookedTimes = () => {
+    if (alreadyBookedAppointments !== null) {
+      for (let i = 0; i < alreadyBookedAppointments.length; i++) {
+        const startMinutes = Number(
+          alreadyBookedAppointments[i].startTime.slice(-2)
+        );
+        const minutes =
+          startMinutes +
+          Math.ceil(alreadyBookedAppointments[i].duration / 15) * 15;
+        const endHour = (
+          Number(alreadyBookedAppointments[i].startTime.split(":")[0]) +
+          Number((minutes / 60).toString().slice(0, 1))
+        ).toString();
+        const endMinutes =
+          (minutes / 60).toString().length > 1
+            ? (
+                Number((minutes / 60).toString().slice(1, minutes.length)) * 60
+              ).toString()
+            : null;
+        const calendarEndTime =
+          (Number(endHour) > 12 ? (Number(endHour) - 12).toString() : endHour) +
+          ":" +
+          endMinutes;
+        return calendarEndTime;
+      }
+    }
+  };
+
+  alreadyBookedTimes();
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {

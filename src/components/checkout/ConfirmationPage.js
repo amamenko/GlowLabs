@@ -116,7 +116,8 @@ const ConfirmationPage = () => {
 
   const variablesModel = {
     date: reformattedDay,
-    time: selectedTime,
+    startTime: selectedTime,
+    endTime: appointmentEndTime,
     duration: totalDuration,
     price: totalPrice,
     firstName: firstName,

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Hamburger = props => {
-  const responsiveRight = () => {
+  const responsiveLeft = () => {
     return props.navbarToggle
       ? props.currentScreenSize === ""
         ? props.initialScreenSize >= 600
@@ -13,7 +13,7 @@ const Hamburger = props => {
       : "0rem";
   };
 
-  const responsiveMarginRight = () => {
+  const responsiveMarginLeft = () => {
     return props.navbarToggle
       ? "0rem"
       : props.currentScreenSize === ""
@@ -48,22 +48,22 @@ const Hamburger = props => {
         className="burger_line"
         style={{
           position: props.navbarToggle ? "absolute" : "relative",
-          left: props.navbarToggle ? "auto" : "null",
-          right: responsiveRight(),
-          marginRight: responsiveMarginRight(),
+          right: props.navbarToggle ? "auto" : "null",
+          left: responsiveLeft(),
+          marginLeft: responsiveMarginLeft(),
           transform: props.navbarToggle ? "rotate(-225deg)" : "rotate(0)"
         }}
-      ></div>
+      />
       <div
         className="burger_line"
         style={{
           position: props.navbarToggle ? "absolute" : "relative",
-          left: props.navbarToggle ? "auto" : "null",
-          right: responsiveRight(),
-          marginRight: responsiveMarginRight(),
+          right: props.navbarToggle ? "auto" : "null",
+          left: responsiveLeft(),
+          marginLeft: responsiveMarginLeft(),
           transform: props.navbarToggle ? "rotate(45deg)" : "rotate(0)"
         }}
-      ></div>
+      />
     </div>
   );
 };

@@ -14,13 +14,14 @@
   .burger_line {
     display: flex;
     height: 4px;
-    width: 2rem;
+    width: 1.8rem;
     background: #000;
     transition: all 0.5s ease;
   }
 
   .navbar {
     position: fixed;
+    max-width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -41,17 +42,40 @@
     flex: 40;
   }
 
-  .shopping_cart {
-    margin-right: 5rem;
+  .nav_sign_in_button {
     position: absolute;
+    margin-right: 3.9rem;
     right: 0.5rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    border: 1px solid rgb(165, 138, 127);
+    color: white;
+    background: rgb(165, 138, 127);
+    padding: 0.3rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-radius: 20px;
+  }
+
+  .nav_sign_in_button p {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+
+  .sign_in_user_icon {
+    display: inline-block;
+  }
+
+  .shopping_cart {
+    margin-right: 1.5rem;
+    position: absolute;
+    right: -0.5rem;
     left: auto;
   }
 
   .cart_item_number_circle {
     position: absolute;
-    top: 0.3rem;
-    right: 5.2rem;
+    right: 0.8rem;
   }
 
   .cart_item_number_circle p {
@@ -69,6 +93,12 @@
     width: 100%;
     position: fixed;
     z-index: 5;
+  }
+
+  .nav_logo_container {
+    position: fixed;
+    left: 3rem;
+    padding-bottom: 0.3rem;
   }
 
   .navbar_items {
@@ -122,7 +152,6 @@
 
   .cart_item_number_circle {
     top: 0.9rem;
-    right: 5.3rem;
   }
 }
 
@@ -130,14 +159,22 @@
 @media only screen and (min-width: 410px) {
   .cart_item_number_circle {
     top: 0.7rem;
-    right: 5.5rem;
+    right: 1rem;
   }
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
+  .nav_logo_container {
+    left: 3.6rem;
+  }
+
   .logo {
     margin-left: 3.1rem;
+  }
+
+  .nav_sign_in_button {
+    margin-right: 6rem;
   }
 
   .navbar {
@@ -194,7 +231,7 @@
   }
 
   .cart_item_number_circle {
-    right: 7rem;
+    right: 2.5rem;
   }
 }
 

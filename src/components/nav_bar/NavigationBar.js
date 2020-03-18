@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const {
@@ -96,7 +96,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
             : "center"
       }}
     >
-      <h1
+      <Hamburger
+        onClick={props.handleNavbarToggle}
+        navbarToggle={props.navbarToggle}
+        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={props.initialScreenSize}
+      />
+      <div
+        className="nav_logo_container"
         style={{
           alignSelf:
             props.currentScreenSize === ""
@@ -121,12 +128,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 ? props.initialScreenSize >= 1800
                   ? "8rem"
                   : props.initialScreenSize >= 375
-                  ? "5rem"
+                  ? "4.3rem"
                   : "4rem"
                 : props.currentScreenSize >= 1800
                 ? "8rem"
                 : props.currentScreenSize >= 375
-                ? "5rem"
+                ? "4.3rem"
                 : "4rem"
             }
             viewBox="0 0 463.021 463.021"
@@ -183,8 +190,30 @@ const NavigationBar = React.forwardRef((props, ref) => {
             </g>
           </svg>
         </a>
-      </h1>
+      </div>
       <div className="spacer" />
+      <div
+        className="nav_sign_in_button"
+        style={{
+          top:
+            props.currentScreenSize === ""
+              ? props.initialScreenSize <= 1000 &&
+                props.initialScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? "0.6rem"
+                  : "1rem"
+                : "auto"
+              : props.currentScreenSize <= 1000 &&
+                props.currentScreenSize >= 600
+              ? window.scrollY <= 1
+                ? "0.6rem"
+                : "1rem"
+              : "auto"
+        }}
+      >
+        <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
+        <p>Log In</p>
+      </div>
       <Link to="/cart" onClick={handleShoppingCartClick}>
         <svg
           className="shopping_cart"
@@ -243,7 +272,29 @@ const NavigationBar = React.forwardRef((props, ref) => {
         <span
           className="cart_item_number_circle"
           style={{
-            display: counter < 1 ? "none" : "block"
+            display: counter < 1 ? "none" : "block",
+            top:
+              props.currentScreenSize === ""
+                ? props.initialScreenSize <= 1000 &&
+                  props.initialScreenSize >= 600
+                  ? window.scrollY <= 1
+                    ? "0.4rem"
+                    : "0.8rem"
+                  : props.initialScreenSize >= 400
+                  ? "0.9rem"
+                  : props.initialScreenSize >= 375
+                  ? "1rem"
+                  : "0.3rem"
+                : props.currentScreenSize <= 1000 &&
+                  props.currentScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? "0.4rem"
+                  : "0.8rem"
+                : props.currentScreenSize >= 400
+                ? "0.9rem"
+                : props.currentScreenSize >= 375
+                ? "1rem"
+                : "0.3rem"
           }}
         >
           <FontAwesomeIcon
@@ -275,12 +326,6 @@ const NavigationBar = React.forwardRef((props, ref) => {
           </p>
         </span>
       </Link>
-      <Hamburger
-        onClick={props.handleNavbarToggle}
-        navbarToggle={props.navbarToggle}
-        currentScreenSize={props.currentScreenSize}
-        initialScreenSize={props.initialScreenSize}
-      />
       <div className="nav_links">
         <ul>
           <li onClick={() => props.handleClickToScrollToHome(LandingPageRef)}>

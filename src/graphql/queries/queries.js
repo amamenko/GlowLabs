@@ -29,9 +29,10 @@ const getClientsQuery = gql`
 
 const getAllAppointmentsQuery = gql`
   {
-    appointments {
+    all_appointments {
       date
-      time
+      startTime
+      endTime
       duration
       price
       treatments {
@@ -58,9 +59,10 @@ const getAllAppointmentsQuery = gql`
 
 const getOwnAppointmentsQuery = gql`
   {
-    appointments {
+    own_appointments {
       date
-      time
+      startTime
+      endTime
       duration
       price
       treatments {
@@ -88,7 +90,8 @@ const getOwnAppointmentsQuery = gql`
 const getAppointmentQuery = gql`
   query getAppointmentQuery(
     $date: String
-    $time: String
+    $startTime: String
+    $endTime: String
     $duration: Int
     $price: Int
     $firstName: String
@@ -98,7 +101,8 @@ const getAppointmentQuery = gql`
   ) {
     appointment(
       date: $date
-      time: $time
+      startTime: $startTime
+      endTime: $endTime
       duration: $duration
       price: $price
       client: {
@@ -109,7 +113,8 @@ const getAppointmentQuery = gql`
       }
     ) {
       date
-      time
+      startTime
+      endTime
       duration
       price
       treatments {
@@ -173,7 +178,8 @@ const loginQuery = gql`
 const addAppointmentMutation = gql`
   mutation addAppointmentMutation(
     $date: String!
-    $time: String!
+    $startTime: String!
+    $endTime: String!
     $duration: Int!
     $price: Int!
     $firstName: String!
@@ -188,7 +194,8 @@ const addAppointmentMutation = gql`
   ) {
     addAppointment(
       date: $date
-      time: $time
+      startTime: $startTime
+      endTime: $endTime
       duration: $duration
       price: $price
       client: {
@@ -208,7 +215,8 @@ const addAppointmentMutation = gql`
       notes: $notes
     ) {
       date
-      time
+      startTime
+      endTime
       duration
       price
       createdAt

@@ -165,7 +165,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgb(234, 229, 233);
+  background: rgb(244, 239, 243);
 }
 
 .modal_x {
@@ -300,4 +300,21 @@
   border-radius: 30px;
   color: white;
   margin-bottom: 50%;
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .final_booking_modal {
+    height: 80%;
+    margin-top: 2%;
+  }
+
+  .modal_calendar_icon_container {
+    height: 5%;
+    padding-bottom: 21%;
+  }
+
+  .modal_checkmark {
+    top: 6%;
+  }
 }

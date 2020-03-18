@@ -65,3 +65,11 @@
     left: 8.5rem;
   }
 }
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .book_now_pop_up {
+    left: 3.2rem;
+    top: 2rem;
+  }
+}
