@@ -188,17 +188,23 @@
   padding-bottom: 24%;
   background: -webkit-linear-gradient(
     to left,
-    rgba(211, 211, 211, 0.3),
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
     transparent 50%
   );
   background: -moz-linear-gradient(
     to left,
-    rgba(211, 211, 211, 0.3),
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
     transparent 50%
   );
   background: -ms-linear-gradient(
     to left,
-    rgba(211, 211, 211, 0.3),
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
     transparent 50%
   );
   background: linear-gradient(
@@ -206,7 +212,7 @@
     transparent 35%,
     rgba(165, 138, 127, 0.3) 35%,
     rgba(165, 138, 127, 0.3) 65%,
-    transparent 60%
+    transparent 50%
   );
 }
 
@@ -312,6 +318,34 @@
   .modal_calendar_icon_container {
     height: 5%;
     padding-bottom: 21%;
+    background: -webkit-linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
+    background: -moz-linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
+    background: -ms-linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
+    background: linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
   }
 
   .modal_checkmark {

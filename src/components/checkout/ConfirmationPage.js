@@ -64,6 +64,8 @@ import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSu
 import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_AVAILABILITY_RESET from "../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_APPOINTMENT_END_TIME_RESET from "../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME_RESET";
+import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 
 const ConfirmationPage = () => {
   let location = useLocation();
@@ -267,6 +269,7 @@ const ConfirmationPage = () => {
     if (appLoading) {
       if (!loadingSpinnerActive) {
         dispatch(ACTION_LOADING_SPINNER_ACTIVE());
+        dispatch(ACTION_BODY_SCROLL_RESET());
       }
     } else {
       const bookingComplete = setTimeout(() => {
@@ -283,6 +286,7 @@ const ConfirmationPage = () => {
   }, [appLoading, dispatch, loadingSpinnerActive, finalBookingModalActive]);
 
   const handleModalBackToHome = () => {
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
     dispatch(ACTION_TOTAL_PRICE_RESET());
     dispatch(ACTION_TOTAL_DURATION_RESET());
     dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());

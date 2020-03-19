@@ -42,7 +42,7 @@
     flex: 40;
   }
 
-  .nav_sign_in_button {
+  .nav_sign_in_button_small_screen {
     position: absolute;
     margin-right: 3.9rem;
     right: 0.5rem;
@@ -57,7 +57,7 @@
     border-radius: 20px;
   }
 
-  .nav_sign_in_button p {
+  .nav_sign_in_button_small_screen p {
     display: inline-block;
     margin-left: 0.5rem;
   }
@@ -66,7 +66,7 @@
     display: inline-block;
   }
 
-  .shopping_cart {
+  .shopping_cart_small_screen {
     margin-right: 1.5rem;
     position: absolute;
     right: -0.5rem;
@@ -173,7 +173,7 @@
     margin-left: 3.1rem;
   }
 
-  .nav_sign_in_button {
+  .nav_sign_in_button_small_screen {
     margin-right: 6rem;
   }
 
@@ -226,7 +226,7 @@
     margin-bottom: 2rem;
   }
 
-  .shopping_cart {
+  .shopping_cart_small_screen {
     position: absolute;
   }
 
@@ -241,6 +241,17 @@
     margin-left: 3.1rem;
   }
 
+  .nav_logo_container {
+    display: flex;
+    position: relative;
+    left: 0;
+    padding-bottom: 0.3rem;
+  }
+
+  .nav_sign_in_button_small_screen {
+    display: none;
+  }
+
   .navbar {
     height: 8vh;
   }
@@ -253,7 +264,6 @@
   .nav_links {
     width: 50%;
     display: flex;
-    margin-right: 1.5rem;
   }
 
   .nav_links ul {
@@ -262,16 +272,19 @@
     flex-direction: row;
     align-items: stretch;
     justify-content: space-evenly;
-    margin-left: 3.1rem;
   }
 
   .nav_links li {
     display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     list-style: none;
     font-size: 1rem;
     font-weight: 500;
-    margin-left: 1rem;
-    margin-right: 1rem;
     cursor: pointer;
   }
 
@@ -280,35 +293,69 @@
     transition: all 0.5s ease;
   }
 
-  .shopping_cart {
+  .shopping_cart_small_screen {
+    display: none;
+  }
+
+  .nav_sign_in_button_large_screen {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-weight: 600;
+    color: white;
+    border: 1px solid transparent;
+    background: rgb(165, 138, 127);
+    border-radius: 20px;
+    margin-top: -0.1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .nav_sign_in_button_large_screen:hover {
+    background: rgb(115, 88, 77);
+    transition: all 0.5s ease;
+  }
+
+  .nav_sign_in_button_large_screen p {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+
+  .sign_in_user_icon {
+    display: inline-block;
+  }
+
+  .shopping_cart_large_screen {
+    width: 80%;
     color: rgb(0, 0, 0);
-    position: absolute;
-    right: 0.5rem;
-    left: auto;
-    top: 0.85rem;
-    bottom: auto;
+    position: relative;
+    font-size: 5rem;
+  }
+
+  .shopping_cart_large_screen:hover {
+    fill: rgb(255, 255, 255);
+    stroke: rgb(255, 255, 255);
+    transition: all 0.5s ease;
   }
 }
 
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
   .nav_links ul {
-    margin-left: -1.5rem;
+    margin-left: 1.5rem;
   }
 
   .nav_links li {
-    font-size: 1rem;
-    margin-left: -2.3rem;
-    margin-right: -2.3rem;
-  }
-
-  .shopping_cart {
-    margin-top: 0.15rem;
-    right: -5.8rem;
+    font-size: 0.95rem;
+    margin-left: 1.4rem;
+    margin-right: 1.4rem;
   }
 
   .cart_item_number_circle {
-    right: 2.8rem;
+    right: 2.5rem;
   }
 }
 
@@ -321,7 +368,7 @@
     font-weight: 500;
   }
 
-  .shopping_cart {
+  .shopping_cart_large_screen {
     right: -9rem;
     margin-top: 1.1rem;
   }

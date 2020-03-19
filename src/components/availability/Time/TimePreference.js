@@ -101,31 +101,66 @@ const TimePreference = () => {
     : null;
 
   const alreadyBookedTimes = () => {
+    const alreadyBookedTimesArr = [];
+    let minutesArr = ["00", "15", "30", "45"];
+
     if (alreadyBookedAppointments !== null) {
       for (let i = 0; i < alreadyBookedAppointments.length; i++) {
-        const startMinutes = Number(
-          alreadyBookedAppointments[i].startTime.slice(-2)
-        );
-        const minutes =
-          startMinutes +
-          Math.ceil(alreadyBookedAppointments[i].duration / 15) * 15;
-        const endHour = (
-          Number(alreadyBookedAppointments[i].startTime.split(":")[0]) +
-          Number((minutes / 60).toString().slice(0, 1))
-        ).toString();
-        const endMinutes =
-          (minutes / 60).toString().length > 1
-            ? (
-                Number((minutes / 60).toString().slice(1, minutes.length)) * 60
-              ).toString()
-            : null;
-        const calendarEndTime =
-          (Number(endHour) > 12 ? (Number(endHour) - 12).toString() : endHour) +
-          ":" +
-          endMinutes;
-        return calendarEndTime;
+        if (alreadyBookedAppointments) {
+          const startMinutes = Number(
+            alreadyBookedAppointments[i].startTime.slice(-2)
+          );
+          const minutes =
+            startMinutes +
+            Math.ceil(alreadyBookedAppointments[i].duration / 15) * 15;
+          const endHour = (
+            Number(alreadyBookedAppointments[i].startTime.split(":")[0]) +
+            Number((minutes / 60).toString().slice(0, 1))
+          ).toString();
+          const endMinutes =
+            (minutes / 60).toString().length > 1
+              ? (
+                  Number((minutes / 60).toString().slice(1, minutes.length)) *
+                  60
+                ).toString()
+              : null;
+          const calendarEndTime =
+            (Number(endHour) > 12
+              ? (Number(endHour) - 12).toString()
+              : endHour) +
+            ":" +
+            endMinutes;
+
+          let newMinutesArr = [];
+
+          for (
+            let j = minutesArr.indexOf(
+              alreadyBookedAppointments[i].startTime.split(":")[1]
+            );
+            j < minutesArr.length;
+            j++
+          ) {
+            if (minutesArr[j] === "45") {
+              for (let k = 0; k < minutesArr.length; k++) {
+                return minutesArr.push(minutesArr[k]);
+              }
+              newMinutesArr.push(minutesArr[j]);
+            } else {
+              newMinutesArr.push(minutesArr[j]);
+            }
+          }
+
+          alreadyBookedTimesArr.push(
+            alreadyBookedAppointments[i].startTime,
+            newMinutesArr,
+            calendarEndTime
+          );
+        } else {
+          return null;
+        }
       }
     }
+    console.log(alreadyBookedTimesArr);
   };
 
   alreadyBookedTimes();
