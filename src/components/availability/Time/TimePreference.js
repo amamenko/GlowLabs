@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
@@ -71,6 +71,8 @@ const TimePreference = () => {
     state => state.splashScreenComplete.splashScreenComplete
   );
 
+  const [bookedTimes, changeBookedTimes] = useState([]);
+
   // Checkout Form States
   const firstName = useSelector(state => state.firstName.first_name);
   const lastName = useSelector(state => state.lastName.last_name);
@@ -100,7 +102,7 @@ const TimePreference = () => {
     ? data.all_appointments.filter(item => item.date === reformattedDay)
     : null;
 
-  const alreadyBookedTimes = () => {
+  const alreadyBookedTimes = useCallback(() => {
     const alreadyBookedTimesArr = [];
     let minutesArr = ["00", "15", "30", "45"];
 
@@ -123,7 +125,7 @@ const TimePreference = () => {
                   Number((minutes / 60).toString().slice(1, minutes.length)) *
                   60
                 ).toString()
-              : null;
+              : "00";
           const calendarEndTime =
             (Number(endHour) > 12
               ? (Number(endHour) - 12).toString()
@@ -131,39 +133,77 @@ const TimePreference = () => {
             ":" +
             endMinutes;
 
-          let newMinutesArr = [];
+          const intervalArr = new Array(
+            Math.ceil(
+              Math.ceil(alreadyBookedAppointments[i].duration / 15) /
+                minutesArr.length
+            )
+          )
+            .fill(minutesArr)
+            .reduce(
+              (accumulator, currentValue) => accumulator.concat(currentValue),
+              []
+            );
+
+          const hourArr = [];
 
           for (
-            let j = minutesArr.indexOf(
-              alreadyBookedAppointments[i].startTime.split(":")[1]
+            let j = Number(
+              alreadyBookedAppointments[i].startTime.split(":")[0]
             );
-            j < minutesArr.length;
+            j < Number(calendarEndTime.split(":")[0]);
             j++
           ) {
-            if (minutesArr[j] === "45") {
-              for (let k = 0; k < minutesArr.length; k++) {
-                return minutesArr.push(minutesArr[k]);
-              }
-              newMinutesArr.push(minutesArr[j]);
-            } else {
-              newMinutesArr.push(minutesArr[j]);
-            }
+            hourArr.push(j);
           }
+
+          const quadrupleHourArr = hourArr
+            .map((e, i) => [
+              e.toString() + ":" + intervalArr[i],
+              e.toString() + ":" + intervalArr[i + 1],
+              e.toString() + ":" + intervalArr[i + 2],
+              e.toString() + ":" + intervalArr[i + 3]
+            ])
+            .reduce(
+              (accumulator, currentValue) => accumulator.concat(currentValue),
+              []
+            );
+
+          console.log(quadrupleHourArr);
 
           alreadyBookedTimesArr.push(
             alreadyBookedAppointments[i].startTime,
-            newMinutesArr,
             calendarEndTime
+          );
+
+          const mergedBetweenTimes = [].concat(
+            quadrupleHourArr.slice(
+              quadrupleHourArr.indexOf(alreadyBookedAppointments[i].startTime) +
+                1
+            )
+          );
+
+          changeBookedTimes(
+            alreadyBookedTimesArr
+              .concat(
+                quadrupleHourArr.slice(
+                  quadrupleHourArr.indexOf(
+                    alreadyBookedAppointments[i].startTime
+                  ) + 1
+                )
+              )
+              .sort()
           );
         } else {
           return null;
         }
       }
     }
-    console.log(alreadyBookedTimesArr);
-  };
+  }, [alreadyBookedAppointments]);
 
-  alreadyBookedTimes();
+  useEffect(() => {
+    alreadyBookedTimes();
+  }, [alreadyBookedTimes]);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -512,15 +552,22 @@ const TimePreference = () => {
                     background:
                       item === selectedTime
                         ? "rgb(165, 138, 127)"
+                        : bookedTimes.includes(item)
+                        ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
+                        : bookedTimes.includes(item)
+                        ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)",
                     border:
                       item === selectedTime
                         ? "2px solid transparent"
-                        : "2px solid rgb(0, 0, 0)"
+                        : bookedTimes.includes(item)
+                        ? "rgb(201, 201, 201)"
+                        : "2px solid rgb(0, 0, 0)",
+                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto"
                   }}
                 >
                   <p>{item}</p>
@@ -552,13 +599,22 @@ const TimePreference = () => {
                     background:
                       item === selectedTime
                         ? "rgb(165, 138, 127)"
+                        : bookedTimes.includes(item)
+                        ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
+                        : bookedTimes.includes(item)
+                        ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)",
                     border:
-                      item === selectedTime ? "none" : "2px solid rgb(0, 0, 0)"
+                      item === selectedTime
+                        ? "2px solid transparent"
+                        : bookedTimes.includes(item)
+                        ? "rgb(201, 201, 201)"
+                        : "2px solid rgb(0, 0, 0)",
+                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto"
                   }}
                 >
                   <p>{item}</p>
@@ -597,18 +653,30 @@ const TimePreference = () => {
                       dayOfTheWeek === "Friday"
                         ? parseInt(item[0], 10) > 3
                           ? "none"
+                          : bookedTimes.includes(item)
+                          ? "none"
                           : "auto"
+                        : bookedTimes.includes(item)
+                        ? "none"
                         : "auto",
                     background:
                       item === selectedTime
                         ? "rgb(165, 138, 127)"
+                        : bookedTimes.includes(item)
+                        ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
+                        : bookedTimes.includes(item)
+                        ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)",
                     border:
-                      item === selectedTime ? "none" : "2px solid rgb(0, 0, 0)"
+                      item === selectedTime
+                        ? "2px solid transparent"
+                        : bookedTimes.includes(item)
+                        ? "rgb(201, 201, 201)"
+                        : "2px solid rgb(0, 0, 0)"
                   }}
                 >
                   <p>{item}</p>
@@ -648,19 +716,29 @@ const TimePreference = () => {
                         dayOfTheWeek === "Sunday"
                           ? parseInt(item[0], 10) > 5
                             ? "none"
+                            : bookedTimes.includes(item)
+                            ? "none"
                             : "auto"
+                          : bookedTimes.includes(item)
+                          ? "none"
                           : "auto",
                       background:
                         item === selectedTime
                           ? "rgb(165, 138, 127)"
+                          : bookedTimes.includes(item)
+                          ? "#f0f0f0"
                           : "rgb(255, 255, 255)",
                       color:
                         item === selectedTime
                           ? "rgb(255, 255, 255)"
+                          : bookedTimes.includes(item)
+                          ? "rgb(201, 201, 201)"
                           : "rgb(0, 0, 0)",
                       border:
                         item === selectedTime
-                          ? "none"
+                          ? "2px solid transparent"
+                          : bookedTimes.includes(item)
+                          ? "rgb(201, 201, 201)"
                           : "2px solid rgb(0, 0, 0)"
                     }}
                   >

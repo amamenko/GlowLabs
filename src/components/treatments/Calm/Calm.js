@@ -629,7 +629,7 @@ const Calm = props => {
                     className="card_image"
                     style={{
                       backgroundColor: calmToggle
-                        ? "	rgba(186, 225, 253, 0.3)"
+                        ? "rgba(145, 118, 107, 0.4)"
                         : "rgba(211, 211, 211, 0.4)",
                       boxShadow: calmToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
@@ -779,7 +779,7 @@ const Calm = props => {
                               }
                               stroke={
                                 calmToggle
-                                  ? "rgb(235, 178, 187)"
+                                  ? "rgb(232, 210, 195)"
                                   : "rgba(191, 191, 191)"
                               }
                               strokeWidth="0.5"

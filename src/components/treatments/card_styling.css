@@ -137,7 +137,7 @@
   .card_description_paragraph_title {
     display: flex;
     font-size: 0.55rem;
-    color: rgba(165, 138, 127, 0.7);
+    color: rgba(165, 138, 127);
     padding-left: 0.3rem;
     font-weight: 500;
     position: absolute;
@@ -147,7 +147,7 @@
   .card_description_icon {
     display: flex;
     font-size: 0.55rem;
-    color: rgba(165, 138, 127, 0.6);
+    color: rgba(165, 138, 127);
     position: absolute;
     left: 0;
     margin: 0 auto;
@@ -244,15 +244,18 @@
   }
 
   .card_description_icon {
+    font-size: 0.8rem;
     margin: auto;
   }
 
   .card_description_paragraph_value {
+    font-size: 1rem;
     padding-bottom: 0.1rem;
   }
 
   .card_description_paragraph_title {
     position: static;
+    font-size: 1rem;
     margin-left: 0.8rem;
   }
 
@@ -299,7 +302,7 @@
   .card_description_paragraph_value {
     font-size: 1.1rem;
     padding-bottom: 0.3rem;
-    padding-left: 1.2rem;
+    padding-left: 1.5rem;
   }
 
   .card_description_paragraph_title {
@@ -308,6 +311,13 @@
 
   .card_description_icon {
     font-size: 0.9rem;
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .card_description_paragraph_value {
+    padding-left: 1rem;
   }
 }
 
