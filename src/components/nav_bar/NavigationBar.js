@@ -122,12 +122,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 ? props.initialScreenSize >= 1800
                   ? "8rem"
                   : props.initialScreenSize >= 375
-                  ? "4.3rem"
+                  ? "4.5rem"
                   : "4rem"
                 : props.currentScreenSize >= 1800
                 ? "8rem"
                 : props.currentScreenSize >= 375
-                ? "4.3rem"
+                ? "4.5rem"
                 : "4rem"
             }
             viewBox="0 0 463.021 463.021"

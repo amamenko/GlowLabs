@@ -52,6 +52,7 @@ const TimePreference = () => {
   const selectedDay = useSelector(state => state.selectedDay.selectedDay);
   const dayOfTheWeek = useSelector(state => state.dayOfTheWeek.dayOfTheWeek);
   const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const totalDuration = useSelector(state => state.totalDuration.totalDuration);
   const continueToCheckoutButton = useSelector(
     state => state.continueToCheckoutButton.continueButtonActive
   );
@@ -115,10 +116,19 @@ const TimePreference = () => {
           const minutes =
             startMinutes +
             Math.ceil(alreadyBookedAppointments[i].duration / 15) * 15;
+
+          const currentDurationMinutes =
+            totalDuration - Math.floor(totalDuration / 60) * 60 > 30
+              ? Math.ceil(totalDuration / 15) * 15
+              : Math.floor(totalDuration / 15) * 15;
+
+          const currentDurationEndHour = Math.ceil(currentDurationMinutes / 60);
+
           const endHour = (
             Number(alreadyBookedAppointments[i].startTime.split(":")[0]) +
             Number((minutes / 60).toString().slice(0, 1))
           ).toString();
+
           const endMinutes =
             (minutes / 60).toString().length > 1
               ? (
@@ -126,6 +136,7 @@ const TimePreference = () => {
                   60
                 ).toString()
               : "00";
+
           const calendarEndTime =
             (Number(endHour) > 12
               ? (Number(endHour) - 12).toString()
@@ -148,58 +159,120 @@ const TimePreference = () => {
           const hourArr = [];
 
           for (
-            let j = Number(
-              alreadyBookedAppointments[i].startTime.split(":")[0]
-            );
-            j < Number(calendarEndTime.split(":")[0]);
+            let j =
+              Number(alreadyBookedAppointments[i].startTime.split(":")[0]) -
+              currentDurationEndHour;
+            j < Number(endHour) + 1;
             j++
           ) {
-            hourArr.push(j);
+            if (j > 12) {
+              hourArr.push(j - 12);
+            } else {
+              hourArr.push(j);
+            }
           }
 
           const quadrupleHourArr = hourArr
-            .map((e, i) => [
-              e.toString() + ":" + intervalArr[i],
-              e.toString() + ":" + intervalArr[i + 1],
-              e.toString() + ":" + intervalArr[i + 2],
-              e.toString() + ":" + intervalArr[i + 3]
-            ])
+            .map(e => {
+              return [
+                e.toString() + ":" + intervalArr[0],
+                e.toString() + ":" + intervalArr[1],
+                e.toString() + ":" + intervalArr[2],
+                e.toString() + ":" + intervalArr[3]
+              ];
+            })
             .reduce(
               (accumulator, currentValue) => accumulator.concat(currentValue),
               []
             );
 
-          console.log(quadrupleHourArr);
+          console.log(
+            Number(alreadyBookedAppointments[i].startTime.split(":")[0]) * 60 +
+              Number(alreadyBookedAppointments[i].startTime.split(":")[1]) -
+              totalDuration +
+              25 / 60
+          );
 
           alreadyBookedTimesArr.push(
             alreadyBookedAppointments[i].startTime,
-            calendarEndTime
-          );
-
-          const mergedBetweenTimes = [].concat(
-            quadrupleHourArr.slice(
-              quadrupleHourArr.indexOf(alreadyBookedAppointments[i].startTime) +
-                1
-            )
-          );
-
-          changeBookedTimes(
-            alreadyBookedTimesArr
-              .concat(
-                quadrupleHourArr.slice(
-                  quadrupleHourArr.indexOf(
-                    alreadyBookedAppointments[i].startTime
-                  ) + 1
-                )
+            quadrupleHourArr
+              .slice(
+                quadrupleHourArr.indexOf(
+                  (
+                    Number(
+                      alreadyBookedAppointments[i].startTime.split(":")[0]
+                    ) -
+                    currentDurationEndHour +
+                    (Number(
+                      alreadyBookedAppointments[i].startTime.split(":")[1]
+                    ) -
+                      (totalDuration - Math.floor(totalDuration / 60) * 60 < 15
+                        ? 15
+                        : -15 -
+                          (totalDuration -
+                            Math.floor(totalDuration / 60) * 60)) ===
+                    60
+                      ? 1
+                      : 0)
+                  ).toString() +
+                    ":" +
+                    (Math.floor(totalDuration / 60) > 0
+                      ? totalDuration - Math.floor(totalDuration / 60) * 60 < 30
+                        ? (
+                            Number(
+                              alreadyBookedAppointments[i].startTime.split(
+                                ":"
+                              )[1] === "00"
+                                ? "60"
+                                : alreadyBookedAppointments[i].startTime.split(
+                                    ":"
+                                  )[1]
+                            ) -
+                            (totalDuration -
+                              Math.floor(totalDuration / 60) * 60 <
+                            15
+                              ? 15
+                              : -15 -
+                                (totalDuration -
+                                  Math.floor(totalDuration / 60) * 60))
+                          ).toString() === "60"
+                          ? "00"
+                          : alreadyBookedAppointments[i].startTime.split(
+                              ":"
+                            )[1] -
+                            (totalDuration -
+                              Math.floor(totalDuration / 60) * 60 <
+                            15
+                              ? 15
+                              : -15 -
+                                (totalDuration -
+                                  Math.floor(totalDuration / 60) * 60)
+                            ).toString()
+                        : alreadyBookedAppointments[i].startTime.split(":")[1]
+                      : Number(
+                          alreadyBookedAppointments[i].startTime.split(":")[1]
+                        ) + (totalDuration <= 30 ? 15 : 0)
+                    ).toString()
+                ),
+                quadrupleHourArr.length - 1
               )
-              .sort()
+              .sort(),
+            calendarEndTime
           );
         } else {
           return null;
         }
       }
+      changeBookedTimes(
+        alreadyBookedTimesArr.reduce(
+          (accumulator, currentValue) => accumulator.concat(currentValue),
+          []
+        )
+      );
     }
-  }, [alreadyBookedAppointments]);
+  }, [alreadyBookedAppointments, totalDuration]);
+
+  console.log(bookedTimes);
 
   useEffect(() => {
     alreadyBookedTimes();
@@ -446,14 +519,18 @@ const TimePreference = () => {
     }
   };
 
-  const treatmentDurationArr = treatmentsArr.map(item => item.duration);
-  const addOnsDurationArr = addOnsArr.map(item => item.duration);
-  const totalDurationArr = treatmentDurationArr.concat(addOnsDurationArr);
+  useEffect(() => {
+    const treatmentDurationArr = treatmentsArr.map(item => item.duration);
+    const addOnsDurationArr = addOnsArr.map(item => item.duration);
+    const totalDurationArr = treatmentDurationArr.concat(addOnsDurationArr);
 
-  let totalDurationValue;
-  totalDurationArr[0] === undefined
-    ? (totalDurationValue = null)
-    : (totalDurationValue = totalDurationArr.reduce((a, b) => a + b));
+    let totalDurationValue;
+    totalDurationArr[0] === undefined
+      ? (totalDurationValue = null)
+      : (totalDurationValue = totalDurationArr.reduce((a, b) => a + b));
+
+    dispatch(ACTION_TOTAL_DURATION(totalDurationValue));
+  }, [addOnsArr, dispatch, treatmentsArr]);
 
   const handleAppointmentEndTime = useCallback(() => {
     if (selectedTime) {
@@ -461,7 +538,7 @@ const TimePreference = () => {
       let endMinutes =
         Number(
           selectedTime.slice(selectedTime.length - 2, selectedTime.length)
-        ) + totalDurationValue;
+        ) + totalDuration;
       let endHours = Number(selectedTime.slice(0, selectedTime.indexOf(":")));
 
       if (endMinutes >= 240) {
@@ -495,10 +572,9 @@ const TimePreference = () => {
 
       endTotalTime = endHours.toString() + ":" + endMinutes.join("");
 
-      dispatch(ACTION_TOTAL_DURATION(totalDurationValue));
       dispatch(ACTION_APPOINTMENT_END_TIME(endTotalTime));
     }
-  }, [selectedTime, totalDurationValue, dispatch]);
+  }, [selectedTime, totalDuration, dispatch]);
 
   handleAppointmentEndTime();
 
