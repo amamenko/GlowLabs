@@ -43,7 +43,8 @@
   }
 
   .nav_sign_in_button_small_screen {
-    position: absolute;
+    display: block;
+    position: fixed;
     margin-right: 3.9rem;
     right: 0.5rem;
     font-weight: 600;
@@ -60,10 +61,12 @@
   .nav_sign_in_button_small_screen p {
     display: inline-block;
     margin-left: 0.5rem;
+    color: white;
   }
 
   .sign_in_user_icon {
     display: inline-block;
+    color: white;
   }
 
   .shopping_cart_small_screen {

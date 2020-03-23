@@ -1,12 +1,10 @@
 import React from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { Form, FormGroup, Label, Input } from "reactstrap";
-import "./Login.css";
+import "./SignUp.css";
 
-const Login = props => {
+const SignUp = props => {
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
@@ -18,9 +16,9 @@ const Login = props => {
   };
 
   return (
-    <div className="login_page_container">
+    <div className="sign_up_page_container">
       {redirectToHome()}
-      <div className="login_logo_container">
+      <div className="sign_up_logo_container">
         <svg height="17rem" viewBox="0 0 463.021 463.021">
           <g
             transform={
@@ -75,18 +73,9 @@ const Login = props => {
         </svg>
       </div>
 
-      <div className="login_content_container">
-        <p className="sign_in_prompt">Sign in to your account</p>
-        <div className="continue_with_facebook_button">
-          <FontAwesomeIcon icon={faFacebook} />
-          <p>Continue with Facebook</p>
-        </div>
-        <div className="login_or_container">
-          <p className="or_dash">———————</p>
-          <p className="or_capital_letters">OR</p>
-          <p className="or_dash">———————</p>
-        </div>
-        <Form className="login_page_form">
+      <div className="sign_up_content_container">
+        <p className="sign_up_prompt">Create your account</p>
+        <Form className="sign_up_page_form">
           <FormGroup>
             <Label for="email">
               <div>Email</div>
@@ -96,7 +85,7 @@ const Login = props => {
               name="email"
               maxLength={50}
               placeholder="Email"
-              className="input_field_login"
+              className="input_field_sign_up"
             />
           </FormGroup>
           <FormGroup>
@@ -105,29 +94,13 @@ const Login = props => {
               type="password"
               name="password"
               placeholder="Password"
-              className="input_field_login"
+              className="input_field_sign_up"
             />
           </FormGroup>
-          <div className="forgot_password_question_container">
-            <p>Forgot password?</p>
-          </div>
         </Form>
-        <div className="login_page_bottom_buttons_container">
-          <div className="log_in_button">
-            <p>Log In</p>
-          </div>
-          <p className="dont_have_an_account_question">
-            Don't have an account?
-          </p>
-          <div className="create_account_button">
-            <Link to="/signup">
-              <p>Create Account</p>
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default SignUp;

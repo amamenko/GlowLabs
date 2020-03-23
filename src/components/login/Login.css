@@ -1,0 +1,137 @@
+.login_page_container {
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.login_content_container {
+  height: 65%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.sign_in_prompt {
+  font-weight: 500;
+  font-size: 1.3rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  color: rgb(121, 121, 121);
+}
+
+.login_logo_container {
+  position: absolute;
+  height: 30%;
+  width: 100%;
+  top: -5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.continue_with_facebook_button {
+  background: rgb(59, 89, 152);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  width: 75%;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.continue_with_facebook_button p {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+.login_or_container {
+  width: 75%;
+  color: rgb(121, 121, 121);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.login_or_container p {
+  display: inline-block;
+  font-weight: 600;
+}
+
+.login_page_form {
+  width: 75%;
+}
+
+.input_field_login {
+  width: 100%;
+  font-size: 1.3rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  padding-left: 0.5rem;
+}
+
+.forgot_password_question_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.forgot_password_question_container p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(165, 138, 127);
+}
+
+.login_page_bottom_buttons_container {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3vh;
+}
+
+.log_in_button {
+  width: 75%;
+  background: rgb(165, 138, 127);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.dont_have_an_account_question {
+  font-weight: 500;
+}
+
+.create_account_button {
+  width: 75%;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(165, 138, 127);
+  color: rgb(165, 138, 127);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.create_account_button p {
+  color: rgb(165, 138, 127);
+}

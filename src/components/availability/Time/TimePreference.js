@@ -186,73 +186,44 @@ const TimePreference = () => {
               []
             );
 
-          console.log(
-            Number(alreadyBookedAppointments[i].startTime.split(":")[0]) * 60 +
-              Number(alreadyBookedAppointments[i].startTime.split(":")[1]) -
-              totalDuration +
-              25 / 60
-          );
+          const startSliceBasedOnDuration = Number.isInteger(totalDuration / 15)
+            ? // Rounds available apppointment time up if total duration is divisibile by 15
+              (Number(alreadyBookedAppointments[i].startTime.split(":")[0]) *
+                60 +
+                Number(alreadyBookedAppointments[i].startTime.split(":")[1]) -
+                totalDuration) /
+              60
+            : // Rounds available apppointment time down if total duration is not divisibile by 15
+              Math.floor(
+                (Number(alreadyBookedAppointments[i].startTime.split(":")[0]) *
+                  60 +
+                  (Number(
+                    alreadyBookedAppointments[i].startTime.split(":")[1]
+                  ) -
+                    totalDuration)) /
+                  60 /
+                  0.25
+              ) * 0.25;
+
+          const endSliceBasedOnDuration = () => {
+            let emptyArr = [];
+
+            emptyArr.push(startSliceBasedOnDuration.toString().split(".")[1]);
+            emptyArr.unshift(".");
+            emptyArr = (Number(emptyArr.join("")) * 60).toString();
+            return emptyArr;
+          };
 
           alreadyBookedTimesArr.push(
             alreadyBookedAppointments[i].startTime,
             quadrupleHourArr
               .slice(
                 quadrupleHourArr.indexOf(
-                  (
-                    Number(
-                      alreadyBookedAppointments[i].startTime.split(":")[0]
-                    ) -
-                    currentDurationEndHour +
-                    (Number(
-                      alreadyBookedAppointments[i].startTime.split(":")[1]
-                    ) -
-                      (totalDuration - Math.floor(totalDuration / 60) * 60 < 15
-                        ? 15
-                        : -15 -
-                          (totalDuration -
-                            Math.floor(totalDuration / 60) * 60)) ===
-                    60
-                      ? 1
-                      : 0)
-                  ).toString() +
-                    ":" +
-                    (Math.floor(totalDuration / 60) > 0
-                      ? totalDuration - Math.floor(totalDuration / 60) * 60 < 30
-                        ? (
-                            Number(
-                              alreadyBookedAppointments[i].startTime.split(
-                                ":"
-                              )[1] === "00"
-                                ? "60"
-                                : alreadyBookedAppointments[i].startTime.split(
-                                    ":"
-                                  )[1]
-                            ) -
-                            (totalDuration -
-                              Math.floor(totalDuration / 60) * 60 <
-                            15
-                              ? 15
-                              : -15 -
-                                (totalDuration -
-                                  Math.floor(totalDuration / 60) * 60))
-                          ).toString() === "60"
-                          ? "00"
-                          : alreadyBookedAppointments[i].startTime.split(
-                              ":"
-                            )[1] -
-                            (totalDuration -
-                              Math.floor(totalDuration / 60) * 60 <
-                            15
-                              ? 15
-                              : -15 -
-                                (totalDuration -
-                                  Math.floor(totalDuration / 60) * 60)
-                            ).toString()
-                        : alreadyBookedAppointments[i].startTime.split(":")[1]
-                      : Number(
-                          alreadyBookedAppointments[i].startTime.split(":")[1]
-                        ) + (totalDuration <= 30 ? 15 : 0)
-                    ).toString()
+                  Number.isInteger(startSliceBasedOnDuration)
+                    ? startSliceBasedOnDuration.toString() + ":00"
+                    : startSliceBasedOnDuration.toString().split(".")[0] +
+                        ":" +
+                        endSliceBasedOnDuration()
                 ),
                 quadrupleHourArr.length - 1
               )

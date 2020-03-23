@@ -46,6 +46,7 @@ import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
+import SignUp from "./components/signup/SignUp";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -95,6 +96,9 @@ const App = () => {
   );
   const finalBookButtonActive = useSelector(
     state => state.finalBookButton.final_book_button_active
+  );
+  const loginIsActive = useSelector(
+    state => state.loginIsActive.login_is_active
   );
 
   const dispatch = useDispatch();
@@ -397,7 +401,8 @@ const App = () => {
                   ? "15vh"
                   : "0vh"
                 : "0vh",
-              zIndex: finalBookButtonActive ? "auto" : 500
+              zIndex: finalBookButtonActive ? "auto" : 500,
+              display: loginIsActive ? "none" : "auto"
             }}
           >
             <NavigationBar
@@ -520,7 +525,18 @@ const App = () => {
         <Route path="/cart" component={ShoppingCart} />
         <Route path="/availability" component={AvailabilityRouter} />
         <Route path="/checkout" component={GuestCheckoutRouter} />
-        <Route path="/login" component={Login} />
+        <Route
+          path="/login"
+          component={Login}
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+        />
+        <Route
+          path="/signup"
+          component={SignUp}
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+        />
       </Switch>
     </>
   );

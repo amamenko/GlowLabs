@@ -78,6 +78,7 @@ import splashScreenHalfwayReducer from "./reducers/SplashScreenHalfway/splashScr
 import fingerTouchScalingReducer from "./reducers/FingerTouchScaling/fingerTouchScalingReducer";
 import loadingSpinnerReducer from "./reducers/LoadingSpinner/loadingSpinnerReducer";
 import finalBookButtonReducer from "./reducers/FinalBookButton/finalBookButtonReducer";
+import loginIsActiveReducer from "./reducers/Login/loginIsActiveReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -161,7 +162,8 @@ const RootReducer = combineReducers({
   eveningCollapse: eveningCollapseReducer,
   finalBookButton: finalBookButtonReducer,
 
-  // Guest Checkout Form Reducers
+  // Form Reducers
+  loginIsActive: loginIsActiveReducer,
   firstName: firstNameReducer,
   lastName: lastNameReducer,
   email: emailReducer,

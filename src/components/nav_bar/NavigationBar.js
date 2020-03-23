@@ -7,11 +7,15 @@ import { toast } from "react-toastify";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
+import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
 
   const counter = useSelector(state => state.counterReducer.counter);
+  const loginIsActive = useSelector(
+    state => state.loginIsActive.login_is_active
+  );
 
   const dispatch = useDispatch();
 
@@ -53,6 +57,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
     toast.dismiss();
   };
 
+  const handleLoginClick = () => {
+    dispatch(ACTION_LOGIN_IS_ACTIVE());
+    toast.dismiss();
+  };
+
   return (
     <nav
       className="navbar"
@@ -87,7 +96,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
             ? window.scrollY <= 1
               ? "flex-start"
               : "center"
-            : "center"
+            : "center",
+        display: loginIsActive ? "none" : "auto"
       }}
     >
       <Hamburger
@@ -205,8 +215,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
               : "auto"
         }}
       >
-        <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
-        <p>Log In</p>
+        <Link to="/login" onClick={handleLoginClick}>
+          <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
+          <p>Log In</p>
+        </Link>
       </div>
       <Link to="/cart" onClick={handleShoppingCartClick}>
         <svg
@@ -341,8 +353,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
             FOLLOW US
           </li>
           <li className="nav_sign_in_button_large_screen">
-            <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
-            <p>Log In</p>
+            <Link to="/login">
+              <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
+              <p>Log In</p>
+            </Link>
           </li>
           <li className="shopping_cart_large_screen_container">
             <Link to="/cart" onClick={handleShoppingCartClick}>
