@@ -27,6 +27,7 @@ import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/AC
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_TOUCH_SCALING_ACTIVE from "../../actions/FingerTouchScaling/ACTION_TOUCH_SCALING_ACTIVE";
 import ACTION_TOUCH_SCALING_RESET from "../../actions/FingerTouchScaling/ACTION_TOUCH_SCALING_RESET";
+import ACTION_LOGIN_IS_NOT_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
@@ -84,6 +85,10 @@ const LandingPage = React.forwardRef((props, ref) => {
       currentOrientationSnapshot
     ]
   );
+
+  useEffect(() => {
+    dispatch(ACTION_LOGIN_IS_NOT_ACTIVE());
+  }, [dispatch]);
 
   useEffect(() => {
     if (splashScreenHalfway) {

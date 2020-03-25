@@ -1,24 +1,47 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Redirect, Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { Form, FormGroup, Label, Input } from "reactstrap";
-import "./SignUp.css";
+import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
+import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
+import "./Login.css";
 
-const SignUp = props => {
+const Login = props => {
+  let location = useLocation();
+  const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
-
   const redirectToHome = () => {
     if (!splashScreenComplete) {
       return <Redirect to="/" />;
     }
   };
 
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
+  const handleCreateClick = () => {
+    dispatch(ACTION_LOGIN_IS_ACTIVE());
+  };
+
+  // When account screen unmounts, allow navbar
+  useEffect(() => {
+    dispatch(ACTION_LOGIN_IS_ACTIVE());
+    return () => {
+      dispatch(ACTION_LOGIN_IS_NOT_ACTIVE());
+    };
+  }, [dispatch]);
+
   return (
-    <div className="sign_up_page_container">
+    <div className="login_page_container">
       {redirectToHome()}
-      <div className="sign_up_logo_container">
+      <div className="login_logo_container">
         <svg height="17rem" viewBox="0 0 463.021 463.021">
           <g
             transform={
@@ -73,19 +96,28 @@ const SignUp = props => {
         </svg>
       </div>
 
-      <div className="sign_up_content_container">
-        <p className="sign_up_prompt">Create your account</p>
-        <Form className="sign_up_page_form">
+      <div className="login_content_container">
+        <p className="sign_in_prompt">Sign in to your account</p>
+        <div className="continue_with_facebook_button">
+          <FontAwesomeIcon icon={faFacebook} />
+          <p>Continue with Facebook</p>
+        </div>
+        <div className="login_or_container">
+          <p className="or_dash">———————</p>
+          <p className="or_capital_letters">OR</p>
+          <p className="or_dash">———————</p>
+        </div>
+        <Form className="login_page_form">
           <FormGroup>
             <Label for="email">
-              <div>Email</div>
+              <div>Email address</div>
             </Label>
             <Input
               type="text"
               name="email"
               maxLength={50}
-              placeholder="Email"
-              className="input_field_sign_up"
+              placeholder="Email address"
+              className="input_field_login"
             />
           </FormGroup>
           <FormGroup>
@@ -94,13 +126,32 @@ const SignUp = props => {
               type="password"
               name="password"
               placeholder="Password"
-              className="input_field_sign_up"
+              className="input_field_login"
             />
           </FormGroup>
+          <div className="forgot_password_question_container">
+            <p>Forgot password?</p>
+          </div>
         </Form>
+        <div className="login_page_bottom_buttons_container">
+          <div className="log_in_button">
+            <p>Log In</p>
+          </div>
+          <p className="dont_have_an_account_question">
+            Don't have an account?
+          </p>
+          <div
+            className="create_account_redirect_button"
+            onClick={handleCreateClick}
+          >
+            <Link to="/account/signup">
+              <p>Create Account</p>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default Login;

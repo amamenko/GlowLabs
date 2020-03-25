@@ -40,7 +40,7 @@
   background: rgb(59, 89, 152);
   color: rgb(255, 255, 255);
   text-align: center;
-  width: 75%;
+  width: 90%;
   border-radius: 30px;
   font-weight: 500;
   font-size: 1rem;
@@ -54,7 +54,7 @@
 }
 
 .login_or_container {
-  width: 75%;
+  width: 90%;
   color: rgb(121, 121, 121);
   display: flex;
   flex-direction: row;
@@ -70,7 +70,7 @@
 }
 
 .login_page_form {
-  width: 75%;
+  width: 90%;
 }
 
 .input_field_login {
@@ -106,7 +106,7 @@
 }
 
 .log_in_button {
-  width: 75%;
+  width: 90%;
   background: rgb(165, 138, 127);
   color: rgb(255, 255, 255);
   text-align: center;
@@ -120,8 +120,8 @@
   font-weight: 500;
 }
 
-.create_account_button {
-  width: 75%;
+.create_account_redirect_button {
+  width: 90%;
   background: rgb(255, 255, 255);
   border: 2px solid rgb(165, 138, 127);
   color: rgb(165, 138, 127);
@@ -132,6 +132,6 @@
   padding: 0.8rem;
 }
 
-.create_account_button p {
+.create_account_redirect_button p {
   color: rgb(165, 138, 127);
 }

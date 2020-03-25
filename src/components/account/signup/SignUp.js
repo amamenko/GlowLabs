@@ -1,12 +1,13 @@
-import React from "react";
-import { Redirect, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import React, { useEffect } from "react";
+import { Redirect, useLocation, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Form, FormGroup, Label, Input } from "reactstrap";
-import "./Login.css";
+import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
+import "./SignUp.css";
 
-const Login = props => {
+const SignUp = props => {
+  let location = useLocation();
+  const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
@@ -17,10 +18,20 @@ const Login = props => {
     }
   };
 
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    dispatch(ACTION_LOGIN_IS_ACTIVE());
+  });
+
   return (
-    <div className="login_page_container">
+    <div className="sign_up_page_container">
       {redirectToHome()}
-      <div className="login_logo_container">
+      <div className="sign_up_logo_container">
         <svg height="17rem" viewBox="0 0 463.021 463.021">
           <g
             transform={
@@ -75,53 +86,110 @@ const Login = props => {
         </svg>
       </div>
 
-      <div className="login_content_container">
-        <p className="sign_in_prompt">Sign in to your account</p>
-        <div className="continue_with_facebook_button">
-          <FontAwesomeIcon icon={faFacebook} />
-          <p>Continue with Facebook</p>
-        </div>
-        <div className="login_or_container">
-          <p className="or_dash">———————</p>
-          <p className="or_capital_letters">OR</p>
-          <p className="or_dash">———————</p>
-        </div>
-        <Form className="login_page_form">
+      <div className="sign_up_content_container">
+        <p className="sign_up_prompt">Create your account</p>
+        <Form className="sign_up_page_form">
+          <FormGroup>
+            <Label for="firstName">
+              {" "}
+              <div className="top_form_container">
+                <div className="required_label">
+                  First Name<p className="required_label red_asterisk">* </p>
+                </div>
+                <div className="required_fields_container">
+                  <p className="red_asterisk">* </p>{" "}
+                  <p className="required_fields_statement"> Required Fields</p>
+                </div>
+              </div>
+            </Label>
+            <Input
+              type="text"
+              name="firstName"
+              maxLength={50}
+              placeholder="First name"
+              className="input_field_sign_up"
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="lastName">
+              <div className="required_label">
+                Last Name<p className="required_label red_asterisk">* </p>
+              </div>
+            </Label>
+            <Input
+              type="text"
+              name="lastName"
+              maxLength={50}
+              placeholder="Last name"
+              className="input_field_sign_up"
+            />
+          </FormGroup>
           <FormGroup>
             <Label for="email">
-              <div>Email</div>
+              <div className="required_label">
+                Email address<p className="required_label red_asterisk">* </p>
+              </div>
             </Label>
             <Input
               type="text"
               name="email"
               maxLength={50}
-              placeholder="Email"
-              className="input_field_login"
+              placeholder="Email address"
+              className="input_field_sign_up"
             />
           </FormGroup>
           <FormGroup>
-            <Label for="password">Password</Label>
+            <Label for="phoneNumber">
+              <div className="required_label">
+                Phone Number<p className="required_label red_asterisk">* </p>
+              </div>
+            </Label>
+            <Input
+              type="tel"
+              name="phoneNumber"
+              maxLength={16}
+              placeholder="Phone number"
+              className="input_field_sign_up"
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="password">
+              <div className="required_label">
+                Password<p className="required_label red_asterisk">* </p>
+              </div>
+            </Label>
             <Input
               type="password"
               name="password"
               placeholder="Password"
-              className="input_field_login"
+              className="input_field_sign_up"
             />
           </FormGroup>
-          <div className="forgot_password_question_container">
-            <p>Forgot password?</p>
-          </div>
+          <FormGroup>
+            <Label for="confirmPassword">
+              <div className="required_label">
+                Confirm Password
+                <p className="required_label red_asterisk">* </p>
+              </div>
+            </Label>
+            <Input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm password"
+              className="input_field_sign_up"
+            />
+          </FormGroup>
         </Form>
-        <div className="login_page_bottom_buttons_container">
-          <div className="log_in_button">
-            <p>Log In</p>
-          </div>
-          <p className="dont_have_an_account_question">
-            Don't have an account?
-          </p>
+        <div className="signup_page_bottom_buttons_container">
           <div className="create_account_button">
-            <Link to="/signup">
-              <p>Create Account</p>
+            <p>Create Account</p>
+          </div>
+          <p className="already_have_an_account_question">
+            Already have an account?
+          </p>
+          <div className="login_redirect_button">
+            <Link to="/account/login">
+              <p>Log In</p>
             </Link>
           </div>
         </div>
@@ -130,4 +198,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default SignUp;

@@ -33,9 +33,9 @@ import AddOnsPage5 from "./components/add_ons_pages/Page_5/AddOnsPage5";
 import Instagram from "./components/instagram/Instagram";
 import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
-import Login from "./components/login/Login";
 import AvailabilityRouter from "./components/availability/AvailabilityRouter";
 import GuestCheckoutRouter from "./components/checkout/GuestCheckoutRouter";
+import AccountRouter from "./components/account/AccountRouter";
 import {
   BrowserRouter as Router,
   Switch,
@@ -46,7 +46,6 @@ import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
-import SignUp from "./components/signup/SignUp";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -402,7 +401,7 @@ const App = () => {
                   : "0vh"
                 : "0vh",
               zIndex: finalBookButtonActive ? "auto" : 500,
-              display: loginIsActive ? "none" : "auto"
+              display: loginIsActive ? "none" : "flex"
             }}
           >
             <NavigationBar
@@ -525,18 +524,7 @@ const App = () => {
         <Route path="/cart" component={ShoppingCart} />
         <Route path="/availability" component={AvailabilityRouter} />
         <Route path="/checkout" component={GuestCheckoutRouter} />
-        <Route
-          path="/login"
-          component={Login}
-          currentScreenSize={currentScreenSize}
-          initialScreenSize={initialScreenSize}
-        />
-        <Route
-          path="/signup"
-          component={SignUp}
-          currentScreenSize={currentScreenSize}
-          initialScreenSize={initialScreenSize}
-        />
+        <Route path="/account" component={AccountRouter} />
       </Switch>
     </>
   );

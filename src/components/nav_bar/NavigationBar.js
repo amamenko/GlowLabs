@@ -97,7 +97,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
               ? "flex-start"
               : "center"
             : "center",
-        display: loginIsActive ? "none" : "auto"
+        display: loginIsActive ? "none" : "flex"
       }}
     >
       <Hamburger
@@ -215,7 +215,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
               : "auto"
         }}
       >
-        <Link to="/login" onClick={handleLoginClick}>
+        <Link to="/account/login" onClick={handleLoginClick}>
           <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
           <p>Log In</p>
         </Link>
