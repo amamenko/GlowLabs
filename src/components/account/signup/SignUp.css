@@ -73,6 +73,7 @@
 
 .already_have_an_account_question {
   font-weight: 500;
+  margin-top: 2vh;
 }
 
 .login_redirect_button {

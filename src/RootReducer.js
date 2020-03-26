@@ -79,6 +79,20 @@ import fingerTouchScalingReducer from "./reducers/FingerTouchScaling/fingerTouch
 import loadingSpinnerReducer from "./reducers/LoadingSpinner/loadingSpinnerReducer";
 import finalBookButtonReducer from "./reducers/FinalBookButton/finalBookButtonReducer";
 import loginIsActiveReducer from "./reducers/Login/loginIsActiveReducer";
+import createAccountEmailReducer from "./reducers/CreateAccount/CreateAccountEmail/createAccountEmailReducer";
+import createAccountPhoneNumberReducer from "./reducers/CreateAccount/CreateAccountPhoneNumber/createAccountPhoneNumberReducer";
+import createAccountFirstNameReducer from "./reducers/CreateAccount/CreateAccountFirstName/createAccountFirstNameReducer";
+import createAccountLastNameReducer from "./reducers/CreateAccount/CreateAccountLastName/createAccountLastNameReducer";
+import createAccountPasswordReducer from "./reducers/CreateAccount/CreateAccountPassword/createAccountPasswordReducer";
+import createAccountConfirmPasswordReducer from "./reducers/CreateAccount/CreateAccountConfirmPassword/createAccountConfirmPasswordReducer";
+import createAccountEmailValidReducer from "./reducers/CreateAccount/CreateAccountEmail/Validation/Valid/createAccountEmailValidReducer";
+import createAccountEmailInvalidReducer from "./reducers/CreateAccount/CreateAccountEmail/Validation/Invalid/createAccountEmailInvalidReducer";
+import createAccountPhoneNumberValidReducer from "./reducers/CreateAccount/CreateAccountPhoneNumber/Validation/Valid/createAccountPhoneNumberValid";
+import createAccountPhoneNumberInvalidReducer from "./reducers/CreateAccount/CreateAccountPhoneNumber/Validation/Invalid/createAccountPhoneNumberInvalid";
+import createAccountPasswordValidReducer from "./reducers/CreateAccount/CreateAccountPassword/Validation/Valid/createAccountPasswordValidReducer";
+import createAccountPasswordInvalidReducer from "./reducers/CreateAccount/CreateAccountPassword/Validation/Invalid/createAccountPasswordInvalidReducer";
+import createAccountConfirmPasswordValidReducer from "./reducers/CreateAccount/CreateAccountConfirmPassword/Validation/Valid/createAccountConfirmPasswordValidReducer";
+import createAccountConfirmPasswordInvalidReducer from "./reducers/CreateAccount/CreateAccountConfirmPassword/Validation/Invalid/createAccountConfirmPasswordInvalidReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -162,7 +176,23 @@ const RootReducer = combineReducers({
   eveningCollapse: eveningCollapseReducer,
   finalBookButton: finalBookButtonReducer,
 
-  // Form Reducers
+  // Create Account Reducers
+  createAccountEmail: createAccountEmailReducer,
+  createAccountEmailValid: createAccountEmailValidReducer,
+  createAccountEmailInvalid: createAccountEmailInvalidReducer,
+  createAccountPhoneNumber: createAccountPhoneNumberReducer,
+  createAccountPhoneNumberValid: createAccountPhoneNumberValidReducer,
+  createAccountPhoneNumberInvalid: createAccountPhoneNumberInvalidReducer,
+  createAccountFirstName: createAccountFirstNameReducer,
+  createAccountLastName: createAccountLastNameReducer,
+  createAccountPassword: createAccountPasswordReducer,
+  createAccountPasswordValid: createAccountPasswordValidReducer,
+  createAccountPasswordInvalid: createAccountPasswordInvalidReducer,
+  createAccountConfirmPassword: createAccountConfirmPasswordReducer,
+  createAccountConfirmPasswordValid: createAccountConfirmPasswordValidReducer,
+  createAccountConfirmPasswordInvalid: createAccountConfirmPasswordInvalidReducer,
+
+  // Guest Checout Form Reducers
   loginIsActive: loginIsActiveReducer,
   firstName: firstNameReducer,
   lastName: lastNameReducer,

@@ -2,7 +2,15 @@ import React, { useEffect } from "react";
 import { Redirect, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, FormGroup, Label, Input } from "reactstrap";
+import CreateAccountEmail from "./CreateAccountEmail/CreateAccountEmail";
+import CreateAccountPhoneNumber from "./CreateAccountPhoneNumber/CreateAccountPhoneNumber";
+import CreateAccountPassword from "./CreateAccountPassword/CreateAccountPassword";
+import CreateAccountConfirmPassword from "./CreateAccountConfirmPassword.js/CreateAccountConfirmPassword";
 import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
+import ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET from "../../../actions/CreateAccount/CreateAccountFirstName/ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET";
+import ACTION_CREATE_ACCOUNT_FIRST_NAME from "../../../actions/CreateAccount/CreateAccountFirstName/ACTION_CREATE_ACCOUNT_FIRST_NAME";
+import ACTION_CREATE_ACCOUNT_LAST_NAME from "../../../actions/CreateAccount/CreateAccountLastName/ACTION_CREATE_ACCOUNT_LAST_NAME";
+import ACTION_CREATE_ACCOUNT_LAST_NAME_RESET from "../../../actions/CreateAccount/CreateAccountLastName/ACTION_CREATE_ACCOUNT_LAST_NAME_RESET";
 import "./SignUp.css";
 
 const SignUp = props => {
@@ -10,6 +18,39 @@ const SignUp = props => {
   const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
+  );
+  const createAccountFirstName = useSelector(
+    state => state.createAccountFirstName.create_account_first_name
+  );
+  const createAccountLastName = useSelector(
+    state => state.createAccountLastName.create_account_last_name
+  );
+  const createAccountEmailValid = useSelector(
+    state => state.createAccountEmailValid.create_account_email_valid
+  );
+  const createAccountPhoneNumberValid = useSelector(
+    state =>
+      state.createAccountPhoneNumberValid.create_account_phone_number_valid
+  );
+  const createAccountPasswordValid = useSelector(
+    state => state.createAccountPasswordValid.create_account_password_valid
+  );
+  const createAccountConfirmPasswordValid = useSelector(
+    state =>
+      state.createAccountConfirmPasswordValid
+        .create_account_confirm_password_valid
+  );
+  const createAccountEmail = useSelector(
+    state => state.createAccountEmail.create_account_email
+  );
+  const createAccountPhoneNumber = useSelector(
+    state => state.createAccountPhoneNumber.create_account_phone_number
+  );
+  const createAccountPassword = useSelector(
+    state => state.createAccountPassword.create_account_password
+  );
+  const createAccountConfirmPassword = useSelector(
+    state => state.createAccountConfirmPassword.create_account_confirm_password
   );
 
   const redirectToHome = () => {
@@ -27,6 +68,22 @@ const SignUp = props => {
   useEffect(() => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
   });
+
+  const handleFirstName = e => {
+    dispatch(ACTION_CREATE_ACCOUNT_FIRST_NAME(e.currentTarget.value.trim()));
+  };
+
+  const firstNameTyping = () => {
+    dispatch(ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET());
+  };
+
+  const handleLastName = e => {
+    dispatch(ACTION_CREATE_ACCOUNT_LAST_NAME(e.currentTarget.value.trim()));
+  };
+
+  const lastNameTyping = () => {
+    dispatch(ACTION_CREATE_ACCOUNT_LAST_NAME_RESET());
+  };
 
   return (
     <div className="sign_up_page_container">
@@ -105,7 +162,11 @@ const SignUp = props => {
             <Input
               type="text"
               name="firstName"
+              defaultValue={createAccountFirstName}
               maxLength={50}
+              onBlur={handleFirstName}
+              onChange={firstNameTyping}
+              valid={createAccountFirstName === "" ? false : true}
               placeholder="First name"
               className="input_field_sign_up"
             />
@@ -122,66 +183,42 @@ const SignUp = props => {
               maxLength={50}
               placeholder="Last name"
               className="input_field_sign_up"
+              defaultValue={createAccountLastName}
+              onChange={lastNameTyping}
+              onBlur={handleLastName}
+              valid={createAccountLastName === "" ? false : true}
             />
           </FormGroup>
-          <FormGroup>
-            <Label for="email">
-              <div className="required_label">
-                Email address<p className="required_label red_asterisk">* </p>
-              </div>
-            </Label>
-            <Input
-              type="text"
-              name="email"
-              maxLength={50}
-              placeholder="Email address"
-              className="input_field_sign_up"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="phoneNumber">
-              <div className="required_label">
-                Phone Number<p className="required_label red_asterisk">* </p>
-              </div>
-            </Label>
-            <Input
-              type="tel"
-              name="phoneNumber"
-              maxLength={16}
-              placeholder="Phone number"
-              className="input_field_sign_up"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">
-              <div className="required_label">
-                Password<p className="required_label red_asterisk">* </p>
-              </div>
-            </Label>
-            <Input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="input_field_sign_up"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="confirmPassword">
-              <div className="required_label">
-                Confirm Password
-                <p className="required_label red_asterisk">* </p>
-              </div>
-            </Label>
-            <Input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm password"
-              className="input_field_sign_up"
-            />
-          </FormGroup>
+          <CreateAccountEmail />
+          <CreateAccountPhoneNumber />
+          <CreateAccountPassword />
+          <CreateAccountConfirmPassword />
         </Form>
         <div className="signup_page_bottom_buttons_container">
-          <div className="create_account_button">
+          <div
+            className="create_account_button"
+            style={{
+              background:
+                createAccountFirstName &&
+                createAccountLastName &&
+                createAccountEmailValid &&
+                createAccountPhoneNumberValid &&
+                createAccountPasswordValid &&
+                createAccountConfirmPasswordValid
+                  ? "rgb(165, 138, 127)"
+                  : "#f0f0f0",
+              color:
+                createAccountFirstName &&
+                createAccountLastName &&
+                createAccountEmailValid &&
+                createAccountPhoneNumberValid &&
+                createAccountPasswordValid &&
+                createAccountConfirmPasswordValid
+                  ? "rgb(255, 255, 255)"
+                  : "rgb(201, 201, 201)",
+              transition: "background 0.5s ease, color 0.5s ease"
+            }}
+          >
             <p>Create Account</p>
           </div>
           <p className="already_have_an_account_question">

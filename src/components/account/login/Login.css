@@ -118,6 +118,7 @@
 
 .dont_have_an_account_question {
   font-weight: 500;
+  margin-top: 2vh;
 }
 
 .create_account_redirect_button {
