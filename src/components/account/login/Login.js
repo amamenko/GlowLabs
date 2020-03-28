@@ -1,11 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Form } from "reactstrap";
+import { loginQuery, getClientsQuery } from "../../../graphql/queries/queries";
+import LoginEmail from "./LoginEmail/LoginEmail";
+import LoginPassword from "./LoginPassword/LoginPassword";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
+import ACTION_LOGIN_EMAIL_INVALID from "../../../actions/Login/LoginEmail/Invalid/ACTION_LOGIN_EMAIL_INVALID";
+import ACTION_LOGIN_PASSWORD_INVALID from "../../../actions/Login/LoginPassword/Invalid/ACTION_LOGIN_PASSWORD_INVALID";
+import ACTION_LOGIN_EMAIL_NOT_INVALID from "../../../actions/Login/LoginEmail/Invalid/ACTION_LOGIN_EMAIL_NOT_INVALID";
+import ACTION_REGISTERED_CLIENT_FOUND from "../../../actions/Login/RegisteredClientFound/ACTION_REGISTERED_CLIENT_FOUND";
+import ACTION_REGISTERED_CLIENT_FOUND_RESET from "../../../actions/Login/RegisteredClientFound/ACTION_REGISTERED_CLIENT_FOUND_RESET";
+import ACTION_LOGIN_PASSWORD_NOT_INVALID from "../../../actions/Login/LoginPassword/Invalid/ACTION_LOGIN_PASSWORD_NOT_INVALID";
 import "./Login.css";
 
 const Login = props => {
@@ -14,6 +24,55 @@ const Login = props => {
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
+  const loginEmail = useSelector(state => state.loginEmail.login_email);
+  const loginEmailInvalid = useSelector(
+    state => state.loginEmailInvalid.login_email_invalid
+  );
+  const loginPassword = useSelector(
+    state => state.loginPassword.login_password
+  );
+  const loginPasswordInvalid = useSelector(
+    state => state.loginPasswordInvalid.login_password_invalid
+  );
+  const registeredClientFound = useSelector(
+    state => state.registeredClientFound.registered_client_found
+  );
+
+  const [loginClient, { loading, data, error }] = useLazyQuery(loginQuery);
+  const { data: getClientsData } = useQuery(getClientsQuery, {
+    fetchPolicy: "no-cache"
+  });
+
+  const [user, changeUser] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/graphql", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/graphql"
+      }
+    })
+      .then(res => res.json())
+      .then(json => console.log(json));
+  }, []);
+
+  useMemo(() => {
+    if (getClientsData) {
+      for (let i = 0; i < getClientsData.clients.length; i++) {
+        if (getClientsData.clients[i].email === loginEmail) {
+          if (getClientsData.clients[i].password !== null) {
+            dispatch(ACTION_REGISTERED_CLIENT_FOUND());
+          } else {
+            if (registeredClientFound) {
+              dispatch(ACTION_REGISTERED_CLIENT_FOUND_RESET());
+            }
+          }
+        }
+      }
+    }
+  }, [getClientsData, loginEmail, registeredClientFound, dispatch]);
+
   const redirectToHome = () => {
     if (!splashScreenComplete) {
       return <Redirect to="/" />;
@@ -28,6 +87,31 @@ const Login = props => {
 
   const handleCreateClick = () => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
+  };
+
+  const handleLoginClick = () => {
+    loginClient({ variables: { email: loginEmail, password: loginPassword } });
+
+    if (loading) {
+      console.log("loading...");
+    } else {
+      if (registeredClientFound) {
+        if (loginEmailInvalid) {
+          dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
+        }
+        if (error) {
+          dispatch(ACTION_LOGIN_PASSWORD_INVALID());
+        } else {
+          if (data) {
+            if (loginPasswordInvalid) {
+              dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+            }
+          }
+        }
+      } else {
+        dispatch(ACTION_LOGIN_EMAIL_INVALID());
+      }
+    }
   };
 
   // When account screen unmounts, allow navbar
@@ -108,35 +192,39 @@ const Login = props => {
           <p className="or_dash">———————</p>
         </div>
         <Form className="login_page_form">
-          <FormGroup>
-            <Label for="email">
-              <div>Email address</div>
-            </Label>
-            <Input
-              type="text"
-              name="email"
-              maxLength={50}
-              placeholder="Email address"
-              className="input_field_login"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="input_field_login"
-            />
-          </FormGroup>
+          <LoginEmail />
+          <LoginPassword />
           <div className="forgot_password_question_container">
             <p>Forgot password?</p>
           </div>
         </Form>
         <div className="login_page_bottom_buttons_container">
-          <div className="log_in_button">
-            <p>Log In</p>
-          </div>
+          <Link
+            to={data ? "/account/clientprofile" : "/account/login"}
+            style={{
+              display: "block",
+              width: "90%",
+              pointerEvents: loginEmail && loginPassword ? "auto" : "none"
+            }}
+          >
+            <div
+              className="log_in_button"
+              style={{
+                background:
+                  loginEmail && loginPassword
+                    ? "rgb(165, 138, 127)"
+                    : "#f0f0f0",
+                color:
+                  loginEmail && loginPassword
+                    ? "rgb(255, 255, 255)"
+                    : "rgb(201, 201, 201)",
+                transition: "background 0.5s ease, color 0.5s ease"
+              }}
+              onClick={handleLoginClick}
+            >
+              <p>Log In</p>
+            </div>
+          </Link>
           <p className="dont_have_an_account_question">
             Don't have an account?
           </p>

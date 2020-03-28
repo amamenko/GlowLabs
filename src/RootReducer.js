@@ -93,6 +93,11 @@ import createAccountPasswordValidReducer from "./reducers/CreateAccount/CreateAc
 import createAccountPasswordInvalidReducer from "./reducers/CreateAccount/CreateAccountPassword/Validation/Invalid/createAccountPasswordInvalidReducer";
 import createAccountConfirmPasswordValidReducer from "./reducers/CreateAccount/CreateAccountConfirmPassword/Validation/Valid/createAccountConfirmPasswordValidReducer";
 import createAccountConfirmPasswordInvalidReducer from "./reducers/CreateAccount/CreateAccountConfirmPassword/Validation/Invalid/createAccountConfirmPasswordInvalidReducer";
+import loginEmailReducer from "./reducers/Login/LoginEmail/loginEmailReducer";
+import loginPasswordReducer from "./reducers/Login/LoginPassword/loginPasswordReducer";
+import loginEmailInvalidReducer from "./reducers/Login/LoginEmail/Invalid/loginEmailInvalidReducer";
+import loginPasswordInvalidReducer from "./reducers/Login/LoginPassword/Invalid/loginPasswordInvalidReducer";
+import registeredClientFoundReducer from "./reducers/Login/RegisteredClientFound/registeredClientFoundReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -191,6 +196,13 @@ const RootReducer = combineReducers({
   createAccountConfirmPassword: createAccountConfirmPasswordReducer,
   createAccountConfirmPasswordValid: createAccountConfirmPasswordValidReducer,
   createAccountConfirmPasswordInvalid: createAccountConfirmPasswordInvalidReducer,
+
+  // Login Form Reducers,
+  loginEmail: loginEmailReducer,
+  loginEmailInvalid: loginEmailInvalidReducer,
+  loginPassword: loginPasswordReducer,
+  loginPasswordInvalid: loginPasswordInvalidReducer,
+  registeredClientFound: registeredClientFoundReducer,
 
   // Guest Checout Form Reducers
   loginIsActive: loginIsActiveReducer,

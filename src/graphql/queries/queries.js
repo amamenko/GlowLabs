@@ -169,8 +169,9 @@ const getClientQuery = gql`
 const loginQuery = gql`
   query($email: String, $password: String) {
     login(email: $email, password: $password) {
-      email
-      password
+      id
+      accessToken
+      refreshToken
     }
   }
 `;
@@ -262,6 +263,21 @@ const addClientMutation = gql`
   }
 `;
 
+const updateClientInvalidateTokensMutation = gql`
+  mutation {
+    updateClientInvalidateTokensMutation {
+      id
+      firstName
+      lastName
+      email
+      phoneNumber
+      password
+      createdAt
+      tokenCount
+    }
+  }
+`;
+
 const registerClientMutation = gql`
   mutation(
     $firstName: String!
@@ -296,5 +312,6 @@ export {
   getAppointmentQuery,
   addAppointmentMutation,
   addClientMutation,
+  updateClientInvalidateTokensMutation,
   registerClientMutation
 };

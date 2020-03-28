@@ -61,6 +61,7 @@ const store = createStore(
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
+  credentials: "include",
   onError: ({ graphQLErrors }) => {
     if (graphQLErrors) {
       graphQLErrors.map(({ message }) => console.log(message));
