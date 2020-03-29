@@ -71,6 +71,9 @@ const TimePreference = () => {
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
+  const userAuthenticated = useSelector(
+    state => state.userAuthenticated.user_authenticated
+  );
 
   const [bookedTimes, changeBookedTimes] = useState([]);
 
@@ -242,8 +245,6 @@ const TimePreference = () => {
       );
     }
   }, [alreadyBookedAppointments, totalDuration]);
-
-  console.log(bookedTimes);
 
   useEffect(() => {
     alreadyBookedTimes();
@@ -829,7 +830,7 @@ const TimePreference = () => {
           }}
         >
           <Link
-            to="/checkout"
+            to={userAuthenticated ? "/checkout/confirmation" : "/checkout"}
             style={{
               display: "block",
               pointerEvents: selectedTime !== "" ? "auto" : "none"

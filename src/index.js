@@ -34,8 +34,9 @@ import Instagram from "./components/instagram/Instagram";
 import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
 import AvailabilityRouter from "./components/availability/AvailabilityRouter";
-import GuestCheckoutRouter from "./components/checkout/GuestCheckoutRouter";
+import CheckoutRouter from "./components/checkout/CheckoutRouter";
 import AccountRouter from "./components/account/AccountRouter";
+import Cookies from "js-cookie";
 import {
   BrowserRouter as Router,
   Switch,
@@ -46,6 +47,8 @@ import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
+import ACTION_USER_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_AUTHENTICATED";
+import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_NOT_AUTHENTICATED";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -102,6 +105,25 @@ const App = () => {
   );
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    let currentDummyToken;
+
+    const checkCookies = () => {
+      if (currentDummyToken !== Cookies.get("dummy-token")) {
+        currentDummyToken = Cookies.get("dummy-token");
+        console.log(currentDummyToken);
+
+        if (currentDummyToken) {
+          dispatch(ACTION_USER_AUTHENTICATED());
+        } else {
+          dispatch(ACTION_USER_NOT_AUTHENTICATED());
+        }
+      }
+    };
+
+    setInterval(checkCookies, 100);
+  }, [dispatch]);
 
   const handleNavbarToggle = () => {
     if (navbarToggle) {
@@ -524,7 +546,7 @@ const App = () => {
         </Route>
         <Route path="/cart" component={ShoppingCart} />
         <Route path="/availability" component={AvailabilityRouter} />
-        <Route path="/checkout" component={GuestCheckoutRouter} />
+        <Route path="/checkout" component={CheckoutRouter} />
         <Route path="/account" component={AccountRouter} />
       </Switch>
     </>

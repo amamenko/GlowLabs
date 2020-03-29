@@ -5,6 +5,9 @@ import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { Form } from "reactstrap";
+import { css } from "emotion";
+import { BounceLoader } from "react-spinners";
+import Modal from "react-modal";
 import { loginQuery, getClientsQuery } from "../../../graphql/queries/queries";
 import LoginEmail from "./LoginEmail/LoginEmail";
 import LoginPassword from "./LoginPassword/LoginPassword";
@@ -37,25 +40,23 @@ const Login = props => {
   const registeredClientFound = useSelector(
     state => state.registeredClientFound.registered_client_found
   );
+  const userAuthenticated = useSelector(
+    state => state.userAuthenticated.user_authenticated
+  );
 
-  const [loginClient, { loading, data, error }] = useLazyQuery(loginQuery);
+  const [loginClient, { data, error }] = useLazyQuery(loginQuery);
   const { data: getClientsData } = useQuery(getClientsQuery, {
     fetchPolicy: "no-cache"
   });
 
-  const [user, changeUser] = useState(null);
+  const [signInLoading, changeSignInLoading] = useState(false);
 
-  useEffect(() => {
-    fetch("http://localhost:4000/graphql", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/graphql"
-      }
-    })
-      .then(res => res.json())
-      .then(json => console.log(json));
-  }, []);
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   useMemo(() => {
     if (getClientsData) {
@@ -79,6 +80,12 @@ const Login = props => {
     }
   };
 
+  const redirectToClientProfile = () => {
+    if (userAuthenticated) {
+      return <Redirect to="/account/clientprofile" />;
+    }
+  };
+
   useEffect(() => {
     if (location.pathname) {
       window.scrollTo(0, 0);
@@ -89,29 +96,48 @@ const Login = props => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
   };
 
-  const handleLoginClick = () => {
-    loginClient({ variables: { email: loginEmail, password: loginPassword } });
+  useEffect(() => {
+    if (signInLoading) {
+      const userValidation = setTimeout(() => {
+        changeSignInLoading(false);
 
-    if (loading) {
-      console.log("loading...");
-    } else {
-      if (registeredClientFound) {
-        if (loginEmailInvalid) {
-          dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
-        }
-        if (error) {
-          dispatch(ACTION_LOGIN_PASSWORD_INVALID());
-        } else {
-          if (data) {
-            if (loginPasswordInvalid) {
-              dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+        if (registeredClientFound) {
+          if (loginEmailInvalid) {
+            dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
+          }
+          if (error) {
+            dispatch(ACTION_LOGIN_PASSWORD_INVALID());
+          } else {
+            if (data) {
+              if (loginPasswordInvalid) {
+                dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+              }
             }
           }
+        } else {
+          dispatch(ACTION_LOGIN_EMAIL_INVALID());
         }
-      } else {
-        dispatch(ACTION_LOGIN_EMAIL_INVALID());
-      }
+      }, 500);
+      return () => {
+        clearTimeout(userValidation);
+      };
     }
+  }, [
+    data,
+    dispatch,
+    error,
+    signInLoading,
+    loginClient,
+    loginEmail,
+    loginEmailInvalid,
+    loginPassword,
+    loginPasswordInvalid,
+    registeredClientFound
+  ]);
+
+  const handleLoginClick = () => {
+    loginClient({ variables: { email: loginEmail, password: loginPassword } });
+    changeSignInLoading(true);
   };
 
   // When account screen unmounts, allow navbar
@@ -125,6 +151,7 @@ const Login = props => {
   return (
     <div className="login_page_container">
       {redirectToHome()}
+      {redirectToClientProfile()}
       <div className="login_logo_container">
         <svg height="17rem" viewBox="0 0 463.021 463.021">
           <g
@@ -200,7 +227,7 @@ const Login = props => {
         </Form>
         <div className="login_page_bottom_buttons_container">
           <Link
-            to={data ? "/account/clientprofile" : "/account/login"}
+            to="/account/login"
             style={{
               display: "block",
               width: "90%",
@@ -238,6 +265,38 @@ const Login = props => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={signInLoading}
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: "10000",
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)"
+          }
+        }}
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(232, 210, 195)"}
+          loading={signInLoading}
+        />
+      </Modal>
     </div>
   );
 };

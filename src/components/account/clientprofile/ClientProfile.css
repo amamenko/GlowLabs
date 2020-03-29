@@ -1,0 +1,72 @@
+.client_profile_page_container {
+  height: 100vh;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+}
+
+.client_profile_page_header {
+  color: rgb(165, 138, 127);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+  border-bottom: solid 1px rgb(165, 138, 127);
+}
+
+.client_profile_page_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.client_profile_page_content_container {
+  height: 66%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.client_profile_page_content_container div {
+  width: 40%;
+  height: 30vh;
+  box-shadow: 1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+    -1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+    0px -1px 1px 0px rgba(177, 177, 166, 0.7),
+    0px 2px 1px 0px rgba(177, 177, 166, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3vh;
+  background: rgba(211, 211, 211, 0.3);
+}
+
+.client_profile_page_content_container div p {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: rgb(77, 77, 77);
+}
+
+.profile_box_icon {
+  width: 100%;
+  font-size: 3rem;
+  display: flex;
+  color: rgb(77, 77, 77);
+}
+
+.profile_box_container_link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

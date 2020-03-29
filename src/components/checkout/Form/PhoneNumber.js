@@ -165,8 +165,6 @@ const PhoneNumber = () => {
     e.currentTarget.value = currentTyping;
   };
 
-  console.log(phoneNumberAlreadyRegistered);
-
   const phoneNumberKeyTyping = e => {
     if (
       (e.keyCode >= 8 && e.keyCode < 32) ||

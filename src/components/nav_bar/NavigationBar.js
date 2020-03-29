@@ -1,7 +1,7 @@
 import React from "react";
 import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
@@ -11,10 +11,14 @@ import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
+  const location = useLocation();
 
   const counter = useSelector(state => state.counterReducer.counter);
   const loginIsActive = useSelector(
     state => state.loginIsActive.login_is_active
+  );
+  const userAuthenticated = useSelector(
+    state => state.userAuthenticated.user_authenticated
   );
 
   const dispatch = useDispatch();
@@ -217,7 +221,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
       >
         <Link to="/account/login" onClick={handleLoginClick}>
           <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
-          <p>Log In</p>
+          <p>
+            {location.pathname.includes("/account/clientprofile")
+              ? userAuthenticated
+                ? "Log Out"
+                : "Log In"
+              : userAuthenticated
+              ? "Profile"
+              : "Log In"}
+          </p>
         </Link>
       </div>
       <Link to="/cart" onClick={handleShoppingCartClick}>
@@ -355,7 +367,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
           <li className="nav_sign_in_button_large_screen">
             <Link to="/login">
               <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
-              <p>Log In</p>
+              <p>
+                {location.pathname.includes("/account/clientprofile")
+                  ? userAuthenticated
+                    ? "Log Out"
+                    : "Log In"
+                  : userAuthenticated
+                  ? "Profile"
+                  : "Log In"}
+              </p>
             </Link>
           </li>
           <li className="shopping_cart_large_screen_container">

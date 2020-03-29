@@ -1,0 +1,34 @@
+.client_consent_form_container {
+  height: 100vh;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+}
+
+.client_consent_form_header {
+  color: rgb(165, 138, 127);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+  border-bottom: solid 1px rgb(165, 138, 127);
+}
+
+.client_consent_form_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.client_consent_form_header_back_arrow {
+  color: rgb(165, 138, 127);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}

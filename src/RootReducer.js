@@ -98,6 +98,7 @@ import loginPasswordReducer from "./reducers/Login/LoginPassword/loginPasswordRe
 import loginEmailInvalidReducer from "./reducers/Login/LoginEmail/Invalid/loginEmailInvalidReducer";
 import loginPasswordInvalidReducer from "./reducers/Login/LoginPassword/Invalid/loginPasswordInvalidReducer";
 import registeredClientFoundReducer from "./reducers/Login/RegisteredClientFound/registeredClientFoundReducer";
+import userAuthenticatedReducer from "./reducers/Authenticated/userAuthenticatedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -203,6 +204,7 @@ const RootReducer = combineReducers({
   loginPassword: loginPasswordReducer,
   loginPasswordInvalid: loginPasswordInvalidReducer,
   registeredClientFound: registeredClientFoundReducer,
+  userAuthenticated: userAuthenticatedReducer,
 
   // Guest Checout Form Reducers
   loginIsActive: loginIsActiveReducer,

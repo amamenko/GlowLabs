@@ -3,7 +3,7 @@ import GuestCheckout from "./GuestCheckout";
 import ConfirmationPage from "./ConfirmationPage";
 import { Switch, Route } from "react-router-dom";
 
-const GuestCheckoutRouter = ({ match }) => {
+const CheckoutRouter = ({ match }) => {
   return (
     <Switch>
       <Route exact path={match.path} component={GuestCheckout} />
@@ -16,4 +16,4 @@ const GuestCheckoutRouter = ({ match }) => {
   );
 };
 
-export default GuestCheckoutRouter;
+export default CheckoutRouter;
