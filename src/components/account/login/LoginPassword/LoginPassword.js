@@ -26,9 +26,7 @@ const LoginPassword = () => {
   return (
     <FormGroup>
       <Label for="loginPassword">
-        <div className="required_label">
-          Password<p className="required_label red_asterisk">* </p>
-        </div>
+        <div className="required_label">Password</div>
       </Label>
       <Input
         type="password"

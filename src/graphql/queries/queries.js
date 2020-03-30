@@ -21,7 +21,7 @@ const getClientsQuery = gql`
       lastName
       email
       phoneNumber
-      id
+      _id
       password
     }
   }
@@ -46,7 +46,7 @@ const getAllAppointmentsQuery = gql`
         price
       }
       client {
-        id
+        _id
         firstName
         lastName
         email
@@ -76,7 +76,7 @@ const getOwnAppointmentsQuery = gql`
         price
       }
       client {
-        id
+        _id
         firstName
         lastName
         email
@@ -140,7 +140,7 @@ const getAppointmentQuery = gql`
 
 const getClientQuery = gql`
   query(
-    $id: ID
+    $_id: ID
     $firstName: String
     $lastName: String
     $email: String
@@ -148,14 +148,14 @@ const getClientQuery = gql`
     $createdAt: String
   ) {
     client(
-      id: $id
+      _id: $_id
       firstName: $firstName
       lastName: $lastName
       email: $email
       phoneNumber: $phoneNumber
       createdAt: $createdAt
     ) {
-      id
+      _id
       firstName
       lastName
       email
@@ -169,7 +169,7 @@ const getClientQuery = gql`
 const loginQuery = gql`
   query($email: String, $password: String) {
     login(email: $email, password: $password) {
-      id
+      _id
       accessToken
       refreshToken
     }
@@ -266,7 +266,7 @@ const addClientMutation = gql`
 const updateClientInvalidateTokensMutation = gql`
   mutation {
     updateClientInvalidateTokensMutation {
-      id
+      _id
       firstName
       lastName
       email

@@ -99,6 +99,17 @@ import loginEmailInvalidReducer from "./reducers/Login/LoginEmail/Invalid/loginE
 import loginPasswordInvalidReducer from "./reducers/Login/LoginPassword/Invalid/loginPasswordInvalidReducer";
 import registeredClientFoundReducer from "./reducers/Login/RegisteredClientFound/registeredClientFoundReducer";
 import userAuthenticatedReducer from "./reducers/Authenticated/userAuthenticatedReducer";
+import surgeryLast3MonthsNoReducer from "./reducers/ConsentForm/SurgeryLast3Months/No/surgeryLast3MonthsNoReducer";
+import surgeryLast3MonthsYesReducer from "./reducers/ConsentForm/SurgeryLast3Months/Yes/surgeryLast3MonthsYesReducer";
+import surgeryLast3MonthsNotesReducer from "./reducers/ConsentForm/SurgeryLast3Months/Yes/Notes/surgeryLast3MonthsNotesReducer";
+import anyHealthProblemsNoReducer from "./reducers/ConsentForm/AnyHealthProblems/No/anyHealthProblemsNoReducer";
+import anyHealthProblemsYesReducer from "./reducers/ConsentForm/AnyHealthProblems/Yes/anyHealthProblemsYesReducer";
+import anyHealthProblemsNotesReducer from "./reducers/ConsentForm/AnyHealthProblems/Yes/Notes/anyHealthProblemsNotesReducer";
+import anyChemPeelsLastMonthNoReducer from "./reducers/ConsentForm/AnyChemPeelsLastMonth/No/anyChemPeelsLastMonthNoReducer";
+import anyChemPeelsLastMonthYesReducer from "./reducers/ConsentForm/AnyChemPeelsLastMonth/Yes/anyChemPeelsLastMonthYesReducer";
+import anyWaxingLast5DaysNoReducer from "./reducers/ConsentForm/AnyWaxingLast5Days/No/anyWaxingLast5DaysNoReducer";
+import anyWaxingLast5DaysYesReducer from "./reducers/ConsentForm/AnyWaxingLast5Days/Yes/anyWaxingLast5DaysYesReducer";
+import listAnyMedicationsNotesReducer from "./reducers/ConsentForm/ListAnyMedicationsNotes/listAnyMedicationsNotesReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -205,6 +216,19 @@ const RootReducer = combineReducers({
   loginPasswordInvalid: loginPasswordInvalidReducer,
   registeredClientFound: registeredClientFoundReducer,
   userAuthenticated: userAuthenticatedReducer,
+
+  // Consent Form Reducers,
+  surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,
+  surgeryLast3MonthsYes: surgeryLast3MonthsYesReducer,
+  surgeryLast3MonthsNotes: surgeryLast3MonthsNotesReducer,
+  anyHealthProblemsNo: anyHealthProblemsNoReducer,
+  anyHealthProblemsYes: anyHealthProblemsYesReducer,
+  anyHealthProblemsNotes: anyHealthProblemsNotesReducer,
+  listAnyMedicationsNotes: listAnyMedicationsNotesReducer,
+  anyChemPeelsLastMonthNo: anyChemPeelsLastMonthNoReducer,
+  anyChemPeelsLastMonthYes: anyChemPeelsLastMonthYesReducer,
+  anyWaxingLast5DaysNo: anyWaxingLast5DaysNoReducer,
+  anyWaxingLast5DaysYes: anyWaxingLast5DaysYesReducer,
 
   // Guest Checout Form Reducers
   loginIsActive: loginIsActiveReducer,

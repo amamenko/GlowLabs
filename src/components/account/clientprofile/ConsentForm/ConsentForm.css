@@ -32,3 +32,85 @@
   top: 0;
   bottom: 0;
 }
+
+.client_consent_form_content_container {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 1rem;
+}
+
+.client_consent_form_question {
+  font-weight: 500;
+}
+
+.client_consent_form_checkbox {
+  position: relative;
+  display: inline-block;
+}
+
+.client_consent_form_option_container {
+  margin-top: 1rem;
+}
+
+.client_consent_form_checkbox_description {
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.client_consent_form_elaboration_box {
+  margin-top: 1rem;
+}
+
+.consent_form_bottom_button_container {
+  display: flex;
+  height: 20vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3vh;
+}
+
+.consent_form_bottom_button_container.page_1 {
+  height: 10vh;
+}
+
+.next_page_button {
+  width: 65%;
+  background: rgb(165, 138, 127);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.consent_form_page_number_info {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(155, 155, 155);
+}
+
+.consent_form_previous_page_button {
+  width: 65%;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(165, 138, 127);
+  color: rgb(165, 138, 127);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.consent_form_previous_page_button p {
+  color: rgb(165, 138, 127);
+}
+
+.next_page_link_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

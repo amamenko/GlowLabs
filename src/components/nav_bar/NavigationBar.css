@@ -54,8 +54,15 @@
     background: rgb(165, 138, 127);
     padding: 0.3rem;
     padding-right: 1rem;
-    padding-left: 1rem;
     border-radius: 20px;
+  }
+
+  .nav_sign_in_link_container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav_sign_in_button_small_screen p {
@@ -67,6 +74,32 @@
   .sign_in_user_icon {
     display: inline-block;
     color: white;
+  }
+
+  .sign_in_circle_icon {
+    position: relative;
+    font-size: 1.2rem;
+    display: inline-block;
+    color: white;
+  }
+
+  .letter_circle {
+    left: 0.8rem;
+    right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fa-layers.fa-fw.letter_circle p {
+    color: rgb(165, 138, 127);
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-left: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
   }
 
   .shopping_cart_small_screen {

@@ -1,0 +1,9 @@
+const ANY_HEALTH_PROBLEMS_YES = "ANY_HEALTH_PROBLEMS_YES";
+
+const ACTION_ANY_HEALTH_PROBLEMS_YES = () => {
+  return {
+    type: ANY_HEALTH_PROBLEMS_YES
+  };
+};
+
+export default ACTION_ANY_HEALTH_PROBLEMS_YES;

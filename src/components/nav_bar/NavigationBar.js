@@ -4,10 +4,14 @@ import "./NavigationBar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
+import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
-import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
+import { useQuery } from "@apollo/react-hooks";
+import { getClientQuery } from "../../graphql/queries/queries";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
@@ -20,6 +24,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const userAuthenticated = useSelector(
     state => state.userAuthenticated.user_authenticated
   );
+
+  const { data } = useQuery(getClientQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: Cookies.get("dummy-token")
+        ? jwt.decode(Cookies.get("dummy-token")).id
+        : null
+    }
+  });
 
   const dispatch = useDispatch();
 
@@ -216,11 +229,32 @@ const NavigationBar = React.forwardRef((props, ref) => {
               ? window.scrollY <= 1
                 ? "0.6rem"
                 : "1rem"
-              : "auto"
+              : "auto",
+          paddingLeft: userAuthenticated ? "2rem" : "1rem"
         }}
       >
-        <Link to="/account/login" onClick={handleLoginClick}>
-          <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
+        <Link
+          className="nav_sign_in_link_container"
+          to="/account/login"
+          onClick={handleLoginClick}
+        >
+          {userAuthenticated ? (
+            <span className="fa-layers fa-fw letter_circle">
+              <p>
+                {data
+                  ? data.client !== null
+                    ? data.client.firstName[0].toUpperCase()
+                    : ""
+                  : ""}
+              </p>
+              <FontAwesomeIcon
+                icon={faCircle}
+                className="sign_in_circle_icon"
+              />
+            </span>
+          ) : (
+            <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
+          )}
           <p>
             {location.pathname.includes("/account/clientprofile")
               ? userAuthenticated
@@ -366,7 +400,23 @@ const NavigationBar = React.forwardRef((props, ref) => {
           </li>
           <li className="nav_sign_in_button_large_screen">
             <Link to="/login">
-              <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
+              {userAuthenticated ? (
+                <span className="fa-layers fa-fw letter_circle">
+                  <p>
+                    {data
+                      ? data.client !== null
+                        ? data.client.firstName[0].toUpperCase()
+                        : ""
+                      : ""}
+                  </p>
+                  <FontAwesomeIcon
+                    icon={faCircle}
+                    className="sign_in_circle_icon"
+                  />
+                </span>
+              ) : (
+                <FontAwesomeIcon icon={faUser} className="sign_in_user_icon" />
+              )}
               <p>
                 {location.pathname.includes("/account/clientprofile")
                   ? userAuthenticated

@@ -1,0 +1,9 @@
+const ANY_WAXING_LAST_5_DAYS_YES = "ANY_WAXING_LAST_5_DAYS_YES";
+
+const ACTION_ANY_WAXING_LAST_5_DAYS_YES = () => {
+  return {
+    type: ANY_WAXING_LAST_5_DAYS_YES
+  };
+};
+
+export default ACTION_ANY_WAXING_LAST_5_DAYS_YES;

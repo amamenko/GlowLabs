@@ -44,7 +44,9 @@ const Login = props => {
     state => state.userAuthenticated.user_authenticated
   );
 
-  const [loginClient, { data, error }] = useLazyQuery(loginQuery);
+  const [loginClient, { data, error }] = useLazyQuery(loginQuery, {
+    fetchPolicy: "no-cache"
+  });
   const { data: getClientsData } = useQuery(getClientsQuery, {
     fetchPolicy: "no-cache"
   });
@@ -105,13 +107,13 @@ const Login = props => {
           if (loginEmailInvalid) {
             dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
           }
-          if (error) {
-            dispatch(ACTION_LOGIN_PASSWORD_INVALID());
+          if (data) {
+            if (loginPasswordInvalid) {
+              dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+            }
           } else {
-            if (data) {
-              if (loginPasswordInvalid) {
-                dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
-              }
+            if (error !== undefined) {
+              dispatch(ACTION_LOGIN_PASSWORD_INVALID());
             }
           }
         } else {

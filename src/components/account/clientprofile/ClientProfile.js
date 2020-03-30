@@ -47,7 +47,7 @@ const ClientProfile = () => {
         <div className="profile_consent_form_box_container">
           <Link
             className="profile_box_container_link"
-            to="/account/clientprofile/consentform"
+            to="/account/clientprofile/consentform/page1"
           >
             <FontAwesomeIcon
               icon={faFileSignature}

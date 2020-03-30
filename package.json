@@ -21,6 +21,7 @@
     "graphql": "^14.6.0",
     "intersection-observer": "^0.7.0",
     "js-cookie": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
     "react": "16.8.6",
     "react-activation": "^0.3.5",
     "react-calendar": "^2.19.2",

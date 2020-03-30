@@ -26,9 +26,7 @@ const LoginEmail = () => {
   return (
     <FormGroup>
       <Label for="loginEmail">
-        <div className="required_label">
-          Email<p className="required_label red_asterisk">* </p>
-        </div>
+        <div className="required_label">Email</div>
       </Label>
       <Input
         type="email"

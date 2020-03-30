@@ -112,7 +112,6 @@ const App = () => {
     const checkCookies = () => {
       if (currentDummyToken !== Cookies.get("dummy-token")) {
         currentDummyToken = Cookies.get("dummy-token");
-        console.log(currentDummyToken);
 
         if (currentDummyToken) {
           dispatch(ACTION_USER_AUTHENTICATED());
@@ -547,7 +546,12 @@ const App = () => {
         <Route path="/cart" component={ShoppingCart} />
         <Route path="/availability" component={AvailabilityRouter} />
         <Route path="/checkout" component={CheckoutRouter} />
-        <Route path="/account" component={AccountRouter} />
+        <Route
+          path="/account"
+          component={AccountRouter}
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+        />
       </Switch>
     </>
   );
