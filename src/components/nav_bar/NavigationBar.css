@@ -15,7 +15,7 @@
     display: flex;
     height: 4px;
     width: 1.8rem;
-    background: #000;
+    background: rgb(239, 240, 243);
     transition: all 0.5s ease;
   }
 
@@ -34,7 +34,7 @@
     flex: 1;
     margin-left: 1.5rem;
     padding: 0;
-    color: #000;
+    color: rgb(239, 240, 243);
     text-decoration: none;
   }
 
@@ -49,9 +49,9 @@
     right: 0.5rem;
     font-weight: 600;
     font-size: 1rem;
-    border: 1px solid rgb(165, 138, 127);
-    color: white;
-    background: rgb(165, 138, 127);
+    border: 1px solid rgb(239, 240, 243);
+    color: rgb(44, 44, 52);
+    background: rgb(239, 240, 243);
     padding: 0.3rem;
     padding-right: 1rem;
     border-radius: 20px;
@@ -68,19 +68,19 @@
   .nav_sign_in_button_small_screen p {
     display: inline-block;
     margin-left: 0.5rem;
-    color: white;
+    color: rgb(44, 44, 52);
   }
 
   .sign_in_user_icon {
     display: inline-block;
-    color: white;
+    color: rgb(44, 44, 52);
   }
 
   .sign_in_circle_icon {
     position: relative;
     font-size: 1.2rem;
     display: inline-block;
-    color: white;
+    color: rgb(44, 44, 52);
   }
 
   .letter_circle {
@@ -93,7 +93,7 @@
   }
 
   .fa-layers.fa-fw.letter_circle p {
-    color: rgb(165, 138, 127);
+    color: rgb(239, 240, 243);
     position: relative;
     z-index: 2;
     text-align: center;
@@ -115,7 +115,7 @@
   }
 
   .cart_item_number_circle p {
-    color: rgb(165, 138, 127);
+    color: rgb(44, 44, 52);
     font-weight: 700;
     font-size: 0.8rem;
     position: absolute;
@@ -151,10 +151,11 @@
     font-size: 3rem;
     margin-bottom: 3rem;
     font-weight: 500;
+    color: rgb(239, 240, 243);
   }
 
   .navbar_items li:active {
-    color: white;
+    color: rgb(239, 240, 243);
     transition: color 0.1s ease;
   }
 
@@ -176,6 +177,7 @@
 
   .navbar_social_media_icons a {
     margin-left: 1rem;
+    color: rgb(239, 240, 243);
   }
 }
 

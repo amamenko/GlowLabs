@@ -120,7 +120,7 @@ const NavigationMenu = React.forwardRef((props, ref) => {
       className="nav_menu"
       ref={Nav_Ref}
       style={{
-        backgroundColor: "rgb(232, 210, 195)",
+        backgroundColor: "rgb(44, 44, 52)",
         right: navbarToggle ? 0 : 950,
         transition:
           props.currentScreenSize === ""

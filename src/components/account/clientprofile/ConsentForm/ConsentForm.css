@@ -5,7 +5,7 @@
 }
 
 .client_consent_form_header {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   height: 8vh;
   display: flex;
   align-self: flex-end;
@@ -15,7 +15,7 @@
   font-weight: 600;
   width: 100%;
   position: relative;
-  border-bottom: solid 1px rgb(165, 138, 127);
+  border-bottom: solid 1px rgb(44, 44, 52);
 }
 
 .client_consent_form_header h1 {
@@ -24,7 +24,7 @@
 }
 
 .client_consent_form_header_back_arrow {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   position: absolute;
   left: 1.5rem;
   font-size: 1.5rem;
@@ -77,8 +77,6 @@
 
 .next_page_button {
   width: 65%;
-  background: rgb(165, 138, 127);
-  color: rgb(255, 255, 255);
   text-align: center;
   border-radius: 30px;
   font-weight: 500;
@@ -95,8 +93,8 @@
 .consent_form_previous_page_button {
   width: 65%;
   background: rgb(255, 255, 255);
-  border: 2px solid rgb(165, 138, 127);
-  color: rgb(165, 138, 127);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
   text-align: center;
   border-radius: 30px;
   font-weight: 500;
@@ -105,7 +103,7 @@
 }
 
 .consent_form_previous_page_button p {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
 }
 
 .next_page_link_container {

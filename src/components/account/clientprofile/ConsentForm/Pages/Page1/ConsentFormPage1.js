@@ -80,7 +80,7 @@ const ConsentFormPage1 = props => {
               background:
                 (anyHealthProblemsNo || anyHealthProblemsYes) &&
                 (surgeryLast3MonthsNo || surgeryLast3MonthsYes)
-                  ? "rgb(165, 138, 127)"
+                  ? "rgb(44, 44, 52)"
                   : "#f0f0f0",
               color:
                 (anyHealthProblemsNo || anyHealthProblemsYes) &&

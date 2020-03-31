@@ -257,7 +257,7 @@ const LandingPage = React.forwardRef((props, ref) => {
   const portraitOverscroll = () => {
     if (!cartIsActive) {
       if (window.scrollY <= 50) {
-        document.body.style.setProperty("background", "rgb(232, 210, 195)");
+        document.body.style.setProperty("background", "rgb(44, 44, 52)");
       } else if (window.scrollY >= 7100) {
         document.body.style.setProperty("background", "rgb(215, 156, 165)");
       } else {
@@ -306,6 +306,12 @@ const LandingPage = React.forwardRef((props, ref) => {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      style={{
+        background: splashScreenHalfway
+          ? "rgb(194, 194, 202)"
+          : "rgb(44, 44, 52)",
+        transition: "background 2s ease-out"
+      }}
     >
       <section className="main_content">
         <div

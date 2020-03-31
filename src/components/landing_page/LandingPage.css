@@ -8,7 +8,6 @@
     grid-template-areas:
       "header header header header"
       "main main main main";
-    background: rgb(232, 210, 195);
   }
 
   .header {
@@ -20,7 +19,7 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    background: rgb(232, 210, 195);
+    background: rgb(154, 154, 162);
   }
 
   .main_content {
@@ -82,7 +81,7 @@
 
   .bottom_content h1 {
     text-align: center;
-    color: rgb(165, 138, 127);
+    color: rgb(44, 44, 52);
     font-size: 1.3rem;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -126,7 +125,7 @@
   }
 
   .landing_page_bottom_icon {
-    color: rgb(165, 138, 127);
+    color: rgb(44, 44, 52);
     font-size: 2rem;
     position: absolute;
     margin-left: auto;
@@ -139,7 +138,7 @@
   }
 
   .cta_line {
-    border-left: 5px solid rgb(165, 138, 127);
+    border-left: 5px solid rgb(44, 44, 52);
     position: absolute;
     text-align: center;
     border-radius: 2px;

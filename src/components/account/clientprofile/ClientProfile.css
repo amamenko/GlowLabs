@@ -5,7 +5,7 @@
 }
 
 .client_profile_page_header {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   height: 8vh;
   display: flex;
   align-self: flex-end;
@@ -15,7 +15,7 @@
   font-weight: 600;
   width: 100%;
   position: relative;
-  border-bottom: solid 1px rgb(165, 138, 127);
+  border-bottom: solid 1px rgb(44, 44, 52);
 }
 
 .client_profile_page_header h1 {

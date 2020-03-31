@@ -75,7 +75,7 @@ const ConsentFormPage2 = props => {
             background:
               (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
               (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
-                ? "rgb(165, 138, 127)"
+                ? "rgb(44, 44, 52)"
                 : "#f0f0f0",
             color:
               (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
