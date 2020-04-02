@@ -31,14 +31,14 @@ const TopAnimationBottomShelf = props => {
               : "73%"
             : props.initialScreenSize >= 600
             ? "27%"
-            : "38%"
+            : "40%"
           : props.currentScreenSize >= 1200
           ? props.isSafari
             ? "4%"
             : "73%"
           : props.currentScreenSize >= 600
           ? "27%"
-          : "38%"
+          : "40%"
       }}
       config={{
         delay: !props.currentScreenSize
@@ -68,7 +68,7 @@ const TopAnimationBottomShelf = props => {
                   : "73%"
                 : props.currentScreenSize >= 600
                 ? "27%"
-                : "38%"
+                : "40%"
           }}
         >
           <svg

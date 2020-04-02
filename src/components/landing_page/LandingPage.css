@@ -257,45 +257,45 @@
 @media only screen and (min-width: 360px) {
   .potted_plant {
     height: 15%;
-    top: 8%;
+    top: 10%;
     left: 20%;
   }
 
   .small_plant {
-    top: 15%;
+    top: 16.8%;
   }
 
   .cream {
     height: 15%;
-    top: 10.7%;
+    top: 12.6%;
   }
 
   .hand_cream {
     height: 15%;
-    top: 11%;
+    top: 13%;
     left: 57%;
   }
 
   .mirror {
     height: 15%;
-    top: 27.1%;
+    top: 29.1%;
     left: 20%;
   }
 
   .bottle {
     height: 15%;
-    top: 29.8%;
+    top: 31.8%;
     left: 38%;
   }
 
   .q_tips {
     left: 54%;
-    top: 34.2%;
+    top: 36.25%;
   }
 
   .sun_screen {
     height: 15%;
-    top: 29.5%;
+    top: 31.5%;
     left: 59%;
   }
 
@@ -332,19 +332,11 @@
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .mirror {
-    top: 26.6%;
-  }
-
-  .small_plant {
-    top: 14.8%;
+    top: 28.6%;
   }
 
   .cream {
-    top: 10.3%;
-  }
-
-  .q_tips {
-    top: 34.25%;
+    top: 12.3%;
   }
 
   .landing_page_description {
