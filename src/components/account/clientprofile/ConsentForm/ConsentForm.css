@@ -112,3 +112,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.client_consent_form_optional_designation {
+  display: inline-block;
+  font-size: 0.5rem;
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: rgb(191, 191, 191);
+}

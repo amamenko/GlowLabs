@@ -1,0 +1,9 @@
+const GLYCOLIC_ACID_RESET = "GLYCOLIC_ACID_RESET";
+
+const ACTION_GLYCOLIC_ACID_RESET = () => {
+  return {
+    type: GLYCOLIC_ACID_RESET
+  };
+};
+
+export default ACTION_GLYCOLIC_ACID_RESET;

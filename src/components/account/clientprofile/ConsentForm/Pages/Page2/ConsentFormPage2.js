@@ -64,29 +64,42 @@ const ConsentFormPage2 = props => {
         initialScreenSize={props.initialScreenSize}
       />
       <div className="consent_form_bottom_button_container">
+        <Link
+          className="next_page_link_container"
+          to="/account/clientprofile/consentform/page3"
+          style={{
+            pointerEvents:
+              (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
+              (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
+                ? "auto"
+                : "none"
+          }}
+        >
+          <div
+            className="next_page_button"
+            style={{
+              background:
+                (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
+                (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
+                  ? "rgb(44, 44, 52)"
+                  : "#f0f0f0",
+              color:
+                (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
+                (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
+                  ? "rgb(255, 255, 255)"
+                  : "rgb(201, 201, 201)",
+              transition: "background 0.5s ease, color 0.5s ease"
+            }}
+          >
+            <p>Next Page</p>
+          </div>
+        </Link>
         <div className="consent_form_previous_page_button">
           <Link to="/account/clientprofile/consentform/page1">
             <p>Previous Page</p>
           </Link>
         </div>
-        <div
-          className="next_page_button"
-          style={{
-            background:
-              (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
-              (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
-                ? "rgb(44, 44, 52)"
-                : "#f0f0f0",
-            color:
-              (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
-              (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
-                ? "rgb(255, 255, 255)"
-                : "rgb(201, 201, 201)",
-            transition: "background 0.5s ease, color 0.5s ease"
-          }}
-        >
-          <p>Next Page</p>
-        </div>
+
         <p className="consent_form_page_number_info">Page 2 of 6</p>
       </div>
     </div>

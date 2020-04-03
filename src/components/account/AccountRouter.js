@@ -5,6 +5,7 @@ import SignUp from "./signup/SignUp";
 import ClientProfile from "./clientprofile/ClientProfile";
 import ConsentFormPage1 from "./clientprofile/ConsentForm/Pages/Page1/ConsentFormPage1";
 import ConsentFormPage2 from "./clientprofile/ConsentForm/Pages/Page2/ConsentFormPage2";
+import ConsentFormPage3 from "./clientprofile/ConsentForm/Pages/Page3/ConsentFormPage3";
 
 const AccountRouter = props => {
   return (
@@ -27,6 +28,13 @@ const AccountRouter = props => {
         exact
         path={props.match.path + "/clientprofile/consentform/page2"}
         component={ConsentFormPage2}
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+      <Route
+        exact
+        path={props.match.path + "/clientprofile/consentform/page3"}
+        component={ConsentFormPage3}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />

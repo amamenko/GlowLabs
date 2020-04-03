@@ -27,9 +27,9 @@
 
 .login_logo_container {
   position: absolute;
-  height: 30%;
+  height: 60%;
   width: 100%;
-  top: -5vh;
+  top: -22vh;
   display: flex;
   flex-direction: column;
   align-items: center;

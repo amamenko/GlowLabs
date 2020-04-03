@@ -32,7 +32,8 @@
   .logo {
     display: flex;
     flex: 1;
-    margin-left: 1.5rem;
+    margin-left: 0.6rem;
+    margin-bottom: 0.1rem;
     padding: 0;
     color: rgb(239, 240, 243);
     text-decoration: none;
@@ -45,7 +46,7 @@
   .nav_sign_in_button_small_screen {
     display: block;
     position: fixed;
-    margin-right: 3.9rem;
+    margin-right: 3.2rem;
     right: 0.5rem;
     font-weight: 600;
     font-size: 1rem;
@@ -134,7 +135,7 @@
   .nav_logo_container {
     position: fixed;
     left: 3rem;
-    padding-bottom: 0.3rem;
+    padding-bottom: 1.2rem;
   }
 
   .navbar_items {
@@ -283,7 +284,7 @@
     display: flex;
     position: relative;
     left: 0;
-    padding-bottom: 0.3rem;
+    padding-bottom: 1.5rem;
   }
 
   .nav_sign_in_button_small_screen {

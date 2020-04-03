@@ -110,6 +110,17 @@ import anyChemPeelsLastMonthYesReducer from "./reducers/ConsentForm/AnyChemPeels
 import anyWaxingLast5DaysNoReducer from "./reducers/ConsentForm/AnyWaxingLast5Days/No/anyWaxingLast5DaysNoReducer";
 import anyWaxingLast5DaysYesReducer from "./reducers/ConsentForm/AnyWaxingLast5Days/Yes/anyWaxingLast5DaysYesReducer";
 import listAnyMedicationsNotesReducer from "./reducers/ConsentForm/ListAnyMedicationsNotes/listAnyMedicationsNotesReducer";
+import anyAccutaneNoReducer from "./reducers/ConsentForm/AnyAccutane/No/anyAccutaneNoReducer";
+import anyAccutaneYesReducer from "./reducers/ConsentForm/AnyAccutane/Yes/anyAccutaneYesReducer";
+import anyAccutaneNotesReducer from "./reducers/ConsentForm/AnyAccutane/Yes/Notes/anyAccutaneNotesReducer";
+import ingredientGlycolicAcidReducer from "./reducers/ConsentForm/AnyProductsWithIngredients/IngredientGlycolicAcid/ingredientGlycolicAcidReducer";
+import ingredientLacticAcidReducer from "./reducers/ConsentForm/AnyProductsWithIngredients/IngredientLacticAcid/ingredientLacticAcidReducer";
+import ingredientSalicyclicAcidReducer from "./reducers/ConsentForm/AnyProductsWithIngredients/IngredientSalicyclicAcid/ingredientSalicyclicAcidReducer";
+import ingredientExfoliatingScrubsReducer from "./reducers/ConsentForm/AnyProductsWithIngredients/IngredientExfoliatingScrubs/ingredientExfoliatingScrubsReducer";
+import ingredientVitaminAReducer from "./reducers/ConsentForm/AnyProductsWithIngredients/IngredientVitaminA/ingredientVitaminAReducer";
+import anyFillersOrBotoxNoReducer from "./reducers/ConsentForm/AnyFillersOrBotox/No/anyFillersOrBotoxNoReducer";
+import anyFillersOrBotoxYesReducer from "./reducers/ConsentForm/AnyFillersOrBotox/Yes/anyFillersOrBotoxYesReducer";
+import anyFillersOrBotoxNotesReducer from "./reducers/ConsentForm/AnyFillersOrBotox/Yes/Notes/anyFillersOrBotoxNotesReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -229,6 +240,17 @@ const RootReducer = combineReducers({
   anyChemPeelsLastMonthYes: anyChemPeelsLastMonthYesReducer,
   anyWaxingLast5DaysNo: anyWaxingLast5DaysNoReducer,
   anyWaxingLast5DaysYes: anyWaxingLast5DaysYesReducer,
+  anyAccutaneNo: anyAccutaneNoReducer,
+  anyAccutaneYes: anyAccutaneYesReducer,
+  anyAccutaneNotes: anyAccutaneNotesReducer,
+  ingredientGlycolicAcid: ingredientGlycolicAcidReducer,
+  ingredientLacticAcid: ingredientLacticAcidReducer,
+  ingredientSalicyclicAcid: ingredientSalicyclicAcidReducer,
+  ingredientExfoliatingScrubs: ingredientExfoliatingScrubsReducer,
+  ingredientVitaminA: ingredientVitaminAReducer,
+  anyFillersOrBotoxNo: anyFillersOrBotoxNoReducer,
+  anyFillersOrBotoxYes: anyFillersOrBotoxYesReducer,
+  anyFillersOrBotoxNotes: anyFillersOrBotoxNotesReducer,
 
   // Guest Checout Form Reducers
   loginIsActive: loginIsActiveReducer,

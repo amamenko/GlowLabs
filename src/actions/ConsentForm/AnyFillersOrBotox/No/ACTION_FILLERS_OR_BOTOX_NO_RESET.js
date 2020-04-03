@@ -1,0 +1,9 @@
+const FILLERS_OR_BOTOX_NO_RESET = "FILLERS_OR_BOTOX_NO_RESET";
+
+const ACTION_FILLERS_OR_BOTOX_NO_RESET = () => {
+  return {
+    type: FILLERS_OR_BOTOX_NO_RESET
+  };
+};
+
+export default ACTION_FILLERS_OR_BOTOX_NO_RESET;

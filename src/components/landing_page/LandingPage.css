@@ -808,6 +808,11 @@
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
+  .glow_labs_logo_animation {
+    position: absolute;
+    top: 15%;
+  }
+
   .bottom_content h1 {
     text-align: left;
     font-size: 6.1rem;

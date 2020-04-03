@@ -308,7 +308,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       onTouchEnd={handleTouchEnd}
       style={{
         background: splashScreenHalfway
-          ? "rgb(194, 194, 202)"
+          ? "rgb(224, 224, 232)"
           : "rgb(44, 44, 52)",
         transition: "background 2s ease-out"
       }}

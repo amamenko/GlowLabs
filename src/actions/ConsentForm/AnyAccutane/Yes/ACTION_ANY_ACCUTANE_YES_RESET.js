@@ -1,0 +1,9 @@
+const ANY_ACCUTANE_YES_RESET = "ANY_ACCUTANE_YES_RESET";
+
+const ACTION_ANY_ACCUTANE_YES_RESET = () => {
+  return {
+    type: ANY_ACCUTANE_YES_RESET
+  };
+};
+
+export default ACTION_ANY_ACCUTANE_YES_RESET;
