@@ -6,16 +6,11 @@ import { FormGroup, Label, Input } from "reactstrap";
 import { Spring } from "react-spring/renderprops";
 import "../ConsentForm.css";
 import "../../../../../bootstrap_forms.min.css";
-import ACTION_SURGERY_LAST_3_MONTHS_NO_RESET from "../../../../../actions/ConsentForm/SurgeryLast3Months/No/ACTION_SURGERY_LAST_3_MONTHS_NO_RESET";
-import ACTION_SURGERY_LAST_3_MONTHS_NO from "../../../../../actions/ConsentForm/SurgeryLast3Months/No/ACTION_SURGERY_LAST_3_MONTHS_NO";
-import ACTION_SURGERY_LAST_3_MONTHS_YES from "../../../../../actions/ConsentForm/SurgeryLast3Months/Yes/ACTION_SURGERY_LAST_3_MONTHS_YES";
-import ACTION_SURGERY_LAST_3_MONTHS_YES_RESET from "../../../../../actions/ConsentForm/SurgeryLast3Months/Yes/ACTION_SURGERY_LAST_3_MONTHS_YES_RESET";
-import ACTION_SURGERY_LAST_3_MONTHS_NOTES from "../../../../../actions/ConsentForm/SurgeryLast3Months/Yes/Notes/ACTION_SURGERY_LAST_3_MONTHS_NOTES";
-import ACTION_FILLERS_OR_BOTOX_NO_RESET from "../../../../../actions/ConsentForm/AnyFillersOrBotox/No/ACTION_FILLERS_OR_BOTOX_NO_RESET";
-import ACTION_FILLERS_OR_BOTOX_NO from "../../../../../actions/ConsentForm/AnyFillersOrBotox/No/ACTION_FILLERS_OR_BOTOX_NO";
-import ACTION_FILLERS_OR_BOTOX_YES_RESET from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/ACTION_FILLERS_OR_BOTOX_YES";
-import ACTION_FILLERS_OR_BOTOX_YES from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/ACTION_FILLERS_OR_BOTOX_YES_RESET";
-import ACTION_FILLERS_OR_BOTOX_NOTES from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/Notes/ACTION_FILLERS_OR_BOTOX_NOTES";
+import ACTION_ANY_FILLERS_OR_BOTOX_NO_RESET from "../../../../../actions/ConsentForm/AnyFillersOrBotox/No/ACTION_ANY_FILLERS_OR_BOTOX_NO_RESET";
+import ACTION_ANY_FILLERS_OR_BOTOX_NO from "../../../../../actions/ConsentForm/AnyFillersOrBotox/No/ACTION_ANY_FILLERS_OR_BOTOX_NO";
+import ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/ACTION_ANY_FILLERS_OR_BOTOX_YES";
+import ACTION_ANY_FILLERS_OR_BOTOX_YES from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET";
+import ACTION_ANY_FILLERS_OR_BOTOX_NOTES from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/Notes/ACTION_ANY_FILLERS_OR_BOTOX_NOTES";
 
 const AnyFillersOrBotox = props => {
   const dispatch = useDispatch();
@@ -25,8 +20,8 @@ const AnyFillersOrBotox = props => {
   const anyFillersOrBotoxYes = useSelector(
     state => state.anyFillersOrBotoxYes.any_fillers_or_botox_yes_active
   );
-  const anyFillersOrBotoxsNotes = useSelector(
-    state => state.anyFillersOrBotoxsNotes.any_fillers_or_botox_notes
+  const anyFillersOrBotoxNotes = useSelector(
+    state => state.anyFillersOrBotoxNotes.any_fillers_or_botox_notes
   );
   const [pageOpened, changePageOpened] = useState(false);
 
@@ -126,28 +121,28 @@ const AnyFillersOrBotox = props => {
 
   const handleNoClicked = () => {
     if (anyFillersOrBotoxNo) {
-      dispatch(ACTION_FILLERS_OR_BOTOX_NO_RESET());
+      dispatch(ACTION_ANY_FILLERS_OR_BOTOX_NO_RESET());
     } else {
-      dispatch(ACTION_FILLERS_OR_BOTOX_NO());
+      dispatch(ACTION_ANY_FILLERS_OR_BOTOX_NO());
       if (anyFillersOrBotoxYes) {
-        dispatch(ACTION_FILLERS_OR_BOTOX_YES_RESET());
+        dispatch(ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET());
       }
     }
   };
 
   const handleYesClicked = () => {
     if (anyFillersOrBotoxYes) {
-      dispatch(ACTION_FILLERS_OR_BOTOX_YES_RESET());
+      dispatch(ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET());
     } else {
-      dispatch(ACTION_FILLERS_OR_BOTOX_YES());
+      dispatch(ACTION_ANY_FILLERS_OR_BOTOX_YES());
       if (anyFillersOrBotoxNo) {
-        dispatch(ACTION_FILLERS_OR_BOTOX_NO_RESET());
+        dispatch(ACTION_ANY_FILLERS_OR_BOTOX_NO_RESET());
       }
     }
   };
 
   const handleFillersOrBotoxNotes = e => {
-    dispatch(ACTION_FILLERS_OR_BOTOX_NOTES(e.currentTarget.value.trim()));
+    dispatch(ACTION_ANY_FILLERS_OR_BOTOX_NOTES(e.currentTarget.value.trim()));
   };
 
   return (
@@ -173,7 +168,7 @@ const AnyFillersOrBotox = props => {
             }
             icon={faSquare}
           />
-          {surgeryLast3MonthsNo ? checkMark() : null}
+          {anyFillersOrBotoxNo ? checkMark() : null}
         </span>
         <p className="client_consent_form_checkbox_description">No</p>
       </div>
@@ -195,18 +190,18 @@ const AnyFillersOrBotox = props => {
             }
             icon={faSquare}
           />
-          {surgeryLast3MonthsYes ? checkMark() : null}
+          {anyFillersOrBotoxYes ? checkMark() : null}
         </span>
         <p className="client_consent_form_checkbox_description">Yes</p>
         <FormGroup className="client_consent_form_elaboration_box">
-          <Label for="surgery_specification_text">If yes, when?</Label>
+          <Label for="fillers_or_botox_specification_text">If yes, when?</Label>
           <Input
             type="textarea"
             style={{
               fontFamily: "Montserrat"
             }}
-            defaultValue={anyFillersOrBotoxsNotes}
-            placeholder="Enter any recent surgery details here."
+            defaultValue={anyFillersOrBotoxNotes}
+            placeholder="Enter any fillers or botox dates here."
             className="form_appointment_notes"
             maxLength={1000}
             onChange={handleFillersOrBotoxNotes}

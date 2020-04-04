@@ -326,6 +326,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
         >
           <FontAwesomeIcon
             color="rgb(239, 240, 243)"
+            style={{ border: "1px solid rgb(44, 44, 52)" }}
             transform={
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800

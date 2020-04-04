@@ -599,7 +599,7 @@ const TimePreference = () => {
                   style={{
                     background:
                       item === selectedTime
-                        ? "rgb(165, 138, 127)"
+                        ? "rgb(44, 44, 52)"
                         : bookedTimes.includes(item)
                         ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
@@ -646,7 +646,7 @@ const TimePreference = () => {
                   style={{
                     background:
                       item === selectedTime
-                        ? "rgb(165, 138, 127)"
+                        ? "rgb(44, 44, 52)"
                         : bookedTimes.includes(item)
                         ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
@@ -709,7 +709,7 @@ const TimePreference = () => {
                         : "auto",
                     background:
                       item === selectedTime
-                        ? "rgb(165, 138, 127)"
+                        ? "rgb(44, 44, 52)"
                         : bookedTimes.includes(item)
                         ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
@@ -772,7 +772,7 @@ const TimePreference = () => {
                           : "auto",
                       background:
                         item === selectedTime
-                          ? "rgb(165, 138, 127)"
+                          ? "rgb(44, 44, 52)"
                           : bookedTimes.includes(item)
                           ? "#f0f0f0"
                           : "rgb(255, 255, 255)",
@@ -807,12 +807,6 @@ const TimePreference = () => {
                     ? "5vh"
                     : "-11vh"
                   : "5vh"
-                : dayOfTheWeek === "Friday"
-                ? lateAfternoonCollapseIsOpen
-                  ? continueToCheckoutButton
-                    ? "5vh"
-                    : "-8vh"
-                  : "5vh"
                 : "5vh",
             marginTop:
               dayOfTheWeek === "Sunday"
@@ -840,7 +834,7 @@ const TimePreference = () => {
             <div
               className="time_preference_continue_button"
               style={{
-                background: selectedTime ? "rgb(165, 138, 127)" : "#f0f0f0",
+                background: selectedTime ? "rgb(44, 44, 52)" : "#f0f0f0",
                 color: selectedTime
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",

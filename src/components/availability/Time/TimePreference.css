@@ -11,7 +11,7 @@
 }
 
 .select_time_container_header {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   height: 8vh;
   display: flex;
   flex-direction: row;
@@ -23,7 +23,7 @@
 }
 
 .select_time_back_arrow {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   position: absolute;
   left: 1.5rem;
   font-size: 1.5rem;
@@ -33,7 +33,7 @@
 }
 
 .select_time_forward_arrow {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   position: absolute;
   right: 1.5rem;
   font-size: 1.5rem;
@@ -91,7 +91,7 @@
 .time_of_day_card_show_more {
   font-size: 1rem;
   font-weight: 600;
-  color: rgb(165, 138, 127);
+  color: rgb(144, 144, 152);
   padding-right: 1.5rem;
 }
 
@@ -168,8 +168,8 @@
   font-size: 1rem;
   padding: 0.8rem;
   background: rgb(255, 255, 255);
-  border: 2px solid rgb(165, 138, 127);
+  border: 2px solid rgb(44, 44, 52);
   border-radius: 30px;
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   margin-top: 1.5rem;
 }

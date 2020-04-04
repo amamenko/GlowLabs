@@ -9,24 +9,25 @@ import ListAnyMedications from "../../Questions/ListAnyMedications";
 import AnyChemPeelsLastMonth from "../../Questions/AnyChemPeelsLastMonth";
 import AnyWaxingLast5Days from "../../Questions/AnyWaxingLast5Days";
 
-const ConsentFormPage2 = props => {
+const ConsentFormPage2 = (props) => {
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
   const anyWaxingLast5DaysNo = useSelector(
-    state => state.anyWaxingLast5DaysNo.any_waxing_last_5_days_no_active
+    (state) => state.anyWaxingLast5DaysNo.any_waxing_last_5_days_no_active
   );
   const anyWaxingLast5DaysYes = useSelector(
-    state => state.anyWaxingLast5DaysYes.any_waxing_last_5_days_yes_active
+    (state) => state.anyWaxingLast5DaysYes.any_waxing_last_5_days_yes_active
   );
   const anyChemPeelsLastMonthNo = useSelector(
-    state => state.anyChemPeelsLastMonthNo.any_chem_peels_last_month_no_active
+    (state) => state.anyChemPeelsLastMonthNo.any_chem_peels_last_month_no_active
   );
   const anyChemPeelsLastMonthYes = useSelector(
-    state => state.anyChemPeelsLastMonthYes.any_chem_peels_last_month_yes_active
+    (state) =>
+      state.anyChemPeelsLastMonthYes.any_chem_peels_last_month_yes_active
   );
 
   const redirectToHome = () => {
@@ -72,7 +73,7 @@ const ConsentFormPage2 = props => {
               (anyWaxingLast5DaysNo || anyWaxingLast5DaysYes) &&
               (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
                 ? "auto"
-                : "none"
+                : "none",
           }}
         >
           <div
@@ -88,7 +89,7 @@ const ConsentFormPage2 = props => {
                 (anyChemPeelsLastMonthNo || anyChemPeelsLastMonthYes)
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",
-              transition: "background 0.5s ease, color 0.5s ease"
+              transition: "background 0.5s ease, color 0.5s ease",
             }}
           >
             <p>Next Page</p>
@@ -100,7 +101,7 @@ const ConsentFormPage2 = props => {
           </Link>
         </div>
 
-        <p className="consent_form_page_number_info">Page 2 of 6</p>
+        <p className="consent_form_page_number_info">Page 2 of 7</p>
       </div>
     </div>
   );

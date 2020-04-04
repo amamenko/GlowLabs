@@ -121,6 +121,15 @@ import ingredientVitaminAReducer from "./reducers/ConsentForm/AnyProductsWithIng
 import anyFillersOrBotoxNoReducer from "./reducers/ConsentForm/AnyFillersOrBotox/No/anyFillersOrBotoxNoReducer";
 import anyFillersOrBotoxYesReducer from "./reducers/ConsentForm/AnyFillersOrBotox/Yes/anyFillersOrBotoxYesReducer";
 import anyFillersOrBotoxNotesReducer from "./reducers/ConsentForm/AnyFillersOrBotox/Yes/Notes/anyFillersOrBotoxNotesReducer";
+import listKnownAllergiesNotesReducer from "./reducers/ConsentForm/ListKnownAllergies/listKnownAllergiesReducer";
+import skinFlakyOrItchNoReducer from "./reducers/ConsentForm/SkinFlakyOrItch/No/skinFlakyOrItchNoReducer";
+import skinFlakyOrItchYesReducer from "./reducers/ConsentForm/SkinFlakyOrItch/Yes/skinFlakyOrItchYesReducer";
+import diagnosedWithRosaceaNoReducer from "./reducers/ConsentForm/DiagnosedWithRosacea/No/diagnosedWithRosaceaNoReducer";
+import diagnosedWithRosaceaYesReducer from "./reducers/ConsentForm/DiagnosedWithRosacea/Yes/diagnosedWithRosaceaYesReducer";
+import pregnantOrNursingNoReducer from "./reducers/ConsentForm/PregnantOrNursing/No/pregnantOrNursingNoReducer";
+import pregnantOrNursingYesReducer from "./reducers/ConsentForm/PregnantOrNursing/Yes/pregnantOrNursingYesReducer";
+import ultimateSkinCareGoalsNotesReducer from "./reducers/ConsentForm/UltimateSkinCareGoals/ultimateSkinCareGoalsReducer";
+import anythingElseWeShouldKnowNotesReducer from "./reducers/ConsentForm/AnythingElseWeShouldKnow/anythingElseWeShouldKnowReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -251,8 +260,17 @@ const RootReducer = combineReducers({
   anyFillersOrBotoxNo: anyFillersOrBotoxNoReducer,
   anyFillersOrBotoxYes: anyFillersOrBotoxYesReducer,
   anyFillersOrBotoxNotes: anyFillersOrBotoxNotesReducer,
+  listKnownAllergiesNotes: listKnownAllergiesNotesReducer,
+  skinFlakyOrItchNo: skinFlakyOrItchNoReducer,
+  skinFlakyOrItchYes: skinFlakyOrItchYesReducer,
+  diagnosedWithRosaceaNo: diagnosedWithRosaceaNoReducer,
+  diagnosedWithRosaceaYes: diagnosedWithRosaceaYesReducer,
+  pregnantOrNursingNo: pregnantOrNursingNoReducer,
+  pregnantOrNursingYes: pregnantOrNursingYesReducer,
+  ultimateSkinCareGoals: ultimateSkinCareGoalsNotesReducer,
+  anythingElseWeShouldKnow: anythingElseWeShouldKnowNotesReducer,
 
-  // Guest Checout Form Reducers
+  // Guest Checkout Form Reducers
   loginIsActive: loginIsActiveReducer,
   firstName: firstNameReducer,
   lastName: lastNameReducer,
@@ -265,7 +283,7 @@ const RootReducer = combineReducers({
   phoneIsInvalid: phoneInvalidReducer,
   appointmentNotes: appointmentNotesReducer,
   appointmentNotesValid: appointmentNotesValidationReducer,
-  continueToBookingSummaryActive: continueToBookingSummaryReducer
+  continueToBookingSummaryActive: continueToBookingSummaryReducer,
 });
 
 export default RootReducer;

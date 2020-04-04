@@ -8,25 +8,25 @@ import AnyHealthProblems from "../../Questions/AnyHealthProblems";
 import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
 
-const ConsentFormPage1 = props => {
+const ConsentFormPage1 = (props) => {
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
 
   const surgeryLast3MonthsNo = useSelector(
-    state => state.surgeryLast3MonthsNo.surgery_last_3_months_no_active
+    (state) => state.surgeryLast3MonthsNo.surgery_last_3_months_no_active
   );
   const surgeryLast3MonthsYes = useSelector(
-    state => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
+    (state) => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
   );
   const anyHealthProblemsNo = useSelector(
-    state => state.anyHealthProblemsNo.any_health_problems_no_active
+    (state) => state.anyHealthProblemsNo.any_health_problems_no_active
   );
   const anyHealthProblemsYes = useSelector(
-    state => state.anyHealthProblemsYes.any_health_problems_yes_active
+    (state) => state.anyHealthProblemsYes.any_health_problems_yes_active
   );
 
   const redirectToHome = () => {
@@ -71,7 +71,7 @@ const ConsentFormPage1 = props => {
               (anyHealthProblemsNo || anyHealthProblemsYes) &&
               (surgeryLast3MonthsNo || surgeryLast3MonthsYes)
                 ? "auto"
-                : "none"
+                : "none",
           }}
         >
           <div
@@ -87,13 +87,13 @@ const ConsentFormPage1 = props => {
                 (surgeryLast3MonthsNo || surgeryLast3MonthsYes)
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",
-              transition: "background 0.5s ease, color 0.5s ease"
+              transition: "background 0.5s ease, color 0.5s ease",
             }}
           >
             <p>Next Page</p>
           </div>
         </Link>
-        <p className="consent_form_page_number_info">Page 1 of 6</p>
+        <p className="consent_form_page_number_info">Page 1 of 7</p>
       </div>
     </div>
   );

@@ -120,3 +120,85 @@
   font-weight: 600;
   color: rgb(191, 191, 191);
 }
+
+.client_consent_form_question_optional_container p {
+  display: inline;
+}
+
+.client_consent_form_women_only_question {
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+}
+
+.form_appointment_notes_extras {
+  min-height: 17vh;
+  font-size: 1rem;
+  font-weight: 400;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.consent_form_title_designation {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.consent_form_sign_paragraph {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.consent_form_signature_header {
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.consent_form_signature_container {
+  width: 87%;
+  height: 20vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  border: 1px solid black;
+  position: relative;
+}
+
+.consent_form_signature {
+  width: 100%;
+}
+
+.consent_form_signature_clear_container {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  font-weight: 500;
+  z-index: 16;
+  opacity: 0.99;
+  color: rgb(0, 129, 177);
+}
+
+.consent_form_date_container {
+  display: flex;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.consent_form_date_field {
+  width: 20%;
+  border-top: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid black;
+  padding: 0.2rem;
+  text-align: center;
+}

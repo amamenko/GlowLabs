@@ -6,8 +6,12 @@ import ClientProfile from "./clientprofile/ClientProfile";
 import ConsentFormPage1 from "./clientprofile/ConsentForm/Pages/Page1/ConsentFormPage1";
 import ConsentFormPage2 from "./clientprofile/ConsentForm/Pages/Page2/ConsentFormPage2";
 import ConsentFormPage3 from "./clientprofile/ConsentForm/Pages/Page3/ConsentFormPage3";
+import ConsentFormPage4 from "./clientprofile/ConsentForm/Pages/Page4/ConsentFormPage4";
+import ConsentFormPage5 from "./clientprofile/ConsentForm/Pages/Page5/ConsentFormPage5";
+import ConsentFormPage6 from "./clientprofile/ConsentForm/Pages/Page6/ConsentFormPage6";
+import ConsentFormPage7 from "./clientprofile/ConsentForm/Pages/Page7/ConsentFormPage7";
 
-const AccountRouter = props => {
+const AccountRouter = (props) => {
   return (
     <Switch>
       <Route exact path={props.match.path + "/login"} component={Login} />
@@ -35,6 +39,34 @@ const AccountRouter = props => {
         exact
         path={props.match.path + "/clientprofile/consentform/page3"}
         component={ConsentFormPage3}
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+      <Route
+        exact
+        path={props.match.path + "/clientprofile/consentform/page4"}
+        component={ConsentFormPage4}
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+      <Route
+        exact
+        path={props.match.path + "/clientprofile/consentform/page5"}
+        component={ConsentFormPage5}
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+      <Route
+        exact
+        path={props.match.path + "/clientprofile/consentform/page6"}
+        component={ConsentFormPage6}
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+      />
+      <Route
+        exact
+        path={props.match.path + "/clientprofile/consentform/page7"}
+        component={ConsentFormPage7}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />

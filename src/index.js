@@ -41,7 +41,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
@@ -69,7 +69,7 @@ const client = new ApolloClient({
     if (graphQLErrors) {
       graphQLErrors.map(({ message }) => console.log(message));
     }
-  }
+  },
 });
 
 const App = () => {
@@ -86,22 +86,22 @@ const App = () => {
   );
 
   const navbarVisible = useSelector(
-    state => state.navbarIsVisibleReducer.visible
+    (state) => state.navbarIsVisibleReducer.visible
   );
-  const navbarToggle = useSelector(state => state.navbarToggle.toggle);
-  const scroll = useSelector(state => state.scrollToggle.scroll);
-  const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
+  const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
+  const scroll = useSelector((state) => state.scrollToggle.scroll);
+  const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const touchScaling = useSelector(
-    state => state.fingerTouchScaling.touch_scaling
+    (state) => state.fingerTouchScaling.touch_scaling
   );
   const finalBookButtonActive = useSelector(
-    state => state.finalBookButton.final_book_button_active
+    (state) => state.finalBookButton.final_book_button_active
   );
   const loginIsActive = useSelector(
-    state => state.loginIsActive.login_is_active
+    (state) => state.loginIsActive.login_is_active
   );
 
   const dispatch = useDispatch();
@@ -150,13 +150,13 @@ const App = () => {
     };
   }, [currentScreenSize, initialScreenSize, touchScaling]);
 
-  const handleClickToScrollToHome = async ref => {
+  const handleClickToScrollToHome = async (ref) => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
     window.scrollTo({
       top: LandingPageRef.current.offsetTop - 10,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
@@ -164,12 +164,12 @@ const App = () => {
     if (location.pathname !== "/") {
       window.scrollTo({
         top: LandingPageRef.current.offsetTop - 10,
-        behavior: "auto"
+        behavior: "auto",
       });
     }
   };
 
-  const handleClickToScrollToTreatments = async ref => {
+  const handleClickToScrollToTreatments = async (ref) => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -198,11 +198,11 @@ const App = () => {
           : previousScrollPosition < 650
           ? Treatments1Ref.current.offsetTop - 10
           : Treatments1Ref.current.offsetTop - 80,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
-  const handleClickToScrollToAddOns = async ref => {
+  const handleClickToScrollToAddOns = async (ref) => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -231,11 +231,11 @@ const App = () => {
           : previousScrollPosition < 3900
           ? AddOnsRef.current.offsetTop - 5
           : AddOnsRef.current.offsetTop - 70,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
-  const handleClickToScrollToInstagram = async ref => {
+  const handleClickToScrollToInstagram = async (ref) => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -264,11 +264,11 @@ const App = () => {
           : previousScrollPosition < 6400
           ? InstagramRef.current.offsetTop - 290
           : InstagramRef.current.offsetTop - 350,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
-  const handleClickToScrollToContact = async ref => {
+  const handleClickToScrollToContact = async (ref) => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -289,7 +289,7 @@ const App = () => {
           : previousScrollPosition < 7200
           ? ContactRef.current.offsetTop - 10
           : ContactRef.current.offsetTop - 80,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
@@ -298,41 +298,44 @@ const App = () => {
     Treatments1Ref: Treatments1Ref,
     AddOnsRef: AddOnsRef,
     InstagramRef: InstagramRef,
-    ContactRef: ContactRef
+    ContactRef: ContactRef,
   };
 
   useEffect(() => {
     if (!cartIsActive) {
-      const handleScroll = () => {
-        const currentScrollPosition = window.pageYOffset;
+      if (!location.pathname.includes("account")) {
+        const handleScroll = () => {
+          const currentScrollPosition = window.pageYOffset;
 
-        if (
-          previousScrollPosition < currentScrollPosition &&
-          previousScrollPosition > 0 &&
-          currentScrollPosition > 0
-        ) {
-          if (navbarVisible) {
-            if (navbarToggle) {
-              dispatch(ACTION_NAVBAR_IS_VISIBLE());
-            } else {
-              dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+          if (
+            previousScrollPosition < currentScrollPosition &&
+            previousScrollPosition > 0 &&
+            currentScrollPosition > 0
+          ) {
+            if (navbarVisible) {
+              if (navbarToggle) {
+                dispatch(ACTION_NAVBAR_IS_VISIBLE());
+              } else {
+                dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+              }
             }
+          } else {
+            dispatch(ACTION_NAVBAR_IS_VISIBLE());
           }
-        } else {
-          dispatch(ACTION_NAVBAR_IS_VISIBLE());
-        }
-        setPreviousScrollPosition(currentScrollPosition);
-      };
+          setPreviousScrollPosition(currentScrollPosition);
+        };
 
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+      }
     }
   }, [
     previousScrollPosition,
     navbarVisible,
     navbarToggle,
     cartIsActive,
-    dispatch
+    dispatch,
+    location.pathname,
   ]);
 
   return (
@@ -347,7 +350,7 @@ const App = () => {
               : "-100px"
             : currentScreenSize >= 600
             ? "-200px"
-            : "-100px"
+            : "-100px",
         }}
         to={{ marginTop: "0px" }}
         config={{
@@ -368,10 +371,10 @@ const App = () => {
             ? currentScreenSize >= 600
               ? 2000
               : 1500
-            : 1500
+            : 1500,
         }}
       >
-        {styles => (
+        {(styles) => (
           <header
             className="header"
             style={{
@@ -423,7 +426,7 @@ const App = () => {
                   : "0vh"
                 : "0vh",
               zIndex: finalBookButtonActive ? "auto" : 500,
-              display: loginIsActive ? "none" : "flex"
+              display: loginIsActive ? "none" : "flex",
             }}
           >
             <NavigationBar
