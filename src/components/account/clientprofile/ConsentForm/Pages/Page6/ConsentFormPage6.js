@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
 import UltimateSkinCareGoals from "../../Questions/UltimateSkinCareGoals";
 import AnythingElseWeShouldKnow from "../../Questions/AnythingElseWeShouldKnow";
+import ACTION_CONSENT_FORM_PAGE_6 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_6";
 
 const ConsentFormPage6 = (props) => {
+  const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -27,6 +29,10 @@ const ConsentFormPage6 = (props) => {
       return <Redirect to="/account/login" />;
     }
   };
+
+  useEffect(() => {
+    dispatch(ACTION_CONSENT_FORM_PAGE_6());
+  }, [dispatch]);
 
   return (
     <div className="client_consent_form_container">
@@ -66,7 +72,7 @@ const ConsentFormPage6 = (props) => {
           </div>
         </Link>
         <div className="consent_form_previous_page_button">
-          <Link to="/account/clientprofile/consentform/page3">
+          <Link to="/account/clientprofile/consentform/page5">
             <p>Previous Page</p>
           </Link>
         </div>

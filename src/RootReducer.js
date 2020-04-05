@@ -130,6 +130,8 @@ import pregnantOrNursingNoReducer from "./reducers/ConsentForm/PregnantOrNursing
 import pregnantOrNursingYesReducer from "./reducers/ConsentForm/PregnantOrNursing/Yes/pregnantOrNursingYesReducer";
 import ultimateSkinCareGoalsNotesReducer from "./reducers/ConsentForm/UltimateSkinCareGoals/ultimateSkinCareGoalsReducer";
 import anythingElseWeShouldKnowNotesReducer from "./reducers/ConsentForm/AnythingElseWeShouldKnow/anythingElseWeShouldKnowReducer";
+import consentFormLastPageOpenedReducer from "./reducers/ConsentForm/LastPageOpened/consentFormLastPageOpenedReducer";
+import consentFormDateReducer from "./reducers/ConsentForm/ConsentFormDate/consentFormDateReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -269,6 +271,8 @@ const RootReducer = combineReducers({
   pregnantOrNursingYes: pregnantOrNursingYesReducer,
   ultimateSkinCareGoals: ultimateSkinCareGoalsNotesReducer,
   anythingElseWeShouldKnow: anythingElseWeShouldKnowNotesReducer,
+  consentFormLastPageOpened: consentFormLastPageOpenedReducer,
+  consentFormDate: consentFormDateReducer,
 
   // Guest Checkout Form Reducers
   loginIsActive: loginIsActiveReducer,

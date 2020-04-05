@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
 import AnyFillersOrBotox from "../../Questions/AnyFillersOrBotox";
 import ListKnownAllergies from "../../Questions/ListKnownAllergies";
+import ACTION_CONSENT_FORM_PAGE_4 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_4";
 
 const ConsentFormPage4 = (props) => {
+  const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -33,6 +35,10 @@ const ConsentFormPage4 = (props) => {
       return <Redirect to="/account/login" />;
     }
   };
+
+  useEffect(() => {
+    dispatch(ACTION_CONSENT_FORM_PAGE_4());
+  }, [dispatch]);
 
   return (
     <div className="client_consent_form_container">

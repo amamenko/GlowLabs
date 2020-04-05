@@ -6,16 +6,19 @@ import {
   faHome,
   faFileSignature,
   faCalendarCheck,
-  faUser
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import "./ClientProfile.css";
 
 const ClientProfile = () => {
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
+  );
+  const consentFormLastPageOpened = useSelector(
+    (state) => state.consentFormLastPageOpened.consent_form_active_page
   );
 
   const redirectToHome = () => {
@@ -47,7 +50,7 @@ const ClientProfile = () => {
         <div className="profile_consent_form_box_container">
           <Link
             className="profile_box_container_link"
-            to="/account/clientprofile/consentform/page1"
+            to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
           >
             <FontAwesomeIcon
               icon={faFileSignature}

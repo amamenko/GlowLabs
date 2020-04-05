@@ -8,10 +8,10 @@ import ACTION_LIST_ANY_MEDICATIONS_NOTES from "../../../../../actions/ConsentFor
 const ListAnyMedications = () => {
   const dispatch = useDispatch();
   const listAnyMedicationsNotes = useSelector(
-    state => state.listAnyMedicationsNotes.list_any_medications_notes
+    (state) => state.listAnyMedicationsNotes.list_any_medications_notes
   );
 
-  const handleListAnyMedicationsNotes = e => {
+  const handleListAnyMedicationsNotes = (e) => {
     dispatch(ACTION_LIST_ANY_MEDICATIONS_NOTES(e.currentTarget.value.trim()));
   };
 
@@ -26,10 +26,10 @@ const ListAnyMedications = () => {
           <Input
             type="textarea"
             style={{
-              fontFamily: "Montserrat"
+              fontFamily: "Montserrat",
             }}
             defaultValue={listAnyMedicationsNotes}
-            placeholder="Enter your information here."
+            placeholder="Enter your information here, if any."
             className="form_appointment_notes"
             maxLength={1000}
             onChange={handleListAnyMedicationsNotes}
