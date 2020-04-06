@@ -166,8 +166,9 @@
   height: 20vh;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-  border: 1px solid black;
+  border: 1px solid rgb(44, 44, 52);
   position: relative;
+  z-index: 0;
 }
 
 .consent_form_signature {
@@ -201,4 +202,31 @@
   border-bottom: 1px solid black;
   padding: 0.2rem;
   text-align: center;
+}
+
+.modal_consent_form_icon {
+  width: 100vw;
+  position: absolute;
+  left: 33%;
+  top: -8vh;
+}
+
+.modal_consent_form_icon_container {
+  position: relative;
+  width: 100%;
+  height: 5%;
+  padding-bottom: 24%;
+}
+
+.modal_consent_form_checkmark {
+  display: block;
+  height: 2rem;
+  position: absolute;
+  top: -10%;
+  left: 12%;
+  bottom: 0;
+}
+
+.modal_statement_of_thanks {
+  font-size: 2rem;
 }

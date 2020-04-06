@@ -30,7 +30,7 @@ import { Collapse } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useQuery } from "@apollo/react-hooks";
 import { getAllAppointmentsQuery } from "../../../graphql/queries/queries";
@@ -42,68 +42,70 @@ import "../../../bootstrap.min.css";
 const TimePreference = () => {
   const dispatch = useDispatch();
 
-  const addOnsArr = useSelector(state => state.addOnsArr.add_ons_arr);
+  const addOnsArr = useSelector((state) => state.addOnsArr.add_ons_arr);
   const treatmentsArr = useSelector(
-    state => state.treatmentsArr.treatments_arr
+    (state) => state.treatmentsArr.treatments_arr
   );
   const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
+    (state) => state.reformattedDay.reformattedDay
   );
-  const selectedDay = useSelector(state => state.selectedDay.selectedDay);
-  const dayOfTheWeek = useSelector(state => state.dayOfTheWeek.dayOfTheWeek);
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
-  const totalDuration = useSelector(state => state.totalDuration.totalDuration);
+  const selectedDay = useSelector((state) => state.selectedDay.selectedDay);
+  const dayOfTheWeek = useSelector((state) => state.dayOfTheWeek.dayOfTheWeek);
+  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
+  const totalDuration = useSelector(
+    (state) => state.totalDuration.totalDuration
+  );
   const continueToCheckoutButton = useSelector(
-    state => state.continueToCheckoutButton.continueButtonActive
+    (state) => state.continueToCheckoutButton.continueButtonActive
   );
   const morningCollapseIsOpen = useSelector(
-    state => state.morningCollapse.collapseIsOpen
+    (state) => state.morningCollapse.collapseIsOpen
   );
   const afternoonCollapseIsOpen = useSelector(
-    state => state.afternoonCollapse.collapseIsOpen
+    (state) => state.afternoonCollapse.collapseIsOpen
   );
   const lateAfternoonCollapseIsOpen = useSelector(
-    state => state.lateAfternoonCollapse.collapseIsOpen
+    (state) => state.lateAfternoonCollapse.collapseIsOpen
   );
   const eveningCollapseIsOpen = useSelector(
-    state => state.eveningCollapse.collapseIsOpen
+    (state) => state.eveningCollapse.collapseIsOpen
   );
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
 
   const [bookedTimes, changeBookedTimes] = useState([]);
 
   // Checkout Form States
-  const firstName = useSelector(state => state.firstName.first_name);
-  const lastName = useSelector(state => state.lastName.last_name);
+  const firstName = useSelector((state) => state.firstName.first_name);
+  const lastName = useSelector((state) => state.lastName.last_name);
   const appointmentNotes = useSelector(
-    state => state.appointmentNotes.appointment_notes
+    (state) => state.appointmentNotes.appointment_notes
   );
 
   // Email States
-  const email = useSelector(state => state.email.email);
-  const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
+  const email = useSelector((state) => state.email.email);
+  const emailIsValid = useSelector((state) => state.emailIsValid.email_valid);
   const emailIsInvalid = useSelector(
-    state => state.emailIsInvalid.email_invalid
+    (state) => state.emailIsInvalid.email_invalid
   );
 
   // Phone Number States
-  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
-  const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
+  const phoneNumber = useSelector((state) => state.phoneNumber.phone_number);
+  const phoneIsValid = useSelector((state) => state.phoneIsValid.phone_valid);
   const phoneIsInvalid = useSelector(
-    state => state.phoneIsInvalid.phone_invalid
+    (state) => state.phoneIsInvalid.phone_invalid
   );
 
   const { data } = useQuery(getAllAppointmentsQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
   const alreadyBookedAppointments = data
-    ? data.all_appointments.filter(item => item.date === reformattedDay)
+    ? data.all_appointments.filter((item) => item.date === reformattedDay)
     : null;
 
   const alreadyBookedTimes = useCallback(() => {
@@ -176,12 +178,12 @@ const TimePreference = () => {
           }
 
           const quadrupleHourArr = hourArr
-            .map(e => {
+            .map((e) => {
               return [
                 e.toString() + ":" + intervalArr[0],
                 e.toString() + ":" + intervalArr[1],
                 e.toString() + ":" + intervalArr[2],
-                e.toString() + ":" + intervalArr[3]
+                e.toString() + ":" + intervalArr[3],
               ];
             })
             .reduce(
@@ -228,7 +230,51 @@ const TimePreference = () => {
                         ":" +
                         endSliceBasedOnDuration()
                 ),
-                quadrupleHourArr.length - 1
+                quadrupleHourArr.length -
+                  (Number(
+                    alreadyBookedAppointments[i].endTime.split(":")[1]
+                  ) === 30 ||
+                  Number(alreadyBookedAppointments[i].endTime.split(":")[1]) ===
+                    35 ||
+                  Number(alreadyBookedAppointments[i].endTime.split(":")[1]) ===
+                    40
+                    ? 0
+                    : 4 -
+                      minutesArr.indexOf(
+                        Math.floor(
+                          (Number(
+                            alreadyBookedAppointments[i].endTime.split(":")[1]
+                          ) +
+                            25) /
+                            15
+                        ) *
+                          15 >
+                          60
+                          ? (
+                              Math.floor(
+                                (Number(
+                                  alreadyBookedAppointments[i].endTime.split(
+                                    ":"
+                                  )[1]
+                                ) +
+                                  25) /
+                                  15
+                              ) *
+                                15 -
+                              60
+                            ).toString()
+                          : (
+                              Math.floor(
+                                (Number(
+                                  alreadyBookedAppointments[i].endTime.split(
+                                    ":"
+                                  )[1]
+                                ) +
+                                  25) /
+                                  15
+                              ) * 15
+                            ).toString()
+                      ))
               )
               .sort(),
             calendarEndTime
@@ -263,7 +309,7 @@ const TimePreference = () => {
     { Thu: "Thursday" },
     { Fri: "Friday" },
     { Sat: "Saturday" },
-    { Sun: "Sunday" }
+    { Sun: "Sunday" },
   ];
 
   const getFullDayOfTheWeek = () => {
@@ -368,7 +414,7 @@ const TimePreference = () => {
     }
 
     const multipleHours = hours
-      .map(e => [e, e, e, e])
+      .map((e) => [e, e, e, e])
       .reduce(
         (accumulator, currentValue) => accumulator.concat(currentValue),
         []
@@ -399,7 +445,7 @@ const TimePreference = () => {
     }
 
     const multipleHours = hours
-      .map(e => (e > 12 ? [e - 12, e - 12, e - 12, e - 12] : [e, e, e, e]))
+      .map((e) => (e > 12 ? [e - 12, e - 12, e - 12, e - 12] : [e, e, e, e]))
       .reduce(
         (accumulator, currentValue) => accumulator.concat(currentValue),
         []
@@ -432,7 +478,7 @@ const TimePreference = () => {
     }
 
     const multipleHours = hours
-      .map(e => [e - 12, e - 12, e - 12, e - 12])
+      .map((e) => [e - 12, e - 12, e - 12, e - 12])
       .reduce(
         (accumulator, currentValue) => accumulator.concat(currentValue),
         []
@@ -447,7 +493,7 @@ const TimePreference = () => {
 
   createEveningTimeInstances();
 
-  const handleTimeClick = e => {
+  const handleTimeClick = (e) => {
     let renderedTime = "";
 
     // Required for button border click to trigger selected time on mobile
@@ -492,8 +538,8 @@ const TimePreference = () => {
   };
 
   useEffect(() => {
-    const treatmentDurationArr = treatmentsArr.map(item => item.duration);
-    const addOnsDurationArr = addOnsArr.map(item => item.duration);
+    const treatmentDurationArr = treatmentsArr.map((item) => item.duration);
+    const addOnsDurationArr = addOnsArr.map((item) => item.duration);
     const totalDurationArr = treatmentDurationArr.concat(addOnsDurationArr);
 
     let totalDurationValue;
@@ -615,7 +661,7 @@ const TimePreference = () => {
                         : bookedTimes.includes(item)
                         ? "rgb(201, 201, 201)"
                         : "2px solid rgb(0, 0, 0)",
-                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto"
+                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto",
                   }}
                 >
                   <p>{item}</p>
@@ -662,7 +708,7 @@ const TimePreference = () => {
                         : bookedTimes.includes(item)
                         ? "rgb(201, 201, 201)"
                         : "2px solid rgb(0, 0, 0)",
-                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto"
+                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto",
                   }}
                 >
                   <p>{item}</p>
@@ -724,7 +770,7 @@ const TimePreference = () => {
                         ? "2px solid transparent"
                         : bookedTimes.includes(item)
                         ? "rgb(201, 201, 201)"
-                        : "2px solid rgb(0, 0, 0)"
+                        : "2px solid rgb(0, 0, 0)",
                   }}
                 >
                   <p>{item}</p>
@@ -787,7 +833,7 @@ const TimePreference = () => {
                           ? "2px solid transparent"
                           : bookedTimes.includes(item)
                           ? "rgb(201, 201, 201)"
-                          : "2px solid rgb(0, 0, 0)"
+                          : "2px solid rgb(0, 0, 0)",
                     }}
                   >
                     <p>{item}</p>
@@ -820,14 +866,14 @@ const TimePreference = () => {
                 : eveningCollapseIsOpen
                 ? "-4vh"
                 : "0vh",
-            transition: "margin-top 0.4s ease, padding-top 0.4s ease"
+            transition: "margin-top 0.4s ease, padding-top 0.4s ease",
           }}
         >
           <Link
             to={userAuthenticated ? "/checkout/confirmation" : "/checkout"}
             style={{
               display: "block",
-              pointerEvents: selectedTime !== "" ? "auto" : "none"
+              pointerEvents: selectedTime !== "" ? "auto" : "none",
             }}
             onClick={handleContinueCheckoutButtonClick}
           >
@@ -838,7 +884,7 @@ const TimePreference = () => {
                 color: selectedTime
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",
-                transition: "background 0.5s ease, color 0.5s ease"
+                transition: "background 0.5s ease, color 0.5s ease",
               }}
             >
               <p>Continue Checkout</p>

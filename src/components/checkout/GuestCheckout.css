@@ -10,7 +10,7 @@
 }
 
 .checkout_container_header {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   height: 8vh;
   display: flex;
   flex-direction: row;
@@ -22,7 +22,7 @@
 }
 
 .checkout_forward_arrow {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   position: absolute;
   right: 1.5rem;
   font-size: 1.5rem;
@@ -32,7 +32,7 @@
 }
 
 .checkout_back_arrow {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   position: absolute;
   left: 1.5rem;
   font-size: 1.5rem;

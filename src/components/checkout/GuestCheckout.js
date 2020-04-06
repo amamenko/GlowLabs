@@ -15,7 +15,7 @@ import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSu
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Form, FormGroup, FormText, Label, Input } from "reactstrap";
 import "./GuestCheckout.css";
@@ -27,27 +27,30 @@ const GuestCheckout = () => {
   const dispatch = useDispatch();
   let location = useLocation();
 
-  const firstName = useSelector(state => state.firstName.first_name);
-  const lastName = useSelector(state => state.lastName.last_name);
+  const firstName = useSelector((state) => state.firstName.first_name);
+  const lastName = useSelector((state) => state.lastName.last_name);
   const continueToBookingSummaryActive = useSelector(
-    state => state.continueToBookingSummaryActive.bookingSummaryActive
+    (state) => state.continueToBookingSummaryActive.bookingSummaryActive
   );
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
+  );
+  const userAuthenticated = useSelector(
+    (state) => state.userAuthenticated.user_authenticated
   );
 
   // Email States
-  const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
+  const emailIsValid = useSelector((state) => state.emailIsValid.email_valid);
 
   // Phone Number States
-  const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
+  const phoneIsValid = useSelector((state) => state.phoneIsValid.phone_valid);
 
   // Appointment Notes States
   const appointmentNotes = useSelector(
-    state => state.appointmentNotes.appointment_notes
+    (state) => state.appointmentNotes.appointment_notes
   );
   const appointmentNotesValid = useSelector(
-    state => state.appointmentNotesValid.appointmentNotesValid
+    (state) => state.appointmentNotesValid.appointmentNotesValid
   );
 
   const redirectToHome = () => {
@@ -56,11 +59,17 @@ const GuestCheckout = () => {
     }
   };
 
-  const handleFirstName = e => {
+  const redirectToConfirmationPage = () => {
+    if (userAuthenticated) {
+      return <Redirect to="/checkout/confirmation" />;
+    }
+  };
+
+  const handleFirstName = (e) => {
     dispatch(ACTION_FIRST_NAME(e.currentTarget.value.trim()));
   };
 
-  const handleLastName = e => {
+  const handleLastName = (e) => {
     dispatch(ACTION_LAST_NAME(e.currentTarget.value.trim()));
   };
 
@@ -72,7 +81,7 @@ const GuestCheckout = () => {
     dispatch(ACTION_LAST_NAME_RESET());
   };
 
-  const appointmentNotesTyping = e => {
+  const appointmentNotesTyping = (e) => {
     dispatch(ACTION_APPOINTMENT_NOTES(e.currentTarget.value.trim()));
   };
 
@@ -120,6 +129,7 @@ const GuestCheckout = () => {
   return (
     <div className="checkout_container">
       {redirectToHome()}
+      {redirectToConfirmationPage()}
       <div className="checkout_container_header">
         <Link to="/availability/timepreference">
           <FontAwesomeIcon
@@ -132,7 +142,7 @@ const GuestCheckout = () => {
           <FontAwesomeIcon
             className="checkout_forward_arrow"
             style={{
-              display: continueToBookingSummaryActive ? "block" : "none"
+              display: continueToBookingSummaryActive ? "block" : "none",
             }}
             icon={faChevronRight}
           />
@@ -197,7 +207,7 @@ const GuestCheckout = () => {
               placeholder="Enter any skin care issues/concerns here."
               defaultValue={appointmentNotes}
               style={{
-                fontFamily: "Montserrat"
+                fontFamily: "Montserrat",
               }}
               name="appointmentNotes"
               onChange={appointmentNotesTyping}
@@ -212,7 +222,7 @@ const GuestCheckout = () => {
                     500 - appointmentNotes.length < 0
                       ? "rgb(255, 22, 34)"
                       : "rgb(151, 151, 151)",
-                  transition: "color 0.5s ease"
+                  transition: "color 0.5s ease",
                 }}
                 className="notes_character_limit"
               >
@@ -237,7 +247,7 @@ const GuestCheckout = () => {
                 phoneIsValid &&
                 appointmentNotesValid
                   ? "auto"
-                  : "none"
+                  : "none",
             }}
             onClick={handleConfirmDetailsButtonClick}
           >
@@ -260,7 +270,7 @@ const GuestCheckout = () => {
                   appointmentNotesValid
                     ? "rgb(255, 255, 255)"
                     : "rgb(201, 201, 201)",
-                transition: "background 0.5s ease, color 0.5s ease"
+                transition: "background 0.5s ease, color 0.5s ease",
               }}
             >
               <p>Review Details</p>

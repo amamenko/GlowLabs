@@ -1,10 +1,13 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { Transition, Spring } from "react-spring/renderprops";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import Modal from "react-modal";
-import { addAppointmentMutation } from "../../graphql/queries/queries";
+import {
+  addAppointmentMutation,
+  getClientQuery,
+} from "../../graphql/queries/queries";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,8 +15,10 @@ import {
   faChevronLeft,
   faCalendar,
   faClock,
-  faTimes
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 import "./ConfirmationPage.css";
 import CalmSummaryCard from "./SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "./SummaryReviewCards/Treatments/BacialSummaryCard";
@@ -70,40 +75,57 @@ import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCRO
 const ConfirmationPage = () => {
   let location = useLocation();
   const dispatch = useDispatch();
-  const counter = useSelector(state => state.counterReducer.counter);
+  const counter = useSelector((state) => state.counterReducer.counter);
   const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
+    (state) => state.reformattedDay.reformattedDay
   );
-  const dayOfTheWeek = useSelector(state => state.dayOfTheWeek.dayOfTheWeek);
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const dayOfTheWeek = useSelector((state) => state.dayOfTheWeek.dayOfTheWeek);
+  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
   const appointmentEndTime = useSelector(
-    state => state.appointmentEndTime.end_time
+    (state) => state.appointmentEndTime.end_time
   );
-  const addOnsArr = useSelector(state => state.addOnsArr.add_ons_arr);
+  const addOnsArr = useSelector((state) => state.addOnsArr.add_ons_arr);
   const treatmentsArr = useSelector(
-    state => state.treatmentsArr.treatments_arr
+    (state) => state.treatmentsArr.treatments_arr
   );
-  const totalPrice = useSelector(state => state.totalPrice.totalPrice);
-  const totalDuration = useSelector(state => state.totalDuration.totalDuration);
+  const totalPrice = useSelector((state) => state.totalPrice.totalPrice);
+  const totalDuration = useSelector(
+    (state) => state.totalDuration.totalDuration
+  );
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
-  const firstName = useSelector(state => state.firstName.first_name);
-  const lastName = useSelector(state => state.lastName.last_name);
-  const email = useSelector(state => state.email.email);
-  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
+  const consentFormAnythingChanged = useSelector(
+    (state) => state.consentFormAnythingChanged.consent_form_anything_changed
+  );
+  const firstName = useSelector((state) => state.firstName.first_name);
+  const lastName = useSelector((state) => state.lastName.last_name);
+  const email = useSelector((state) => state.email.email);
+  const phoneNumber = useSelector((state) => state.phoneNumber.phone_number);
   const appointmentNotes = useSelector(
-    state => state.appointmentNotes.appointment_notes
+    (state) => state.appointmentNotes.appointment_notes
   );
   const loadingSpinnerActive = useSelector(
-    state => state.loadingSpinnerActive.loading_spinner
+    (state) => state.loadingSpinnerActive.loading_spinner
   );
   const finalBookButtonActive = useSelector(
-    state => state.finalBookButton.final_book_button_active
+    (state) => state.finalBookButton.final_book_button_active
+  );
+  const userAuthenticated = useSelector(
+    (state) => state.userAuthenticated.user_authenticated
   );
   const [finalBookingModalActive, changeFinalBookingModalActive] = useState(
     false
   );
+
+  const { data } = useQuery(getClientQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: Cookies.get("dummy-token")
+        ? jwt.decode(Cookies.get("dummy-token")).id
+        : null,
+    },
+  });
 
   const [addAppointment, { loading: appLoading }] = useMutation(
     addAppointmentMutation
@@ -122,14 +144,26 @@ const ConfirmationPage = () => {
     endTime: appointmentEndTime,
     duration: totalDuration,
     price: totalPrice,
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    phoneNumber: phoneNumber,
-    notes: appointmentNotes
+    firstName: userAuthenticated
+      ? data
+        ? data.client.firstName
+        : firstName
+      : firstName,
+    lastName: userAuthenticated
+      ? data
+        ? data.client.lastName
+        : lastName
+      : lastName,
+    email: userAuthenticated ? (data ? data.client.email : email) : email,
+    phoneNumber: userAuthenticated
+      ? data
+        ? data.client.phoneNumber
+        : phoneNumber
+      : phoneNumber,
+    notes: appointmentNotes,
   };
 
-  const handleSubmitBooking = e => {
+  const handleSubmitBooking = (e) => {
     e.preventDefault();
 
     if (!finalBookButtonActive) {
@@ -138,22 +172,22 @@ const ConfirmationPage = () => {
 
     const treatmentsMap = () => {
       for (let i = 0; i < treatmentsArr.length; i++) {
-        return treatmentsArr.map(item => ({
+        return treatmentsArr.map((item) => ({
           treatment_name: item.name,
           treatment_duration: Number(item.duration),
-          treatment_price: Number(item.price)
+          treatment_price: Number(item.price),
         }))[i];
       }
     };
 
     const addOnsMap = () => {
       return {
-        addOns: addOnsArr
+        addOns: addOnsArr,
       };
     };
 
     addAppointment({
-      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() }
+      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() },
     });
   };
 
@@ -174,7 +208,7 @@ const ConfirmationPage = () => {
     { name: "ChemicalPeel", component: <ChemicalPeelSummaryCard /> },
     { name: "CBD", component: <CBDSummaryCard /> },
     { name: "Microneedle", component: <MicroneedleSummaryCard /> },
-    { name: "Rejuvenate", component: <RejuvenateSummaryCard /> }
+    { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [
@@ -186,7 +220,7 @@ const ConfirmationPage = () => {
     { name: "Dermarolling", component: <DermarollingSummaryCard /> },
     { name: "NanoNeedling", component: <NanoNeedlingSummaryCard /> },
     { name: "GuaSha", component: <GuaShaSummaryCard /> },
-    { name: "Beard", component: <BeardSummaryCard /> }
+    { name: "Beard", component: <BeardSummaryCard /> },
   ];
 
   useEffect(() => {
@@ -195,7 +229,7 @@ const ConfirmationPage = () => {
     }
   }, [location.pathname]);
 
-  const treatmentsComponentNames = treatmentsArr.map(item => item.name);
+  const treatmentsComponentNames = treatmentsArr.map((item) => item.name);
 
   const renderSummaryCardTreatments = () => {
     let componentsArr = [];
@@ -211,7 +245,7 @@ const ConfirmationPage = () => {
     return componentsArr.map((item, index) => <div key={index}>{item}</div>);
   };
 
-  const addOnsComponentNames = addOnsArr.map(item => item.name);
+  const addOnsComponentNames = addOnsArr.map((item) => item.name);
 
   const renderSummaryCardAddOns = () => {
     let componentsArr = [];
@@ -319,7 +353,9 @@ const ConfirmationPage = () => {
     <div className="confirmation_page_container">
       {redirectToHome()}
       <div className="confirmation_page_container_header">
-        <Link to="/checkout">
+        <Link
+          to={userAuthenticated ? "/availability/timepreference" : "/checkout"}
+        >
           <FontAwesomeIcon
             className="confirmation_page_back_arrow"
             icon={faChevronLeft}
@@ -408,8 +444,8 @@ const ConfirmationPage = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background: "rgba(0, 0, 0, 0.5)"
-          }
+            background: "rgba(0, 0, 0, 0.5)",
+          },
         }}
       >
         <BounceLoader
@@ -424,9 +460,9 @@ const ConfirmationPage = () => {
           enter={{ transform: "translate3d(0, 0, 0)" }}
           leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
-          {finalBookingModalActive =>
+          {(finalBookingModalActive) =>
             finalBookingModalActive &&
-            (props => (
+            ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
                   <Link to="/">
@@ -450,7 +486,7 @@ const ConfirmationPage = () => {
                       to={{ x: 0 }}
                       config={{ delay: 500, duration: 2000 }}
                     >
-                      {styles => (
+                      {(styles) => (
                         <svg
                           width="100%"
                           height="0.5rem"
@@ -472,7 +508,12 @@ const ConfirmationPage = () => {
                     </Spring>
                   </div>
                   <p className="modal_confirmation_statement">
-                    {firstName}, your appointment has been confirmed.
+                    {userAuthenticated
+                      ? data
+                        ? data.client.firstName
+                        : firstName
+                      : firstName}
+                    , your appointment has been confirmed.
                   </p>
                   <div className="modal_date_time_container">
                     <div className="modal_bold_details_container">

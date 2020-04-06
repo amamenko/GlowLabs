@@ -132,6 +132,8 @@ import ultimateSkinCareGoalsNotesReducer from "./reducers/ConsentForm/UltimateSk
 import anythingElseWeShouldKnowNotesReducer from "./reducers/ConsentForm/AnythingElseWeShouldKnow/anythingElseWeShouldKnowReducer";
 import consentFormLastPageOpenedReducer from "./reducers/ConsentForm/LastPageOpened/consentFormLastPageOpenedReducer";
 import consentFormDateReducer from "./reducers/ConsentForm/ConsentFormDate/consentFormDateReducer";
+import consentFormLastUpdatedReducer from "./reducers/ConsentForm/LastUpdated/consentFormLastUpdatedReducer";
+import consentFormAnythingChangedReducer from "./reducers/FinalBookButton/ConsentFormAnythingChanged/consentFormAnythingChangedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -273,6 +275,8 @@ const RootReducer = combineReducers({
   anythingElseWeShouldKnow: anythingElseWeShouldKnowNotesReducer,
   consentFormLastPageOpened: consentFormLastPageOpenedReducer,
   consentFormDate: consentFormDateReducer,
+  consentFormLastUpdated: consentFormLastUpdatedReducer,
+  consentFormAnythingChanged: consentFormAnythingChangedReducer,
 
   // Guest Checkout Form Reducers
   loginIsActive: loginIsActiveReducer,

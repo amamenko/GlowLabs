@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { FormGroup, Input } from "reactstrap";
 import "../ConsentForm.css";
 import "../../../../../bootstrap_forms.min.css";
-import ACTION_LIST_ANY_MEDICATIONS_NOTES from "../../../../../actions/ConsentForm/ListAnyMedications/ACTION_LIST_ANY_MEDICATIONS._NOTES";
+import ACTION_LIST_ANY_MEDICATIONS_NOTES from "../../../../../actions/ConsentForm/ListAnyMedications/ACTION_LIST_ANY_MEDICATIONS_NOTES";
 
 const ListAnyMedications = () => {
   const dispatch = useDispatch();

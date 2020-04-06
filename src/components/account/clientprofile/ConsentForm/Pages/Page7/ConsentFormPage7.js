@@ -9,16 +9,56 @@ import ACTION_FINAL_BOOK_BUTTON_ACTIVE from "../../../../../../actions/FinalBook
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_BODY_SCROLL_RESET from "../../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ACTION_LOADING_SPINNER_RESET from "../../../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
+import ACTION_CONSENT_FORM_DATE from "../../../../../../actions/ConsentForm/ConsentFormDate/ACTION_CONSENT_FORM_DATE";
+import ACTION_CONSENT_FORM_DATE_RESET from "../../../../../../actions/ConsentForm/ConsentFormDate/ACTION_CONSENT_FORM_DATE_RESET";
+import ACTION_ANY_ACCUTANE_NO_RESET from "../../../../../../actions/ConsentForm/AnyAccutane/No/ACTION_ANY_ACCUTANE_NO_RESET";
+import ACTION_ANY_ACCUTANE_YES_RESET from "../../../../../../actions/ConsentForm/AnyAccutane/Yes/ACTION_ANY_ACCUTANE_YES_RESET";
+import ACTION_ANY_ACCUTANE_NOTES_RESET from "../../../../../../actions/ConsentForm/AnyAccutane/Yes/Notes/ACTION_ANY_ACCUTANE_NOTES_RESET";
+import ACTION_ANY_CHEM_PEELS_LAST_MONTH_NO_RESET from "../../../../../../actions/ConsentForm/AnyChemPeelsLastMonth/No/ACTION_ANY_CHEM_PEELS_LAST_MONTH_NO_RESET";
+import ACTION_ANY_CHEM_PEELS_LAST_MONTH_YES_RESET from "../../../../../../actions/ConsentForm/AnyChemPeelsLastMonth/Yes/ACTION_ANY_CHEM_PEELS_LAST_MONTH_YES_RESET";
+import ACTION_ANY_FILLERS_OR_BOTOX_NO_RESET from "../../../../../../actions/ConsentForm/AnyFillersOrBotox/No/ACTION_ANY_FILLERS_OR_BOTOX_NO_RESET";
+import ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET from "../../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/ACTION_ANY_FILLERS_OR_BOTOX_YES";
+import ACTION_ANY_FILLERS_OR_BOTOX_NOTES_RESET from "../../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/Notes/ACTION_ANY_FILLERS_OR_BOTOX_NOTES_RESET";
+import ACTION_ANY_HEALTH_PROBLEMS_NO_RESET from "../../../../../../actions/ConsentForm/AnyHealthProblems/No/ACTION_ANY_HEALTH_PROBLEMS_NO_RESET";
+import ACTION_ANY_HEALTH_PROBLEMS_YES_RESET from "../../../../../../actions/ConsentForm/AnyHealthProblems/Yes/ACTION_ANY_HEALTH_PROBLEMS_YES_RESET";
+import ACTION_ANY_HEALTH_PROBLEMS_NOTES_RESET from "../../../../../../actions/ConsentForm/AnyHealthProblems/Yes/Notes/ACTION_ANY_HEALTH_PROBLEMS_NOTES_RESET";
+import ACTION_EXFOLIATING_SCRUBS_RESET from "../../../../../../actions/ConsentForm/AnyProductsWithIngredients/ExfoliatingScrubs/ACTION_EXFOLIATING_SCRUBS_RESET";
+import ACTION_GLYCOLIC_ACID_RESET from "../../../../../../actions/ConsentForm/AnyProductsWithIngredients/GlycolicAcid/ACTION_GLYCOLIC_ACID_RESET";
+import ACTION_LACTIC_ACID_RESET from "../../../../../../actions/ConsentForm/AnyProductsWithIngredients/LacticAcid/ACTION_LACTIC_ACID_RESET";
+import ACTION_SALICYCLIC_ACID_RESET from "../../../../../../actions/ConsentForm/AnyProductsWithIngredients/SalicyclicAcid/ACTION_SALICYCLIC_ACID_RESET";
+import ACTION_VITAMIN_A_RESET from "../../../../../../actions/ConsentForm/AnyProductsWithIngredients/VitaminA/ACTION_VITAMIN_A_RESET";
+import ACTION_ANYTHING_ELSE_WE_SHOULD_KNOW_NOTES_RESET from "../../../../../../actions/ConsentForm/AnythingElseWeShouldKnow/ACTION_ANYTHING_ELSE_WE_SHOULD_KNOW_NOTES_RESET";
+import ACTION_ANY_WAXING_LAST_5_DAYS_NO_RESET from "../../../../../../actions/ConsentForm/AnyWaxingLast5Days/No/ACTION_ANY_WAXING_LAST_5_DAYS_NO_RESET";
+import ACTION_ANY_WAXING_LAST_5_DAYS_YES_RESET from "../../../../../../actions/ConsentForm/AnyWaxingLast5Days/Yes/ACTION_ANY_WAXING_LAST_5_DAYS_YES_RESET";
+import ACTION_DIAGNOSED_WITH_ROSACEA_NO_RESET from "../../../../../../actions/ConsentForm/DiagnosedWithRosacea/No/ACTION_DIAGNOSED_WITH_ROSACEA_NO_RESET";
+import ACTION_DIAGNOSED_WITH_ROSACEA_YES_RESET from "../../../../../../actions/ConsentForm/DiagnosedWithRosacea/Yes/ACTION_DIAGNOSED_WITH_ROSACEA_YES_RESET";
+import ACTION_CONSENT_FORM_PAGE_1 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_1";
+import ACTION_LIST_ANY_MEDICATIONS_NOTES_RESET from "../../../../../../actions/ConsentForm/ListAnyMedications/ACTION_LIST_ANY_MEDICATIONS_NOTES_RESET";
+import ACTION_PREGNANT_OR_NURSING_NO_RESET from "../../../../../../actions/ConsentForm/PregnantOrNursing/No/ACTION_PREGNANT_OR_NURSING_NO_RESET";
+import ACTION_PREGNANT_OR_NURSING_YES_RESET from "../../../../../../actions/ConsentForm/PregnantOrNursing/Yes/ACTION_PREGNANT_OR_NURSING_YES_RESET";
+import ACTION_SKIN_FLAKY_OR_ITCH_NO_RESET from "../../../../../../actions/ConsentForm/SkinFlakyOrItch/No/ACTION_SKIN_FLAKY_OR_ITCH_NO_RESET";
+import ACTION_SKIN_FLAKY_OR_ITCH_YES_RESET from "../../../../../../actions/ConsentForm/SkinFlakyOrItch/Yes/ACTION_SKIN_FLAKY_OR_ITCH_YES_RESET";
+import ACTION_SURGERY_LAST_3_MONTHS_NO_RESET from "../../../../../../actions/ConsentForm/SurgeryLast3Months/No/ACTION_SURGERY_LAST_3_MONTHS_NO_RESET";
+import ACTION_SURGERY_LAST_3_MONTHS_YES_RESET from "../../../../../../actions/ConsentForm/SurgeryLast3Months/Yes/ACTION_SURGERY_LAST_3_MONTHS_YES_RESET";
+import ACTION_SURGERY_LAST_3_MONTHS_NOTES_RESET from "../../../../../../actions/ConsentForm/SurgeryLast3Months/Yes/Notes/ACTION_SURGERY_LAST_3_MONTHS_NOTES_RESET";
+import ACTION_ULTIMATE_SKIN_CARE_GOALS_NOTES_RESET from "../../../../../../actions/ConsentForm/UltimateSkinCareGoals/ACTION_ULTIMATE_SKIN_CARE_GOALS_NOTES_RESET";
+import ACTION_LIST_KNOWN_ALLERGIES_NOTES_RESET from "../../../../../../actions/ConsentForm/ListKnownAllergies/ACTION_LIST_KNOWN_ALLERGIES_RESET";
+import ACTION_BODY_SCROLL_ALLOW from "../../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_FINAL_BOOK_BUTTON_RESET from "../../../../../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_RESET";
 import CanvasDraw from "react-canvas-draw";
 import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
+import LZString from "lz-string";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 import Modal from "react-modal";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
-import { useMutation } from "@apollo/react-hooks";
-import { updateConsentFormMutation } from "../../../../../../graphql/queries/queries";
-import ACTION_CONSENT_FORM_DATE from "../../../../../../actions/ConsentForm/ConsentFormDate/ACTION_CONSENT_FORM_DATE";
-import ACTION_CONSENT_FORM_DATE_RESET from "../../../../../../actions/ConsentForm/ConsentFormDate/ACTION_CONSENT_FORM_DATE_RESET";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import {
+  updateConsentFormMutation,
+  getClientQuery,
+} from "../../../../../../graphql/queries/queries";
 
 const ConsentFormPage7 = (props) => {
   const dispatch = useDispatch();
@@ -117,6 +157,15 @@ const ConsentFormPage7 = (props) => {
     updateConsentFormMutation
   );
 
+  const { data } = useQuery(getClientQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: Cookies.get("dummy-token")
+        ? jwt.decode(Cookies.get("dummy-token")).id
+        : null,
+    },
+  });
+
   const signature = useRef(null);
 
   const override = css`
@@ -186,7 +235,7 @@ const ConsentFormPage7 = (props) => {
         pregnantOrNursing: pregnantOrNursingYes,
         ultimateSkinCareGoals: ultimateSkinCareGoals,
         anythingElseWeShouldKnow: anythingElseWeShouldKnow,
-        consentFormSignature: drawingSaveData,
+        consentFormSignature: LZString.compress(drawingSaveData),
       },
     });
   };
@@ -232,15 +281,42 @@ const ConsentFormPage7 = (props) => {
   }, [dispatch]);
 
   const handleModalBackToClientProfile = () => {
-    console.log("ok");
-  };
-
-  const handleSubmitBooking = (e) => {
-    e.preventDefault();
-
-    if (!finalBookButtonActive) {
-      dispatch(ACTION_FINAL_BOOK_BUTTON_ACTIVE());
-    }
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
+    dispatch(ACTION_ANY_ACCUTANE_NO_RESET());
+    dispatch(ACTION_ANY_ACCUTANE_YES_RESET());
+    dispatch(ACTION_ANY_ACCUTANE_NOTES_RESET());
+    dispatch(ACTION_ANY_CHEM_PEELS_LAST_MONTH_NO_RESET());
+    dispatch(ACTION_ANY_CHEM_PEELS_LAST_MONTH_YES_RESET());
+    dispatch(ACTION_ANY_FILLERS_OR_BOTOX_NO_RESET());
+    dispatch(ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET());
+    dispatch(ACTION_ANY_FILLERS_OR_BOTOX_NOTES_RESET());
+    dispatch(ACTION_ANY_HEALTH_PROBLEMS_NO_RESET());
+    dispatch(ACTION_ANY_HEALTH_PROBLEMS_YES_RESET());
+    dispatch(ACTION_ANY_HEALTH_PROBLEMS_NOTES_RESET());
+    dispatch(ACTION_EXFOLIATING_SCRUBS_RESET());
+    dispatch(ACTION_GLYCOLIC_ACID_RESET());
+    dispatch(ACTION_LACTIC_ACID_RESET());
+    dispatch(ACTION_SALICYCLIC_ACID_RESET());
+    dispatch(ACTION_VITAMIN_A_RESET());
+    dispatch(ACTION_ANYTHING_ELSE_WE_SHOULD_KNOW_NOTES_RESET());
+    dispatch(ACTION_ANY_WAXING_LAST_5_DAYS_NO_RESET());
+    dispatch(ACTION_ANY_WAXING_LAST_5_DAYS_YES_RESET());
+    dispatch(ACTION_CONSENT_FORM_DATE_RESET());
+    dispatch(ACTION_DIAGNOSED_WITH_ROSACEA_NO_RESET());
+    dispatch(ACTION_DIAGNOSED_WITH_ROSACEA_YES_RESET());
+    dispatch(ACTION_CONSENT_FORM_PAGE_1());
+    dispatch(ACTION_LIST_ANY_MEDICATIONS_NOTES_RESET());
+    dispatch(ACTION_LIST_KNOWN_ALLERGIES_NOTES_RESET());
+    dispatch(ACTION_PREGNANT_OR_NURSING_NO_RESET());
+    dispatch(ACTION_PREGNANT_OR_NURSING_YES_RESET());
+    dispatch(ACTION_SKIN_FLAKY_OR_ITCH_NO_RESET());
+    dispatch(ACTION_SKIN_FLAKY_OR_ITCH_YES_RESET());
+    dispatch(ACTION_SURGERY_LAST_3_MONTHS_NO_RESET());
+    dispatch(ACTION_SURGERY_LAST_3_MONTHS_YES_RESET());
+    dispatch(ACTION_SURGERY_LAST_3_MONTHS_NOTES_RESET());
+    dispatch(ACTION_ULTIMATE_SKIN_CARE_GOALS_NOTES_RESET());
+    changeDrawingSaveData("");
   };
 
   useEffect(() => {
@@ -398,7 +474,10 @@ const ConsentFormPage7 = (props) => {
           </div>
         </Link>
         <div className="consent_form_previous_page_button">
-          <Link to="/account/clientprofile/consentform/page6">
+          <Link
+            to="/account/clientprofile/consentform/page6"
+            onClick={() => dispatch(ACTION_CONSENT_FORM_DATE_RESET())}
+          >
             <p>Previous Page</p>
           </Link>
         </div>
@@ -446,21 +525,24 @@ const ConsentFormPage7 = (props) => {
             ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
-                  <Link to="/">
+                  <Link to="/account/clientprofile">
                     <FontAwesomeIcon
                       className="modal_x"
                       icon={faTimes}
                       onClick={handleModalBackToClientProfile}
                     />
                   </Link>
-                  <div className="modal_calendar_icon_container">
+                  <div className="modal_consent_form_icon_container">
                     <svg
-                      className="modal_calendar_icon"
+                      className="modal_consent_form_icon"
                       width="100%"
-                      height="6rem"
+                      height="50vh"
                       viewBox="0 0 13.229 13.229"
                     >
-                      <path d="M1.637 12.36a.469.469 0 01-.263-.288c-.036-.131-.035-9.665 0-9.796a.484.484 0 01.287-.294c.058-.017.358-.027.814-.027h.721v-.264c0-.319.027-.423.142-.54.117-.12.214-.145.568-.145.284 0 .308.004.424.066.1.054.135.09.188.193.06.117.064.146.064.408v.282h4.156v-.264c0-.319.028-.423.142-.54.117-.12.214-.145.569-.145.284 0 .307.004.423.066.1.054.136.09.188.193.06.117.064.146.064.408v.282h.722c.455 0 .755.01.813.027a.484.484 0 01.287.294c.036.134.036 9.665 0 9.799a.484.484 0 01-.287.294c-.066.019-1.49.026-5.01.025-4.18 0-4.933-.006-5.012-.034zm9.873-4.117V4.565h-9.7v7.356h9.7zm0-4.983v-.83h-1.386v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H4.582v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H1.811v1.66h9.699zM4.12 2.192v-.711h-.462v1.423h.462zm5.542 0v-.711H9.2v1.423h.462z" />
+                      <path
+                        d="M2.566 2.923H2.35v.204H.627V.603h.43c-.037.08-.039.179.048.228.073.041.343.023.424.023.195 0 .523.012.39-.251h.431v.627h.216c.053-.182.033-.469.012-.659-.007-.074-.035-.147-.105-.183-.189-.096-.486.01-.692-.023C1.658.345 1.618.187 1.473.2c-.128.01-.168.148-.278.166C.992.4.69.29.503.386.321.48.396.87.396 1.042v1.63c0 .16-.06.478.038.611.108.147.448.08.608.08h1c.124 0 .318.036.431-.021.132-.068.129-.295.093-.419M1.612.368H1.35c.07-.09.2-.112.262 0m-.816.752v.47h.462v-.47H.796m.415.047v.377H.842v-.377h.37m1.138.195c-.91.146-.673 1.564.231 1.431.92-.135.68-1.577-.23-1.43m-1.555.416v.47h.461v-.47H.796m.415.047v.376h-.37v-.376h.37m-.415.611v.47h.461v-.47H.796m.415.047v.377h-.37v-.377z"
+                        fill="#2c2c34"
+                      />
                     </svg>
                     <Spring
                       from={{ x: 100 }}
@@ -470,14 +552,14 @@ const ConsentFormPage7 = (props) => {
                       {(styles) => (
                         <svg
                           width="100%"
-                          height="0.5rem"
-                          className="modal_checkmark"
+                          height="0.1rem"
+                          className="modal_consent_form_checkmark"
                           viewBox="0 0 13.229 13.229"
                         >
                           <path
                             d="M2.851 7.56l2.45 2.482 5.36-6.958"
                             fill="none"
-                            stroke="rgb(55, 55, 55)"
+                            stroke="rgb(255, 255, 255)"
                             strokeDasharray="100"
                             strokeDashoffset={`${styles.x}`}
                             strokeLinecap="round"
@@ -488,30 +570,21 @@ const ConsentFormPage7 = (props) => {
                       )}
                     </Spring>
                   </div>
+                  <h2 className="modal_statement_of_thanks">Thank you</h2>
                   <p className="modal_confirmation_statement">
-                    Wow, your appointment has been confirmed.
+                    {data
+                      ? data.client !== null
+                        ? data.client.firstName.trim()
+                        : ""
+                      : ""}
+                    , your consent form has been submitted.
                   </p>
-                  <div className="modal_date_time_container">
-                    <div className="modal_bold_details_container">
-                      <p className="modal_appointment_time">Okay</p>
-                      <p className="modal_appointment_spacer">|</p>
-                      <p className="modal_appointment_provider">Glow Labs</p>
-                    </div>
-                    <div className="modal_bottom_info_container">
-                      <p className="modal_full_date_info">Alright</p>
-                      <div className="modal_address_container">
-                        <p>561 WILLOW AVENUE</p>
-                        <p>|</p>
-                        <p>CEDARHURST, NY</p>
-                      </div>
-                    </div>
-                  </div>
-                  <Link to="/">
+                  <Link to="/account/clientprofile" style={{ zIndex: 999 }}>
                     <div
                       className="dismiss_modal_button"
                       onClick={handleModalBackToClientProfile}
                     >
-                      <p>BACK TO HOME</p>
+                      <p>BACK TO MENU</p>
                     </div>
                   </Link>
                 </div>

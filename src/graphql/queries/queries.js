@@ -164,6 +164,10 @@ const getClientQuery = gql`
       phoneNumber
       createdAt
       password
+      consentForm {
+        date
+        createdAt
+      }
     }
   }
 `;

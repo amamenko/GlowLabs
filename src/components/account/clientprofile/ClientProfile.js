@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -8,9 +8,16 @@ import {
   faCalendarCheck,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
+import { useQuery } from "@apollo/react-hooks";
+import { getClientQuery } from "../../../graphql/queries/queries";
+import moment from "moment";
 import "./ClientProfile.css";
+import ACTION_CONSENT_FORM_LAST_UPDATED from "../../../actions/ConsentForm/LastUpdated/ACTION_CONSENT_FORM_LAST_UPDATED";
 
 const ClientProfile = () => {
+  const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -20,6 +27,33 @@ const ClientProfile = () => {
   const consentFormLastPageOpened = useSelector(
     (state) => state.consentFormLastPageOpened.consent_form_active_page
   );
+  const consentFormLastUpdated = useSelector(
+    (state) => state.consentFormLastUpdated.consent_form_last_updated
+  );
+
+  const { data } = useQuery(getClientQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: Cookies.get("dummy-token")
+        ? jwt.decode(Cookies.get("dummy-token")).id
+        : null,
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      if (
+        consentFormLastUpdated !==
+        moment.unix(data.client.consentForm.createdAt / 1000).format("l")
+      ) {
+        dispatch(
+          ACTION_CONSENT_FORM_LAST_UPDATED(
+            moment.unix(data.client.consentForm.createdAt / 1000).format("l")
+          )
+        );
+      }
+    }
+  }, [data, consentFormLastUpdated, dispatch]);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -44,7 +78,7 @@ const ClientProfile = () => {
         <div className="profile_home_box_container">
           <Link className="profile_box_container_link" to="/">
             <FontAwesomeIcon icon={faHome} className="profile_box_icon" />
-            <p>HOME</p>
+            <h2>HOME</h2>
           </Link>
         </div>
         <div className="profile_consent_form_box_container">
@@ -56,7 +90,13 @@ const ClientProfile = () => {
               icon={faFileSignature}
               className="profile_box_icon"
             />
-            <p>CONSENT FORM</p>
+            <h2>CONSENT FORM</h2>
+            {consentFormLastUpdated ? (
+              <span className="consent_form_last_updated_on_container">
+                <p>Last Updated On:</p>
+                <p>{consentFormLastUpdated}</p>
+              </span>
+            ) : null}
           </Link>
         </div>
         <div className="profile_my_appointments_box_container">
@@ -64,11 +104,11 @@ const ClientProfile = () => {
             icon={faCalendarCheck}
             className="profile_box_icon"
           />
-          <p>MY APPOINTMENTS</p>
+          <h2>MY APPOINTMENTS</h2>
         </div>
         <div className="profile_my_profile_box_container">
           <FontAwesomeIcon icon={faUser} className="profile_box_icon" />
-          <p>MY PROFILE</p>
+          <h2>MY PROFILE</h2>
         </div>
       </div>
     </div>

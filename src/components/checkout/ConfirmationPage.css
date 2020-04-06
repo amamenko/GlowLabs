@@ -15,7 +15,7 @@
 }
 
 .confirmation_page_container_header {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   height: 8vh;
   display: flex;
   flex-direction: row;
@@ -27,7 +27,7 @@
 }
 
 .confirmation_page_back_arrow {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
   position: absolute;
   left: 1.5rem;
   font-size: 1.5rem;
@@ -143,7 +143,7 @@
   font-weight: 500;
   font-size: 1rem;
   padding: 0.8rem;
-  background: rgb(165, 138, 127);
+  background: rgb(44, 44, 52);
   border-radius: 30px;
   color: white;
   margin-top: 6vh;
@@ -172,7 +172,7 @@
   position: absolute;
   top: 3%;
   right: 7%;
-  color: rgb(115, 88, 77);
+  color: rgb(0, 129, 177);
   font-size: 2rem;
 }
 
@@ -302,7 +302,7 @@
   padding: 0.8rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  background: rgb(165, 138, 127);
+  background: rgb(0, 129, 177);
   border-radius: 30px;
   color: white;
   margin-bottom: 50%;
