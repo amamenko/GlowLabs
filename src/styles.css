@@ -68,6 +68,68 @@ body {
   bottom: 0;
 }
 
+.log_out_modal {
+  -webkit-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  -moz-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  position: fixed;
+  z-index: 5;
+  height: 45%;
+  margin-top: -10%;
+  border-radius: 10px;
+  width: 80vw;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(244, 239, 243);
+}
+
+.log_out_modal_contents {
+  display: flex;
+  height: 70%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-align: center;
+}
+
+.log_out_modal_contents h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.logout_buttons_container {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.cancel_logout_button,
+.logout_button {
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  border-radius: 30px;
+  color: white;
+}
+
+.logout_button {
+  background: rgb(0, 129, 177);
+}
+
+.cancel_logout_button {
+  border: 2px solid rgb(0, 129, 177);
+  color: rgb(0, 129, 177);
+}
+
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .toast_error_container,

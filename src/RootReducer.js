@@ -134,6 +134,7 @@ import consentFormLastPageOpenedReducer from "./reducers/ConsentForm/LastPageOpe
 import consentFormDateReducer from "./reducers/ConsentForm/ConsentFormDate/consentFormDateReducer";
 import consentFormLastUpdatedReducer from "./reducers/ConsentForm/LastUpdated/consentFormLastUpdatedReducer";
 import consentFormAnythingChangedReducer from "./reducers/FinalBookButton/ConsentFormAnythingChanged/consentFormAnythingChangedReducer";
+import logoutClickedReducer from "./reducers/LogOut/logoutClickedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -240,6 +241,7 @@ const RootReducer = combineReducers({
   loginPasswordInvalid: loginPasswordInvalidReducer,
   registeredClientFound: registeredClientFoundReducer,
   userAuthenticated: userAuthenticatedReducer,
+  logoutClicked: logoutClickedReducer,
 
   // Consent Form Reducers,
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

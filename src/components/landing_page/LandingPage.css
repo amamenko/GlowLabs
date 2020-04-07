@@ -344,6 +344,11 @@
     line-height: 1.5rem;
   }
 
+  .glow_labs_logo_animation {
+    position: absolute;
+    top: 5%;
+  }
+
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .landing_page_bottom_icon {

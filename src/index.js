@@ -1,9 +1,9 @@
 import * as smoothscroll from "smoothscroll-polyfill";
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloProvider, useMutation } from "@apollo/react-hooks";
 import ReactDOM from "react-dom";
-import { Spring } from "react-spring/renderprops";
+import { Spring, Transition } from "react-spring/renderprops";
 import Modal from "react-modal";
 import { createStore, applyMiddleware } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
@@ -47,8 +47,12 @@ import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
+import { updateClientInvalidateTokensMutation } from "./graphql/queries/queries";
 import ACTION_USER_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_AUTHENTICATED";
 import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_NOT_AUTHENTICATED";
+import ACTION_LOG_OUT_CLICKED_RESET from "./actions/LogOut/ACTION_LOG_OUT_CLICKED_RESET";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -102,6 +106,13 @@ const App = () => {
   );
   const loginIsActive = useSelector(
     (state) => state.loginIsActive.login_is_active
+  );
+  const logoutClicked = useSelector(
+    (state) => state.logoutClicked.log_out_clicked
+  );
+
+  const [updateClientInvalidateTokens, { loading: appLoading }] = useMutation(
+    updateClientInvalidateTokensMutation
   );
 
   const dispatch = useDispatch();
@@ -338,8 +349,72 @@ const App = () => {
     location.pathname,
   ]);
 
+  const handleLogout = () => {
+    updateClientInvalidateTokens();
+    dispatch(ACTION_LOG_OUT_CLICKED_RESET());
+  };
+
   return (
     <>
+      <Modal
+        isOpen={logoutClicked}
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: 10000,
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <Transition
+          items={logoutClicked}
+          from={{ transform: "translate3d(0, -65%, 0)" }}
+          enter={{ transform: "translate3d(0, 0, 0)" }}
+          leave={{ transform: "translate3d(0, -65%, 0)" }}
+        >
+          {(logoutClicked) =>
+            logoutClicked &&
+            ((props) => (
+              <div className="log_out_modal" style={props}>
+                <div className="log_out_modal_contents">
+                  <FontAwesomeIcon
+                    className="modal_x"
+                    icon={faTimes}
+                    onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
+                  />
+                  <h2>Are you sure you want to log out?</h2>
+                  <span className="logout_buttons_container">
+                    <div className="logout_button" onClick={handleLogout}>
+                      <p>LOG OUT</p>
+                    </div>
+                    <div
+                      className="cancel_logout_button"
+                      onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
+                    >
+                      <p>CANCEL</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            ))
+          }
+        </Transition>
+      </Modal>
       <Spring
         from={{
           marginTop: !currentScreenSize
@@ -425,7 +500,7 @@ const App = () => {
                   ? "15vh"
                   : "0vh"
                 : "0vh",
-              zIndex: finalBookButtonActive ? "auto" : 500,
+              zIndex: finalBookButtonActive || logoutClicked ? "auto" : 500,
               display: loginIsActive ? "none" : "flex",
             }}
           >

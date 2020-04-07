@@ -92,7 +92,7 @@
 .forgot_password_question_container p {
   font-size: 1rem;
   font-weight: 600;
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
 }
 
 .login_page_bottom_buttons_container {
@@ -106,7 +106,7 @@
 }
 
 .log_in_button {
-  background: rgb(165, 138, 127);
+  background: rgb(44, 44, 52);
   color: rgb(255, 255, 255);
   text-align: center;
   border-radius: 30px;
@@ -123,8 +123,8 @@
 .create_account_redirect_button {
   width: 90%;
   background: rgb(255, 255, 255);
-  border: 2px solid rgb(165, 138, 127);
-  color: rgb(165, 138, 127);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
   text-align: center;
   border-radius: 30px;
   font-weight: 500;
@@ -133,5 +133,5 @@
 }
 
 .create_account_redirect_button p {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
 }

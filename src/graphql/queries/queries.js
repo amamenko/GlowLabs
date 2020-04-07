@@ -273,7 +273,7 @@ const addClientMutation = gql`
 
 const updateClientInvalidateTokensMutation = gql`
   mutation {
-    updateClientInvalidateTokensMutation {
+    updateClientInvalidateTokens {
       _id
       firstName
       lastName

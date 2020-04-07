@@ -1,28 +1,29 @@
 .sign_up_page_container {
-  height: 120vh;
+  height: 100%;
   background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-top: -11vh;
+  padding-bottom: 12vh;
 }
 
 .sign_up_content_container {
-  height: 95%;
+  height: 65%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 18%;
 }
 
 .sign_up_logo_container {
   position: absolute;
-  height: 30vh;
+  height: 60%;
   width: 100%;
-  top: -5vh;
+  top: -22vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,14 +33,13 @@
 .sign_up_prompt {
   font-weight: 500;
   font-size: 1.3rem;
-  padding-top: 1rem;
+  padding-top: 14rem;
   padding-bottom: 2rem;
   color: rgb(121, 121, 121);
 }
 
 .sign_up_page_form {
   width: 90%;
-  margin-top: -15%;
 }
 
 .input_field_sign_up {
@@ -57,12 +57,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin-top: -5vh;
+  margin-top: 2vh;
 }
 
 .create_account_button {
   width: 90%;
-  background: rgb(165, 138, 127);
+  background: rgb(44, 44, 52);
   color: rgb(255, 255, 255);
   text-align: center;
   border-radius: 30px;
@@ -79,8 +79,8 @@
 .login_redirect_button {
   width: 90%;
   background: rgb(255, 255, 255);
-  border: 2px solid rgb(165, 138, 127);
-  color: rgb(165, 138, 127);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
   text-align: center;
   border-radius: 30px;
   font-weight: 500;
@@ -89,5 +89,9 @@
 }
 
 .login_redirect_button p {
-  color: rgb(165, 138, 127);
+  color: rgb(44, 44, 52);
+}
+
+.input_field_sign_up {
+  position: relative;
 }

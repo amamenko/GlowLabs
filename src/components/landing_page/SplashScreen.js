@@ -5,7 +5,7 @@ import "./LandingPage.css";
 
 const SplashScreen = () => {
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
 
   const GlowChain = Keyframes.Spring({
@@ -16,7 +16,7 @@ const SplashScreen = () => {
         fill: "rgb(44, 44, 52)",
         fillOpacity: "1",
         stroke_width: "1",
-        config: { duration: 100 }
+        config: { duration: 100 },
       },
       {
         opacity: 1,
@@ -24,7 +24,7 @@ const SplashScreen = () => {
         fill: "rgb(44, 44, 52)",
         fillOpacity: "1",
         stroke_width: "6",
-        config: { duration: 300 }
+        config: { duration: 300 },
       },
       {
         opacity: 0.2,
@@ -32,7 +32,7 @@ const SplashScreen = () => {
         fill: "rgb(44, 44, 52)",
         fillOpacity: "1",
         stroke_width: "1",
-        config: { duration: 300 }
+        config: { duration: 300 },
       },
       {
         opacity: 1,
@@ -40,7 +40,7 @@ const SplashScreen = () => {
         fill: "#fff",
         fillOpacity: "1",
         stroke_width: "5",
-        config: { duration: 500 }
+        config: { duration: 500 },
       },
       {
         opacity: 1,
@@ -48,7 +48,7 @@ const SplashScreen = () => {
         fill: "#fff",
         fillOpacity: "1",
         stroke_width: "0",
-        config: { duration: 500 }
+        config: { duration: 500 },
       },
       {
         opacity: 0,
@@ -56,16 +56,16 @@ const SplashScreen = () => {
         fill: "#fff",
         fillOpacity: "0",
         stroke_width: "0",
-        config: { delay: 300, duration: 1000 }
-      }
-    ]
+        config: { delay: 300, duration: 1000 },
+      },
+    ],
   });
 
   const renderGlowLabsLogo = useMemo(() => {
     if (!splashScreenComplete) {
       return (
         <GlowChain state="glowAnimation">
-          {styles => (
+          {(styles) => (
             <>
               <g transform="translate(-2 -150.02)">
                 <filter
@@ -79,7 +79,7 @@ const SplashScreen = () => {
                 </filter>
                 <animated.path
                   stroke={`${styles.stroke}`}
-                  strokeWidth="0.2"
+                  strokeWidth="0.5"
                   strokeLinecap="round"
                   fill={`${styles.fill}`}
                   fillOpacity={`${styles.fillOpacity}`}

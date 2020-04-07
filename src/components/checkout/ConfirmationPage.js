@@ -540,12 +540,18 @@ const ConfirmationPage = () => {
                       </div>
                     </div>
                   </div>
-                  <Link to="/">
+                  <Link
+                    to={
+                      userAuthenticated
+                        ? "/account/clientprofile/consentform/page1"
+                        : "/confirmation/consentform/page1"
+                    }
+                  >
                     <div
                       className="dismiss_modal_button"
                       onClick={handleModalBackToHome}
                     >
-                      <p>BACK TO HOME</p>
+                      <p>FILL CONSENT FORM</p>
                     </div>
                   </Link>
                 </div>
