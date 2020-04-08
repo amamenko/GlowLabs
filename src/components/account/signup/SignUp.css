@@ -1,5 +1,5 @@
 .sign_up_page_container {
-  height: 100%;
+  height: 135vh;
   background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
@@ -17,13 +17,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  position: absolute;
+  bottom: 12vh;
 }
 
 .sign_up_logo_container {
   position: absolute;
   height: 60%;
   width: 100%;
-  top: -22vh;
+  top: -21.5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +38,8 @@
   padding-top: 14rem;
   padding-bottom: 2rem;
   color: rgb(121, 121, 121);
+  position: absolute;
+  top: -33.5vh;
 }
 
 .sign_up_page_form {

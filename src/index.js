@@ -53,6 +53,8 @@ import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_N
 import ACTION_LOG_OUT_CLICKED_RESET from "./actions/LogOut/ACTION_LOG_OUT_CLICKED_RESET";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { css } from "emotion";
+import { BounceLoader } from "react-spinners";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -110,10 +112,12 @@ const App = () => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
-  const [updateClientInvalidateTokens, { loading: appLoading }] = useMutation(
-    updateClientInvalidateTokensMutation
-  );
+  const [
+    updateClientInvalidateTokens,
+    { loading: appLoading, called },
+  ] = useMutation(updateClientInvalidateTokensMutation);
 
   const dispatch = useDispatch();
 
@@ -351,8 +355,39 @@ const App = () => {
 
   const handleLogout = () => {
     updateClientInvalidateTokens();
-    dispatch(ACTION_LOG_OUT_CLICKED_RESET());
   };
+
+  useEffect(() => {
+    if (appLoading) {
+      changeLoadingSpinnerActive(true);
+      const successfulLogout = setTimeout(() => {
+        changeLoadingSpinnerActive(false);
+        dispatch(ACTION_LOG_OUT_CLICKED_RESET());
+        dispatch(ACTION_USER_NOT_AUTHENTICATED());
+      }, 1000);
+      return () => {
+        clearTimeout(successfulLogout);
+      };
+    } else {
+      if (loadingSpinnerActive) {
+        const successfulLogout = setTimeout(() => {
+          changeLoadingSpinnerActive(false);
+          dispatch(ACTION_LOG_OUT_CLICKED_RESET());
+          dispatch(ACTION_USER_NOT_AUTHENTICATED());
+        }, 1000);
+        return () => {
+          clearTimeout(successfulLogout);
+        };
+      }
+    }
+  }, [appLoading, loadingSpinnerActive, dispatch]);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   return (
     <>
@@ -381,11 +416,17 @@ const App = () => {
           },
         }}
       >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={loadingSpinnerActive}
+        />
         <Transition
-          items={logoutClicked}
+          items={logoutClicked && !loadingSpinnerActive}
           from={{ transform: "translate3d(0, -65%, 0)" }}
           enter={{ transform: "translate3d(0, 0, 0)" }}
-          leave={{ transform: "translate3d(0, -65%, 0)" }}
+          leave={{ display: "none" }}
         >
           {(logoutClicked) =>
             logoutClicked &&

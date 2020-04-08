@@ -122,12 +122,12 @@ body {
 }
 
 .logout_button {
-  background: rgb(0, 129, 177);
+  background: rgb(44, 44, 52);
 }
 
 .cancel_logout_button {
-  border: 2px solid rgb(0, 129, 177);
-  color: rgb(0, 129, 177);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */

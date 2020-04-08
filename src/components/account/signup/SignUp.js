@@ -90,7 +90,12 @@ const SignUp = (props) => {
     <div className="sign_up_page_container">
       {redirectToHome()}
       <div className="sign_up_logo_container">
-        <svg height="22rem" width="100%" viewBox="0 0 463.021 463.021">
+        <svg
+          height="22rem"
+          width="100%"
+          viewBox="0 0 463.021 463.021"
+          className="sign_up_logo_svg"
+        >
           <g
             transform={
               props.currentScreenSize === ""
@@ -116,7 +121,7 @@ const SignUp = (props) => {
       <div className="sign_up_content_container">
         <p className="sign_up_prompt">Create your account</p>
         <Form className="sign_up_page_form">
-          <FormGroup>
+          <FormGroup className="sign_up_individual_form_field">
             <Label for="firstName">
               {" "}
               <div className="top_form_container">
@@ -141,7 +146,7 @@ const SignUp = (props) => {
               className="input_field_sign_up"
             />
           </FormGroup>
-          <FormGroup>
+          <FormGroup className="sign_up_individual_form_field">
             <Label for="lastName">
               <div className="required_label">
                 Last Name<p className="required_label red_asterisk">* </p>

@@ -14,19 +14,20 @@ const CreateAccountPassword = () => {
 
   // Password States
   const createAccountPassword = useSelector(
-    state => state.createAccountPassword.create_account_password
+    (state) => state.createAccountPassword.create_account_password
   );
   const createAccountPasswordValid = useSelector(
-    state => state.createAccountPasswordValid.create_account_password_valid
+    (state) => state.createAccountPasswordValid.create_account_password_valid
   );
   const createAccountPasswordInvalid = useSelector(
-    state => state.createAccountPasswordInvalid.create_account_password_invalid
+    (state) =>
+      state.createAccountPasswordInvalid.create_account_password_invalid
   );
 
   // Regular Expression for Password Validation - must be at least 8 characters long, must contain at least 1 lowercase character, 1 uppercase character, and 1 number
   const passwordReg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  const validatePassword = e => {
+  const validatePassword = (e) => {
     const validPassword = passwordReg.test(e.currentTarget.value);
     dispatch(ACTION_CREATE_ACCOUNT_PASSWORD(e.currentTarget.value.trim()));
 
@@ -44,7 +45,7 @@ const CreateAccountPassword = () => {
   };
 
   return (
-    <FormGroup>
+    <FormGroup className="sign_up_individual_form_field">
       <Label for="createAccountPassword">
         <div className="required_label">
           Password<p className="required_label red_asterisk">* </p>
@@ -75,11 +76,11 @@ const CreateAccountPassword = () => {
         }
       />
       {createAccountPassword.length < 8 ? (
-        <FormFeedback invalid="true">
+        <FormFeedback className="invalid_message_container" invalid="true">
           Password must be at least 8 characters long.
         </FormFeedback>
       ) : (
-        <FormFeedback invalid="true">
+        <FormFeedback className="invalid_message_container" invalid="true">
           Password must contain at least 1 lowercase character, 1 uppercase
           character, and 1 number.
         </FormFeedback>

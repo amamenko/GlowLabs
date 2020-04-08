@@ -16,13 +16,13 @@ const CreateAccountEmail = () => {
 
   // Email States
   const createAccountEmail = useSelector(
-    state => state.createAccountEmail.create_account_email
+    (state) => state.createAccountEmail.create_account_email
   );
   const createAccountEmailValid = useSelector(
-    state => state.createAccountEmailValid.create_account_email_valid
+    (state) => state.createAccountEmailValid.create_account_email_valid
   );
   const createAccountEmailInvalid = useSelector(
-    state => state.createAccountEmailInvalid.create_account_email_invalid
+    (state) => state.createAccountEmailInvalid.create_account_email_invalid
   );
   const [emailAlreadyRegistered, changeEmailAlreadyRegistered] = useState(
     false
@@ -32,10 +32,10 @@ const CreateAccountEmail = () => {
   const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]+$/;
 
   const { data } = useQuery(getClientsQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
-  const validateEmail = e => {
+  const validateEmail = (e) => {
     const validEmail = emailReg.test(e.currentTarget.value);
     dispatch(ACTION_CREATE_ACCOUNT_EMAIL(e.currentTarget.value.trim()));
 
@@ -75,7 +75,7 @@ const CreateAccountEmail = () => {
   };
 
   return (
-    <FormGroup>
+    <FormGroup className="sign_up_individual_form_field">
       <Label for="createAccountEmail">
         <div className="required_label">
           Email<p className="required_label red_asterisk">* </p>
@@ -106,11 +106,11 @@ const CreateAccountEmail = () => {
         }
       />
       {emailAlreadyRegistered ? (
-        <FormFeedback invalid="true">
+        <FormFeedback className="invalid_message_container" invalid="true">
           This email has already been registered.
         </FormFeedback>
       ) : (
-        <FormFeedback invalid="true">
+        <FormFeedback className="invalid_message_container" invalid="true">
           Please enter a valid email address.
         </FormFeedback>
       )}

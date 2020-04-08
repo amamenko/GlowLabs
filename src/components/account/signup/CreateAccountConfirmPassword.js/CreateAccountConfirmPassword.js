@@ -14,18 +14,19 @@ const CreateAccountConfirmPassword = () => {
 
   // Confirm Password States
   const createAccountConfirmPassword = useSelector(
-    state => state.createAccountConfirmPassword.create_account_confirm_password
+    (state) =>
+      state.createAccountConfirmPassword.create_account_confirm_password
   );
   const createAccountPassword = useSelector(
-    state => state.createAccountPassword.create_account_password
+    (state) => state.createAccountPassword.create_account_password
   );
   const createAccountConfirmPasswordValid = useSelector(
-    state =>
+    (state) =>
       state.createAccountConfirmPasswordValid
         .create_account_confirm_password_valid
   );
   const createAccountConfirmPasswordInvalid = useSelector(
-    state =>
+    (state) =>
       state.createAccountConfirmPasswordInvalid
         .create_account_confirm_password_invalid
   );
@@ -40,7 +41,7 @@ const CreateAccountConfirmPassword = () => {
     }
   }, [dispatch, createAccountConfirmPassword, createAccountPassword]);
 
-  const handleConfirmPassword = e => {
+  const handleConfirmPassword = (e) => {
     dispatch(
       ACTION_CREATE_ACCOUNT_CONFIRM_PASSWORD(e.currentTarget.value.trim())
     );
@@ -51,7 +52,7 @@ const CreateAccountConfirmPassword = () => {
   };
 
   return (
-    <FormGroup>
+    <FormGroup className="sign_up_individual_form_field">
       <Label for="createAccountConfirmPassword">
         <div className="required_label">
           Confirm Password<p className="required_label red_asterisk">* </p>
@@ -82,7 +83,9 @@ const CreateAccountConfirmPassword = () => {
         }
       />
       {createAccountConfirmPassword === createAccountPassword ? null : (
-        <FormFeedback invalid="true">Passwords must match.</FormFeedback>
+        <FormFeedback className="invalid_message_container" invalid="true">
+          Passwords must match.
+        </FormFeedback>
       )}
     </FormGroup>
   );

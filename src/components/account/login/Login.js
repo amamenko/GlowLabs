@@ -21,34 +21,34 @@ import ACTION_REGISTERED_CLIENT_FOUND_RESET from "../../../actions/Login/Registe
 import ACTION_LOGIN_PASSWORD_NOT_INVALID from "../../../actions/Login/LoginPassword/Invalid/ACTION_LOGIN_PASSWORD_NOT_INVALID";
 import "./Login.css";
 
-const Login = props => {
+const Login = (props) => {
   let location = useLocation();
   const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
-  const loginEmail = useSelector(state => state.loginEmail.login_email);
+  const loginEmail = useSelector((state) => state.loginEmail.login_email);
   const loginEmailInvalid = useSelector(
-    state => state.loginEmailInvalid.login_email_invalid
+    (state) => state.loginEmailInvalid.login_email_invalid
   );
   const loginPassword = useSelector(
-    state => state.loginPassword.login_password
+    (state) => state.loginPassword.login_password
   );
   const loginPasswordInvalid = useSelector(
-    state => state.loginPasswordInvalid.login_password_invalid
+    (state) => state.loginPasswordInvalid.login_password_invalid
   );
   const registeredClientFound = useSelector(
-    state => state.registeredClientFound.registered_client_found
+    (state) => state.registeredClientFound.registered_client_found
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
 
   const [loginClient, { data, error }] = useLazyQuery(loginQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
   const { data: getClientsData } = useQuery(getClientsQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
   const [signInLoading, changeSignInLoading] = useState(false);
@@ -134,7 +134,7 @@ const Login = props => {
     loginEmailInvalid,
     loginPassword,
     loginPasswordInvalid,
-    registeredClientFound
+    registeredClientFound,
   ]);
 
   const handleLoginClick = () => {
@@ -202,21 +202,19 @@ const Login = props => {
             style={{
               display: "block",
               width: "90%",
-              pointerEvents: loginEmail && loginPassword ? "auto" : "none"
+              pointerEvents: loginEmail && loginPassword ? "auto" : "none",
             }}
           >
             <div
               className="log_in_button"
               style={{
                 background:
-                  loginEmail && loginPassword
-                    ? "rgb(165, 138, 127)"
-                    : "#f0f0f0",
+                  loginEmail && loginPassword ? "rgb(44, 44, 52)" : "#f0f0f0",
                 color:
                   loginEmail && loginPassword
                     ? "rgb(255, 255, 255)"
                     : "rgb(201, 201, 201)",
-                transition: "background 0.5s ease, color 0.5s ease"
+                transition: "background 0.5s ease, color 0.5s ease",
               }}
               onClick={handleLoginClick}
             >
@@ -257,14 +255,14 @@ const Login = props => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background: "rgba(0, 0, 0, 0.5)"
-          }
+            background: "rgba(0, 0, 0, 0.5)",
+          },
         }}
       >
         <BounceLoader
           size={100}
           css={override}
-          color={"rgb(232, 210, 195)"}
+          color={"rgb(44, 44, 52)"}
           loading={signInLoading}
         />
       </Modal>
