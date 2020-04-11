@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import { Spring } from "react-spring/renderprops";
 import "./LandingPage.css";
 
-const TopAnimationTopShelf = (props) => {
+const TopAnimationTopShelf = props => {
   const splashScreenComplete = useSelector(
-    (state) => state.splashScreenComplete.splashScreenComplete
+    state => state.splashScreenComplete.splashScreenComplete
   );
 
   return (
     <Spring
+      immediate={splashScreenComplete}
       from={{
         top: !props.currentScreenSize
           ? props.initialScreenSize >= 1200
@@ -21,7 +22,7 @@ const TopAnimationTopShelf = (props) => {
           ? props.isSafari
             ? "4%"
             : "-50%"
-          : "-50%",
+          : "-50%"
       }}
       to={{
         top:
@@ -39,7 +40,7 @@ const TopAnimationTopShelf = (props) => {
               : "30%"
             : props.currentScreenSize >= 600
             ? "12%"
-            : "21.5%",
+            : "21.5%"
       }}
       config={{
         delay: !props.currentScreenSize
@@ -53,10 +54,10 @@ const TopAnimationTopShelf = (props) => {
           : props.currentScreenSize >= 600
           ? 800
           : 2100,
-        duration: 1900,
+        duration: 1900
       }}
     >
-      {(styles) => (
+      {styles => (
         <div
           className="top_content_top_shelf"
           style={{
@@ -69,7 +70,7 @@ const TopAnimationTopShelf = (props) => {
                   : "30%"
                 : props.currentScreenSize >= 600
                 ? "12%"
-                : "21.5%",
+                : "21.5%"
           }}
         >
           <svg

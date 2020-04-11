@@ -21,6 +21,17 @@
   bottom: 12vh;
 }
 
+.complete_registration_content_container {
+  height: 35%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 47vh;
+}
+
 .sign_up_logo_container {
   position: absolute;
   height: 60%;
@@ -40,6 +51,20 @@
   color: rgb(121, 121, 121);
   position: absolute;
   top: -33.5vh;
+  width: 90%;
+  text-align: center;
+}
+
+.complete_registration_prompt {
+  font-weight: 500;
+  font-size: 1.3rem;
+  padding-top: 14rem;
+  padding-bottom: 2rem;
+  color: rgb(121, 121, 121);
+  position: absolute;
+  top: -38vh;
+  width: 90%;
+  text-align: center;
 }
 
 .sign_up_page_form {

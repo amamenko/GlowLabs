@@ -182,6 +182,12 @@
     margin-left: 1rem;
     color: rgb(239, 240, 243);
   }
+
+  .nav_bar_profile_picture_thumbnail {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 }
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */

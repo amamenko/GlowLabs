@@ -1,69 +1,37 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Redirect, Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Redirect, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useLazyQuery, useQuery } from "@apollo/react-hooks";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { Form } from "reactstrap";
-import { css } from "emotion";
+import { Form, Modal } from "reactstrap";
+import { useMutation } from "@apollo/react-hooks";
+import { updateClientInformationMutation } from "../../../../graphql/queries/queries";
+import CreateAccountPhoneNumber from "../../signup/CreateAccountPhoneNumber/CreateAccountPhoneNumber";
+import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "../../../../actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
+import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/Validation/Invalid/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID";
+import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET";
 import { BounceLoader } from "react-spinners";
-import Modal from "react-modal";
-import { loginQuery, getClientsQuery } from "../../../graphql/queries/queries";
-import LoginEmail from "./LoginEmail/LoginEmail";
-import LoginPassword from "./LoginPassword/LoginPassword";
-import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
-import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
-import ACTION_LOGIN_EMAIL_INVALID from "../../../actions/Login/LoginEmail/Invalid/ACTION_LOGIN_EMAIL_INVALID";
-import ACTION_LOGIN_PASSWORD_INVALID from "../../../actions/Login/LoginPassword/Invalid/ACTION_LOGIN_PASSWORD_INVALID";
-import ACTION_LOGIN_EMAIL_NOT_INVALID from "../../../actions/Login/LoginEmail/Invalid/ACTION_LOGIN_EMAIL_NOT_INVALID";
-import ACTION_REGISTERED_CLIENT_FOUND from "../../../actions/Login/RegisteredClientFound/ACTION_REGISTERED_CLIENT_FOUND";
-import ACTION_REGISTERED_CLIENT_FOUND_RESET from "../../../actions/Login/RegisteredClientFound/ACTION_REGISTERED_CLIENT_FOUND_RESET";
-import ACTION_LOGIN_PASSWORD_NOT_INVALID from "../../../actions/Login/LoginPassword/Invalid/ACTION_LOGIN_PASSWORD_NOT_INVALID";
-import "./Login.css";
-import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
-import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import { css } from "emotion";
 
-const Login = props => {
+const FacebookCompleteRegistration = props => {
   let location = useLocation();
   const dispatch = useDispatch();
-  const splashScreenHalfway = useSelector(
-    state => state.splashScreenHalfway.splashScreenHalfway
-  );
   const splashScreenComplete = useSelector(
     state => state.splashScreenComplete.splashScreenComplete
   );
-  const loginEmail = useSelector(state => state.loginEmail.login_email);
-  const loginEmailInvalid = useSelector(
-    state => state.loginEmailInvalid.login_email_invalid
+  const createAccountPhoneNumberValid = useSelector(
+    state =>
+      state.createAccountPhoneNumberValid.create_account_phone_number_valid
   );
-  const loginPassword = useSelector(
-    state => state.loginPassword.login_password
-  );
-  const loginPasswordInvalid = useSelector(
-    state => state.loginPasswordInvalid.login_password_invalid
-  );
-  const registeredClientFound = useSelector(
-    state => state.registeredClientFound.registered_client_found
-  );
-  const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+  const createAccountPhoneNumber = useSelector(
+    state => state.createAccountPhoneNumber.create_account_phone_number
   );
   const facebookCompleteRegistration = useSelector(
     state =>
       state.facebookCompleteRegistration.facebook_complete_registration_active
   );
-
-  const [loginClient, { data, error }] = useLazyQuery(loginQuery, {
-    fetchPolicy: "no-cache"
-  });
-  const { data: getClientsData, error: getClientsError } = useQuery(
-    getClientsQuery,
-    {
-      fetchPolicy: "no-cache"
-    }
-  );
-
-  const [signInLoading, changeSignInLoading] = useState(false);
+  const [
+    completeRegistrationClicked,
+    changeCompleteRegistrationClicked
+  ] = useState(false);
 
   const override = css`
     display: block;
@@ -72,42 +40,16 @@ const Login = props => {
     right: 25%;
   `;
 
-  useMemo(() => {
-    if (getClientsData) {
-      for (let i = 0; i < getClientsData.clients.length; i++) {
-        if (getClientsData.clients[i].email === loginEmail) {
-          if (getClientsData.clients[i].password !== null) {
-            dispatch(ACTION_REGISTERED_CLIENT_FOUND());
-          } else {
-            if (registeredClientFound) {
-              dispatch(ACTION_REGISTERED_CLIENT_FOUND_RESET());
-            }
-          }
-        }
-      }
-    }
-  }, [getClientsData, loginEmail, registeredClientFound, dispatch]);
+  const [
+    updateClientInformation,
+    { loading: appLoading, called }
+  ] = useMutation(updateClientInformationMutation);
 
-  const redirectToClientProfile = () => {
-    if (userAuthenticated) {
-      return <Redirect to="/account/clientprofile" />;
-    }
-  };
-
-  const redirectToFacebookCompleteRegistration = () => {
-    if (facebookCompleteRegistration) {
-      return <Redirect to="/account/completeregistration" />;
-    }
-  };
-
-  useEffect(() => {
+  const redirectToHome = () => {
     if (!splashScreenComplete) {
-      dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+      return <Redirect to="/" />;
     }
-    if (!splashScreenHalfway) {
-      dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
-    }
-  }, [dispatch, splashScreenComplete, splashScreenHalfway]);
+  };
 
   useEffect(() => {
     if (location.pathname) {
@@ -115,68 +57,35 @@ const Login = props => {
     }
   }, [location.pathname]);
 
-  const handleCreateClick = () => {
-    dispatch(ACTION_LOGIN_IS_ACTIVE());
+  const handleCompleteRegistration = () => {
+    updateClientInformation({
+      variables: { phoneNumber: createAccountPhoneNumber }
+    });
   };
 
-  useEffect(() => {
-    if (signInLoading) {
-      const userValidation = setTimeout(() => {
-        changeSignInLoading(false);
+  const handleBackToLogin = () => {
+    dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
+    dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID());
+    dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET());
+  };
 
-        if (registeredClientFound) {
-          if (loginEmailInvalid) {
-            dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
-          }
-          if (data) {
-            if (loginPasswordInvalid) {
-              dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
-            }
-          } else {
-            if (error !== undefined) {
-              dispatch(ACTION_LOGIN_PASSWORD_INVALID());
-            }
-          }
-        } else {
-          dispatch(ACTION_LOGIN_EMAIL_INVALID());
-        }
-      }, 500);
-      return () => {
-        clearTimeout(userValidation);
-      };
+  const redirectToLogin = () => {
+    if (!facebookCompleteRegistration) {
+      return <Redirect to="/account/login" />;
     }
-  }, [
-    data,
-    dispatch,
-    error,
-    signInLoading,
-    loginClient,
-    loginEmail,
-    loginEmailInvalid,
-    loginPassword,
-    loginPasswordInvalid,
-    registeredClientFound
-  ]);
-
-  const handleLoginClick = () => {
-    loginClient({ variables: { email: loginEmail, password: loginPassword } });
-    changeSignInLoading(true);
   };
-
-  // When account screen unmounts, allow navbar
-  useEffect(() => {
-    dispatch(ACTION_LOGIN_IS_ACTIVE());
-    return () => {
-      dispatch(ACTION_LOGIN_IS_NOT_ACTIVE());
-    };
-  }, [dispatch]);
 
   return (
-    <div className="login_page_container">
-      {redirectToClientProfile()}
-      {redirectToFacebookCompleteRegistration()}
-      <div className="login_logo_container">
-        <svg height="22rem" width="100%" viewBox="0 0 463.021 463.021">
+    <div className="sign_up_page_container">
+      {redirectToHome()}
+      {redirectToLogin()}
+      <div className="sign_up_logo_container">
+        <svg
+          height="22rem"
+          width="100%"
+          viewBox="0 0 463.021 463.021"
+          className="sign_up_logo_svg"
+        >
           <g
             transform={
               props.currentScreenSize === ""
@@ -199,69 +108,46 @@ const Login = props => {
         </svg>
       </div>
 
-      <div className="login_content_container">
-        <p className="sign_in_prompt">Sign in to your account</p>
-        <a
-          className="sign_in_facebook_callback_link"
-          href="http://localhost:4000/auth/facebook/callback"
-        >
-          <div className="continue_with_facebook_button">
-            <FontAwesomeIcon icon={faFacebook} />
-            <p>Continue with Facebook</p>
-          </div>
-        </a>
-        <div className="login_or_container">
-          <p className="or_dash">———————</p>
-          <p className="or_capital_letters">OR</p>
-          <p className="or_dash">———————</p>
-        </div>
-        <Form className="login_page_form">
-          <LoginEmail />
-          <LoginPassword />
-          <div className="forgot_password_question_container">
-            <p>Forgot password?</p>
-          </div>
+      <div className="complete_registration_content_container">
+        <p className="complete_registration_prompt">
+          Enter your phone number to complete registration
+        </p>
+        <Form className="sign_up_page_form">
+          <CreateAccountPhoneNumber />
         </Form>
-        <div className="login_page_bottom_buttons_container">
+        <div className="signup_page_bottom_buttons_container">
           <Link
-            to="/account/login"
+            className="complete_registration_link_container"
+            to="/account/clientprofile"
             style={{
-              display: "block",
-              width: "90%",
-              pointerEvents: loginEmail && loginPassword ? "auto" : "none"
+              pointerEvents: createAccountPhoneNumberValid ? "auto" : "none"
             }}
+            onClick={handleCompleteRegistration}
           >
             <div
-              className="log_in_button"
+              className="complete_registration_button"
               style={{
-                background:
-                  loginEmail && loginPassword ? "rgb(44, 44, 52)" : "#f0f0f0",
-                color:
-                  loginEmail && loginPassword
-                    ? "rgb(255, 255, 255)"
-                    : "rgb(201, 201, 201)",
+                background: createAccountPhoneNumberValid
+                  ? "rgb(44, 44, 52)"
+                  : "#f0f0f0",
+                color: createAccountPhoneNumberValid
+                  ? "rgb(255, 255, 255)"
+                  : "rgb(201, 201, 201)",
                 transition: "background 0.5s ease, color 0.5s ease"
               }}
-              onClick={handleLoginClick}
             >
-              <p>Log In</p>
+              <p>Complete Registration</p>
             </div>
           </Link>
-          <p className="dont_have_an_account_question">
-            Don't have an account?
-          </p>
-          <div
-            className="create_account_redirect_button"
-            onClick={handleCreateClick}
-          >
-            <Link to="/account/signup">
-              <p>Create Account</p>
+          <div className="login_redirect_button">
+            <Link to="/account/login">
+              <p onClick={handleBackToLogin}>Back to Log In</p>
             </Link>
           </div>
         </div>
       </div>
       <Modal
-        isOpen={signInLoading}
+        isOpen={completeRegistrationClicked}
         style={{
           content: {
             position: "fixed",
@@ -289,11 +175,11 @@ const Login = props => {
           size={100}
           css={override}
           color={"rgb(44, 44, 52)"}
-          loading={signInLoading}
+          loading={completeRegistrationClicked}
         />
       </Modal>
     </div>
   );
 };
 
-export default Login;
+export default FacebookCompleteRegistration;

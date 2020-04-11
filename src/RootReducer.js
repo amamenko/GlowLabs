@@ -135,6 +135,7 @@ import consentFormDateReducer from "./reducers/ConsentForm/ConsentFormDate/conse
 import consentFormLastUpdatedReducer from "./reducers/ConsentForm/LastUpdated/consentFormLastUpdatedReducer";
 import consentFormAnythingChangedReducer from "./reducers/FinalBookButton/ConsentFormAnythingChanged/consentFormAnythingChangedReducer";
 import logoutClickedReducer from "./reducers/LogOut/logoutClickedReducer";
+import facebookCompleteRegistrationReducer from "./reducers/Login/FacebookCompleteRegistration/facebookCompleteRegistrationReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -242,6 +243,7 @@ const RootReducer = combineReducers({
   registeredClientFound: registeredClientFoundReducer,
   userAuthenticated: userAuthenticatedReducer,
   logoutClicked: logoutClickedReducer,
+  facebookCompleteRegistration: facebookCompleteRegistrationReducer,
 
   // Consent Form Reducers,
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,
@@ -293,7 +295,7 @@ const RootReducer = combineReducers({
   phoneIsInvalid: phoneInvalidReducer,
   appointmentNotes: appointmentNotesReducer,
   appointmentNotesValid: appointmentNotesValidationReducer,
-  continueToBookingSummaryActive: continueToBookingSummaryReducer,
+  continueToBookingSummaryActive: continueToBookingSummaryReducer
 });
 
 export default RootReducer;

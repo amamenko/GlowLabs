@@ -255,7 +255,7 @@ const addClientMutation = gql`
     $firstName: String!
     $lastName: String!
     $email: String!
-    $phoneNumber: String!
+    $phoneNumber: String
   ) {
     addClient(
       firstName: $firstName
@@ -392,6 +392,30 @@ const registerClientMutation = gql`
   }
 `;
 
+const updateClientInformationMutation = gql`
+  mutation(
+    $firstName: String
+    $lastName: String
+    $email: String
+    $phoneNumber: String
+    $password: String
+  ) {
+    updateClientInformation(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      phoneNumber: $phoneNumber
+      password: $password
+    ) {
+      firstName
+      lastName
+      email
+      phoneNumber
+      password
+    }
+  }
+`;
+
 export {
   loginQuery,
   getClientsQuery,
@@ -401,7 +425,8 @@ export {
   getAppointmentQuery,
   addAppointmentMutation,
   addClientMutation,
+  updateClientInformationMutation,
   updateConsentFormMutation,
   updateClientInvalidateTokensMutation,
-  registerClientMutation,
+  registerClientMutation
 };

@@ -18,15 +18,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
   const location = useLocation();
 
-  const counter = useSelector((state) => state.counterReducer.counter);
+  const counter = useSelector(state => state.counterReducer.counter);
   const loginIsActive = useSelector(
-    (state) => state.loginIsActive.login_is_active
+    state => state.loginIsActive.login_is_active
   );
   const userAuthenticated = useSelector(
-    (state) => state.userAuthenticated.user_authenticated
+    state => state.userAuthenticated.user_authenticated
   );
   const logoutClicked = useSelector(
-    (state) => state.logoutClicked.log_out_clicked
+    state => state.logoutClicked.log_out_clicked
   );
 
   const { data } = useQuery(getClientQuery, {
@@ -34,8 +34,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
     variables: {
       _id: Cookies.get("dummy-token")
         ? jwt.decode(Cookies.get("dummy-token")).id
-        : null,
-    },
+        : null
+    }
   });
 
   const dispatch = useDispatch();
@@ -126,7 +126,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
               ? "flex-start"
               : "center"
             : "center",
-        display: loginIsActive ? "none" : "flex",
+        display: loginIsActive ? "none" : "flex"
       }}
     >
       <Hamburger
@@ -151,7 +151,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
               ? window.scrollY <= 1
                 ? "flex-start"
                 : "center"
-              : "center",
+              : "center"
         }}
       >
         <a className="logo" href="/">
@@ -250,7 +250,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 ? "0.6rem"
                 : "1rem"
               : "auto",
-          paddingLeft: userAuthenticated ? "2rem" : "1rem",
+          paddingLeft: userAuthenticated ? "2rem" : "1rem"
         }}
       >
         <Link
@@ -261,11 +261,25 @@ const NavigationBar = React.forwardRef((props, ref) => {
           {userAuthenticated ? (
             <span className="fa-layers fa-fw letter_circle">
               <p>
-                {data
-                  ? data.client !== null
-                    ? data.client.firstName[0].toUpperCase()
-                    : ""
-                  : ""}
+                {data ? (
+                  data.client !== null ? (
+                    jwt.decode(Cookies.get("dummy-token")).picture ? (
+                      <img
+                        className="nav_bar_profile_picture_thumbnail"
+                        src={`${
+                          jwt.decode(Cookies.get("dummy-token")).picture
+                        }`}
+                        alt="facebook_profile_picture"
+                      />
+                    ) : (
+                      data.client.firstName[0].toUpperCase()
+                    )
+                  ) : (
+                    ""
+                  )
+                ) : (
+                  ""
+                )}
               </p>
               <FontAwesomeIcon
                 icon={faCircle}
@@ -336,7 +350,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 ? "0.9rem"
                 : props.currentScreenSize >= 375
                 ? "1rem"
-                : "0.5rem",
+                : "0.5rem"
           }}
         >
           <path
@@ -369,7 +383,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 ? "0.9rem"
                 : props.currentScreenSize >= 375
                 ? "1rem"
-                : "0.3rem",
+                : "0.3rem"
           }}
         >
           <FontAwesomeIcon
@@ -395,7 +409,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   ? "0.23rem"
                   : counter < 2
                   ? "0.3rem"
-                  : "0.25rem",
+                  : "0.25rem"
             }}
           >
             {counter}
@@ -416,7 +430,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
               ? window.scrollY <= 1
                 ? "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
-              : "rgb(239, 240, 243)",
+              : "rgb(239, 240, 243)"
         }}
       >
         <ul>
@@ -452,7 +466,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   ? window.scrollY <= 1
                     ? "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
-                  : "rgb(239, 240, 243)",
+                  : "rgb(239, 240, 243)"
             }}
           >
             <Link
@@ -469,7 +483,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     ? window.scrollY <= 1
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
-                    : "rgb(44, 44, 52)",
+                    : "rgb(44, 44, 52)"
               }}
             >
               {userAuthenticated ? (
@@ -502,7 +516,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         ? window.scrollY <= 1
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
-                        : "rgb(44, 44, 52)",
+                        : "rgb(44, 44, 52)"
                   }}
                 />
               )}
@@ -533,7 +547,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       ? window.scrollY <= 1
                         ? "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
-                      : "rgb(239, 240, 243)",
+                      : "rgb(239, 240, 243)"
                 }}
                 width="10%"
                 height={
@@ -600,7 +614,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       ? "0.9rem"
                       : props.currentScreenSize >= 375
                       ? "1rem"
-                      : "0.3rem",
+                      : "0.3rem"
                 }}
               >
                 <FontAwesomeIcon
@@ -625,7 +639,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         ? "0.23rem"
                         : counter < 2
                         ? "0.3rem"
-                        : "0.25rem",
+                        : "0.25rem"
                   }}
                 >
                   {counter}

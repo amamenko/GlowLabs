@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import { useQuery } from "@apollo/react-hooks";
@@ -15,19 +15,24 @@ const PhoneNumber = () => {
   const dispatch = useDispatch();
   // Phone Number States
   const createAccountPhoneNumber = useSelector(
-    (state) => state.createAccountPhoneNumber.create_account_phone_number
+    state => state.createAccountPhoneNumber.create_account_phone_number
   );
   const createAccountPhoneNumberValid = useSelector(
-    (state) =>
+    state =>
       state.createAccountPhoneNumberValid.create_account_phone_number_valid
   );
   const createAccountPhoneNumberInvalid = useSelector(
-    (state) =>
+    state =>
       state.createAccountPhoneNumberInvalid.create_account_phone_number_invalid
   );
+  const facebookCompleteRegistration = useSelector(
+    state =>
+      state.facebookCompleteRegistration.facebook_complete_registration_active
+  );
+
   const [
     phoneNumberAlreadyRegistered,
-    changePhoneNumberAlreadyRegistered,
+    changePhoneNumberAlreadyRegistered
   ] = useState(false);
 
   // Regular Expression for Phone Number Validation - allows only phone numbers in the format (xxx) xxx - xxx, with x values being digits
@@ -37,31 +42,8 @@ const PhoneNumber = () => {
   const phoneNumberAutocompleteReg = /^(1*\d{10})$/g;
 
   const { data } = useQuery(getClientsQuery, {
-    fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache"
   });
-
-  const validatePhoneNumber = (number) => {
-    const validPhoneNumber = phoneNumberReg.test(number);
-    const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
-
-    if (!phoneNumberAlreadyRegistered) {
-      if (validPhoneNumber | validPhoneAutocomplete) {
-        dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_VALID());
-        dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID());
-      } else {
-        dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
-        dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID());
-      }
-    } else {
-      dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
-      dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID());
-    }
-  };
-
-  const handlePhoneNumber = (e) => {
-    validatePhoneNumber(e.currentTarget.value);
-    dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER(e.currentTarget.value));
-  };
 
   useMemo(() => {
     if (createAccountPhoneNumber) {
@@ -80,11 +62,53 @@ const PhoneNumber = () => {
     }
   }, [data, createAccountPhoneNumber, dispatch]);
 
-  const phoneNumberTyping = (e) => {
+  useEffect(() => {
+    const validatePhoneNumber = number => {
+      const validPhoneNumber = phoneNumberReg.test(number);
+      const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
+
+      if (!phoneNumberAlreadyRegistered) {
+        if (validPhoneNumber | validPhoneAutocomplete) {
+          dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_VALID());
+          dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID());
+        } else {
+          dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
+          dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID());
+        }
+      } else {
+        dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
+        dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID());
+      }
+    };
+
+    if (createAccountPhoneNumber.length === 16) {
+      validatePhoneNumber(createAccountPhoneNumber);
+    }
+  }, [
+    createAccountPhoneNumber,
+    dispatch,
+    phoneNumberAlreadyRegistered,
+    phoneNumberAutocompleteReg,
+    phoneNumberReg
+  ]);
+
+  const phoneNumberTyping = e => {
     let currentTyping = e.currentTarget.value;
 
-    changePhoneNumberAlreadyRegistered(false);
-    dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET());
+    if (createAccountPhoneNumber.length !== 15) {
+      if (createAccountPhoneNumberValid) {
+        dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
+      }
+    }
+
+    if (phoneNumberAlreadyRegistered) {
+      changePhoneNumberAlreadyRegistered(false);
+    }
+    if (createAccountPhoneNumberInvalid) {
+      dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID());
+    }
+
+    dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER(e.currentTarget.value));
 
     // Formatting for US Phone Numbers
     if (currentTyping.length === 3) {
@@ -167,7 +191,7 @@ const PhoneNumber = () => {
     e.currentTarget.value = currentTyping;
   };
 
-  const phoneNumberKeyTyping = (e) => {
+  const phoneNumberKeyTyping = e => {
     if (
       (e.keyCode >= 8 && e.keyCode < 32) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||
@@ -183,7 +207,10 @@ const PhoneNumber = () => {
     <FormGroup className="sign_up_individual_form_field">
       <Label for="createAccountPhoneNumber">
         <div className="required_label">
-          Phone Number<p className="required_label red_asterisk">* </p>
+          Phone Number
+          <p className="required_label red_asterisk">
+            {facebookCompleteRegistration ? null : "* "}
+          </p>
         </div>
       </Label>
       <Input
@@ -194,7 +221,6 @@ const PhoneNumber = () => {
         defaultValue={createAccountPhoneNumber}
         placeholder="Phone number"
         onChange={phoneNumberTyping}
-        onBlur={handlePhoneNumber}
         className="input_field_sign_up"
         invalid={
           createAccountPhoneNumber === ""

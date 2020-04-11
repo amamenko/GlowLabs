@@ -6,7 +6,7 @@ import {
   faHome,
   faFileSignature,
   faCalendarCheck,
-  faUser,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
@@ -15,20 +15,25 @@ import { getClientQuery } from "../../../graphql/queries/queries";
 import moment from "moment";
 import "./ClientProfile.css";
 import ACTION_CONSENT_FORM_LAST_UPDATED from "../../../actions/ConsentForm/LastUpdated/ACTION_CONSENT_FORM_LAST_UPDATED";
+import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
+import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 
 const ClientProfile = () => {
   const dispatch = useDispatch();
+  const splashScreenHalfway = useSelector(
+    state => state.splashScreenHalfway.splashScreenHalfway
+  );
   const splashScreenComplete = useSelector(
-    (state) => state.splashScreenComplete.splashScreenComplete
+    state => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    (state) => state.userAuthenticated.user_authenticated
+    state => state.userAuthenticated.user_authenticated
   );
   const consentFormLastPageOpened = useSelector(
-    (state) => state.consentFormLastPageOpened.consent_form_active_page
+    state => state.consentFormLastPageOpened.consent_form_active_page
   );
   const consentFormLastUpdated = useSelector(
-    (state) => state.consentFormLastUpdated.consent_form_last_updated
+    state => state.consentFormLastUpdated.consent_form_last_updated
   );
 
   const { data } = useQuery(getClientQuery, {
@@ -36,21 +41,32 @@ const ClientProfile = () => {
     variables: {
       _id: Cookies.get("dummy-token")
         ? jwt.decode(Cookies.get("dummy-token")).id
-        : null,
-    },
+        : null
+    }
   });
 
   useEffect(() => {
+    if (!splashScreenComplete) {
+      dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+    }
+    if (!splashScreenHalfway) {
+      dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
+    }
+  }, [dispatch, splashScreenComplete, splashScreenHalfway]);
+
+  useEffect(() => {
     if (data) {
-      if (
-        consentFormLastUpdated !==
-        moment.unix(data.client.consentForm.createdAt / 1000).format("l")
-      ) {
-        dispatch(
-          ACTION_CONSENT_FORM_LAST_UPDATED(
-            moment.unix(data.client.consentForm.createdAt / 1000).format("l")
-          )
-        );
+      if (data.client.consentForm.date) {
+        if (
+          consentFormLastUpdated !==
+          moment.unix(data.client.consentForm.createdAt / 1000).format("l")
+        ) {
+          dispatch(
+            ACTION_CONSENT_FORM_LAST_UPDATED(
+              moment.unix(data.client.consentForm.createdAt / 1000).format("l")
+            )
+          );
+        }
       }
     }
   }, [data, consentFormLastUpdated, dispatch]);

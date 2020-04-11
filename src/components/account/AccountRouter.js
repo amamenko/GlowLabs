@@ -10,12 +10,18 @@ import ConsentFormPage4 from "./clientprofile/ConsentForm/Pages/Page4/ConsentFor
 import ConsentFormPage5 from "./clientprofile/ConsentForm/Pages/Page5/ConsentFormPage5";
 import ConsentFormPage6 from "./clientprofile/ConsentForm/Pages/Page6/ConsentFormPage6";
 import ConsentFormPage7 from "./clientprofile/ConsentForm/Pages/Page7/ConsentFormPage7";
+import FacebookCompleteRegistration from "./login/FacebookCompleteRegistration/FacebookCompleteRegistration";
 
-const AccountRouter = (props) => {
+const AccountRouter = props => {
   return (
     <Switch>
       <Route exact path={props.match.path + "/login"} component={Login} />
       <Route exact path={props.match.path + "/signup"} component={SignUp} />
+      <Route
+        exact
+        path={props.match.path + "/completeregistration"}
+        component={FacebookCompleteRegistration}
+      />
       <Route
         exact
         path={props.match.path + "/clientprofile"}
