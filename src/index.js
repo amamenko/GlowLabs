@@ -56,6 +56,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import ACTION_FACEBOOK_COMPLETE_REGISTRATION from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION";
+import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -115,10 +116,9 @@ const App = () => {
   );
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
-  const [
-    updateClientInvalidateTokens,
-    { loading: appLoading, called }
-  ] = useMutation(updateClientInvalidateTokensMutation);
+  const [updateClientInvalidateTokens, { loading: appLoading }] = useMutation(
+    updateClientInvalidateTokensMutation
+  );
 
   const dispatch = useDispatch();
 
@@ -146,6 +146,8 @@ const App = () => {
           dispatch(ACTION_USER_NOT_AUTHENTICATED());
           if (temporaryFacebookDummyToken) {
             dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION());
+          } else {
+            dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
           }
         }
       }

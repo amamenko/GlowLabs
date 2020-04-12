@@ -144,12 +144,52 @@
   color: rgb(44, 44, 52);
 }
 
-.complete_registration_link_container {
-  width: 90%;
+.complete_registration_page_container {
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: -10vh;
+}
+
+.complete_registration_logo_container {
+  position: absolute;
+  height: 60%;
+  width: 100%;
+  top: -15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.complete_registration_content_container {
+  height: 35%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 28vh;
+}
+
+.complete_registration_bottom_buttons_container {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 2vh;
 }
 
 .complete_registration_button {
-  width: 100%;
+  width: 90%;
+  display: block;
   background: rgb(44, 44, 52);
   color: rgb(255, 255, 255);
   text-align: center;
@@ -157,4 +197,23 @@
   font-weight: 500;
   font-size: 1rem;
   padding: 0.8rem;
+}
+
+.complete_registration_loading_modal {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: -90vh;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10%;
 }

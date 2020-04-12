@@ -17,6 +17,7 @@ import "./ClientProfile.css";
 import ACTION_CONSENT_FORM_LAST_UPDATED from "../../../actions/ConsentForm/LastUpdated/ACTION_CONSENT_FORM_LAST_UPDATED";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 
 const ClientProfile = () => {
   const dispatch = useDispatch();
@@ -92,7 +93,11 @@ const ClientProfile = () => {
       </div>
       <div className="client_profile_page_content_container">
         <div className="profile_home_box_container">
-          <Link className="profile_box_container_link" to="/">
+          <Link
+            className="profile_box_container_link"
+            to="/"
+            onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+          >
             <FontAwesomeIcon icon={faHome} className="profile_box_icon" />
             <h2>HOME</h2>
           </Link>
@@ -116,15 +121,25 @@ const ClientProfile = () => {
           </Link>
         </div>
         <div className="profile_my_appointments_box_container">
-          <FontAwesomeIcon
-            icon={faCalendarCheck}
-            className="profile_box_icon"
-          />
-          <h2>MY APPOINTMENTS</h2>
+          <Link
+            className="profile_box_container_link"
+            to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
+          >
+            <FontAwesomeIcon
+              icon={faCalendarCheck}
+              className="profile_box_icon"
+            />
+            <h2>MY APPOINTMENTS</h2>
+          </Link>
         </div>
         <div className="profile_my_profile_box_container">
-          <FontAwesomeIcon icon={faUser} className="profile_box_icon" />
-          <h2>MY PROFILE</h2>
+          <Link
+            className="profile_box_container_link"
+            to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
+          >
+            <FontAwesomeIcon icon={faUser} className="profile_box_icon" />
+            <h2>MY PROFILE</h2>
+          </Link>
         </div>
       </div>
     </div>

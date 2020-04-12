@@ -79,8 +79,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
   };
 
   const handleLoginClick = () => {
-    dispatch(ACTION_LOGIN_IS_ACTIVE());
-    toast.dismiss();
+    if (!location.pathname.includes("/account/clientprofile")) {
+      dispatch(ACTION_LOGIN_IS_ACTIVE());
+      toast.dismiss();
+    }
   };
 
   const handleLogoutClicked = () => {
@@ -255,8 +257,13 @@ const NavigationBar = React.forwardRef((props, ref) => {
       >
         <Link
           className="nav_sign_in_link_container"
-          to="/account/login"
+          to={
+            location.pathname.includes("/account/clientprofile")
+              ? location.pathname
+              : "/account/login"
+          }
           onClick={handleLoginClick}
+          style={{ pointerEvents: logoutClicked ? "none" : "auto" }}
         >
           {userAuthenticated ? (
             <span className="fa-layers fa-fw letter_circle">

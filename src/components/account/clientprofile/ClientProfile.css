@@ -34,8 +34,8 @@
 }
 
 .client_profile_page_content_container div {
-  width: 40%;
-  height: 30vh;
+  width: 85%;
+  height: 11vh;
   box-shadow: 1px 0px 1px 0px rgba(177, 177, 166, 0.7),
     -1px 0px 1px 0px rgba(177, 177, 166, 0.7),
     0px -1px 1px 0px rgba(177, 177, 166, 0.7),
@@ -45,21 +45,22 @@
   justify-content: center;
   align-items: center;
   margin-top: 3vh;
-  background: rgba(211, 211, 211, 0.3);
+  background: rgba(0, 129, 177, 0.1);
 }
 
 .client_profile_page_content_container div h2 {
-  font-size: 0.8rem;
-  margin-top: 1rem;
-  font-weight: 500;
-  color: rgb(77, 77, 77);
+  font-size: 1.3rem;
+  margin-top: 0.3rem;
+  padding-left: 1rem;
+  font-weight: 600;
+  color: rgb(44, 44, 52);
 }
 
 .profile_box_icon {
   width: 100%;
-  font-size: 3rem;
+  font-size: 2rem;
   display: flex;
-  color: rgb(77, 77, 77);
+  color: rgb(44, 44, 52);
 }
 
 .profile_consent_form_box_container {
@@ -70,26 +71,32 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .consent_form_last_updated_on_container {
+  width: 85%;
   position: absolute;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  bottom: 10%;
+  bottom: 13%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .consent_form_last_updated_on_container p {
   display: flex;
-  flex-wrap: wrap;
+  margin-left: 0.3rem;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   color: rgb(131, 131, 131);
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 500;
 }

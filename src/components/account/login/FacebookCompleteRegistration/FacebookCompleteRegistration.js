@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Redirect, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Modal } from "reactstrap";
@@ -10,6 +10,7 @@ import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID from "../../../../actions/
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET";
 import { BounceLoader } from "react-spinners";
 import { css } from "emotion";
+import ACTION_USER_AUTHENTICATED from "../../../../actions/Authenticated/ACTION_USER_AUTHENTICATED";
 
 const FacebookCompleteRegistration = props => {
   let location = useLocation();
@@ -40,14 +41,43 @@ const FacebookCompleteRegistration = props => {
     right: 25%;
   `;
 
-  const [
-    updateClientInformation,
-    { loading: appLoading, called }
-  ] = useMutation(updateClientInformationMutation);
+  const [updateClientInformation, { loading, data }] = useMutation(
+    updateClientInformationMutation
+  );
+
+  useEffect(() => {
+    if (data) {
+      const loadingFunction = setTimeout(
+        () => changeCompleteRegistrationClicked(false),
+        3000
+      );
+      return () => {
+        clearTimeout(loadingFunction);
+      };
+    }
+  }, [data]);
+
+  console.log(completeRegistrationClicked);
+
+  useEffect(() => {
+    if (loading) {
+      changeCompleteRegistrationClicked(true);
+    }
+  }, [loading, data]);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
       return <Redirect to="/" />;
+    }
+  };
+
+  const redirectToClientProfile = () => {
+    if (data) {
+      if (data.updateClientInformation.phoneNumber) {
+        dispatch(ACTION_USER_AUTHENTICATED());
+        dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
+        return <Redirect to="/account/clientprofile" />;
+      }
     }
   };
 
@@ -76,10 +106,11 @@ const FacebookCompleteRegistration = props => {
   };
 
   return (
-    <div className="sign_up_page_container">
+    <div className="complete_registration_page_container">
       {redirectToHome()}
       {redirectToLogin()}
-      <div className="sign_up_logo_container">
+      {redirectToClientProfile()}
+      <div className="complete_registration_logo_container">
         <svg
           height="22rem"
           width="100%"
@@ -115,30 +146,23 @@ const FacebookCompleteRegistration = props => {
         <Form className="sign_up_page_form">
           <CreateAccountPhoneNumber />
         </Form>
-        <div className="signup_page_bottom_buttons_container">
-          <Link
-            className="complete_registration_link_container"
-            to="/account/clientprofile"
+        <div className="complete_registration_bottom_buttons_container">
+          <div
+            className="complete_registration_button"
             style={{
+              background: createAccountPhoneNumberValid
+                ? "rgb(44, 44, 52)"
+                : "#f0f0f0",
+              color: createAccountPhoneNumberValid
+                ? "rgb(255, 255, 255)"
+                : "rgb(201, 201, 201)",
+              transition: "background 0.5s ease, color 0.5s ease",
               pointerEvents: createAccountPhoneNumberValid ? "auto" : "none"
             }}
             onClick={handleCompleteRegistration}
           >
-            <div
-              className="complete_registration_button"
-              style={{
-                background: createAccountPhoneNumberValid
-                  ? "rgb(44, 44, 52)"
-                  : "#f0f0f0",
-                color: createAccountPhoneNumberValid
-                  ? "rgb(255, 255, 255)"
-                  : "rgb(201, 201, 201)",
-                transition: "background 0.5s ease, color 0.5s ease"
-              }}
-            >
-              <p>Complete Registration</p>
-            </div>
-          </Link>
+            <p>Complete Registration</p>
+          </div>
           <div className="login_redirect_button">
             <Link to="/account/login">
               <p onClick={handleBackToLogin}>Back to Log In</p>
@@ -148,28 +172,7 @@ const FacebookCompleteRegistration = props => {
       </div>
       <Modal
         isOpen={completeRegistrationClicked}
-        style={{
-          content: {
-            position: "fixed",
-            zIndex: "10000",
-            height: "100%",
-            backdropFilter: "blur(5px)",
-            WebkitBackdropFilter: "blur(5px)",
-            paddingBottom: "10%",
-            borderRadius: "none",
-            width: "100vw",
-            top: "0",
-            left: "0",
-            right: "0",
-            bottom: "0",
-            border: "none",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(0, 0, 0, 0.5)"
-          }
-        }}
+        className="complete_registration_loading_modal"
       >
         <BounceLoader
           size={100}
