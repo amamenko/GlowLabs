@@ -37,6 +37,7 @@ import AvailabilityRouter from "./components/availability/AvailabilityRouter";
 import CheckoutRouter from "./components/checkout/CheckoutRouter";
 import AccountRouter from "./components/account/AccountRouter";
 import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 import {
   BrowserRouter as Router,
   Switch,
@@ -57,6 +58,8 @@ import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import ACTION_FACEBOOK_COMPLETE_REGISTRATION from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION";
 import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
+import ACTION_DUMMY_TOKEN from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN";
+import ACTION_DUMMY_TOKEN_RESET from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN_RESET";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -124,25 +127,24 @@ const App = () => {
 
   useEffect(() => {
     let currentDummyToken;
-    let facebookDummyToken;
     let temporaryFacebookDummyToken;
 
     const checkCookies = () => {
       if (
         currentDummyToken !== Cookies.get("dummy-token") ||
-        facebookDummyToken !== Cookies.get("facebook-dummy-token") ||
         temporaryFacebookDummyToken !==
           Cookies.get("temporary-facebook-dummy-token")
       ) {
         currentDummyToken = Cookies.get("dummy-token");
-        facebookDummyToken = Cookies.get("facebook-dummy-token");
         temporaryFacebookDummyToken = Cookies.get(
           "temporary-facebook-dummy-token"
         );
 
-        if (currentDummyToken || facebookDummyToken) {
+        if (currentDummyToken) {
+          dispatch(ACTION_DUMMY_TOKEN(jwt.decode(currentDummyToken)));
           dispatch(ACTION_USER_AUTHENTICATED());
         } else {
+          dispatch(ACTION_DUMMY_TOKEN_RESET());
           dispatch(ACTION_USER_NOT_AUTHENTICATED());
           if (temporaryFacebookDummyToken) {
             dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION());
@@ -372,6 +374,7 @@ const App = () => {
 
   const handleLogout = () => {
     updateClientInvalidateTokens();
+    dispatch(ACTION_DUMMY_TOKEN_RESET());
   };
 
   useEffect(() => {

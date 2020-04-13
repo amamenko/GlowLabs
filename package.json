@@ -10,6 +10,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.9",
+    "@react-pdf/renderer": "^1.6.8",
     "acorn": "^7.1.1",
     "apollo-boost": "^0.4.7",
     "axios": "^0.19.2",

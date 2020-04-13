@@ -35,7 +35,7 @@
 
 .client_profile_page_content_container div {
   width: 85%;
-  height: 11vh;
+  height: 12vh;
   box-shadow: 1px 0px 1px 0px rgba(177, 177, 166, 0.7),
     -1px 0px 1px 0px rgba(177, 177, 166, 0.7),
     0px -1px 1px 0px rgba(177, 177, 166, 0.7),
@@ -78,16 +78,46 @@
   padding-right: 1.5rem;
 }
 
+.consent_form_download_pdf_container {
+  width: 35%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  top: 43%;
+  bottom: 60%;
+  right: 0;
+  left: 0;
+  font-size: 0.6rem;
+  color: rgba(0, 129, 177, 0.8);
+  padding: 0.6rem;
+  border: 1px solid rgb(0, 129, 177);
+}
+
+.consent_form_download_pdf_container p {
+  display: inline-block;
+  font-size: 0.5rem;
+  font-weight: 600;
+  margin-left: 0.3rem;
+  color: rgba(0, 129, 177, 0.8);
+}
+
 .consent_form_last_updated_on_container {
   width: 85%;
   position: absolute;
   display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  bottom: 13%;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  top: 0;
+  right: 0;
+  padding-top: 0.3rem;
+  padding-right: 0.3rem;
 }
 
 .consent_form_last_updated_on_container p {
@@ -97,6 +127,6 @@
   align-items: center;
   justify-content: center;
   color: rgb(131, 131, 131);
-  font-size: 0.6rem;
+  font-size: 0.2rem;
   font-weight: 500;
 }

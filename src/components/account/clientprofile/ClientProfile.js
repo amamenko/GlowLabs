@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,10 +6,10 @@ import {
   faHome,
   faFileSignature,
   faCalendarCheck,
-  faUser
+  faUser,
+  faFileDownload,
+  faFilePdf
 } from "@fortawesome/free-solid-svg-icons";
-import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
 import { useQuery } from "@apollo/react-hooks";
 import { getClientQuery } from "../../../graphql/queries/queries";
 import moment from "moment";
@@ -18,6 +18,8 @@ import ACTION_CONSENT_FORM_LAST_UPDATED from "../../../actions/ConsentForm/LastU
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ConsentFormPDF from "./ConsentForm/ConsentFormPDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const ClientProfile = () => {
   const dispatch = useDispatch();
@@ -36,13 +38,13 @@ const ClientProfile = () => {
   const consentFormLastUpdated = useSelector(
     state => state.consentFormLastUpdated.consent_form_last_updated
   );
+  const dummyToken = useSelector(state => state.dummyToken.dummy_token);
+  const [pdfLoading, changePDFLoading] = useState(false);
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
     variables: {
-      _id: Cookies.get("dummy-token")
-        ? jwt.decode(Cookies.get("dummy-token")).id
-        : null
+      _id: dummyToken ? dummyToken.id : null
     }
   });
 
@@ -58,6 +60,7 @@ const ClientProfile = () => {
   useEffect(() => {
     if (data) {
       if (data.client.consentForm.date) {
+        changePDFLoading(true);
         if (
           consentFormLastUpdated !==
           moment.unix(data.client.consentForm.createdAt / 1000).format("l")
@@ -131,6 +134,28 @@ const ClientProfile = () => {
             />
             <h2>MY APPOINTMENTS</h2>
           </Link>
+          {consentFormLastUpdated ? (
+            <>
+              {pdfLoading && (
+                <PDFDownloadLink
+                  document={<ConsentFormPDF />}
+                  fileName="glow_labs_consent_form.pdf"
+                >
+                  {({ blob, url, loading, error }) =>
+                    loading ? null : (
+                      <span className="consent_form_download_pdf_container">
+                        <FontAwesomeIcon
+                          icon={faFilePdf}
+                          style={{ color: "rgba(0, 129, 177, 0.8)" }}
+                        />
+                        <p>Download PDF Copy</p>
+                      </span>
+                    )
+                  }
+                </PDFDownloadLink>
+              )}
+            </>
+          ) : null}
         </div>
         <div className="profile_my_profile_box_container">
           <Link

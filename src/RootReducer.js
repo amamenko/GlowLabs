@@ -136,6 +136,7 @@ import consentFormLastUpdatedReducer from "./reducers/ConsentForm/LastUpdated/co
 import consentFormAnythingChangedReducer from "./reducers/FinalBookButton/ConsentFormAnythingChanged/consentFormAnythingChangedReducer";
 import logoutClickedReducer from "./reducers/LogOut/logoutClickedReducer";
 import facebookCompleteRegistrationReducer from "./reducers/Login/FacebookCompleteRegistration/facebookCompleteRegistrationReducer";
+import dummyTokenReducer from "./reducers/Login/DummyToken/dummyTokenReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -244,6 +245,7 @@ const RootReducer = combineReducers({
   userAuthenticated: userAuthenticatedReducer,
   logoutClicked: logoutClickedReducer,
   facebookCompleteRegistration: facebookCompleteRegistrationReducer,
+  dummyToken: dummyTokenReducer,
 
   // Consent Form Reducers,
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

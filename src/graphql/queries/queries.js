@@ -166,6 +166,29 @@ const getClientQuery = gql`
       password
       consentForm {
         date
+        surgeryLast3Months
+        surgeryLast3MonthsNotes
+        anyHealthProblems
+        anyHealthProblemsNotes
+        listAnyMedications
+        chemPeelsLastMonth
+        waxingOnFaceLast5Days
+        accutaneOrPrescription
+        accutaneOrPrescriptionNotes
+        anyProductsContainingSalicyclicAcid
+        anyProductsContainingGlycolicAcid
+        anyProductsContainingLacticAcid
+        anyProductsContainingExfoliatingScrubs
+        anyProductsContainingVitaminA
+        fillersOrBotox
+        fillersOrBotoxNotes
+        listKnownAllergies
+        skinFlakyOrItch
+        everDiagnosedWithRosacea
+        pregnantOrNursing
+        ultimateSkinCareGoals
+        anythingElseWeShouldKnow
+        consentFormSignature
         createdAt
       }
     }

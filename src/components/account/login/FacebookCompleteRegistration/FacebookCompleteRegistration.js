@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Modal } from "reactstrap";
@@ -56,8 +56,6 @@ const FacebookCompleteRegistration = props => {
       };
     }
   }, [data]);
-
-  console.log(completeRegistrationClicked);
 
   useEffect(() => {
     if (loading) {

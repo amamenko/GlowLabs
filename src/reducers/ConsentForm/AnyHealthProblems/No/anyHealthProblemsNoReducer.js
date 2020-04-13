@@ -2,7 +2,7 @@ const ANY_HEALTH_PROBLEMS_NO = "ANY_HEALTH_PROBLEMS_NO";
 const ANY_HEALTH_PROBLEMS_NO_RESET = "ANY_HEALTH_PROBLEMS_NO_RESET";
 
 const anyHealthProblemsNoReducer = (
-  state = { any_health_problems_no_active: false },
+  state = { any_health_problems_no_active: "" },
   action
 ) => {
   switch (action.type) {

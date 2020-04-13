@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,13 +26,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const logoutClicked = useSelector(
     state => state.logoutClicked.log_out_clicked
   );
+  const dummyToken = useSelector(state => state.dummyToken.dummy_token);
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
     variables: {
-      _id: Cookies.get("dummy-token")
-        ? jwt.decode(Cookies.get("dummy-token")).id
-        : null
+      _id: dummyToken ? dummyToken.id : null
     }
   });
 
@@ -270,17 +267,29 @@ const NavigationBar = React.forwardRef((props, ref) => {
               <p>
                 {data ? (
                   data.client !== null ? (
-                    jwt.decode(Cookies.get("dummy-token")).picture ? (
-                      <img
-                        className="nav_bar_profile_picture_thumbnail"
-                        src={`${
-                          jwt.decode(Cookies.get("dummy-token")).picture
-                        }`}
-                        alt="facebook_profile_picture"
-                      />
+                    dummyToken ? (
+                      dummyToken.picture ? (
+                        <img
+                          className="nav_bar_profile_picture_thumbnail"
+                          src={`${dummyToken.picture}`}
+                          alt="facebook_profile_picture"
+                        />
+                      ) : (
+                        data.client.firstName[0].toUpperCase()
+                      )
                     ) : (
-                      data.client.firstName[0].toUpperCase()
+                      ""
                     )
+                  ) : (
+                    ""
+                  )
+                ) : dummyToken ? (
+                  dummyToken.picture ? (
+                    <img
+                      className="nav_bar_profile_picture_thumbnail"
+                      src={`${dummyToken.picture}`}
+                      alt="facebook_profile_picture"
+                    />
                   ) : (
                     ""
                   )
