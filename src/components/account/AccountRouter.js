@@ -11,6 +11,8 @@ import ConsentFormPage5 from "./clientprofile/ConsentForm/Pages/Page5/ConsentFor
 import ConsentFormPage6 from "./clientprofile/ConsentForm/Pages/Page6/ConsentFormPage6";
 import ConsentFormPage7 from "./clientprofile/ConsentForm/Pages/Page7/ConsentFormPage7";
 import FacebookCompleteRegistration from "./login/FacebookCompleteRegistration/FacebookCompleteRegistration";
+import UpcomingAppointments from "./clientprofile/MyAppointments/Upcoming/UpcomingAppointments";
+import PastAppointments from "./clientprofile/MyAppointments/Past/PastAppointments";
 
 const AccountRouter = props => {
   return (
@@ -26,6 +28,16 @@ const AccountRouter = props => {
         exact
         path={props.match.path + "/clientprofile"}
         component={ClientProfile}
+      />
+      <Route
+        exact
+        path={props.match.path + "/clientprofile/upcomingappointments"}
+        component={UpcomingAppointments}
+      />
+      <Route
+        exact
+        path={props.match.path + "/clientprofile/pastappointments"}
+        component={PastAppointments}
       />
       <Route
         exact

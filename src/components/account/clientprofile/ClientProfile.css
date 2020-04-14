@@ -95,7 +95,7 @@
   font-size: 0.6rem;
   color: rgba(0, 129, 177, 0.8);
   padding: 0.6rem;
-  border: 1px solid rgb(0, 129, 177);
+  border: 1px dotted rgb(0, 129, 177);
 }
 
 .consent_form_download_pdf_container p {

@@ -2,7 +2,7 @@ const SURGERY_LAST_3_MONTHS_YES = "SURGERY_LAST_3_MONTHS_YES";
 const SURGERY_LAST_3_MONTHS_YES_RESET = "SURGERY_LAST_3_MONTHS_YES_RESET";
 
 const surgeryLast3MonthsYesReducer = (
-  state = { surgery_last_3_months_yes_active: "" },
+  state = { surgery_last_3_months_yes_active: false },
   action
 ) => {
   switch (action.type) {

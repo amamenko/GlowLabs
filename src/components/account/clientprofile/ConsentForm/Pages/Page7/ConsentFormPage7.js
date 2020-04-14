@@ -57,92 +57,91 @@ import { BounceLoader } from "react-spinners";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
   updateConsentFormMutation,
-  getClientQuery,
+  getClientQuery
 } from "../../../../../../graphql/queries/queries";
 
-const ConsentFormPage7 = (props) => {
+const ConsentFormPage7 = props => {
   const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
-    (state) => state.splashScreenComplete.splashScreenComplete
+    state => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    (state) => state.userAuthenticated.user_authenticated
+    state => state.userAuthenticated.user_authenticated
   );
   const loadingSpinnerActive = useSelector(
-    (state) => state.loadingSpinnerActive.loading_spinner
+    state => state.loadingSpinnerActive.loading_spinner
   );
   const finalBookButtonActive = useSelector(
-    (state) => state.finalBookButton.final_book_button_active
+    state => state.finalBookButton.final_book_button_active
   );
   const consentFormDate = useSelector(
-    (state) => state.consentFormDate.consent_form_date
+    state => state.consentFormDate.consent_form_date
   );
   const surgeryLast3MonthsYes = useSelector(
-    (state) => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
+    state => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
   );
   const surgeryLast3MonthsNotes = useSelector(
-    (state) => state.surgeryLast3MonthsNotes.surgery_last_3_months_notes
+    state => state.surgeryLast3MonthsNotes.surgery_last_3_months_notes
   );
   const anyHealthProblemsYes = useSelector(
-    (state) => state.anyHealthProblemsYes.any_health_problems_yes_active
+    state => state.anyHealthProblemsYes.any_health_problems_yes_active
   );
   const anyHealthProblemsNotes = useSelector(
-    (state) => state.anyHealthProblemsNotes.any_health_problems_notes
+    state => state.anyHealthProblemsNotes.any_health_problems_notes
   );
   const listAnyMedicationsNotes = useSelector(
-    (state) => state.listAnyMedicationsNotes.list_any_medications_notes
+    state => state.listAnyMedicationsNotes.list_any_medications_notes
   );
   const anyChemPeelsLastMonthYes = useSelector(
-    (state) =>
-      state.anyChemPeelsLastMonthYes.any_chem_peels_last_month_yes_active
+    state => state.anyChemPeelsLastMonthYes.any_chem_peels_last_month_yes_active
   );
   const anyWaxingLast5DaysYes = useSelector(
-    (state) => state.anyWaxingLast5DaysYes.any_waxing_last_5_days_yes_active
+    state => state.anyWaxingLast5DaysYes.any_waxing_last_5_days_yes_active
   );
   const anyAccutaneYes = useSelector(
-    (state) => state.anyAccutaneYes.any_accutane_yes_active
+    state => state.anyAccutaneYes.any_accutane_yes_active
   );
   const anyAccutaneNotes = useSelector(
-    (state) => state.anyAccutaneNotes.any_accutane_notes
+    state => state.anyAccutaneNotes.any_accutane_notes
   );
   const ingredientGlycolicAcid = useSelector(
-    (state) => state.ingredientGlycolicAcid.glycolic_acid_active
+    state => state.ingredientGlycolicAcid.glycolic_acid_active
   );
   const ingredientLacticAcid = useSelector(
-    (state) => state.ingredientLacticAcid.lactic_acid_active
+    state => state.ingredientLacticAcid.lactic_acid_active
   );
   const ingredientSalicyclicAcid = useSelector(
-    (state) => state.ingredientSalicyclicAcid.salicyclic_acid_active
+    state => state.ingredientSalicyclicAcid.salicyclic_acid_active
   );
   const ingredientExfoliatingScrubs = useSelector(
-    (state) => state.ingredientExfoliatingScrubs.exfoliating_scrubs_active
+    state => state.ingredientExfoliatingScrubs.exfoliating_scrubs_active
   );
   const ingredientVitaminA = useSelector(
-    (state) => state.ingredientVitaminA.vitamin_a_active
+    state => state.ingredientVitaminA.vitamin_a_active
   );
   const anyFillersOrBotoxYes = useSelector(
-    (state) => state.anyFillersOrBotoxYes.any_fillers_or_botox_yes_active
+    state => state.anyFillersOrBotoxYes.any_fillers_or_botox_yes_active
   );
   const anyFillersOrBotoxNotes = useSelector(
-    (state) => state.anyFillersOrBotoxNotes.any_fillers_or_botox_notes
+    state => state.anyFillersOrBotoxNotes.any_fillers_or_botox_notes
   );
   const listKnownAllergiesNotes = useSelector(
-    (state) => state.listKnownAllergiesNotes.list_known_allergies_notes
+    state => state.listKnownAllergiesNotes.list_known_allergies_notes
   );
   const skinFlakyOrItchYes = useSelector(
-    (state) => state.skinFlakyOrItchYes.skin_flaky_or_itch_yes_active
+    state => state.skinFlakyOrItchYes.skin_flaky_or_itch_yes_active
   );
   const diagnosedWithRosaceaYes = useSelector(
-    (state) => state.diagnosedWithRosaceaYes.diagnosed_with_rosacea_yes_active
+    state => state.diagnosedWithRosaceaYes.diagnosed_with_rosacea_yes_active
   );
   const pregnantOrNursingYes = useSelector(
-    (state) => state.pregnantOrNursingYes.pregnant_or_nursing_yes_active
+    state => state.pregnantOrNursingYes.pregnant_or_nursing_yes_active
   );
   const ultimateSkinCareGoals = useSelector(
-    (state) => state.ultimateSkinCareGoals.ultimate_skin_care_goals_notes
+    state => state.ultimateSkinCareGoals.ultimate_skin_care_goals_notes
   );
   const anythingElseWeShouldKnow = useSelector(
-    (state) => state.anythingElseWeShouldKnow.anything_else_we_should_know_notes
+    state => state.anythingElseWeShouldKnow.anything_else_we_should_know_notes
   );
   const [finalBookingModalActive, changeFinalBookingModalActive] = useState(
     false
@@ -162,8 +161,8 @@ const ConsentFormPage7 = (props) => {
     variables: {
       _id: Cookies.get("dummy-token")
         ? jwt.decode(Cookies.get("dummy-token")).id
-        : null,
-    },
+        : null
+    }
   });
 
   const signature = useRef(null);
@@ -200,10 +199,10 @@ const ConsentFormPage7 = (props) => {
     consentFormDay,
     consentFormMonth,
     consentFormYear,
-    dispatch,
+    dispatch
   ]);
 
-  const handleSubmitConsentForm = (e) => {
+  const handleSubmitConsentForm = e => {
     e.preventDefault();
 
     if (!finalBookButtonActive) {
@@ -235,8 +234,8 @@ const ConsentFormPage7 = (props) => {
         pregnantOrNursing: pregnantOrNursingYes,
         ultimateSkinCareGoals: ultimateSkinCareGoals,
         anythingElseWeShouldKnow: anythingElseWeShouldKnow,
-        consentFormSignature: LZString.compress(drawingSaveData),
-      },
+        consentFormSignature: LZString.compressToUTF16(drawingSaveData)
+      }
     });
   };
 
@@ -252,7 +251,7 @@ const ConsentFormPage7 = (props) => {
     }
   };
 
-  const handleDateChange = (e) => {
+  const handleDateChange = e => {
     if (
       (e.keyCode >= 8 && e.keyCode < 32) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||
@@ -264,15 +263,15 @@ const ConsentFormPage7 = (props) => {
     }
   };
 
-  const handleMonthChange = (e) => {
+  const handleMonthChange = e => {
     changeConsentFormMonth(e.currentTarget.value);
   };
 
-  const handleDayChange = (e) => {
+  const handleDayChange = e => {
     changeConsentFormDay(e.currentTarget.value);
   };
 
-  const handleYearChange = (e) => {
+  const handleYearChange = e => {
     changeConsentFormYear(e.currentTarget.value);
   };
 
@@ -452,7 +451,7 @@ const ConsentFormPage7 = (props) => {
           className="next_page_link_container"
           to="/account/clientprofile/consentform/page7"
           style={{
-            pointerEvents: consentFormDate && drawingSaveData ? "auto" : "none",
+            pointerEvents: consentFormDate && drawingSaveData ? "auto" : "none"
           }}
         >
           <div
@@ -467,7 +466,7 @@ const ConsentFormPage7 = (props) => {
                 consentFormDate && drawingSaveData
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",
-              transition: "background 0.5s ease, color 0.5s ease",
+              transition: "background 0.5s ease, color 0.5s ease"
             }}
           >
             <p>Submit</p>
@@ -504,8 +503,8 @@ const ConsentFormPage7 = (props) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background: "rgba(0, 0, 0, 0.5)",
-          },
+            background: "rgba(0, 0, 0, 0.5)"
+          }
         }}
       >
         <BounceLoader
@@ -520,9 +519,9 @@ const ConsentFormPage7 = (props) => {
           enter={{ transform: "translate3d(0, 0, 0)" }}
           leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
-          {(finalBookingModalActive) =>
+          {finalBookingModalActive =>
             finalBookingModalActive &&
-            ((props) => (
+            (props => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
                   <Link to="/account/clientprofile">
@@ -549,7 +548,7 @@ const ConsentFormPage7 = (props) => {
                       to={{ x: 0 }}
                       config={{ delay: 500, duration: 2000 }}
                     >
-                      {(styles) => (
+                      {styles => (
                         <svg
                           width="100%"
                           height="0.1rem"

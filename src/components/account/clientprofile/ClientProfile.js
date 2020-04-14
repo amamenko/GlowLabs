@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,12 +7,12 @@ import {
   faFileSignature,
   faCalendarCheck,
   faUser,
-  faFileDownload,
   faFilePdf
 } from "@fortawesome/free-solid-svg-icons";
 import { useQuery } from "@apollo/react-hooks";
 import { getClientQuery } from "../../../graphql/queries/queries";
 import moment from "moment";
+import LZString from "lz-string";
 import "./ClientProfile.css";
 import ACTION_CONSENT_FORM_LAST_UPDATED from "../../../actions/ConsentForm/LastUpdated/ACTION_CONSENT_FORM_LAST_UPDATED";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
@@ -20,6 +20,7 @@ import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/A
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ConsentFormPDF from "./ConsentForm/ConsentFormPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import CanvasDraw from "react-canvas-draw";
 
 const ClientProfile = () => {
   const dispatch = useDispatch();
@@ -87,8 +88,32 @@ const ClientProfile = () => {
     }
   };
 
+  const signature = useRef(null);
+
   return (
     <div className="client_profile_page_container">
+      <CanvasDraw
+        className="consent_form_signature"
+        saveData={
+          data
+            ? data.client
+              ? data.client.consentForm.consentFormSignature
+                ? LZString.decompressFromUTF16(
+                    data.client.consentForm.consentFormSignature
+                  )
+                : null
+              : null
+            : null
+        }
+        hideGrid={true}
+        hideInterface={true}
+        disabled
+        canvasHeight="100%"
+        canvasWidth="100%"
+        immediateLoading={true}
+        ref={signature}
+        style={{ display: "none" }}
+      />
       {redirectToHome()}
       {redirectToLogInPage()}
       <div className="client_profile_page_header">
@@ -126,7 +151,7 @@ const ClientProfile = () => {
         <div className="profile_my_appointments_box_container">
           <Link
             className="profile_box_container_link"
-            to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
+            to={"/account/clientprofile/upcomingappointments"}
           >
             <FontAwesomeIcon
               icon={faCalendarCheck}
@@ -136,23 +161,39 @@ const ClientProfile = () => {
           </Link>
           {consentFormLastUpdated ? (
             <>
-              {pdfLoading && (
+              {pdfLoading ? (
                 <PDFDownloadLink
-                  document={<ConsentFormPDF />}
+                  document={
+                    <ConsentFormPDF
+                      data={data}
+                      signature={
+                        signature
+                          ? signature.current
+                            ? signature.current.canvasContainer.children[1].toDataURL()
+                            : null
+                          : null
+                      }
+                      consentFormLastUpdated={consentFormLastUpdated}
+                    />
+                  }
                   fileName="glow_labs_consent_form.pdf"
                 >
-                  {({ blob, url, loading, error }) =>
-                    loading ? null : (
-                      <span className="consent_form_download_pdf_container">
-                        <FontAwesomeIcon
-                          icon={faFilePdf}
-                          style={{ color: "rgba(0, 129, 177, 0.8)" }}
-                        />
-                        <p>Download PDF Copy</p>
-                      </span>
-                    )
-                  }
+                  <span className="consent_form_download_pdf_container">
+                    <FontAwesomeIcon
+                      icon={faFilePdf}
+                      style={{ color: "rgba(0, 129, 177, 0.8)" }}
+                    />
+                    <p>Download PDF Copy</p>
+                  </span>
                 </PDFDownloadLink>
+              ) : (
+                <span className="consent_form_download_pdf_container">
+                  <FontAwesomeIcon
+                    icon={faFilePdf}
+                    style={{ color: "rgba(0, 129, 177, 0.8)" }}
+                  />
+                  <p>Download PDF Copy</p>
+                </span>
               )}
             </>
           ) : null}

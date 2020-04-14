@@ -1,0 +1,80 @@
+.my_appointments_container {
+  height: 100vh;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+}
+
+.my_appointments_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+  border-bottom: solid 1px rgb(44, 44, 52);
+}
+
+.my_appointments_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.my_appointments_header_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.my_appointments_sub_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.sub_header_container_link {
+  width: 50%;
+}
+
+.past_appointments_past_title_container,
+.upcoming_appointments_upcoming_title_container {
+  border-bottom: 2px solid black;
+  width: 50%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.past_appointments_past_title_container h2,
+.upcoming_appointments_upcoming_title_container h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.past_appointments_upcoming_title_container,
+.upcoming_appointments_past_title_container {
+  border-bottom: 2px solid rgb(181, 181, 181);
+  width: 100%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.past_appointments_upcoming_title_container h2,
+.upcoming_appointments_past_title_container h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(181, 181, 181);
+}
