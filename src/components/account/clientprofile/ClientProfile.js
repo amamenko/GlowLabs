@@ -7,7 +7,7 @@ import {
   faFileSignature,
   faCalendarCheck,
   faUser,
-  faFilePdf
+  faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import { useQuery } from "@apollo/react-hooks";
 import { getClientQuery } from "../../../graphql/queries/queries";
@@ -22,32 +22,38 @@ import ConsentFormPDF from "./ConsentForm/ConsentFormPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CanvasDraw from "react-canvas-draw";
 
-const ClientProfile = () => {
+const ClientProfile = (props) => {
   const dispatch = useDispatch();
   const splashScreenHalfway = useSelector(
-    state => state.splashScreenHalfway.splashScreenHalfway
+    (state) => state.splashScreenHalfway.splashScreenHalfway
   );
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
   const consentFormLastPageOpened = useSelector(
-    state => state.consentFormLastPageOpened.consent_form_active_page
+    (state) => state.consentFormLastPageOpened.consent_form_active_page
   );
   const consentFormLastUpdated = useSelector(
-    state => state.consentFormLastUpdated.consent_form_last_updated
+    (state) => state.consentFormLastUpdated.consent_form_last_updated
   );
-  const dummyToken = useSelector(state => state.dummyToken.dummy_token);
+  const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const [pdfLoading, changePDFLoading] = useState(false);
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
     variables: {
-      _id: dummyToken ? dummyToken.id : null
-    }
+      _id: dummyToken ? dummyToken.id : null,
+    },
   });
+
+  useMemo(() => {
+    if (!props.called) {
+      props.getOwnAppointments();
+    }
+  }, [props]);
 
   useEffect(() => {
     if (!splashScreenComplete) {

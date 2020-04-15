@@ -1,7 +1,8 @@
 .my_appointments_container {
-  height: 100vh;
+  height: 100%;
   padding-top: 8vh;
   background: rgb(255, 255, 255);
+  overflow-x: hidden;
 }
 
 .my_appointments_header {
@@ -14,8 +15,9 @@
   justify-content: center;
   font-weight: 600;
   width: 100%;
-  position: relative;
   border-bottom: solid 1px rgb(44, 44, 52);
+  position: fixed;
+  background: rgb(255, 255, 255);
 }
 
 .my_appointments_header h1 {
@@ -38,6 +40,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  position: fixed;
+  padding-top: 8vh;
+  width: 100%;
+  background: rgb(255, 255, 255);
 }
 
 .sub_header_container_link {
@@ -77,4 +83,73 @@
   font-size: 1rem;
   font-weight: 700;
   color: rgb(181, 181, 181);
+}
+
+.my_appointments_content_container {
+  padding-top: 14vh;
+}
+
+.my_individual_appointment_container {
+  border-bottom: 2px solid rgb(181, 181, 181);
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.my_appointment_date_square {
+  padding: 0.5rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: rgba(0, 129, 177, 0.7);
+}
+
+.my_appointment_date_square p {
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+}
+
+.my_appointment_information_container {
+  margin-left: 1rem;
+  margin-right: 1.5rem;
+  line-height: 1.1rem;
+}
+
+.my_appointment_date_time {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.my_appointment_details {
+  font-size: 0.5rem;
+  font-weight: 500;
+  color: rgb(151, 151, 151);
+}
+
+.my_individual_appointment_expand_icon {
+  position: absolute;
+  right: 1.5rem;
+}
+
+.my_individual_selected_appointment_container {
+  height: 100vh;
+  width: 110vw;
+  position: fixed;
+  background: white;
+  padding-top: 14vh;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }

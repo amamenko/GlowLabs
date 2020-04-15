@@ -13,8 +13,17 @@ import ConsentFormPage7 from "./clientprofile/ConsentForm/Pages/Page7/ConsentFor
 import FacebookCompleteRegistration from "./login/FacebookCompleteRegistration/FacebookCompleteRegistration";
 import UpcomingAppointments from "./clientprofile/MyAppointments/Upcoming/UpcomingAppointments";
 import PastAppointments from "./clientprofile/MyAppointments/Past/PastAppointments";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { getOwnAppointmentsQuery } from "../../graphql/queries/queries";
 
-const AccountRouter = props => {
+const AccountRouter = (props) => {
+  const [getOwnAppointments, { data, called }] = useLazyQuery(
+    getOwnAppointmentsQuery,
+    {
+      fetchPolicy: "no-cache",
+    }
+  );
+
   return (
     <Switch>
       <Route exact path={props.match.path + "/login"} component={Login} />
@@ -27,12 +36,17 @@ const AccountRouter = props => {
       <Route
         exact
         path={props.match.path + "/clientprofile"}
-        component={ClientProfile}
+        render={() => (
+          <ClientProfile
+            called={called}
+            getOwnAppointments={getOwnAppointments}
+          />
+        )}
       />
       <Route
         exact
         path={props.match.path + "/clientprofile/upcomingappointments"}
-        component={UpcomingAppointments}
+        render={() => <UpcomingAppointments data={data} />}
       />
       <Route
         exact

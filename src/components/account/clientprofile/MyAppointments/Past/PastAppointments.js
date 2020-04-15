@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../MyAppointments.css";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 const PastAppointments = () => {
+  const location = useLocation();
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
 
   const redirectToHome = () => {
@@ -24,6 +25,12 @@ const PastAppointments = () => {
       return <Redirect to="/account/login" />;
     }
   };
+
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   return (
     <div className="my_appointments_container">

@@ -207,7 +207,7 @@ const ConfirmationPage = () => {
     { name: "Quickie", component: <QuickieSummaryCard /> },
     { name: "ChemicalPeel", component: <ChemicalPeelSummaryCard /> },
     { name: "CBD", component: <CBDSummaryCard /> },
-    { name: "Microneedle", component: <MicroneedleSummaryCard /> },
+    { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
   ];
 

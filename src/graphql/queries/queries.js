@@ -62,6 +62,7 @@ const getAllAppointmentsQuery = gql`
 const getOwnAppointmentsQuery = gql`
   {
     own_appointments {
+      id
       date
       startTime
       endTime
@@ -451,5 +452,5 @@ export {
   updateClientInformationMutation,
   updateConsentFormMutation,
   updateClientInvalidateTokensMutation,
-  registerClientMutation
+  registerClientMutation,
 };
