@@ -1,0 +1,9 @@
+const CONSENT_FORM_PDF_READY = "CONSENT_FORM_PDF_READY";
+
+const ACTION_CONSENT_FORM_PDF_READY = () => {
+  return {
+    type: CONSENT_FORM_PDF_READY,
+  };
+};
+
+export default ACTION_CONSENT_FORM_PDF_READY;

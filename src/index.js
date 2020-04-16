@@ -1,7 +1,13 @@
 import * as smoothscroll from "smoothscroll-polyfill";
-import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
+import React, {
+  useRef,
+  useState,
+  useLayoutEffect,
+  useEffect,
+  useMemo,
+} from "react";
 import ApolloClient from "apollo-boost";
-import { ApolloProvider, useMutation } from "@apollo/react-hooks";
+import { ApolloProvider, useMutation, useQuery } from "@apollo/react-hooks";
 import ReactDOM from "react-dom";
 import { Spring, Transition } from "react-spring/renderprops";
 import Modal from "react-modal";
@@ -48,7 +54,10 @@ import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
-import { updateClientInvalidateTokensMutation } from "./graphql/queries/queries";
+import {
+  updateClientInvalidateTokensMutation,
+  getClientQuery,
+} from "./graphql/queries/queries";
 import ACTION_USER_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_AUTHENTICATED";
 import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_NOT_AUTHENTICATED";
 import ACTION_LOG_OUT_CLICKED_RESET from "./actions/LogOut/ACTION_LOG_OUT_CLICKED_RESET";
@@ -60,6 +69,8 @@ import ACTION_FACEBOOK_COMPLETE_REGISTRATION from "./actions/Login/FacebookCompl
 import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
 import ACTION_DUMMY_TOKEN from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN";
 import ACTION_DUMMY_TOKEN_RESET from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN_RESET";
+import { Font } from "@react-pdf/renderer";
+import ConsentFormPDF from "./components/account/clientprofile/ConsentForm/ConsentFormPDF";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -117,6 +128,10 @@ const App = () => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const consentFormPDF = useSelector(
+    (state) => state.consentFormPDF.consent_form_pdf_ready
+  );
+  const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
   const [updateClientInvalidateTokens, { loading: appLoading }] = useMutation(
@@ -124,6 +139,21 @@ const App = () => {
   );
 
   const dispatch = useDispatch();
+
+  const { data: getClientData } = useQuery(getClientQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: dummyToken ? dummyToken.id : null,
+    },
+  });
+
+  console.log(consentFormPDF);
+
+  useMemo(() => {
+    if (getClientData) {
+      return false;
+    }
+  }, [getClientData]);
 
   useEffect(() => {
     let currentDummyToken;
@@ -409,6 +439,18 @@ const App = () => {
     right: 25%;
   `;
 
+  const registerFont = () => {
+    Font.register({
+      family: "Montserrat",
+      src:
+        "http://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf",
+    });
+  };
+
+  useMemo(() => {
+    registerFont();
+  }, []);
+
   return (
     <>
       <Modal
@@ -416,7 +458,8 @@ const App = () => {
         style={{
           content: {
             position: "fixed",
-            zIndex: 9999,
+            zIndex: 10000,
+            opacity: 0.99,
             height: "100%",
             backdropFilter: "blur(5px)",
             WebkitBackdropFilter: "blur(5px)",
@@ -686,10 +729,14 @@ const App = () => {
         <Route path="/availability" component={AvailabilityRouter} />
         <Route path="/checkout" component={CheckoutRouter} />
         <Route
-          path="/account"
-          component={AccountRouter}
-          initialScreenSize={initialScreenSize}
-          currentScreenSize={currentScreenSize}
+          render={() => (
+            <AccountRouter
+              path="/account"
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
+              getClientData={getClientData ? getClientData : null}
+            />
+          )}
         />
       </Switch>
     </>

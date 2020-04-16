@@ -6,28 +6,27 @@ import {
   Document,
   StyleSheet,
   Image,
-  Font
 } from "@react-pdf/renderer";
 import GlowLabsCroppedLogo from "../../../../../src/images/GlowLabsCroppedLogo.jpg";
 
 // Consent Form PDF
-const ConsentFormPDF = props => {
+const ConsentFormPDF = (props) => {
   // Styles for Consent Form PDF
   const styles = StyleSheet.create({
     page: {
       flexDirection: "column",
       backgroundColor: "#fff",
       marginLeft: 10,
-      marginRight: 10
+      marginRight: 10,
     },
     text: {
-      fontFamily: "Montserrat"
+      fontFamily: "Montserrat",
     },
     section: {
       fontFamily: "Montserrat",
       margin: 10,
       padding: 10,
-      flexGrow: 1
+      flexGrow: 1,
     },
     contactSection: {
       fontFamily: "Montserrat",
@@ -36,7 +35,7 @@ const ConsentFormPDF = props => {
       padding: 10,
       flexGrow: 1,
       lineHeight: 1.5,
-      fontWeight: "bold"
+      fontWeight: "bold",
     },
     questionSection: {
       fontFamily: "Montserrat",
@@ -44,7 +43,7 @@ const ConsentFormPDF = props => {
       marginLeft: 15,
       marginBottom: 150,
       padding: 10,
-      flexGrow: 1
+      flexGrow: 1,
     },
     consentSection: {
       fontFamily: "Montserrat",
@@ -53,40 +52,40 @@ const ConsentFormPDF = props => {
       marginBottom: 200,
       marginTop: -10,
       padding: 10,
-      flexGrow: 1
+      flexGrow: 1,
     },
     individualQuestion: {
       fontFamily: "Montserrat",
       marginTop: 10,
-      marginRight: 50
+      marginRight: 50,
     },
     consentFormDate: {
       fontFamily: "Montserrat",
       marginTop: 90,
-      marginRight: 50
+      marginRight: 50,
     },
     singleLineQuestion: {
       display: "flex",
       flexDirection: "row",
       alignItems: "flex-start",
-      justifyContent: "flex-start"
+      justifyContent: "flex-start",
     },
     formValues: {
       fontSize: 9,
-      display: "inline-block"
+      display: "inline-block",
     },
     consentFormParagraph: {
       fontSize: 9,
-      display: "inline-block"
+      display: "inline-block",
     },
     formValuesAnswer: {
       fontSize: 9,
       marginLeft: 5,
-      display: "inline-block"
+      display: "inline-block",
     },
     formValuesSecondary: {
       fontSize: 9,
-      marginLeft: 20
+      marginLeft: 20,
     },
     GlowLabsContact: {
       position: "absolute",
@@ -99,7 +98,7 @@ const ConsentFormPDF = props => {
       left: 25,
       right: 55,
       color: "grey",
-      opacity: 0.7
+      opacity: 0.7,
     },
     pageNumber: {
       position: "absolute",
@@ -109,7 +108,7 @@ const ConsentFormPDF = props => {
       right: 0,
       textAlign: "center",
       color: "grey",
-      opacity: 0.7
+      opacity: 0.7,
     },
     signatureContainer: {
       position: "absolute",
@@ -117,15 +116,12 @@ const ConsentFormPDF = props => {
       bottom: 55,
       left: 10,
       borderColor: "grey",
-      borderWidth: 1
-    }
+      borderWidth: 1,
+    },
   });
 
-  Font.register({
-    family: "Montserrat",
-    src:
-      "http://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf"
-  });
+  console.log(props.getClientData);
+  console.log(props.signature);
 
   return (
     <Document>
@@ -145,7 +141,7 @@ const ConsentFormPDF = props => {
             justifyContent: "center",
             width: "100%",
             height: "20vh",
-            marginTop: "2vh"
+            marginTop: "2vh",
           }}
           fixed={true}
         >
@@ -153,7 +149,7 @@ const ConsentFormPDF = props => {
             src={GlowLabsCroppedLogo}
             style={{
               width: "50%",
-              textAlign: "center"
+              textAlign: "center",
             }}
           />
           <Text
@@ -161,7 +157,7 @@ const ConsentFormPDF = props => {
               fontFamily: "Montserrat",
               textAlign: "center",
               width: "100%",
-              marginTop: "2vh"
+              marginTop: "2vh",
             }}
           >
             Consent Form
@@ -169,16 +165,20 @@ const ConsentFormPDF = props => {
         </View>
         <View style={styles.contactSection} fixed={true}>
           <Text style={styles.formValues}>
-            First Name: {props.data ? props.data.client.firstName : null}
+            First Name:{" "}
+            {props.getClientData ? props.getClientData.client.firstName : null}
           </Text>
           <Text style={styles.formValues}>
-            Last Name: {props.data ? props.data.client.lastName : null}
+            Last Name:{" "}
+            {props.getClientData ? props.getClientData.client.lastName : null}
           </Text>
           <Text style={styles.formValues}>
-            Email: {props.data ? props.data.client.email : null}
+            Email:{" "}
+            {props.getClientData ? props.getClientData.client.email : null}
           </Text>
           <Text style={styles.formValues}>
-            Date Submitted: {props.data ? props.consentFormLastUpdated : null}
+            Date Submitted:{" "}
+            {props.getClientData ? props.consentFormLastUpdated : null}
           </Text>
         </View>
         <View style={styles.questionSection}>
@@ -188,8 +188,8 @@ const ConsentFormPDF = props => {
                 Have you had any surgery in the last three months?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.surgeryLast3Months
+                {props.getClientData
+                  ? props.getClientData.client.consentForm.surgeryLast3Months
                     ? "Yes"
                     : "No"
                   : null}
@@ -197,9 +197,10 @@ const ConsentFormPDF = props => {
             </View>
             <Text style={styles.formValuesSecondary}>
               If yes, please specify:{" "}
-              {props.data
-                ? props.data.client.consentForm.surgeryLast3MonthsNotes
-                  ? props.data.client.consentForm.surgeryLast3MonthsNotes
+              {props.getClientData
+                ? props.getClientData.client.consentForm.surgeryLast3MonthsNotes
+                  ? props.getClientData.client.consentForm
+                      .surgeryLast3MonthsNotes
                   : "__________"
                 : null}
             </Text>
@@ -210,8 +211,8 @@ const ConsentFormPDF = props => {
                 Do you have any health problems we should know about?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.anyHealthProblems
+                {props.getClientData
+                  ? props.getClientData.client.consentForm.anyHealthProblems
                     ? "Yes"
                     : "No"
                   : null}
@@ -219,9 +220,10 @@ const ConsentFormPDF = props => {
             </View>
             <Text style={styles.formValuesSecondary}>
               If yes, please specify:{" "}
-              {props.data
-                ? props.data.client.consentForm.anyHealthProblemsNotes
-                  ? props.data.client.consentForm.anyHealthProblemsNotes
+              {props.getClientData
+                ? props.getClientData.client.consentForm.anyHealthProblemsNotes
+                  ? props.getClientData.client.consentForm
+                      .anyHealthProblemsNotes
                   : "__________"
                 : null}
             </Text>
@@ -232,9 +234,9 @@ const ConsentFormPDF = props => {
               take regularly and that may affect your skin.
             </Text>
             <Text style={styles.formValuesSecondary}>
-              {props.data
-                ? props.data.client.consentForm.listAnyMedications
-                  ? props.data.client.consentForm.listAnyMedications
+              {props.getClientData
+                ? props.getClientData.client.consentForm.listAnyMedications
+                  ? props.getClientData.client.consentForm.listAnyMedications
                   : "__________"
                 : null}
             </Text>
@@ -246,8 +248,8 @@ const ConsentFormPDF = props => {
                 resurfacing treatments in the last month?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.chemPeelsLastMonth
+                {props.getClientData
+                  ? props.getClientData.client.consentForm.chemPeelsLastMonth
                     ? "Yes"
                     : "No"
                   : null}
@@ -260,8 +262,8 @@ const ConsentFormPDF = props => {
                 Have you had waxing on your face in the last five days?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.waxingOnFaceLast5Days
+                {props.getClientData
+                  ? props.getClientData.client.consentForm.waxingOnFaceLast5Days
                     ? "Yes"
                     : "No"
                   : null}
@@ -275,8 +277,9 @@ const ConsentFormPDF = props => {
                 skin products?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.accutaneOrPrescription
+                {props.getClientData
+                  ? props.getClientData.client.consentForm
+                      .accutaneOrPrescription
                     ? "Yes"
                     : "No"
                   : null}
@@ -284,9 +287,11 @@ const ConsentFormPDF = props => {
             </View>
             <Text style={styles.formValuesSecondary}>
               If yes, please specify:{" "}
-              {props.data
-                ? props.data.client.consentForm.accutaneOrPrescriptionNotes
-                  ? props.data.client.consentForm.accutaneOrPrescriptionNotes
+              {props.getClientData
+                ? props.getClientData.client.consentForm
+                    .accutaneOrPrescriptionNotes
+                  ? props.getClientData.client.consentForm
+                      .accutaneOrPrescriptionNotes
                   : "__________"
                 : null}
             </Text>
@@ -299,8 +304,8 @@ const ConsentFormPDF = props => {
             <View style={styles.singleLineQuestion}>
               <Text style={styles.formValuesSecondary}>Salicyclic Acid:</Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm
+                {props.getClientData
+                  ? props.getClientData.client.consentForm
                       .anyProductsContainingSalicyclicAcid
                     ? "Yes"
                     : "No"
@@ -310,8 +315,8 @@ const ConsentFormPDF = props => {
             <View style={styles.singleLineQuestion}>
               <Text style={styles.formValuesSecondary}>Glycolic Acid:</Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm
+                {props.getClientData
+                  ? props.getClientData.client.consentForm
                       .anyProductsContainingGlycolicAcid
                     ? "Yes"
                     : "No"
@@ -321,8 +326,8 @@ const ConsentFormPDF = props => {
             <View style={styles.singleLineQuestion}>
               <Text style={styles.formValuesSecondary}>Lactic Acid:</Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm
+                {props.getClientData
+                  ? props.getClientData.client.consentForm
                       .anyProductsContainingLacticAcid
                     ? "Yes"
                     : "No"
@@ -334,8 +339,8 @@ const ConsentFormPDF = props => {
                 Exfoliating Scrubs:
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm
+                {props.getClientData
+                  ? props.getClientData.client.consentForm
                       .anyProductsContainingExfoliatingScrubs
                     ? "Yes"
                     : "No"
@@ -347,8 +352,9 @@ const ConsentFormPDF = props => {
                 Vitamin A (Retinol):
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.anyProductsContainingVitaminA
+                {props.getClientData
+                  ? props.getClientData.client.consentForm
+                      .anyProductsContainingVitaminA
                     ? "Yes"
                     : "No"
                   : null}
@@ -362,8 +368,8 @@ const ConsentFormPDF = props => {
                 weeks?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.fillersOrBotox
+                {props.getClientData
+                  ? props.getClientData.client.consentForm.fillersOrBotox
                     ? "Yes"
                     : "No"
                   : null}
@@ -371,9 +377,9 @@ const ConsentFormPDF = props => {
             </View>
             <Text style={styles.formValuesSecondary}>
               If yes, when?{" "}
-              {props.data
-                ? props.data.client.consentForm.fillersOrBotoxNotes
-                  ? props.data.client.consentForm.fillersOrBotoxNotes
+              {props.getClientData
+                ? props.getClientData.client.consentForm.fillersOrBotoxNotes
+                  ? props.getClientData.client.consentForm.fillersOrBotoxNotes
                   : "__________"
                 : null}
             </Text>
@@ -384,9 +390,9 @@ const ConsentFormPDF = props => {
               irritants.
             </Text>
             <Text style={styles.formValuesSecondary}>
-              {props.data
-                ? props.data.client.consentForm.listKnownAllergies
-                  ? props.data.client.consentForm.listKnownAllergies
+              {props.getClientData
+                ? props.getClientData.client.consentForm.listKnownAllergies
+                  ? props.getClientData.client.consentForm.listKnownAllergies
                   : "__________"
                 : null}
             </Text>
@@ -397,8 +403,8 @@ const ConsentFormPDF = props => {
                 Does your skin ever get flaky or itch?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.skinFlakyOrItch
+                {props.getClientData
+                  ? props.getClientData.client.consentForm.skinFlakyOrItch
                     ? "Yes"
                     : "No"
                   : null}
@@ -411,8 +417,9 @@ const ConsentFormPDF = props => {
                 Have you ever been diagnosed with rosacea?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.everDiagnosedWithRosacea
+                {props.getClientData
+                  ? props.getClientData.client.consentForm
+                      .everDiagnosedWithRosacea
                     ? "Yes"
                     : "No"
                   : null}
@@ -425,8 +432,8 @@ const ConsentFormPDF = props => {
                 Are you pregnant, nursing, or attempting to become pregnant?
               </Text>
               <Text style={styles.formValuesAnswer}>
-                {props.data
-                  ? props.data.client.consentForm.pregnantOrNursing
+                {props.getClientData
+                  ? props.getClientData.client.consentForm.pregnantOrNursing
                     ? "Yes"
                     : "No"
                   : null}
@@ -438,9 +445,9 @@ const ConsentFormPDF = props => {
               What are your ultimate skin care goals?
             </Text>
             <Text style={styles.formValuesSecondary}>
-              {props.data
-                ? props.data.client.consentForm.ultimateSkinCareGoals
-                  ? props.data.client.consentForm.ultimateSkinCareGoals
+              {props.getClientData
+                ? props.getClientData.client.consentForm.ultimateSkinCareGoals
+                  ? props.getClientData.client.consentForm.ultimateSkinCareGoals
                   : "__________"
                 : null}
             </Text>
@@ -450,9 +457,11 @@ const ConsentFormPDF = props => {
               Anything else we should know before we get to work on your skin?
             </Text>
             <Text style={styles.formValuesSecondary}>
-              {props.data
-                ? props.data.client.consentForm.anythingElseWeShouldKnow
-                  ? props.data.client.consentForm.anythingElseWeShouldKnow
+              {props.getClientData
+                ? props.getClientData.client.consentForm
+                    .anythingElseWeShouldKnow
+                  ? props.getClientData.client.consentForm
+                      .anythingElseWeShouldKnow
                   : "__________"
                 : null}
             </Text>
@@ -482,7 +491,7 @@ const ConsentFormPDF = props => {
             justifyContent: "center",
             width: "100%",
             height: "20vh",
-            marginTop: "2vh"
+            marginTop: "2vh",
           }}
           fixed={true}
         >
@@ -490,7 +499,7 @@ const ConsentFormPDF = props => {
             src={GlowLabsCroppedLogo}
             style={{
               width: "50%",
-              textAlign: "center"
+              textAlign: "center",
             }}
           />
           <Text
@@ -498,7 +507,7 @@ const ConsentFormPDF = props => {
               fontFamily: "Montserrat",
               textAlign: "center",
               width: "100%",
-              marginTop: "2vh"
+              marginTop: "2vh",
             }}
           >
             Consent Form
@@ -506,16 +515,20 @@ const ConsentFormPDF = props => {
         </View>
         <View style={styles.contactSection} fixed={true}>
           <Text style={styles.formValues}>
-            First Name: {props.data ? props.data.client.firstName : null}
+            First Name:{" "}
+            {props.getClientData ? props.getClientData.client.firstName : null}
           </Text>
           <Text style={styles.formValues}>
-            Last Name: {props.data ? props.data.client.lastName : null}
+            Last Name:{" "}
+            {props.getClientData ? props.getClientData.client.lastName : null}
           </Text>
           <Text style={styles.formValues}>
-            Email: {props.data ? props.data.client.email : null}
+            Email:{" "}
+            {props.getClientData ? props.getClientData.client.email : null}
           </Text>
           <Text style={styles.formValues}>
-            Date Submitted: {props.data ? props.consentFormLastUpdated : null}
+            Date Submitted:{" "}
+            {props.getClientData ? props.consentFormLastUpdated : null}
           </Text>
         </View>
         <View style={styles.consentSection}>
@@ -567,16 +580,16 @@ const ConsentFormPDF = props => {
             <Text style={styles.consentFormParagraph}>Please sign:</Text>
           </View>
           <View style={styles.signatureContainer}>
-            <Image src={props.data ? props.signature : "1"} />
+            <Image src={props.getClientData ? props.signature : "1"} />
           </View>
           <View style={styles.consentFormDate}>
             <Text style={styles.consentFormParagraph}>
               Please fill in today's date:
             </Text>
             <Text style={styles.consentFormParagraph}>
-              {props.data
-                ? props.data.client.consentForm.date
-                  ? props.data.client.consentForm.date
+              {props.getClientData
+                ? props.getClientData.client.consentForm.date
+                  ? props.getClientData.client.consentForm.date
                   : "__________"
                 : null}
             </Text>

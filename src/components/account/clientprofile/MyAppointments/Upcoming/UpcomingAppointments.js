@@ -49,6 +49,7 @@ const UpcomingAppointments = (props) => {
             ? "100%"
             : "100vh"
           : "100vh",
+        zIndex: logoutClicked ? -1 : "auto",
       }}
     >
       {redirectToHome()}
@@ -165,25 +166,83 @@ const UpcomingAppointments = (props) => {
                   </p>
                 </div>
                 <FontAwesomeIcon
-                  style={{ zIndex: logoutClicked ? 0 : 1 }}
+                  style={{
+                    zIndex: logoutClicked || appointmentToggled ? 0 : 1,
+                    transitionDelay: logoutClicked
+                      ? "initial"
+                      : !appointmentToggled
+                      ? "0.5s"
+                      : "initial",
+                  }}
                   icon={faEllipsisH}
                   className="my_individual_appointment_expand_icon"
                 />
                 <Transition
                   items={appointmentToggled}
                   from={{ transform: "translateX(100%)" }}
-                  enter={{ transform: "translateX(-10%)" }}
+                  enter={{ transform: "translateX(0%)" }}
                   leave={{ transform: "translateX(100%)" }}
                   config={{ duration: 200 }}
                 >
                   {(appointmentToggled) =>
-                    appointmentToggled &&
+                    appointmentToggled === item.id &&
                     ((styleprops) => (
                       <div
                         className="my_individual_selected_appointment_container"
                         style={styleprops}
                       >
-                        <h1>OK</h1>
+                        <p className="selected_appointment_date_and_time_header">
+                          Appointment Date &amp; Time
+                        </p>
+                        <div className="selected_appointment_date_and_time_content_container">
+                          <p>
+                            {moment(item.date, "LL")
+                              .format("LLLL")
+                              .split(" ")
+                              .slice(
+                                0,
+                                moment(item.date, "LL")
+                                  .format("LLLL")
+                                  .split(" ").length - 2
+                              )
+                              .join(" ")}
+                          </p>
+                          <p>
+                            {item.startTime +
+                              " " +
+                              (Number(item.startTime.split(":")[0]) >= 12 ||
+                              Number(item.startTime.split(":")[0]) < 9
+                                ? "PM"
+                                : "AM")}{" "}
+                            -{" "}
+                            {item.endTime +
+                              " " +
+                              (Number(item.endTime.split(":")[0]) >= 12 ||
+                              Number(item.endTime.split(":")[0]) < 9
+                                ? "PM"
+                                : "AM")}{" "}
+                          </p>
+                          <p>
+                            (
+                            {item.duration >= 60
+                              ? Math.floor(item.duration / 60)
+                              : item.duration}{" "}
+                            {item.duration >= 60
+                              ? Math.floor(item.duration / 60) === 1
+                                ? "hour"
+                                : "hours"
+                              : null}
+                            {Number.isInteger(item.duration / 60) ? null : " "}
+                            {item.duration >= 60
+                              ? Number.isInteger(item.duration / 60)
+                                ? null
+                                : item.duration -
+                                  Math.floor(item.duration / 60) * 60 +
+                                  " minutes"
+                              : "minutes"}
+                            )
+                          </p>
+                        </div>
                       </div>
                     ))
                   }

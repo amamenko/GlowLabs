@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  useRef,
+  useCallback,
+} from "react";
 import { Redirect, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,8 +15,6 @@ import {
   faUser,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
-import { useQuery } from "@apollo/react-hooks";
-import { getClientQuery } from "../../../graphql/queries/queries";
 import moment from "moment";
 import LZString from "lz-string";
 import "./ClientProfile.css";
@@ -39,15 +43,7 @@ const ClientProfile = (props) => {
   const consentFormLastUpdated = useSelector(
     (state) => state.consentFormLastUpdated.consent_form_last_updated
   );
-  const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const [pdfLoading, changePDFLoading] = useState(false);
-
-  const { data } = useQuery(getClientQuery, {
-    fetchPolicy: "no-cache",
-    variables: {
-      _id: dummyToken ? dummyToken.id : null,
-    },
-  });
 
   useMemo(() => {
     if (!props.called) {
@@ -64,23 +60,33 @@ const ClientProfile = (props) => {
     }
   }, [dispatch, splashScreenComplete, splashScreenHalfway]);
 
-  useEffect(() => {
-    if (data) {
-      if (data.client.consentForm.date) {
-        changePDFLoading(true);
-        if (
-          consentFormLastUpdated !==
-          moment.unix(data.client.consentForm.createdAt / 1000).format("l")
-        ) {
-          dispatch(
-            ACTION_CONSENT_FORM_LAST_UPDATED(
-              moment.unix(data.client.consentForm.createdAt / 1000).format("l")
-            )
-          );
-        }
+  console.log(pdfLoading);
+
+  const loadingCompleted = useCallback(() => {
+    if (!pdfLoading) {
+      changePDFLoading(true);
+    }
+  }, [pdfLoading]);
+
+  useMemo(() => {
+    if (props.getClientData && props.getClientData.client.consentForm.date) {
+      loadingCompleted();
+      if (
+        consentFormLastUpdated !==
+        moment
+          .unix(props.getClientData.client.consentForm.createdAt / 1000)
+          .format("l")
+      ) {
+        dispatch(
+          ACTION_CONSENT_FORM_LAST_UPDATED(
+            moment
+              .unix(props.getClientData.client.consentForm.createdAt / 1000)
+              .format("l")
+          )
+        );
       }
     }
-  }, [data, consentFormLastUpdated, dispatch]);
+  }, [props.getClientData, consentFormLastUpdated, dispatch, loadingCompleted]);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -101,11 +107,11 @@ const ClientProfile = (props) => {
       <CanvasDraw
         className="consent_form_signature"
         saveData={
-          data
-            ? data.client
-              ? data.client.consentForm.consentFormSignature
+          props.getClientData
+            ? props.getClientData.client
+              ? props.getClientData.client.consentForm.consentFormSignature
                 ? LZString.decompressFromUTF16(
-                    data.client.consentForm.consentFormSignature
+                    props.getClientData.client.consentForm.consentFormSignature
                   )
                 : null
               : null
@@ -117,7 +123,7 @@ const ClientProfile = (props) => {
         canvasHeight="100%"
         canvasWidth="100%"
         immediateLoading={true}
-        ref={signature}
+        ref={signature ? signature : null}
         style={{ display: "none" }}
       />
       {redirectToHome()}
@@ -170,17 +176,23 @@ const ClientProfile = (props) => {
               {pdfLoading ? (
                 <PDFDownloadLink
                   document={
-                    <ConsentFormPDF
-                      data={data}
-                      signature={
-                        signature
-                          ? signature.current
-                            ? signature.current.canvasContainer.children[1].toDataURL()
+                    props.getClientData ? (
+                      <ConsentFormPDF
+                        getClientData={
+                          props.getClientData ? props.getClientData : null
+                        }
+                        signature={
+                          props.getClientData
+                            ? signature
+                              ? signature.current
+                                ? signature.current.canvasContainer.children[1].toDataURL()
+                                : null
+                              : null
                             : null
-                          : null
-                      }
-                      consentFormLastUpdated={consentFormLastUpdated}
-                    />
+                        }
+                        consentFormLastUpdated={consentFormLastUpdated}
+                      />
+                    ) : null
                   }
                   fileName="glow_labs_consent_form.pdf"
                 >

@@ -3,6 +3,7 @@
   padding-top: 8vh;
   background: rgb(255, 255, 255);
   overflow-x: hidden;
+  position: relative;
 }
 
 .my_appointments_header {
@@ -142,14 +143,31 @@
 }
 
 .my_individual_selected_appointment_container {
-  height: 100vh;
-  width: 110vw;
+  height: 100%;
+  width: 100%;
+  top: -1.1rem;
+  left: 0;
   position: fixed;
   background: white;
-  padding-top: 14vh;
-  z-index: 1;
+  margin-top: 24vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
+  z-index: 1;
+  padding-top: 1rem;
+  margin-left: 1.5rem;
+}
+
+.my_individual_selected_appointment_container p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.selected_appointment_date_and_time_header {
+  color: rgb(151, 151, 151);
+  font-weight: 600;
+}
+
+.selected_appointment_date_and_time_content_container {
 }

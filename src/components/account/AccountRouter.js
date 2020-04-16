@@ -15,6 +15,7 @@ import UpcomingAppointments from "./clientprofile/MyAppointments/Upcoming/Upcomi
 import PastAppointments from "./clientprofile/MyAppointments/Past/PastAppointments";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { getOwnAppointmentsQuery } from "../../graphql/queries/queries";
+import ConsentFormPDF from "./clientprofile/ConsentForm/ConsentFormPDF";
 
 const AccountRouter = (props) => {
   const [getOwnAppointments, { data, called }] = useLazyQuery(
@@ -26,78 +27,79 @@ const AccountRouter = (props) => {
 
   return (
     <Switch>
-      <Route exact path={props.match.path + "/login"} component={Login} />
-      <Route exact path={props.match.path + "/signup"} component={SignUp} />
+      <Route exact path={props.path + "/login"} component={Login} />
+      <Route exact path={props.path + "/signup"} component={SignUp} />
       <Route
         exact
-        path={props.match.path + "/completeregistration"}
+        path={props.path + "/completeregistration"}
         component={FacebookCompleteRegistration}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile"}
+        path={props.path + "/clientprofile"}
         render={() => (
           <ClientProfile
             called={called}
             getOwnAppointments={getOwnAppointments}
+            getClientData={props.getClientData}
           />
         )}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/upcomingappointments"}
-        render={() => <UpcomingAppointments data={data} />}
+        path={props.path + "/clientprofile/upcomingappointments"}
+        render={() => <UpcomingAppointments data={data ? data : null} />}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/pastappointments"}
+        path={props.path + "/clientprofile/pastappointments"}
         component={PastAppointments}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/consentform/page1"}
+        path={props.path + "/clientprofile/consentform/page1"}
         component={ConsentFormPage1}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/consentform/page2"}
+        path={props.path + "/clientprofile/consentform/page2"}
         component={ConsentFormPage2}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/consentform/page3"}
+        path={props.path + "/clientprofile/consentform/page3"}
         component={ConsentFormPage3}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/consentform/page4"}
+        path={props.path + "/clientprofile/consentform/page4"}
         component={ConsentFormPage4}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/consentform/page5"}
+        path={props.path + "/clientprofile/consentform/page5"}
         component={ConsentFormPage5}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/consentform/page6"}
+        path={props.path + "/clientprofile/consentform/page6"}
         component={ConsentFormPage6}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/clientprofile/consentform/page7"}
+        path={props.path + "/clientprofile/consentform/page7"}
         component={ConsentFormPage7}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
