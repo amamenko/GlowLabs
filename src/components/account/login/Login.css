@@ -202,8 +202,8 @@
 .complete_registration_loading_modal {
   height: 100vh;
   width: 100%;
-  position: absolute;
-  top: -90vh;
+  position: fixed;
+  top: 0;
   margin-left: auto;
   margin-right: auto;
   left: 0;

@@ -25,6 +25,9 @@ import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_S
 import ConsentFormPDF from "./ConsentForm/ConsentFormPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CanvasDraw from "react-canvas-draw";
+import { BounceLoader } from "react-spinners";
+import { Modal } from "reactstrap";
+import { css } from "emotion";
 
 const ClientProfile = (props) => {
   const dispatch = useDispatch();
@@ -44,6 +47,14 @@ const ClientProfile = (props) => {
     (state) => state.consentFormLastUpdated.consent_form_last_updated
   );
   const [pdfLoading, changePDFLoading] = useState(false);
+  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   useMemo(() => {
     if (!props.called) {
@@ -60,17 +71,21 @@ const ClientProfile = (props) => {
     }
   }, [dispatch, splashScreenComplete, splashScreenHalfway]);
 
-  console.log(pdfLoading);
-
   const loadingCompleted = useCallback(() => {
+    changeLoadingSpinnerActive(true);
     if (!pdfLoading) {
       changePDFLoading(true);
+    } else {
+      return null;
     }
   }, [pdfLoading]);
 
   useMemo(() => {
-    if (props.getClientData && props.getClientData.client.consentForm.date) {
-      loadingCompleted();
+    if (
+      props.getClientData &&
+      props.getClientData.client &&
+      props.getClientData.client.consentForm.date
+    ) {
       if (
         consentFormLastUpdated !==
         moment
@@ -86,7 +101,7 @@ const ClientProfile = (props) => {
         );
       }
     }
-  }, [props.getClientData, consentFormLastUpdated, dispatch, loadingCompleted]);
+  }, [props.getClientData, consentFormLastUpdated, dispatch]);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -101,9 +116,35 @@ const ClientProfile = (props) => {
   };
 
   const signature = useRef(null);
+  const pdfDownloadRef = useRef(null);
+
+  const handlePDFDownloadClick = useEffect(() => {
+    if (loadingSpinnerActive) {
+      const loadingSpinnerDuration = setTimeout(() => {
+        changeLoadingSpinnerActive(false);
+        if (pdfDownloadRef) {
+          pdfDownloadRef.current.click();
+        }
+      }, 2000);
+      return () => {
+        clearTimeout(loadingSpinnerDuration);
+      };
+    }
+  }, [loadingSpinnerActive]);
 
   return (
     <div className="client_profile_page_container">
+      <Modal
+        isOpen={loadingSpinnerActive}
+        className="complete_registration_loading_modal"
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={loadingSpinnerActive}
+        />
+      </Modal>
       <CanvasDraw
         className="consent_form_signature"
         saveData={
@@ -191,12 +232,16 @@ const ClientProfile = (props) => {
                             : null
                         }
                         consentFormLastUpdated={consentFormLastUpdated}
+                        onClick={handlePDFDownloadClick}
                       />
                     ) : null
                   }
                   fileName="glow_labs_consent_form.pdf"
                 >
-                  <span className="consent_form_download_pdf_container">
+                  <span
+                    className="consent_form_download_pdf_container"
+                    ref={pdfDownloadRef}
+                  >
                     <FontAwesomeIcon
                       icon={faFilePdf}
                       style={{ color: "rgba(0, 129, 177, 0.8)" }}
@@ -205,7 +250,10 @@ const ClientProfile = (props) => {
                   </span>
                 </PDFDownloadLink>
               ) : (
-                <span className="consent_form_download_pdf_container">
+                <span
+                  className="consent_form_download_pdf_container"
+                  onClick={() => loadingCompleted()}
+                >
                   <FontAwesomeIcon
                     icon={faFilePdf}
                     style={{ color: "rgba(0, 129, 177, 0.8)" }}

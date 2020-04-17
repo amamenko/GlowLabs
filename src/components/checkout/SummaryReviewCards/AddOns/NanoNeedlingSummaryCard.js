@@ -1,9 +1,19 @@
 import React from "react";
 import "../SummaryReviewCards.css";
+import { useLocation } from "react-router-dom";
 
 const NanoNeedlingSummaryCard = () => {
+  const location = useLocation();
+
   return (
-    <div className="summary_add_ons_card_container">
+    <div
+      className="summary_add_ons_card_container"
+      style={{
+        borderBottom: location.pathname.includes("/account/clientprofile/")
+          ? "none"
+          : "1px solid rgb(211, 211, 211)",
+      }}
+    >
       <div className="summary_card_image_circle">
         <svg width="100%" height="6rem" viewBox="0 0 56.356 56.356">
           <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />

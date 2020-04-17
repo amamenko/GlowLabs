@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Page,
   Text,
@@ -119,9 +119,6 @@ const ConsentFormPDF = (props) => {
       borderWidth: 1,
     },
   });
-
-  console.log(props.getClientData);
-  console.log(props.signature);
 
   return (
     <Document>
@@ -580,7 +577,13 @@ const ConsentFormPDF = (props) => {
             <Text style={styles.consentFormParagraph}>Please sign:</Text>
           </View>
           <View style={styles.signatureContainer}>
-            <Image src={props.getClientData ? props.signature : "1"} />
+            <Image
+              src={
+                props.signature
+                  ? props.signature
+                  : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+              }
+            />
           </View>
           <View style={styles.consentFormDate}>
             <Text style={styles.consentFormParagraph}>

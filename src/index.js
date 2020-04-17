@@ -147,8 +147,6 @@ const App = () => {
     },
   });
 
-  console.log(consentFormPDF);
-
   useMemo(() => {
     if (getClientData) {
       return false;

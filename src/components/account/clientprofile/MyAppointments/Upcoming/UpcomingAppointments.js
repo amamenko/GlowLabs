@@ -1,13 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../MyAppointments.css";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import {
+  faChevronLeft,
+  faEllipsisH,
+  faLongArrowAltLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { Transition } from "react-spring/renderprops";
+import CalmSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
+import BacialSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
+import ClarifySummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/ClarifySummaryCard";
+import DermaplaningSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/DermaplaningSummaryCard";
+import GlowSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/GlowSummaryCard";
+import QuenchSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/QuenchSummaryCard";
+import QuickieSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/QuickieSummaryCard";
+import ChemicalPeelSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/ChemicalPeelSummaryCard";
+import CBDSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/CBDSummaryCard";
+import MicroneedleSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/MicroneedleSummaryCard";
+import RejuvenateSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/RejuvenateSummaryCard";
+import ExtraExtractionsSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/ExtraExtractionsCard";
+import HydroJellyMaskSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/HydroJellyMaskSummaryCard";
+import LEDTherapySummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/LEDTherapySummaryCard";
+import MicrocurrentSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/MicrocurrentSummaryCard";
+import MicrodermabrasionSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/MicrodermabrasionSummaryCard";
+import DermarollingSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/DermarollingSummaryCard";
+import NanoNeedlingSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
+import GuaShaSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
+import BeardSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
+import ACTION_BODY_SCROLL_RESET from "../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import ACTION_BODY_SCROLL_ALLOW from "../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from "body-scroll-lock";
 
 const UpcomingAppointments = (props) => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
@@ -20,7 +52,31 @@ const UpcomingAppointments = (props) => {
   );
   const [appointmentToggled, changeAppointmentToggled] = useState("");
 
-  console.log(appointmentToggled);
+  const mySelectedAppointmentRef = useRef(null);
+
+  useEffect(() => {
+    const checkModalRef = setInterval(() => {
+      let currentRef;
+
+      if (mySelectedAppointmentRef) {
+        currentRef = mySelectedAppointmentRef.current;
+      }
+
+      if (currentRef) {
+        if (appointmentToggled) {
+          if (currentRef) {
+            disableBodyScroll({ targetElement: currentRef });
+          }
+        } else {
+          enableBodyScroll({ targetElement: currentRef });
+        }
+      }
+    }, 100);
+    return () => {
+      clearInterval(checkModalRef);
+      clearAllBodyScrollLocks();
+    };
+  }, [appointmentToggled]);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -39,6 +95,96 @@ const UpcomingAppointments = (props) => {
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
+
+  const treatmentsSummaryCardComponentsArr = [
+    { name: "Calm", component: <CalmSummaryCard /> },
+    { name: "Bacial", component: <BacialSummaryCard /> },
+    { name: "Clarify", component: <ClarifySummaryCard /> },
+    { name: "Dermaplaning", component: <DermaplaningSummaryCard /> },
+    { name: "Glow", component: <GlowSummaryCard /> },
+    { name: "Quench", component: <QuenchSummaryCard /> },
+    { name: "Quickie", component: <QuickieSummaryCard /> },
+    { name: "ChemicalPeel", component: <ChemicalPeelSummaryCard /> },
+    { name: "CBD", component: <CBDSummaryCard /> },
+    { name: "Microneedling", component: <MicroneedleSummaryCard /> },
+    { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
+  ];
+
+  const addOnsSummaryCardComponentsArr = [
+    { name: "ExtraExtractions", component: <ExtraExtractionsSummaryCard /> },
+    { name: "HydroJelly", component: <HydroJellyMaskSummaryCard /> },
+    { name: "LED", component: <LEDTherapySummaryCard /> },
+    { name: "Microcurrent", component: <MicrocurrentSummaryCard /> },
+    { name: "Microdermabrasion", component: <MicrodermabrasionSummaryCard /> },
+    { name: "Dermarolling", component: <DermarollingSummaryCard /> },
+    { name: "NanoNeedling", component: <NanoNeedlingSummaryCard /> },
+    { name: "GuaSha", component: <GuaShaSummaryCard /> },
+    { name: "Beard", component: <BeardSummaryCard /> },
+  ];
+
+  const renderSummaryCardTreatments = (dataIndex) => {
+    let componentsArr = [];
+
+    for (let i = 0; i < treatmentsSummaryCardComponentsArr.length; i++) {
+      if (props.data) {
+        if (props.data.own_appointments) {
+          if (props.data.own_appointments[dataIndex].treatments) {
+            if (props.data.own_appointments[dataIndex].treatments[0].name) {
+              if (
+                props.data.own_appointments[dataIndex].treatments[0].name ===
+                treatmentsSummaryCardComponentsArr[i].name
+              ) {
+                componentsArr.push(
+                  treatmentsSummaryCardComponentsArr[i].component
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+    return componentsArr.map((item, index) => (
+      <div className="my_selected_appointment_treatment_container" key={index}>
+        {item}
+      </div>
+    ));
+  };
+
+  const renderSummaryCardAddOns = (dataIndex) => {
+    let componentsArr = [];
+
+    for (let i = 0; i < addOnsSummaryCardComponentsArr.length; i++) {
+      for (
+        let j = 0;
+        j < props.data.own_appointments[dataIndex].addOns.length;
+        j++
+      ) {
+        if (props.data) {
+          if (props.data.own_appointments) {
+            if (props.data.own_appointments[dataIndex].addOns !== []) {
+              if (props.data.own_appointments[dataIndex].addOns[j].name) {
+                if (
+                  props.data.own_appointments[dataIndex].addOns[j].name ===
+                  addOnsSummaryCardComponentsArr[i].name
+                ) {
+                  componentsArr.push(
+                    addOnsSummaryCardComponentsArr[i].component
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return componentsArr.map((item, index) => (
+      <div className="my_selected_appointment_treatment_container" key={index}>
+        {item}
+      </div>
+    ));
+  };
+
+  const individualAppointmentRef = useRef(null);
 
   return (
     <div
@@ -88,11 +234,8 @@ const UpcomingAppointments = (props) => {
               <div
                 key={i}
                 className="my_individual_appointment_container"
-                onClick={() =>
-                  appointmentToggled
-                    ? changeAppointmentToggled("")
-                    : changeAppointmentToggled(item.id ? item.id : "")
-                }
+                onClick={() => changeAppointmentToggled(item.id ? item.id : "")}
+                ref={individualAppointmentRef}
               >
                 <div className="my_appointment_date_square">
                   <p>
@@ -179,9 +322,9 @@ const UpcomingAppointments = (props) => {
                 />
                 <Transition
                   items={appointmentToggled}
-                  from={{ transform: "translateX(100%)" }}
+                  from={{ transform: "translateX(-100%)" }}
                   enter={{ transform: "translateX(0%)" }}
-                  leave={{ transform: "translateX(100%)" }}
+                  leave={{ transform: "translateX(-100%)" }}
                   config={{ duration: 200 }}
                 >
                   {(appointmentToggled) =>
@@ -190,58 +333,93 @@ const UpcomingAppointments = (props) => {
                       <div
                         className="my_individual_selected_appointment_container"
                         style={styleprops}
+                        ref={mySelectedAppointmentRef}
                       >
-                        <p className="selected_appointment_date_and_time_header">
-                          Appointment Date &amp; Time
-                        </p>
-                        <div className="selected_appointment_date_and_time_content_container">
-                          <p>
-                            {moment(item.date, "LL")
-                              .format("LLLL")
-                              .split(" ")
-                              .slice(
-                                0,
-                                moment(item.date, "LL")
-                                  .format("LLLL")
-                                  .split(" ").length - 2
-                              )
-                              .join(" ")}
-                          </p>
-                          <p>
-                            {item.startTime +
-                              " " +
-                              (Number(item.startTime.split(":")[0]) >= 12 ||
-                              Number(item.startTime.split(":")[0]) < 9
-                                ? "PM"
-                                : "AM")}{" "}
-                            -{" "}
-                            {item.endTime +
-                              " " +
-                              (Number(item.endTime.split(":")[0]) >= 12 ||
-                              Number(item.endTime.split(":")[0]) < 9
-                                ? "PM"
-                                : "AM")}{" "}
-                          </p>
-                          <p>
-                            (
-                            {item.duration >= 60
-                              ? Math.floor(item.duration / 60)
-                              : item.duration}{" "}
-                            {item.duration >= 60
-                              ? Math.floor(item.duration / 60) === 1
-                                ? "hour"
-                                : "hours"
-                              : null}
-                            {Number.isInteger(item.duration / 60) ? null : " "}
-                            {item.duration >= 60
-                              ? Number.isInteger(item.duration / 60)
+                        <div className="my_individual_selected_appointment_contents_container">
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_appointment_back_arrow_icon"
+                            onClick={() => changeAppointmentToggled("")}
+                          />
+                          <div className="selected_appointment_date_and_time_header">
+                            <p>Appointment Date &amp; Time</p>
+                          </div>
+                          <div className="selected_appointment_date_and_time_content_container">
+                            <p>
+                              {moment(item.date, "LL")
+                                .format("LLLL")
+                                .split(" ")
+                                .slice(
+                                  0,
+                                  moment(item.date, "LL")
+                                    .format("LLLL")
+                                    .split(" ").length - 2
+                                )
+                                .join(" ")}
+                            </p>
+                            <p>
+                              {item.startTime +
+                                " " +
+                                (Number(item.startTime.split(":")[0]) >= 12 ||
+                                Number(item.startTime.split(":")[0]) < 9
+                                  ? "PM"
+                                  : "AM")}{" "}
+                              -{" "}
+                              {item.endTime +
+                                " " +
+                                (Number(item.endTime.split(":")[0]) >= 12 ||
+                                Number(item.endTime.split(":")[0]) < 9
+                                  ? "PM"
+                                  : "AM")}{" "}
+                            </p>
+                            <p>
+                              (
+                              {item.duration >= 60
+                                ? Math.floor(item.duration / 60)
+                                : item.duration}{" "}
+                              {item.duration >= 60
+                                ? Math.floor(item.duration / 60) === 1
+                                  ? "hour"
+                                  : "hours"
+                                : null}
+                              {Number.isInteger(item.duration / 60)
                                 ? null
-                                : item.duration -
-                                  Math.floor(item.duration / 60) * 60 +
-                                  " minutes"
-                              : "minutes"}
-                            )
-                          </p>
+                                : " "}
+                              {item.duration >= 60
+                                ? Number.isInteger(item.duration / 60)
+                                  ? null
+                                  : item.duration -
+                                    Math.floor(item.duration / 60) * 60 +
+                                    " minutes"
+                                : "minutes"}
+                              )
+                            </p>
+                          </div>
+                          <div className="selected_appointment_treatments_header">
+                            <p>Treatment</p>
+                          </div>
+                          {renderSummaryCardTreatments(i)}
+                          {props.data ? (
+                            props.data.own_appointments ? (
+                              props.data.own_appointments[i].addOns.length ===
+                              0 ? null : (
+                                <>
+                                  <div className="selected_appointment_add_ons_header">
+                                    <p>
+                                      Add On
+                                      {props.data
+                                        ? props.data.own_appointments[i].addOns
+                                            .length > 1
+                                          ? "s"
+                                          : null
+                                        : null}
+                                    </p>
+                                  </div>
+                                  {renderSummaryCardAddOns(i)}
+                                </>
+                              )
+                            ) : null
+                          ) : null}
                         </div>
                       </div>
                     ))

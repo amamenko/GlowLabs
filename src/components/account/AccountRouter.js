@@ -15,7 +15,6 @@ import UpcomingAppointments from "./clientprofile/MyAppointments/Upcoming/Upcomi
 import PastAppointments from "./clientprofile/MyAppointments/Past/PastAppointments";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { getOwnAppointmentsQuery } from "../../graphql/queries/queries";
-import ConsentFormPDF from "./clientprofile/ConsentForm/ConsentFormPDF";
 
 const AccountRouter = (props) => {
   const [getOwnAppointments, { data, called }] = useLazyQuery(
