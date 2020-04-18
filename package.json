@@ -27,6 +27,7 @@
     "moment": "^2.24.0",
     "react": "16.8.6",
     "react-activation": "^0.3.5",
+    "react-add-to-calendar": "^0.1.5",
     "react-calendar": "^2.19.2",
     "react-canvas-draw": "^1.1.0",
     "react-dom": "16.8.6",

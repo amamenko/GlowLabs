@@ -107,23 +107,22 @@
 }
 
 .consent_form_last_updated_on_container {
-  width: 85%;
+  width: 100%;
   position: absolute;
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   top: 0;
   right: 0;
-  padding-top: 0.3rem;
-  padding-right: 0.3rem;
+  padding-top: 1.3rem;
 }
 
 .consent_form_last_updated_on_container p {
   display: flex;
   margin-left: 0.3rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   color: rgb(131, 131, 131);

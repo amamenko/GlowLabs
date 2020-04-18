@@ -6,6 +6,7 @@ import {
   faChevronLeft,
   faEllipsisH,
   faLongArrowAltLeft,
+  faCalendarPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
@@ -30,16 +31,17 @@ import DermarollingSummaryCard from "../../../../checkout/SummaryReviewCards/Add
 import NanoNeedlingSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
-import ACTION_BODY_SCROLL_RESET from "../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
-import ACTION_BODY_SCROLL_ALLOW from "../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import {
   disableBodyScroll,
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
+import AddToCalendar from "react-add-to-calendar";
+import "react-add-to-calendar/dist/react-add-to-calendar.css";
 
 const UpcomingAppointments = (props) => {
-  const dispatch = useDispatch();
+  const individualAppointmentRef = useRef(null);
+  const selectedAppointmentBackRef = useRef(null);
   const location = useLocation();
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
@@ -52,14 +54,12 @@ const UpcomingAppointments = (props) => {
   );
   const [appointmentToggled, changeAppointmentToggled] = useState("");
 
-  const mySelectedAppointmentRef = useRef(null);
-
   useEffect(() => {
     const checkModalRef = setInterval(() => {
       let currentRef;
 
-      if (mySelectedAppointmentRef) {
-        currentRef = mySelectedAppointmentRef.current;
+      if (selectedAppointmentBackRef) {
+        currentRef = selectedAppointmentBackRef.current;
       }
 
       if (currentRef) {
@@ -184,7 +184,43 @@ const UpcomingAppointments = (props) => {
     ));
   };
 
-  const individualAppointmentRef = useRef(null);
+  // Allows click only if selected appointment modal is not active
+
+  const handleAppointmentToggled = (e, item) => {
+    if (e.currentTarget && individualAppointmentRef) {
+      if (individualAppointmentRef.current) {
+        if (
+          individualAppointmentRef.current.className ===
+          e.currentTarget.className
+        ) {
+          if (selectedAppointmentBackRef) {
+            if (!selectedAppointmentBackRef.current) {
+              if (item) {
+                if (item.id) {
+                  changeAppointmentToggled(item.id);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  // Function for back arrow click to reset selected toggled appointment
+
+  const handleAppointmentUntoggled = (e) => {
+    if (e.currentTarget && selectedAppointmentBackRef) {
+      if (selectedAppointmentBackRef.current) {
+        if (
+          selectedAppointmentBackRef.current.className ===
+          e.currentTarget.className
+        ) {
+          changeAppointmentToggled("");
+        }
+      }
+    }
+  };
 
   return (
     <div
@@ -234,7 +270,7 @@ const UpcomingAppointments = (props) => {
               <div
                 key={i}
                 className="my_individual_appointment_container"
-                onClick={() => changeAppointmentToggled(item.id ? item.id : "")}
+                onClick={(e) => handleAppointmentToggled(e, item)}
                 ref={individualAppointmentRef}
               >
                 <div className="my_appointment_date_square">
@@ -333,67 +369,145 @@ const UpcomingAppointments = (props) => {
                       <div
                         className="my_individual_selected_appointment_container"
                         style={styleprops}
-                        ref={mySelectedAppointmentRef}
                       >
                         <div className="my_individual_selected_appointment_contents_container">
-                          <FontAwesomeIcon
-                            icon={faLongArrowAltLeft}
-                            className="my_individual_selected_appointment_back_arrow_icon"
-                            onClick={() => changeAppointmentToggled("")}
-                          />
+                          <div
+                            className="my_individual_selected_appointment_back_container"
+                            ref={selectedAppointmentBackRef}
+                            onClick={(e) => handleAppointmentUntoggled(e)}
+                          >
+                            <FontAwesomeIcon
+                              icon={faLongArrowAltLeft}
+                              className="my_individual_selected_appointment_back_arrow_icon"
+                            />
+                          </div>
                           <div className="selected_appointment_date_and_time_header">
                             <p>Appointment Date &amp; Time</p>
                           </div>
                           <div className="selected_appointment_date_and_time_content_container">
-                            <p>
-                              {moment(item.date, "LL")
-                                .format("LLLL")
-                                .split(" ")
-                                .slice(
-                                  0,
-                                  moment(item.date, "LL")
-                                    .format("LLLL")
-                                    .split(" ").length - 2
-                                )
-                                .join(" ")}
-                            </p>
-                            <p>
-                              {item.startTime +
-                                " " +
-                                (Number(item.startTime.split(":")[0]) >= 12 ||
-                                Number(item.startTime.split(":")[0]) < 9
-                                  ? "PM"
-                                  : "AM")}{" "}
-                              -{" "}
-                              {item.endTime +
-                                " " +
-                                (Number(item.endTime.split(":")[0]) >= 12 ||
-                                Number(item.endTime.split(":")[0]) < 9
-                                  ? "PM"
-                                  : "AM")}{" "}
-                            </p>
-                            <p>
-                              (
-                              {item.duration >= 60
-                                ? Math.floor(item.duration / 60)
-                                : item.duration}{" "}
-                              {item.duration >= 60
-                                ? Math.floor(item.duration / 60) === 1
-                                  ? "hour"
-                                  : "hours"
-                                : null}
-                              {Number.isInteger(item.duration / 60)
-                                ? null
-                                : " "}
-                              {item.duration >= 60
-                                ? Number.isInteger(item.duration / 60)
+                            <div className="selected_appointment_date_and_time_content">
+                              <p>
+                                {moment(item.date, "LL")
+                                  .format("LLLL")
+                                  .split(" ")
+                                  .slice(
+                                    0,
+                                    moment(item.date, "LL")
+                                      .format("LLLL")
+                                      .split(" ").length - 2
+                                  )
+                                  .join(" ")}
+                              </p>
+                              <p>
+                                {item.startTime +
+                                  " " +
+                                  (Number(item.startTime.split(":")[0]) >= 12 ||
+                                  Number(item.startTime.split(":")[0]) < 9
+                                    ? "PM"
+                                    : "AM")}{" "}
+                                -{" "}
+                                {item.endTime +
+                                  " " +
+                                  (Number(item.endTime.split(":")[0]) >= 12 ||
+                                  Number(item.endTime.split(":")[0]) < 9
+                                    ? "PM"
+                                    : "AM")}{" "}
+                              </p>
+                              <p>
+                                (
+                                {item.duration >= 60
+                                  ? Math.floor(item.duration / 60)
+                                  : item.duration}{" "}
+                                {item.duration >= 60
+                                  ? Math.floor(item.duration / 60) === 1
+                                    ? "hour"
+                                    : "hours"
+                                  : null}
+                                {Number.isInteger(item.duration / 60)
                                   ? null
-                                  : item.duration -
-                                    Math.floor(item.duration / 60) * 60 +
-                                    " minutes"
-                                : "minutes"}
-                              )
-                            </p>
+                                  : " "}
+                                {item.duration >= 60
+                                  ? Number.isInteger(item.duration / 60)
+                                    ? null
+                                    : item.duration -
+                                      Math.floor(item.duration / 60) * 60 +
+                                      " minutes"
+                                  : "minutes"}
+                                )
+                              </p>
+                            </div>
+                            <div className="add_to_calendar_button_container">
+                              <AddToCalendar
+                                buttonTemplate={{ "calendar-plus-o": "left" }}
+                                buttonLabel="Add to Calendar"
+                                event={{
+                                  title: "GlowLabs Facial",
+                                  description:
+                                    (item.treatments[0].name
+                                      ? item.treatments[0].name ===
+                                        "ChemicalPeel"
+                                        ? "Chemical Peel"
+                                        : item.treatments[0].name
+                                      : "") +
+                                    " Facial" +
+                                    (item.addOns[0]
+                                      ? item.addOns[0].name
+                                        ? ", " +
+                                          item.addOns
+                                            .map((x) =>
+                                              x.name === "ExtraExtractions"
+                                                ? "Extra Extractions Add On"
+                                                : x.name + " Add On"
+                                            )
+                                            .join(", ")
+                                        : ""
+                                      : ""),
+                                  location: "1506 Broadway, Hewlett, NY 11557",
+                                  startTime: moment(
+                                    moment(item.date, "LL")
+                                      .format("LLLL")
+                                      .split(" ")
+                                      .slice(
+                                        0,
+                                        moment(item.date, "LL")
+                                          .format("LLLL")
+                                          .split(" ").length - 2
+                                      )
+                                      .join(" ") +
+                                      " " +
+                                      item.startTime +
+                                      " " +
+                                      (Number(item.startTime.split(":")[0]) >=
+                                        12 ||
+                                      Number(item.startTime.split(":")[0]) < 9
+                                        ? "PM"
+                                        : "AM"),
+                                    "LLLL"
+                                  ).format(),
+                                  endTime: moment(
+                                    moment(item.date, "LL")
+                                      .format("LLLL")
+                                      .split(" ")
+                                      .slice(
+                                        0,
+                                        moment(item.date, "LL")
+                                          .format("LLLL")
+                                          .split(" ").length - 2
+                                      )
+                                      .join(" ") +
+                                      " " +
+                                      item.endTime +
+                                      " " +
+                                      (Number(item.endTime.split(":")[0]) >=
+                                        12 ||
+                                      Number(item.endTime.split(":")[0]) < 9
+                                        ? "PM"
+                                        : "AM"),
+                                    "LLLL"
+                                  ).format(),
+                                }}
+                              />
+                            </div>
                           </div>
                           <div className="selected_appointment_treatments_header">
                             <p>Treatment</p>
@@ -420,6 +534,18 @@ const UpcomingAppointments = (props) => {
                               )
                             ) : null
                           ) : null}
+                          <div className="selected_appointment_total_header">
+                            <p>Total</p>
+                            <p>${item.price}</p>
+                          </div>
+                          <div className="selected_appointments_bottom_buttons_container">
+                            <div className="cancel_appointment_button">
+                              <p>Cancel Appointment</p>
+                            </div>
+                            <div className="consent_form_previous_page_button">
+                              <p>Back to Appointments</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))
