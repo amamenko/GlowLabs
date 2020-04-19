@@ -14,15 +14,25 @@ import FacebookCompleteRegistration from "./login/FacebookCompleteRegistration/F
 import UpcomingAppointments from "./clientprofile/MyAppointments/Upcoming/UpcomingAppointments";
 import PastAppointments from "./clientprofile/MyAppointments/Past/PastAppointments";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { getOwnAppointmentsQuery } from "../../graphql/queries/queries";
+import {
+  getOwnAppointmentsQuery,
+  getOwnPastAppointmentsQuery,
+} from "../../graphql/queries/queries";
 
 const AccountRouter = (props) => {
-  const [getOwnAppointments, { data, called }] = useLazyQuery(
+  const [getOwnAppointments, { data, called, refetch }] = useLazyQuery(
     getOwnAppointmentsQuery,
     {
       fetchPolicy: "no-cache",
     }
   );
+
+  const [
+    getOwnPastAppointments,
+    { data: pastAppointmentsData, called: pastAppointmentsCalled },
+  ] = useLazyQuery(getOwnPastAppointmentsQuery, {
+    fetchPolicy: "no-cache",
+  });
 
   return (
     <Switch>
@@ -39,7 +49,10 @@ const AccountRouter = (props) => {
         render={() => (
           <ClientProfile
             called={called}
+            refetch={refetch}
+            pastAppointmentsCalled={pastAppointmentsCalled}
             getOwnAppointments={getOwnAppointments}
+            getOwnPastAppointments={getOwnPastAppointments}
             getClientData={props.getClientData}
           />
         )}
@@ -47,12 +60,18 @@ const AccountRouter = (props) => {
       <Route
         exact
         path={props.path + "/clientprofile/upcomingappointments"}
-        render={() => <UpcomingAppointments data={data ? data : null} />}
+        render={() => (
+          <UpcomingAppointments data={data ? data : null} refetch={refetch} />
+        )}
       />
       <Route
         exact
         path={props.path + "/clientprofile/pastappointments"}
-        component={PastAppointments}
+        render={() => (
+          <PastAppointments
+            data={pastAppointmentsData ? pastAppointmentsData : null}
+          />
+        )}
       />
       <Route
         exact

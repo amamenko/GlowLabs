@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import "../MyAppointments.css";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +6,8 @@ import {
   faChevronLeft,
   faEllipsisH,
   faLongArrowAltLeft,
-  faCalendarPlus,
+  faTimes,
+  faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
@@ -38,10 +39,18 @@ import {
 } from "body-scroll-lock";
 import AddToCalendar from "react-add-to-calendar";
 import "react-add-to-calendar/dist/react-add-to-calendar.css";
+import { Modal } from "reactstrap";
+import { BounceLoader } from "react-spinners";
+import { css } from "emotion";
+import { useMutation } from "@apollo/react-hooks";
+import { deleteAppointmentMutation } from "../../../../../graphql/queries/queries";
 
 const UpcomingAppointments = (props) => {
+  const dispatch = useDispatch();
   const individualAppointmentRef = useRef(null);
   const selectedAppointmentBackRef = useRef(null);
+  const backToAppointmentsRef = useRef(null);
+
   const location = useLocation();
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
@@ -53,6 +62,48 @@ const UpcomingAppointments = (props) => {
     (state) => state.logoutClicked.log_out_clicked
   );
   const [appointmentToggled, changeAppointmentToggled] = useState("");
+  const [cancelAppointmentClicked, changeCancelAppointmentClicked] = useState(
+    false
+  );
+  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+  const [deleteAppointment, { loading, data }] = useMutation(
+    deleteAppointmentMutation
+  );
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
+
+  const handleCancelAppointment = (item) => {
+    deleteAppointment({
+      variables: { _id: item.id },
+    });
+  };
+
+  const resetStatesAfterLoading = useCallback(() => {
+    props.refetch();
+    changeLoadingSpinnerActive(false);
+    changeCancelAppointmentClicked(false);
+    changeAppointmentToggled(false);
+  }, [props]);
+
+  useEffect(() => {
+    if (data) {
+      const loadingFunction = setTimeout(() => resetStatesAfterLoading(), 2000);
+      return () => {
+        clearTimeout(loadingFunction);
+      };
+    }
+  }, [data, dispatch, resetStatesAfterLoading]);
+
+  useEffect(() => {
+    if (loading) {
+      changeLoadingSpinnerActive(true);
+    }
+  }, [loading, data]);
 
   useEffect(() => {
     const checkModalRef = setInterval(() => {
@@ -210,11 +261,15 @@ const UpcomingAppointments = (props) => {
   // Function for back arrow click to reset selected toggled appointment
 
   const handleAppointmentUntoggled = (e) => {
-    if (e.currentTarget && selectedAppointmentBackRef) {
-      if (selectedAppointmentBackRef.current) {
+    if (
+      (e.currentTarget && selectedAppointmentBackRef) ||
+      (e.currentTarget && backToAppointmentsRef)
+    ) {
+      if (selectedAppointmentBackRef.current || backToAppointmentsRef.current) {
         if (
           selectedAppointmentBackRef.current.className ===
-          e.currentTarget.className
+            e.currentTarget.className ||
+          backToAppointmentsRef.current.className === e.currentTarget.className
         ) {
           changeAppointmentToggled("");
         }
@@ -265,14 +320,94 @@ const UpcomingAppointments = (props) => {
         </Link>
       </div>
       <div className="my_appointments_content_container">
-        {props.data
-          ? props.data.own_appointments.map((item, i) => (
+        {props.data ? (
+          props.data.own_appointments.length > 0 ? (
+            props.data.own_appointments.map((item, i) => (
               <div
                 key={i}
                 className="my_individual_appointment_container"
                 onClick={(e) => handleAppointmentToggled(e, item)}
                 ref={individualAppointmentRef}
               >
+                <Modal
+                  isOpen={cancelAppointmentClicked}
+                  className="cancel_appointment_modal"
+                  style={{
+                    content: {
+                      position: "fixed",
+                      zIndex: 10000,
+                      opacity: 0.99,
+                      height: "100%",
+                      backdropFilter: "blur(5px)",
+                      WebkitBackdropFilter: "blur(5px)",
+                      paddingBottom: "10%",
+                      borderRadius: "none",
+                      width: "100vw",
+                      top: "0",
+                      left: "0",
+                      right: "0",
+                      bottom: "0",
+                      border: "none",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(0, 0, 0, 0.5)",
+                    },
+                  }}
+                >
+                  <BounceLoader
+                    size={100}
+                    css={override}
+                    color={"rgb(44, 44, 52)"}
+                    loading={loadingSpinnerActive}
+                  />
+                  <Transition
+                    items={cancelAppointmentClicked && !loadingSpinnerActive}
+                    from={{ transform: "translate3d(0, -65%, 0)" }}
+                    enter={{ transform: "translate3d(0, 0, 0)" }}
+                    leave={{ display: "none" }}
+                  >
+                    {(cancelAppointmentClicked) =>
+                      cancelAppointmentClicked &&
+                      ((styleprops) => (
+                        <div
+                          className="cancel_appointment_modal_content_container"
+                          style={styleprops}
+                        >
+                          <div className="log_out_modal_contents">
+                            <FontAwesomeIcon
+                              className="modal_x"
+                              icon={faTimes}
+                              onClick={() =>
+                                changeCancelAppointmentClicked(false)
+                              }
+                            />
+                            <h2>
+                              Are you sure you want to cancel your appointment?
+                            </h2>
+                            <span className="logout_buttons_container">
+                              <div
+                                className="logout_button"
+                                onClick={() => handleCancelAppointment(item)}
+                              >
+                                <p>YES, CANCEL</p>
+                              </div>
+                              <div
+                                className="cancel_logout_button"
+                                onClick={() =>
+                                  changeCancelAppointmentClicked(false)
+                                }
+                              >
+                                <p>NO, GO BACK</p>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </Transition>
+                </Modal>
                 <div className="my_appointment_date_square">
                   <p>
                     {item.date
@@ -539,10 +674,19 @@ const UpcomingAppointments = (props) => {
                             <p>${item.price}</p>
                           </div>
                           <div className="selected_appointments_bottom_buttons_container">
-                            <div className="cancel_appointment_button">
+                            <div
+                              className="cancel_appointment_button"
+                              onClick={() =>
+                                changeCancelAppointmentClicked(true)
+                              }
+                            >
                               <p>Cancel Appointment</p>
                             </div>
-                            <div className="consent_form_previous_page_button">
+                            <div
+                              className="back_to_all_appointments_button"
+                              ref={backToAppointmentsRef}
+                              onClick={(e) => handleAppointmentUntoggled(e)}
+                            >
                               <p>Back to Appointments</p>
                             </div>
                           </div>
@@ -553,7 +697,20 @@ const UpcomingAppointments = (props) => {
                 </Transition>
               </div>
             ))
-          : null}
+          ) : (
+            <div className="my_upcoming_appointments_empty_container">
+              <FontAwesomeIcon
+                icon={faCalendarAlt}
+                className="my_upcoming_appointments_empty_calendar_icon"
+              />
+              <h2>No upcoming appointments</h2>
+              <p>
+                Any future appointment bookings will be added here, so check
+                back soon!
+              </p>
+            </div>
+          )
+        ) : null}
       </div>
     </div>
   );

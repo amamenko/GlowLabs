@@ -62,6 +62,12 @@ const ClientProfile = (props) => {
     }
   }, [props]);
 
+  useMemo(() => {
+    if (!props.pastAppointmentsCalled) {
+      props.getOwnPastAppointments();
+    }
+  }, [props]);
+
   useEffect(() => {
     if (!splashScreenComplete) {
       dispatch(ACTION_SPLASH_SCREEN_COMPLETE());

@@ -90,6 +90,37 @@ const getOwnAppointmentsQuery = gql`
   }
 `;
 
+const getOwnPastAppointmentsQuery = gql`
+  {
+    own_past_appointments {
+      id
+      date
+      startTime
+      endTime
+      duration
+      price
+      treatments {
+        name
+        duration
+        price
+      }
+      addOns {
+        name
+        duration
+        price
+      }
+      client {
+        _id
+        firstName
+        lastName
+        email
+        phoneNumber
+      }
+      notes
+    }
+  }
+`;
+
 const getAppointmentQuery = gql`
   query getAppointmentQuery(
     $date: String
@@ -274,6 +305,14 @@ const addAppointmentMutation = gql`
   }
 `;
 
+const deleteAppointmentMutation = gql`
+  mutation($_id: ID) {
+    deleteAppointment(_id: $_id) {
+      _id
+    }
+  }
+`;
+
 const addClientMutation = gql`
   mutation(
     $firstName: String!
@@ -445,9 +484,11 @@ export {
   getClientsQuery,
   getClientQuery,
   getOwnAppointmentsQuery,
+  getOwnPastAppointmentsQuery,
   getAllAppointmentsQuery,
   getAppointmentQuery,
   addAppointmentMutation,
+  deleteAppointmentMutation,
   addClientMutation,
   updateClientInformationMutation,
   updateConsentFormMutation,
