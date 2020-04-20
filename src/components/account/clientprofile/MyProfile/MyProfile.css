@@ -1,0 +1,38 @@
+.my_profile_container {
+  height: 100%;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 20vh;
+}
+
+.my_profile_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  border-bottom: solid 1px rgb(44, 44, 52);
+  position: fixed;
+  background: rgb(255, 255, 255);
+}
+
+.my_profile_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.my_profile_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}

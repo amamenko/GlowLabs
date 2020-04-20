@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
 import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
 import ACTION_SELECTED_TIME from "../../../actions/SelectedTime/ACTION_SELECTED_TIME";
@@ -646,22 +647,81 @@ const TimePreference = () => {
                     background:
                       item === selectedTime
                         ? "rgb(44, 44, 52)"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)",
                     border:
                       item === selectedTime
                         ? "2px solid transparent"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "rgb(201, 201, 201)"
                         : "2px solid rgb(0, 0, 0)",
-                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto",
+                    pointerEvents:
+                      bookedTimes.includes(item) ||
+                      moment(
+                        dayOfTheWeek +
+                          ", " +
+                          reformattedDay +
+                          item +
+                          " " +
+                          Number(item.split(":")[0]) >=
+                          12 || Number(item.split(":")[0]) < 9
+                          ? "PM"
+                          : "AM",
+                        "LLLL"
+                      )
+                        .subtract(12, "hours")
+                        .utc() <= moment().utc()
+                        ? "none"
+                        : "auto",
                   }}
                 >
                   <p>{item}</p>
@@ -693,22 +753,81 @@ const TimePreference = () => {
                     background:
                       item === selectedTime
                         ? "rgb(44, 44, 52)"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)",
                     border:
                       item === selectedTime
                         ? "2px solid transparent"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "rgb(201, 201, 201)"
                         : "2px solid rgb(0, 0, 0)",
-                    pointerEvents: bookedTimes.includes(item) ? "none" : "auto",
+                    pointerEvents:
+                      bookedTimes.includes(item) ||
+                      moment(
+                        dayOfTheWeek +
+                          ", " +
+                          reformattedDay +
+                          item +
+                          " " +
+                          Number(item.split(":")[0]) >=
+                          12 || Number(item.split(":")[0]) < 9
+                          ? "PM"
+                          : "AM",
+                        "LLLL"
+                      )
+                        .subtract(12, "hours")
+                        .utc() <= moment().utc()
+                        ? "none"
+                        : "auto",
                   }}
                 >
                   <p>{item}</p>
@@ -747,28 +866,98 @@ const TimePreference = () => {
                       dayOfTheWeek === "Friday"
                         ? parseInt(item[0], 10) > 3
                           ? "none"
-                          : bookedTimes.includes(item)
+                          : bookedTimes.includes(item) ||
+                            moment(
+                              dayOfTheWeek +
+                                ", " +
+                                reformattedDay +
+                                item +
+                                " " +
+                                Number(item.split(":")[0]) >=
+                                12 || Number(item.split(":")[0]) < 9
+                                ? "PM"
+                                : "AM",
+                              "LLLL"
+                            )
+                              .subtract(12, "hours")
+                              .utc() <= moment().utc()
                           ? "none"
                           : "auto"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "none"
                         : "auto",
                     background:
                       item === selectedTime
                         ? "rgb(44, 44, 52)"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "#f0f0f0"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
                         ? "rgb(255, 255, 255)"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)",
                     border:
                       item === selectedTime
                         ? "2px solid transparent"
-                        : bookedTimes.includes(item)
+                        : bookedTimes.includes(item) ||
+                          moment(
+                            dayOfTheWeek +
+                              ", " +
+                              reformattedDay +
+                              item +
+                              " " +
+                              Number(item.split(":")[0]) >=
+                              12 || Number(item.split(":")[0]) < 9
+                              ? "PM"
+                              : "AM",
+                            "LLLL"
+                          )
+                            .subtract(12, "hours")
+                            .utc() <= moment().utc()
                         ? "rgb(201, 201, 201)"
                         : "2px solid rgb(0, 0, 0)",
                   }}
@@ -810,28 +999,98 @@ const TimePreference = () => {
                         dayOfTheWeek === "Sunday"
                           ? parseInt(item[0], 10) > 5
                             ? "none"
-                            : bookedTimes.includes(item)
+                            : bookedTimes.includes(item) ||
+                              moment(
+                                dayOfTheWeek +
+                                  ", " +
+                                  reformattedDay +
+                                  item +
+                                  " " +
+                                  Number(item.split(":")[0]) >=
+                                  12 || Number(item.split(":")[0]) < 9
+                                  ? "PM"
+                                  : "AM",
+                                "LLLL"
+                              )
+                                .subtract(12, "hours")
+                                .utc() <= moment().utc()
                             ? "none"
                             : "auto"
-                          : bookedTimes.includes(item)
+                          : bookedTimes.includes(item) ||
+                            moment(
+                              dayOfTheWeek +
+                                ", " +
+                                reformattedDay +
+                                item +
+                                " " +
+                                Number(item.split(":")[0]) >=
+                                12 || Number(item.split(":")[0]) < 9
+                                ? "PM"
+                                : "AM",
+                              "LLLL"
+                            )
+                              .subtract(12, "hours")
+                              .utc() <= moment().utc()
                           ? "none"
                           : "auto",
                       background:
                         item === selectedTime
                           ? "rgb(44, 44, 52)"
-                          : bookedTimes.includes(item)
+                          : bookedTimes.includes(item) ||
+                            moment(
+                              dayOfTheWeek +
+                                ", " +
+                                reformattedDay +
+                                item +
+                                " " +
+                                Number(item.split(":")[0]) >=
+                                12 || Number(item.split(":")[0]) < 9
+                                ? "PM"
+                                : "AM",
+                              "LLLL"
+                            )
+                              .subtract(12, "hours")
+                              .utc() <= moment().utc()
                           ? "#f0f0f0"
                           : "rgb(255, 255, 255)",
                       color:
                         item === selectedTime
                           ? "rgb(255, 255, 255)"
-                          : bookedTimes.includes(item)
+                          : bookedTimes.includes(item) ||
+                            moment(
+                              dayOfTheWeek +
+                                ", " +
+                                reformattedDay +
+                                item +
+                                " " +
+                                Number(item.split(":")[0]) >=
+                                12 || Number(item.split(":")[0]) < 9
+                                ? "PM"
+                                : "AM",
+                              "LLLL"
+                            )
+                              .subtract(12, "hours")
+                              .utc() <= moment().utc()
                           ? "rgb(201, 201, 201)"
                           : "rgb(0, 0, 0)",
                       border:
                         item === selectedTime
                           ? "2px solid transparent"
-                          : bookedTimes.includes(item)
+                          : bookedTimes.includes(item) ||
+                            moment(
+                              dayOfTheWeek +
+                                ", " +
+                                reformattedDay +
+                                item +
+                                " " +
+                                Number(item.split(":")[0]) >=
+                                12 || Number(item.split(":")[0]) < 9
+                                ? "PM"
+                                : "AM",
+                              "LLLL"
+                            )
+                              .subtract(12, "hours")
+                              .utc() <= moment().utc()
                           ? "rgb(201, 201, 201)"
                           : "2px solid rgb(0, 0, 0)",
                     }}
@@ -846,14 +1105,7 @@ const TimePreference = () => {
         <div
           className="time_preference_bottom_buttons_container"
           style={{
-            paddingTop:
-              dayOfTheWeek === "Sunday"
-                ? eveningCollapseIsOpen
-                  ? continueToCheckoutButton
-                    ? "5vh"
-                    : "-11vh"
-                  : "5vh"
-                : "5vh",
+            paddingTop: "5vh",
             marginTop:
               dayOfTheWeek === "Sunday"
                 ? eveningCollapseIsOpen

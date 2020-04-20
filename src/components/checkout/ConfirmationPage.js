@@ -312,9 +312,7 @@ const ConfirmationPage = () => {
       }, 3000);
 
       return () => {
-        if (finalBookingModalActive) {
-          clearTimeout(bookingComplete);
-        }
+        clearTimeout(bookingComplete);
       };
     }
   }, [appLoading, dispatch, loadingSpinnerActive, finalBookingModalActive]);

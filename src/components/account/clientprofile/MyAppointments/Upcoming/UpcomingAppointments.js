@@ -330,7 +330,9 @@ const UpcomingAppointments = (props) => {
                 ref={individualAppointmentRef}
               >
                 <Modal
-                  isOpen={cancelAppointmentClicked}
+                  isOpen={
+                    cancelAppointmentClicked && appointmentToggled === item.id
+                  }
                   className="cancel_appointment_modal"
                   style={{
                     content: {

@@ -247,6 +247,7 @@
   font-size: 2rem;
   z-index: 99999;
   opacity: 0.99;
+  color: rgb(0, 129, 177);
 }
 
 .selected_appointment_date_and_time_content_container {

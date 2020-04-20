@@ -273,7 +273,7 @@ const ClientProfile = (props) => {
         <div className="profile_my_profile_box_container">
           <Link
             className="profile_box_container_link"
-            to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
+            to={`/account/clientprofile/profile`}
           >
             <FontAwesomeIcon icon={faUser} className="profile_box_icon" />
             <h2>MY PROFILE</h2>

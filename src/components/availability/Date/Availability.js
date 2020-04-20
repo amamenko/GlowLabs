@@ -23,7 +23,7 @@ import ACTION_APPOINTMENT_NOTES_RESET from "../../../actions/GuestCheckoutForm/A
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "react-calendar";
 import "./Availability.css";
@@ -33,43 +33,43 @@ const Availability = () => {
   const dispatch = useDispatch();
   const [numberOfWeeks, changeNumberOfWeeks] = useState(null);
 
-  const selectedDay = useSelector(state => state.selectedDay.selectedDay);
+  const selectedDay = useSelector((state) => state.selectedDay.selectedDay);
   const selectTimeActive = useSelector(
-    state => state.selectTimeActive.selectTimeActive
+    (state) => state.selectTimeActive.selectTimeActive
   );
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
   const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
+    (state) => state.reformattedDay.reformattedDay
   );
   const reformattedDayClone = useSelector(
-    state => state.reformattedDayClone.reformattedDayClone
+    (state) => state.reformattedDayClone.reformattedDayClone
   );
   const continueToCheckoutButton = useSelector(
-    state => state.continueToCheckoutButton.continueButtonActive
+    (state) => state.continueToCheckoutButton.continueButtonActive
   );
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
 
   // Checkout Form States
-  const firstName = useSelector(state => state.firstName.first_name);
-  const lastName = useSelector(state => state.lastName.last_name);
+  const firstName = useSelector((state) => state.firstName.first_name);
+  const lastName = useSelector((state) => state.lastName.last_name);
   const appointmentNotes = useSelector(
-    state => state.appointmentNotes.appointment_notes
+    (state) => state.appointmentNotes.appointment_notes
   );
 
   // Email States
-  const email = useSelector(state => state.email.email);
-  const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
+  const email = useSelector((state) => state.email.email);
+  const emailIsValid = useSelector((state) => state.emailIsValid.email_valid);
   const emailIsInvalid = useSelector(
-    state => state.emailIsInvalid.email_invalid
+    (state) => state.emailIsInvalid.email_invalid
   );
 
   // Phone Number States
-  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
-  const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
+  const phoneNumber = useSelector((state) => state.phoneNumber.phone_number);
+  const phoneIsValid = useSelector((state) => state.phoneIsValid.phone_valid);
   const phoneIsInvalid = useSelector(
-    state => state.phoneIsInvalid.phone_invalid
+    (state) => state.phoneIsInvalid.phone_invalid
   );
 
   const redirectToHome = () => {
@@ -90,7 +90,7 @@ const Availability = () => {
     { Sep: "September" },
     { Oct: "October" },
     { Nov: "November" },
-    { Dec: "December" }
+    { Dec: "December" },
   ];
 
   let reformattedDate = "";
@@ -213,7 +213,7 @@ const Availability = () => {
   }, [numberOfWeeks, weekNumberValues]);
 
   // Selects new date while preventing two markers from being active at the same time
-  const handleValueClick = day => {
+  const handleValueClick = (day) => {
     if (reformattedDay === reformattedDayClone) {
       dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
       dispatch(ACTION_ALL_COLLAPSE_RESET());
@@ -460,7 +460,7 @@ const Availability = () => {
           />
         </Link>
         <h1>AVAILABILITY</h1>
-        <Link to={location => `${location.pathname}/timepreference`}>
+        <Link to={(location) => `${location.pathname}/timepreference`}>
           <FontAwesomeIcon
             className="availability_forward_arrow"
             style={{ display: selectTimeActive ? "block" : "none" }}
@@ -498,13 +498,13 @@ const Availability = () => {
         tileDisabled={({ date }) =>
           (date.getDay() === 1) | (date.getDay() === 6)
         }
-        onClickDay={value => handleValueClick(value)}
+        onClickDay={(value) => handleValueClick(value)}
       />
       <Link
-        to={location => `${location.pathname}/timepreference`}
+        to={(location) => `${location.pathname}/timepreference`}
         style={{
           display: "block",
-          pointerEvents: selectedDay !== "" ? "auto" : "none"
+          pointerEvents: selectedDay !== "" ? "auto" : "none",
         }}
         onClick={handleSelectTimeButtonClick}
       >
@@ -516,7 +516,7 @@ const Availability = () => {
             background: selectedDay ? "rgb(44, 44, 52)" : "#f0f0f0",
             color: selectedDay ? "rgb(255, 255, 255)" : "rgb(201, 201, 201)",
             pointerEvents: selectedDay !== "" ? "auto" : "none",
-            transition: "background 0.5s ease, color 0.5s ease"
+            transition: "background 0.5s ease, color 0.5s ease",
           }}
         >
           <p>Select a Time</p>

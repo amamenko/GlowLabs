@@ -18,6 +18,7 @@ import {
   getOwnAppointmentsQuery,
   getOwnPastAppointmentsQuery,
 } from "../../graphql/queries/queries";
+import MyProfile from "./clientprofile/MyProfile/MyProfile";
 
 const AccountRouter = (props) => {
   const [getOwnAppointments, { data, called, refetch }] = useLazyQuery(
@@ -56,6 +57,11 @@ const AccountRouter = (props) => {
             getClientData={props.getClientData}
           />
         )}
+      />
+      <Route
+        exact
+        path={props.path + "/clientprofile/profile"}
+        component={MyProfile}
       />
       <Route
         exact
