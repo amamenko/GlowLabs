@@ -1,10 +1,10 @@
 .my_profile_container {
-  height: 100%;
+  height: 100vh;
   padding-top: 8vh;
   background: rgb(255, 255, 255);
   overflow-x: hidden;
   position: relative;
-  padding-bottom: 20vh;
+  margin-bottom: 15vh;
 }
 
 .my_profile_header {
@@ -18,8 +18,8 @@
   font-weight: 600;
   width: 100%;
   border-bottom: solid 1px rgb(44, 44, 52);
-  position: fixed;
   background: rgb(255, 255, 255);
+  position: relative;
 }
 
 .my_profile_header h1 {
@@ -29,10 +29,111 @@
 
 .my_profile_back_arrow {
   color: rgb(44, 44, 52);
+  z-index: 9999;
   position: absolute;
   left: 1.5rem;
   font-size: 1.5rem;
   margin: auto;
   top: 0;
   bottom: 0;
+}
+
+.profile_top_section {
+  height: 40vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(240, 240, 240);
+}
+
+.profile_client_avatar_container {
+  position: absolute;
+  top: 4vh;
+}
+
+.profile_client_avatar {
+  font-size: 4.5rem;
+  color: rgb(44, 44, 52);
+}
+
+.profile_contact_information_container {
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 0.5rem;
+}
+
+.profile_name_container,
+.profile_email_container,
+.profile_phone_number_container,
+.profile_membership_type_container {
+  width: 100%;
+  height: 25%;
+}
+
+.profile_name_container p:first-child,
+.profile_email_container p:first-child,
+.profile_phone_number_container p:first-child,
+.profile_membership_type_container p:first-child {
+  font-size: 0.7rem;
+  margin-bottom: 0.3rem;
+  color: rgb(133, 133, 133);
+  font-weight: 400;
+}
+
+.profile_name_container p:nth-child(2),
+.profile_email_container p:nth-child(2),
+.profile_phone_number_container p:nth-child(2),
+.profile_membership_type_container p:nth-child(2) {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.profile_bottom_buttons_container {
+  position: absolute;
+  width: 85%;
+  bottom: 3rem;
+  margin-left: 1.5rem;
+  font-size: 0.8rem;
+  top: 57%;
+}
+
+.proile_button_container {
+  width: 100%;
+  border-bottom: 2px solid rgb(211, 211, 211);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.proile_button_container h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  position: absolute;
+  left: 15%;
+}
+
+.profile_button_icon {
+  min-width: 10%;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  position: absolute;
+  left: 0;
+  color: rgba(0, 129, 177, 0.9);
+}
+
+.profile_button_expand {
+  position: absolute;
+  right: 0;
+  font-size: 1rem;
+  color: rgb(44, 44, 52);
 }

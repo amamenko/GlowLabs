@@ -61,7 +61,7 @@ const AccountRouter = (props) => {
       <Route
         exact
         path={props.path + "/clientprofile/profile"}
-        component={MyProfile}
+        render={() => <MyProfile getClientData={props.getClientData} />}
       />
       <Route
         exact
