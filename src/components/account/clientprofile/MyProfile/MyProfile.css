@@ -4,7 +4,7 @@
   background: rgb(255, 255, 255);
   overflow-x: hidden;
   position: relative;
-  margin-bottom: 15vh;
+  margin-bottom: 5vh;
 }
 
 .my_profile_header {
@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(230, 230, 230);
 }
 
 .profile_client_avatar_container {
@@ -82,7 +82,7 @@
 .profile_phone_number_container p:first-child,
 .profile_membership_type_container p:first-child {
   font-size: 0.7rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.1rem;
   color: rgb(133, 133, 133);
   font-weight: 400;
 }
@@ -101,13 +101,13 @@
   bottom: 3rem;
   margin-left: 1.5rem;
   font-size: 0.8rem;
-  top: 57%;
+  top: 56%;
 }
 
 .proile_button_container {
   width: 100%;
   border-bottom: 2px solid rgb(211, 211, 211);
-  padding: 2.5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Hamburger = props => {
+const Hamburger = (props) => {
   const responsiveLeft = () => {
     return props.navbarToggle
       ? props.currentScreenSize === ""
@@ -41,7 +41,7 @@ const Hamburger = props => {
             ? window.scrollY <= 5
               ? "flex-start"
               : "center"
-            : "center"
+            : "center",
       }}
     >
       <div
@@ -51,7 +51,19 @@ const Hamburger = props => {
           right: props.navbarToggle ? "auto" : "null",
           left: responsiveLeft(),
           marginLeft: responsiveMarginLeft(),
-          transform: props.navbarToggle ? "rotate(-225deg)" : "rotate(0)"
+          transform: props.navbarToggle ? "rotate(-225deg)" : "rotate(0)",
+          background:
+            props.currentScreenSize === ""
+              ? props.initialScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? "rgb(44, 44, 52)"
+                  : "rgb(239, 240, 243)"
+                : "rgb(239, 240, 243)"
+              : props.currentScreenSize >= 600
+              ? window.scrollY <= 1
+                ? "rgb(44, 44, 52)"
+                : "rgb(239, 240, 243)"
+              : "rgb(239, 240, 243)",
         }}
       />
       <div
@@ -61,7 +73,19 @@ const Hamburger = props => {
           right: props.navbarToggle ? "auto" : "null",
           left: responsiveLeft(),
           marginLeft: responsiveMarginLeft(),
-          transform: props.navbarToggle ? "rotate(45deg)" : "rotate(0)"
+          transform: props.navbarToggle ? "rotate(45deg)" : "rotate(0)",
+          background:
+            props.currentScreenSize === ""
+              ? props.initialScreenSize >= 600
+                ? window.scrollY <= 1
+                  ? "rgb(44, 44, 52)"
+                  : "rgb(239, 240, 243)"
+                : "rgb(239, 240, 243)"
+              : props.currentScreenSize >= 600
+              ? window.scrollY <= 1
+                ? "rgb(44, 44, 52)"
+                : "rgb(239, 240, 243)"
+              : "rgb(239, 240, 243)",
         }}
       />
     </div>

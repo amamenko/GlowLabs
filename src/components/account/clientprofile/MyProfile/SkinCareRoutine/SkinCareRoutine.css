@@ -1,0 +1,130 @@
+.skin_care_routine_container {
+  height: 100%;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 20vh;
+}
+
+.skin_care_routine_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  border-bottom: solid 1px rgb(44, 44, 52);
+  position: fixed;
+  background: rgb(255, 255, 255);
+}
+
+.skin_care_routine_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.skin_care_routine_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.skin_care_routine_sub_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  padding-top: 8vh;
+  width: 100%;
+  background: rgb(255, 255, 255);
+}
+
+.skin_care_routine_sub_header_container_link {
+  width: 50%;
+}
+
+.skin_care_routine_recommended_container_active {
+  border-bottom: 2px solid black;
+  width: 100%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_my_routine_container_not_active {
+  border-bottom: 2px solid rgb(181, 181, 181);
+  width: 50%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_recommended_container_active h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.skin_care_routine_my_routine_container_not_active h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(181, 181, 181);
+}
+
+.skin_care_routine_content_container {
+  padding-top: 14vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_evening_header,
+.skin_care_routine_morning_header {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.skin_care_routine_evening_items_container,
+.skin_care_routine_morning_items_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_evening_individual_item_container,
+.skin_care_routine_morning_individual_item_container {
+  height: 15vh;
+  width: 26%;
+  margin: 0.5rem;
+  background: rgba(211, 211, 211, 0.5);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.skin_care_routine_evening_individual_item_container h2,
+.skin_care_routine_morning_individual_item_container h2 {
+  padding: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}

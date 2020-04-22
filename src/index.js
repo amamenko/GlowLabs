@@ -128,9 +128,6 @@ const App = () => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
-  const consentFormPDF = useSelector(
-    (state) => state.consentFormPDF.consent_form_pdf_ready
-  );
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
@@ -140,12 +137,15 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  const { data: getClientData } = useQuery(getClientQuery, {
-    fetchPolicy: "no-cache",
-    variables: {
-      _id: dummyToken ? dummyToken.id : null,
-    },
-  });
+  const { data: getClientData, refetch: clientDataRefetch } = useQuery(
+    getClientQuery,
+    {
+      fetchPolicy: "no-cache",
+      variables: {
+        _id: dummyToken ? dummyToken.id : null,
+      },
+    }
+  );
 
   useMemo(() => {
     if (getClientData) {
@@ -733,6 +733,7 @@ const App = () => {
               initialScreenSize={initialScreenSize}
               currentScreenSize={currentScreenSize}
               getClientData={getClientData ? getClientData : null}
+              clientDataRefetch={clientDataRefetch}
             />
           )}
         />

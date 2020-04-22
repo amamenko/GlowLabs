@@ -19,6 +19,7 @@ import {
   getOwnPastAppointmentsQuery,
 } from "../../graphql/queries/queries";
 import MyProfile from "./clientprofile/MyProfile/MyProfile";
+import SkinCareRoutine from "./clientprofile/MyProfile/SkinCareRoutine/SkinCareRoutine";
 
 const AccountRouter = (props) => {
   const [getOwnAppointments, { data, called, refetch }] = useLazyQuery(
@@ -62,6 +63,11 @@ const AccountRouter = (props) => {
         exact
         path={props.path + "/clientprofile/profile"}
         render={() => <MyProfile getClientData={props.getClientData} />}
+      />
+      <Route
+        exact
+        path={props.path + "/clientprofile/profile/routine"}
+        render={() => <SkinCareRoutine getClientData={props.getClientData} />}
       />
       <Route
         exact
@@ -124,9 +130,13 @@ const AccountRouter = (props) => {
       <Route
         exact
         path={props.path + "/clientprofile/consentform/page7"}
-        component={ConsentFormPage7}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        render={() => (
+          <ConsentFormPage7
+            initialScreenSize={props.initialScreenSize}
+            currentScreenSize={props.currentScreenSize}
+            clientDataRefetch={props.clientDataRefetch}
+          />
+        )}
       />
     </Switch>
   );

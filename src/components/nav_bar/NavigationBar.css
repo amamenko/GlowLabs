@@ -15,7 +15,6 @@
     display: flex;
     height: 4px;
     width: 1.8rem;
-    background: rgb(239, 240, 243);
     transition: all 0.5s ease;
   }
 
@@ -53,11 +52,11 @@
 
   .nav_sign_in_button_small_screen {
     display: block;
-    position: fixed;
-    margin-right: 3.2rem;
+    position: absolute;
+    margin-right: 2.8rem;
     right: 0.5rem;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.7rem;
     border: 1px solid rgb(239, 240, 243);
     color: rgb(44, 44, 52);
     background: rgb(239, 240, 243);
@@ -199,6 +198,11 @@
 
   .cart_item_number_circle {
     top: 0.9rem;
+  }
+
+  .nav_sign_in_button_small_screen {
+    margin-right: 3.2rem;
+    font-size: 1rem;
   }
 }
 

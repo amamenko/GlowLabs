@@ -100,14 +100,16 @@ const MyProfile = (props) => {
         </div>
       </div>
       <div className="profile_bottom_buttons_container">
-        <div className="proile_button_container">
-          <FontAwesomeIcon className="profile_button_icon" icon={faSpa} />
-          <h2>Skin Care Routine</h2>
-          <FontAwesomeIcon
-            className="profile_button_expand"
-            icon={faChevronRight}
-          />
-        </div>
+        <Link to="/account/clientprofile/profile/routine">
+          <div className="proile_button_container">
+            <FontAwesomeIcon className="profile_button_icon" icon={faSpa} />
+            <h2>Skin Care Routine</h2>
+            <FontAwesomeIcon
+              className="profile_button_expand"
+              icon={faChevronRight}
+            />
+          </div>
+        </Link>
         <div className="proile_button_container">
           <FontAwesomeIcon className="profile_button_icon" icon={faPencilAlt} />
           <h2>Quizzes</h2>

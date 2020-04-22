@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import {
   disableBodyScroll,
   enableBodyScroll,
-  clearAllBodyScrollLocks
+  clearAllBodyScrollLocks,
 } from "body-scroll-lock";
 import { useSelector, useDispatch } from "react-redux";
 import { Spring, Transition } from "react-spring/renderprops";
@@ -28,32 +28,34 @@ import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTI
 import ACTION_TOUCH_SCALING_ACTIVE from "../../actions/FingerTouchScaling/ACTION_TOUCH_SCALING_ACTIVE";
 import ACTION_TOUCH_SCALING_RESET from "../../actions/FingerTouchScaling/ACTION_TOUCH_SCALING_RESET";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
+import { useLocation } from "react-router-dom";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
   const [twoFingerTouch, changeTwoFingerTouch] = useState(false);
 
-  const navbarToggle = useSelector(state => state.navbarToggle.toggle);
+  const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
   const bodyScrollToggle = useSelector(
-    state => state.bodyScrollToggle.overflow
+    (state) => state.bodyScrollToggle.overflow
   );
-  const scroll = useSelector(state => state.scrollToggle.scroll);
-  const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
+  const scroll = useSelector((state) => state.scrollToggle.scroll);
+  const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const splashScreenHalfway = useSelector(
-    state => state.splashScreenHalfway.splashScreenHalfway
+    (state) => state.splashScreenHalfway.splashScreenHalfway
   );
   const touchScaling = useSelector(
-    state => state.fingerTouchScaling.touch_scaling
+    (state) => state.fingerTouchScaling.touch_scaling
   );
+  const location = useLocation();
 
   // For comparison after splash screen halfway point
   const [
     currentOrientationSnapshot,
-    changeCurrentOrientationSnapshot
+    changeCurrentOrientationSnapshot,
   ] = useState(null);
 
   const dispatch = useDispatch();
@@ -61,7 +63,7 @@ const LandingPage = React.forwardRef((props, ref) => {
   const [isSafari, changeIsSafari] = useState(false);
 
   const handleSplashScreenHalfway = useCallback(
-    el => {
+    (el) => {
       if (
         Number(el.top.substr(0, 3)) === 100 ||
         Number(el.right.substr(0, 3)) === 100
@@ -82,7 +84,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       dispatch,
       props.currentScreenSize,
       splashScreenHalfway,
-      currentOrientationSnapshot
+      currentOrientationSnapshot,
     ]
   );
 
@@ -104,7 +106,7 @@ const LandingPage = React.forwardRef((props, ref) => {
     props.currentScreenSize,
     props.initialScreenSize,
     splashScreenHalfway,
-    dispatch
+    dispatch,
   ]);
 
   useEffect(() => {
@@ -140,11 +142,11 @@ const LandingPage = React.forwardRef((props, ref) => {
     dispatch,
     setLineRenderScroll,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
-    const preventScroll = e => e.preventDefault();
+    const preventScroll = (e) => e.preventDefault();
 
     if (bodyScrollToggle === "visible") {
       document.body.classList.remove("no_scroll");
@@ -187,7 +189,7 @@ const LandingPage = React.forwardRef((props, ref) => {
     props.initialScreenSize,
     props.currentScreenSize,
     navbarToggle,
-    cartIsActive
+    cartIsActive,
   ]);
 
   useEffect(() => {
@@ -201,14 +203,14 @@ const LandingPage = React.forwardRef((props, ref) => {
     const LandingPageRefTargetElement = LandingPageRef.current;
 
     if (!splashScreenComplete) {
-      const handleDisableScroll = el => {
+      const handleDisableScroll = (el) => {
         disableBodyScroll({ targetElement: el });
       };
 
       handleDisableScroll(LandingPageRefTargetElement);
     } else {
       if (!cartIsActive) {
-        const handleEnableScroll = el => {
+        const handleEnableScroll = (el) => {
           if (splashScreenComplete && !cartIsActive) {
             enableBodyScroll({ targetElement: el });
           }
@@ -250,18 +252,26 @@ const LandingPage = React.forwardRef((props, ref) => {
     props.currentScreenSize,
     LandingPageRef,
     splashScreenComplete,
-    cartIsActive
+    cartIsActive,
   ]);
 
   // For iOS Rubberbanding Effect on Navbar / Footer
   const portraitOverscroll = () => {
     if (!cartIsActive) {
-      if (window.scrollY <= 50) {
-        document.body.style.setProperty("background", "rgb(44, 44, 52)");
-      } else if (window.scrollY >= 7100) {
-        document.body.style.setProperty("background", "rgb(215, 156, 165)");
+      if (location.pathname.includes("account")) {
+        if (window.scrollY <= 1) {
+          document.body.style.setProperty("background", "rgb(44, 44, 52)");
+        } else {
+          document.body.style.setProperty("background", "rgb(255, 255, 255)");
+        }
       } else {
-        document.body.style.setProperty("background", "rgb(255, 255, 255)");
+        if (window.scrollY <= 50) {
+          document.body.style.setProperty("background", "rgb(44, 44, 52)");
+        } else if (window.scrollY >= 7100) {
+          document.body.style.setProperty("background", "rgb(215, 156, 165)");
+        } else {
+          document.body.style.setProperty("background", "rgb(255, 255, 255)");
+        }
       }
     }
   };
@@ -274,7 +284,7 @@ const LandingPage = React.forwardRef((props, ref) => {
     ? portraitOverscroll()
     : document.body.style.setProperty("background", "rgb(255, 255, 255)");
 
-  const handleTouchStart = e => {
+  const handleTouchStart = (e) => {
     if (e.touches.length === 2) {
       if (!twoFingerTouch) {
         changeTwoFingerTouch(true);
@@ -310,7 +320,7 @@ const LandingPage = React.forwardRef((props, ref) => {
         background: splashScreenHalfway
           ? "rgb(224, 224, 232)"
           : "rgb(44, 44, 52)",
-        transition: "background 2s ease-out"
+        transition: "background 2s ease-out",
       }}
     >
       <section className="main_content">
@@ -334,7 +344,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                     ? "1"
                     : "500"
                   : "1"
-                : "1"
+                : "1",
           }}
         >
           <PottedPlant initialScreenSize={props.initialScreenSize} />
@@ -375,7 +385,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                 : "0%"
               : props.currentScreenSize >= 600
               ? "100%"
-              : "0%"
+              : "0%",
           }}
           to={{
             top: !props.currentScreenSize
@@ -399,9 +409,9 @@ const LandingPage = React.forwardRef((props, ref) => {
                 : "0%"
               : props.currentScreenSize >= 600
               ? "50%"
-              : "0%"
+              : "0%",
           }}
-          onFrame={el => handleSplashScreenHalfway(el)}
+          onFrame={(el) => handleSplashScreenHalfway(el)}
           config={{
             delay: !props.currentScreenSize
               ? props.initialScreenSize >= 600
@@ -410,10 +420,10 @@ const LandingPage = React.forwardRef((props, ref) => {
               : props.currentScreenSize >= 600
               ? 500
               : 2000,
-            duration: 2000
+            duration: 2000,
           }}
         >
-          {styles => (
+          {(styles) => (
             <div
               className="bottom_content"
               style={{
@@ -454,7 +464,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                     : "0%"
                   : props.currentScreenSize >= 600
                   ? `${styles.right}`
-                  : "0%"
+                  : "0%",
               }}
             >
               <Spring
@@ -470,10 +480,10 @@ const LandingPage = React.forwardRef((props, ref) => {
                       ? 5000
                       : 4000
                     : 4000,
-                  duration: 500
+                  duration: 500,
                 }}
               >
-                {styleprops => (
+                {(styleprops) => (
                   <div
                     className="landing_page_text_block"
                     style={{
@@ -494,14 +504,14 @@ const LandingPage = React.forwardRef((props, ref) => {
                               ? "1"
                               : "500"
                             : "1"
-                          : "1"
+                          : "1",
                     }}
                   >
                     <h1
                       style={{
                         opacity: splashScreenComplete
                           ? "1"
-                          : `${styleprops.opacity}`
+                          : `${styleprops.opacity}`,
                       }}
                     >
                       Customized skin care,
@@ -512,7 +522,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       style={{
                         opacity: splashScreenComplete
                           ? "1"
-                          : `${styleprops.opacity}`
+                          : `${styleprops.opacity}`,
                       }}
                     >
                       We've reimagined the traditional idea of a facial so that
@@ -526,7 +536,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                         style={{
                           opacity: splashScreenComplete
                             ? "1"
-                            : `${styleprops.opacity}`
+                            : `${styleprops.opacity}`,
                         }}
                       >
                         <p
@@ -579,7 +589,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                           ? "1.5rem"
                           : props.currentScreenSize >= 360
                           ? "1.2rem"
-                          : "1rem"
+                          : "1rem",
                       }}
                       className="landing_page_cta"
                       onClick={() =>
@@ -593,24 +603,24 @@ const LandingPage = React.forwardRef((props, ref) => {
                           tiny_portrait_height: "0vh",
                           small_portrait_height: "0vh",
                           portrait_height: "0vh",
-                          config: { duration: 100 }
+                          config: { duration: 100 },
                         }}
                         enter={{
                           opacity: 1,
                           tiny_portrait_height: "14vh",
                           small_portrait_height: "13vh",
                           portrait_height: "16vh",
-                          config: { duration: 100 }
+                          config: { duration: 100 },
                         }}
                         leave={{
                           opacity: 0,
                           height: "0vh",
-                          config: { duration: 100 }
+                          config: { duration: 100 },
                         }}
                       >
-                        {lineRenderScroll =>
+                        {(lineRenderScroll) =>
                           lineRenderScroll &&
-                          (rendered => (
+                          ((rendered) => (
                             <span
                               style={{
                                 opacity: `${rendered.opacity}`,
@@ -624,7 +634,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                                   ? `${rendered.portrait_height}`
                                   : props.currentScreenSize >= 360
                                   ? `${rendered.small_portrait_height}`
-                                  : `${rendered.tiny_portrait_height}`
+                                  : `${rendered.tiny_portrait_height}`,
                               }}
                               className="cta_line"
                             />
