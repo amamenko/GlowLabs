@@ -20,6 +20,7 @@ import {
 } from "../../graphql/queries/queries";
 import MyProfile from "./clientprofile/MyProfile/MyProfile";
 import SkinCareRoutine from "./clientprofile/MyProfile/SkinCareRoutine/SkinCareRoutine";
+import MyRoutine from "./clientprofile/MyProfile/SkinCareRoutine/MyRoutine";
 
 const AccountRouter = (props) => {
   const [getOwnAppointments, { data, called, refetch }] = useLazyQuery(
@@ -68,6 +69,11 @@ const AccountRouter = (props) => {
         exact
         path={props.path + "/clientprofile/profile/routine"}
         render={() => <SkinCareRoutine getClientData={props.getClientData} />}
+      />
+      <Route
+        exact
+        path={props.path + "/clientprofile/profile/myroutine"}
+        render={() => <MyRoutine getClientData={props.getClientData} />}
       />
       <Route
         exact

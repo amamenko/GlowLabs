@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(240, 240, 240);
 }
 
 .profile_client_avatar_container {
@@ -54,7 +54,7 @@
 
 .profile_client_avatar {
   font-size: 4.5rem;
-  color: rgb(44, 44, 52);
+  color: rgb(111, 111, 111);
 }
 
 .profile_contact_information_container {
