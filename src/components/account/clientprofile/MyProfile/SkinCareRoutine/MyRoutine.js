@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faPlusCircle,
+  faLongArrowAltLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
 import "./SkinCareRoutine.css";
+import { Transition } from "react-spring/renderprops";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from "body-scroll-lock";
 
 const MyRoutine = () => {
   const splashScreenComplete = useSelector(
@@ -15,6 +25,10 @@ const MyRoutine = () => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const selectedItemBackRef = useRef(null);
+  const individualItemMorningRef = useRef(null);
+  const individualItemEveningRef = useRef(null);
+  const [itemToggled, changeItemToggled] = useState("");
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -25,6 +39,73 @@ const MyRoutine = () => {
   const redirectToLogInPage = () => {
     if (!userAuthenticated) {
       return <Redirect to="/account/login" />;
+    }
+  };
+
+  useEffect(() => {
+    const checkModalRef = setInterval(() => {
+      let currentRef;
+
+      if (selectedItemBackRef) {
+        currentRef = selectedItemBackRef.current;
+      }
+
+      if (currentRef) {
+        if (itemToggled) {
+          disableBodyScroll({ targetElement: currentRef });
+        } else {
+          enableBodyScroll({ targetElement: currentRef });
+        }
+      }
+    }, 100);
+    return () => {
+      clearInterval(checkModalRef);
+      clearAllBodyScrollLocks();
+    };
+  }, [itemToggled]);
+
+  // Allows click only if selected item modal is not active
+
+  const handleItemToggled = (e, item) => {
+    if (
+      (e.currentTarget && individualItemMorningRef) ||
+      (e.currentTarget && individualItemEveningRef)
+    ) {
+      if (
+        individualItemMorningRef.current ||
+        individualItemEveningRef.current
+      ) {
+        if (
+          individualItemMorningRef.current.className ===
+            e.currentTarget.className ||
+          individualItemEveningRef.current.className ===
+            e.currentTarget.className
+        ) {
+          if (selectedItemBackRef) {
+            if (!selectedItemBackRef.current) {
+              if (item) {
+                if (item) {
+                  changeItemToggled(item);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  // Function for back arrow click to reset selected toggled item
+
+  const handleAppointmentUntoggled = (e) => {
+    if (e.currentTarget && selectedItemBackRef) {
+      if (selectedItemBackRef.current) {
+        if (
+          selectedItemBackRef.current.className === e.currentTarget.className
+        ) {
+          changeItemToggled("");
+        }
+      }
     }
   };
 
@@ -54,17 +135,12 @@ const MyRoutine = () => {
         style={{ zIndex: logoutClicked ? -1 : 2 }}
       >
         <Link
-          to="/account/clientprofile/upcomingappointments"
+          to="/account/clientprofile/profile/routine"
           className="skin_care_routine_sub_header_container_link"
         >
-          <Link
-            to="/account/clientprofile/profile/routine"
-            className="skin_care_routine_sub_header_container_link"
-          >
-            <div className="skin_care_routine_recommended_container_not_active">
-              <h2>RECOMMENDED</h2>
-            </div>
-          </Link>
+          <div className="skin_care_routine_recommended_container_not_active">
+            <h2>RECOMMENDED</h2>
+          </div>
         </Link>
         <div className="skin_care_routine_my_routine_container_active">
           <h2>MY ROUTINE</h2>
@@ -72,8 +148,8 @@ const MyRoutine = () => {
       </div>
       <div className="skin_care_routine_top_caption">
         <p>
-          Update your own skin care routine information regarding products and
-          usage details
+          Keep us updated on your own skin care products and associated usage
+          details
         </p>
       </div>
       <div className="skin_care_routine_content_container">
@@ -82,7 +158,11 @@ const MyRoutine = () => {
             <h2>Morning</h2>
           </div>
           <div className="skin_care_routine_morning_items_container">
-            <div className="skin_care_routine_morning_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_morning_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "morning_cleanser")}
+              ref={individualItemMorningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg viewBox="0 0 50.006 50.006" height="3rem" width="100%">
                   <path
@@ -102,8 +182,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "morning_cleanser" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Cleanser (AM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_morning_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_morning_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "morning_toner")}
+              ref={individualItemMorningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M16.847 47.9c-1.354-.265-2.44-1.156-2.993-2.454l-.228-.533V14.676l.181-.451a4.083 4.083 0 012.675-2.434l.502-.15.002-2.894c0-3.2.03-3.444.492-4.238.348-.598 1.156-1.314 1.798-1.594 1.018-.445 1.078-.45 5.508-.426l4.012.022.544.19c1.42.496 2.392 1.504 2.694 2.797.092.39.117 1.108.118 3.32l.002 2.823.515.154c1.282.384 2.224 1.276 2.666 2.525l.177.498V44.77l-.175.498c-.485 1.384-1.738 2.421-3.217 2.663-.748.122-14.634.094-15.273-.031zm15.563-1.657c.609-.27 1.018-.669 1.25-1.22.149-.352.153-.726.153-15.228 0-14.32-.006-14.881-.147-15.216-.301-.714-.907-1.205-1.72-1.396-.686-.161-14.068-.161-14.754 0-.808.19-1.452.71-1.746 1.41-.112.267-.122 1.78-.103 15.309l.022 15.012.174.293c.377.635.897 1.022 1.603 1.194.372.09 1.468.104 7.587.092l7.152-.014zm-14.927-22.6c-.509-.199-.499-.108-.499-4.524v-3.994l.269-.242.268-.242h14.077l.516.415.022 4.026c.024 4.478.037 4.363-.498 4.564-.395.149-13.775.146-14.154-.003zm13.011-4.484v-3.024H18.643v6.047h11.851zm0-10.235c0-1.505-.035-2.824-.08-3.04-.201-.953-.94-1.646-1.958-1.837-.57-.106-7.205-.106-7.775 0-.787.148-1.479.652-1.83 1.336-.162.317-.17.44-.193 3.264l-.023 2.935h11.859z" />
@@ -114,8 +231,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "morning_toner" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Toner (AM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_morning_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_morning_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "morning_serum")}
+              ref={individualItemMorningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M25.948 48.373c-.45-.15-1.22-.996-1.358-1.493-.162-.58-.162-21.14 0-21.72.149-.535.91-1.343 1.415-1.501.234-.074.994-.119 1.998-.119h1.62v-2.1c0-2.1 0-2.101.226-2.34l.225-.24h7.918l.225.24c.226.239.226.24.226 2.34v2.1h1.62c1.004 0 1.764.045 1.998.119.505.158 1.266.966 1.415 1.501.162.58.162 21.14 0 21.72-.149.536-.91 1.344-1.415 1.502-.512.16-15.63.152-16.113-.009zm15.901-1.718l.269-.285v-20.7l-.538-.57h-4.156l-.226-.239c-.185-.196-.225-.336-.225-.78v-.54h-1.47v-1.56h1.47v-1.56h-5.88v1.56h3.675v1.56h-3.675v.54c0 .444-.04.584-.226.78l-.225.24h-4.157l-.269.285-.268.285v20.7l.537.57H41.58zm-14.241-1.531c-.19-.256-.19-.306-.19-8.731v-8.474l.45-.479h6.148c6.08 0 6.15.003 6.39.203l.241.202v17.057l-.225.239c-.208.22-.294.24-1.103.24h-.877v-1.56h.735V29h-10.29v14.82h8.085v1.56h-9.174zm-19.546 1c-.85-.295-1.535-.965-1.944-1.902-.198-.452-.239-.683-.233-1.328.006-.752.05-.91 1.264-4.436.816-2.37 1.326-3.716 1.449-3.827a.773.773 0 01.445-.17c.14 0 .34.076.445.17.123.11.633 1.457 1.448 3.827 1.214 3.526 1.26 3.684 1.265 4.436.005.646-.035.875-.236 1.334-.32.734-.898 1.381-1.521 1.705-.61.317-1.753.408-2.382.19zm1.651-1.558c.627-.278 1.17-1.276 1.034-1.904-.087-.404-1.653-4.983-1.704-4.983-.051 0-1.618 4.58-1.705 4.983-.133.616.401 1.617 1.014 1.9.362.168.988.17 1.361.004zm-1.18-12.685c-.224-.237-.225-.253-.225-2.12v-1.88l16.577-17.595-.939-1.012c-1.289-1.39-1.302-1.272.343-3.03 1.228-1.313 1.297-1.37 1.654-1.37.35 0 .43.061 1.29.97l.917.97 2.189-2.31c2.368-2.5 2.603-2.681 3.604-2.778 1.09-.104 2.19.568 2.734 1.67.207.42.246.622.246 1.278.001 1.256-.087 1.394-2.59 4.065l-2.174 2.32.937 1.01c1.292 1.394 1.307 1.273-.376 3.059-1.683 1.786-1.568 1.77-2.883.397l-.954-.996L12.3 32.121h-1.77c-1.758 0-1.773-.002-1.996-.24zm11.213-9.9l8.085-8.58-1.883-1.998-16.17 17.159v1.999h1.884z" />
@@ -126,8 +280,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "morning_serum" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Serum (AM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_morning_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_morning_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "morning_moisturizer")}
+              ref={individualItemMorningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M11.545 46.731c-2.98-.902-5.427-3.695-6.204-7.078-.236-1.029-.314-2.606-.314-6.375 0-4.588.035-5.084.416-5.925.228-.504.64-1.033.916-1.174.498-.256.5-.271.5-3.616 0-2.306.077-3.444.244-3.633.15-.168.88-.275 1.884-.275h1.64l.457-1.332c1.046-3.039 3.823-6.837 6.86-9.384 2.596-2.177 8.314-5.109 9.286-4.761.51.182.653.854.4 1.878-.117.477-.214 1.56-.214 2.408-.003 3.972 2.48 7.48 7.193 10.165l1.802 1.026h2.916c2.38 0 2.974.066 3.235.36.26.293.32.958.32 3.57v3.21l.638.605c1.095 1.038 1.194 1.61 1.19 6.87-.003 6.721-.48 8.643-2.741 11.052-1.217 1.297-2.269 1.952-3.906 2.433-1.713.503-24.848.481-26.518-.025zm27.311-2.12c1.532-.858 2.72-2.191 3.46-3.884l.668-1.53.064-5.397c.053-4.49.013-5.473-.238-5.855-.298-.453-.538-.459-17.8-.459-17.134 0-17.507.01-17.942.453-.436.445-.443.545-.378 5.964.065 5.38.08 5.542.595 6.773.889 2.125 2.69 3.823 4.607 4.342.424.115 6.417.19 13.385.17l12.618-.04zm2.398-21.598V20.49H8.487v5.047h32.767zm-20.92-5.333c-1.034-1.71-1.327-2.92-1.22-5.02.076-1.474.177-1.938.473-2.182.464-.383.538-.384.99-.012.327.27.339.432.119 1.693-.316 1.807.097 3.581 1.135 4.876 1.24 1.547 1.533 1.62 6.529 1.62h4.444l-1.32-1c-.727-.55-1.938-1.737-2.692-2.638-2.05-2.451-2.997-4.873-3.002-7.673-.003-1.514-.194-1.534-.849-.088-.42.93-.46 1.447-.32 4.173.043.848.004.923-.517.99-.48.063-.61-.049-.865-.737-.347-.934-.4-3.486-.092-4.399.115-.34.165-.67.112-.73-.188-.212-3.596 2.106-5.206 3.542-1.93 1.72-3.646 4.008-4.83 6.444-.475.974-.864 1.85-.866 1.944-.001.095 1.925.172 4.281.172h4.284l-.589-.975z" />
@@ -138,8 +329,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "morning_moisturizer" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Moisturizer (AM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_morning_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_morning_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "morning_spf")}
+              ref={individualItemMorningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M18.26 43.005c0-3.431-.06-4.147-.363-4.395-1.504-1.227-3-6.15-3.928-12.932-.667-4.867-1.531-16.786-1.533-21.132v-.973h26.328l-.127 2.691c-.654 13.945-1.403 21.041-2.797 26.495-.624 2.442-1.701 4.977-2.446 5.757-.398.417-.452.895-.51 4.467l-.063 4-14.561.121zm13.28 2.374c0-.274-.345-.344-1.703-.344-1.136 0-1.853-.111-2.155-.336-.627-.466-3.666-.478-4.056-.016-.195.231-.864.355-2.164.4-1.249.045-1.915.163-1.98.353-.075.224 1.224.287 5.981.287 5.247 0 6.077-.047 6.077-.344zm-8.27-1.947c.992-.646 3.935-.646 4.775 0 .435.334.953.45 2.039.453l1.456.005v-4.582H19.425v2.139c0 1.175.07 2.206.155 2.29.086.084.793.152 1.573.152 1.022-.002 1.612-.129 2.116-.457zm9.307-5.863c2.09-2.055 4.108-14.198 4.604-27.697l.067-1.833-1.34-.069c-1.247-.064-1.34-.107-1.34-.63 0-.533.07-.56 1.399-.56h1.397V4.716h-23.53V6.78h18.871v1.145h-18.87v.634c0 .349.105 2.282.235 4.296.833 12.945 2.362 21.867 4.177 24.374l.512.706h6.723c5.844 0 6.773-.048 7.096-.365zm-7.56-7.195c0-.824.058-.916.582-.916.524 0 .583.092.583.916s-.059.917-.583.917-.582-.092-.582-.917zm-5.366-1.497c-.248-.294-.189-.462.363-1.029.622-.638.685-.655 1.089-.296.414.369.407.404-.202 1.03-.728.746-.845.774-1.25.295zm10.485-.226c-.552-.578-.552-.58-.088-1.035.464-.456.465-.456 1.13.226.557.572.617.74.369 1.035-.42.496-.775.44-1.41-.226zm-5.51-.369c-3.164-.548-5.05-3.499-4.16-6.51.693-2.342 2.62-3.768 5.092-3.768 3.047 0 5.283 2.215 5.283 5.234 0 3.269-2.896 5.62-6.215 5.044zm3.31-1.907c.95-.713 1.727-2.156 1.734-3.225.008-1.008-.919-2.656-1.826-3.248-1.601-1.047-3.473-.958-4.848.229-2.306 1.99-1.805 5.455.972 6.724 1.109.507 2.95.284 3.969-.48zm-10.608-3.217c0-.515.093-.572.932-.572s.932.057.932.572c0 .516-.093.573-.932.573s-.932-.057-.932-.573zm14.444 0c0-.526.085-.572 1.048-.572.963 0 1.049.046 1.049.572 0 .526-.086.573-1.049.573s-1.048-.047-1.048-.573zM19.93 18.62c-.6-.627-.632-.914-.149-1.309.3-.244.47-.186 1.047.357.646.608.665.675.305 1.066-.493.535-.593.525-1.203-.114zm10.14.123c-.371-.403-.355-.462.308-1.086.66-.622.723-.638 1.098-.269.376.37.358.431-.308 1.086-.683.673-.719.681-1.098.269zm-5.055-2.8c0-.824.058-.916.582-.916.524 0 .583.092.583.917 0 .824-.059.916-.583.916s-.582-.092-.582-.916z" />
@@ -150,6 +378,39 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "morning_spf" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>SPF (AM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
           </div>
         </div>
@@ -158,7 +419,11 @@ const MyRoutine = () => {
             <h2>Evening</h2>
           </div>
           <div className="skin_care_routine_evening_items_container">
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_oil_cleanser")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg viewBox="0 0 50.006 50.006" height="3rem" width="100%">
                   <path
@@ -191,8 +456,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_oil_cleanser" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Oil Cleanser (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_cleanser")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg viewBox="0 0 50.006 50.006" height="3rem" width="100%">
                   <path
@@ -212,8 +514,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_cleanser" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Cleanser (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_exfoliator")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg viewBox="0 0 50.006 50.006" height="3rem" width="100%">
                   <path
@@ -241,8 +580,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_exfoliator" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Exfoliator (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_treatment_mask")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <g stroke="#000" strokeLinecap="round" strokeLinejoin="round">
@@ -262,8 +638,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_treatment_mask" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Treatment Mask (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_toner")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M16.847 47.9c-1.354-.265-2.44-1.156-2.993-2.454l-.228-.533V14.676l.181-.451a4.083 4.083 0 012.675-2.434l.502-.15.002-2.894c0-3.2.03-3.444.492-4.238.348-.598 1.156-1.314 1.798-1.594 1.018-.445 1.078-.45 5.508-.426l4.012.022.544.19c1.42.496 2.392 1.504 2.694 2.797.092.39.117 1.108.118 3.32l.002 2.823.515.154c1.282.384 2.224 1.276 2.666 2.525l.177.498V44.77l-.175.498c-.485 1.384-1.738 2.421-3.217 2.663-.748.122-14.634.094-15.273-.031zm15.563-1.657c.609-.27 1.018-.669 1.25-1.22.149-.352.153-.726.153-15.228 0-14.32-.006-14.881-.147-15.216-.301-.714-.907-1.205-1.72-1.396-.686-.161-14.068-.161-14.754 0-.808.19-1.452.71-1.746 1.41-.112.267-.122 1.78-.103 15.309l.022 15.012.174.293c.377.635.897 1.022 1.603 1.194.372.09 1.468.104 7.587.092l7.152-.014zm-14.927-22.6c-.509-.199-.499-.108-.499-4.524v-3.994l.269-.242.268-.242h14.077l.516.415.022 4.026c.024 4.478.037 4.363-.498 4.564-.395.149-13.775.146-14.154-.003zm13.011-4.484v-3.024H18.643v6.047h11.851zm0-10.235c0-1.505-.035-2.824-.08-3.04-.201-.953-.94-1.646-1.958-1.837-.57-.106-7.205-.106-7.775 0-.787.148-1.479.652-1.83 1.336-.162.317-.17.44-.193 3.264l-.023 2.935h11.859z" />
@@ -274,9 +687,46 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_toner" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Toner (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
 
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_serum")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M25.948 48.373c-.45-.15-1.22-.996-1.358-1.493-.162-.58-.162-21.14 0-21.72.149-.535.91-1.343 1.415-1.501.234-.074.994-.119 1.998-.119h1.62v-2.1c0-2.1 0-2.101.226-2.34l.225-.24h7.918l.225.24c.226.239.226.24.226 2.34v2.1h1.62c1.004 0 1.764.045 1.998.119.505.158 1.266.966 1.415 1.501.162.58.162 21.14 0 21.72-.149.536-.91 1.344-1.415 1.502-.512.16-15.63.152-16.113-.009zm15.901-1.718l.269-.285v-20.7l-.538-.57h-4.156l-.226-.239c-.185-.196-.225-.336-.225-.78v-.54h-1.47v-1.56h1.47v-1.56h-5.88v1.56h3.675v1.56h-3.675v.54c0 .444-.04.584-.226.78l-.225.24h-4.157l-.269.285-.268.285v20.7l.537.57H41.58zm-14.241-1.531c-.19-.256-.19-.306-.19-8.731v-8.474l.45-.479h6.148c6.08 0 6.15.003 6.39.203l.241.202v17.057l-.225.239c-.208.22-.294.24-1.103.24h-.877v-1.56h.735V29h-10.29v14.82h8.085v1.56h-9.174zm-19.546 1c-.85-.295-1.535-.965-1.944-1.902-.198-.452-.239-.683-.233-1.328.006-.752.05-.91 1.264-4.436.816-2.37 1.326-3.716 1.449-3.827a.773.773 0 01.445-.17c.14 0 .34.076.445.17.123.11.633 1.457 1.448 3.827 1.214 3.526 1.26 3.684 1.265 4.436.005.646-.035.875-.236 1.334-.32.734-.898 1.381-1.521 1.705-.61.317-1.753.408-2.382.19zm1.651-1.558c.627-.278 1.17-1.276 1.034-1.904-.087-.404-1.653-4.983-1.704-4.983-.051 0-1.618 4.58-1.705 4.983-.133.616.401 1.617 1.014 1.9.362.168.988.17 1.361.004zm-1.18-12.685c-.224-.237-.225-.253-.225-2.12v-1.88l16.577-17.595-.939-1.012c-1.289-1.39-1.302-1.272.343-3.03 1.228-1.313 1.297-1.37 1.654-1.37.35 0 .43.061 1.29.97l.917.97 2.189-2.31c2.368-2.5 2.603-2.681 3.604-2.778 1.09-.104 2.19.568 2.734 1.67.207.42.246.622.246 1.278.001 1.256-.087 1.394-2.59 4.065l-2.174 2.32.937 1.01c1.292 1.394 1.307 1.273-.376 3.059-1.683 1.786-1.568 1.77-2.883.397l-.954-.996L12.3 32.121h-1.77c-1.758 0-1.773-.002-1.996-.24zm11.213-9.9l8.085-8.58-1.883-1.998-16.17 17.159v1.999h1.884z" />
@@ -287,8 +737,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_serum" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Serum (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_moisturizer")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M11.545 46.731c-2.98-.902-5.427-3.695-6.204-7.078-.236-1.029-.314-2.606-.314-6.375 0-4.588.035-5.084.416-5.925.228-.504.64-1.033.916-1.174.498-.256.5-.271.5-3.616 0-2.306.077-3.444.244-3.633.15-.168.88-.275 1.884-.275h1.64l.457-1.332c1.046-3.039 3.823-6.837 6.86-9.384 2.596-2.177 8.314-5.109 9.286-4.761.51.182.653.854.4 1.878-.117.477-.214 1.56-.214 2.408-.003 3.972 2.48 7.48 7.193 10.165l1.802 1.026h2.916c2.38 0 2.974.066 3.235.36.26.293.32.958.32 3.57v3.21l.638.605c1.095 1.038 1.194 1.61 1.19 6.87-.003 6.721-.48 8.643-2.741 11.052-1.217 1.297-2.269 1.952-3.906 2.433-1.713.503-24.848.481-26.518-.025zm27.311-2.12c1.532-.858 2.72-2.191 3.46-3.884l.668-1.53.064-5.397c.053-4.49.013-5.473-.238-5.855-.298-.453-.538-.459-17.8-.459-17.134 0-17.507.01-17.942.453-.436.445-.443.545-.378 5.964.065 5.38.08 5.542.595 6.773.889 2.125 2.69 3.823 4.607 4.342.424.115 6.417.19 13.385.17l12.618-.04zm2.398-21.598V20.49H8.487v5.047h32.767zm-20.92-5.333c-1.034-1.71-1.327-2.92-1.22-5.02.076-1.474.177-1.938.473-2.182.464-.383.538-.384.99-.012.327.27.339.432.119 1.693-.316 1.807.097 3.581 1.135 4.876 1.24 1.547 1.533 1.62 6.529 1.62h4.444l-1.32-1c-.727-.55-1.938-1.737-2.692-2.638-2.05-2.451-2.997-4.873-3.002-7.673-.003-1.514-.194-1.534-.849-.088-.42.93-.46 1.447-.32 4.173.043.848.004.923-.517.99-.48.063-.61-.049-.865-.737-.347-.934-.4-3.486-.092-4.399.115-.34.165-.67.112-.73-.188-.212-3.596 2.106-5.206 3.542-1.93 1.72-3.646 4.008-4.83 6.444-.475.974-.864 1.85-.866 1.944-.001.095 1.925.172 4.281.172h4.284l-.589-.975z" />
@@ -299,8 +786,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_moisturizer" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Moisturizer (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_night_mask")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg viewBox="0 0 50.006 50.006" height="3rem" width="100%">
                   <g
@@ -323,8 +847,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_night_mask" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Night Mask (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_oil")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path d="M17.587 48.028c-1.094-.102-2.098-.52-2.863-1.188A3.658 3.658 0 0113.568 45l-.075-.29v-7.444c0-7.032.004-7.466.058-7.825a8.596 8.596 0 011.193-3.31 9.737 9.737 0 011.554-1.956 14.257 14.257 0 011.472-1.207l.309-.21v-4.549c0-4.47 0-4.551.063-4.688a.775.775 0 01.417-.402l.17-.078 2.369-.026.328-.823.329-.822-.036-.451a38.846 38.846 0 01-.037-1.883c-.002-1.476.027-1.966.16-2.73.304-1.74.923-2.88 1.88-3.464 1.03-.627 2.433-.617 3.465.027.725.452 1.268 1.264 1.598 2.393.392 1.336.505 3.045.366 5.534l-.032.59.33.815.329.814 1.171.013c1.107.012 1.18.016 1.317.069a.942.942 0 01.449.374l.072.121.008 4.587.009 4.586.23.153c1.297.868 2.416 2.043 3.167 3.332.704 1.207 1.072 2.378 1.172 3.729.024.33.031 2.625.023 7.602-.01 6.564-.015 7.147-.064 7.344-.401 1.605-1.783 2.737-3.752 3.075-.232.04-.923.044-7.996.048-4.46.003-7.85-.006-7.997-.019zm15.586-1.52c.908-.103 1.724-.599 2.12-1.288.06-.107.143-.295.183-.418l.071-.223v-7.34c0-6.963-.002-7.359-.058-7.708-.361-2.285-1.745-4.285-3.91-5.649l-.308-.193h-3.07l-.007 8.935-.009 8.935-.069.2c-.234.677-.755 1.202-1.486 1.495a3.34 3.34 0 01-2.347.014c-.823-.314-1.408-.951-1.57-1.708-.023-.106-.033-2.938-.033-9.013v-8.859h-3.076l-.31.195c-1.867 1.166-3.222 2.916-3.734 4.821a11.63 11.63 0 00-.154.683l-.073.38v14.864l.075.21c.227.64.744 1.157 1.45 1.451.23.096.563.182.824.214.288.034 15.186.035 15.49 0zm-7.345-4.623a.92.92 0 00.432-.353l.085-.13.008-8.857.008-8.856h-1.84v8.818c0 7.957.004 8.831.049 8.94.088.214.35.414.648.496.13.035.461.004.61-.058zm5.134-23.528V14.55H19.919v7.616h11.043zm-3.142-5.362c0-.018-.123-.34-.274-.716l-.274-.684.044-.788c.054-.962.055-2.729.002-3.335-.116-1.317-.328-2.156-.704-2.786-.216-.361-.467-.615-.707-.714a1.273 1.273 0 00-.892-.021c-.148.05-.41.255-.558.436-.455.555-.747 1.516-.889 2.928-.062.622-.076 2.057-.028 3.002.068 1.366.08 1.257-.191 1.921-.127.311-.25.615-.274.677l-.043.111h2.394c1.841 0 2.394-.007 2.394-.031z" />
@@ -342,8 +903,45 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_oil" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Oil (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
-            <div className="skin_care_routine_evening_my_routine_individual_item_container">
+            <div
+              className="skin_care_routine_evening_my_routine_individual_item_container"
+              onClick={(e) => handleItemToggled(e, "evening_spot_treatment")}
+              ref={individualItemEveningRef}
+            >
               <div className="skin_care_routine_icon_container">
                 <svg height="3.5rem" width="100%" viewBox="0 0 50.006 50.006">
                   <path
@@ -358,6 +956,39 @@ const MyRoutine = () => {
                 className="skin_care_routine_user_add_icon"
                 icon={faPlusCircle}
               />
+              <Transition
+                items={itemToggled}
+                from={{ transform: "translateX(-100%)" }}
+                enter={{ transform: "translateX(0%)" }}
+                leave={{ transform: "translateX(-100%)" }}
+                config={{ duration: 200 }}
+              >
+                {(itemToggled) =>
+                  itemToggled === "evening_spot_treatment" &&
+                  ((styleprops) => (
+                    <div
+                      className="my_individual_selected_item_container"
+                      style={styleprops}
+                    >
+                      <div className="my_individual_selected_item_contents_container">
+                        <div
+                          className="my_individual_selected_item_back_container"
+                          ref={selectedItemBackRef}
+                          onClick={(e) => handleAppointmentUntoggled(e)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faLongArrowAltLeft}
+                            className="my_individual_selected_item_back_arrow_icon"
+                          />
+                        </div>
+                        <div className="my_individual_selected_item_header">
+                          <p>Spot Treatment (PM)</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Transition>
             </div>
           </div>
         </div>

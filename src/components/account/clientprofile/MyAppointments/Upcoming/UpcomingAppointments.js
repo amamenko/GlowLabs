@@ -115,9 +115,7 @@ const UpcomingAppointments = (props) => {
 
       if (currentRef) {
         if (appointmentToggled) {
-          if (currentRef) {
-            disableBodyScroll({ targetElement: currentRef });
-          }
+          disableBodyScroll({ targetElement: currentRef });
         } else {
           enableBodyScroll({ targetElement: currentRef });
         }

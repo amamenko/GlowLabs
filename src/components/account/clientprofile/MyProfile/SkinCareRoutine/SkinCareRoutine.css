@@ -141,7 +141,8 @@
   height: 15vh;
   width: 26%;
   margin: 0.5rem;
-  background: rgba(211, 211, 211, 0.5);
+  background: rgba(211, 211, 211, 0.2);
+  border: 1px solid black;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -165,9 +166,72 @@
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  color: rgb(108, 237, 255, 0.9);
+  color: rgba(108, 237, 255, 0.8);
   background: black;
   border-radius: 50%;
-  border: 2px solid black;
-  opacity: 0.8;
+  border: 1px solid black;
+}
+
+.my_individual_selected_item_container {
+  width: 100%;
+  top: -1.1rem;
+  left: 0;
+  bottom: 0;
+  background: white;
+  margin-top: 24vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 1;
+  padding-top: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  position: fixed;
+  overflow: auto;
+}
+
+.my_individual_selected_item_contents_container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding-bottom: 20vh;
+  position: relative;
+}
+
+.my_individual_selected_item_contents_container p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.my_individual_selected_item_back_container {
+  width: 10%;
+  position: relative;
+}
+
+.my_individual_selected_item_back_arrow_icon {
+  position: relative;
+  font-size: 2rem;
+  z-index: 99999;
+  opacity: 0.99;
+  color: rgb(0, 129, 177);
+}
+
+.my_individual_selected_item_header {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.my_individual_selected_item_header p {
+  font-size: 1.4rem;
 }
