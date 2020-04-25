@@ -70,7 +70,6 @@ import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/Faceboo
 import ACTION_DUMMY_TOKEN from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN";
 import ACTION_DUMMY_TOKEN_RESET from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN_RESET";
 import { Font } from "@react-pdf/renderer";
-import ConsentFormPDF from "./components/account/clientprofile/ConsentForm/ConsentFormPDF";
 
 require("dotenv").config();
 require("intersection-observer");

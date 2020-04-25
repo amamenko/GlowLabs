@@ -141,7 +141,7 @@
   height: 15vh;
   width: 26%;
   margin: 0.5rem;
-  background: rgba(211, 211, 211, 0.2);
+  background: rgba(211, 211, 211, 0.3);
   border: 1px solid black;
   border-radius: 10px;
   display: flex;
@@ -174,7 +174,7 @@
 
 .my_individual_selected_item_container {
   width: 100%;
-  top: -1.1rem;
+  top: -1.2rem;
   left: 0;
   bottom: 0;
   background: white;
@@ -185,17 +185,15 @@
   justify-content: flex-start;
   z-index: 1;
   padding-top: 1rem;
-  margin-left: 1.5rem;
   margin-right: 1.5rem;
   position: fixed;
   overflow: auto;
 }
 
 .my_individual_selected_item_contents_container {
-  height: 100%;
+  height: 10vh;
   width: 100%;
   overflow: auto;
-  padding-bottom: 20vh;
   position: relative;
 }
 
@@ -207,6 +205,7 @@
 .my_individual_selected_item_back_container {
   width: 10%;
   position: relative;
+  padding-left: 1.5rem;
 }
 
 .my_individual_selected_item_back_arrow_icon {
@@ -217,12 +216,23 @@
   color: rgb(0, 129, 177);
 }
 
-.my_individual_selected_item_header {
+.my_individual_selected_item_top_container {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
+  border-bottom: 1px solid rgb(44, 44, 52);
+  background: rgb(255, 255, 255);
+  padding-bottom: 0.5rem;
+}
+
+.my_individual_selected_item_header {
+  width: 70%;
   position: absolute;
   top: 0;
-  right: 1.5rem;
   left: 0;
+  right: 0;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -234,4 +244,96 @@
 
 .my_individual_selected_item_header p {
   font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.my_individual_selected_item_empty_state_container {
+  background: rgb(255, 255, 255);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding-bottom: 20vh;
+  top: 12vh;
+}
+
+.my_individual_selected_item_empty_state_icon_container {
+  position: relative;
+  display: flex;
+  background: rgba(211, 211, 211, 0.4);
+  border-radius: 50%;
+  width: 45vw;
+  height: 25vh;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.my_individual_selected_item_empty_state_icon {
+  stroke: rgb(155, 155, 155);
+  stroke-width: 1px;
+  fill: rgb(155, 155, 155);
+}
+
+.my_individual_selected_item_empty_state_text_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.my_individual_selected_item_empty_state_text_container h2 {
+  font-size: 1.5rem;
+  color: rgb(155, 155, 155);
+  margin-bottom: 1rem;
+}
+
+.my_individual_selected_item_bottom_buttons_container {
+  width: 85%;
+  display: flex;
+  height: 20vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3vh;
+}
+
+.my_individual_selected_item_add_product_button {
+  width: 65%;
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  color: rgb(255, 255, 255);
+  background: rgb(44, 44, 52);
+}
+
+.my_individual_selected_item_back_to_routine_button {
+  width: 65%;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.input_field_product_name {
+  width: 100%;
+  font-size: 1.3rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  padding-left: 0.5rem;
+  position: relative;
 }

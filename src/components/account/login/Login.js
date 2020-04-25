@@ -23,45 +23,42 @@ import "./Login.css";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 
-const Login = props => {
+const Login = (props) => {
   let location = useLocation();
   const dispatch = useDispatch();
   const splashScreenHalfway = useSelector(
-    state => state.splashScreenHalfway.splashScreenHalfway
+    (state) => state.splashScreenHalfway.splashScreenHalfway
   );
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
-  const loginEmail = useSelector(state => state.loginEmail.login_email);
+  const loginEmail = useSelector((state) => state.loginEmail.login_email);
   const loginEmailInvalid = useSelector(
-    state => state.loginEmailInvalid.login_email_invalid
+    (state) => state.loginEmailInvalid.login_email_invalid
   );
   const loginPassword = useSelector(
-    state => state.loginPassword.login_password
+    (state) => state.loginPassword.login_password
   );
   const loginPasswordInvalid = useSelector(
-    state => state.loginPasswordInvalid.login_password_invalid
+    (state) => state.loginPasswordInvalid.login_password_invalid
   );
   const registeredClientFound = useSelector(
-    state => state.registeredClientFound.registered_client_found
+    (state) => state.registeredClientFound.registered_client_found
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
   const facebookCompleteRegistration = useSelector(
-    state =>
+    (state) =>
       state.facebookCompleteRegistration.facebook_complete_registration_active
   );
 
   const [loginClient, { data, error }] = useLazyQuery(loginQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
-  const { data: getClientsData, error: getClientsError } = useQuery(
-    getClientsQuery,
-    {
-      fetchPolicy: "no-cache"
-    }
-  );
+  const { data: getClientsData } = useQuery(getClientsQuery, {
+    fetchPolicy: "no-cache",
+  });
 
   const [signInLoading, changeSignInLoading] = useState(false);
 
@@ -155,7 +152,7 @@ const Login = props => {
     loginEmailInvalid,
     loginPassword,
     loginPasswordInvalid,
-    registeredClientFound
+    registeredClientFound,
   ]);
 
   const handleLoginClick = () => {
@@ -228,7 +225,7 @@ const Login = props => {
             style={{
               display: "block",
               width: "90%",
-              pointerEvents: loginEmail && loginPassword ? "auto" : "none"
+              pointerEvents: loginEmail && loginPassword ? "auto" : "none",
             }}
           >
             <div
@@ -240,7 +237,7 @@ const Login = props => {
                   loginEmail && loginPassword
                     ? "rgb(255, 255, 255)"
                     : "rgb(201, 201, 201)",
-                transition: "background 0.5s ease, color 0.5s ease"
+                transition: "background 0.5s ease, color 0.5s ease",
               }}
               onClick={handleLoginClick}
             >
@@ -281,8 +278,8 @@ const Login = props => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background: "rgba(0, 0, 0, 0.5)"
-          }
+            background: "rgba(0, 0, 0, 0.5)",
+          },
         }}
       >
         <BounceLoader

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
 import { Link, useLocation } from "react-router-dom";

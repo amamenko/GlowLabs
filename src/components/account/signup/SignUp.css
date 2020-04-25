@@ -66,6 +66,7 @@
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
   padding-left: 0.5rem;
+  position: relative;
 }
 
 .signup_page_bottom_buttons_container {
@@ -108,8 +109,4 @@
 
 .login_redirect_button p {
   color: rgb(44, 44, 52);
-}
-
-.input_field_sign_up {
-  position: relative;
 }
