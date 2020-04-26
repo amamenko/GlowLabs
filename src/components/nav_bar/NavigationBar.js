@@ -372,7 +372,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 ? "Log Out"
                 : "Log In"
               : userAuthenticated
-              ? "Profile"
+              ? "Menu"
               : "Log In"}
           </p>
         </Link>
@@ -627,7 +627,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     ? "Log Out"
                     : "Log In"
                   : userAuthenticated
-                  ? "Profile"
+                  ? "Menu"
                   : "Log In"}
               </p>
             </Link>

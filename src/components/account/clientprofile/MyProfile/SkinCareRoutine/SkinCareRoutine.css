@@ -329,11 +329,37 @@
   padding: 0.8rem;
 }
 
-.input_field_product_name {
+.input_field_product {
   width: 100%;
   font-size: 1.3rem;
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
   padding-left: 0.5rem;
   position: relative;
+}
+
+.product_usage_notes {
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 4rem;
+}
+
+.add_product_form {
+  position: relative;
+  margin-top: -2vh;
+}
+
+.my_individual_selected_item_add_product_container {
+  background: rgb(255, 255, 255);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding-bottom: 10vh;
+  top: 12vh;
 }

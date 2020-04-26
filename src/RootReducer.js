@@ -138,6 +138,26 @@ import logoutClickedReducer from "./reducers/LogOut/logoutClickedReducer";
 import facebookCompleteRegistrationReducer from "./reducers/Login/FacebookCompleteRegistration/facebookCompleteRegistrationReducer";
 import dummyTokenReducer from "./reducers/Login/DummyToken/dummyTokenReducer";
 import consentFormPDFReducer from "./reducers/ConsentForm/ConsentFormPDF/consentFormPDFReducer";
+import morningCleanserProductFrequencyReducer from "./reducers/MyRoutine/Morning/Cleanser/ProductFrequency/morningCleanserProductFrequencyReducer";
+import morningCleanserProductLinkReducer from "./reducers/MyRoutine/Morning/Cleanser/ProductLink/morningCleanserProductLinkReducer";
+import morningCleanserProductNameReducer from "./reducers/MyRoutine/Morning/Cleanser/ProductName/morningCleanserProductNameReducer";
+import morningCleanserProductUseNotesReducer from "./reducers/MyRoutine/Morning/Cleanser/ProductUseNotes/morningCleanserProductUseNotesReducer";
+import morningMoisturizerProductFrequencyReducer from "./reducers/MyRoutine/Morning/Moisturizer/ProductFrequency/morningMoisturizerProductFrequencyReducer";
+import morningMoisturizerProductLinkReducer from "./reducers/MyRoutine/Morning/Moisturizer/ProductLink/morningMoisturizerProductLinkReducer";
+import morningMoisturizerProductNameReducer from "./reducers/MyRoutine/Morning/Moisturizer/ProductName/morningMoisturizerProductNameReducer";
+import morningMoisturizerProductUseNotesReducer from "./reducers/MyRoutine/Morning/Moisturizer/ProductUseNotes/morningMoisturizerProductUseNotesReducer";
+import morningSerumProductFrequencyReducer from "./reducers/MyRoutine/Morning/Serum/ProductFrequency/morningSerumProductFrequencyReducer";
+import morningSerumProductLinkReducer from "./reducers/MyRoutine/Morning/Serum/ProductLink/morningSerumProductLinkReducer";
+import morningSerumProductNameReducer from "./reducers/MyRoutine/Morning/Serum/ProductName/morningSerumProductNameReducer";
+import morningSerumProductUseNotesReducer from "./reducers/MyRoutine/Morning/Serum/ProductUseNotes/morningSerumProductUseNotesReducer";
+import spfProductFrequencyReducer from "./reducers/MyRoutine/Morning/SPF/ProductFrequency/spfProductFrequencyReducer";
+import spfProductLinkReducer from "./reducers/MyRoutine/Morning/SPF/ProductLink/spfProductLinkReducer";
+import spfProductNameReducer from "./reducers/MyRoutine/Morning/SPF/ProductName/spfProductNameReducer";
+import spfProductUseNotesReducer from "./reducers/MyRoutine/Morning/SPF/ProductUseNotes/spfProductUseNotesReducer";
+import morningTonerProductFrequencyReducer from "./reducers/MyRoutine/Morning/Toner/ProductFrequency/morningTonerProductFrequencyReducer";
+import morningTonerProductLinkReducer from "./reducers/MyRoutine/Morning/Toner/ProductLink/morningTonerProductLinkReducer";
+import morningTonerProductNameReducer from "./reducers/MyRoutine/Morning/Toner/ProductName/morningTonerProductNameReducer";
+import morningTonerProductUseNotesReducer from "./reducers/MyRoutine/Morning/Toner/ProductUseNotes/morningTonerProductUseNotesReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -285,6 +305,32 @@ const RootReducer = combineReducers({
   consentFormLastUpdated: consentFormLastUpdatedReducer,
   consentFormAnythingChanged: consentFormAnythingChangedReducer,
   consentFormPDF: consentFormPDFReducer,
+
+  // My Routine Morning Section Products Reducers,
+  morningCleanserProductFrequency: morningCleanserProductFrequencyReducer,
+  morningCleanserProductLink: morningCleanserProductLinkReducer,
+  morningCleanserProductName: morningCleanserProductNameReducer,
+  morningCleanserProductUseNotes: morningCleanserProductUseNotesReducer,
+
+  morningMoisturizerProductFrequency: morningMoisturizerProductFrequencyReducer,
+  morningMoisturizerProductLink: morningMoisturizerProductLinkReducer,
+  morningMoisturizerProductName: morningMoisturizerProductNameReducer,
+  morningMoisturizerProductUseNotes: morningMoisturizerProductUseNotesReducer,
+
+  morningSerumProductFrequency: morningSerumProductFrequencyReducer,
+  morningSerumProductLink: morningSerumProductLinkReducer,
+  morningSerumProductName: morningSerumProductNameReducer,
+  morningSerumProductUseNotes: morningSerumProductUseNotesReducer,
+
+  spfProductFrequency: spfProductFrequencyReducer,
+  spfProductLink: spfProductLinkReducer,
+  spfProductName: spfProductNameReducer,
+  spfProductUseNotes: spfProductUseNotesReducer,
+
+  morningTonerProductFrequency: morningTonerProductFrequencyReducer,
+  morningTonerProductLink: morningTonerProductLinkReducer,
+  morningTonerProductName: morningTonerProductNameReducer,
+  morningTonerProductUseNotes: morningTonerProductUseNotesReducer,
 
   // Guest Checkout Form Reducers
   loginIsActive: loginIsActiveReducer,

@@ -131,7 +131,7 @@ const SkinCareRoutine = () => {
         </div>
         <div className="skin_care_routine_evening_content_container">
           <div className="skin_care_routine_evening_header">
-            <h2>Evening</h2>
+            <h2>Afternoon / Evening</h2>
           </div>
           <div className="skin_care_routine_evening_items_container">
             <div className="skin_care_routine_evening_individual_item_container">
