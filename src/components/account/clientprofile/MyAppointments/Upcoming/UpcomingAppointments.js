@@ -710,7 +710,19 @@ const UpcomingAppointments = (props) => {
               </p>
             </div>
           )
-        ) : null}
+        ) : (
+          <div className="my_upcoming_appointments_empty_container">
+            <FontAwesomeIcon
+              icon={faCalendarAlt}
+              className="my_upcoming_appointments_empty_calendar_icon"
+            />
+            <h2>No upcoming appointments</h2>
+            <p>
+              Any future appointment bookings will be added here, so check back
+              soon!
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

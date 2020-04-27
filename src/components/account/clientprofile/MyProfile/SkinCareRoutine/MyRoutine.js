@@ -34,6 +34,18 @@ import ACTION_RESET_ALL_MORNING_MOISTURIZER_FIELDS from "../../../../../actions/
 import ACTION_RESET_ALL_MORNING_SERUM_FIELDS from "../../../../../actions/MyRoutine/Morning/Serum/ACTION_RESET_ALL_MORNING_SERUM_FIELDS";
 import ACTION_RESET_ALL_SPF_FIELDS from "../../../../../actions/MyRoutine/Morning/SPF/ACTION_RESET_ALL_SPF_FIELDS";
 import ACTION_RESET_ALL_MORNING_TONER_FIELDS from "../../../../../actions/MyRoutine/Morning/Toner/ACTION_RESET_ALL_MORNING_TONER_FIELDS";
+import ACTION_RESET_ALL_OIL_CLEANSER_FIELDS from "../../../../../actions/MyRoutine/Evening/OilCleanser/ACTION_RESET_ALL_OIL_CLEANSER_FIELDS";
+import ACTION_RESET_ALL_EVENING_CLEANSER_FIELDS from "../../../../../actions/MyRoutine/Evening/Cleanser/ACTION_RESET_ALL_EVENING_CLEANSER_FIELDS";
+import ACTION_RESET_ALL_EXFOLIATOR_FIELDS from "../../../../../actions/MyRoutine/Evening/Exfoliator/ACTION_RESET_ALL_EXFOLIATOR_FIELDS";
+import ACTION_RESET_ALL_TREATMENT_MASK_FIELDS from "../../../../../actions/MyRoutine/Evening/TreatmentMask/ACTION_RESET_ALL_TREATMENT_MASK_FIELDS";
+import ACTION_RESET_ALL_EVENING_TONER_FIELDS from "../../../../../actions/MyRoutine/Evening/Toner/ACTION_RESET_ALL_EVENING_TONER_FIELDS";
+import ACTION_RESET_ALL_EVENING_SERUM_FIELDS from "../../../../../actions/MyRoutine/Evening/Serum/ACTION_RESET_ALL_EVENING_SERUM_FIELDS";
+import ACTION_RESET_ALL_EVENING_MOISTURIZER_FIELDS from "../../../../../actions/MyRoutine/Evening/Moisturizer/ACTION_RESET_ALL_EVENING_MOISTURIZER_FIELDS";
+import ACTION_RESET_ALL_NIGHT_MASK_FIELDS from "../../../../../actions/MyRoutine/Evening/NightMask/ACTION_RESET_ALL_NIGHT_MASK_FIELDS";
+import ACTION_RESET_ALL_OIL_FIELDS from "../../../../../actions/MyRoutine/Evening/Oil/ACTION_RESET_ALL_OIL_FIELDS";
+import ACTION_RESET_ALL_SPOT_TREATMENT_FIELDS from "../../../../../actions/MyRoutine/Evening/SpotTreatment/ACTION_RESET_ALL_SPOT_TREATMENT_FIELDS";
+import MorningRX from "./Morning/MorningRX";
+import EveningRX from "./Evening/EveningRX";
 
 const MyRoutine = () => {
   const location = useLocation();
@@ -135,11 +147,26 @@ const MyRoutine = () => {
           selectedItemBackRef.current.className === e.currentTarget.className
         ) {
           changeItemToggled("");
+
+          // Reset all morning field states
           dispatch(ACTION_RESET_ALL_MORNING_CLEANSER_FIELDS());
           dispatch(ACTION_RESET_ALL_MORNING_MOISTURIZER_FIELDS());
           dispatch(ACTION_RESET_ALL_MORNING_SERUM_FIELDS());
           dispatch(ACTION_RESET_ALL_SPF_FIELDS());
           dispatch(ACTION_RESET_ALL_MORNING_TONER_FIELDS());
+
+          // Reset all afternoon / evening field states
+          dispatch(ACTION_RESET_ALL_OIL_CLEANSER_FIELDS());
+          dispatch(ACTION_RESET_ALL_EVENING_CLEANSER_FIELDS());
+          dispatch(ACTION_RESET_ALL_EXFOLIATOR_FIELDS());
+          dispatch(ACTION_RESET_ALL_TREATMENT_MASK_FIELDS());
+          dispatch(ACTION_RESET_ALL_EVENING_TONER_FIELDS());
+          dispatch(ACTION_RESET_ALL_EVENING_SERUM_FIELDS());
+          dispatch(ACTION_RESET_ALL_EVENING_MOISTURIZER_FIELDS());
+          dispatch(ACTION_RESET_ALL_NIGHT_MASK_FIELDS());
+          dispatch(ACTION_RESET_ALL_OIL_FIELDS());
+          dispatch(ACTION_RESET_ALL_SPOT_TREATMENT_FIELDS());
+
           if (addProductClicked) {
             changeAddProductClicked(false);
           }
@@ -180,11 +207,25 @@ const MyRoutine = () => {
       }
     }
     changeAddProductClicked(false);
+
+    // Reset all morning field states
     dispatch(ACTION_RESET_ALL_MORNING_CLEANSER_FIELDS());
     dispatch(ACTION_RESET_ALL_MORNING_MOISTURIZER_FIELDS());
     dispatch(ACTION_RESET_ALL_MORNING_SERUM_FIELDS());
     dispatch(ACTION_RESET_ALL_SPF_FIELDS());
     dispatch(ACTION_RESET_ALL_MORNING_TONER_FIELDS());
+
+    // Reset all afternoon / evening field states
+    dispatch(ACTION_RESET_ALL_OIL_CLEANSER_FIELDS());
+    dispatch(ACTION_RESET_ALL_EVENING_CLEANSER_FIELDS());
+    dispatch(ACTION_RESET_ALL_EXFOLIATOR_FIELDS());
+    dispatch(ACTION_RESET_ALL_TREATMENT_MASK_FIELDS());
+    dispatch(ACTION_RESET_ALL_EVENING_TONER_FIELDS());
+    dispatch(ACTION_RESET_ALL_EVENING_SERUM_FIELDS());
+    dispatch(ACTION_RESET_ALL_EVENING_MOISTURIZER_FIELDS());
+    dispatch(ACTION_RESET_ALL_NIGHT_MASK_FIELDS());
+    dispatch(ACTION_RESET_ALL_OIL_FIELDS());
+    dispatch(ACTION_RESET_ALL_SPOT_TREATMENT_FIELDS());
   };
 
   useEffect(() => {
@@ -295,6 +336,19 @@ const MyRoutine = () => {
               addProductRef={addProductRef}
             />
             <MorningSPF
+              handleBackToOverview={handleBackToOverview}
+              handleItemToggled={handleItemToggled}
+              handleAddProductToggle={handleAddProductToggle}
+              handleAppointmentUntoggled={handleAppointmentUntoggled}
+              addProductClicked={addProductClicked}
+              itemToggled={itemToggled}
+              changeItemToggled={changeItemToggled}
+              individualItemMorningRef={individualItemMorningRef}
+              pageContainerRef={pageContainerRef}
+              selectedItemBackRef={selectedItemBackRef}
+              addProductRef={addProductRef}
+            />
+            <MorningRX
               handleBackToOverview={handleBackToOverview}
               handleItemToggled={handleItemToggled}
               handleAddProductToggle={handleAddProductToggle}
@@ -440,6 +494,19 @@ const MyRoutine = () => {
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
               individualItemEveningRef={individualItemEveningRef}
+              pageContainerRef={pageContainerRef}
+              selectedItemBackRef={selectedItemBackRef}
+              addProductRef={addProductRef}
+            />
+            <EveningRX
+              handleBackToOverview={handleBackToOverview}
+              handleItemToggled={handleItemToggled}
+              handleAddProductToggle={handleAddProductToggle}
+              handleAppointmentUntoggled={handleAppointmentUntoggled}
+              addProductClicked={addProductClicked}
+              itemToggled={itemToggled}
+              changeItemToggled={changeItemToggled}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}

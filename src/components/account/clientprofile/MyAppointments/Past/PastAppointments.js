@@ -497,7 +497,19 @@ const PastAppointments = (props) => {
               <p>Any previous appointment information will be available here</p>
             </div>
           )
-        ) : null}
+        ) : (
+          <div className="my_upcoming_appointments_empty_container">
+            <FontAwesomeIcon
+              icon={faHistory}
+              className="my_upcoming_appointments_empty_calendar_icon"
+            />
+            <h2>No upcoming appointments</h2>
+            <p>
+              Any future appointment bookings will be added here, so check back
+              soon!
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

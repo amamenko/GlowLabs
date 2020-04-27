@@ -158,6 +158,54 @@ import morningTonerProductFrequencyReducer from "./reducers/MyRoutine/Morning/To
 import morningTonerProductLinkReducer from "./reducers/MyRoutine/Morning/Toner/ProductLink/morningTonerProductLinkReducer";
 import morningTonerProductNameReducer from "./reducers/MyRoutine/Morning/Toner/ProductName/morningTonerProductNameReducer";
 import morningTonerProductUseNotesReducer from "./reducers/MyRoutine/Morning/Toner/ProductUseNotes/morningTonerProductUseNotesReducer";
+import oilCleanserProductFrequencyReducer from "./reducers/MyRoutine/Evening/OilCleanser/ProductFrequency/oilCleanserProductFrequencyReducer";
+import oilCleanserProductLinkReducer from "./reducers/MyRoutine/Evening/OilCleanser/ProductLink/oilCleanserProductLinkReducer";
+import oilCleanserProductNameReducer from "./reducers/MyRoutine/Evening/OilCleanser/ProductName/oilCleanserProductNameReducer";
+import oilCleanserProductUseNotesReducer from "./reducers/MyRoutine/Evening/OilCleanser/ProductUseNotes/oilCleanserProductUseNotesReducer";
+import eveningCleanserProductFrequencyReducer from "./reducers/MyRoutine/Evening/Cleanser/ProductFrequency/eveningCleanserProductFrequencyReducer";
+import eveningCleanserProductLinkReducer from "./reducers/MyRoutine/Evening/Cleanser/ProductLink/eveningCleanserProductLinkReducer";
+import eveningCleanserProductNameReducer from "./reducers/MyRoutine/Evening/Cleanser/ProductName/eveningCleanserProductNameReducer";
+import eveningCleanserProductUseNotesReducer from "./reducers/MyRoutine/Evening/Cleanser/ProductUseNotes/eveningCleanserProductUseNotesReducer";
+import exfoliatorProductFrequencyReducer from "./reducers/MyRoutine/Evening/Exfoliator/ProductFrequency/exfoliatorProductFrequencyReducer";
+import exfoliatorProductLinkReducer from "./reducers/MyRoutine/Evening/Exfoliator/ProductLink/exfoliatorProductLinkReducer";
+import exfoliatorProductNameReducer from "./reducers/MyRoutine/Evening/Exfoliator/ProductName/exfoliatorProductNameReducer";
+import exfoliatorProductUseNotesReducer from "./reducers/MyRoutine/Evening/Exfoliator/ProductUseNotes/exfoliatorProductUseNotesReducer";
+import treatmentMaskProductFrequencyReducer from "./reducers/MyRoutine/Evening/TreatmentMask/ProductFrequency/treatmentMaskProductFrequencyReducer";
+import treatmentMaskProductLinkReducer from "./reducers/MyRoutine/Evening/TreatmentMask/ProductLink/treatmentMaskProductLinkReducer";
+import treatmentMaskProductNameReducer from "./reducers/MyRoutine/Evening/TreatmentMask/ProductName/treatmentMaskProductNameReducer";
+import treatmentMaskProductUseNotesReducer from "./reducers/MyRoutine/Evening/TreatmentMask/ProductUseNotes/treatmentMaskProductUseNotesReducer";
+import eveningTonerProductFrequencyReducer from "./reducers/MyRoutine/Evening/Toner/ProductFrequency/eveningTonerProductFrequencyReducer";
+import eveningTonerProductLinkReducer from "./reducers/MyRoutine/Evening/Toner/ProductLink/eveningTonerProductLinkReducer";
+import eveningTonerProductNameReducer from "./reducers/MyRoutine/Evening/Toner/ProductName/eveningTonerProductNameReducer";
+import eveningTonerProductUseNotesReducer from "./reducers/MyRoutine/Evening/Toner/ProductUseNotes/eveningTonerProductUseNotesReducer";
+import eveningSerumProductFrequencyReducer from "./reducers/MyRoutine/Evening/Serum/ProductFrequency/eveningSerumProductFrequencyReducer";
+import eveningSerumProductLinkReducer from "./reducers/MyRoutine/Evening/Serum/ProductLink/eveningSerumProductLinkReducer";
+import eveningSerumProductNameReducer from "./reducers/MyRoutine/Evening/Serum/ProductName/eveningSerumProductNameReducer";
+import eveningSerumProductUseNotesReducer from "./reducers/MyRoutine/Evening/Serum/ProductUseNotes/eveningSerumProductUseNotesReducer";
+import eveningMoisturizerProductFrequencyReducer from "./reducers/MyRoutine/Evening/Moisturizer/ProductFrequency/eveningMoisturizerProductFrequencyReducer";
+import eveningMoisturizerProductLinkReducer from "./reducers/MyRoutine/Evening/Moisturizer/ProductLink/eveningMoisturizerProductLinkReducer";
+import eveningMoisturizerProductNameReducer from "./reducers/MyRoutine/Evening/Moisturizer/ProductName/eveningMoisturizerProductNameReducer";
+import eveningMoisturizerProductUseNotesReducer from "./reducers/MyRoutine/Evening/Moisturizer/ProductUseNotes/eveningMoisturizerProductUseNotesReducer";
+import nightMaskProductFrequencyReducer from "./reducers/MyRoutine/Evening/NightMask/ProductFrequency/nightMaskProductFrequencyReducer";
+import nightMaskProductLinkReducer from "./reducers/MyRoutine/Evening/NightMask/ProductLink/nightMaskProductLinkReducer";
+import nightMaskProductNameReducer from "./reducers/MyRoutine/Evening/NightMask/ProductName/nightMaskProductNameReducer";
+import nightMaskProductUseNotesReducer from "./reducers/MyRoutine/Evening/NightMask/ProductUseNotes/nightMaskProductUseNotesReducer";
+import oilProductFrequencyReducer from "./reducers/MyRoutine/Evening/Oil/ProductFrequency/oilProductFrequencyReducer";
+import oilProductLinkReducer from "./reducers/MyRoutine/Evening/Oil/ProductLink/oilProductLinkReducer";
+import oilProductNameReducer from "./reducers/MyRoutine/Evening/Oil/ProductName/oilProductNameReducer";
+import oilProductUseNotesReducer from "./reducers/MyRoutine/Evening/Oil/ProductUseNotes/oilProductUseNotesReducer";
+import spotTreatmentProductFrequencyReducer from "./reducers/MyRoutine/Evening/SpotTreatment/ProductFrequency/spotTreatmentProductFrequencyReducer";
+import spotTreatmentProductLinkReducer from "./reducers/MyRoutine/Evening/SpotTreatment/ProductLink/spotTreatmentProductLinkReducer";
+import spotTreatmentProductNameReducer from "./reducers/MyRoutine/Evening/SpotTreatment/ProductName/spotTreatmentProductNameReducer";
+import spotTreatmentProductUseNotesReducer from "./reducers/MyRoutine/Evening/SpotTreatment/ProductUseNotes/spotTreatmentProductUseNotesReducer";
+import eveningRXProductFrequencyReducer from "./reducers/MyRoutine/Evening/RX/ProductFrequency/eveningRXProductFrequencyReducer";
+import eveningRXProductLinkReducer from "./reducers/MyRoutine/Evening/RX/ProductLink/eveningRXProductLinkReducer";
+import eveningRXProductNameReducer from "./reducers/MyRoutine/Evening/RX/ProductName/eveningRXProductNameReducer";
+import eveningRXProductUseNotesReducer from "./reducers/MyRoutine/Evening/RX/ProductUseNotes/eveningRXProductUseNotesReducer";
+import morningRXProductFrequencyReducer from "./reducers/MyRoutine/Morning/RX/ProductFrequency/morningRXProductFrequencyReducer";
+import morningRXProductLinkReducer from "./reducers/MyRoutine/Morning/RX/ProductLink/morningRXProductLinkReducer";
+import morningRXProductNameReducer from "./reducers/MyRoutine/Morning/RX/ProductName/morningRXProductNameReducer";
+import morningRXProductUseNotesReducer from "./reducers/MyRoutine/Morning/RX/ProductUseNotes/morningRXProductUseNotesReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -331,6 +379,67 @@ const RootReducer = combineReducers({
   morningTonerProductLink: morningTonerProductLinkReducer,
   morningTonerProductName: morningTonerProductNameReducer,
   morningTonerProductUseNotes: morningTonerProductUseNotesReducer,
+
+  morningRXProductFrequency: morningRXProductFrequencyReducer,
+  morningRXProductLink: morningRXProductLinkReducer,
+  morningRXProductName: morningRXProductNameReducer,
+  morningRXProductUseNotes: morningRXProductUseNotesReducer,
+
+  // My Routine Afternoon / Evening Section Products Reducers,
+  oilCleanserProductFrequency: oilCleanserProductFrequencyReducer,
+  oilCleanserProductLink: oilCleanserProductLinkReducer,
+  oilCleanserProductName: oilCleanserProductNameReducer,
+  oilCleanserProductUseNotes: oilCleanserProductUseNotesReducer,
+
+  eveningCleanserProductFrequency: eveningCleanserProductFrequencyReducer,
+  eveningCleanserProductLink: eveningCleanserProductLinkReducer,
+  eveningCleanserProductName: eveningCleanserProductNameReducer,
+  eveningCleanserProductUseNotes: eveningCleanserProductUseNotesReducer,
+
+  exfoliatorProductFrequency: exfoliatorProductFrequencyReducer,
+  exfoliatorProductLink: exfoliatorProductLinkReducer,
+  exfoliatorProductName: exfoliatorProductNameReducer,
+  exfoliatorProductUseNotes: exfoliatorProductUseNotesReducer,
+
+  treatmentMaskProductFrequency: treatmentMaskProductFrequencyReducer,
+  treatmentMaskProductLink: treatmentMaskProductLinkReducer,
+  treatmentMaskProductName: treatmentMaskProductNameReducer,
+  treatmentMaskProductUseNotes: treatmentMaskProductUseNotesReducer,
+
+  eveningTonerProductFrequency: eveningTonerProductFrequencyReducer,
+  eveningTonerProductLink: eveningTonerProductLinkReducer,
+  eveningTonerProductName: eveningTonerProductNameReducer,
+  eveningTonerProductUseNotes: eveningTonerProductUseNotesReducer,
+
+  eveningSerumProductFrequency: eveningSerumProductFrequencyReducer,
+  eveningSerumProductLink: eveningSerumProductLinkReducer,
+  eveningSerumProductName: eveningSerumProductNameReducer,
+  eveningSerumProductUseNotes: eveningSerumProductUseNotesReducer,
+
+  eveningMoisturizerProductFrequency: eveningMoisturizerProductFrequencyReducer,
+  eveningMoisturizerProductLink: eveningMoisturizerProductLinkReducer,
+  eveningMoisturizerProductName: eveningMoisturizerProductNameReducer,
+  eveningMoisturizerProductUseNotes: eveningMoisturizerProductUseNotesReducer,
+
+  nightMaskProductFrequency: nightMaskProductFrequencyReducer,
+  nightMaskProductLink: nightMaskProductLinkReducer,
+  nightMaskProductName: nightMaskProductNameReducer,
+  nightMaskProductUseNotes: nightMaskProductUseNotesReducer,
+
+  oilProductFrequency: oilProductFrequencyReducer,
+  oilProductLink: oilProductLinkReducer,
+  oilProductName: oilProductNameReducer,
+  oilProductUseNotes: oilProductUseNotesReducer,
+
+  spotTreatmentProductFrequency: spotTreatmentProductFrequencyReducer,
+  spotTreatmentProductLink: spotTreatmentProductLinkReducer,
+  spotTreatmentProductName: spotTreatmentProductNameReducer,
+  spotTreatmentProductUseNotes: spotTreatmentProductUseNotesReducer,
+
+  eveningRXProductFrequency: eveningRXProductFrequencyReducer,
+  eveningRXProductLink: eveningRXProductLinkReducer,
+  eveningRXProductName: eveningRXProductNameReducer,
+  eveningRXProductUseNotes: eveningRXProductUseNotesReducer,
 
   // Guest Checkout Form Reducers
   loginIsActive: loginIsActiveReducer,
