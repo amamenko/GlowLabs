@@ -183,7 +183,7 @@ const App = () => {
     };
 
     setInterval(checkCookies, 100);
-  }, [dispatch]);
+  }, [dispatch, clientDataRefetch]);
 
   const handleNavbarToggle = () => {
     if (navbarToggle) {

@@ -206,6 +206,14 @@ import morningRXProductFrequencyReducer from "./reducers/MyRoutine/Morning/RX/Pr
 import morningRXProductLinkReducer from "./reducers/MyRoutine/Morning/RX/ProductLink/morningRXProductLinkReducer";
 import morningRXProductNameReducer from "./reducers/MyRoutine/Morning/RX/ProductName/morningRXProductNameReducer";
 import morningRXProductUseNotesReducer from "./reducers/MyRoutine/Morning/RX/ProductUseNotes/morningRXProductUseNotesReducer";
+import morningEyeCreamProductFrequencyReducer from "./reducers/MyRoutine/Morning/EyeCream/ProductFrequency/morningEyeCreamProductFrequencyReducer";
+import morningEyeCreamProductLinkReducer from "./reducers/MyRoutine/Morning/EyeCream/ProductLink/morningEyeCreamProductLinkReducer";
+import morningEyeCreamProductNameReducer from "./reducers/MyRoutine/Morning/EyeCream/ProductName/morningEyeCreamProductNameReducer";
+import morningEyeCreamProductUseNotesReducer from "./reducers/MyRoutine/Morning/EyeCream/ProductUseNotes/morningEyeCreamProductUseNotesReducer";
+import eveningEyeCreamProductFrequencyReducer from "./reducers/MyRoutine/Evening/EyeCream/ProductFrequency/eveningEyeCreamProductFrequencyReducer";
+import eveningEyeCreamProductLinkReducer from "./reducers/MyRoutine/Evening/EyeCream/ProductLink/eveningEyeCreamProductLinkReducer";
+import eveningEyeCreamProductUseNotesReducer from "./reducers/MyRoutine/Evening/EyeCream/ProductUseNotes/eveningEyeCreamProductUseNotesReducer";
+import eveningEyeCreamProductNameReducer from "./reducers/MyRoutine/Evening/EyeCream/ProductName/eveningEyeCreamProductNameReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -385,6 +393,11 @@ const RootReducer = combineReducers({
   morningRXProductName: morningRXProductNameReducer,
   morningRXProductUseNotes: morningRXProductUseNotesReducer,
 
+  morningEyeCreamProductFrequency: morningEyeCreamProductFrequencyReducer,
+  morningEyeCreamProductLink: morningEyeCreamProductLinkReducer,
+  morningEyeCreamProductName: morningEyeCreamProductNameReducer,
+  morningEyeCreamProductUseNotes: morningEyeCreamProductUseNotesReducer,
+
   // My Routine Afternoon / Evening Section Products Reducers,
   oilCleanserProductFrequency: oilCleanserProductFrequencyReducer,
   oilCleanserProductLink: oilCleanserProductLinkReducer,
@@ -440,6 +453,11 @@ const RootReducer = combineReducers({
   eveningRXProductLink: eveningRXProductLinkReducer,
   eveningRXProductName: eveningRXProductNameReducer,
   eveningRXProductUseNotes: eveningRXProductUseNotesReducer,
+
+  eveningEyeCreamProductFrequency: eveningEyeCreamProductFrequencyReducer,
+  eveningEyeCreamProductLink: eveningEyeCreamProductLinkReducer,
+  eveningEyeCreamProductName: eveningEyeCreamProductNameReducer,
+  eveningEyeCreamProductUseNotes: eveningEyeCreamProductUseNotesReducer,
 
   // Guest Checkout Form Reducers
   loginIsActive: loginIsActiveReducer,

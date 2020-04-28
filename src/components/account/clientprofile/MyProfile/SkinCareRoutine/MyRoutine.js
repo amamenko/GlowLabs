@@ -1,14 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faPlusCircle,
-  faLongArrowAltLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, Link, useLocation } from "react-router-dom";
-import "./SkinCareRoutine.css";
-import { Transition } from "react-spring/renderprops";
 import {
   disableBodyScroll,
   enableBodyScroll,
@@ -46,8 +40,11 @@ import ACTION_RESET_ALL_OIL_FIELDS from "../../../../../actions/MyRoutine/Evenin
 import ACTION_RESET_ALL_SPOT_TREATMENT_FIELDS from "../../../../../actions/MyRoutine/Evening/SpotTreatment/ACTION_RESET_ALL_SPOT_TREATMENT_FIELDS";
 import MorningRX from "./Morning/MorningRX";
 import EveningRX from "./Evening/EveningRX";
+import MorningEyeCream from "./Morning/MorningEyeCream";
+import EveningEyeCream from "./Evening/EveningEyeCream";
+import "./SkinCareRoutine.css";
 
-const MyRoutine = () => {
+const MyRoutine = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
@@ -295,6 +292,7 @@ const MyRoutine = () => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
             />
             <MorningToner
               handleBackToOverview={handleBackToOverview}
@@ -349,6 +347,19 @@ const MyRoutine = () => {
               addProductRef={addProductRef}
             />
             <MorningRX
+              handleBackToOverview={handleBackToOverview}
+              handleItemToggled={handleItemToggled}
+              handleAddProductToggle={handleAddProductToggle}
+              handleAppointmentUntoggled={handleAppointmentUntoggled}
+              addProductClicked={addProductClicked}
+              itemToggled={itemToggled}
+              changeItemToggled={changeItemToggled}
+              individualItemMorningRef={individualItemMorningRef}
+              pageContainerRef={pageContainerRef}
+              selectedItemBackRef={selectedItemBackRef}
+              addProductRef={addProductRef}
+            />
+            <MorningEyeCream
               handleBackToOverview={handleBackToOverview}
               handleItemToggled={handleItemToggled}
               handleAddProductToggle={handleAddProductToggle}
@@ -499,6 +510,19 @@ const MyRoutine = () => {
               addProductRef={addProductRef}
             />
             <EveningRX
+              handleBackToOverview={handleBackToOverview}
+              handleItemToggled={handleItemToggled}
+              handleAddProductToggle={handleAddProductToggle}
+              handleAppointmentUntoggled={handleAppointmentUntoggled}
+              addProductClicked={addProductClicked}
+              itemToggled={itemToggled}
+              changeItemToggled={changeItemToggled}
+              individualItemMorningRef={individualItemMorningRef}
+              pageContainerRef={pageContainerRef}
+              selectedItemBackRef={selectedItemBackRef}
+              addProductRef={addProductRef}
+            />
+            <EveningEyeCream
               handleBackToOverview={handleBackToOverview}
               handleItemToggled={handleItemToggled}
               handleAddProductToggle={handleAddProductToggle}

@@ -12,26 +12,29 @@ import { BounceLoader } from "react-spinners";
 import { css } from "emotion";
 import ACTION_USER_AUTHENTICATED from "../../../../actions/Authenticated/ACTION_USER_AUTHENTICATED";
 
-const FacebookCompleteRegistration = props => {
+const FacebookCompleteRegistration = (props) => {
   let location = useLocation();
   const dispatch = useDispatch();
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const createAccountPhoneNumberValid = useSelector(
-    state =>
+    (state) =>
       state.createAccountPhoneNumberValid.create_account_phone_number_valid
   );
   const createAccountPhoneNumber = useSelector(
-    state => state.createAccountPhoneNumber.create_account_phone_number
+    (state) => state.createAccountPhoneNumber.create_account_phone_number
   );
   const facebookCompleteRegistration = useSelector(
-    state =>
+    (state) =>
       state.facebookCompleteRegistration.facebook_complete_registration_active
+  );
+  const userAuthenticated = useSelector(
+    (state) => state.userAuthenticated.user_authenticated
   );
   const [
     completeRegistrationClicked,
-    changeCompleteRegistrationClicked
+    changeCompleteRegistrationClicked,
   ] = useState(false);
 
   const override = css`
@@ -70,14 +73,24 @@ const FacebookCompleteRegistration = props => {
   };
 
   const redirectToClientProfile = () => {
-    if (data) {
-      if (data.updateClientInformation.phoneNumber) {
-        dispatch(ACTION_USER_AUTHENTICATED());
-        dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
-        return <Redirect to="/account/clientprofile" />;
-      }
+    if (userAuthenticated) {
+      return <Redirect to="/account/clientprofile" />;
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data.updateClientInformation.phoneNumber) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+        setTimeout(() => {
+          dispatch(ACTION_USER_AUTHENTICATED());
+          dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
+        }, 1000);
+      }
+    }
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (location.pathname) {
@@ -87,7 +100,7 @@ const FacebookCompleteRegistration = props => {
 
   const handleCompleteRegistration = () => {
     updateClientInformation({
-      variables: { phoneNumber: createAccountPhoneNumber }
+      variables: { phoneNumber: createAccountPhoneNumber },
     });
   };
 
@@ -155,7 +168,7 @@ const FacebookCompleteRegistration = props => {
                 ? "rgb(255, 255, 255)"
                 : "rgb(201, 201, 201)",
               transition: "background 0.5s ease, color 0.5s ease",
-              pointerEvents: createAccountPhoneNumberValid ? "auto" : "none"
+              pointerEvents: createAccountPhoneNumberValid ? "auto" : "none",
             }}
             onClick={handleCompleteRegistration}
           >

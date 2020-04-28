@@ -363,3 +363,73 @@
   padding-bottom: 10vh;
   top: 12vh;
 }
+
+.my_routine_added_product_container {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+}
+
+.my_routine_added_product_individual_details_container {
+  position: absolute;
+}
+
+.my_routine_added_product_external_link_icon {
+  position: absolute;
+  top: 0rem;
+  left: 1.5rem;
+  color: rgb(100, 100, 100);
+}
+
+.my_routine_added_product_text_details_container {
+  position: absolute;
+  height: 100%;
+  width: 58%;
+  bottom: 0;
+  left: 35%;
+  margin-left: 2rem;
+}
+
+.react_tinylink_card {
+  width: 33%;
+  margin-left: 1.5rem;
+  display: flex;
+  height: 100% !important;
+  box-shadow: none !important;
+}
+
+.react_tinylink_card_media {
+  height: 15vh !important;
+  background-size: contain !important;
+}
+
+.my_routine_added_product_text_details_container h2 {
+  font-size: 1rem;
+  text-align: left;
+  color: black;
+  font-weight: 500;
+  margin-right: 1.5rem;
+}
+
+.my_routine_added_product_bottom_buttons_container {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 0;
+}
+
+.my_routine_added_product_see_more_button {
+  color: rgb(0, 129, 177);
+  font-weight: 600;
+}
+
+.my_routine_added_product_remove_button {
+  color: rgb(155, 155, 155);
+  font-weight: 500;
+  margin-right: 3rem;
+}

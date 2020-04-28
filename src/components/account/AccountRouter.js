@@ -44,7 +44,7 @@ const AccountRouter = (props) => {
       <Route
         exact
         path={props.path + "/completeregistration"}
-        component={FacebookCompleteRegistration}
+        render={() => <FacebookCompleteRegistration />}
       />
       <Route
         exact
