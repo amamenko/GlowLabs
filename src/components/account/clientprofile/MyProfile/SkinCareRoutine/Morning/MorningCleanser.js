@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Form, FormGroup, Label, Input, Collapse } from "reactstrap";
 import { ReactTinyLink } from "react-tiny-link";
 import {
   faPlusCircle,
@@ -33,6 +33,7 @@ const MorningCleanser = React.forwardRef((props, ref) => {
     (state) =>
       state.morningCleanserProductUseNotes.morning_cleanser_product_use_notes
   );
+  const [cardCollapseOpen, changeCardCollapseOpen] = useState(false);
 
   const [updateMyRoutine, { loading, data }] = useMutation(
     updateMyRoutineMutation
@@ -266,37 +267,92 @@ const MorningCleanser = React.forwardRef((props, ref) => {
                 props.getClientData.client.myRoutine ? (
                   props.getClientData.client.myRoutine.morningCleanser.length >
                   0 ? (
-                    <div className="my_routine_added_product_container">
-                      <ReactTinyLink
-                        cardSize="small"
-                        showGraphic={true}
-                        maxLine={2}
-                        minLine={1}
-                        url={
-                          props.getClientData.client.myRoutine
-                            .morningCleanser[0].link
-                        }
-                      />
-                      <FontAwesomeIcon
-                        icon={faExternalLinkAlt}
-                        className="my_routine_added_product_external_link_icon"
-                      />
-                      <div className="my_routine_added_product_text_details_container">
-                        <div className="my_routine_added_product_individual_details_container">
-                          <h2>
-                            {
-                              props.getClientData.client.myRoutine
-                                .morningCleanser[0].name
-                            }
-                          </h2>
+                    <div className="my_routine_added_product_page_container">
+                      <div className="my_routine_added_products_number_header">
+                        <h2>
+                          Added Product
+                          {props.getClientData.client.myRoutine.morningCleanser
+                            .length > 1
+                            ? "s"
+                            : null}{" "}
+                          (
+                          {
+                            props.getClientData.client.myRoutine.morningCleanser
+                              .length
+                          }
+                          )
+                        </h2>
+                      </div>
+                      <div className="my_routine_added_product_container">
+                        <ReactTinyLink
+                          cardSize="small"
+                          showGraphic={true}
+                          maxLine={2}
+                          minLine={1}
+                          url={
+                            props.getClientData.client.myRoutine
+                              .morningCleanser[0].link
+                          }
+                        />
+                        <FontAwesomeIcon
+                          icon={faExternalLinkAlt}
+                          className="my_routine_added_product_external_link_icon"
+                        />
+                        <Collapse isOpen={cardCollapseOpen}>
+                          <div className="my_routine_added_product_expanded_container">
+                            <div className="my_routine_added_product_expanded_item_field">
+                              <h2>Use Frequency</h2>
+                              <p>
+                                {
+                                  props.getClientData.client.myRoutine
+                                    .morningCleanser[0].frequency
+                                }
+                              </p>
+                            </div>
+                            <div className="my_routine_added_product_expanded_item_field">
+                              <h2>Use Notes</h2>
+                              <p>
+                                {props.getClientData.client.myRoutine
+                                  .morningCleanser[0].useNotes
+                                  ? props.getClientData.client.myRoutine
+                                      .morningCleanser[0].useNotes
+                                  : "None"}
+                              </p>
+                            </div>
+                          </div>
+                        </Collapse>
+                        <div className="my_routine_added_product_text_details_container">
+                          <div className="my_routine_added_product_individual_details_container">
+                            <h2>
+                              {
+                                props.getClientData.client.myRoutine
+                                  .morningCleanser[0].name
+                              }
+                            </h2>
+                          </div>
+                          <div className="my_routine_added_product_bottom_buttons_container">
+                            <div
+                              className="my_routine_added_product_see_more_button"
+                              onClick={() =>
+                                changeCardCollapseOpen(!cardCollapseOpen)
+                              }
+                            >
+                              <p>
+                                {cardCollapseOpen ? "See Less" : "See More"}
+                              </p>
+                            </div>
+                            <div className="my_routine_added_product_remove_button">
+                              <p>Remove</p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="my_routine_added_product_bottom_buttons_container">
-                          <div className="my_routine_added_product_see_more_button">
-                            <p>See More</p>
-                          </div>
-                          <div className="my_routine_added_product_remove_button">
-                            <p>Remove</p>
-                          </div>
+                      </div>
+                      <div className="my_routine_added_product_back_to_routine_button_container">
+                        <div
+                          className="my_routine_added_product_back_to_routine_button"
+                          onClick={() => props.changeItemToggled("")}
+                        >
+                          <p>Back to Routine</p>
                         </div>
                       </div>
                     </div>
