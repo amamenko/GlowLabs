@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form, FormGroup, Label, Input, Collapse } from "reactstrap";
+import { Form, FormGroup, Label, Input, Collapse, Modal } from "reactstrap";
 import { ReactTinyLink } from "react-tiny-link";
 import {
   faPlusCircle,
@@ -15,7 +15,12 @@ import ACTION_MORNING_CLEANSER_PRODUCT_LINK from "../../../../../../actions/MyRo
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_RESET_ALL_MORNING_CLEANSER_FIELDS from "../../../../../../actions/MyRoutine/Morning/Cleanser/ACTION_RESET_ALL_MORNING_CLEANSER_FIELDS";
 import { useMutation } from "@apollo/react-hooks";
-import { updateMyRoutineMutation } from "../../../../../../graphql/queries/queries";
+import {
+  updateMyRoutineMutation,
+  deleteMyRoutineItemMutation,
+} from "../../../../../../graphql/queries/queries";
+import { BounceLoader } from "react-spinners";
+import { css } from "emotion";
 
 const MorningCleanser = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();
@@ -34,12 +39,19 @@ const MorningCleanser = React.forwardRef((props, ref) => {
       state.morningCleanserProductUseNotes.morning_cleanser_product_use_notes
   );
   const [cardCollapseOpen, changeCardCollapseOpen] = useState(false);
+  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
-  const [updateMyRoutine, { loading, data }] = useMutation(
-    updateMyRoutineMutation
-  );
+  const [
+    updateMyRoutine,
+    { loading: updateRoutineLoading, data: updateRoutineData },
+  ] = useMutation(updateMyRoutineMutation);
+  const [
+    deleteMyRoutineItem,
+    { loading: deleteLoading, data: deleteData },
+  ] = useMutation(deleteMyRoutineItemMutation);
 
   const handleSubmitProduct = () => {
+    changeLoadingSpinnerActive(true);
     updateMyRoutine({
       variables: {
         morningCleanser: {
@@ -50,6 +62,39 @@ const MorningCleanser = React.forwardRef((props, ref) => {
         },
       },
     });
+  };
+
+  useEffect(() => {
+    if (updateRoutineData) {
+      props.clientDataRefetch();
+    }
+  }, [updateRoutineData, props]);
+
+  useEffect(() => {
+    if (loadingSpinnerActive) {
+      const loadingDone = setTimeout(() => {
+        props.handleBackToOverview();
+        changeLoadingSpinnerActive(false);
+      }, 2000);
+      return () => {
+        clearTimeout(loadingDone);
+      };
+    }
+  });
+
+  const handleDeleteProduct = () => {
+    if (props.getClientData) {
+      if (props.getClientData.client.myRoutine) {
+        if (props.getClientData.client.myRoutine.morningCleanser[0]) {
+          changeLoadingSpinnerActive(true);
+          deleteMyRoutineItem({
+            variables: {
+              _id: props.getClientData.client.myRoutine.morningCleanser[0]._id,
+            },
+          });
+        }
+      }
+    }
   };
 
   const handleProductName = (e) => {
@@ -81,6 +126,13 @@ const MorningCleanser = React.forwardRef((props, ref) => {
       dispatch(ACTION_RESET_ALL_MORNING_CLEANSER_FIELDS());
     };
   }, [dispatch]);
+
+  const URLRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gm;
+
+  console.log(morningCleanserProductName);
+  console.log(morningCleanserProductUseNotes);
+  console.log(morningCleanserProductFrequency);
+  console.log(URLRegex.test(morningCleanserProductLink));
 
   const handleEmptyStateToggle = () => {
     if (props.addProductClicked) {
@@ -152,6 +204,30 @@ const MorningCleanser = React.forwardRef((props, ref) => {
               className="my_individual_selected_item_add_product_button"
               ref={props.submitProductRef}
               onClick={() => handleSubmitProduct()}
+              style={{
+                background:
+                  morningCleanserProductName &&
+                  morningCleanserProductUseNotes &&
+                  morningCleanserProductFrequency &&
+                  URLRegex.test(morningCleanserProductLink)
+                    ? "rgb(44, 44, 52)"
+                    : "#f0f0f0",
+                color:
+                  morningCleanserProductName &&
+                  morningCleanserProductUseNotes &&
+                  morningCleanserProductFrequency &&
+                  URLRegex.test(morningCleanserProductLink)
+                    ? "rgb(255, 255, 255)"
+                    : "rgb(201, 201, 201)",
+                pointerEvents:
+                  morningCleanserProductName &&
+                  morningCleanserProductUseNotes &&
+                  morningCleanserProductFrequency &&
+                  URLRegex.test(morningCleanserProductLink)
+                    ? "auto"
+                    : "none",
+                transition: "background 0.5s ease, color 0.5s ease",
+              }}
             >
               <p>Submit Product</p>
             </div>
@@ -206,12 +282,53 @@ const MorningCleanser = React.forwardRef((props, ref) => {
     }
   };
 
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
+
   return (
     <div
       className="skin_care_routine_morning_my_routine_individual_item_container"
       onClick={(e) => props.handleItemToggled(e, "morning_cleanser")}
       ref={props.individualItemMorningRef}
     >
+      <Modal
+        className="cancel_appointment_modal"
+        isOpen={loadingSpinnerActive}
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: 10000,
+            opacity: 0.99,
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={loadingSpinnerActive}
+        />
+      </Modal>
       <div className="skin_care_routine_icon_container">
         <svg viewBox="0 0 50.006 50.006" height="3rem" width="100%">
           <path
@@ -341,7 +458,10 @@ const MorningCleanser = React.forwardRef((props, ref) => {
                                 {cardCollapseOpen ? "See Less" : "See More"}
                               </p>
                             </div>
-                            <div className="my_routine_added_product_remove_button">
+                            <div
+                              className="my_routine_added_product_remove_button"
+                              onClick={() => handleDeleteProduct()}
+                            >
                               <p>Remove</p>
                             </div>
                           </div>

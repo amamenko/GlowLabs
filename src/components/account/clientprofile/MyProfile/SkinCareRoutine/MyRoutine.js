@@ -293,6 +293,7 @@ const MyRoutine = (props) => {
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
               getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <MorningToner
               handleBackToOverview={handleBackToOverview}

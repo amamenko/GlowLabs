@@ -73,7 +73,12 @@ const AccountRouter = (props) => {
       <Route
         exact
         path={props.path + "/clientprofile/profile/myroutine"}
-        render={() => <MyRoutine getClientData={props.getClientData} />}
+        render={() => (
+          <MyRoutine
+            getClientData={props.getClientData}
+            clientDataRefetch={props.clientDataRefetch}
+          />
+        )}
       />
       <Route
         exact
