@@ -226,10 +226,10 @@ const MyRoutine = (props) => {
   };
 
   useEffect(() => {
-    if (location.pathname) {
+    if (location.pathname || !itemToggled) {
       window.scrollTo(0, 0);
     }
-  }, [location.pathname]);
+  }, [location.pathname, itemToggled]);
 
   return (
     <div

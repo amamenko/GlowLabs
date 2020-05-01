@@ -7,6 +7,7 @@ import {
   faPlusCircle,
   faLongArrowAltLeft,
   faExternalLinkAlt,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import ACTION_MORNING_CLEANSER_PRODUCT_NAME from "../../../../../../actions/MyRoutine/Morning/Cleanser/ProductName/ACTION_MORNING_CLEANSER_NAME";
 import ACTION_MORNING_CLEANSER_PRODUCT_FREQUENCY from "../../../../../../actions/MyRoutine/Morning/Cleanser/ProductFrequency/ACTION_MORNING_CLEANSER_PRODUCT_FREQUENCY";
@@ -40,56 +41,54 @@ const MorningCleanser = React.forwardRef((props, ref) => {
   );
   const [cardCollapseOpen, changeCardCollapseOpen] = useState(false);
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+  const [removeProductClicked, changeRemoveProductClicked] = useState(false);
 
-  const [
-    updateMyRoutine,
-    { loading: updateRoutineLoading, data: updateRoutineData },
-  ] = useMutation(updateMyRoutineMutation);
-  const [
-    deleteMyRoutineItem,
-    { loading: deleteLoading, data: deleteData },
-  ] = useMutation(deleteMyRoutineItemMutation);
+  const [updateMyRoutine, { data: updateRoutineData }] = useMutation(
+    updateMyRoutineMutation
+  );
+  const [deleteMyRoutineItem, { data: deleteData }] = useMutation(
+    deleteMyRoutineItemMutation
+  );
 
-  const handleSubmitProduct = () => {
-    changeLoadingSpinnerActive(true);
-    updateMyRoutine({
-      variables: {
-        morningCleanser: {
-          name: morningCleanserProductName,
-          frequency: morningCleanserProductFrequency,
-          link: morningCleanserProductLink,
-          useNotes: morningCleanserProductUseNotes,
-        },
-      },
-    });
-  };
+  const urlRegex = /^(https?):\/\/[^\s$.?#].+[.]+[^\s]+$/gim;
 
   useEffect(() => {
-    if (updateRoutineData) {
+    if (updateRoutineData || deleteData) {
       props.clientDataRefetch();
     }
-  }, [updateRoutineData, props]);
+  }, [updateRoutineData, deleteData, props]);
 
   useEffect(() => {
     if (loadingSpinnerActive) {
       const loadingDone = setTimeout(() => {
         props.handleBackToOverview();
+        if (cardCollapseOpen) {
+          changeCardCollapseOpen(false);
+        }
         changeLoadingSpinnerActive(false);
-      }, 2000);
+      }, 1000);
       return () => {
         clearTimeout(loadingDone);
       };
     }
-  });
+  }, [cardCollapseOpen, loadingSpinnerActive, props]);
+
+  useEffect(() => {
+    return () => {
+      changeCardCollapseOpen(false);
+    };
+  }, []);
 
   const handleDeleteProduct = () => {
     if (props.getClientData) {
       if (props.getClientData.client.myRoutine) {
         if (props.getClientData.client.myRoutine.morningCleanser[0]) {
+          changeRemoveProductClicked(false);
           changeLoadingSpinnerActive(true);
           deleteMyRoutineItem({
             variables: {
-              _id: props.getClientData.client.myRoutine.morningCleanser[0]._id,
+              morningCleanserID:
+                props.getClientData.client.myRoutine.morningCleanser[0]._id,
             },
           });
         }
@@ -127,12 +126,29 @@ const MorningCleanser = React.forwardRef((props, ref) => {
     };
   }, [dispatch]);
 
-  const URLRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gm;
-
-  console.log(morningCleanserProductName);
-  console.log(morningCleanserProductUseNotes);
-  console.log(morningCleanserProductFrequency);
-  console.log(URLRegex.test(morningCleanserProductLink));
+  const handleSubmitProduct = () => {
+    if (morningCleanserProductName) {
+      if (morningCleanserProductFrequency) {
+        if (morningCleanserProductUseNotes) {
+          if (urlRegex.test(morningCleanserProductLink)) {
+            changeLoadingSpinnerActive(true);
+            updateMyRoutine({
+              variables: {
+                morningCleanser: {
+                  name: morningCleanserProductName,
+                  frequency: morningCleanserProductFrequency,
+                  link: morningCleanserProductLink,
+                  useNotes: morningCleanserProductUseNotes,
+                },
+              },
+            });
+          } else {
+            return null;
+          }
+        }
+      }
+    }
+  };
 
   const handleEmptyStateToggle = () => {
     if (props.addProductClicked) {
@@ -142,7 +158,19 @@ const MorningCleanser = React.forwardRef((props, ref) => {
             <FormGroup className="add_product_form_field">
               <Label for="productName">
                 {" "}
-                <div className="top_form_container">Product Name</div>
+                <div className="top_form_container">
+                  <div className="required_label">
+                    Product Name
+                    <p className="required_label red_asterisk">* </p>
+                  </div>
+                  <div className="required_fields_container">
+                    <p className="red_asterisk">* </p>{" "}
+                    <p className="required_fields_statement">
+                      {" "}
+                      Required Fields
+                    </p>
+                  </div>
+                </div>
               </Label>
               <Input
                 type="text"
@@ -157,7 +185,12 @@ const MorningCleanser = React.forwardRef((props, ref) => {
             <FormGroup className="add_product_form_field">
               <Label for="frequencyOfUse">
                 {" "}
-                <div className="top_form_container">Frequency of Use</div>
+                <div className="top_form_container">
+                  <div className="required_label">
+                    Frequency of Use
+                    <p className="required_label red_asterisk">* </p>
+                  </div>
+                </div>
               </Label>
               <Input
                 type="text"
@@ -170,7 +203,12 @@ const MorningCleanser = React.forwardRef((props, ref) => {
               />
             </FormGroup>
             <FormGroup className="add_product_form_field">
-              <Label for="productUsageDetails">Product Usage Details</Label>
+              <Label for="productUsageDetails">
+                <div className="required_label">
+                  Product Usage Details
+                  <p className="required_label red_asterisk">* </p>
+                </div>
+              </Label>
               <Input
                 type="textarea"
                 style={{
@@ -186,7 +224,12 @@ const MorningCleanser = React.forwardRef((props, ref) => {
             <FormGroup className="add_product_form_field">
               <Label for="productLink">
                 {" "}
-                <div className="top_form_container">Product Link</div>
+                <div className="top_form_container">
+                  <div className="required_label">
+                    Product Link
+                    <p className="required_label red_asterisk">* </p>
+                  </div>
+                </div>
               </Label>
               <Input
                 type="text"
@@ -197,6 +240,9 @@ const MorningCleanser = React.forwardRef((props, ref) => {
                 defaultValue={morningCleanserProductLink}
                 onChange={handleProductLink}
               />
+              <p className="add_product_url_http_caption">
+                Note: URL should begin with http:// or https://
+              </p>
             </FormGroup>
           </Form>
           <div className="my_individual_selected_item_bottom_buttons_container">
@@ -209,27 +255,33 @@ const MorningCleanser = React.forwardRef((props, ref) => {
                   morningCleanserProductName &&
                   morningCleanserProductUseNotes &&
                   morningCleanserProductFrequency &&
-                  URLRegex.test(morningCleanserProductLink)
+                  morningCleanserProductLink.match(urlRegex)
                     ? "rgb(44, 44, 52)"
                     : "#f0f0f0",
-                color:
-                  morningCleanserProductName &&
-                  morningCleanserProductUseNotes &&
-                  morningCleanserProductFrequency &&
-                  URLRegex.test(morningCleanserProductLink)
-                    ? "rgb(255, 255, 255)"
-                    : "rgb(201, 201, 201)",
                 pointerEvents:
                   morningCleanserProductName &&
                   morningCleanserProductUseNotes &&
                   morningCleanserProductFrequency &&
-                  URLRegex.test(morningCleanserProductLink)
+                  morningCleanserProductLink.match(urlRegex)
                     ? "auto"
                     : "none",
-                transition: "background 0.5s ease, color 0.5s ease",
+                transition: "background 0.5s ease",
               }}
             >
-              <p>Submit Product</p>
+              <p
+                style={{
+                  color:
+                    morningCleanserProductName &&
+                    morningCleanserProductUseNotes &&
+                    morningCleanserProductFrequency &&
+                    morningCleanserProductLink.match(urlRegex)
+                      ? "rgb(255, 255, 255)"
+                      : "rgb(201, 201, 201)",
+                  transition: "color 0.5s ease",
+                }}
+              >
+                Submit Product
+              </p>
             </div>
             <div
               className="my_individual_selected_item_back_to_routine_button"
@@ -297,7 +349,7 @@ const MorningCleanser = React.forwardRef((props, ref) => {
     >
       <Modal
         className="cancel_appointment_modal"
-        isOpen={loadingSpinnerActive}
+        isOpen={removeProductClicked || loadingSpinnerActive}
         style={{
           content: {
             position: "fixed",
@@ -328,6 +380,45 @@ const MorningCleanser = React.forwardRef((props, ref) => {
           color={"rgb(44, 44, 52)"}
           loading={loadingSpinnerActive}
         />
+        <Transition
+          items={removeProductClicked && !loadingSpinnerActive}
+          from={{ transform: "translate3d(0, -65%, 0)" }}
+          enter={{ transform: "translate3d(0, 0, 0)" }}
+          leave={{ display: "none" }}
+        >
+          {(removeProductClicked) =>
+            removeProductClicked &&
+            ((styleprops) => (
+              <div
+                className="cancel_appointment_modal_content_container"
+                style={styleprops}
+              >
+                <div className="log_out_modal_contents">
+                  <FontAwesomeIcon
+                    className="modal_x"
+                    icon={faTimes}
+                    onClick={() => changeRemoveProductClicked(false)}
+                  />
+                  <h2>Are you sure you want to remove this added product?</h2>
+                  <span className="logout_buttons_container">
+                    <div
+                      className="logout_button"
+                      onClick={() => handleDeleteProduct()}
+                    >
+                      <p>REMOVE</p>
+                    </div>
+                    <div
+                      className="cancel_logout_button"
+                      onClick={() => changeRemoveProductClicked(false)}
+                    >
+                      <p>CANCEL</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            ))
+          }
+        </Transition>
       </Modal>
       <div className="skin_care_routine_icon_container">
         <svg viewBox="0 0 50.006 50.006" height="3rem" width="100%">
@@ -384,7 +475,7 @@ const MorningCleanser = React.forwardRef((props, ref) => {
                 props.getClientData.client.myRoutine ? (
                   props.getClientData.client.myRoutine.morningCleanser.length >
                   0 ? (
-                    <div className="my_routine_added_product_page_container">
+                    <>
                       <div className="my_routine_added_products_number_header">
                         <h2>
                           Added Product
@@ -400,82 +491,85 @@ const MorningCleanser = React.forwardRef((props, ref) => {
                           )
                         </h2>
                       </div>
-                      <div className="my_routine_added_product_container">
-                        <ReactTinyLink
-                          cardSize="small"
-                          showGraphic={true}
-                          maxLine={2}
-                          minLine={1}
-                          url={
-                            props.getClientData.client.myRoutine
-                              .morningCleanser[0].link
-                          }
-                        />
-                        <FontAwesomeIcon
-                          icon={faExternalLinkAlt}
-                          className="my_routine_added_product_external_link_icon"
-                        />
-                        <Collapse isOpen={cardCollapseOpen}>
-                          <div className="my_routine_added_product_expanded_container">
-                            <div className="my_routine_added_product_expanded_item_field">
-                              <h2>Use Frequency</h2>
-                              <p>
+                      <div className="my_routine_added_product_page_container">
+                        <div className="my_routine_added_product_container">
+                          <ReactTinyLink
+                            proxyUrl="http://localhost:4000"
+                            cardSize="small"
+                            showGraphic={true}
+                            maxLine={2}
+                            minLine={1}
+                            url={
+                              props.getClientData.client.myRoutine
+                                .morningCleanser[0].link
+                            }
+                          />
+                          <FontAwesomeIcon
+                            icon={faExternalLinkAlt}
+                            className="my_routine_added_product_external_link_icon"
+                          />
+                          <Collapse isOpen={cardCollapseOpen}>
+                            <div className="my_routine_added_product_expanded_container">
+                              <div className="my_routine_added_product_expanded_item_field">
+                                <h2>Use Frequency</h2>
+                                <p>
+                                  {
+                                    props.getClientData.client.myRoutine
+                                      .morningCleanser[0].frequency
+                                  }
+                                </p>
+                              </div>
+                              <div className="my_routine_added_product_expanded_item_field">
+                                <h2>Use Notes</h2>
+                                <p>
+                                  {props.getClientData.client.myRoutine
+                                    .morningCleanser[0].useNotes
+                                    ? props.getClientData.client.myRoutine
+                                        .morningCleanser[0].useNotes
+                                    : "None"}
+                                </p>
+                              </div>
+                            </div>
+                          </Collapse>
+                          <div className="my_routine_added_product_text_details_container">
+                            <div className="my_routine_added_product_individual_details_container">
+                              <h2>
                                 {
                                   props.getClientData.client.myRoutine
-                                    .morningCleanser[0].frequency
+                                    .morningCleanser[0].name
                                 }
-                              </p>
+                              </h2>
                             </div>
-                            <div className="my_routine_added_product_expanded_item_field">
-                              <h2>Use Notes</h2>
-                              <p>
-                                {props.getClientData.client.myRoutine
-                                  .morningCleanser[0].useNotes
-                                  ? props.getClientData.client.myRoutine
-                                      .morningCleanser[0].useNotes
-                                  : "None"}
-                              </p>
-                            </div>
-                          </div>
-                        </Collapse>
-                        <div className="my_routine_added_product_text_details_container">
-                          <div className="my_routine_added_product_individual_details_container">
-                            <h2>
-                              {
-                                props.getClientData.client.myRoutine
-                                  .morningCleanser[0].name
-                              }
-                            </h2>
-                          </div>
-                          <div className="my_routine_added_product_bottom_buttons_container">
-                            <div
-                              className="my_routine_added_product_see_more_button"
-                              onClick={() =>
-                                changeCardCollapseOpen(!cardCollapseOpen)
-                              }
-                            >
-                              <p>
-                                {cardCollapseOpen ? "See Less" : "See More"}
-                              </p>
-                            </div>
-                            <div
-                              className="my_routine_added_product_remove_button"
-                              onClick={() => handleDeleteProduct()}
-                            >
-                              <p>Remove</p>
+                            <div className="my_routine_added_product_bottom_buttons_container">
+                              <div
+                                className="my_routine_added_product_see_more_button"
+                                onClick={() =>
+                                  changeCardCollapseOpen(!cardCollapseOpen)
+                                }
+                              >
+                                <p>
+                                  {cardCollapseOpen ? "See Less" : "See More"}
+                                </p>
+                              </div>
+                              <div
+                                className="my_routine_added_product_remove_button"
+                                onClick={() => changeRemoveProductClicked(true)}
+                              >
+                                <p>Remove</p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="my_routine_added_product_back_to_routine_button_container">
-                        <div
-                          className="my_routine_added_product_back_to_routine_button"
-                          onClick={() => props.changeItemToggled("")}
-                        >
-                          <p>Back to Routine</p>
+                        <div className="my_routine_added_product_back_to_routine_button_container">
+                          <div
+                            className="my_routine_added_product_back_to_routine_button"
+                            onClick={() => props.changeItemToggled("")}
+                          >
+                            <p>Back to Routine</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </>
                   ) : (
                     handleEmptyStateToggle()
                   )
