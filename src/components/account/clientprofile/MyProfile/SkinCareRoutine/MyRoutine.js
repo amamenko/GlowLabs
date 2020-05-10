@@ -226,10 +226,10 @@ const MyRoutine = (props) => {
   };
 
   useEffect(() => {
-    if (location.pathname || !itemToggled) {
+    if (location.pathname) {
       window.scrollTo(0, 0);
     }
-  }, [location.pathname, itemToggled]);
+  }, [location.pathname]);
 
   return (
     <div
@@ -307,6 +307,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <MorningSerum
               handleBackToOverview={handleBackToOverview}
@@ -320,6 +322,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <MorningMoisturizer
               handleBackToOverview={handleBackToOverview}
@@ -333,6 +337,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <MorningSPF
               handleBackToOverview={handleBackToOverview}
@@ -346,6 +352,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <MorningRX
               handleBackToOverview={handleBackToOverview}
@@ -359,6 +367,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <MorningEyeCream
               handleBackToOverview={handleBackToOverview}
@@ -372,6 +382,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
           </div>
         </div>
@@ -388,10 +400,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningCleanser
               handleBackToOverview={handleBackToOverview}
@@ -401,10 +415,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningExfoliator
               handleBackToOverview={handleBackToOverview}
@@ -414,10 +430,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningTreatmentMask
               handleBackToOverview={handleBackToOverview}
@@ -427,10 +445,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningToner
               handleBackToOverview={handleBackToOverview}
@@ -440,10 +460,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningSerum
               handleBackToOverview={handleBackToOverview}
@@ -453,10 +475,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningMoisturizer
               handleBackToOverview={handleBackToOverview}
@@ -466,10 +490,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningNightMask
               handleBackToOverview={handleBackToOverview}
@@ -479,10 +505,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningOil
               handleBackToOverview={handleBackToOverview}
@@ -492,10 +520,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningSpotTreatment
               handleBackToOverview={handleBackToOverview}
@@ -505,10 +535,12 @@ const MyRoutine = (props) => {
               addProductClicked={addProductClicked}
               itemToggled={itemToggled}
               changeItemToggled={changeItemToggled}
-              individualItemEveningRef={individualItemEveningRef}
+              individualItemMorningRef={individualItemMorningRef}
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningRX
               handleBackToOverview={handleBackToOverview}
@@ -522,6 +554,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
             <EveningEyeCream
               handleBackToOverview={handleBackToOverview}
@@ -535,6 +569,8 @@ const MyRoutine = (props) => {
               pageContainerRef={pageContainerRef}
               selectedItemBackRef={selectedItemBackRef}
               addProductRef={addProductRef}
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
             />
           </div>
         </div>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, FormGroup, Label, Input, Collapse, Modal } from "reactstrap";
-import { ReactTinyLink } from "react-tiny-link";
 import {
   faPlusCircle,
   faLongArrowAltLeft,
@@ -43,6 +42,11 @@ const MorningCleanser = React.forwardRef((props, ref) => {
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [removeProductClicked, changeRemoveProductClicked] = useState(false);
 
+  const [addedProductScrapedImage, changeAddedProductScrapedImage] = useState(
+    ""
+  );
+  const [addedProductLink, changeAddedProductLink] = useState("");
+
   const [updateMyRoutine, { data: updateRoutineData }] = useMutation(
     updateMyRoutineMutation
   );
@@ -66,6 +70,7 @@ const MorningCleanser = React.forwardRef((props, ref) => {
           changeCardCollapseOpen(false);
         }
         changeLoadingSpinnerActive(false);
+        props.clientDataRefetch();
       }, 1000);
       return () => {
         clearTimeout(loadingDone);
@@ -76,6 +81,7 @@ const MorningCleanser = React.forwardRef((props, ref) => {
   useEffect(() => {
     return () => {
       changeCardCollapseOpen(false);
+      window.scrollTo(0, 0);
     };
   }, []);
 
@@ -83,6 +89,8 @@ const MorningCleanser = React.forwardRef((props, ref) => {
     if (props.getClientData) {
       if (props.getClientData.client.myRoutine) {
         if (props.getClientData.client.myRoutine.morningCleanser[0]) {
+          changeAddedProductLink("");
+          changeAddedProductScrapedImage("");
           changeRemoveProductClicked(false);
           changeLoadingSpinnerActive(true);
           deleteMyRoutineItem({
@@ -341,6 +349,37 @@ const MorningCleanser = React.forwardRef((props, ref) => {
     right: 25%;
   `;
 
+  const overrideImg = css`
+    display: flex;
+    position: relative;
+    alignitems: center;
+    justifycontent: center;
+  `;
+
+  useEffect(() => {
+    if (props.getClientData) {
+      if (props.getClientData.client.myRoutine) {
+        if (props.getClientData.client.myRoutine.morningCleanser.length > 0) {
+          fetch(
+            "http://localhost:4000/" +
+              props.getClientData.client.myRoutine.morningCleanser[0].link,
+            {
+              headers: {
+                "User-Agent":
+                  "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4",
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              changeAddedProductLink(data.url);
+              changeAddedProductScrapedImage(data.image);
+            });
+        }
+      }
+    }
+  }, [props.getClientData]);
+
   return (
     <div
       className="skin_care_routine_morning_my_routine_individual_item_container"
@@ -493,21 +532,38 @@ const MorningCleanser = React.forwardRef((props, ref) => {
                       </div>
                       <div className="my_routine_added_product_page_container">
                         <div className="my_routine_added_product_container">
-                          <ReactTinyLink
-                            proxyUrl="http://localhost:4000"
-                            cardSize="small"
-                            showGraphic={true}
-                            maxLine={2}
-                            minLine={1}
-                            url={
-                              props.getClientData.client.myRoutine
-                                .morningCleanser[0].link
-                            }
-                          />
-                          <FontAwesomeIcon
-                            icon={faExternalLinkAlt}
-                            className="my_routine_added_product_external_link_icon"
-                          />
+                          <div className="added_product_small_hero_image_link_container">
+                            <a
+                              href={addedProductLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {addedProductScrapedImage ? (
+                                <img
+                                  src={addedProductScrapedImage}
+                                  alt="Added Product"
+                                />
+                              ) : (
+                                <BounceLoader
+                                  className="added_product_loading_spinner_image"
+                                  size={50}
+                                  css={overrideImg}
+                                  color={"rgb(44, 44, 52)"}
+                                  loading={!addedProductScrapedImage}
+                                />
+                              )}
+                            </a>
+                          </div>
+                          <a
+                            href={addedProductLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <FontAwesomeIcon
+                              icon={faExternalLinkAlt}
+                              className="my_routine_added_product_external_link_icon"
+                            />
+                          </a>
                           <Collapse isOpen={cardCollapseOpen}>
                             <div className="my_routine_added_product_expanded_container">
                               <div className="my_routine_added_product_expanded_item_field">

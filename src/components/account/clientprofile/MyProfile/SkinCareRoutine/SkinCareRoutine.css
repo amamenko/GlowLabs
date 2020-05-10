@@ -515,3 +515,32 @@
   color: rgb(155, 155, 155);
   margin-top: 0.3rem;
 }
+
+.added_product_small_hero_image_link_container {
+  width: 35vw;
+  height: 14.5vh;
+  margin-left: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.added_product_small_hero_image_link_container a {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.added_product_small_hero_image_link_container a img {
+  height: 75%;
+  width: 75%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  object-fit: contain;
+}

@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Form, FormGroup, Label, Input, Collapse, Modal } from "reactstrap";
 import {
   faPlusCircle,
   faLongArrowAltLeft,
+  faTimes,
+  faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_MORNING_MOISTURIZER_PRODUCT_NAME from "../../../../../../actions/MyRoutine/Morning/Moisturizer/ProductName/ACTION_MORNING_MOISTURIZER_PRODUCT_NAME";
@@ -12,6 +14,13 @@ import ACTION_MORNING_MOISTURIZER_PRODUCT_FREQUENCY from "../../../../../../acti
 import ACTION_MORNING_MOISTURIZER_PRODUCT_USE_NOTES from "../../../../../../actions/MyRoutine/Morning/Moisturizer/ProductUseNotes/ACTION_MORNING_MOISTURIZER_PRODUCT_USE_NOTES";
 import ACTION_MORNING_MOISTURIZER_PRODUCT_LINK from "../../../../../../actions/MyRoutine/Morning/Moisturizer/ProductLink/ACTION_MORNING_MOISTURIZER_PRODUCT_LINK";
 import ACTION_RESET_ALL_MORNING_MOISTURIZER_FIELDS from "../../../../../../actions/MyRoutine/Morning/Moisturizer/ACTION_RESET_ALL_MORNING_MOISTURIZER_FIELDS";
+import { useMutation } from "@apollo/react-hooks";
+import {
+  updateMyRoutineMutation,
+  deleteMyRoutineItemMutation,
+} from "../../../../../../graphql/queries/queries";
+import { BounceLoader } from "react-spinners";
+import { css } from "emotion";
 
 const MorningMoisturizer = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();
@@ -33,6 +42,71 @@ const MorningMoisturizer = React.forwardRef((props, ref) => {
       state.morningMoisturizerProductUseNotes
         .morning_moisturizer_product_use_notes
   );
+  const [cardCollapseOpen, changeCardCollapseOpen] = useState(false);
+  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+  const [removeProductClicked, changeRemoveProductClicked] = useState(false);
+
+  const [addedProductScrapedImage, changeAddedProductScrapedImage] = useState(
+    ""
+  );
+  const [addedProductLink, changeAddedProductLink] = useState("");
+
+  const [updateMyRoutine, { data: updateRoutineData }] = useMutation(
+    updateMyRoutineMutation
+  );
+  const [deleteMyRoutineItem, { data: deleteData }] = useMutation(
+    deleteMyRoutineItemMutation
+  );
+
+  const urlRegex = /^(https?):\/\/[^\s$.?#].+[.]+[^\s]+$/gim;
+
+  useEffect(() => {
+    if (updateRoutineData || deleteData) {
+      props.clientDataRefetch();
+    }
+  }, [updateRoutineData, deleteData, props]);
+
+  useEffect(() => {
+    if (loadingSpinnerActive) {
+      const loadingDone = setTimeout(() => {
+        props.handleBackToOverview();
+        if (cardCollapseOpen) {
+          changeCardCollapseOpen(false);
+        }
+        changeLoadingSpinnerActive(false);
+        props.clientDataRefetch();
+      }, 1000);
+      return () => {
+        clearTimeout(loadingDone);
+      };
+    }
+  }, [cardCollapseOpen, loadingSpinnerActive, props]);
+
+  useEffect(() => {
+    return () => {
+      changeCardCollapseOpen(false);
+      window.scrollTo(0, 0);
+    };
+  }, []);
+
+  const handleDeleteProduct = () => {
+    if (props.getClientData) {
+      if (props.getClientData.client.myRoutine) {
+        if (props.getClientData.client.myRoutine.morningMoisturizer[0]) {
+          changeAddedProductLink("");
+          changeAddedProductScrapedImage("");
+          changeRemoveProductClicked(false);
+          changeLoadingSpinnerActive(true);
+          deleteMyRoutineItem({
+            variables: {
+              morningMoisturizerID:
+                props.getClientData.client.myRoutine.morningMoisturizer[0]._id,
+            },
+          });
+        }
+      }
+    }
+  };
 
   const handleProductName = (e) => {
     dispatch(
@@ -64,12 +138,333 @@ const MorningMoisturizer = React.forwardRef((props, ref) => {
     };
   }, [dispatch]);
 
+  const handleSubmitProduct = () => {
+    if (morningMoisturizerProductName) {
+      if (morningMoisturizerProductFrequency) {
+        if (morningMoisturizerProductUseNotes) {
+          if (urlRegex.test(morningMoisturizerProductLink)) {
+            changeLoadingSpinnerActive(true);
+            updateMyRoutine({
+              variables: {
+                morningMoisturizer: {
+                  name: morningMoisturizerProductName,
+                  frequency: morningMoisturizerProductFrequency,
+                  link: morningMoisturizerProductLink,
+                  useNotes: morningMoisturizerProductUseNotes,
+                },
+              },
+            });
+          } else {
+            return null;
+          }
+        }
+      }
+    }
+  };
+
+  const handleEmptyStateToggle = () => {
+    if (props.addProductClicked) {
+      return (
+        <div className="my_individual_selected_item_add_product_container">
+          <Form className="add_product_form">
+            <FormGroup className="add_product_form_field">
+              <Label for="productName">
+                {" "}
+                <div className="top_form_container">
+                  <div className="required_label">
+                    Product Name
+                    <p className="required_label red_asterisk">* </p>
+                  </div>
+                  <div className="required_fields_container">
+                    <p className="red_asterisk">* </p>{" "}
+                    <p className="required_fields_statement">
+                      {" "}
+                      Required Fields
+                    </p>
+                  </div>
+                </div>
+              </Label>
+              <Input
+                type="text"
+                name="productName"
+                maxLength={100}
+                placeholder="Enter product name"
+                className="input_field_product"
+                defaultValue={morningMoisturizerProductName}
+                onChange={handleProductName}
+              />
+            </FormGroup>
+            <FormGroup className="add_product_form_field">
+              <Label for="frequencyOfUse">
+                {" "}
+                <div className="top_form_container">
+                  <div className="required_label">
+                    Frequency of Use
+                    <p className="required_label red_asterisk">* </p>
+                  </div>
+                </div>
+              </Label>
+              <Input
+                type="text"
+                name="frequencyOfUse"
+                maxLength={50}
+                placeholder="Enter frequency, e.g. daily, etc."
+                className="input_field_product"
+                defaultValue={morningMoisturizerProductFrequency}
+                onChange={handleProductFrequency}
+              />
+            </FormGroup>
+            <FormGroup className="add_product_form_field">
+              <Label for="productUsageDetails">
+                <div className="required_label">
+                  Product Usage Details
+                  <p className="required_label red_asterisk">* </p>
+                </div>
+              </Label>
+              <Input
+                type="textarea"
+                style={{
+                  fontFamily: "Montserrat",
+                }}
+                placeholder="Enter a short description of your product usage here."
+                className="product_usage_notes"
+                maxLength={1000}
+                defaultValue={morningMoisturizerProductUseNotes}
+                onChange={handleProductUsageDetails}
+              />
+            </FormGroup>
+            <FormGroup className="add_product_form_field">
+              <Label for="productLink">
+                {" "}
+                <div className="top_form_container">
+                  <div className="required_label">
+                    Product Link
+                    <p className="required_label red_asterisk">* </p>
+                  </div>
+                </div>
+              </Label>
+              <Input
+                type="text"
+                name="productLink"
+                maxLength={500}
+                placeholder="Enter a URL link to the product"
+                className="input_field_product"
+                defaultValue={morningMoisturizerProductLink}
+                onChange={handleProductLink}
+              />
+              <p className="add_product_url_http_caption">
+                Note: URL should begin with http:// or https://
+              </p>
+            </FormGroup>
+          </Form>
+          <div className="my_individual_selected_item_bottom_buttons_container">
+            <div
+              className="my_individual_selected_item_add_product_button"
+              ref={props.submitProductRef}
+              onClick={() => handleSubmitProduct()}
+              style={{
+                background:
+                  morningMoisturizerProductName &&
+                  morningMoisturizerProductUseNotes &&
+                  morningMoisturizerProductFrequency &&
+                  morningMoisturizerProductLink.match(urlRegex)
+                    ? "rgb(44, 44, 52)"
+                    : "#f0f0f0",
+                pointerEvents:
+                  morningMoisturizerProductName &&
+                  morningMoisturizerProductUseNotes &&
+                  morningMoisturizerProductFrequency &&
+                  morningMoisturizerProductLink.match(urlRegex)
+                    ? "auto"
+                    : "none",
+                transition: "background 0.5s ease",
+              }}
+            >
+              <p
+                style={{
+                  color:
+                    morningMoisturizerProductName &&
+                    morningMoisturizerProductUseNotes &&
+                    morningMoisturizerProductFrequency &&
+                    morningMoisturizerProductLink.match(urlRegex)
+                      ? "rgb(255, 255, 255)"
+                      : "rgb(201, 201, 201)",
+                  transition: "color 0.5s ease",
+                }}
+              >
+                Submit Product
+              </p>
+            </div>
+            <div
+              className="my_individual_selected_item_back_to_routine_button"
+              onClick={() => props.handleBackToOverview()}
+            >
+              <p>Back to Overview</p>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="my_individual_selected_item_empty_state_container">
+          <div className="my_individual_selected_item_empty_state_icon_container">
+            <svg viewBox="0 0 50.006 50.006" height="5rem" width="100%">
+              <path
+                className="my_individual_selected_item_empty_state_icon"
+                d="M20.737 48.765c-.497-.363-.516-.883-.586-16.044-.082-17.693-.177-16.822 1.854-16.968l1.129-.082.146-7.805h1.574V5.192c0-2.638-.008-2.673-.596-2.537-.327.076-1.875.285-3.44.464l-2.844.326v1.02c0 .844-.091 1.02-.529 1.02-.458 0-.529-.176-.529-1.307 0-.72.11-1.375.244-1.458.757-.468 8.456-1.213 11.83-1.145l3.668.073.15 6.185 1.438.165.146 7.806h1.01c1.992 0 1.886-.933 1.886 16.623 0 15.303-.012 15.668-.529 16.185-.504.504-.882.529-8.019.529-6.05 0-7.589-.072-8.004-.376zm15.43-16.359l-.068-15.676-6.88-.074c-3.783-.041-7.146-.01-7.474.07l-.595.146v15.43c0 8.485.08 15.507.176 15.604.097.097 3.492.177 7.543.177h7.366zm-2.979-20.174v-3.44l-8.863-.145v7.17l8.863-.145zm-1.455-7.011V2.575h-5.82v5.291h5.82z"
+                strokeOpacity="1"
+                strokeMiterlimit="4"
+                strokeDasharray="none"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+          <div className="my_individual_selected_item_empty_state_text_container">
+            <h2>No morning moisturizer information</h2>
+            <p>
+              Start by adding some product information and check back here after
+            </p>
+          </div>
+          <div className="my_individual_selected_item_bottom_buttons_container">
+            <div
+              className="my_individual_selected_item_add_product_button"
+              ref={props.addProductRef}
+              onClick={(e) => props.handleAddProductToggle(e)}
+            >
+              <p>Add Product</p>
+            </div>
+            <div
+              className="my_individual_selected_item_back_to_routine_button"
+              onClick={() => props.changeItemToggled("")}
+            >
+              <p>Back to Routine</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
+
+  const overrideImg = css`
+    display: flex;
+    position: relative;
+    alignitems: center;
+    justifycontent: center;
+  `;
+
+  useEffect(() => {
+    if (props.getClientData) {
+      if (props.getClientData.client.myRoutine) {
+        if (
+          props.getClientData.client.myRoutine.morningMoisturizer.length > 0
+        ) {
+          fetch(
+            "http://localhost:4000/" +
+              props.getClientData.client.myRoutine.morningMoisturizer[0].link,
+            {
+              headers: {
+                "User-Agent":
+                  "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4",
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              changeAddedProductLink(data.url);
+              changeAddedProductScrapedImage(data.image);
+            });
+        }
+      }
+    }
+  }, [props.getClientData]);
+
   return (
     <div
       className="skin_care_routine_morning_my_routine_individual_item_container"
       onClick={(e) => props.handleItemToggled(e, "morning_moisturizer")}
       ref={props.individualItemMorningRef}
     >
+      <Modal
+        className="cancel_appointment_modal"
+        isOpen={removeProductClicked || loadingSpinnerActive}
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: 10000,
+            opacity: 0.99,
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={loadingSpinnerActive}
+        />
+        <Transition
+          items={removeProductClicked && !loadingSpinnerActive}
+          from={{ transform: "translate3d(0, -65%, 0)" }}
+          enter={{ transform: "translate3d(0, 0, 0)" }}
+          leave={{ display: "none" }}
+        >
+          {(removeProductClicked) =>
+            removeProductClicked &&
+            ((styleprops) => (
+              <div
+                className="cancel_appointment_modal_content_container"
+                style={styleprops}
+              >
+                <div className="log_out_modal_contents">
+                  <FontAwesomeIcon
+                    className="modal_x"
+                    icon={faTimes}
+                    onClick={() => changeRemoveProductClicked(false)}
+                  />
+                  <h2>Are you sure you want to remove this added product?</h2>
+                  <span className="logout_buttons_container">
+                    <div
+                      className="logout_button"
+                      onClick={() => handleDeleteProduct()}
+                    >
+                      <p>REMOVE</p>
+                    </div>
+                    <div
+                      className="cancel_logout_button"
+                      onClick={() => changeRemoveProductClicked(false)}
+                    >
+                      <p>CANCEL</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            ))
+          }
+        </Transition>
+      </Modal>
       <div className="skin_care_routine_icon_container">
         <svg height="3rem" width="100%" viewBox="0 0 50.006 50.006">
           <path d="M11.545 46.731c-2.98-.902-5.427-3.695-6.204-7.078-.236-1.029-.314-2.606-.314-6.375 0-4.588.035-5.084.416-5.925.228-.504.64-1.033.916-1.174.498-.256.5-.271.5-3.616 0-2.306.077-3.444.244-3.633.15-.168.88-.275 1.884-.275h1.64l.457-1.332c1.046-3.039 3.823-6.837 6.86-9.384 2.596-2.177 8.314-5.109 9.286-4.761.51.182.653.854.4 1.878-.117.477-.214 1.56-.214 2.408-.003 3.972 2.48 7.48 7.193 10.165l1.802 1.026h2.916c2.38 0 2.974.066 3.235.36.26.293.32.958.32 3.57v3.21l.638.605c1.095 1.038 1.194 1.61 1.19 6.87-.003 6.721-.48 8.643-2.741 11.052-1.217 1.297-2.269 1.952-3.906 2.433-1.713.503-24.848.481-26.518-.025zm27.311-2.12c1.532-.858 2.72-2.191 3.46-3.884l.668-1.53.064-5.397c.053-4.49.013-5.473-.238-5.855-.298-.453-.538-.459-17.8-.459-17.134 0-17.507.01-17.942.453-.436.445-.443.545-.378 5.964.065 5.38.08 5.542.595 6.773.889 2.125 2.69 3.823 4.607 4.342.424.115 6.417.19 13.385.17l12.618-.04zm2.398-21.598V20.49H8.487v5.047h32.767zm-20.92-5.333c-1.034-1.71-1.327-2.92-1.22-5.02.076-1.474.177-1.938.473-2.182.464-.383.538-.384.99-.012.327.27.339.432.119 1.693-.316 1.807.097 3.581 1.135 4.876 1.24 1.547 1.533 1.62 6.529 1.62h4.444l-1.32-1c-.727-.55-1.938-1.737-2.692-2.638-2.05-2.451-2.997-4.873-3.002-7.673-.003-1.514-.194-1.534-.849-.088-.42.93-.46 1.447-.32 4.173.043.848.004.923-.517.99-.48.063-.61-.049-.865-.737-.347-.934-.4-3.486-.092-4.399.115-.34.165-.67.112-.73-.188-.212-3.596 2.106-5.206 3.542-1.93 1.72-3.646 4.008-4.83 6.444-.475.974-.864 1.85-.866 1.944-.001.095 1.925.172 4.281.172h4.284l-.589-.975z" />
@@ -111,124 +506,130 @@ const MorningMoisturizer = React.forwardRef((props, ref) => {
                   <p>Moisturizer (AM)</p>
                 </div>
               </div>
-              {props.addProductClicked ? (
-                <div className="my_individual_selected_item_add_product_container">
-                  <Form className="add_product_form">
-                    <FormGroup className="add_product_form_field">
-                      <Label for="productName">
-                        {" "}
-                        <div className="top_form_container">Product Name</div>
-                      </Label>
-                      <Input
-                        type="text"
-                        name="productName"
-                        maxLength={50}
-                        placeholder="Enter product name"
-                        className="input_field_product"
-                        defaultValue={morningMoisturizerProductName}
-                        onChange={handleProductName}
-                      />
-                    </FormGroup>
-                    <FormGroup className="add_product_form_field">
-                      <Label for="frequencyOfUse">
-                        {" "}
-                        <div className="top_form_container">
-                          Frequency of Use
+              {props.getClientData ? (
+                props.getClientData.client.myRoutine ? (
+                  props.getClientData.client.myRoutine.morningMoisturizer
+                    .length > 0 ? (
+                    <>
+                      <div className="my_routine_added_products_number_header">
+                        <h2>
+                          Added Product
+                          {props.getClientData.client.myRoutine
+                            .morningMoisturizer.length > 1
+                            ? "s"
+                            : null}{" "}
+                          (
+                          {
+                            props.getClientData.client.myRoutine
+                              .morningMoisturizer.length
+                          }
+                          )
+                        </h2>
+                      </div>
+                      <div className="my_routine_added_product_page_container">
+                        <div className="my_routine_added_product_container">
+                          <div className="added_product_small_hero_image_link_container">
+                            <a
+                              href={addedProductLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {addedProductScrapedImage ? (
+                                <img
+                                  src={addedProductScrapedImage}
+                                  alt="Added Product"
+                                />
+                              ) : (
+                                <BounceLoader
+                                  className="added_product_loading_spinner_image"
+                                  size={50}
+                                  css={overrideImg}
+                                  color={"rgb(44, 44, 52)"}
+                                  loading={!addedProductScrapedImage}
+                                />
+                              )}
+                            </a>
+                          </div>
+                          <a
+                            href={addedProductLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <FontAwesomeIcon
+                              icon={faExternalLinkAlt}
+                              className="my_routine_added_product_external_link_icon"
+                            />
+                          </a>
+                          <Collapse isOpen={cardCollapseOpen}>
+                            <div className="my_routine_added_product_expanded_container">
+                              <div className="my_routine_added_product_expanded_item_field">
+                                <h2>Use Frequency</h2>
+                                <p>
+                                  {
+                                    props.getClientData.client.myRoutine
+                                      .morningMoisturizer[0].frequency
+                                  }
+                                </p>
+                              </div>
+                              <div className="my_routine_added_product_expanded_item_field">
+                                <h2>Use Notes</h2>
+                                <p>
+                                  {props.getClientData.client.myRoutine
+                                    .morningMoisturizer[0].useNotes
+                                    ? props.getClientData.client.myRoutine
+                                        .morningMoisturizer[0].useNotes
+                                    : "None"}
+                                </p>
+                              </div>
+                            </div>
+                          </Collapse>
+                          <div className="my_routine_added_product_text_details_container">
+                            <div className="my_routine_added_product_individual_details_container">
+                              <h2>
+                                {
+                                  props.getClientData.client.myRoutine
+                                    .morningMoisturizer[0].name
+                                }
+                              </h2>
+                            </div>
+                            <div className="my_routine_added_product_bottom_buttons_container">
+                              <div
+                                className="my_routine_added_product_see_more_button"
+                                onClick={() =>
+                                  changeCardCollapseOpen(!cardCollapseOpen)
+                                }
+                              >
+                                <p>
+                                  {cardCollapseOpen ? "See Less" : "See More"}
+                                </p>
+                              </div>
+                              <div
+                                className="my_routine_added_product_remove_button"
+                                onClick={() => changeRemoveProductClicked(true)}
+                              >
+                                <p>Remove</p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </Label>
-                      <Input
-                        type="text"
-                        name="frequencyOfUse"
-                        maxLength={50}
-                        placeholder="Enter frequency, e.g. daily, etc."
-                        className="input_field_product"
-                        defaultValue={morningMoisturizerProductFrequency}
-                        onChange={handleProductFrequency}
-                      />
-                    </FormGroup>
-                    <FormGroup className="add_product_form_field">
-                      <Label for="productUsageDetails">
-                        Product Usage Details
-                      </Label>
-                      <Input
-                        type="textarea"
-                        style={{
-                          fontFamily: "Montserrat",
-                        }}
-                        placeholder="Enter a short description of your product usage here."
-                        className="product_usage_notes"
-                        maxLength={1000}
-                        defaultValue={morningMoisturizerProductUseNotes}
-                        onChange={handleProductUsageDetails}
-                      />
-                    </FormGroup>
-                    <FormGroup className="add_product_form_field">
-                      <Label for="productLink">
-                        {" "}
-                        <div className="top_form_container">Product Link</div>
-                      </Label>
-                      <Input
-                        type="text"
-                        name="productLink"
-                        maxLength={50}
-                        placeholder="Enter a URL link to the product"
-                        className="input_field_product"
-                        defaultValue={morningMoisturizerProductLink}
-                        onChange={handleProductLink}
-                      />
-                    </FormGroup>
-                  </Form>
-                  <div className="my_individual_selected_item_bottom_buttons_container">
-                    <div
-                      className="my_individual_selected_item_add_product_button"
-                      ref={props.submitProductRef}
-                      onClick={(e) => props.handleAddProductToggle(e)}
-                    >
-                      <p>Submit Product</p>
-                    </div>
-                    <div
-                      className="my_individual_selected_item_back_to_routine_button"
-                      onClick={() => props.handleBackToOverview()}
-                    >
-                      <p>Back to Overview</p>
-                    </div>
-                  </div>
-                </div>
+                        <div className="my_routine_added_product_back_to_routine_button_container">
+                          <div
+                            className="my_routine_added_product_back_to_routine_button"
+                            onClick={() => props.changeItemToggled("")}
+                          >
+                            <p>Back to Routine</p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    handleEmptyStateToggle()
+                  )
+                ) : (
+                  handleEmptyStateToggle()
+                )
               ) : (
-                <div className="my_individual_selected_item_empty_state_container">
-                  <div className="my_individual_selected_item_empty_state_icon_container">
-                    <svg
-                      className="my_individual_selected_item_empty_state_icon"
-                      height="5rem"
-                      width="100%"
-                      viewBox="0 0 50.006 50.006"
-                    >
-                      <path d="M11.545 46.731c-2.98-.902-5.427-3.695-6.204-7.078-.236-1.029-.314-2.606-.314-6.375 0-4.588.035-5.084.416-5.925.228-.504.64-1.033.916-1.174.498-.256.5-.271.5-3.616 0-2.306.077-3.444.244-3.633.15-.168.88-.275 1.884-.275h1.64l.457-1.332c1.046-3.039 3.823-6.837 6.86-9.384 2.596-2.177 8.314-5.109 9.286-4.761.51.182.653.854.4 1.878-.117.477-.214 1.56-.214 2.408-.003 3.972 2.48 7.48 7.193 10.165l1.802 1.026h2.916c2.38 0 2.974.066 3.235.36.26.293.32.958.32 3.57v3.21l.638.605c1.095 1.038 1.194 1.61 1.19 6.87-.003 6.721-.48 8.643-2.741 11.052-1.217 1.297-2.269 1.952-3.906 2.433-1.713.503-24.848.481-26.518-.025zm27.311-2.12c1.532-.858 2.72-2.191 3.46-3.884l.668-1.53.064-5.397c.053-4.49.013-5.473-.238-5.855-.298-.453-.538-.459-17.8-.459-17.134 0-17.507.01-17.942.453-.436.445-.443.545-.378 5.964.065 5.38.08 5.542.595 6.773.889 2.125 2.69 3.823 4.607 4.342.424.115 6.417.19 13.385.17l12.618-.04zm2.398-21.598V20.49H8.487v5.047h32.767zm-20.92-5.333c-1.034-1.71-1.327-2.92-1.22-5.02.076-1.474.177-1.938.473-2.182.464-.383.538-.384.99-.012.327.27.339.432.119 1.693-.316 1.807.097 3.581 1.135 4.876 1.24 1.547 1.533 1.62 6.529 1.62h4.444l-1.32-1c-.727-.55-1.938-1.737-2.692-2.638-2.05-2.451-2.997-4.873-3.002-7.673-.003-1.514-.194-1.534-.849-.088-.42.93-.46 1.447-.32 4.173.043.848.004.923-.517.99-.48.063-.61-.049-.865-.737-.347-.934-.4-3.486-.092-4.399.115-.34.165-.67.112-.73-.188-.212-3.596 2.106-5.206 3.542-1.93 1.72-3.646 4.008-4.83 6.444-.475.974-.864 1.85-.866 1.944-.001.095 1.925.172 4.281.172h4.284l-.589-.975z" />
-                    </svg>
-                  </div>
-                  <div className="my_individual_selected_item_empty_state_text_container">
-                    <h2>No morning moisturizer information</h2>
-                    <p>
-                      Start by adding some product information and check back
-                      here after
-                    </p>
-                  </div>
-                  <div className="my_individual_selected_item_bottom_buttons_container">
-                    <div
-                      className="my_individual_selected_item_add_product_button"
-                      ref={props.addProductRef}
-                      onClick={(e) => props.handleAddProductToggle(e)}
-                    >
-                      <p>Add Product</p>
-                    </div>
-                    <div
-                      className="my_individual_selected_item_back_to_routine_button"
-                      onClick={() => props.changeItemToggled("")}
-                    >
-                      <p>Back to Routine</p>
-                    </div>
-                  </div>
-                </div>
+                handleEmptyStateToggle()
               )}
             </div>
           ))
