@@ -529,6 +529,7 @@
 }
 
 .added_product_small_hero_image_link_container a {
+  height: 100%;
   width: 100%;
   position: relative;
   display: flex;
@@ -540,6 +541,8 @@
 .added_product_small_hero_image_link_container a img {
   height: 75%;
   width: 75%;
+  margin: auto;
+  display: block;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   object-fit: contain;

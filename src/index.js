@@ -19,6 +19,13 @@ import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET
 import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
 import ACTION_BODY_SCROLL_ALLOW from "./actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_BODY_SCROLL_RESET from "./actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import ACTION_USER_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_AUTHENTICATED";
+import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_NOT_AUTHENTICATED";
+import ACTION_LOG_OUT_CLICKED_RESET from "./actions/LogOut/ACTION_LOG_OUT_CLICKED_RESET";
+import ACTION_FACEBOOK_COMPLETE_REGISTRATION from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION";
+import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
+import ACTION_DUMMY_TOKEN from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN";
+import ACTION_DUMMY_TOKEN_RESET from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN_RESET";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
@@ -40,6 +47,7 @@ import Instagram from "./components/instagram/Instagram";
 import Contact from "./components/contact/Contact";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
 import AvailabilityRouter from "./components/availability/AvailabilityRouter";
+import PaymentInfo from "./components/payment_info/PaymentInfo";
 import CheckoutRouter from "./components/checkout/CheckoutRouter";
 import AccountRouter from "./components/account/AccountRouter";
 import Cookies from "js-cookie";
@@ -58,17 +66,10 @@ import {
   updateClientInvalidateTokensMutation,
   getClientQuery,
 } from "./graphql/queries/queries";
-import ACTION_USER_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_AUTHENTICATED";
-import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_NOT_AUTHENTICATED";
-import ACTION_LOG_OUT_CLICKED_RESET from "./actions/LogOut/ACTION_LOG_OUT_CLICKED_RESET";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
-import ACTION_FACEBOOK_COMPLETE_REGISTRATION from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION";
-import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
-import ACTION_DUMMY_TOKEN from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN";
-import ACTION_DUMMY_TOKEN_RESET from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN_RESET";
 import { Font } from "@react-pdf/renderer";
 
 require("dotenv").config();
@@ -724,6 +725,14 @@ const App = () => {
         </Route>
         <Route path="/cart" component={ShoppingCart} />
         <Route path="/availability" component={AvailabilityRouter} />
+        <Route
+          render={() => (
+            <PaymentInfo
+              path="/paymentinfo"
+              getClientData={getClientData ? getClientData : null}
+            />
+          )}
+        />
         <Route path="/checkout" component={CheckoutRouter} />
         <Route
           render={() => (

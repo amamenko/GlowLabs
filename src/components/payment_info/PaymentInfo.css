@@ -1,0 +1,185 @@
+.payment_info_container {
+  padding-top: 8vh;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  padding-bottom: 10vh;
+}
+
+.payment_info_container h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.payment_info_container_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+}
+
+.payment_info_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.payment_info_forward_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.payment_info_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.payment_info_header h2 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+  margin-left: 1.5rem;
+}
+
+.payment_info_statement {
+  margin-top: 2vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.sq-payment-form {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  position: relative;
+}
+
+.sq-label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.5;
+  text-transform: uppercase;
+}
+
+.sq-fieldset {
+  position: relative;
+  z-index: 1;
+  opacity: 0.99;
+  margin-top: 1rem;
+}
+
+.sq-input {
+  color: #373f4a;
+  background-color: transparent;
+  line-height: 0px;
+  margin-bottom: 1rem;
+  position: relative;
+  border: 1px solid rgb(177, 177, 177);
+  outline-offset: -2px;
+  display: inline-block;
+  transition: background 0.2s ease-in-out;
+}
+
+.sq-cardholder-input {
+  width: 100%;
+  font-family: Helvetica Neue;
+  font: 400 16px system-ui;
+  font-weight: 500;
+  padding: 19px;
+  color: #373f4a;
+  background-color: transparent;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  color: #373f4a;
+  background-color: transparent;
+  line-height: 0px;
+  margin-bottom: 1rem;
+  position: relative;
+  border: 1px solid rgb(177, 177, 177);
+  outline-offset: -2px;
+  display: inline-block;
+  transition: background 0.2s ease-in-out;
+}
+
+.sq-cardholder-input:focus {
+  outline: none;
+}
+
+.sq-cardholder-input::placeholder {
+  opacity: 0.4;
+  font-weight: 400;
+}
+
+.sq_third_container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sq-form-third_credit_card,
+.sq-form-third_postal,
+.sq-form-third_cvv {
+  width: 30%;
+}
+
+.sq-creditcard {
+  width: 100%;
+  height: 56px;
+  margin-top: 10px;
+  background: #4a90e2;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-align: center;
+  transition: background 0.2s ease-in-out;
+  border: 0;
+}
+
+.sq-error-message {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-top: 16px;
+  font-size: 14px;
+  color: red;
+  font-weight: 500;
+  text-align: left;
+  opacity: 0.8;
+  word-wrap: break-word;
+}
+
+.sq-input--error {
+  border: 1px solid #e02f2f;
+  background-color: rgba(244, 47, 47, 0.02);
+}

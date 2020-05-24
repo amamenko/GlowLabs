@@ -1211,7 +1211,7 @@ const TimePreference = () => {
           }}
         >
           <Link
-            to={userAuthenticated ? "/checkout/confirmation" : "/checkout"}
+            to={userAuthenticated ? "/paymentinfo" : "/checkout"}
             style={{
               display: "block",
               pointerEvents: selectedTime !== "" ? "auto" : "none",
