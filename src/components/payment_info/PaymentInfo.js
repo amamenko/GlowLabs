@@ -16,6 +16,8 @@ import {
 import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { updateClientSquareIDMutation } from "../../graphql/queries/queries";
+import { useMutation } from "@apollo/react-hooks";
 
 const PaymentInfo = (props) => {
   const userAuthenticated = useSelector(
@@ -36,6 +38,11 @@ const PaymentInfo = (props) => {
   const [cardHolderFirstName, changeCardHolderFirstName] = useState("");
   const [cardHolderLastName, changeCardHolderLastName] = useState("");
 
+  const [
+    updateClientSquareID,
+    { data: updateClientSquareIDData },
+  ] = useMutation(updateClientSquareIDMutation);
+
   const cardNonceResponseReceived = (
     errors,
     nonce,
@@ -49,53 +56,73 @@ const PaymentInfo = (props) => {
     } else {
       changeErrorMessage([]);
 
-      const squareData = {
-        card_nonce: nonce,
-        billing_address: { postal_code: cardData.billing_postal_code },
-        cardholder_name:
-          (userAuthenticated
-            ? cardHolderFirstName
-              ? cardHolderFirstName
-              : props.getClientData.firstName
-            : cardHolderFirstName
-            ? cardHolderFirstName
-            : firstName
-          ).trim() +
-          " " +
-          (userAuthenticated
-            ? cardHolderLastName
-              ? cardHolderLastName
-              : props.getClientData.lastName
-            : cardHolderLastName
-            ? cardHolderLastName
-            : lastName
-          ).trim(),
-        verification_token: buyerVerificationToken,
-      };
-
       const squareCustomerData = {
-        family_name: userAuthenticated
+        family_name: props.getClientData
           ? cardHolderLastName
             ? cardHolderLastName
-            : props.getClientData.lastName
+            : props.getClientData.client.lastName
           : cardHolderLastName
           ? cardHolderLastName
           : lastName,
-        given_name: userAuthenticated
+        given_name: props.getClientData
           ? cardHolderFirstName
             ? cardHolderFirstName
-            : props.getClientData.firstName
+            : props.getClientData.client.firstName
           : cardHolderFirstName
           ? cardHolderFirstName
           : firstName,
-        email_address: userAuthenticated ? props.getClientData.email : email,
-        phone_number: userAuthenticated
-          ? props.getClientData.phoneNumber
+        email_address: props.getClientData
+          ? props.getClientData.client.email
+          : email,
+        phone_number: props.getClientData
+          ? props.getClientData.client.phoneNumber
           : phoneNumber,
       };
 
       axios
-        .post("http://localhost:4000/customers", squareCustomerData)
+        .post("http://localhost:4000/customers", squareCustomerData, {
+          headers: {
+            Authorization:
+              "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+          },
+        })
+        .then((res) => {
+          const squareData = {
+            card_nonce: nonce,
+            billing_address: { postal_code: cardData.billing_postal_code },
+            cardholder_name:
+              (userAuthenticated
+                ? cardHolderFirstName
+                  ? cardHolderFirstName
+                  : props.getClientData.client.firstName
+                : cardHolderFirstName
+                ? cardHolderFirstName
+                : firstName
+              ).trim() +
+              " " +
+              (userAuthenticated
+                ? cardHolderLastName
+                  ? cardHolderLastName
+                  : props.getClientData.client.lastName
+                : cardHolderLastName
+                ? cardHolderLastName
+                : lastName
+              ).trim(),
+            verification_token: buyerVerificationToken,
+            customerId: JSON.parse(res.request.response).customer.id,
+          };
+
+          return axios.post(
+            "http://localhost:4000/customers/card",
+            squareData,
+            {
+              headers: {
+                Authorization:
+                  "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+              },
+            }
+          );
+        })
         .catch((err) => {
           console.error(err);
         });
@@ -111,20 +138,20 @@ const PaymentInfo = (props) => {
         familyName: userAuthenticated
           ? cardHolderLastName
             ? cardHolderLastName
-            : props.getClientData.lastName
+            : props.getClientData.client.lastName
           : cardHolderLastName
           ? cardHolderLastName
           : lastName,
         givenName: userAuthenticated
           ? cardHolderFirstName
             ? cardHolderFirstName
-            : props.getClientData.firstName
+            : props.getClientData.client.firstName
           : cardHolderFirstName
           ? cardHolderFirstName
           : firstName,
-        email: userAuthenticated ? props.getClientData.email : email,
+        email: userAuthenticated ? props.getClientData.client.email : email,
         phone: userAuthenticated
-          ? props.getClientData.phoneNumber
+          ? props.getClientData.client.phoneNumber
           : phoneNumber,
       },
     };

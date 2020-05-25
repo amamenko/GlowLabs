@@ -28,6 +28,7 @@ gql`
 const getClientsQuery = gql`
   {
     clients {
+      squareCustomerId
       firstName
       lastName
       email
@@ -58,6 +59,7 @@ const getAllAppointmentsQuery = gql`
       }
       client {
         _id
+        squareCustomerId
         firstName
         lastName
         email
@@ -89,6 +91,7 @@ const getOwnAppointmentsQuery = gql`
       }
       client {
         _id
+        squareCustomerId
         firstName
         lastName
         email
@@ -120,6 +123,7 @@ const getOwnPastAppointmentsQuery = gql`
       }
       client {
         _id
+        squareCustomerId
         firstName
         lastName
         email
@@ -184,6 +188,7 @@ const getAppointmentQuery = gql`
 const getClientQuery = gql`
   query(
     $_id: ID
+    $squareCustomerId: String
     $firstName: String
     $lastName: String
     $email: String
@@ -192,6 +197,7 @@ const getClientQuery = gql`
   ) {
     client(
       _id: $_id
+      squareCustomerId: $squareCustomerId
       firstName: $firstName
       lastName: $lastName
       email: $email
@@ -199,6 +205,7 @@ const getClientQuery = gql`
       createdAt: $createdAt
     ) {
       _id
+      squareCustomerId
       firstName
       lastName
       email
@@ -662,6 +669,7 @@ const updateClientInvalidateTokensMutation = gql`
   mutation {
     updateClientInvalidateTokens {
       _id
+      squareCustomerId
       firstName
       lastName
       email
@@ -983,6 +991,27 @@ const updateClientInformationMutation = gql`
   }
 `;
 
+const updateClientSquareIDMutation = gql`
+  mutation(
+    $squareCustomerId: String
+    $firstName: String
+    $lastName: String
+    $email: String
+  ) {
+    updateClientSquareID(
+      squareCustomerId: $squareCustomerId
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+    ) {
+      squareCustomerId
+      firstName
+      lastName
+      email
+    }
+  }
+`;
+
 export {
   loginQuery,
   getClientsQuery,
@@ -996,6 +1025,7 @@ export {
   deleteMyRoutineItemMutation,
   addClientMutation,
   updateClientInformationMutation,
+  updateClientSquareIDMutation,
   updateMyRoutineMutation,
   updateConsentFormMutation,
   updateClientInvalidateTokensMutation,
