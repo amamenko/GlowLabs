@@ -125,13 +125,42 @@
   transition: background 0.2s ease-in-out;
 }
 
+select {
+  border-radius: 0px;
+}
+
 .sq-cardholder-input:focus {
   outline: none;
+}
+
+.sq-cardholder-input:disabled {
+  background: rgba(204, 204, 204, 0.6);
 }
 
 .sq-cardholder-input::placeholder {
   opacity: 0.4;
   font-weight: 400;
+}
+
+.sq-payment-form-hidden {
+  display: none;
+}
+
+.choose_a_credit_card_formgroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.choose_a_credit_card_dropdown_icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  right: 1rem;
+  top: 0.5rem;
+  margin: 0 auto;
+  font-size: 1rem;
 }
 
 .sq_third_container {
