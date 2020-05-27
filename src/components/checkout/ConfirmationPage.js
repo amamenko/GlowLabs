@@ -16,6 +16,7 @@ import {
   faCalendar,
   faClock,
   faTimes,
+  faAddressBook,
 } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
@@ -369,6 +370,25 @@ const ConfirmationPage = () => {
         Almost there! Please make sure that the following booking information is
         correct.
       </p>
+      <div className="summary_client_contact_info_container">
+        <FontAwesomeIcon
+          className="summary_calendar_icon"
+          icon={faAddressBook}
+        />
+        {userAuthenticated && data ? (
+          <div className="summary_client_contact_info_text_container">
+            <p>{data.client.firstName + " " + data.client.lastName}</p>
+            <p>{data.client.phoneNumber}</p>
+            <p>{data.client.email}</p>
+          </div>
+        ) : (
+          <>
+            <p>{firstName + " " + lastName}</p>
+            <p>{phoneNumber}</p>
+            <p>{email}</p>
+          </>
+        )}
+      </div>
       <div className="summary_selected_date_container">
         <FontAwesomeIcon className="summary_calendar_icon" icon={faCalendar} />
         <p>

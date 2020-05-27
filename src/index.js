@@ -723,27 +723,31 @@ const App = () => {
             </div>
           </KeepAlive>
         </Route>
+
         <Route path="/cart" component={ShoppingCart} />
+
         <Route path="/availability" component={AvailabilityRouter} />
-        <Route
-          render={() => (
-            <PaymentInfo
-              path="/paymentinfo"
-              getClientData={getClientData ? getClientData : null}
-            />
-          )}
-        />
+
         <Route path="/checkout" component={CheckoutRouter} />
+
         <Route
-          render={() => (
-            <AccountRouter
-              path="/account"
-              initialScreenSize={initialScreenSize}
-              currentScreenSize={currentScreenSize}
-              getClientData={getClientData ? getClientData : null}
-              clientDataRefetch={clientDataRefetch}
-            />
-          )}
+          render={() =>
+            location.pathname.includes("account") ? (
+              <AccountRouter
+                path="/account"
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+                getClientData={getClientData ? getClientData : null}
+                clientDataRefetch={clientDataRefetch}
+              />
+            ) : (
+              <PaymentInfo
+                exact
+                path="/paymentinfo"
+                getClientData={getClientData ? getClientData : null}
+              />
+            )
+          }
         />
       </Switch>
     </>

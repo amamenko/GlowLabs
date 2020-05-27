@@ -71,6 +71,17 @@
   font-weight: 500;
 }
 
+.summary_client_contact_info_text_container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  line-height: 1.5rem;
+  height: 100%;
+  margin-top: -0.2rem;
+}
+
+.summary_client_contact_info_container,
 .summary_selected_date_container,
 .summary_selected_time_container {
   display: flex;
@@ -78,6 +89,7 @@
   margin-bottom: 2vh;
 }
 
+.summary_client_contact_info_container p,
 .summary_selected_date_container p,
 .summary_selected_time_container p {
   font-weight: 500;

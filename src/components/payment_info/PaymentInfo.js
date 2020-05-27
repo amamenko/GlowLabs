@@ -19,7 +19,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { updateClientSquareIDMutation } from "../../graphql/queries/queries";
 import { useMutation } from "@apollo/react-hooks";
-import { FormGroup, Label, Input } from "reactstrap";
+import { FormGroup, Label, Input, Modal } from "reactstrap";
+import { css } from "emotion";
+import { BounceLoader } from "react-spinners";
 
 const PaymentInfo = (props) => {
   const userAuthenticated = useSelector(
@@ -45,16 +47,25 @@ const PaymentInfo = (props) => {
     selectedCreditCardFullData,
     changeSelectedCreditCardFullData,
   ] = useState("");
+  const [squareFormLoading, changeSquareFormLoading] = useState(true);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   useEffect(() => {
     if (squareStoredCreditCards) {
       if (selectedCreditCard) {
-        const creditCardSplitArr = selectedCreditCard.split(" ");
+        const creditCardSplitArr = selectedCreditCard.split(" -");
 
         const fullData = squareStoredCreditCards.data.find((x) => {
           return (
-            x.card_brand === creditCardSplitArr[0] &&
-            x.last_4 === creditCardSplitArr[creditCardSplitArr.length - 1]
+            x.card_brand === creditCardSplitArr[0].replace(" ", "_").trim() &&
+            x.last_4 ===
+              creditCardSplitArr[creditCardSplitArr.length - 1].trim()
           );
         });
 
@@ -64,8 +75,6 @@ const PaymentInfo = (props) => {
       }
     }
   }, [selectedCreditCard, squareStoredCreditCards]);
-
-  console.log(selectedCreditCardFullData);
 
   const [
     updateClientSquareID,
@@ -112,7 +121,7 @@ const PaymentInfo = (props) => {
       return squareStoredCreditCards.data.map((x, i) => {
         return (
           <option onClick={() => changeSelectedCreditCard(x.id)} key={i}>
-            {x.card_brand + " - " + x.last_4}
+            {x.card_brand.split("_").join(" ") + " - " + x.last_4}
           </option>
         );
       });
@@ -134,18 +143,10 @@ const PaymentInfo = (props) => {
 
       const squareCustomerData = {
         family_name: props.getClientData
-          ? cardHolderLastName
-            ? cardHolderLastName
-            : props.getClientData.client.lastName
-          : cardHolderLastName
-          ? cardHolderLastName
+          ? props.getClientData.client.lastName
           : lastName,
         given_name: props.getClientData
-          ? cardHolderFirstName
-            ? cardHolderFirstName
-            : props.getClientData.client.firstName
-          : cardHolderFirstName
-          ? cardHolderFirstName
+          ? props.getClientData.client.firstName
           : firstName,
         email_address: props.getClientData
           ? props.getClientData.client.email
@@ -221,9 +222,49 @@ const PaymentInfo = (props) => {
           });
       };
 
+      const returningClientSquarePostRequestFunction = async () => {
+        const squareData = {
+          card_nonce: nonce,
+          billing_address: { postal_code: cardData.billing_postal_code },
+          cardholder_name:
+            (userAuthenticated
+              ? cardHolderFirstName
+                ? cardHolderFirstName
+                : props.getClientData.client.firstName
+              : cardHolderFirstName
+              ? cardHolderFirstName
+              : firstName
+            ).trim() +
+            " " +
+            (userAuthenticated
+              ? cardHolderLastName
+                ? cardHolderLastName
+                : props.getClientData.client.lastName
+              : cardHolderLastName
+              ? cardHolderLastName
+              : lastName
+            ).trim(),
+          verification_token: buyerVerificationToken,
+          customerId: props.getClientData.client.squareCustomerId,
+        };
+
+        return await axios
+          .post("http://localhost:4000/customers/card", squareData, {
+            headers: {
+              Authorization:
+                "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+            },
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      };
+
       userAuthenticated
         ? props.getClientData.client.squareCustomerId
-          ? retrieveSquareCustomerFunction()
+          ? cardHolderFirstName && cardHolderLastName && !selectedCreditCard
+            ? returningClientSquarePostRequestFunction()
+            : retrieveSquareCustomerFunction()
           : squarePostRequestFunction()
         : squarePostRequestFunction();
     }
@@ -273,7 +314,11 @@ const PaymentInfo = (props) => {
 
   useEffect(() => {
     const iFrameLabel = [...document.getElementsByClassName("sq-label")].filter(
-      (x) => x.innerText === "CREDIT CARD"
+      (x) =>
+        x.innerText === "CREDIT CARD" ||
+        x.innerText === "EXPIRATION" ||
+        x.innerText === "ZIP CODE" ||
+        x.innerText === "CVC"
     );
     const iFrameLabelHidden = [
       ...document.getElementsByClassName("sq-label"),
@@ -283,20 +328,40 @@ const PaymentInfo = (props) => {
       document
         .getElementById("sq-payment-form-sq-card-number")
         .classList.add("sq-payment-form-hidden");
+      document
+        .getElementById("sq-payment-form-sq-expiration-date")
+        .classList.add("sq-payment-form-hidden");
+      document
+        .getElementById("sq-payment-form-sq-postal-code")
+        .classList.add("sq-payment-form-hidden");
+      document
+        .getElementById("sq-payment-form-sq-cvv")
+        .classList.add("sq-payment-form-hidden");
 
       if (iFrameLabel) {
-        if (iFrameLabel[0]) {
-          iFrameLabel[0].classList.add("sq-payment-form-hidden");
+        if (iFrameLabel.length > 0) {
+          iFrameLabel.forEach((x) => x.classList.add("sq-payment-form-hidden"));
         }
       }
     } else {
       document
         .getElementById("sq-payment-form-sq-card-number")
         .classList.remove("sq-payment-form-hidden");
+      document
+        .getElementById("sq-payment-form-sq-expiration-date")
+        .classList.remove("sq-payment-form-hidden");
+      document
+        .getElementById("sq-payment-form-sq-postal-code")
+        .classList.remove("sq-payment-form-hidden");
+      document
+        .getElementById("sq-payment-form-sq-cvv")
+        .classList.remove("sq-payment-form-hidden");
 
       if (iFrameLabelHidden) {
-        if (iFrameLabelHidden[0]) {
-          iFrameLabelHidden[0].classList.remove("sq-payment-form-hidden");
+        if (iFrameLabelHidden.length > 0) {
+          iFrameLabelHidden.forEach((x) => {
+            x.classList.remove("sq-payment-form-hidden");
+          });
         }
       }
     }
@@ -305,6 +370,17 @@ const PaymentInfo = (props) => {
   return (
     <div className="payment_info_container">
       {redirectToHome()}
+      <Modal
+        isOpen={squareFormLoading}
+        className="complete_registration_loading_modal"
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={squareFormLoading}
+        />
+      </Modal>
       <div className="payment_info_container_header">
         <Link to="/availability/timepreference">
           <FontAwesomeIcon
@@ -335,6 +411,7 @@ const PaymentInfo = (props) => {
           locationId={process.env.REACT_APP_SQUARE_SANDBOX_LOCATION_ID}
           cardNonceResponseReceived={cardNonceResponseReceived}
           createVerificationDetails={createVerificationDetails}
+          paymentFormLoaded={() => changeSquareFormLoading(false)}
           className="square_payment_form"
         >
           <fieldset className="sq-fieldset">
@@ -353,6 +430,7 @@ const PaymentInfo = (props) => {
                 id="select"
                 onChange={(e) => {
                   if (selectedCreditCard) {
+                    changeSelectedCreditCard(e.target.value);
                     if (e.target.value === "NEW CARD") {
                       changeSelectedCreditCard("");
                       changeSelectedCreditCardFullData("");
@@ -405,6 +483,7 @@ const PaymentInfo = (props) => {
             </div>
             {selectedCreditCardFullData ? (
               <div className="sq_card_holder_container">
+                {/* Space in "CREDIT CARD " important to distinguish between new card and toggled card form inputs */}
                 <span className="sq-label">CREDIT CARD </span>
                 <input
                   name="credit_card"
@@ -414,7 +493,7 @@ const PaymentInfo = (props) => {
                   disabled={selectedCreditCardFullData ? true : false}
                   value={
                     selectedCreditCardFullData.card_brand.toLowerCase() ===
-                    "americanexpress"
+                    "american_express"
                       ? "•••• •••••• •" + selectedCreditCardFullData.last_4
                       : "•••• •••• •••• " + selectedCreditCardFullData.last_4
                   }
@@ -426,7 +505,6 @@ const PaymentInfo = (props) => {
               <div className="sq-form-third_credit_card">
                 <CreditCardExpirationDateInput />
               </div>
-
               <div className="sq-form-third_postal">
                 <CreditCardPostalCodeInput label="ZIP CODE" />
               </div>
@@ -435,17 +513,84 @@ const PaymentInfo = (props) => {
                 <CreditCardCVVInput label="CVC" />
               </div>
             </div>
-          </fieldset>
 
-          <CreditCardSubmitButton>
-            Submit Card Information
-          </CreditCardSubmitButton>
+            {selectedCreditCardFullData ? (
+              <div className="sq_third_container">
+                <div className="sq-form-third_credit_card">
+                  {/* Space in "EXPIRATION " important to distinguish between new card and toggled card form inputs */}
+                  <span className="sq-label">EXPIRATION </span>
+                  <input
+                    name="expiration_date"
+                    type="text"
+                    className="sq-cardholder-input"
+                    disabled={selectedCreditCardFullData ? true : false}
+                    value={
+                      selectedCreditCardFullData.exp_month >= 10
+                        ? selectedCreditCardFullData.exp_month.toString() +
+                          "/" +
+                          selectedCreditCardFullData.exp_year
+                            .toString()
+                            .substr(-2)
+                        : "0" +
+                          selectedCreditCardFullData.exp_month.toString() +
+                          "/" +
+                          selectedCreditCardFullData.exp_year
+                            .toString()
+                            .substr(-2)
+                    }
+                  />
+                </div>
+                <div className="sq-form-third_postal">
+                  {/* Space in "ZIP CODE " important to distinguish between new card and toggled card form inputs */}
+                  <span className="sq-label">ZIP CODE </span>
+                  <input
+                    name="postal_code"
+                    type="text"
+                    className="sq-cardholder-input"
+                    disabled={selectedCreditCardFullData ? true : false}
+                    value={
+                      selectedCreditCardFullData.billing_address.postal_code
+                    }
+                  />
+                </div>
+                <div className="sq-form-third_cvv">
+                  {/* Space in "CVC " important to distinguish between new card and toggled card form inputs */}
+                  <span className="sq-label">CVC </span>
+                  <input
+                    name="cvc_code"
+                    type="text"
+                    className="sq-cardholder-input"
+                    disabled={selectedCreditCardFullData ? true : false}
+                    value={
+                      selectedCreditCardFullData.card_brand.toLowerCase() ===
+                      "american_express"
+                        ? "••••"
+                        : "•••"
+                    }
+                  />
+                </div>
+              </div>
+            ) : null}
+          </fieldset>
+          {selectedCreditCardFullData ? (
+            <Link
+              to={userAuthenticated ? "/checkout/confirmation" : "/checkout"}
+            >
+              <div className="sq-creditcard">Submit Card Information</div>
+            </Link>
+          ) : (
+            <CreditCardSubmitButton>
+              Submit Card Information
+            </CreditCardSubmitButton>
+          )}
         </SquarePaymentForm>
-        <div className="sq-error-message">
-          {errorMessages.map((errorMessage) => (
-            <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
-          ))}
-        </div>
+        {selectedCreditCardFullData ? null : (
+          <div className="sq-error-message">
+            {errorMessages.map((errorMessage) => (
+              <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
