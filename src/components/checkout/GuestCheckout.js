@@ -237,7 +237,7 @@ const GuestCheckout = () => {
         </Form>
         <div className="guest_checkout_bottom_buttons_container">
           <Link
-            to="/checkout/confirmation"
+            to="/paymentinfo"
             style={{
               display: "block",
               pointerEvents:
@@ -260,7 +260,7 @@ const GuestCheckout = () => {
                   emailIsValid &&
                   phoneIsValid &&
                   appointmentNotesValid
-                    ? "rgb(165, 138, 127)"
+                    ? "rgb(44, 44, 52)"
                     : "#f0f0f0",
                 color:
                   firstName &&
@@ -273,7 +273,7 @@ const GuestCheckout = () => {
                 transition: "background 0.5s ease, color 0.5s ease",
               }}
             >
-              <p>Review Details</p>
+              <p>Payment Details</p>
             </div>
           </Link>
           <Link to="/availability/timepreference">

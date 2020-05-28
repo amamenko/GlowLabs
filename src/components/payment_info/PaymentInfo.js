@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   SquarePaymentForm,
   CreditCardNumberInput,
@@ -13,19 +13,38 @@ import {
   faChevronLeft,
   faChevronRight,
   faChevronCircleDown,
+  faSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { updateClientSquareIDMutation } from "../../graphql/queries/queries";
-import { useMutation } from "@apollo/react-hooks";
+import {
+  updateClientSquareIDMutation,
+  updateUnsavedSquareCardIDsMutation,
+  getClientsQuery,
+} from "../../graphql/queries/queries";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { FormGroup, Label, Input, Modal } from "reactstrap";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
+import { Spring } from "react-spring/renderprops";
+import ACTION_SAVE_CARD_UNCHECKED from "../../actions/PaymentInfo/SaveCardChecked/ACTION_SAVE_CARD_UNCHECKED";
+import ACTION_SAVE_CARD_CHECKED from "../../actions/PaymentInfo/SaveCardChecked/ACTION_SAVE_CARD_CHECKED";
+import ACTION_SQUARE_CUSTOMER_ID_RESET from "../../actions/PaymentInfo/SquareCustomerID/ACTION_SQUARE_CUSTOMER_ID_RESET";
+import ACTION_SQUARE_CUSTOMER_ID from "../../actions/PaymentInfo/SquareCustomerID/ACTION_SQUARE_CUSTOMER_ID";
 
 const PaymentInfo = (props) => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
+  );
+  const saveCardChecked = useSelector(
+    (state) => state.saveCardChecked.save_card_checked
+  );
+  const squareCustomerID = useSelector(
+    (state) => state.squareCustomerID.square_customer_id
   );
 
   // Checkout Form States
@@ -41,6 +60,7 @@ const PaymentInfo = (props) => {
   const [errorMessages, changeErrorMessage] = useState([]);
   const [cardHolderFirstName, changeCardHolderFirstName] = useState("");
   const [cardHolderLastName, changeCardHolderLastName] = useState("");
+  const [successfulCardNonce, changeSuccessfulCardNonce] = useState(false);
   const [squareStoredCreditCards, changeSquareStoredCreditCards] = useState("");
   const [selectedCreditCard, changeSelectedCreditCard] = useState("");
   const [
@@ -48,6 +68,84 @@ const PaymentInfo = (props) => {
     changeSelectedCreditCardFullData,
   ] = useState("");
   const [squareFormLoading, changeSquareFormLoading] = useState(true);
+  const [pageOpened, changePageOpened] = useState(false);
+
+  const [updateUnsavedSquareCardIDs] = useMutation(
+    updateUnsavedSquareCardIDsMutation
+  );
+
+  const [updateClientSquareID] = useMutation(updateClientSquareIDMutation);
+
+  const { data: getClientsData } = useQuery(getClientsQuery, {
+    fetchPolicy: "no-cache",
+  });
+
+  const deleteSquareCustomerFunction = useCallback(() => {
+    return axios.post(
+      "http://localhost:4000/delete_customer",
+      {
+        data: {
+          squareCustomerId: squareCustomerID,
+        },
+      },
+      {
+        headers: {
+          Authorization:
+            "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+        },
+      }
+    );
+  }, [squareCustomerID]);
+
+  useEffect(() => {
+    if (!userAuthenticated) {
+      if (squareCustomerID) {
+        dispatch(ACTION_SQUARE_CUSTOMER_ID_RESET());
+        return axios.post(
+          "http://localhost:4000/delete_customer",
+          {
+            data: {
+              squareCustomerId: squareCustomerID,
+            },
+          },
+          {
+            headers: {
+              Authorization:
+                "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+            },
+          }
+        );
+      }
+    }
+  }, [userAuthenticated, squareCustomerID, dispatch]);
+
+  useEffect(() => {
+    if (userAuthenticated) {
+      props.clientDataRefetch();
+    }
+  }, [props, userAuthenticated]);
+
+  useEffect(() => {
+    if (!squareFormLoading) {
+      window.scrollTo(0, 0);
+    }
+  }, [squareFormLoading]);
+
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    changePageOpened(true);
+    const pageNowOpen = setTimeout(() => {
+      changePageOpened(false);
+    }, 500);
+    return () => {
+      clearTimeout(pageNowOpen);
+    };
+  }, []);
 
   const override = css`
     display: block;
@@ -75,11 +173,6 @@ const PaymentInfo = (props) => {
       }
     }
   }, [selectedCreditCard, squareStoredCreditCards]);
-
-  const [
-    updateClientSquareID,
-    { data: updateClientSquareIDData },
-  ] = useMutation(updateClientSquareIDMutation);
 
   const retrieveSquareCustomerFunction = useCallback(() => {
     return axios.post(
@@ -118,13 +211,17 @@ const PaymentInfo = (props) => {
 
   const renderStoredCreditCardOptions = () => {
     if (squareStoredCreditCards) {
-      return squareStoredCreditCards.data.map((x, i) => {
-        return (
-          <option onClick={() => changeSelectedCreditCard(x.id)} key={i}>
-            {x.card_brand.split("_").join(" ") + " - " + x.last_4}
-          </option>
-        );
-      });
+      return squareStoredCreditCards.data
+        .filter(
+          (x) => !props.getClientData.client.unsavedSquareCardIDs.includes(x.id)
+        )
+        .map((x, i) => {
+          return (
+            <option onClick={() => changeSelectedCreditCard(x.id)} key={i}>
+              {x.card_brand.split("_").join(" ") + " - " + x.last_4}
+            </option>
+          );
+        });
     }
   };
 
@@ -190,20 +287,66 @@ const PaymentInfo = (props) => {
               customerId: JSON.parse(res.request.response).customer.id,
             };
 
-            updateClientSquareID({
-              variables: {
-                squareCustomerId: JSON.parse(res.request.response).customer.id,
-                firstName: userAuthenticated
-                  ? props.getClientData.client.firstName
-                  : firstName,
-                lastName: userAuthenticated
-                  ? props.getClientData.client.lastName
-                  : lastName,
-                email: userAuthenticated
-                  ? props.getClientData.client.email
-                  : email,
-              },
-            });
+            if (userAuthenticated) {
+              updateClientSquareID({
+                variables: {
+                  squareCustomerId: JSON.parse(res.request.response).customer
+                    .id,
+                  firstName: props.getClientData.client.firstName,
+                  lastName: props.getClientData.client.lastName,
+                  email: props.getClientData.client.email,
+                },
+              });
+            } else {
+              let matchedClient;
+
+              if (getClientsData) {
+                for (let i = 0; i < getClientsData.clients.length; i++) {
+                  if (getClientsData.clients[i].email === email) {
+                    matchedClient = getClientsData.clients[i];
+                  }
+                }
+              }
+
+              if (matchedClient) {
+                if (!matchedClient.squareCustomerId) {
+                  updateClientSquareID({
+                    variables: {
+                      squareCustomerId: JSON.parse(res.request.response)
+                        .customer.id,
+                      firstName: firstName,
+                      lastName: lastName,
+                      email: email,
+                    },
+                  });
+                }
+              } else {
+                dispatch(
+                  ACTION_SQUARE_CUSTOMER_ID(
+                    JSON.parse(res.request.response).customer.id
+                  )
+                );
+              }
+            }
+
+            changeSuccessfulCardNonce(true);
+
+            if (!saveCardChecked) {
+              updateUnsavedSquareCardIDs({
+                variables: {
+                  unsavedSquareCardID: cardData.id,
+                  firstName: userAuthenticated
+                    ? props.getClientData.client.firstName
+                    : firstName,
+                  lastName: userAuthenticated
+                    ? props.getClientData.client.lastName
+                    : lastName,
+                  email: userAuthenticated
+                    ? props.getClientData.client.email
+                    : email,
+                },
+              });
+            }
 
             return axios.post(
               "http://localhost:4000/customers/card",
@@ -216,6 +359,26 @@ const PaymentInfo = (props) => {
                 },
               }
             );
+          })
+          .then((res) => {
+            if (!saveCardChecked) {
+              updateUnsavedSquareCardIDs({
+                variables: {
+                  unsavedSquareCardID: res.data.card.id,
+                  firstName: userAuthenticated
+                    ? props.getClientData.client.firstName
+                    : firstName,
+                  lastName: userAuthenticated
+                    ? props.getClientData.client.lastName
+                    : lastName,
+                  email: userAuthenticated
+                    ? props.getClientData.client.email
+                    : email,
+                },
+              });
+
+              props.clientDataRefetch();
+            }
           })
           .catch((err) => {
             console.error(err);
@@ -248,12 +411,34 @@ const PaymentInfo = (props) => {
           customerId: props.getClientData.client.squareCustomerId,
         };
 
+        changeSuccessfulCardNonce(true);
+
         return await axios
           .post("http://localhost:4000/customers/card", squareData, {
             headers: {
               Authorization:
                 "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
             },
+          })
+          .then((res) => {
+            if (!saveCardChecked) {
+              updateUnsavedSquareCardIDs({
+                variables: {
+                  unsavedSquareCardID: res.data.card.id,
+                  firstName: props.getClientData
+                    ? props.getClientData.client.firstName
+                    : firstName,
+                  lastName: props.getClientData
+                    ? props.getClientData.client.lastName
+                    : lastName,
+                  email: props.getClientData
+                    ? props.getClientData.client.email
+                    : email,
+                },
+              });
+
+              props.clientDataRefetch();
+            }
           })
           .catch((err) => {
             console.error(err);
@@ -301,6 +486,12 @@ const PaymentInfo = (props) => {
   const redirectToHome = () => {
     if (!splashScreenComplete) {
       return <Redirect to="/" />;
+    }
+  };
+
+  const redirectToCheckout = () => {
+    if (successfulCardNonce) {
+      return <Redirect to="/checkout/confirmation" />;
     }
   };
 
@@ -367,9 +558,102 @@ const PaymentInfo = (props) => {
     }
   }, [selectedCreditCardFullData]);
 
+  const checkMark = () => {
+    return (
+      <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
+        {(styles) => (
+          <svg
+            width={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1800
+                  ? "2rem"
+                  : props.initialScreenSize >= 1600
+                  ? "1rem"
+                  : props.initialScreenSize >= 1200
+                  ? "0.5rem"
+                  : "100%"
+                : props.currentScreenSize >= 1800
+                ? "2rem"
+                : props.currentScreenSize >= 1600
+                ? "1rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
+                : "100%"
+            }
+            height={
+              props.currentScreenSize === ""
+                ? props.initialScreenSize >= 1800
+                  ? "2rem"
+                  : props.initialScreenSize >= 1600
+                  ? "1.3rem"
+                  : props.initialScreenSize >= 1200
+                  ? "0.5rem"
+                  : props.initialScreenSize >= 360
+                  ? "2rem"
+                  : "1rem"
+                : props.currentScreenSize >= 1800
+                ? "2rem"
+                : props.currentScreenSize >= 1600
+                ? "1.3rem"
+                : props.currentScreenSize >= 1200
+                ? "0.5rem"
+                : props.currentScreenSize >= 360
+                ? "2rem"
+                : "1rem"
+            }
+            style={{
+              marginTop:
+                props.currentScreenSize === ""
+                  ? props.initialScreenSize >= 1800
+                    ? "-0.2rem"
+                    : props.initialScreenSize >= 1600
+                    ? "-0.2rem"
+                    : props.initialScreenSize >= 1200
+                    ? "-0.5rem"
+                    : props.initialScreenSize >= 360
+                    ? "-0.5rem"
+                    : "0rem"
+                  : props.currentScreenSize >= 1800
+                  ? "-0.2rem"
+                  : props.currentScreenSize >= 1600
+                  ? "-0.2rem"
+                  : props.currentScreenSize >= 1200
+                  ? "-0.5rem"
+                  : props.currentScreenSize >= 360
+                  ? "-0.5rem"
+                  : "0rem",
+              display: "block",
+            }}
+            viewBox="0 0 13.229 13.229"
+          >
+            <path
+              d="M2.851 7.56l2.45 2.482 5.36-6.958"
+              fill="none"
+              stroke="#000"
+              strokeDasharray="100"
+              strokeDashoffset={pageOpened ? 0 : `${styles.x}`}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
+            />
+          </svg>
+        )}
+      </Spring>
+    );
+  };
+
+  const handleSaveCardChecked = () => {
+    if (saveCardChecked) {
+      dispatch(ACTION_SAVE_CARD_UNCHECKED());
+    } else {
+      dispatch(ACTION_SAVE_CARD_CHECKED());
+    }
+  };
+
   return (
     <div className="payment_info_container">
       {redirectToHome()}
+      {redirectToCheckout()}
       <Modal
         isOpen={squareFormLoading}
         className="complete_registration_loading_modal"
@@ -382,7 +666,9 @@ const PaymentInfo = (props) => {
         />
       </Modal>
       <div className="payment_info_container_header">
-        <Link to="/availability/timepreference">
+        <Link
+          to={userAuthenticated ? "/availability/timepreference" : "/checkout"}
+        >
           <FontAwesomeIcon
             className="payment_info_back_arrow"
             icon={faChevronLeft}
@@ -571,10 +857,44 @@ const PaymentInfo = (props) => {
                 </div>
               </div>
             ) : null}
+            {!selectedCreditCard ? (
+              <div className="sq_save_card_information_container">
+                <span
+                  className="fa-layers fa-fw client_consent_form_checkbox"
+                  onClick={handleSaveCardChecked}
+                >
+                  <FontAwesomeIcon
+                    color="rgba(155, 155, 155, 0.4)"
+                    transform={
+                      !props.currentScreenSize
+                        ? props.initialScreenSize >= 360
+                          ? "grow-20"
+                          : "grow-10"
+                        : props.currentScreenSize >= 360
+                        ? "grow-20"
+                        : "grow-10"
+                    }
+                    icon={faSquare}
+                  />
+                  {saveCardChecked ? checkMark() : null}
+                </span>
+                <p>Save this card information for future bookings?</p>
+              </div>
+            ) : null}
           </fieldset>
-          {selectedCreditCardFullData ? (
+          {selectedCreditCardFullData ||
+          (!selectedCreditCard &&
+            (!cardHolderFirstName || !cardHolderLastName)) ? (
             <Link
-              to={userAuthenticated ? "/checkout/confirmation" : "/checkout"}
+              to="/checkout/confirmation"
+              style={{
+                display: "block",
+                pointerEvents:
+                  !selectedCreditCard &&
+                  (!cardHolderFirstName || !cardHolderLastName)
+                    ? "none"
+                    : "auto",
+              }}
             >
               <div className="sq-creditcard">Submit Card Information</div>
             </Link>

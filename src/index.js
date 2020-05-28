@@ -745,6 +745,7 @@ const App = () => {
                 exact
                 path="/paymentinfo"
                 getClientData={getClientData ? getClientData : null}
+                clientDataRefetch={clientDataRefetch}
               />
             )
           }

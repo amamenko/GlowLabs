@@ -1,0 +1,9 @@
+const SAVE_CARD_UNCHECKED = "SAVE_CARD_UNCHECKED";
+
+const ACTION_SAVE_CARD_UNCHECKED = () => {
+  return {
+    type: SAVE_CARD_UNCHECKED,
+  };
+};
+
+export default ACTION_SAVE_CARD_UNCHECKED;

@@ -115,10 +115,13 @@ const ConfirmationPage = () => {
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
   );
+  const squareCustomerID = useSelector(
+    (state) => state.squareCustomerID.square_customer_id
+  );
   const [finalBookingModalActive, changeFinalBookingModalActive] = useState(
     false
   );
-
+  console.log(squareCustomerID);
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
     variables: {
@@ -352,9 +355,7 @@ const ConfirmationPage = () => {
     <div className="confirmation_page_container">
       {redirectToHome()}
       <div className="confirmation_page_container_header">
-        <Link
-          to={userAuthenticated ? "/availability/timepreference" : "/checkout"}
-        >
+        <Link to="/paymentinfo">
           <FontAwesomeIcon
             className="confirmation_page_back_arrow"
             icon={faChevronLeft}

@@ -609,7 +609,7 @@ const TimePreference = () => {
           />
         </Link>
         <h1>AVAILABILITY</h1>
-        <Link to="/checkout">
+        <Link to={userAuthenticated ? "/paymentinfo" : "/checkout"}>
           <FontAwesomeIcon
             className="select_time_forward_arrow"
             style={{ display: continueToCheckoutButton ? "block" : "none" }}

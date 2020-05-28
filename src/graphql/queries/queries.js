@@ -29,6 +29,7 @@ const getClientsQuery = gql`
   {
     clients {
       squareCustomerId
+      unsavedSquareCardIDs
       firstName
       lastName
       email
@@ -60,6 +61,7 @@ const getAllAppointmentsQuery = gql`
       client {
         _id
         squareCustomerId
+        unsavedSquareCardIDs
         firstName
         lastName
         email
@@ -92,6 +94,7 @@ const getOwnAppointmentsQuery = gql`
       client {
         _id
         squareCustomerId
+        unsavedSquareCardIDs
         firstName
         lastName
         email
@@ -124,6 +127,7 @@ const getOwnPastAppointmentsQuery = gql`
       client {
         _id
         squareCustomerId
+        unsavedSquareCardIDs
         firstName
         lastName
         email
@@ -206,6 +210,7 @@ const getClientQuery = gql`
     ) {
       _id
       squareCustomerId
+      unsavedSquareCardIDs
       firstName
       lastName
       email
@@ -1012,6 +1017,28 @@ const updateClientSquareIDMutation = gql`
   }
 `;
 
+const updateUnsavedSquareCardIDsMutation = gql`
+  mutation(
+    $unsavedSquareCardID: String
+    $firstName: String
+    $lastName: String
+    $email: String
+  ) {
+    updateUnsavedSquareCardIDs(
+      unsavedSquareCardID: $unsavedSquareCardID
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+    ) {
+      squareCustomerId
+      unsavedSquareCardIDs
+      firstName
+      lastName
+      email
+    }
+  }
+`;
+
 export {
   loginQuery,
   getClientsQuery,
@@ -1026,6 +1053,7 @@ export {
   addClientMutation,
   updateClientInformationMutation,
   updateClientSquareIDMutation,
+  updateUnsavedSquareCardIDsMutation,
   updateMyRoutineMutation,
   updateConsentFormMutation,
   updateClientInvalidateTokensMutation,
