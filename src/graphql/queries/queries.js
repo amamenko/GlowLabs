@@ -67,6 +67,7 @@ const getAllAppointmentsQuery = gql`
         email
         phoneNumber
       }
+      bookedWithCardSquareID
       notes
     }
   }
@@ -100,6 +101,7 @@ const getOwnAppointmentsQuery = gql`
         email
         phoneNumber
       }
+      bookedWithCardSquareID
       notes
     }
   }
@@ -133,6 +135,7 @@ const getOwnPastAppointmentsQuery = gql`
         email
         phoneNumber
       }
+      bookedWithCardSquareID
       notes
     }
   }
@@ -149,6 +152,7 @@ const getAppointmentQuery = gql`
     $lastName: String
     $email: String
     $phoneNumber: String
+    $bookedWithCardSquareID: String
   ) {
     appointment(
       date: $date
@@ -156,6 +160,7 @@ const getAppointmentQuery = gql`
       endTime: $endTime
       duration: $duration
       price: $price
+      bookedWithCardSquareID: $bookedWithCardSquareID
       client: {
         firstName: $firstName
         lastName: $lastName
@@ -184,6 +189,7 @@ const getAppointmentQuery = gql`
         email
         phoneNumber
       }
+      bookedWithCardSquareID
       notes
     }
   }
@@ -406,6 +412,9 @@ const addAppointmentMutation = gql`
     $lastName: String!
     $email: String!
     $phoneNumber: String!
+    $squareCustomerId: String
+    $unsavedSquareCardIDs: String
+    $bookedWithCardSquareID: String!
     $treatment_name: String!
     $treatment_duration: Int!
     $treatment_price: Int!
@@ -423,6 +432,8 @@ const addAppointmentMutation = gql`
         lastName: $lastName
         email: $email
         phoneNumber: $phoneNumber
+        squareCustomerId: $squareCustomerId
+        unsavedSquareCardIDs: $unsavedSquareCardIDs
       }
       treatments: [
         {
@@ -432,6 +443,7 @@ const addAppointmentMutation = gql`
         }
       ]
       addOns: $addOns
+      bookedWithCardSquareID: $bookedWithCardSquareID
       notes: $notes
     ) {
       date
@@ -445,6 +457,8 @@ const addAppointmentMutation = gql`
         lastName
         email
         phoneNumber
+        squareCustomerId
+        unsavedSquareCardIDs
       }
       treatments {
         name
@@ -456,6 +470,7 @@ const addAppointmentMutation = gql`
         price
         duration
       }
+      bookedWithCardSquareID
       notes
     }
   }

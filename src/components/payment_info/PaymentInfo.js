@@ -32,6 +32,8 @@ import ACTION_SAVE_CARD_UNCHECKED from "../../actions/PaymentInfo/SaveCardChecke
 import ACTION_SAVE_CARD_CHECKED from "../../actions/PaymentInfo/SaveCardChecked/ACTION_SAVE_CARD_CHECKED";
 import ACTION_SQUARE_CUSTOMER_ID_RESET from "../../actions/PaymentInfo/SquareCustomerID/ACTION_SQUARE_CUSTOMER_ID_RESET";
 import ACTION_SQUARE_CUSTOMER_ID from "../../actions/PaymentInfo/SquareCustomerID/ACTION_SQUARE_CUSTOMER_ID";
+import ACTION_BOOKED_WITH_CARD_ID_RESET from "../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID_RESET";
+import ACTION_BOOKED_WITH_CARD_ID from "../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID";
 
 const PaymentInfo = (props) => {
   const dispatch = useDispatch();
@@ -45,6 +47,9 @@ const PaymentInfo = (props) => {
   );
   const squareCustomerID = useSelector(
     (state) => state.squareCustomerID.square_customer_id
+  );
+  const bookedWithCardID = useSelector(
+    (state) => state.bookedWithCardID.booked_with_card_id
   );
 
   // Checkout Form States
@@ -62,7 +67,10 @@ const PaymentInfo = (props) => {
   const [cardHolderLastName, changeCardHolderLastName] = useState("");
   const [successfulCardNonce, changeSuccessfulCardNonce] = useState(false);
   const [squareStoredCreditCards, changeSquareStoredCreditCards] = useState("");
-  const [selectedCreditCard, changeSelectedCreditCard] = useState("");
+  const [selectedCreditCard, changeSelectedCreditCard] = useState({
+    name: "",
+    id: "",
+  });
   const [
     selectedCreditCardFullData,
     changeSelectedCreditCardFullData,
@@ -79,6 +87,46 @@ const PaymentInfo = (props) => {
   const { data: getClientsData } = useQuery(getClientsQuery, {
     fetchPolicy: "no-cache",
   });
+
+  useEffect(() => {
+    changePageOpened(true);
+    const pageNowOpen = setTimeout(() => {
+      changePageOpened(false);
+    }, 500);
+    return () => {
+      clearTimeout(pageNowOpen);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (userAuthenticated) {
+      if (bookedWithCardID) {
+        if (squareStoredCreditCards) {
+          const cardFullData = squareStoredCreditCards.data.filter(
+            (x) => x.id === bookedWithCardID
+          )[0];
+
+          if (!selectedCreditCard.name) {
+            changeSelectedCreditCard({
+              name:
+                cardFullData.card_brand.split("_").join(" ") +
+                " - " +
+                cardFullData.last_4,
+              id: cardFullData.id,
+            });
+
+            changeSelectedCreditCardFullData(cardFullData);
+          }
+        }
+      }
+    }
+  }, [
+    bookedWithCardID,
+    squareStoredCreditCards,
+    userAuthenticated,
+    pageOpened,
+    selectedCreditCard,
+  ]);
 
   const deleteSquareCustomerFunction = useCallback(() => {
     return axios.post(
@@ -99,25 +147,44 @@ const PaymentInfo = (props) => {
 
   useEffect(() => {
     if (!userAuthenticated) {
-      if (squareCustomerID) {
-        dispatch(ACTION_SQUARE_CUSTOMER_ID_RESET());
-        return axios.post(
-          "http://localhost:4000/delete_customer",
-          {
-            data: {
-              squareCustomerId: squareCustomerID,
-            },
-          },
-          {
-            headers: {
-              Authorization:
-                "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
-            },
+      if (pageOpened && squareCustomerID) {
+        let matchedClient;
+
+        const deleteCustomer = setTimeout(() => {
+          if (getClientsData) {
+            for (let i = 0; i < getClientsData.clients.length; i++) {
+              if (getClientsData.clients[i].email === email) {
+                matchedClient = getClientsData.clients[i];
+              }
+            }
           }
-        );
+
+          if (!matchedClient) {
+            const deleteCustomerData = async () => {
+              await deleteSquareCustomerFunction();
+
+              dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+              dispatch(ACTION_SQUARE_CUSTOMER_ID_RESET());
+            };
+            console.log("NOOOOOOOOOO");
+            deleteCustomerData();
+          }
+        }, 500);
+
+        return () => {
+          clearTimeout(deleteCustomer);
+        };
       }
     }
-  }, [userAuthenticated, squareCustomerID, dispatch]);
+  }, [
+    deleteSquareCustomerFunction,
+    email,
+    getClientsData,
+    pageOpened,
+    userAuthenticated,
+    squareCustomerID,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (userAuthenticated) {
@@ -137,16 +204,6 @@ const PaymentInfo = (props) => {
     }
   }, [location]);
 
-  useEffect(() => {
-    changePageOpened(true);
-    const pageNowOpen = setTimeout(() => {
-      changePageOpened(false);
-    }, 500);
-    return () => {
-      clearTimeout(pageNowOpen);
-    };
-  }, []);
-
   const override = css`
     display: block;
     position: absolute;
@@ -156,14 +213,19 @@ const PaymentInfo = (props) => {
 
   useEffect(() => {
     if (squareStoredCreditCards) {
-      if (selectedCreditCard) {
-        const creditCardSplitArr = selectedCreditCard.split(" -");
+      if (
+        selectedCreditCard &&
+        selectedCreditCard.name &&
+        selectedCreditCard.id
+      ) {
+        const creditCardSplitArr = selectedCreditCard.name.split(" -");
 
         const fullData = squareStoredCreditCards.data.find((x) => {
           return (
             x.card_brand === creditCardSplitArr[0].replace(" ", "_").trim() &&
             x.last_4 ===
-              creditCardSplitArr[creditCardSplitArr.length - 1].trim()
+              creditCardSplitArr[creditCardSplitArr.length - 1].trim() &&
+            x.id === selectedCreditCard.id
           );
         });
 
@@ -174,22 +236,27 @@ const PaymentInfo = (props) => {
     }
   }, [selectedCreditCard, squareStoredCreditCards]);
 
-  const retrieveSquareCustomerFunction = useCallback(() => {
-    return axios.post(
-      "http://localhost:4000/retrieve_customer",
-      {
-        data: {
-          squareCustomerId: props.getClientData.client.squareCustomerId,
+  const retrieveSquareCustomerFunction = useCallback(
+    (matchedClient) => {
+      return axios.post(
+        "http://localhost:4000/retrieve_customer",
+        {
+          data: {
+            squareCustomerId: userAuthenticated
+              ? props.getClientData.client.squareCustomerId
+              : matchedClient.squareCustomerId,
+          },
         },
-      },
-      {
-        headers: {
-          Authorization:
-            "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
-        },
-      }
-    );
-  }, [props.getClientData]);
+        {
+          headers: {
+            Authorization:
+              "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+          },
+        }
+      );
+    },
+    [props.getClientData, userAuthenticated]
+  );
 
   useEffect(() => {
     if (userAuthenticated) {
@@ -217,7 +284,13 @@ const PaymentInfo = (props) => {
         )
         .map((x, i) => {
           return (
-            <option onClick={() => changeSelectedCreditCard(x.id)} key={i}>
+            <option
+              data-value={{
+                name: x.card_brand.split("_").join(" ") + " - " + x.last_4,
+                id: x.id,
+              }}
+              key={i}
+            >
               {x.card_brand.split("_").join(" ") + " - " + x.last_4}
             </option>
           );
@@ -237,6 +310,16 @@ const PaymentInfo = (props) => {
       );
     } else {
       changeErrorMessage([]);
+
+      let matchedClient;
+
+      if (getClientsData) {
+        for (let i = 0; i < getClientsData.clients.length; i++) {
+          if (getClientsData.clients[i].email === email) {
+            matchedClient = getClientsData.clients[i];
+          }
+        }
+      }
 
       const squareCustomerData = {
         family_name: props.getClientData
@@ -298,16 +381,6 @@ const PaymentInfo = (props) => {
                 },
               });
             } else {
-              let matchedClient;
-
-              if (getClientsData) {
-                for (let i = 0; i < getClientsData.clients.length; i++) {
-                  if (getClientsData.clients[i].email === email) {
-                    matchedClient = getClientsData.clients[i];
-                  }
-                }
-              }
-
               if (matchedClient) {
                 if (!matchedClient.squareCustomerId) {
                   updateClientSquareID({
@@ -329,9 +402,11 @@ const PaymentInfo = (props) => {
               }
             }
 
+            dispatch(ACTION_BOOKED_WITH_CARD_ID(cardData.id));
+
             changeSuccessfulCardNonce(true);
 
-            if (!saveCardChecked) {
+            if (!saveCardChecked && userAuthenticated) {
               updateUnsavedSquareCardIDs({
                 variables: {
                   unsavedSquareCardID: cardData.id,
@@ -361,7 +436,8 @@ const PaymentInfo = (props) => {
             );
           })
           .then((res) => {
-            if (!saveCardChecked) {
+            dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
+            if (!saveCardChecked && userAuthenticated) {
               updateUnsavedSquareCardIDs({
                 variables: {
                   unsavedSquareCardID: res.data.card.id,
@@ -393,22 +469,24 @@ const PaymentInfo = (props) => {
             (userAuthenticated
               ? cardHolderFirstName
                 ? cardHolderFirstName
-                : props.getClientData.client.firstName
+                : props.getClientData.client.firstName.toUpperCase()
               : cardHolderFirstName
               ? cardHolderFirstName
-              : firstName
+              : firstName.toUpperCase()
             ).trim() +
             " " +
             (userAuthenticated
               ? cardHolderLastName
                 ? cardHolderLastName
-                : props.getClientData.client.lastName
+                : props.getClientData.client.lastName.toUpperCase()
               : cardHolderLastName
               ? cardHolderLastName
-              : lastName
+              : lastName.toUpperCase()
             ).trim(),
           verification_token: buyerVerificationToken,
-          customerId: props.getClientData.client.squareCustomerId,
+          customerId: userAuthenticated
+            ? props.getClientData.client.squareCustomerId
+            : matchedClient.squareCustomerId,
         };
 
         changeSuccessfulCardNonce(true);
@@ -421,7 +499,8 @@ const PaymentInfo = (props) => {
             },
           })
           .then((res) => {
-            if (!saveCardChecked) {
+            dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
+            if (!saveCardChecked && userAuthenticated) {
               updateUnsavedSquareCardIDs({
                 variables: {
                   unsavedSquareCardID: res.data.card.id,
@@ -438,6 +517,17 @@ const PaymentInfo = (props) => {
               });
 
               props.clientDataRefetch();
+            } else if (!userAuthenticated) {
+              updateUnsavedSquareCardIDs({
+                variables: {
+                  unsavedSquareCardID: res.data.card.id,
+                  firstName: matchedClient.firstName,
+                  lastName: matchedClient.lastName,
+                  email: matchedClient.email,
+                },
+              });
+
+              props.clientDataRefetch();
             }
           })
           .catch((err) => {
@@ -450,6 +540,10 @@ const PaymentInfo = (props) => {
           ? cardHolderFirstName && cardHolderLastName && !selectedCreditCard
             ? returningClientSquarePostRequestFunction()
             : retrieveSquareCustomerFunction()
+          : squarePostRequestFunction()
+        : matchedClient
+        ? matchedClient.squareCustomerId
+          ? returningClientSquarePostRequestFunction()
           : squarePostRequestFunction()
         : squarePostRequestFunction();
     }
@@ -675,12 +769,14 @@ const PaymentInfo = (props) => {
           />
         </Link>
         <h1>PAYMENT INFO</h1>
-        <Link to="/checkout">
-          <FontAwesomeIcon
-            className="payment_info_forward_arrow"
-            icon={faChevronRight}
-          />
-        </Link>
+        {userAuthenticated && bookedWithCardID ? (
+          <Link to="/checkout">
+            <FontAwesomeIcon
+              className="payment_info_forward_arrow"
+              icon={faChevronRight}
+            />
+          </Link>
+        ) : null}
       </div>
       <div className="payment_info_header">
         <h2>ENTER YOUR PAYMENT INFORMATION</h2>
@@ -714,15 +810,88 @@ const PaymentInfo = (props) => {
                 type="select"
                 name="select"
                 id="select"
+                disabled={
+                  !userAuthenticated ||
+                  (userAuthenticated && !squareStoredCreditCards) ||
+                  (userAuthenticated &&
+                    squareStoredCreditCards &&
+                    squareStoredCreditCards.data.filter(
+                      (x) =>
+                        !props.getClientData.client.unsavedSquareCardIDs.includes(
+                          x.id
+                        )
+                    ).length === 0)
+                }
+                value={
+                  userAuthenticated
+                    ? bookedWithCardID
+                      ? squareStoredCreditCards
+                        ? squareStoredCreditCards.data
+                            .filter((x) => x.id === bookedWithCardID)[0]
+                            .card_brand.split("_")
+                            .join(" ") +
+                          " - " +
+                          squareStoredCreditCards.data.filter(
+                            (x) => x.id === bookedWithCardID
+                          )[0].last_4
+                        : {
+                            name: selectedCreditCard.name,
+                            id: selectedCreditCard.id,
+                          }
+                      : {
+                          name: selectedCreditCard.name,
+                          id: selectedCreditCard.id,
+                        }
+                    : {
+                        name: selectedCreditCard.name,
+                        id: selectedCreditCard.id,
+                      }
+                }
                 onChange={(e) => {
-                  if (selectedCreditCard) {
-                    changeSelectedCreditCard(e.target.value);
+                  const optionsArr = [{ name: "", id: "", index: 0 }].concat(
+                    squareStoredCreditCards.data
+                      .filter(
+                        (x) =>
+                          !props.getClientData.client.unsavedSquareCardIDs.includes(
+                            x.id
+                          )
+                      )
+                      .map((x, i) => {
+                        return {
+                          name:
+                            x.card_brand.split("_").join(" ") +
+                            " - " +
+                            x.last_4,
+                          id: x.id,
+                          index: i,
+                        };
+                      })
+                  );
+
+                  let chosenItem = optionsArr.filter(
+                    (item, index) => index === e.target.options.selectedIndex
+                  )[0];
+
+                  if (selectedCreditCard.name) {
+                    dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+
+                    changeSelectedCreditCard({
+                      name: e.target.value,
+                      id: chosenItem.id,
+                    });
                     if (e.target.value === "NEW CARD") {
-                      changeSelectedCreditCard("");
+                      dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+
+                      changeSelectedCreditCard({ name: "", id: "" });
                       changeSelectedCreditCardFullData("");
                     }
                   } else {
-                    changeSelectedCreditCard(e.target.value);
+                    dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+
+                    changeSelectedCreditCard({
+                      name: e.target.value,
+                      id: chosenItem.id,
+                    });
                   }
                 }}
               >
@@ -857,7 +1026,7 @@ const PaymentInfo = (props) => {
                 </div>
               </div>
             ) : null}
-            {!selectedCreditCard ? (
+            {!selectedCreditCard && userAuthenticated ? (
               <div className="sq_save_card_information_container">
                 <span
                   className="fa-layers fa-fw client_consent_form_checkbox"
@@ -883,17 +1052,26 @@ const PaymentInfo = (props) => {
             ) : null}
           </fieldset>
           {selectedCreditCardFullData ||
-          (!selectedCreditCard &&
+          (!selectedCreditCard.name &&
             (!cardHolderFirstName || !cardHolderLastName)) ? (
             <Link
               to="/checkout/confirmation"
               style={{
                 display: "block",
                 pointerEvents:
-                  !selectedCreditCard &&
+                  !selectedCreditCard.name &&
                   (!cardHolderFirstName || !cardHolderLastName)
                     ? "none"
                     : "auto",
+              }}
+              onClick={() => {
+                if (userAuthenticated) {
+                  if (selectedCreditCardFullData) {
+                    dispatch(
+                      ACTION_BOOKED_WITH_CARD_ID(selectedCreditCardFullData.id)
+                    );
+                  }
+                }
               }}
             >
               <div className="sq-creditcard">Submit Card Information</div>

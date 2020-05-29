@@ -216,6 +216,7 @@ import eveningEyeCreamProductUseNotesReducer from "./reducers/MyRoutine/Evening/
 import eveningEyeCreamProductNameReducer from "./reducers/MyRoutine/Evening/EyeCream/ProductName/eveningEyeCreamProductNameReducer";
 import saveCardCheckedReducer from "./reducers/PaymentInfo/SaveCardChecked/saveCardCheckedReducer";
 import squareCustomerIDReducer from "./reducers/PaymentInfo/SquareCustomerID/squareCustomerIDReducer";
+import bookedWithCardIDReducer from "./reducers/PaymentInfo/BookedWithCardID/bookedWithCardIDReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -464,6 +465,7 @@ const RootReducer = combineReducers({
   // Payment Info Reducers
   saveCardChecked: saveCardCheckedReducer,
   squareCustomerID: squareCustomerIDReducer,
+  bookedWithCardID: bookedWithCardIDReducer,
 
   // Guest Checkout Form Reducers
   loginIsActive: loginIsActiveReducer,

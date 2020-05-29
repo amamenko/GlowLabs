@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery, useLazyQuery } from "@apollo/react-hooks";
 import { Transition, Spring } from "react-spring/renderprops";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
@@ -118,22 +118,31 @@ const ConfirmationPage = () => {
   const squareCustomerID = useSelector(
     (state) => state.squareCustomerID.square_customer_id
   );
+  const bookedWithCardID = useSelector(
+    (state) => state.bookedWithCardID.booked_with_card_id
+  );
   const [finalBookingModalActive, changeFinalBookingModalActive] = useState(
     false
   );
-  console.log(squareCustomerID);
-  const { data } = useQuery(getClientQuery, {
+  const [getClient, { data }] = useLazyQuery(getClientQuery, {
     fetchPolicy: "no-cache",
-    variables: {
-      _id: Cookies.get("dummy-token")
-        ? jwt.decode(Cookies.get("dummy-token")).id
-        : null,
-    },
   });
 
   const [addAppointment, { loading: appLoading }] = useMutation(
     addAppointmentMutation
   );
+  console.log(bookedWithCardID);
+  useEffect(() => {
+    if (userAuthenticated) {
+      getClient({
+        variables: {
+          _id: Cookies.get("dummy-token")
+            ? jwt.decode(Cookies.get("dummy-token")).id
+            : null,
+        },
+      });
+    }
+  }, [getClient, userAuthenticated]);
 
   const override = css`
     display: block;
@@ -164,7 +173,10 @@ const ConfirmationPage = () => {
         ? data.client.phoneNumber
         : phoneNumber
       : phoneNumber,
+    bookedWithCardSquareID: bookedWithCardID,
     notes: appointmentNotes,
+    squareCustomerId: userAuthenticated ? null : squareCustomerID,
+    unsavedSquareCardIDs: userAuthenticated ? null : bookedWithCardID,
   };
 
   const handleSubmitBooking = (e) => {
@@ -383,11 +395,11 @@ const ConfirmationPage = () => {
             <p>{data.client.email}</p>
           </div>
         ) : (
-          <>
+          <div className="summary_client_contact_info_text_container">
             <p>{firstName + " " + lastName}</p>
             <p>{phoneNumber}</p>
             <p>{email}</p>
-          </>
+          </div>
         )}
       </div>
       <div className="summary_selected_date_container">
@@ -553,9 +565,9 @@ const ConfirmationPage = () => {
                         {reformattedDay.toUpperCase()}
                       </p>
                       <div className="modal_address_container">
-                        <p>561 WILLOW AVENUE</p>
+                        <p>1506 BROADWAY</p>
                         <p>|</p>
-                        <p>CEDARHURST, NY</p>
+                        <p>HEWLETT, NY</p>
                       </div>
                     </div>
                   </div>

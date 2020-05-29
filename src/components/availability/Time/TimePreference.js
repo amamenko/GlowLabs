@@ -928,7 +928,8 @@ const TimePreference = () => {
                                 .valueOf()
                           ? "none"
                           : "auto"
-                        : moment(
+                        : bookedTimes.includes(item) ||
+                          moment(
                             dayOfTheWeek +
                               ", " +
                               reformattedDay +
@@ -944,9 +945,9 @@ const TimePreference = () => {
                             .utc()
                             .subtract(12, "hours")
                             .valueOf() <=
-                          moment()
-                            .utc()
-                            .valueOf()
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "none"
                         : "auto",
                     background:

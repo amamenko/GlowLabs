@@ -135,6 +135,7 @@ select {
 
 .sq-cardholder-input:disabled {
   background: rgba(204, 204, 204, 0.6);
+  background-color: none;
 }
 
 .sq-cardholder-input::placeholder {
@@ -144,6 +145,13 @@ select {
 
 .sq-payment-form-hidden {
   display: none;
+}
+
+#sq-payment-form-sq-expiration-date,
+#sq-payment-form-sq-postal-code,
+#sq-payment-form-sq-cvv,
+#sq-payment-form-sq-card-number {
+  height: 7vh;
 }
 
 .choose_a_credit_card_formgroup {
