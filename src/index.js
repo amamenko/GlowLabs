@@ -71,6 +71,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import { Font } from "@react-pdf/renderer";
+import AdminRouter from "./components/admin/AdminRouter";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -729,6 +730,8 @@ const App = () => {
         <Route path="/availability" component={AvailabilityRouter} />
 
         <Route path="/checkout" component={CheckoutRouter} />
+
+        <Route path="/admin" component={AdminRouter} />
 
         <Route
           render={() =>

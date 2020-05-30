@@ -1054,6 +1054,28 @@ const updateUnsavedSquareCardIDsMutation = gql`
   }
 `;
 
+const removeOneUnsavedSquareCardIDsMutation = gql`
+  mutation(
+    $unsavedSquareCardID: String
+    $firstName: String
+    $lastName: String
+    $email: String
+  ) {
+    removeOneUnsavedSquareCardIDs(
+      unsavedSquareCardID: $unsavedSquareCardID
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+    ) {
+      squareCustomerId
+      unsavedSquareCardIDs
+      firstName
+      lastName
+      email
+    }
+  }
+`;
+
 export {
   loginQuery,
   getClientsQuery,
@@ -1069,6 +1091,7 @@ export {
   updateClientInformationMutation,
   updateClientSquareIDMutation,
   updateUnsavedSquareCardIDsMutation,
+  removeOneUnsavedSquareCardIDsMutation,
   updateMyRoutineMutation,
   updateConsentFormMutation,
   updateClientInvalidateTokensMutation,

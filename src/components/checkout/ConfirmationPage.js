@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { useMutation, useQuery, useLazyQuery } from "@apollo/react-hooks";
+import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { Transition, Spring } from "react-spring/renderprops";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
