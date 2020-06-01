@@ -217,6 +217,13 @@ import eveningEyeCreamProductNameReducer from "./reducers/MyRoutine/Evening/EyeC
 import saveCardCheckedReducer from "./reducers/PaymentInfo/SaveCardChecked/saveCardCheckedReducer";
 import squareCustomerIDReducer from "./reducers/PaymentInfo/SquareCustomerID/squareCustomerIDReducer";
 import bookedWithCardIDReducer from "./reducers/PaymentInfo/BookedWithCardID/bookedWithCardIDReducer";
+import adminLoginEmailReducer from "./reducers/Admin/AdminLogin/AdminEmail/adminLoginEmailReducer";
+import adminLoginEmailInvalidReducer from "./reducers/Admin/AdminLogin/AdminEmail/Invalid/adminLoginEmailInvalidReducer";
+import adminLoginPasswordReducer from "./reducers/Admin/AdminLogin/AdminPassword/adminLoginPasswordReducer";
+import adminLoginPasswordInvalidReducer from "./reducers/Admin/AdminLogin/AdminPassword/Invalid/adminLoginPasswordInvalidReducer";
+import adminRegisteredEmployeeFoundReducer from "./reducers/Admin/AdminLogin/AdminRegisteredEmployeeFound/adminRegisteredEmployeeFoundReducer";
+import adminDummyTokenReducer from "./reducers/Admin/AdminLogin/AdminDummyToken/adminDummyTokenReducer";
+import adminTemporaryDummyTokenReducer from "./reducers/Admin/AdminLogin/AdminTemporaryDummyToken/adminTemporaryDummyTokenReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -316,7 +323,7 @@ const RootReducer = combineReducers({
   createAccountConfirmPasswordValid: createAccountConfirmPasswordValidReducer,
   createAccountConfirmPasswordInvalid: createAccountConfirmPasswordInvalidReducer,
 
-  // Login Form Reducers,
+  // Login Form Reducers
   loginEmail: loginEmailReducer,
   loginEmailInvalid: loginEmailInvalidReducer,
   loginPassword: loginPasswordReducer,
@@ -327,7 +334,16 @@ const RootReducer = combineReducers({
   facebookCompleteRegistration: facebookCompleteRegistrationReducer,
   dummyToken: dummyTokenReducer,
 
-  // Consent Form Reducers,
+  // Admin Login Form Reducers
+  adminLoginEmail: adminLoginEmailReducer,
+  adminLoginEmailInvalid: adminLoginEmailInvalidReducer,
+  adminLoginPassword: adminLoginPasswordReducer,
+  adminLoginPasswordInvalid: adminLoginPasswordInvalidReducer,
+  adminRegisteredEmployeeFound: adminRegisteredEmployeeFoundReducer,
+  adminDummyToken: adminDummyTokenReducer,
+  adminTemporaryDummyToken: adminTemporaryDummyTokenReducer,
+
+  // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,
   surgeryLast3MonthsYes: surgeryLast3MonthsYesReducer,
   surgeryLast3MonthsNotes: surgeryLast3MonthsNotesReducer,

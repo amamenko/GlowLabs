@@ -40,6 +40,21 @@ const getClientsQuery = gql`
   }
 `;
 
+const getEmployeesQuery = gql`
+  {
+    employees {
+      firstName
+      lastName
+      email
+      phoneNumber
+      _id
+      password
+      permanentPasswordSet
+      employeeRole
+    }
+  }
+`;
+
 const getAllAppointmentsQuery = gql`
   {
     all_appointments {
@@ -392,6 +407,16 @@ const getClientQuery = gql`
 const loginQuery = gql`
   query($email: String, $password: String) {
     login(email: $email, password: $password) {
+      _id
+      accessToken
+      refreshToken
+    }
+  }
+`;
+
+const adminLoginQuery = gql`
+  query($email: String, $password: String) {
+    adminLogin(email: $email, password: $password) {
       _id
       accessToken
       refreshToken
@@ -1078,7 +1103,9 @@ const removeOneUnsavedSquareCardIDsMutation = gql`
 
 export {
   loginQuery,
+  adminLoginQuery,
   getClientsQuery,
+  getEmployeesQuery,
   getClientQuery,
   getOwnAppointmentsQuery,
   getOwnPastAppointmentsQuery,

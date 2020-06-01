@@ -1,0 +1,89 @@
+.admin_login_page_container {
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.admin_login_content_container {
+  height: 65%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.admin_sign_in_prompt {
+  width: 85%;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: rgb(121, 121, 121);
+}
+
+.admin_login_logo_container {
+  position: absolute;
+  height: 60%;
+  width: 100%;
+  top: -22vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin_section_designator_container {
+  position: absolute;
+  top: 19vh;
+}
+
+.admin_section_designator_container h2 {
+  font-weight: 700;
+  color: rgb(77, 77, 77);
+}
+
+.admin_login_page_form {
+  width: 90%;
+}
+
+.admin_forgot_password_question_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.admin_forgot_password_question_container p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(0, 129, 177);
+}
+
+.admin_login_page_bottom_button_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.admin_log_in_button {
+  background: rgb(44, 44, 52);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  padding-left: 6rem;
+  padding-right: 6rem;
+}

@@ -72,6 +72,9 @@ import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import { Font } from "@react-pdf/renderer";
 import AdminRouter from "./components/admin/AdminRouter";
+import ACTION_ADMIN_DUMMY_TOKEN from "./actions/Admin/AdminLogin/AdminDummyToken/ACTION_ADMIN_DUMMY_TOKEN";
+import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN from "./actions/Admin/AdminLogin/AdminTemporaryDummyToken/ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN";
+import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET from "./actions/Admin/AdminLogin/AdminTemporaryDummyToken/ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -130,6 +133,12 @@ const App = () => {
     (state) => state.logoutClicked.log_out_clicked
   );
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
+  const adminDummyToken = useSelector(
+    (state) => state.adminDummyToken.admin_dummy_token
+  );
+  const adminTemporaryDummyToken = useSelector(
+    (state) => state.adminTemporaryDummyToken.admin_temporary_dummy_token
+  );
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
   const [updateClientInvalidateTokens, { loading: appLoading }] = useMutation(
@@ -157,17 +166,23 @@ const App = () => {
   useEffect(() => {
     let currentDummyToken;
     let temporaryFacebookDummyToken;
+    let currentAdminDummyToken;
+    let temporaryAdminDummyToken;
 
     const checkCookies = () => {
       if (
         currentDummyToken !== Cookies.get("dummy-token") ||
         temporaryFacebookDummyToken !==
-          Cookies.get("temporary-facebook-dummy-token")
+          Cookies.get("temporary-facebook-dummy-token") ||
+        currentAdminDummyToken !== Cookies.get("admin-dummy-token") ||
+        temporaryAdminDummyToken !== Cookies.get("temporary-admin-dummy-token")
       ) {
         currentDummyToken = Cookies.get("dummy-token");
         temporaryFacebookDummyToken = Cookies.get(
           "temporary-facebook-dummy-token"
         );
+        currentAdminDummyToken = Cookies.get("admin-dummy-token");
+        temporaryAdminDummyToken = Cookies.get("temporary-admin-dummy-token");
 
         if (currentDummyToken) {
           dispatch(ACTION_DUMMY_TOKEN(jwt.decode(currentDummyToken)));
@@ -175,10 +190,23 @@ const App = () => {
         } else {
           dispatch(ACTION_DUMMY_TOKEN_RESET());
           dispatch(ACTION_USER_NOT_AUTHENTICATED());
-          if (temporaryFacebookDummyToken) {
-            dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION());
+          if (currentAdminDummyToken) {
+            dispatch(
+              ACTION_ADMIN_DUMMY_TOKEN(jwt.decode(currentAdminDummyToken))
+            );
+          } else if (temporaryAdminDummyToken) {
+            dispatch(
+              ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN(
+                jwt.decode(temporaryAdminDummyToken)
+              )
+            );
           } else {
-            dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
+            dispatch(ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET());
+            if (temporaryFacebookDummyToken) {
+              dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION());
+            } else {
+              dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
+            }
           }
         }
       }
@@ -731,8 +759,6 @@ const App = () => {
 
         <Route path="/checkout" component={CheckoutRouter} />
 
-        <Route path="/admin" component={AdminRouter} />
-
         <Route
           render={() =>
             location.pathname.includes("account") ? (
@@ -742,6 +768,12 @@ const App = () => {
                 currentScreenSize={currentScreenSize}
                 getClientData={getClientData ? getClientData : null}
                 clientDataRefetch={clientDataRefetch}
+              />
+            ) : location.pathname.includes("admin") ? (
+              <AdminRouter
+                path="/admin"
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
               />
             ) : (
               <PaymentInfo

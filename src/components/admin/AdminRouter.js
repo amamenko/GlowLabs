@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import AdminLoginPage from "./AdminLoginPage";
+import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 
 const AdminRouter = (props) => {
   return (
