@@ -65,6 +65,7 @@ import "./styles.css";
 import {
   updateClientInvalidateTokensMutation,
   getClientQuery,
+  getEmployeeQuery,
 } from "./graphql/queries/queries";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -157,11 +158,31 @@ const App = () => {
     }
   );
 
+  const { data: getEmployeeData, refetch: employeeDataRefetch } = useQuery(
+    getEmployeeQuery,
+    {
+      fetchPolicy: "no-cache",
+      variables: {
+        _id: adminTemporaryDummyToken
+          ? adminTemporaryDummyToken.id
+          : adminDummyToken
+          ? adminDummyToken.id
+          : null,
+      },
+    }
+  );
+
   useMemo(() => {
     if (getClientData) {
       return false;
     }
   }, [getClientData]);
+
+  useMemo(() => {
+    if (getEmployeeData) {
+      return false;
+    }
+  }, [getEmployeeData]);
 
   useEffect(() => {
     let currentDummyToken;
@@ -213,7 +234,7 @@ const App = () => {
     };
 
     setInterval(checkCookies, 100);
-  }, [dispatch, clientDataRefetch]);
+  }, [dispatch, employeeDataRefetch]);
 
   const handleNavbarToggle = () => {
     if (navbarToggle) {
@@ -774,6 +795,8 @@ const App = () => {
                 path="/admin"
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                getEmployeeData={getEmployeeData ? getEmployeeData : null}
+                employeeDataRefetch={employeeDataRefetch}
               />
             ) : (
               <PaymentInfo

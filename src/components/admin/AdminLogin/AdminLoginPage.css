@@ -86,4 +86,5 @@
   padding: 0.8rem;
   padding-left: 6rem;
   padding-right: 6rem;
+  white-space: nowrap;
 }

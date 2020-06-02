@@ -9,8 +9,9 @@ import { css } from "emotion";
 import {
   adminLoginQuery,
   getEmployeesQuery,
+  updateAdminPasswordMutation,
 } from "../../../graphql/queries/queries";
-import { useLazyQuery, useQuery } from "@apollo/react-hooks";
+import { useLazyQuery, useQuery, useMutation } from "@apollo/react-hooks";
 import { BounceLoader } from "react-spinners";
 import ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID from "../../../actions/Admin/AdminLogin/AdminEmail/Invalid/ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID";
 import ACTION_ADMIN_LOGIN_EMAIL_INVALID from "../../../actions/Admin/AdminLogin/AdminEmail/Invalid/ACTION_ADMIN_LOGIN_EMAIL_INVALID";
@@ -20,6 +21,8 @@ import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIV
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import AdminNewPassword from "./AdminNewPassword/AdminNewPassword";
+import AdminConfirmNewPassword from "./AdminNewPassword/AdminConfirmNewPassword";
 
 const AdminLoginPage = (props) => {
   const dispatch = useDispatch();
@@ -40,8 +43,21 @@ const AdminLoginPage = (props) => {
   const adminLoginPassword = useSelector(
     (state) => state.adminLoginPassword.admin_login_password
   );
+  const adminConfirmNewPassword = useSelector(
+    (state) => state.adminConfirmNewPassword.admin_confirm_new_password
+  );
   const adminLoginPasswordInvalid = useSelector(
     (state) => state.adminLoginPasswordInvalid.admin_login_password_invalid
+  );
+  const adminTemporaryDummyToken = useSelector(
+    (state) => state.adminTemporaryDummyToken.admin_temporary_dummy_token
+  );
+  const adminNewPasswordValid = useSelector(
+    (state) => state.adminNewPasswordValid.admin_new_password_valid
+  );
+  const adminConfirmNewPasswordValid = useSelector(
+    (state) =>
+      state.adminConfirmNewPasswordValid.admin_confirm_new_password_valid
   );
 
   const [loginAdmin, { data, error }] = useLazyQuery(adminLoginQuery, {
@@ -50,6 +66,11 @@ const AdminLoginPage = (props) => {
   const { data: getEmployeesData } = useQuery(getEmployeesQuery, {
     fetchPolicy: "no-cache",
   });
+
+  const [
+    updateAdminPassword,
+    { loading: updateAdminPasswordLoading, data: updateAdminPasswordData },
+  ] = useMutation(updateAdminPasswordMutation);
 
   const [signInLoading, changeSignInLoading] = useState(false);
   const [registeredEmployeeFound, changeRegisteredEmployeeFound] = useState(
@@ -140,6 +161,30 @@ const AdminLoginPage = (props) => {
     changeSignInLoading(true);
   };
 
+  const handleAdminChangePasswordClick = () => {
+    updateAdminPassword({ variables: { password: adminConfirmNewPassword } });
+
+    changeSignInLoading(true);
+  };
+
+  useMemo(() => {
+    if (!updateAdminPasswordLoading) {
+      if (updateAdminPasswordData) {
+        loginAdmin({
+          variables: {
+            email: updateAdminPasswordData.updateAdminPassword.email,
+            password: adminConfirmNewPassword,
+          },
+        });
+      }
+    }
+  }, [
+    updateAdminPasswordLoading,
+    adminConfirmNewPassword,
+    loginAdmin,
+    updateAdminPasswordData,
+  ]);
+
   // When account screen unmounts, allow navbar
   useEffect(() => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
@@ -178,14 +223,27 @@ const AdminLoginPage = (props) => {
       </div>
       <div className="admin_login_content_container">
         <p className="admin_sign_in_prompt">
-          Sign in with your administrative credentials
+          {adminTemporaryDummyToken
+            ? "Change the password to your administrative account"
+            : "Sign in with your administrative credentials"}
         </p>
         <Form className="admin_login_page_form">
-          <AdminLoginEmail />
-          <AdminLoginPassword />
-          <div className="admin_forgot_password_question_container">
-            <p>Forgot password?</p>
-          </div>
+          {adminTemporaryDummyToken ? (
+            <>
+              <AdminNewPassword />
+              <AdminConfirmNewPassword />
+            </>
+          ) : (
+            <>
+              <AdminLoginEmail />
+              <AdminLoginPassword />
+            </>
+          )}
+          {adminTemporaryDummyToken ? null : (
+            <div className="admin_forgot_password_question_container">
+              <p>Forgot password?</p>
+            </div>
+          )}
         </Form>
         <div className="admin_login_page_bottom_button_container">
           <Link
@@ -193,26 +251,41 @@ const AdminLoginPage = (props) => {
             style={{
               display: "block",
               width: "90%",
-              pointerEvents:
-                adminLoginEmail && adminLoginPassword ? "auto" : "none",
+              pointerEvents: adminTemporaryDummyToken
+                ? adminNewPasswordValid && adminConfirmNewPasswordValid
+                  ? "auto"
+                  : "none"
+                : adminLoginEmail && adminLoginPassword
+                ? "auto"
+                : "none",
             }}
           >
             <div
               className="admin_log_in_button"
-              onClick={handleAdminLoginClick}
+              onClick={
+                adminTemporaryDummyToken
+                  ? handleAdminChangePasswordClick
+                  : handleAdminLoginClick
+              }
               style={{
-                background:
-                  adminLoginEmail && adminLoginPassword
+                background: adminTemporaryDummyToken
+                  ? adminNewPasswordValid && adminConfirmNewPasswordValid
                     ? "rgb(44, 44, 52)"
-                    : "#f0f0f0",
-                color:
-                  adminLoginEmail && adminLoginPassword
+                    : "#f0f0f0"
+                  : adminLoginEmail && adminLoginPassword
+                  ? "rgb(44, 44, 52)"
+                  : "#f0f0f0",
+                color: adminTemporaryDummyToken
+                  ? adminNewPasswordValid && adminConfirmNewPasswordValid
                     ? "rgb(255, 255, 255)"
-                    : "rgb(201, 201, 201)",
+                    : "rgb(201, 201, 201)"
+                  : adminLoginEmail && adminLoginPassword
+                  ? "rgb(255, 255, 255)"
+                  : "rgb(201, 201, 201)",
                 transition: "background 0.5s ease, color 0.5s ease",
               }}
             >
-              <p>Log In</p>
+              <p>{adminTemporaryDummyToken ? "Change Password" : "Log In"}</p>
             </div>
           </Link>
         </div>

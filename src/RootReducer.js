@@ -224,6 +224,12 @@ import adminLoginPasswordInvalidReducer from "./reducers/Admin/AdminLogin/AdminP
 import adminRegisteredEmployeeFoundReducer from "./reducers/Admin/AdminLogin/AdminRegisteredEmployeeFound/adminRegisteredEmployeeFoundReducer";
 import adminDummyTokenReducer from "./reducers/Admin/AdminLogin/AdminDummyToken/adminDummyTokenReducer";
 import adminTemporaryDummyTokenReducer from "./reducers/Admin/AdminLogin/AdminTemporaryDummyToken/adminTemporaryDummyTokenReducer";
+import adminNewPasswordReducer from "./reducers/Admin/AdminLogin/AdminNewPassword/adminNewPasswordReducer";
+import adminConfirmNewPasswordReducer from "./reducers/Admin/AdminLogin/AdminConfirmNewPassword/adminConfirmNewPasswordReducer";
+import adminNewPasswordInvalidReducer from "./reducers/Admin/AdminLogin/AdminNewPassword/Invalid/adminNewPasswordInvalidReducer";
+import adminConfirmNewPasswordInvalidReducer from "./reducers/Admin/AdminLogin/AdminConfirmNewPassword/Invalid/adminConfirmNewPasswordInvalidReducer";
+import adminNewPasswordValidReducer from "./reducers/Admin/AdminLogin/AdminNewPassword/Valid/adminNewPasswordValidReducer";
+import adminConfirmNewPasswordValidReducer from "./reducers/Admin/AdminLogin/AdminConfirmNewPassword/Valid/adminConfirmNewPasswordValidReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -342,6 +348,12 @@ const RootReducer = combineReducers({
   adminRegisteredEmployeeFound: adminRegisteredEmployeeFoundReducer,
   adminDummyToken: adminDummyTokenReducer,
   adminTemporaryDummyToken: adminTemporaryDummyTokenReducer,
+  adminNewPassword: adminNewPasswordReducer,
+  adminNewPasswordInvalid: adminNewPasswordInvalidReducer,
+  adminNewPasswordValid: adminNewPasswordValidReducer,
+  adminConfirmNewPassword: adminConfirmNewPasswordReducer,
+  adminConfirmNewPasswordInvalid: adminConfirmNewPasswordInvalidReducer,
+  adminConfirmNewPasswordValid: adminConfirmNewPasswordValidReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

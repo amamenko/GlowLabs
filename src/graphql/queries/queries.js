@@ -404,6 +404,35 @@ const getClientQuery = gql`
   }
 `;
 
+const getEmployeeQuery = gql`
+  query(
+    $_id: ID
+    $firstName: String
+    $lastName: String
+    $email: String
+    $phoneNumber: String
+  ) {
+    employee(
+      _id: $_id
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      phoneNumber: $phoneNumber
+    ) {
+      _id
+      firstName
+      lastName
+      email
+      phoneNumber
+      employeeRole
+      permanentPasswordSet
+      password
+      tokenCount
+      createdAt
+    }
+  }
+`;
+
 const loginQuery = gql`
   query($email: String, $password: String) {
     login(email: $email, password: $password) {
@@ -1036,6 +1065,20 @@ const updateClientInformationMutation = gql`
   }
 `;
 
+const updateAdminPasswordMutation = gql`
+  mutation($password: String) {
+    updateAdminPassword(password: $password) {
+      _id
+      permanentPasswordSet
+      firstName
+      lastName
+      email
+      phoneNumber
+      password
+    }
+  }
+`;
+
 const updateClientSquareIDMutation = gql`
   mutation(
     $squareCustomerId: String
@@ -1106,6 +1149,7 @@ export {
   adminLoginQuery,
   getClientsQuery,
   getEmployeesQuery,
+  getEmployeeQuery,
   getClientQuery,
   getOwnAppointmentsQuery,
   getOwnPastAppointmentsQuery,
@@ -1117,6 +1161,7 @@ export {
   addClientMutation,
   updateClientInformationMutation,
   updateClientSquareIDMutation,
+  updateAdminPasswordMutation,
   updateUnsavedSquareCardIDsMutation,
   removeOneUnsavedSquareCardIDsMutation,
   updateMyRoutineMutation,
