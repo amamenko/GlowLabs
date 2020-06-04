@@ -70,12 +70,11 @@
     width: 100%;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   .nav_sign_in_button_small_screen p {
     display: inline-block;
-    margin-left: 0.5rem;
     color: rgb(44, 44, 52);
   }
 
@@ -85,13 +84,13 @@
   }
 
   .sign_in_circle_icon {
-    position: relative;
     font-size: 1.2rem;
     display: inline-block;
     color: rgb(44, 44, 52);
   }
 
   .letter_circle {
+    position: relative;
     left: 0.8rem;
     right: auto;
     display: flex;

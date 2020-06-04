@@ -40,7 +40,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  position: relative;
+  z-index: 0;
   width: 100%;
 }
 
@@ -53,6 +54,8 @@
   font-weight: 500;
   font-size: 1rem;
   padding: 0.8rem;
+  position: relative;
+  z-index: 0;
 }
 
 .continue_with_facebook_button p {

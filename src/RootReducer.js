@@ -230,6 +230,7 @@ import adminNewPasswordInvalidReducer from "./reducers/Admin/AdminLogin/AdminNew
 import adminConfirmNewPasswordInvalidReducer from "./reducers/Admin/AdminLogin/AdminConfirmNewPassword/Invalid/adminConfirmNewPasswordInvalidReducer";
 import adminNewPasswordValidReducer from "./reducers/Admin/AdminLogin/AdminNewPassword/Valid/adminNewPasswordValidReducer";
 import adminConfirmNewPasswordValidReducer from "./reducers/Admin/AdminLogin/AdminConfirmNewPassword/Valid/adminConfirmNewPasswordValidReducer";
+import adminAuthenticatedReducer from "./reducers/Admin/AdminLogin/AdminAuthenticated/adminAuthenticatedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -354,6 +355,7 @@ const RootReducer = combineReducers({
   adminConfirmNewPassword: adminConfirmNewPasswordReducer,
   adminConfirmNewPasswordInvalid: adminConfirmNewPasswordInvalidReducer,
   adminConfirmNewPasswordValid: adminConfirmNewPasswordValidReducer,
+  adminAuthenticated: adminAuthenticatedReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

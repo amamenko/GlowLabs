@@ -755,6 +755,21 @@ const updateClientInvalidateTokensMutation = gql`
   }
 `;
 
+const updateEmployeeInvalidateTokensMutation = gql`
+  mutation {
+    updateEmployeeInvalidateTokens {
+      _id
+      firstName
+      lastName
+      email
+      phoneNumber
+      password
+      createdAt
+      tokenCount
+    }
+  }
+`;
+
 const updateConsentFormMutation = gql`
   mutation(
     $date: String!
@@ -1167,5 +1182,6 @@ export {
   updateMyRoutineMutation,
   updateConsentFormMutation,
   updateClientInvalidateTokensMutation,
+  updateEmployeeInvalidateTokensMutation,
   registerClientMutation,
 };

@@ -9,7 +9,10 @@ import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useQuery } from "@apollo/react-hooks";
-import { getClientQuery } from "../../graphql/queries/queries";
+import {
+  getClientQuery,
+  getEmployeeQuery,
+} from "../../graphql/queries/queries";
 import ACTION_LOG_OUT_CLICKED from "../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
 
 const NavigationBar = React.forwardRef((props, ref) => {
@@ -32,6 +35,13 @@ const NavigationBar = React.forwardRef((props, ref) => {
     fetchPolicy: "no-cache",
     variables: {
       _id: dummyToken ? dummyToken.id : null,
+    },
+  });
+
+  const { data: getEmployeeData } = useQuery(getEmployeeQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: props.adminDummyToken ? props.adminDummyToken.id : null,
     },
   });
 
@@ -76,16 +86,62 @@ const NavigationBar = React.forwardRef((props, ref) => {
   };
 
   const handleLoginClick = () => {
-    if (!location.pathname.includes("/account/clientprofile")) {
+    if (
+      !location.pathname.includes("/account/clientprofile") ||
+      !location.pathname.includes("/admin/menu")
+    ) {
       dispatch(ACTION_LOGIN_IS_ACTIVE());
       toast.dismiss();
     }
   };
 
   const handleLogoutClicked = () => {
-    if (location.pathname.includes("/account/clientprofile")) {
-      if (userAuthenticated) {
+    if (
+      location.pathname.includes("/account/clientprofile") ||
+      location.pathname.includes("/admin/")
+    ) {
+      if (userAuthenticated || props.adminDummyToken) {
         dispatch(ACTION_LOG_OUT_CLICKED());
+      }
+    }
+  };
+
+  const clientNavbarCircleRender = () => {
+    if (data) {
+      if (data.client !== null) {
+        if (dummyToken) {
+          if (dummyToken.picture) {
+            return (
+              <img
+                className="nav_bar_profile_picture_thumbnail"
+                src={`${dummyToken.picture}`}
+                alt="facebook_profile_picture"
+              />
+            );
+          } else {
+            return data.client.firstName[0].toUpperCase();
+          }
+        } else {
+          return data.client.firstName[0].toUpperCase();
+        }
+      } else {
+        return "";
+      }
+    } else {
+      if (dummyToken) {
+        if (dummyToken.picture) {
+          return (
+            <img
+              className="nav_bar_profile_picture_thumbnail"
+              src={`${dummyToken.picture}`}
+              alt="facebook_profile_picture"
+            />
+          );
+        } else {
+          return data.client.firstName[0].toUpperCase();
+        }
+      } else {
+        return "";
       }
     }
   };
@@ -257,12 +313,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
           to={
             location.pathname.includes("/account/clientprofile")
               ? location.pathname
+              : location.pathname.includes("/admin/menu")
+              ? location.pathname
+              : props.adminDummyToken
+              ? "/admin/menu"
               : "/account/login"
           }
           onClick={handleLoginClick}
           style={{ pointerEvents: logoutClicked ? "none" : "auto" }}
         >
-          {userAuthenticated ? (
+          {userAuthenticated || props.adminDummyToken ? (
             <span className="fa-layers fa-fw letter_circle">
               <p
                 style={{
@@ -272,45 +332,22 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         ? window.scrollY <= 1
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
-                        : "rgb(44, 44, 52)"
+                        : "rgb(239, 240, 243)"
                       : props.currentScreenSize >= 600
                       ? window.scrollY <= 1
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
-                      : "rgb(44, 44, 52)",
+                      : "rgb(239, 240, 243)",
+                  marginLeft: "0rem",
                 }}
               >
-                {data ? (
-                  data.client !== null ? (
-                    dummyToken ? (
-                      dummyToken.picture ? (
-                        <img
-                          className="nav_bar_profile_picture_thumbnail"
-                          src={`${dummyToken.picture}`}
-                          alt="facebook_profile_picture"
-                        />
-                      ) : (
-                        data.client.firstName[0].toUpperCase()
-                      )
-                    ) : (
-                      ""
-                    )
-                  ) : (
-                    ""
-                  )
-                ) : dummyToken ? (
-                  dummyToken.picture ? (
-                    <img
-                      className="nav_bar_profile_picture_thumbnail"
-                      src={`${dummyToken.picture}`}
-                      alt="facebook_profile_picture"
-                    />
-                  ) : (
-                    ""
-                  )
-                ) : (
-                  ""
-                )}
+                {getEmployeeData
+                  ? getEmployeeData.employee
+                    ? getEmployeeData.employee.firstName
+                      ? getEmployeeData.employee.firstName[0].toUpperCase()
+                      : clientNavbarCircleRender()
+                    : clientNavbarCircleRender()
+                  : clientNavbarCircleRender()}
               </p>
               <FontAwesomeIcon
                 icon={faCircle}
@@ -365,14 +402,24 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(44, 44, 52)",
+              marginLeft: dummyToken
+                ? dummyToken.picture
+                  ? "0.5rem"
+                  : "1.5rem"
+                : props.adminDummyToken
+                ? "1.5rem"
+                : "0.5rem",
             }}
           >
-            {location.pathname.includes("/account/clientprofile")
-              ? userAuthenticated
+            {location.pathname.includes("/account/clientprofile") ||
+            location.pathname.includes("/admin")
+              ? userAuthenticated || props.adminDummyToken
                 ? "Log Out"
                 : "Log In"
               : userAuthenticated
               ? "Menu"
+              : props.adminDummyToken
+              ? "Admin"
               : "Log In"}
           </p>
         </Link>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Redirect } from "react-router-dom";
 import "./AdminLoginPage.css";
 import AdminLoginEmail from "./AdminLoginEmail";
 import AdminLoginPassword from "./AdminLoginPassword";
@@ -59,10 +59,16 @@ const AdminLoginPage = (props) => {
     (state) =>
       state.adminConfirmNewPasswordValid.admin_confirm_new_password_valid
   );
+  const adminAuthenticated = useSelector(
+    (state) => state.adminAuthenticated.admin_authenticated
+  );
 
-  const [loginAdmin, { data, error }] = useLazyQuery(adminLoginQuery, {
-    fetchPolicy: "no-cache",
-  });
+  const [loginAdmin, { data: loginAdminData, error }] = useLazyQuery(
+    adminLoginQuery,
+    {
+      fetchPolicy: "no-cache",
+    }
+  );
   const { data: getEmployeesData } = useQuery(getEmployeesQuery, {
     fetchPolicy: "no-cache",
   });
@@ -124,7 +130,7 @@ const AdminLoginPage = (props) => {
           if (adminLoginEmailInvalid) {
             dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
           }
-          if (data) {
+          if (loginAdminData) {
             if (adminLoginPasswordInvalid) {
               dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
             }
@@ -142,7 +148,7 @@ const AdminLoginPage = (props) => {
       };
     }
   }, [
-    data,
+    loginAdminData,
     dispatch,
     error,
     signInLoading,
@@ -185,6 +191,12 @@ const AdminLoginPage = (props) => {
     updateAdminPasswordData,
   ]);
 
+  const redirectToAdminMenu = () => {
+    if (adminAuthenticated && !adminTemporaryDummyToken) {
+      return <Redirect to="/admin/menu" />;
+    }
+  };
+
   // When account screen unmounts, allow navbar
   useEffect(() => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
@@ -195,6 +207,7 @@ const AdminLoginPage = (props) => {
 
   return (
     <div className="admin_login_page_container">
+      {redirectToAdminMenu()}
       <div className="admin_login_logo_container">
         <svg height="22rem" width="100%" viewBox="0 0 463.021 463.021">
           <g

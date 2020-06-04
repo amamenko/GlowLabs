@@ -66,6 +66,7 @@ import {
   updateClientInvalidateTokensMutation,
   getClientQuery,
   getEmployeeQuery,
+  updateEmployeeInvalidateTokensMutation,
 } from "./graphql/queries/queries";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -74,8 +75,11 @@ import { BounceLoader } from "react-spinners";
 import { Font } from "@react-pdf/renderer";
 import AdminRouter from "./components/admin/AdminRouter";
 import ACTION_ADMIN_DUMMY_TOKEN from "./actions/Admin/AdminLogin/AdminDummyToken/ACTION_ADMIN_DUMMY_TOKEN";
+import ACTION_ADMIN_DUMMY_TOKEN_RESET from "./actions/Admin/AdminLogin/AdminDummyToken/ACTION_ADMIN_DUMMY_TOKEN_RESET";
 import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN from "./actions/Admin/AdminLogin/AdminTemporaryDummyToken/ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN";
 import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET from "./actions/Admin/AdminLogin/AdminTemporaryDummyToken/ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET";
+import ACTION_ADMIN_AUTHENTICATED from "./actions/Admin/AdminLogin/AdminAuthenticated/ACTION_ADMIN_AUTHENTICATED";
+import ACTION_ADMIN_NOT_AUTHENTICATED from "./actions/Admin/AdminLogin/AdminAuthenticated/ACTION_NOT_AUTHENTICATED";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -146,6 +150,11 @@ const App = () => {
     updateClientInvalidateTokensMutation
   );
 
+  const [
+    updateEmployeeInvalidateTokens,
+    { loading: adminLogoutAppLoading },
+  ] = useMutation(updateEmployeeInvalidateTokensMutation);
+
   const dispatch = useDispatch();
 
   const { data: getClientData, refetch: clientDataRefetch } = useQuery(
@@ -215,14 +224,17 @@ const App = () => {
             dispatch(
               ACTION_ADMIN_DUMMY_TOKEN(jwt.decode(currentAdminDummyToken))
             );
+            dispatch(ACTION_ADMIN_AUTHENTICATED());
           } else if (temporaryAdminDummyToken) {
             dispatch(
               ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN(
                 jwt.decode(temporaryAdminDummyToken)
               )
             );
+            dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
           } else {
             dispatch(ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET());
+            dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
             if (temporaryFacebookDummyToken) {
               dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION());
             } else {
@@ -451,12 +463,20 @@ const App = () => {
   ]);
 
   const handleLogout = () => {
-    updateClientInvalidateTokens();
+    if (adminDummyToken) {
+      updateEmployeeInvalidateTokens();
+      dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
+    } else {
+      updateClientInvalidateTokens();
+      dispatch(ACTION_USER_NOT_AUTHENTICATED());
+    }
+
     dispatch(ACTION_DUMMY_TOKEN_RESET());
+    dispatch(ACTION_ADMIN_DUMMY_TOKEN_RESET());
   };
 
   useEffect(() => {
-    if (appLoading) {
+    if (appLoading || adminLogoutAppLoading) {
       changeLoadingSpinnerActive(true);
       const successfulLogout = setTimeout(() => {
         changeLoadingSpinnerActive(false);
@@ -478,7 +498,7 @@ const App = () => {
         };
       }
     }
-  }, [appLoading, loadingSpinnerActive, dispatch]);
+  }, [appLoading, adminLogoutAppLoading, loadingSpinnerActive, dispatch]);
 
   const override = css`
     display: block;
@@ -667,6 +687,8 @@ const App = () => {
               handleClickToScrollToAddOns={handleClickToScrollToAddOns}
               handleClickToScrollToInstagram={handleClickToScrollToInstagram}
               handleClickToScrollToContact={handleClickToScrollToContact}
+              adminDummyToken={adminDummyToken}
+              getEmployeeData={getEmployeeData}
               ref={ref}
             />
           </header>

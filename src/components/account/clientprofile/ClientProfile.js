@@ -28,6 +28,7 @@ import CanvasDraw from "react-canvas-draw";
 import { BounceLoader } from "react-spinners";
 import { Modal } from "reactstrap";
 import { css } from "emotion";
+import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 
 const ClientProfile = (props) => {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ const ClientProfile = (props) => {
   );
   const consentFormLastUpdated = useSelector(
     (state) => state.consentFormLastUpdated.consent_form_last_updated
+  );
+  const loginIsActive = useSelector(
+    (state) => state.loginIsActive.login_is_active
   );
   const [pdfLoading, changePDFLoading] = useState(false);
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
@@ -109,11 +113,11 @@ const ClientProfile = (props) => {
     }
   }, [props.getClientData, consentFormLastUpdated, dispatch]);
 
-  const redirectToHome = () => {
-    if (!splashScreenComplete) {
-      return <Redirect to="/" />;
+  useEffect(() => {
+    if (loginIsActive) {
+      dispatch(ACTION_LOGIN_IS_NOT_ACTIVE());
     }
-  };
+  }, [dispatch, loginIsActive]);
 
   const redirectToLogInPage = () => {
     if (!userAuthenticated) {
@@ -173,7 +177,6 @@ const ClientProfile = (props) => {
         ref={signature ? signature : null}
         style={{ display: "none" }}
       />
-      {redirectToHome()}
       {redirectToLogInPage()}
       <div className="client_profile_page_header">
         <h1>MENU</h1>

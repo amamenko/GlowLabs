@@ -258,12 +258,11 @@ const LandingPage = React.forwardRef((props, ref) => {
   // For iOS Rubberbanding Effect on Navbar / Footer
   const portraitOverscroll = () => {
     if (!cartIsActive) {
-      if (location.pathname.includes("account")) {
-        if (window.scrollY <= 1) {
-          document.body.style.setProperty("background", "rgb(44, 44, 52)");
-        } else {
-          document.body.style.setProperty("background", "rgb(255, 255, 255)");
-        }
+      if (
+        location.pathname.includes("account") ||
+        location.pathname.includes("admin")
+      ) {
+        document.body.style.setProperty("background", "rgb(255, 255, 255)");
       } else {
         if (window.scrollY <= 50) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
