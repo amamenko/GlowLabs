@@ -88,7 +88,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const handleLoginClick = () => {
     if (
       !location.pathname.includes("/account/clientprofile") ||
-      !location.pathname.includes("/admin/menu")
+      !location.pathname.includes("/admin")
     ) {
       dispatch(ACTION_LOGIN_IS_ACTIVE());
       toast.dismiss();
@@ -313,7 +313,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
           to={
             location.pathname.includes("/account/clientprofile")
               ? location.pathname
-              : location.pathname.includes("/admin/menu")
+              : location.pathname.includes("/admin/")
               ? location.pathname
               : props.adminDummyToken
               ? "/admin/menu"

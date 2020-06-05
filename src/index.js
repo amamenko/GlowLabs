@@ -427,7 +427,10 @@ const App = () => {
 
   useEffect(() => {
     if (!cartIsActive) {
-      if (!location.pathname.includes("account")) {
+      if (
+        !location.pathname.includes("account") &&
+        !location.pathname.includes("admin")
+      ) {
         const handleScroll = () => {
           const currentScrollPosition = window.pageYOffset;
 

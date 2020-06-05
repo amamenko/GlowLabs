@@ -4,7 +4,6 @@ import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import { Redirect, Link } from "react-router-dom";
-import "./AdminMenu.css";
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import {
   faHome,
@@ -13,6 +12,7 @@ import {
   faCalendarWeek,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./AdminMenu.css";
 
 const AdminMenu = (props) => {
   const dispatch = useDispatch();

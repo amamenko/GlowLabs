@@ -47,11 +47,12 @@ import { deleteAppointmentMutation } from "../../../../../graphql/queries/querie
 
 const UpcomingAppointments = (props) => {
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const individualAppointmentRef = useRef(null);
   const selectedAppointmentBackRef = useRef(null);
   const backToAppointmentsRef = useRef(null);
 
-  const location = useLocation();
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
