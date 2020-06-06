@@ -16,6 +16,7 @@
     "axios": "^0.19.2",
     "body-scroll-lock": "^2.7.1",
     "bootstrap": "^4.4.1",
+    "browser-image-compression": "^1.0.12",
     "dotenv": "^8.2.0",
     "emotion": "^10.0.27",
     "google-map-react": "^1.1.7",

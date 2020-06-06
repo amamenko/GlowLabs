@@ -7,6 +7,7 @@ import {
   faLongArrowAltLeft,
   faCamera,
   faTimes,
+  faOilCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
@@ -20,6 +21,7 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
+import imageCompression from "browser-image-compression";
 import ImageUploader from "react-images-upload";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
@@ -55,6 +57,8 @@ const AdminClients = (props) => {
     false
   );
   const [takeAPhotoSelected, changeTakeAPhotoSelected] = useState(false);
+  const [imagePreviewVisible, changeImagePreviewVisible] = useState(false);
+  const [imageUploaded, changeImageUploaded] = useState("");
 
   useEffect(() => {
     if (!splashScreenComplete) {
@@ -95,6 +99,16 @@ const AdminClients = (props) => {
 
   const handleChangeClientFilter = (e) => {
     changeClientFilter(e.currentTarget.value);
+  };
+
+  const handleImageUploaded = (picture) => {
+    if (picture[0]) {
+      changeImageUploaded(picture[0]);
+      changeImagePreviewVisible(true);
+    } else {
+      changeImageUploaded("");
+      changeImagePreviewVisible(false);
+    }
   };
 
   const preventKeys = (e) => {
@@ -313,29 +327,60 @@ const AdminClients = (props) => {
                                     <FontAwesomeIcon
                                       className="modal_x"
                                       icon={faTimes}
-                                      onClick={() =>
-                                        changeAddProfilePhotoClicked(false)
-                                      }
+                                      onClick={() => {
+                                        changeAddProfilePhotoClicked(false);
+                                        changeImagePreviewVisible(false);
+                                        changeImageUploaded("");
+                                      }}
                                     />
-                                    <h2>Add client profile picture</h2>
-                                    <span className="admin_individual_client_add_photo_modal_buttons_container">
+                                    <h2>Update client profile picture</h2>
+                                    <span
+                                      className="admin_individual_client_add_photo_modal_buttons_container"
+                                      style={{
+                                        top: imageUploaded ? "35%" : "45%",
+                                      }}
+                                    >
                                       <ImageUploader
-                                        withIcon={false}
+                                        withIcon={imageUploaded ? false : true}
                                         withLabel={false}
+                                        buttonStyles={{
+                                          display: imageUploaded
+                                            ? "none"
+                                            : "block",
+                                        }}
                                         buttonText="Choose image"
-                                        imgExtension={[".jpg", ".png"]}
+                                        imgExtension={[".jpg", ".png", ".jpeg"]}
                                         maxFileSize={5242880}
+                                        onChange={handleImageUploaded}
                                         singleImage={true}
+                                        withPreview={true}
                                       />
-                                      <p>OR</p>
-                                      <div
-                                        className="admin_individual_client_take_a_photo_button"
-                                        onClick={() =>
-                                          changeTakeAPhotoSelected(true)
-                                        }
-                                      >
-                                        <p>Take a photo</p>
-                                      </div>
+                                      {imageUploaded ? (
+                                        <div
+                                          className="admin_individual_client_confirm_photo_button"
+                                          onClick={() => {
+                                            changeAddProfilePhotoClicked(false);
+                                            changeImagePreviewVisible(false);
+                                            changeImageUploaded("");
+                                          }}
+                                        >
+                                          <p>Confirm photo</p>
+                                        </div>
+                                      ) : null}
+                                      {props.initialScreenSize >= 1200 ||
+                                      props.currentScreenSize >= 1200 ? (
+                                        <>
+                                          <p>OR</p>
+                                          <div
+                                            className="admin_individual_client_take_a_photo_button"
+                                            onClick={() =>
+                                              changeTakeAPhotoSelected(true)
+                                            }
+                                          >
+                                            <p>Take a photo</p>
+                                          </div>{" "}
+                                        </>
+                                      ) : null}
                                     </span>
                                   </div>
                                 )}

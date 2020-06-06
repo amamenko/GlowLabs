@@ -224,6 +224,12 @@
   box-shadow: none;
   border: none;
   background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .fileContainer .chooseFileButton {
@@ -261,8 +267,16 @@
 }
 
 .admin_individual_client_add_photo_modal_contents h2 {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   text-align: center;
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .admin_individual_client_add_photo_modal_content_container {
@@ -288,11 +302,16 @@
 }
 
 .admin_individual_client_add_photo_modal_buttons_container {
-  height: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 15%;
 }
 
 .admin_individual_client_add_photo_modal_buttons_container p {
@@ -310,6 +329,36 @@
   color: white;
 }
 
+.admin_individual_client_confirm_photo_button {
+  background: rgb(0, 129, 177);
+  font-size: 1rem;
+  position: absolute;
+  bottom: 1.5rem;
+  padding: 0.8rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  border-radius: 30px;
+  color: white;
+}
+
+.admin_individual_client_confirm_photo_button p {
+  font-weight: 500;
+}
+
 .admin_individual_client_take_a_photo_button p {
   font-weight: 500;
+}
+
+.uploadIcon {
+  margin-bottom: 1.5rem;
+}
+
+.errorMessage {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1rem;
 }
