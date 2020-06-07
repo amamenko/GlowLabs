@@ -101,7 +101,7 @@ const MyProfile = (props) => {
       </div>
       <div className="profile_bottom_buttons_container">
         <Link to="/account/clientprofile/profile/routine">
-          <div className="proile_button_container">
+          <div className="profile_button_container">
             <FontAwesomeIcon className="profile_button_icon" icon={faSpa} />
             <h2>Skin Care Routine</h2>
             <FontAwesomeIcon
@@ -110,7 +110,7 @@ const MyProfile = (props) => {
             />
           </div>
         </Link>
-        <div className="proile_button_container">
+        <div className="profile_button_container">
           <FontAwesomeIcon className="profile_button_icon" icon={faPencilAlt} />
           <h2>Quizzes</h2>
           <FontAwesomeIcon
@@ -118,7 +118,7 @@ const MyProfile = (props) => {
             icon={faChevronRight}
           />
         </div>
-        <div className="proile_button_container">
+        <div className="profile_button_container">
           <FontAwesomeIcon className="profile_button_icon" icon={faQuestion} />
           <h2>FAQs</h2>
           <FontAwesomeIcon
@@ -126,7 +126,7 @@ const MyProfile = (props) => {
             icon={faChevronRight}
           />
         </div>
-        <div className="proile_button_container">
+        <div className="profile_button_container">
           <FontAwesomeIcon className="profile_button_icon" icon={faCamera} />
           <h2>Before / After Photos</h2>
           <FontAwesomeIcon

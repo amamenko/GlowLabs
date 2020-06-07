@@ -8,9 +8,12 @@ import { getClientsQuery } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 
 const AdminRouter = (props) => {
-  const { data: getClientsData } = useQuery(getClientsQuery, {
-    fetchPolicy: "no-cache",
-  });
+  const { data: getClientsData, refetch: getClientsRefetch } = useQuery(
+    getClientsQuery,
+    {
+      fetchPolicy: "no-cache",
+    }
+  );
 
   const randomColorArray = useMemo(() => {
     if (getClientsData) {
@@ -64,6 +67,7 @@ const AdminRouter = (props) => {
             initialScreenSize={props.initialScreenSize}
             currentScreenSize={props.currentScreenSize}
             getClientsData={getClientsData ? getClientsData : null}
+            getClientsRefetch={getClientsRefetch}
             randomColorArray={randomColorArray ? randomColorArray : null}
           />
         )}

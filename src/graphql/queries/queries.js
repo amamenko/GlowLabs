@@ -34,6 +34,34 @@ const getClientsQuery = gql`
       lastName
       email
       phoneNumber
+      profilePicture
+      consentForm {
+        date
+        surgeryLast3Months
+        surgeryLast3MonthsNotes
+        anyHealthProblems
+        anyHealthProblemsNotes
+        listAnyMedications
+        chemPeelsLastMonth
+        waxingOnFaceLast5Days
+        accutaneOrPrescription
+        accutaneOrPrescriptionNotes
+        anyProductsContainingSalicyclicAcid
+        anyProductsContainingGlycolicAcid
+        anyProductsContainingLacticAcid
+        anyProductsContainingExfoliatingScrubs
+        anyProductsContainingVitaminA
+        fillersOrBotox
+        fillersOrBotoxNotes
+        listKnownAllergies
+        skinFlakyOrItch
+        everDiagnosedWithRosacea
+        pregnantOrNursing
+        ultimateSkinCareGoals
+        anythingElseWeShouldKnow
+        consentFormSignature
+        createdAt
+      }
       _id
       password
     }
@@ -237,6 +265,7 @@ const getClientQuery = gql`
       email
       phoneNumber
       createdAt
+      profilePicture
       password
       consentForm {
         date
@@ -1056,6 +1085,19 @@ const registerClientMutation = gql`
   }
 `;
 
+const updateClientProfilePictureMutation = gql`
+  mutation($id: ID, $profilePicture: String) {
+    updateClientProfilePicture(id: $id, profilePicture: $profilePicture) {
+      _id
+      firstName
+      lastName
+      email
+      phoneNumber
+      profilePicture
+    }
+  }
+`;
+
 const updateClientInformationMutation = gql`
   mutation(
     $firstName: String
@@ -1174,6 +1216,7 @@ export {
   deleteAppointmentMutation,
   deleteMyRoutineItemMutation,
   addClientMutation,
+  updateClientProfilePictureMutation,
   updateClientInformationMutation,
   updateClientSquareIDMutation,
   updateAdminPasswordMutation,

@@ -51,6 +51,10 @@
   justify-content: flex-start;
 }
 
+.admin_client_profile_top_section {
+  width: 100%;
+}
+
 .admin_individual_client_initials_square {
   padding: 0.5rem;
   padding-bottom: 1.5rem;
@@ -182,12 +186,6 @@
   position: relative;
 }
 
-.admin_individual_client_initials_profile_avatar p {
-  font-weight: 500;
-  font-size: 2.5rem;
-  color: rgb(255, 255, 255);
-}
-
 .admin_individual_selected_client_camera_icon_container {
   position: absolute;
   top: 0;
@@ -209,6 +207,22 @@
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
+}
+
+.admin_individual_client_picture_profile_avatar {
+  object-fit: cover;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 8rem;
+}
+
+.admin_individual_client_initials_profile_avatar p {
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: rgb(255, 255, 255);
 }
 
 .admin_individual_selected_client_full_name_container {
@@ -329,6 +343,10 @@
   color: white;
 }
 
+.fileContainer .chooseFileButton:hover {
+  background: rgb(44, 44, 52);
+}
+
 .admin_individual_client_confirm_photo_button {
   background: rgb(0, 129, 177);
   font-size: 1rem;
@@ -361,4 +379,46 @@
   align-items: center;
   justify-content: center;
   padding-bottom: 1rem;
+}
+
+.fileContainer .uploadPictureContainer {
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+.admin_individual_selected_client_contact_info_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.admin_individual_selected_client_contact_info_container p:nth-child(2) {
+  color: rgb(200, 200, 200);
+}
+
+.admin_individual_selected_client_contact_info_container p {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: rgb(111, 111, 111);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.admin_client_profile_bottom_buttons_container {
+  padding-top: 1.5rem;
+}
+
+.profile_button_container p {
+  width: 100%;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgb(55, 55, 55);
 }

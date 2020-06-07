@@ -104,7 +104,7 @@
   top: 56%;
 }
 
-.proile_button_container {
+.profile_button_container {
   width: 100%;
   border-bottom: 2px solid rgb(211, 211, 211);
   padding: 2rem;
@@ -115,7 +115,7 @@
   position: relative;
 }
 
-.proile_button_container h2 {
+.profile_button_container h2 {
   font-size: 1rem;
   font-weight: 700;
   position: absolute;
@@ -136,4 +136,8 @@
   right: 0;
   font-size: 1rem;
   color: rgb(44, 44, 52);
+}
+
+.profile_button_container h2 {
+  font-weight: 600;
 }
