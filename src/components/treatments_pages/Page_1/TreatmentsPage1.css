@@ -118,7 +118,7 @@
 @media only screen and (min-width: 1200px) {
   .treatments_page_1_container {
     height: 60vh;
-    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
     grid-template-areas:
       "header header header header header header"
       "calm_card calm_card clarify_card clarify_card bacial_card bacial_card"

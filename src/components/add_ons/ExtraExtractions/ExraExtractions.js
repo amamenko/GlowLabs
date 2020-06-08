@@ -7,7 +7,7 @@ import {
   faPlus,
   faSquare,
   faClock,
-  faTag
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import ACTION_EXTRA_EXTRACTIONS_TOGGLE from "../../../actions/AddOns/ExtraExtractions/ACTION_EXTRA_EXTRACTIONS_TOGGLE";
 import ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET from "../../../actions/AddOns/ExtraExtractions/ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET";
@@ -32,37 +32,41 @@ import AddOnsMicroneedlingErrorNotification from "../AddOnsMicroneedlingErrorNot
 import "./ExtraExtractions.css";
 import "../../treatments/card_styling.css";
 
-const ExtraExtractions = props => {
+const ExtraExtractions = (props) => {
   // "Learn More" states
   const extraExtractionsToggle = useSelector(
-    state => state.extraExtractionsToggle.toggle
+    (state) => state.extraExtractionsToggle.toggle
   );
-  const hydroJellyToggle = useSelector(state => state.hydroJellyToggle.toggle);
-  const ledTherapyToggle = useSelector(state => state.ledTherapyToggle.toggle);
+  const hydroJellyToggle = useSelector(
+    (state) => state.hydroJellyToggle.toggle
+  );
+  const ledTherapyToggle = useSelector(
+    (state) => state.ledTherapyToggle.toggle
+  );
   const microcurrentToggle = useSelector(
-    state => state.microcurrentToggle.toggle
+    (state) => state.microcurrentToggle.toggle
   );
   const microdermabrasionToggle = useSelector(
-    state => state.microdermabrasionToggle.toggle
+    (state) => state.microdermabrasionToggle.toggle
   );
   const dermarollingToggle = useSelector(
-    state => state.dermarollingToggle.toggle
+    (state) => state.dermarollingToggle.toggle
   );
   const nanoneedlingToggle = useSelector(
-    state => state.nanoneedlingToggle.toggle
+    (state) => state.nanoneedlingToggle.toggle
   );
-  const guashaToggle = useSelector(state => state.guashaToggle.toggle);
-  const beardToggle = useSelector(state => state.beardToggle.toggle);
+  const guashaToggle = useSelector((state) => state.guashaToggle.toggle);
+  const beardToggle = useSelector((state) => state.beardToggle.toggle);
 
   // In Cart states
   const extraExtractionsInCart = useSelector(
-    state => state.extraExtractionsInCart.in_cart
+    (state) => state.extraExtractionsInCart.in_cart
   );
   const microneedleInCart = useSelector(
-    state => state.microneedleInCart.in_cart
+    (state) => state.microneedleInCart.in_cart
   );
   const chemicalPeelInCart = useSelector(
-    state => state.chemicalPeelInCart.in_cart
+    (state) => state.chemicalPeelInCart.in_cart
   );
 
   const [cartClicked, changeCartClicked] = useState(false);
@@ -147,45 +151,45 @@ const ExtraExtractions = props => {
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 100 }
+        config: { duration: 100 },
       },
       {
         marginTop: "-9px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 300 }
+        config: { duration: 300 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-6",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-4px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      }
-    ]
+        config: { duration: 200 },
+      },
+    ],
   });
 
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -246,7 +250,7 @@ const ExtraExtractions = props => {
                   : props.currentScreenSize >= 360
                   ? "-0.5rem"
                   : "-0.1rem",
-              display: extraExtractionsInCart ? "block" : "none"
+              display: extraExtractionsInCart ? "block" : "none",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -282,7 +286,7 @@ const ExtraExtractions = props => {
           />,
           {
             className: "toast_error_container",
-            toastId: chemPeelAddOnErrorToastId
+            toastId: chemPeelAddOnErrorToastId,
           }
         );
       }
@@ -297,7 +301,7 @@ const ExtraExtractions = props => {
             />,
             {
               className: "toast_error_container",
-              toastId: microneedlingAddOnErrorToastId
+              toastId: microneedlingAddOnErrorToastId,
             }
           );
         }
@@ -313,7 +317,7 @@ const ExtraExtractions = props => {
               initialScreenSize={props.initialScreenSize}
             />,
             {
-              className: "toast_removed_container"
+              className: "toast_removed_container",
             }
           );
         } else {
@@ -337,7 +341,7 @@ const ExtraExtractions = props => {
   const addOnBounce = () => {
     return (
       <PlusBounce state="plusBounce">
-        {styles => (
+        {(styles) => (
           <span
             className="fa-layers fa-fw"
             style={
@@ -358,12 +362,12 @@ const ExtraExtractions = props => {
                     ? "rgb(119, 221, 119, 0.6)"
                     : microneedleInCart | chemicalPeelInCart
                     ? "rgb(211, 211, 211)"
-                    : "rgb(255, 198, 207, 0.8)"
+                    : "rgba(0, 129, 177, 0.4)"
                   : extraExtractionsInCart
                   ? "rgb(119, 221, 119, 0.6)"
                   : microneedleInCart | chemicalPeelInCart
                   ? "rgb(211, 211, 211)"
-                  : "rgb(255, 198, 207, 0.6)"
+                  : "rgba(0, 129, 177, 0.3)"
               }
               transform={
                 !props.currentScreenSize
@@ -383,7 +387,7 @@ const ExtraExtractions = props => {
               color={
                 microneedleInCart | chemicalPeelInCart
                   ? "rgb(151, 151, 151)"
-                  : "rgb(175, 118, 127)"
+                  : "rgb(0, 129, 177)"
               }
               icon={faPlus}
             />
@@ -420,9 +424,9 @@ const ExtraExtractions = props => {
         className="card_bottom_wrapper"
         style={{
           color: extraExtractionsToggle
-            ? "rgb(155, 98, 107)"
-            : "rgb(175, 118, 127)",
-          transition: "ease all 0.5s"
+            ? "rgb(0, 104, 152)"
+            : "rgb(0, 129, 177)",
+          transition: "ease all 0.5s",
         }}
       >
         <p className="card_toggler" onClick={handleToggle}>
@@ -481,18 +485,18 @@ const ExtraExtractions = props => {
               to={{ position: "relative", opacity: 1 }}
               config={{ duration: 1000 }}
             >
-              {styleprops => (
+              {(styleprops) => (
                 <section className="card" style={styleprops}>
                   <div
                     className="card_image"
                     style={{
                       backgroundColor: extraExtractionsToggle
-                        ? "rgb(255, 198, 207)"
+                        ? "rgba(0, 129, 177, 0.2)"
                         : "rgba(211, 211, 211, 0.4)",
                       boxShadow: extraExtractionsToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <Spring
@@ -500,7 +504,7 @@ const ExtraExtractions = props => {
                       to={{ x: 0 }}
                       config={{ duration: 3000 }}
                     >
-                      {styles => (
+                      {(styles) => (
                         <>
                           <div
                             className="big_screen_book_now_wrapper"
@@ -511,7 +515,7 @@ const ExtraExtractions = props => {
                                   ? "rgba(69, 171, 69, 0.6)"
                                   : chemicalPeelInCart | microneedleInCart
                                   ? "rgb(201, 201, 201)"
-                                  : "rgb(155, 98, 107)"
+                                  : "rgb(0, 129, 177)"
                                 : extraExtractionsInCart
                                 ? "rgba(119, 221, 119, 0.6)"
                                 : chemicalPeelInCart | microneedleInCart
@@ -522,12 +526,12 @@ const ExtraExtractions = props => {
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
                                   : chemicalPeelInCart | microneedleInCart
                                   ? "1px solid transparent"
-                                  : "1px solid rgb(155, 98, 107)"
+                                  : "1px solid rgb(0, 129, 177)"
                                 : extraExtractionsInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
                                 : chemicalPeelInCart | microneedleInCart
                                 ? "1px solid transparent"
-                                : "1px solid rgb(155, 98, 107)",
+                                : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? extraExtractionsInCart
                                   ? "rgb(0, 0, 0)"
@@ -538,12 +542,12 @@ const ExtraExtractions = props => {
                                 ? "rgb(0, 0, 0)"
                                 : chemicalPeelInCart | microneedleInCart
                                 ? "rgb(141, 141, 141)"
-                                : "rgb(155, 98, 107)",
+                                : "rgb(0, 129, 177)",
                               cursor:
                                 chemicalPeelInCart | microneedleInCart
                                   ? "auto"
                                   : "pointer",
-                              transition: "all 0.5s ease"
+                              transition: "all 0.5s ease",
                             }}
                             onMouseEnter={() =>
                               changeBookNowButtonHovered(true)
@@ -574,7 +578,7 @@ const ExtraExtractions = props => {
                               }
                               stroke={
                                 extraExtractionsToggle
-                                  ? "rgb(235, 178, 187)"
+                                  ? "rgb(25, 154, 202)"
                                   : "rgba(191, 191, 191)"
                               }
                               strokeWidth="0.5"
@@ -599,8 +603,8 @@ const ExtraExtractions = props => {
                       className="card_border_right"
                       style={{
                         borderRight: extraExtractionsToggle
-                          ? "1px solid rgbA(155, 98, 107, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)"
+                          ? "1px solid rgba(25, 154, 202, 0.4)"
+                          : "1px solid rgbA(211, 211, 211)",
                       }}
                     />
                   </div>
@@ -608,12 +612,12 @@ const ExtraExtractions = props => {
                     className="card_description"
                     style={{
                       backgroundColor: extraExtractionsToggle
-                        ? "rgba(255, 198, 207, 0.2)"
+                        ? "rgba(222, 222, 222, 0.4)"
                         : "rgba(235, 235, 235, 0.1)",
                       boxShadow: extraExtractionsToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <div className="card_description_inner_wrapper">

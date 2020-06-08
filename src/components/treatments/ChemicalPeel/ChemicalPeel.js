@@ -6,7 +6,7 @@ import {
   faSuitcase,
   faClock,
   faTag,
-  faSquare
+  faSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { InView } from "react-intersection-observer";
 import ACTION_CHEMICAL_PEEL_TOGGLE from "../../../actions/Treatments/ChemicalPeel/ACTION_CHEMICAL_PEEL_TOGGLE";
@@ -49,74 +49,80 @@ import ChemicalPeelRemovedNotification from "./ChemicalPeelRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./ChemicalPeel.css";
 
-const ChemicalPeel = props => {
+const ChemicalPeel = (props) => {
   // "Learn More" states
-  const calmToggle = useSelector(state => state.calmToggle.toggle);
-  const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
-  const bacialToggle = useSelector(state => state.bacialToggle.toggle);
-  const glowToggle = useSelector(state => state.glowToggle.toggle);
-  const rejuvenateToggle = useSelector(state => state.rejuvenateToggle.toggle);
-  const quenchToggle = useSelector(state => state.quenchToggle.toggle);
-  const quickieToggle = useSelector(state => state.quickieToggle.toggle);
+  const calmToggle = useSelector((state) => state.calmToggle.toggle);
+  const clarifyToggle = useSelector((state) => state.clarifyToggle.toggle);
+  const bacialToggle = useSelector((state) => state.bacialToggle.toggle);
+  const glowToggle = useSelector((state) => state.glowToggle.toggle);
+  const rejuvenateToggle = useSelector(
+    (state) => state.rejuvenateToggle.toggle
+  );
+  const quenchToggle = useSelector((state) => state.quenchToggle.toggle);
+  const quickieToggle = useSelector((state) => state.quickieToggle.toggle);
   const chemicalpeelToggle = useSelector(
-    state => state.chemicalpeelToggle.toggle
+    (state) => state.chemicalpeelToggle.toggle
   );
   const dermaplaningToggle = useSelector(
-    state => state.dermaplaningToggle.toggle
+    (state) => state.dermaplaningToggle.toggle
   );
-  const cbdToggle = useSelector(state => state.cbdToggle.toggle);
+  const cbdToggle = useSelector((state) => state.cbdToggle.toggle);
   const microneedleToggle = useSelector(
-    state => state.microneedleToggle.toggle
+    (state) => state.microneedleToggle.toggle
   );
 
   // In Cart states
   // Treatments
-  const calmInCart = useSelector(state => state.calmInCart.in_cart);
-  const clarifyInCart = useSelector(state => state.clarifyInCart.in_cart);
-  const bacialInCart = useSelector(state => state.bacialInCart.in_cart);
-  const glowInCart = useSelector(state => state.glowInCart.in_cart);
-  const cbdInCart = useSelector(state => state.cbdInCart.in_cart);
+  const calmInCart = useSelector((state) => state.calmInCart.in_cart);
+  const clarifyInCart = useSelector((state) => state.clarifyInCart.in_cart);
+  const bacialInCart = useSelector((state) => state.bacialInCart.in_cart);
+  const glowInCart = useSelector((state) => state.glowInCart.in_cart);
+  const cbdInCart = useSelector((state) => state.cbdInCart.in_cart);
   const chemicalPeelInCart = useSelector(
-    state => state.chemicalPeelInCart.in_cart
+    (state) => state.chemicalPeelInCart.in_cart
   );
   const dermaplaningInCart = useSelector(
-    state => state.dermaplaningInCart.in_cart
+    (state) => state.dermaplaningInCart.in_cart
   );
   const microneedleInCart = useSelector(
-    state => state.microneedleInCart.in_cart
+    (state) => state.microneedleInCart.in_cart
   );
-  const quenchInCart = useSelector(state => state.quenchInCart.in_cart);
-  const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
-  const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
+  const quenchInCart = useSelector((state) => state.quenchInCart.in_cart);
+  const quickieInCart = useSelector((state) => state.quickieInCart.in_cart);
+  const rejuvenateInCart = useSelector(
+    (state) => state.rejuvenateInCart.in_cart
+  );
 
   // Add-Ons
-  const beardInCart = useSelector(state => state.beardInCart.in_cart);
+  const beardInCart = useSelector((state) => state.beardInCart.in_cart);
   const dermarollingInCart = useSelector(
-    state => state.dermarollingInCart.in_cart
+    (state) => state.dermarollingInCart.in_cart
   );
   const extraExtractionsInCart = useSelector(
-    state => state.extraExtractionsInCart.in_cart
+    (state) => state.extraExtractionsInCart.in_cart
   );
-  const guashaInCart = useSelector(state => state.guashaInCart.in_cart);
-  const hydroJellyInCart = useSelector(state => state.hydroJellyInCart.in_cart);
-  const ledInCart = useSelector(state => state.ledInCart.in_cart);
+  const guashaInCart = useSelector((state) => state.guashaInCart.in_cart);
+  const hydroJellyInCart = useSelector(
+    (state) => state.hydroJellyInCart.in_cart
+  );
+  const ledInCart = useSelector((state) => state.ledInCart.in_cart);
   const microcurrentInCart = useSelector(
-    state => state.microcurrentInCart.in_cart
+    (state) => state.microcurrentInCart.in_cart
   );
   const microdermabrasionInCart = useSelector(
-    state => state.microdermabrasionInCart.in_cart
+    (state) => state.microdermabrasionInCart.in_cart
   );
   const nanoneedlingInCart = useSelector(
-    state => state.nanoneedlingInCart.in_cart
+    (state) => state.nanoneedlingInCart.in_cart
   );
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
   const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
+    (state) => state.reformattedDay.reformattedDay
   );
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
 
   const dispatch = useDispatch();
 
@@ -203,45 +209,45 @@ const ChemicalPeel = props => {
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 100 }
+        config: { duration: 100 },
       },
       {
         marginTop: "-9px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 300 }
+        config: { duration: 300 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-6",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-4px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      }
-    ]
+        config: { duration: 200 },
+      },
+    ],
   });
 
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -302,7 +308,7 @@ const ChemicalPeel = props => {
                   : props.currentScreenSize >= 360
                   ? "-0.5rem"
                   : "-0.1rem",
-              display: chemicalPeelInCart ? "block" : "none"
+              display: chemicalPeelInCart ? "block" : "none",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -348,7 +354,7 @@ const ChemicalPeel = props => {
           />,
           {
             className: "toast_error_container",
-            toastId: inCartToastId
+            toastId: inCartToastId,
           }
         );
       }
@@ -373,7 +379,7 @@ const ChemicalPeel = props => {
             initialScreenSize={props.initialScreenSize}
           />,
           {
-            className: "toast_removed_container"
+            className: "toast_removed_container",
           }
         );
       } else {
@@ -433,7 +439,7 @@ const ChemicalPeel = props => {
   const bookButtonBounce = () => {
     return (
       <SuitcaseBounce state="suitcaseBounce">
-        {styles => (
+        {(styles) => (
           <span
             className="fa-layers fa-fw"
             style={
@@ -471,7 +477,7 @@ const ChemicalPeel = props => {
                       quickieInCart |
                       rejuvenateInCart
                     ? "rgba(211, 211, 211, 0.8"
-                    : "rgba(255, 198, 207, 0.8)"
+                    : "rgba(0, 129, 177, 0.4)"
                   : chemicalPeelInCart
                   ? "rgb(119, 221, 119, 0.6)"
                   : bacialInCart |
@@ -485,7 +491,7 @@ const ChemicalPeel = props => {
                     quickieInCart |
                     rejuvenateInCart
                   ? "rgba(211, 211, 211, 0.8"
-                  : "rgba(255, 198, 207, 0.6)"
+                  : "rgba(0, 129, 177, 0.3)"
               }
               transform={
                 !props.currentScreenSize
@@ -514,7 +520,7 @@ const ChemicalPeel = props => {
                 quickieInCart |
                 rejuvenateInCart
                   ? "rgb(151, 151, 151)"
-                  : "rgb(175, 118, 127)"
+                  : "rgb(0, 129, 177)"
               }
               icon={faSuitcase}
             />
@@ -550,10 +556,8 @@ const ChemicalPeel = props => {
       <div
         className="card_bottom_wrapper"
         style={{
-          color: chemicalpeelToggle
-            ? "rgb(155, 98, 107)"
-            : "rgb(175, 118, 127)",
-          transition: "ease all 0.5s"
+          color: chemicalpeelToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
+          transition: "ease all 0.5s",
         }}
       >
         <p className="card_toggler" onClick={handleToggle}>
@@ -616,18 +620,18 @@ const ChemicalPeel = props => {
               to={{ position: "relative", opacity: 1 }}
               config={{ duration: 1000 }}
             >
-              {styleprops => (
+              {(styleprops) => (
                 <section className="card" style={styleprops}>
                   <div
                     className="card_image"
                     style={{
                       backgroundColor: chemicalpeelToggle
-                        ? "rgb(255, 198, 207)"
+                        ? "rgba(0, 129, 177, 0.2)"
                         : "rgba(211, 211, 211, 0.4)",
                       boxShadow: chemicalpeelToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <Spring
@@ -635,11 +639,11 @@ const ChemicalPeel = props => {
                       to={{
                         x: 0,
                         fill1: "rgba(119, 221, 119, 0.5)",
-                        fill2: "rgba(119, 221, 119, 1)"
+                        fill2: "rgba(119, 221, 119, 1)",
                       }}
                       config={{ duration: 2000 }}
                     >
-                      {styles => (
+                      {(styles) => (
                         <>
                           <div
                             className="big_screen_book_now_wrapper"
@@ -659,7 +663,7 @@ const ChemicalPeel = props => {
                                     quickieInCart |
                                     rejuvenateInCart
                                   ? "rgb(201, 201, 201)"
-                                  : "rgb(155, 98, 107)"
+                                  : "rgb(0, 129, 177)"
                                 : chemicalPeelInCart
                                 ? "rgba(119, 221, 119, 0.6)"
                                 : bacialInCart |
@@ -688,7 +692,7 @@ const ChemicalPeel = props => {
                                     quickieInCart |
                                     rejuvenateInCart
                                   ? "1px solid transparent"
-                                  : "1px solid rgb(155, 98, 107)"
+                                  : "1px solid rgb(0, 129, 177)"
                                 : chemicalPeelInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
                                 : bacialInCart |
@@ -702,7 +706,7 @@ const ChemicalPeel = props => {
                                   quickieInCart |
                                   rejuvenateInCart
                                 ? "1px solid transparent"
-                                : "1px solid rgb(155, 98, 107)",
+                                : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? chemicalPeelInCart
                                   ? "rgb(0, 0, 0)"
@@ -731,7 +735,7 @@ const ChemicalPeel = props => {
                                   quickieInCart |
                                   rejuvenateInCart
                                 ? "rgb(141, 141, 141)"
-                                : "rgb(155, 98, 107)",
+                                : "rgb(0, 129, 177)",
                               cursor:
                                 bacialInCart |
                                 cbdInCart |
@@ -745,7 +749,7 @@ const ChemicalPeel = props => {
                                 rejuvenateInCart
                                   ? "auto"
                                   : "pointer",
-                              transition: "all 0.5s ease"
+                              transition: "all 0.5s ease",
                             }}
                             onMouseEnter={() =>
                               changeBookNowButtonHovered(true)
@@ -776,7 +780,7 @@ const ChemicalPeel = props => {
                               }
                               stroke={
                                 chemicalpeelToggle
-                                  ? "rgb(235, 178, 187)"
+                                  ? "rgb(25, 154, 202)"
                                   : "rgba(191, 191, 191)"
                               }
                               strokeWidth="0.5"
@@ -817,8 +821,8 @@ const ChemicalPeel = props => {
                       className="card_border_right"
                       style={{
                         borderRight: chemicalpeelToggle
-                          ? "1px solid rgbA(155, 98, 107, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)"
+                          ? "1px solid rgba(25, 154, 202, 0.4)"
+                          : "1px solid rgbA(211, 211, 211)",
                       }}
                     />
                   </div>
@@ -826,12 +830,12 @@ const ChemicalPeel = props => {
                     className="card_description"
                     style={{
                       backgroundColor: chemicalpeelToggle
-                        ? "rgba(255, 198, 207, 0.2)"
+                        ? "rgba(222, 222, 222, 0.4)"
                         : "rgba(235, 235, 235, 0.2)",
                       boxShadow: chemicalpeelToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <div className="card_description_inner_wrapper">

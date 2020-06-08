@@ -137,7 +137,7 @@
   .card_description_paragraph_title {
     display: flex;
     font-size: 0.55rem;
-    color: rgba(165, 138, 127);
+    color: rgba(0, 48, 76, 0.7);
     padding-left: 0.3rem;
     font-weight: 500;
     position: absolute;
@@ -147,7 +147,7 @@
   .card_description_icon {
     display: flex;
     font-size: 0.55rem;
-    color: rgba(165, 138, 127);
+    color: rgba(0, 48, 76, 0.7);
     position: absolute;
     left: 0;
     margin: 0 auto;
@@ -385,7 +385,7 @@
   .big_screen_duration {
     font-size: 1.1rem;
     font-weight: 500;
-    color: rgba(155, 98, 107, 1);
+    color: rgb(0, 129, 177);
   }
 
   .big_screen_entire_bottom_wrapper {
@@ -402,7 +402,7 @@
   }
 
   .big_screen_card_description_icon {
-    color: rgba(155, 98, 107, 1);
+    color: rgb(0, 129, 177);
   }
 
   .big_screen_card_add_on_button,
@@ -440,10 +440,10 @@
     margin-bottom: 1rem;
     padding-right: 0.8rem;
     padding-left: 0.8rem;
-    border: 1px solid rgba(155, 98, 107, 1);
+    border: 1px solid rgb(0, 129, 177);
     border-radius: 20px;
     cursor: pointer;
-    color: rgb(155, 98, 107);
+    color: rgb(0, 129, 177);
   }
 
   .big_screen_book_now_wrapper:hover {

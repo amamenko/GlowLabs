@@ -6,7 +6,7 @@ import {
   faSuitcase,
   faSquare,
   faClock,
-  faTag
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { InView } from "react-intersection-observer";
 import ACTION_CBD_TOGGLE from "../../../actions/Treatments/CBD/ACTION_CBD_TOGGLE";
@@ -37,52 +37,56 @@ import CBDRemovedNotification from "./CBDRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./CBD.css";
 
-const CBD = props => {
+const CBD = (props) => {
   // "Learn More" states
-  const calmToggle = useSelector(state => state.calmToggle.toggle);
-  const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
-  const bacialToggle = useSelector(state => state.bacialToggle.toggle);
-  const glowToggle = useSelector(state => state.glowToggle.toggle);
-  const rejuvenateToggle = useSelector(state => state.rejuvenateToggle.toggle);
-  const quenchToggle = useSelector(state => state.quenchToggle.toggle);
-  const quickieToggle = useSelector(state => state.quickieToggle.toggle);
+  const calmToggle = useSelector((state) => state.calmToggle.toggle);
+  const clarifyToggle = useSelector((state) => state.clarifyToggle.toggle);
+  const bacialToggle = useSelector((state) => state.bacialToggle.toggle);
+  const glowToggle = useSelector((state) => state.glowToggle.toggle);
+  const rejuvenateToggle = useSelector(
+    (state) => state.rejuvenateToggle.toggle
+  );
+  const quenchToggle = useSelector((state) => state.quenchToggle.toggle);
+  const quickieToggle = useSelector((state) => state.quickieToggle.toggle);
   const chemicalpeelToggle = useSelector(
-    state => state.chemicalpeelToggle.toggle
+    (state) => state.chemicalpeelToggle.toggle
   );
   const dermaplaningToggle = useSelector(
-    state => state.dermaplaningToggle.toggle
+    (state) => state.dermaplaningToggle.toggle
   );
-  const cbdToggle = useSelector(state => state.cbdToggle.toggle);
+  const cbdToggle = useSelector((state) => state.cbdToggle.toggle);
   const microneedleToggle = useSelector(
-    state => state.microneedleToggle.toggle
+    (state) => state.microneedleToggle.toggle
   );
 
   // In Cart states
-  const calmInCart = useSelector(state => state.calmInCart.in_cart);
-  const clarifyInCart = useSelector(state => state.clarifyInCart.in_cart);
-  const bacialInCart = useSelector(state => state.bacialInCart.in_cart);
-  const glowInCart = useSelector(state => state.glowInCart.in_cart);
-  const cbdInCart = useSelector(state => state.cbdInCart.in_cart);
+  const calmInCart = useSelector((state) => state.calmInCart.in_cart);
+  const clarifyInCart = useSelector((state) => state.clarifyInCart.in_cart);
+  const bacialInCart = useSelector((state) => state.bacialInCart.in_cart);
+  const glowInCart = useSelector((state) => state.glowInCart.in_cart);
+  const cbdInCart = useSelector((state) => state.cbdInCart.in_cart);
   const chemicalPeelInCart = useSelector(
-    state => state.chemicalPeelInCart.in_cart
+    (state) => state.chemicalPeelInCart.in_cart
   );
   const dermaplaningInCart = useSelector(
-    state => state.dermaplaningInCart.in_cart
+    (state) => state.dermaplaningInCart.in_cart
   );
   const microneedleInCart = useSelector(
-    state => state.microneedleInCart.in_cart
+    (state) => state.microneedleInCart.in_cart
   );
-  const quenchInCart = useSelector(state => state.quenchInCart.in_cart);
-  const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
-  const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
+  const quenchInCart = useSelector((state) => state.quenchInCart.in_cart);
+  const quickieInCart = useSelector((state) => state.quickieInCart.in_cart);
+  const rejuvenateInCart = useSelector(
+    (state) => state.rejuvenateInCart.in_cart
+  );
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
   const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
+    (state) => state.reformattedDay.reformattedDay
   );
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
 
   const dispatch = useDispatch();
 
@@ -172,45 +176,45 @@ const CBD = props => {
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 100 }
+        config: { duration: 100 },
       },
       {
         marginTop: "-9px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 300 }
+        config: { duration: 300 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-6",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-4px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      }
-    ]
+        config: { duration: 200 },
+      },
+    ],
   });
 
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -271,7 +275,7 @@ const CBD = props => {
                   : props.currentScreenSize >= 360
                   ? "-0.5rem"
                   : "-0.1rem",
-              display: cbdInCart ? "block" : "none"
+              display: cbdInCart ? "block" : "none",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -317,7 +321,7 @@ const CBD = props => {
           />,
           {
             className: "toast_error_container",
-            toastId: inCartToastId
+            toastId: inCartToastId,
           }
         );
       }
@@ -342,7 +346,7 @@ const CBD = props => {
             initialScreenSize={props.initialScreenSize}
           />,
           {
-            className: "toast_removed_container"
+            className: "toast_removed_container",
           }
         );
       } else {
@@ -365,7 +369,7 @@ const CBD = props => {
   const bookButtonBounce = () => {
     return (
       <SuitcaseBounce state="suitcaseBounce">
-        {styles => (
+        {(styles) => (
           <span
             className="fa-layers fa-fw"
             style={
@@ -403,7 +407,7 @@ const CBD = props => {
                       quenchInCart |
                       glowInCart
                     ? "rgba(211, 211, 211, 0.8"
-                    : "rgba(255, 198, 207, 0.8)"
+                    : "rgba(0, 129, 177, 0.4)"
                   : cbdInCart
                   ? "rgb(119, 221, 119, 0.6)"
                   : calmInCart |
@@ -417,7 +421,7 @@ const CBD = props => {
                     quenchInCart |
                     glowInCart
                   ? "rgba(211, 211, 211, 0.8"
-                  : "rgba(255, 198, 207, 0.6)"
+                  : "rgba(0, 129, 177, 0.3)"
               }
               transform={
                 !props.currentScreenSize
@@ -446,7 +450,7 @@ const CBD = props => {
                 quenchInCart |
                 glowInCart
                   ? "rgb(151, 151, 151)"
-                  : "rgb(175, 118, 127)"
+                  : "rgb(0, 129, 177)"
               }
               icon={faSuitcase}
             />
@@ -482,8 +486,8 @@ const CBD = props => {
       <div
         className="card_bottom_wrapper"
         style={{
-          color: cbdToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
-          transition: "ease all 0.5s"
+          color: cbdToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
+          transition: "ease all 0.5s",
         }}
       >
         <p className="card_toggler" onClick={handleToggle}>
@@ -546,18 +550,18 @@ const CBD = props => {
               to={{ position: "relative", opacity: 1 }}
               config={{ duration: 1000 }}
             >
-              {styleprops => (
+              {(styleprops) => (
                 <section className="card" style={styleprops}>
                   <div
                     className="card_image"
                     style={{
                       backgroundColor: cbdToggle
-                        ? "rgb(255, 198, 207)"
+                        ? "rgba(0, 129, 177, 0.2)"
                         : "rgba(211, 211, 211, 0.4)",
                       boxShadow: cbdToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <Spring
@@ -565,7 +569,7 @@ const CBD = props => {
                       to={{ x: 0, fill: "rgba(119, 221, 119, 0.7)" }}
                       config={{ duration: 1200 }}
                     >
-                      {styles => (
+                      {(styles) => (
                         <>
                           <div
                             className="big_screen_book_now_wrapper"
@@ -585,7 +589,7 @@ const CBD = props => {
                                     quenchInCart |
                                     glowInCart
                                   ? "rgb(201, 201, 201)"
-                                  : "rgb(155, 98, 107)"
+                                  : "rgb(0, 129, 177)"
                                 : cbdInCart
                                 ? "rgba(119, 221, 119, 0.6)"
                                 : calmInCart |
@@ -614,7 +618,7 @@ const CBD = props => {
                                     quenchInCart |
                                     glowInCart
                                   ? "1px solid transparent"
-                                  : "1px solid rgb(155, 98, 107)"
+                                  : "1px solid rgb(0, 129, 177)"
                                 : cbdInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
                                 : calmInCart |
@@ -628,7 +632,7 @@ const CBD = props => {
                                   quenchInCart |
                                   glowInCart
                                 ? "1px solid transparent"
-                                : "1px solid rgb(155, 98, 107)",
+                                : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? cbdInCart
                                   ? "rgb(0, 0, 0)"
@@ -657,7 +661,7 @@ const CBD = props => {
                                   quenchInCart |
                                   glowInCart
                                 ? "rgb(141, 141, 141)"
-                                : "rgb(155, 98, 107)",
+                                : "rgb(0, 129, 177)",
                               cursor:
                                 calmInCart |
                                 dermaplaningInCart |
@@ -671,7 +675,7 @@ const CBD = props => {
                                 glowInCart
                                   ? "auto"
                                   : "pointer",
-                              transition: "all 0.5s ease"
+                              transition: "all 0.5s ease",
                             }}
                             onMouseEnter={() =>
                               changeBookNowButtonHovered(true)
@@ -702,7 +706,7 @@ const CBD = props => {
                               }
                               stroke={
                                 cbdToggle
-                                  ? "rgb(235, 178, 187)"
+                                  ? "rgb(25, 154, 202)"
                                   : "rgba(191, 191, 191)"
                               }
                               strokeWidth="0.5"
@@ -730,8 +734,8 @@ const CBD = props => {
                       className="card_border_right"
                       style={{
                         borderRight: cbdToggle
-                          ? "1px solid rgbA(155, 98, 107, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)"
+                          ? "1px solid rgba(25, 154, 202, 0.4)"
+                          : "1px solid rgbA(211, 211, 211)",
                       }}
                     />
                   </div>
@@ -739,12 +743,12 @@ const CBD = props => {
                     className="card_description"
                     style={{
                       backgroundColor: cbdToggle
-                        ? "rgba(255, 198, 207, 0.2)"
+                        ? "rgba(222, 222, 222, 0.4)"
                         : "rgba(235, 235, 235, 0.3)",
                       boxShadow: cbdToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <div className="card_description_inner_wrapper">
@@ -755,9 +759,9 @@ const CBD = props => {
                           style={{
                             fontWeight: 600,
                             color: cbdToggle
-                              ? "rgb(155, 98, 107)"
-                              : "rgb(175, 118, 127)",
-                            transition: "ease all 0.5s"
+                              ? "rgb(0, 54, 102)"
+                              : "rgb(25, 79, 127)",
+                            transition: "ease all 0.5s",
                           }}
                         >
                           NEW!

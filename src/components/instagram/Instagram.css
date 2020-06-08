@@ -57,8 +57,8 @@
 .instagram_top_page_wrapping h2 {
   font-size: 1.5rem;
   font-weight: 900;
-  color: rgba(215, 156, 165);
-  -webkit-text-fill-color: rgb(215, 156, 165);
+  color: rgb(44, 44, 52);
+  -webkit-text-fill-color: rgb(44, 44, 52);
   line-height: 1rem;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
@@ -81,13 +81,13 @@
   margin-left: auto;
   margin-right: auto;
   font-size: 5rem;
-  color: rgb(215, 156, 165);
-  -webkit-text-fill-color: rgb(215, 156, 165);
+  color: rgb(0, 129, 177);
+  -webkit-text-fill-color: rgb(0, 129, 177);
   cursor: pointer;
 }
 
 .real_clients_title_underline {
-  border-bottom: 3px solid rgb(215, 156, 165);
+  border-bottom: 3px solid rgb(44, 44, 52);
 }
 
 .instagram_page_header h3 {
@@ -256,8 +256,8 @@
   }
 
   .real_clients_instagram_icon:hover {
-    color: rgb(155, 98, 107);
-    -webkit-text-fill-color: rgb(155, 98, 107);
+    color: rgb(0, 69, 117);
+    -webkit-text-fill-color: rgb(0, 69, 117);
     transition: all 0.5s ease;
   }
 

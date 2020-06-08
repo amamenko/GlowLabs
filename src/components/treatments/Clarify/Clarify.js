@@ -29,7 +29,7 @@ import {
   faSuitcase,
   faSquare,
   faClock,
-  faTag
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import ClarifyNotification from "./ClarifyNotification";
@@ -37,52 +37,56 @@ import ClarifyRemovedNotification from "./ClarifyRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Clarify.css";
 
-const Clarify = props => {
+const Clarify = (props) => {
   // "Learn More" states
-  const calmToggle = useSelector(state => state.calmToggle.toggle);
-  const clarifyToggle = useSelector(state => state.clarifyToggle.toggle);
-  const bacialToggle = useSelector(state => state.bacialToggle.toggle);
-  const glowToggle = useSelector(state => state.glowToggle.toggle);
-  const rejuvenateToggle = useSelector(state => state.rejuvenateToggle.toggle);
-  const quenchToggle = useSelector(state => state.quenchToggle.toggle);
-  const quickieToggle = useSelector(state => state.quickieToggle.toggle);
+  const calmToggle = useSelector((state) => state.calmToggle.toggle);
+  const clarifyToggle = useSelector((state) => state.clarifyToggle.toggle);
+  const bacialToggle = useSelector((state) => state.bacialToggle.toggle);
+  const glowToggle = useSelector((state) => state.glowToggle.toggle);
+  const rejuvenateToggle = useSelector(
+    (state) => state.rejuvenateToggle.toggle
+  );
+  const quenchToggle = useSelector((state) => state.quenchToggle.toggle);
+  const quickieToggle = useSelector((state) => state.quickieToggle.toggle);
   const chemicalpeelToggle = useSelector(
-    state => state.chemicalpeelToggle.toggle
+    (state) => state.chemicalpeelToggle.toggle
   );
   const dermaplaningToggle = useSelector(
-    state => state.dermaplaningToggle.toggle
+    (state) => state.dermaplaningToggle.toggle
   );
-  const cbdToggle = useSelector(state => state.cbdToggle.toggle);
+  const cbdToggle = useSelector((state) => state.cbdToggle.toggle);
   const microneedleToggle = useSelector(
-    state => state.microneedleToggle.toggle
+    (state) => state.microneedleToggle.toggle
   );
 
   // In Cart states
-  const calmInCart = useSelector(state => state.calmInCart.in_cart);
-  const clarifyInCart = useSelector(state => state.clarifyInCart.in_cart);
-  const bacialInCart = useSelector(state => state.bacialInCart.in_cart);
-  const glowInCart = useSelector(state => state.glowInCart.in_cart);
-  const cbdInCart = useSelector(state => state.cbdInCart.in_cart);
+  const calmInCart = useSelector((state) => state.calmInCart.in_cart);
+  const clarifyInCart = useSelector((state) => state.clarifyInCart.in_cart);
+  const bacialInCart = useSelector((state) => state.bacialInCart.in_cart);
+  const glowInCart = useSelector((state) => state.glowInCart.in_cart);
+  const cbdInCart = useSelector((state) => state.cbdInCart.in_cart);
   const chemicalPeelInCart = useSelector(
-    state => state.chemicalPeelInCart.in_cart
+    (state) => state.chemicalPeelInCart.in_cart
   );
   const dermaplaningInCart = useSelector(
-    state => state.dermaplaningInCart.in_cart
+    (state) => state.dermaplaningInCart.in_cart
   );
   const microneedleInCart = useSelector(
-    state => state.microneedleInCart.in_cart
+    (state) => state.microneedleInCart.in_cart
   );
-  const quenchInCart = useSelector(state => state.quenchInCart.in_cart);
-  const quickieInCart = useSelector(state => state.quickieInCart.in_cart);
-  const rejuvenateInCart = useSelector(state => state.rejuvenateInCart.in_cart);
+  const quenchInCart = useSelector((state) => state.quenchInCart.in_cart);
+  const quickieInCart = useSelector((state) => state.quickieInCart.in_cart);
+  const rejuvenateInCart = useSelector(
+    (state) => state.rejuvenateInCart.in_cart
+  );
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
   const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
+    (state) => state.reformattedDay.reformattedDay
   );
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
 
   const dispatch = useDispatch();
 
@@ -169,45 +173,45 @@ const Clarify = props => {
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 100 }
+        config: { duration: 100 },
       },
       {
         marginTop: "-9px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 300 }
+        config: { duration: 300 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-6",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "-4px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
+        config: { duration: 200 },
       },
       {
         marginTop: "0px",
         color: "rgb(155, 98, 107)",
-        config: { duration: 200 }
-      }
-    ]
+        config: { duration: 200 },
+      },
+    ],
   });
 
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -268,7 +272,7 @@ const Clarify = props => {
                   : props.currentScreenSize >= 360
                   ? "-0.5rem"
                   : "-0.1rem",
-              display: clarifyInCart ? "block" : "none"
+              display: clarifyInCart ? "block" : "none",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -314,7 +318,7 @@ const Clarify = props => {
           />,
           {
             className: "toast_error_container",
-            toastId: inCartToastId
+            toastId: inCartToastId,
           }
         );
       }
@@ -339,7 +343,7 @@ const Clarify = props => {
             initialScreenSize={props.initialScreenSize}
           />,
           {
-            className: "toast_removed_container"
+            className: "toast_removed_container",
           }
         );
       } else {
@@ -362,7 +366,7 @@ const Clarify = props => {
   const bookButtonBounce = () => {
     return (
       <SuitcaseBounce state="suitcaseBounce">
-        {styles => (
+        {(styles) => (
           <span
             className="fa-layers fa-fw"
             style={
@@ -400,7 +404,7 @@ const Clarify = props => {
                       quickieInCart |
                       rejuvenateInCart
                     ? "rgba(211, 211, 211, 0.8"
-                    : "rgba(255, 198, 207, 0.8)"
+                    : "rgba(0, 129, 177, 0.4)"
                   : clarifyInCart
                   ? "rgb(119, 221, 119, 0.6)"
                   : bacialInCart |
@@ -414,7 +418,7 @@ const Clarify = props => {
                     quickieInCart |
                     rejuvenateInCart
                   ? "rgba(211, 211, 211, 0.8"
-                  : "rgba(255, 198, 207, 0.6)"
+                  : "rgba(0, 129, 177, 0.3)"
               }
               transform={
                 !props.currentScreenSize
@@ -431,7 +435,7 @@ const Clarify = props => {
             <FontAwesomeIcon
               className="small_screen_card_description_suitcase"
               style={{
-                display: clarifyInCart ? "none" : "block"
+                display: clarifyInCart ? "none" : "block",
               }}
               color={
                 bacialInCart |
@@ -445,7 +449,7 @@ const Clarify = props => {
                 quickieInCart |
                 rejuvenateInCart
                   ? "rgb(151, 151, 151)"
-                  : "rgb(175, 118, 127)"
+                  : "rgb(0, 129, 177)"
               }
               icon={faSuitcase}
             />
@@ -481,8 +485,8 @@ const Clarify = props => {
       <div
         className="card_bottom_wrapper"
         style={{
-          color: clarifyToggle ? "rgb(155, 98, 107)" : "rgb(175, 118, 127)",
-          transition: "ease all 0.5s"
+          color: clarifyToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
+          transition: "ease all 0.5s",
         }}
       >
         <p className="card_toggler" onClick={handleToggle}>
@@ -541,18 +545,18 @@ const Clarify = props => {
               to={{ position: "relative", opacity: 1 }}
               config={{ duration: 1000 }}
             >
-              {styleprops => (
+              {(styleprops) => (
                 <section className="card" style={styleprops}>
                   <div
                     className="card_image"
                     style={{
                       backgroundColor: clarifyToggle
-                        ? "rgb(255, 198, 207)"
+                        ? "rgba(0, 129, 177, 0.2)"
                         : "rgba(211, 211, 211, 0.4)",
                       boxShadow: clarifyToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), -3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 3px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <Spring
@@ -560,7 +564,7 @@ const Clarify = props => {
                       to={{ x: 0, fill: "rgb(207, 207, 196, 0.3)" }}
                       config={{ delay: 300, duration: 1500 }}
                     >
-                      {styles => (
+                      {(styles) => (
                         <>
                           <div
                             className="big_screen_book_now_wrapper"
@@ -580,7 +584,7 @@ const Clarify = props => {
                                     quickieInCart |
                                     rejuvenateInCart
                                   ? "rgb(201, 201, 201)"
-                                  : "rgb(155, 98, 107)"
+                                  : "rgb(0, 129, 177)"
                                 : clarifyInCart
                                 ? "rgba(119, 221, 119, 0.6)"
                                 : bacialInCart |
@@ -609,7 +613,7 @@ const Clarify = props => {
                                     quickieInCart |
                                     rejuvenateInCart
                                   ? "1px solid transparent"
-                                  : "1px solid rgb(155, 98, 107)"
+                                  : "1px solid rgb(0, 129, 177)"
                                 : clarifyInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
                                 : bacialInCart |
@@ -623,7 +627,7 @@ const Clarify = props => {
                                   quickieInCart |
                                   rejuvenateInCart
                                 ? "1px solid transparent"
-                                : "1px solid rgb(155, 98, 107)",
+                                : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? clarifyInCart
                                   ? "rgb(0, 0, 0)"
@@ -652,7 +656,7 @@ const Clarify = props => {
                                   quickieInCart |
                                   rejuvenateInCart
                                 ? "rgb(141, 141, 141)"
-                                : "rgb(155, 98, 107)",
+                                : "rgb(0, 129, 177)",
                               cursor:
                                 bacialInCart |
                                 cbdInCart |
@@ -666,7 +670,7 @@ const Clarify = props => {
                                 rejuvenateInCart
                                   ? "auto"
                                   : "pointer",
-                              transition: "all 0.5s ease"
+                              transition: "all 0.5s ease",
                             }}
                             onMouseEnter={() =>
                               changeBookNowButtonHovered(true)
@@ -697,7 +701,7 @@ const Clarify = props => {
                               }
                               stroke={
                                 clarifyToggle
-                                  ? "rgb(235, 178, 187)"
+                                  ? "rgb(25, 154, 202)"
                                   : "rgba(191, 191, 191)"
                               }
                               strokeWidth="0.5"
@@ -727,8 +731,8 @@ const Clarify = props => {
                       className="card_border_right"
                       style={{
                         borderRight: clarifyToggle
-                          ? "1px solid rgbA(155, 98, 107, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)"
+                          ? "1px solid rgba(25, 154, 202, 0.4)"
+                          : "1px solid rgbA(211, 211, 211)",
                       }}
                     />
                   </div>
@@ -736,12 +740,12 @@ const Clarify = props => {
                     className="card_description"
                     style={{
                       backgroundColor: clarifyToggle
-                        ? "rgba(255, 198, 207, 0.2)"
+                        ? "rgba(222, 222, 222, 0.4)"
                         : "rgba(235, 235, 235, 0.2)",
                       boxShadow: clarifyToggle
                         ? "0px -3px 3px 0px rgba(207, 207, 196, 0.7), 3px 0px 3px 0px rgba(207, 207, 196, 0.7), 0px 4px 3px 0px rgba(207, 207, 196, 0.7)"
                         : "0px -1px 1px 0px rgba(207, 207, 196, 0.1)",
-                      transition: "ease all 0.5s"
+                      transition: "ease all 0.5s",
                     }}
                   >
                     <div className="card_description_inner_wrapper">

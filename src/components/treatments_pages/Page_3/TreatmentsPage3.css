@@ -40,7 +40,7 @@
 @media only screen and (min-width: 1200px) {
   .treatments_page_3_container {
     height: 28.6666667vh;
-    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
     grid-template-areas:
       "quickie_card quickie_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card"
       "quickie_card quickie_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card";

@@ -93,3 +93,8 @@
   border-radius: 30px;
   margin-right: 1.5rem;
 }
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}

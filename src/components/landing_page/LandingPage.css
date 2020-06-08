@@ -331,6 +331,10 @@
     .cta_line {
       margin-top: -1.5rem;
     }
+
+    .landing_page_bottom_icon {
+      margin-top: 0.5rem;
+    }
   }
 }
 
@@ -369,6 +373,10 @@
     /* CSS for other than iOS devices */
     .cta_line {
       margin-top: -2.8rem;
+    }
+
+    .landing_page_bottom_icon {
+      margin-top: 0rem;
     }
   }
 }
@@ -593,8 +601,7 @@
   }
 
   .call_to_action_button:hover {
-    background: rgb(226, 188, 153);
-    color: rgb(0, 0, 0);
+    background: rgb(0, 79, 127);
     transition: all 0.5s ease;
   }
 

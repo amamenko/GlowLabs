@@ -12,7 +12,7 @@ const Contact = React.forwardRef((props, ref) => {
   const GoogleMapRef = useRef(null);
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2
+    threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2,
   });
   const today = new Date().getDay();
 
@@ -38,23 +38,23 @@ const Contact = React.forwardRef((props, ref) => {
               opacity: 0,
               width_desktop: "0%",
               width_landscape: "0%",
-              width_mobile: "0%"
+              width_mobile: "0%",
             }}
             to={{
               position: "relative",
               opacity: 1,
               width_desktop: "16%",
               width_landscape: "18%",
-              width_mobile: "30%"
+              width_mobile: "30%",
             }}
             config={{ duration: 1000 }}
           >
-            {styles => (
+            {(styles) => (
               <div className="contacts_page_wrapping">
                 <h2
                   style={{
                     position: `${styles.position}`,
-                    opacity: `${styles.opacity}`
+                    opacity: `${styles.opacity}`,
                   }}
                 >
                   CONTACT
@@ -74,7 +74,7 @@ const Contact = React.forwardRef((props, ref) => {
                         ? `${styles.width_desktop}`
                         : props.currentScreenSize >= 600
                         ? `${styles.width_landscape}`
-                        : `${styles.width_mobile}`
+                        : `${styles.width_mobile}`,
                   }}
                   className="contacts_title_underline"
                 />
@@ -89,22 +89,22 @@ const Contact = React.forwardRef((props, ref) => {
                         panControl: false,
                         mapTypeControl: false,
                         scrollwheel: false,
-                        fullscreenControl: false
+                        fullscreenControl: false,
                       }}
                       yesIWantToUseGoogleMapApiInternals={true}
                       bootstrapURLKeys={{
-                        key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+                        key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
                       }}
                       center={{
-                        lat: 40.62322,
-                        lng: -73.722809
+                        lat: 40.643635,
+                        lng: -73.695618,
                       }}
                       defaultZoom={14}
                       style={{
                         position: `${styles.position}`,
                         opacity: `${styles.opacity}`,
                         width: "100%",
-                        height: "100%"
+                        height: "100%",
                       }}
                     >
                       <ContactCustomMarker
@@ -118,11 +118,8 @@ const Contact = React.forwardRef((props, ref) => {
                     <div className="contacts_text_container">
                       <h3>By Appointment Only</h3>
                       <h4>Glow Labs</h4>
-                      <p>561 Willow Avenue,</p>
-                      <p>
-                        Located Inside <br /> "Angelica's Salon"
-                      </p>
-                      <p>Cedarhurst, NY, 11516</p>
+                      <p>1506 Broadway,</p>
+                      <p>Hewlett, NY 11557</p>
                       <p>
                         <FontAwesomeIcon
                           className="contact_icon"
