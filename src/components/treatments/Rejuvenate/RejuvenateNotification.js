@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../treatments/card_styling.css";
 
-const RejuvenateNotification = props => {
+const RejuvenateNotification = (props) => {
   return (
     <div className="notification_container">
       <svg
@@ -36,7 +36,7 @@ const RejuvenateNotification = props => {
           cx="25"
           cy="25"
           r="20"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />
@@ -76,7 +76,7 @@ const RejuvenateNotification = props => {
                 ? "0.8rem"
                 : "0.6rem",
             fontWeight: "500",
-            color: "rgb(81, 81, 81)"
+            color: "rgb(81, 81, 81)",
           }}
         >
           <FontAwesomeIcon

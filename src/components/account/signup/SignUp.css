@@ -71,6 +71,10 @@
   line-height: 0;
 }
 
+.input_field_sign_up::placeholder {
+  padding-top: 0.75rem;
+}
+
 .invalid-feedback {
   margin-bottom: 0.5rem;
 }

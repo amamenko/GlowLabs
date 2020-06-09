@@ -14,6 +14,7 @@ import {
   getEmployeeQuery,
 } from "../../graphql/queries/queries";
 import ACTION_LOG_OUT_CLICKED from "../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
+import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
@@ -30,6 +31,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
     (state) => state.logoutClicked.log_out_clicked
   );
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
+  const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
@@ -79,10 +81,38 @@ const NavigationBar = React.forwardRef((props, ref) => {
     }
   };
 
-  const handleShoppingCartClick = () => {
+  const cartActivated = () => {
     dispatch(ACTION_CART_IS_ACTIVE());
     document.body.style.setProperty("background", "rgb(255, 255, 255)");
     toast.dismiss();
+  };
+
+  const cartDeactivated = () => {
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
+  };
+
+  const handleShoppingCartClick = () => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize >= 1200) {
+        if (cartIsActive) {
+          cartDeactivated();
+        } else {
+          cartActivated();
+        }
+      } else {
+        cartActivated();
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        if (cartIsActive) {
+          cartDeactivated();
+        } else {
+          cartActivated();
+        }
+      } else {
+        cartActivated();
+      }
+    }
   };
 
   const handleLoginClick = () => {
@@ -258,12 +288,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 600
                       ? window.scrollY <= 1
-                        ? "rgb(44, 44, 52)"
+                        ? props.navbarToggle
+                          ? "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 600
                     ? window.scrollY <= 1
-                      ? "rgb(44, 44, 52)"
+                      ? props.navbarToggle
+                        ? "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
                     : "rgb(239, 240, 243)"
                 }
@@ -453,12 +487,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 600
                 ? window.scrollY <= 1
-                  ? "rgb(44, 44, 52)"
+                  ? props.navbarToggle
+                    ? "rgb(239, 240, 243)"
+                    : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
               ? window.scrollY <= 1
-                ? "rgb(44, 44, 52)"
+                ? props.navbarToggle
+                  ? "rgb(239, 240, 243)"
+                  : "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
               : "rgb(239, 240, 243)"
           }
@@ -494,12 +532,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 600
                   ? window.scrollY <= 1
-                    ? "rgb(44, 44, 52)"
+                    ? props.navbarToggle
+                      ? "rgb(239, 240, 243)"
+                      : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)"
                 : props.currentScreenSize >= 600
                 ? window.scrollY <= 1
-                  ? "rgb(44, 44, 52)"
+                  ? props.navbarToggle
+                    ? "rgb(239, 240, 243)"
+                    : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
             }
@@ -509,7 +551,17 @@ const NavigationBar = React.forwardRef((props, ref) => {
         <span
           className="cart_item_number_circle"
           style={{
-            display: counter < 1 ? "none" : "block",
+            display: props.currentScreenSize
+              ? props.currentScreenSize >= 1200
+                ? "none"
+                : counter < 1
+                ? "none"
+                : "block"
+              : props.initialScreenSize >= 1200
+              ? "none"
+              : counter < 1
+              ? "none"
+              : "block",
             top:
               props.currentScreenSize === ""
                 ? props.initialScreenSize <= 1000 &&
@@ -680,7 +732,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
             </Link>
           </li>
           <li className="shopping_cart_large_screen_container">
-            <Link to="/cart" onClick={handleShoppingCartClick}>
+            <div onClick={handleShoppingCartClick}>
               <svg
                 className="shopping_cart_large_screen"
                 style={{
@@ -770,10 +822,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   transform={
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 1800
-                        ? "grow-15"
+                        ? "grow-1"
                         : "grow-5"
                       : props.currentScreenSize >= 1800
-                      ? "grow-15"
+                      ? "grow-1"
                       : "grow-5"
                   }
                   icon={faCircle}
@@ -793,7 +845,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   {counter}
                 </p>
               </span>
-            </Link>
+            </div>
           </li>
         </ul>
       </div>

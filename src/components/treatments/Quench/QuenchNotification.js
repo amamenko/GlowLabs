@@ -2,7 +2,7 @@ import React from "react";
 import "./Quench.css";
 import "../../treatments/card_styling.css";
 
-const QuenchNotification = props => {
+const QuenchNotification = (props) => {
   return (
     <div className="notification_container">
       <svg
@@ -34,7 +34,7 @@ const QuenchNotification = props => {
           cx="25"
           cy="25"
           r="20"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.1"
           fill="white"
         />

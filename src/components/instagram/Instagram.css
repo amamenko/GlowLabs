@@ -191,6 +191,12 @@
 
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
+  .instagram_top_page_wrapping {
+    height: 10vh;
+    padding-top: 5vh;
+    padding-bottom: 0vh;
+  }
+
   .instagram_images_top_wrapping,
   .instagram_images_bottom_wrapping {
     overflow: hidden;
@@ -277,7 +283,7 @@
   }
 
   .large_screen_follow_prompt p {
-    font-size: 4em;
+    font-size: 3em;
     font-weight: 500;
     margin-bottom: 1em;
     margin-top: 70vh;
@@ -323,6 +329,11 @@
 
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
+  .instagram_top_page_wrapping {
+    height: 48vh;
+    padding-top: 0vh;
+  }
+
   .instagram_page_wrapping {
     margin-top: 25vh;
   }
@@ -392,5 +403,12 @@
 
   .instagram_image img {
     visibility: visible;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .instagram_page_wrapping {
+    margin-top: 25vh;
   }
 }

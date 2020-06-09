@@ -268,7 +268,7 @@ const ShoppingCart = () => {
       )}
       <Link to="/availability" onClick={availabilityHasBeenClicked}>
         <div
-          className="search_availabiliy_button"
+          className="search_availability_button"
           style={{
             display: treatmentsArr.length === 0 ? "none" : "flex",
             marginTop: counter === 0 ? "0vh" : "2vh",

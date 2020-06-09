@@ -2,7 +2,7 @@ import React from "react";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
 
-const CalmRemovedNotification = props => {
+const CalmRemovedNotification = (props) => {
   return (
     <div className="notification_removed_container">
       <svg
@@ -34,7 +34,7 @@ const CalmRemovedNotification = props => {
           cx="28"
           cy="28"
           r="22"
-          stroke="rgb(220, 191, 196)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />

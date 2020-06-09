@@ -2,7 +2,7 @@ import React from "react";
 import "./Quickie.css";
 import "../../treatments/card_styling.css";
 
-const QuickieRemovedNotification = props => {
+const QuickieRemovedNotification = (props) => {
   return (
     <div className="notification_removed_container">
       <svg
@@ -34,7 +34,7 @@ const QuickieRemovedNotification = props => {
           cx="25"
           cy="25"
           r="20"
-          stroke="rgb(220, 191, 196)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />

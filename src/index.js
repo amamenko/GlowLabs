@@ -522,6 +522,72 @@ const App = () => {
     registerFont();
   }, []);
 
+  const largeScreenShoppingCartRender = () => {
+    if (!currentScreenSize) {
+      if (initialScreenSize >= 1200) {
+        return (
+          <Transition
+            items={cartIsActive}
+            from={{ transform: "translate3d(100%, 0, 0)" }}
+            enter={{ transform: "translate3d(0, 0, 0)" }}
+            leave={{
+              transform: "translate3d(100%, 0, 0)",
+            }}
+          >
+            {(cartIsActive) =>
+              cartIsActive &&
+              ((styleprops) => (
+                <div
+                  className="large_screen_shopping_cart_container"
+                  style={styleprops}
+                >
+                  <ShoppingCart />
+                </div>
+              ))
+            }
+          </Transition>
+        );
+      }
+    } else if (currentScreenSize >= 1200) {
+      return (
+        <Transition
+          items={cartIsActive}
+          from={{ transform: "translate3d(100%, 0, 0)" }}
+          enter={{ transform: "translate3d(0, 0, 0)" }}
+          leave={{ transform: "translate3d(100%, 0, 0)" }}
+        >
+          {(cartIsActive) =>
+            cartIsActive &&
+            ((props) => (
+              <div
+                className="large_screen_shopping_cart_container"
+                style={props}
+              >
+                <ShoppingCart />
+              </div>
+            ))
+          }
+        </Transition>
+      );
+    }
+  };
+
+  // Distort background while shopping cart slider is visible
+
+  const renderSlideInShoppingCartContainer = (item) => {
+    return (
+      <div
+        className="large_screen_shopping_cart_full_container"
+        style={{
+          backdropFilter: cartIsActive ? "blur(10px)" : "none",
+          transition: "background 0.2s ease",
+        }}
+      >
+        {item}
+      </div>
+    );
+  };
+
   return (
     <>
       <Modal
@@ -606,11 +672,11 @@ const App = () => {
         config={{
           delay: !currentScreenSize
             ? initialScreenSize >= 600
-              ? 3000
+              ? 3300
               : 2500
             : initialScreenSize >= 600
             ? currentScreenSize >= 600
-              ? 3000
+              ? 3300
               : 2500
             : 2500,
           duration: !currentScreenSize
@@ -721,6 +787,8 @@ const App = () => {
         handleClickToScrollToContact={handleClickToScrollToContact}
         ref={ref}
       />
+
+      {renderSlideInShoppingCartContainer(largeScreenShoppingCartRender())}
 
       <Switch>
         <Route exact path="/">

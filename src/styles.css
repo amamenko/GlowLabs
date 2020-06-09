@@ -10,6 +10,7 @@ html,
 body {
   font-family: "Montserrat", sans-serif;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 body {
@@ -45,7 +46,7 @@ body {
 }
 
 .toast_container {
-  background-color: rgb(255, 226, 231);
+  background-color: rgb(214, 236, 252);
   font-family: "Montserrat", sans-serif;
   margin-bottom: 2rem;
   position: absolute;
@@ -53,7 +54,7 @@ body {
 }
 
 .toast_removed_container {
-  background-color: rgb(240, 211, 216);
+  background-color: rgb(199, 221, 237);
   font-family: "Montserrat", sans-serif;
   margin-bottom: 2rem;
   position: absolute;

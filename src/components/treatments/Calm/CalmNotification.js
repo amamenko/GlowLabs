@@ -2,7 +2,7 @@ import React from "react";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
 
-const CalmNotification = props => {
+const CalmNotification = (props) => {
   return (
     <div className="notification_container">
       <svg
@@ -34,7 +34,7 @@ const CalmNotification = props => {
           cx="28"
           cy="28"
           r="22"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />
@@ -42,7 +42,7 @@ const CalmNotification = props => {
           id="layer1"
           transform="translate(14.5 -102)"
           strokeMiterlimit="4"
-          fill="rgb(255, 198, 207)"
+          fill="rgb(186, 225, 253)"
         >
           <path
             className="calm_icon_path"

@@ -2,7 +2,7 @@ import React from "react";
 import "./NanoNeedling.css";
 import "../../treatments/card_styling.css";
 
-const NanoNeedlingRemovedNotification = props => {
+const NanoNeedlingRemovedNotification = (props) => {
   return (
     <div className="notification_removed_container">
       <svg
@@ -34,7 +34,7 @@ const NanoNeedlingRemovedNotification = props => {
           cx="28"
           cy="28"
           r="22.25"
-          stroke="rgb(220, 191, 196)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />
@@ -59,7 +59,7 @@ const NanoNeedlingRemovedNotification = props => {
                   : "0.9rem"
                 : props.currentScreenSize >= 1800
                 ? "1.5rem"
-                : "0.9rem"
+                : "0.9rem",
           }}
         >
           Nano Needling Infusion Removed

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../treatments/card_styling.css";
 
-const MicroneedleNotification = props => {
+const MicroneedleNotification = (props) => {
   return (
     <div className="notification_container">
       <svg
@@ -36,8 +36,8 @@ const MicroneedleNotification = props => {
           cx="66.146"
           cy="66.146"
           r="51.646"
-          stroke="rgb(235, 178, 187)"
-          strokeWidth="0.5"
+          stroke="rgb(0, 129, 177)"
+          strokeWidth="0.8"
           fill="white"
         />
         <g
@@ -88,7 +88,7 @@ const MicroneedleNotification = props => {
                 ? "0.8rem"
                 : "0.6rem",
             fontWeight: "500",
-            color: "rgb(81, 81, 81)"
+            color: "rgb(81, 81, 81)",
           }}
         >
           <FontAwesomeIcon

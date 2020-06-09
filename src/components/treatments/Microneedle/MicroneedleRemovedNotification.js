@@ -2,7 +2,7 @@ import React from "react";
 import "./Microneedle.css";
 import "../../treatments/card_styling.css";
 
-const MicroneedleRemovedNotification = props => {
+const MicroneedleRemovedNotification = (props) => {
   return (
     <div className="notification_removed_container">
       <svg
@@ -34,8 +34,8 @@ const MicroneedleRemovedNotification = props => {
           cx="66.146"
           cy="66.146"
           r="51.646"
-          stroke="rgb(235, 178, 187)"
-          strokeWidth="0.5"
+          stroke="rgb(0, 129, 177)"
+          strokeWidth="0.8"
           fill="white"
         />
         <g

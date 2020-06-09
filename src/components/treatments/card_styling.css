@@ -182,7 +182,7 @@
 
   .notification_container {
     width: 100%;
-    background-color: rgb(255, 226, 231);
+    background-color: rgb(214, 236, 252);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -191,7 +191,7 @@
 
   .notification_removed_container {
     width: 100%;
-    background-color: rgb(240, 211, 216);
+    background-color: rgb(199, 221, 237);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -397,7 +397,7 @@
 
   .big_screen_card_description_icon,
   .big_screen_card_description_suitcase {
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-right: 0.7rem;
   }
 
@@ -427,7 +427,7 @@
   }
 
   .big_screen_book_now_wrapper {
-    width: 14em;
+    width: 8em;
     display: flex;
     flex-direction: row;
     justify-items: center;
@@ -459,6 +459,10 @@
     font-weight: 600;
   }
 
+  .big_screen_in_cart {
+    padding-left: 20%;
+  }
+
   .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
     font-size: 0.5rem;
   }
@@ -478,12 +482,6 @@
   .big_screen_price,
   .big_screen_duration {
     font-size: 1.3rem;
-  }
-
-  .big_screen_card_description_icon,
-  .big_screen_card_description_suitcase {
-    font-size: 1rem;
-    margin-right: 0.7rem;
   }
 
   .big_screen_in_cart {

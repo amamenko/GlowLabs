@@ -26,7 +26,9 @@ const TopAnimationBottomShelf = (props) => {
       }}
       to={{
         top: !props.currentScreenSize
-          ? props.initialScreenSize >= 1200
+          ? props.initialScreenSize >= 1800
+            ? "71%"
+            : props.initialScreenSize >= 1200
             ? props.isSafari
               ? "4%"
               : "73%"
@@ -35,6 +37,8 @@ const TopAnimationBottomShelf = (props) => {
             : props.initialScreenSize >= 360
             ? "40%"
             : "38.2%"
+          : props.currentScreenSize >= 1800
+          ? "71%"
           : props.currentScreenSize >= 1200
           ? props.isSafari
             ? "4%"
@@ -67,21 +71,27 @@ const TopAnimationBottomShelf = (props) => {
             top:
               !props.currentScreenSize || !splashScreenComplete
                 ? `${styles.top}`
+                : props.currentScreenSize >= 1800
+                ? "71%"
                 : props.currentScreenSize >= 1200
                 ? props.isSafari
-                  ? "auto"
+                  ? "4%"
                   : "73%"
                 : props.currentScreenSize >= 600
                 ? "60%"
-                : "40%",
+                : props.currentScreenSize >= 360
+                ? "40%"
+                : "38.2%",
           }}
         >
           <svg
             width="100%"
             height={
               !props.currentScreenSize
-                ? props.initialScreenSize >= 1800
+                ? props.initialScreenSize >= 2200
                   ? "35em"
+                  : props.initialScreenSize >= 1800
+                  ? "30em"
                   : props.initialScreenSize >= 1600
                   ? "20em"
                   : props.initialScreenSize >= 1200
@@ -89,8 +99,10 @@ const TopAnimationBottomShelf = (props) => {
                   : props.initialScreenSize >= 360
                   ? "7em"
                   : "5em"
-                : props.currentScreenSize >= 1800
+                : props.currentScreenSize >= 2200
                 ? "35em"
+                : props.currentScreenSize >= 1800
+                ? "30em"
                 : props.currentScreenSize >= 1600
                 ? "20em"
                 : props.currentScreenSize >= 1200

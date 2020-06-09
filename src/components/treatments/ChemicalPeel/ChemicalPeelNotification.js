@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../treatments/card_styling.css";
 
-const ChemicalPeelNotification = props => {
+const ChemicalPeelNotification = (props) => {
   return (
     <div className="notification_container">
       <svg
@@ -36,7 +36,7 @@ const ChemicalPeelNotification = props => {
           cx="33.073"
           cy="33.073"
           r="26"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />
@@ -88,7 +88,7 @@ const ChemicalPeelNotification = props => {
                 ? "0.8rem"
                 : "0.6rem",
             fontWeight: "500",
-            color: "rgb(81, 81, 81)"
+            color: "rgb(81, 81, 81)",
           }}
         >
           <FontAwesomeIcon

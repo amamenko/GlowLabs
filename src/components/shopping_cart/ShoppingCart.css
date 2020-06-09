@@ -123,7 +123,7 @@
   background: black;
 }
 
-.search_availabiliy_button {
+.search_availability_button {
   display: flex;
   margin: 0 auto;
   width: 60%;
@@ -217,4 +217,57 @@
   outline-offset: -2px;
   display: inline-block;
   transition: background 0.2s ease-in-out;
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .shopping_cart_container {
+    padding-top: 0vh;
+    margin-top: 8vh;
+    height: 100%;
+    background: rgb(255, 255, 255);
+  }
+
+  .shopping_cart_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .shopping_cart_forward_arrow,
+  .shopping_cart_back_arrow {
+    font-size: 2rem;
+  }
+
+  .empty_shopping_cart {
+    font-size: 20rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+
+  .large_screen_shopping_cart_full_container {
+    position: fixed;
+    height: 100vh;
+    z-index: 22;
+    width: 100vw;
+  }
+
+  .large_screen_shopping_cart_container {
+    position: absolute;
+    width: 33.35%;
+    right: 0;
+  }
+
+  .empty_cart_container h3 {
+    font-size: 3.5rem;
+  }
+
+  .cart_statement {
+    font-size: 2rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+
+  .continue_shopping_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
 }

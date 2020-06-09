@@ -2,7 +2,7 @@ import React from "react";
 import "./ChemicalPeel.css";
 import "../../treatments/card_styling.css";
 
-const ChemicalPeelRemovedNotification = props => {
+const ChemicalPeelRemovedNotification = (props) => {
   return (
     <div className="notification_removed_container">
       <svg
@@ -34,7 +34,7 @@ const ChemicalPeelRemovedNotification = props => {
           cx="33.073"
           cy="33.073"
           r="26"
-          stroke="rgb(220, 191, 196)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />

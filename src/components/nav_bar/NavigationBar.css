@@ -349,7 +349,6 @@
 
   .nav_sign_in_button_large_screen {
     display: flex;
-    position: absolute;
     left: 0.4rem;
     height: 100%;
     flex-direction: row;
@@ -362,6 +361,7 @@
     margin-top: -0.1rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    margin-left: 0.5rem;
   }
 
   .nav_sign_in_button_large_screen:hover {
@@ -419,6 +419,10 @@
     top: 7vh;
     left: 3.8rem;
   }
+
+  .nav_sign_in_button_large_screen {
+    margin-left: 0rem;
+  }
 }
 
 /* CSS for Big Desktops */
@@ -444,5 +448,31 @@
     font-size: 1.3rem;
     top: -0.2rem;
     margin-right: -0.12rem;
+  }
+
+  .logo_svg {
+    left: 5rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .shopping_cart_large_screen {
+    right: -1.5rem;
+    margin-top: 0.3rem;
+  }
+
+  .nav_sign_in_button_large_screen {
+    left: 1.5rem;
+  }
+
+  .cart_item_number_circle {
+    margin-top: 0.5rem;
+    right: 2.3rem;
+  }
+
+  .cart_item_number_circle p {
+    top: 0.4rem;
+    margin-right: 0.3rem;
   }
 }

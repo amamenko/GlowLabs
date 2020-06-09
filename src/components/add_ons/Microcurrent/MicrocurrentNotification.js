@@ -2,7 +2,7 @@ import React from "react";
 import "./Microcurrent";
 import "../../treatments/card_styling.css";
 
-const MicrocurrentNotification = props => {
+const MicrocurrentNotification = (props) => {
   return (
     <div className="notification_container">
       <svg
@@ -34,7 +34,7 @@ const MicrocurrentNotification = props => {
           cx="28"
           cy="28"
           r="22.25"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />

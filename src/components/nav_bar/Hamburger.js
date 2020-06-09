@@ -56,12 +56,16 @@ const Hamburger = (props) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 600
                 ? window.scrollY <= 1
-                  ? "rgb(44, 44, 52)"
+                  ? props.navbarToggle
+                    ? "rgb(239, 240, 243)"
+                    : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
               ? window.scrollY <= 1
-                ? "rgb(44, 44, 52)"
+                ? props.navbarToggle
+                  ? "rgb(239, 240, 243)"
+                  : "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
               : "rgb(239, 240, 243)",
         }}
@@ -78,12 +82,16 @@ const Hamburger = (props) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 600
                 ? window.scrollY <= 1
-                  ? "rgb(44, 44, 52)"
+                  ? props.navbarToggle
+                    ? "rgb(239, 240, 243)"
+                    : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
               ? window.scrollY <= 1
-                ? "rgb(44, 44, 52)"
+                ? props.navbarToggle
+                  ? "rgb(239, 240, 243)"
+                  : "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
               : "rgb(239, 240, 243)",
         }}

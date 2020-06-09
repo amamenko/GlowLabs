@@ -2,7 +2,7 @@ import React from "react";
 import "./CBD.css";
 import "../../treatments/card_styling.css";
 
-const CBDNotification = props => {
+const CBDNotification = (props) => {
   return (
     <div className="notification_container">
       <svg
@@ -34,7 +34,7 @@ const CBDNotification = props => {
           cx="25"
           cy="25"
           r="19.5"
-          stroke="rgb(235, 178, 187)"
+          stroke="rgb(0, 129, 177)"
           strokeWidth="0.5"
           fill="white"
         />
