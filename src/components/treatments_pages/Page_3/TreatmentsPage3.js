@@ -6,7 +6,7 @@ import ChemicalPeel from "../../treatments/ChemicalPeel/ChemicalPeel";
 import Dermaplaning from "../../treatments/Dermaplaning/Dermaplaning";
 import "./TreatmentsPage3.css";
 
-const TreatmentsPage3 = props => {
+const TreatmentsPage3 = (props) => {
   const [rejuvenateRendered, changeRejuvenateRendered] = useState("grid");
   const [quenchRendered, changeQuenchRendered] = useState("none");
   const [quickieChemPeelRendered, changeQuickieChemPeelRendered] = useState(
@@ -31,7 +31,7 @@ const TreatmentsPage3 = props => {
   }, [
     changeRejuvenateRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const TreatmentsPage3 = props => {
   }, [
     changeQuickieChemPeelRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const TreatmentsPage3 = props => {
   }, [
     changeDermaplaningRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   return (

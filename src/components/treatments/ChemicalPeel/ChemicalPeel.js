@@ -7,6 +7,7 @@ import {
   faClock,
   faTag,
   faSquare,
+  faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import { InView } from "react-intersection-observer";
 import ACTION_CHEMICAL_PEEL_TOGGLE from "../../../actions/Treatments/ChemicalPeel/ACTION_CHEMICAL_PEEL_TOGGLE";
@@ -92,6 +93,7 @@ const ChemicalPeel = (props) => {
   const rejuvenateInCart = useSelector(
     (state) => state.rejuvenateInCart.in_cart
   );
+  const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
 
   // Add-Ons
   const beardInCart = useSelector((state) => state.beardInCart.in_cart);
@@ -335,15 +337,16 @@ const ChemicalPeel = (props) => {
   const addToCart = () => {
     if (
       calmInCart |
-      cbdInCart |
-      quickieInCart |
-      clarifyInCart |
-      dermaplaningInCart |
-      bacialInCart |
-      microneedleInCart |
-      rejuvenateInCart |
-      quenchInCart |
-      glowInCart
+        cbdInCart |
+        quickieInCart |
+        clarifyInCart |
+        dermaplaningInCart |
+        bacialInCart |
+        microneedleInCart |
+        rejuvenateInCart |
+        quenchInCart |
+        glowInCart ||
+      unsureInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
@@ -445,16 +448,16 @@ const ChemicalPeel = (props) => {
             style={
               chemicalpeelToggle
                 ? clarifyInCart |
-                  bacialInCart |
-                  cbdInCart |
-                  chemicalPeelInCart |
-                  calmInCart |
-                  dermaplaningInCart |
-                  glowInCart |
-                  microneedleInCart |
-                  quenchInCart |
-                  quickieInCart |
-                  rejuvenateInCart
+                    bacialInCart |
+                    cbdInCart |
+                    chemicalPeelInCart |
+                    calmInCart |
+                    dermaplaningInCart |
+                    glowInCart |
+                    microneedleInCart |
+                    quenchInCart |
+                    quickieInCart |
+                    rejuvenateInCart || unsureInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -467,6 +470,20 @@ const ChemicalPeel = (props) => {
                   ? chemicalPeelInCart
                     ? "rgba(119, 221, 119, 0.6)"
                     : bacialInCart |
+                        cbdInCart |
+                        clarifyInCart |
+                        calmInCart |
+                        dermaplaningInCart |
+                        glowInCart |
+                        microneedleInCart |
+                        quenchInCart |
+                        quickieInCart |
+                        rejuvenateInCart || unsureInCart
+                    ? "rgba(211, 211, 211, 0.8"
+                    : "rgba(0, 129, 177, 0.4)"
+                  : chemicalPeelInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : bacialInCart |
                       cbdInCart |
                       clarifyInCart |
                       calmInCart |
@@ -475,21 +492,7 @@ const ChemicalPeel = (props) => {
                       microneedleInCart |
                       quenchInCart |
                       quickieInCart |
-                      rejuvenateInCart
-                    ? "rgba(211, 211, 211, 0.8"
-                    : "rgba(0, 129, 177, 0.4)"
-                  : chemicalPeelInCart
-                  ? "rgb(119, 221, 119, 0.6)"
-                  : bacialInCart |
-                    cbdInCart |
-                    clarifyInCart |
-                    calmInCart |
-                    dermaplaningInCart |
-                    glowInCart |
-                    microneedleInCart |
-                    quenchInCart |
-                    quickieInCart |
-                    rejuvenateInCart
+                      rejuvenateInCart || unsureInCart
                   ? "rgba(211, 211, 211, 0.8"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -510,15 +513,15 @@ const ChemicalPeel = (props) => {
               style={{ display: chemicalPeelInCart ? "none" : "block" }}
               color={
                 bacialInCart |
-                cbdInCart |
-                clarifyInCart |
-                calmInCart |
-                dermaplaningInCart |
-                glowInCart |
-                microneedleInCart |
-                quenchInCart |
-                quickieInCart |
-                rejuvenateInCart
+                  cbdInCart |
+                  clarifyInCart |
+                  calmInCart |
+                  dermaplaningInCart |
+                  glowInCart |
+                  microneedleInCart |
+                  quenchInCart |
+                  quickieInCart |
+                  rejuvenateInCart || unsureInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -634,6 +637,15 @@ const ChemicalPeel = (props) => {
                       transition: "ease all 0.5s",
                     }}
                   >
+                    <FontAwesomeIcon
+                      icon={faGem}
+                      className="facial_advanced_treatment_icon"
+                      style={{
+                        color: chemicalpeelToggle
+                          ? "rgb(0, 0, 0)"
+                          : "rgb(111, 111, 111)",
+                      }}
+                    />
                     <Spring
                       from={{ x: 300, fill1: "white", fill2: "white" }}
                       to={{
@@ -653,6 +665,20 @@ const ChemicalPeel = (props) => {
                                 ? chemicalPeelInCart
                                   ? "rgba(69, 171, 69, 0.6)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      clarifyInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      glowInCart |
+                                      microneedleInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "rgb(201, 201, 201)"
+                                  : "rgb(0, 129, 177)"
+                                : chemicalPeelInCart
+                                ? "rgba(119, 221, 119, 0.6)"
+                                : bacialInCart |
                                     cbdInCart |
                                     clarifyInCart |
                                     calmInCart |
@@ -661,27 +687,27 @@ const ChemicalPeel = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "rgb(201, 201, 201)"
-                                  : "rgb(0, 129, 177)"
-                                : chemicalPeelInCart
-                                ? "rgba(119, 221, 119, 0.6)"
-                                : bacialInCart |
-                                  cbdInCart |
-                                  clarifyInCart |
-                                  calmInCart |
-                                  dermaplaningInCart |
-                                  glowInCart |
-                                  microneedleInCart |
-                                  quenchInCart |
-                                  quickieInCart |
-                                  rejuvenateInCart
+                                    rejuvenateInCart || unsureInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? chemicalPeelInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      clarifyInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      glowInCart |
+                                      microneedleInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "1px solid transparent"
+                                  : "1px solid rgb(0, 129, 177)"
+                                : chemicalPeelInCart
+                                ? "1px solid rgb(69, 171, 69, 0.8)"
+                                : bacialInCart |
                                     cbdInCart |
                                     clarifyInCart |
                                     calmInCart |
@@ -690,27 +716,27 @@ const ChemicalPeel = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "1px solid transparent"
-                                  : "1px solid rgb(0, 129, 177)"
-                                : chemicalPeelInCart
-                                ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : bacialInCart |
-                                  cbdInCart |
-                                  clarifyInCart |
-                                  calmInCart |
-                                  dermaplaningInCart |
-                                  glowInCart |
-                                  microneedleInCart |
-                                  quenchInCart |
-                                  quickieInCart |
-                                  rejuvenateInCart
+                                    rejuvenateInCart || unsureInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? chemicalPeelInCart
                                   ? "rgb(0, 0, 0)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      clarifyInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      glowInCart |
+                                      microneedleInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "rgb(141, 141, 141)"
+                                  : "rgb(255, 255, 255)"
+                                : chemicalPeelInCart
+                                ? "rgb(0, 0, 0)"
+                                : bacialInCart |
                                     cbdInCart |
                                     clarifyInCart |
                                     calmInCart |
@@ -719,12 +745,11 @@ const ChemicalPeel = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "rgb(141, 141, 141)"
-                                  : "rgb(255, 255, 255)"
-                                : chemicalPeelInCart
-                                ? "rgb(0, 0, 0)"
-                                : bacialInCart |
+                                    rejuvenateInCart || unsureInCart
+                                ? "rgb(141, 141, 141)"
+                                : "rgb(0, 129, 177)",
+                              cursor:
+                                bacialInCart |
                                   cbdInCart |
                                   clarifyInCart |
                                   calmInCart |
@@ -733,20 +758,7 @@ const ChemicalPeel = (props) => {
                                   microneedleInCart |
                                   quenchInCart |
                                   quickieInCart |
-                                  rejuvenateInCart
-                                ? "rgb(141, 141, 141)"
-                                : "rgb(0, 129, 177)",
-                              cursor:
-                                bacialInCart |
-                                cbdInCart |
-                                clarifyInCart |
-                                calmInCart |
-                                dermaplaningInCart |
-                                glowInCart |
-                                microneedleInCart |
-                                quenchInCart |
-                                quickieInCart |
-                                rejuvenateInCart
+                                  rejuvenateInCart || unsureInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",
@@ -817,6 +829,16 @@ const ChemicalPeel = (props) => {
                         </>
                       )}
                     </Spring>
+                    <p
+                      className="facial_advanced_treatment_designation"
+                      style={{
+                        color: chemicalpeelToggle
+                          ? "rgb(0, 0, 0)"
+                          : "rgb(111, 111, 111)",
+                      }}
+                    >
+                      Advanced Treatment
+                    </p>
                     <div
                       className="card_border_right"
                       style={{

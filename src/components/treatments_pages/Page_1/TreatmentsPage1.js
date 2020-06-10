@@ -9,7 +9,7 @@ import "./TreatmentsPage1.css";
 const TreatmentsPage1 = React.forwardRef((props, ref) => {
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2
+    threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2,
   });
   const [bacialRendered, changeBacialRendered] = useState("grid");
 
@@ -41,7 +41,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
               width_landscape: "0%",
               width_mobile: "0%",
               width_mobile_small: "0%",
-              width_mobile_tiny: "0%"
+              width_mobile_tiny: "0%",
             }}
             to={{
               position: "relative",
@@ -49,20 +49,20 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
               width_desktop: "31%",
               width_landscape: "38%",
               width_mobile: "56%",
-              width_mobile_small: "62%",
-              width_mobile_tiny: "63%"
+              width_mobile_small: "48%",
+              width_mobile_tiny: "63%",
             }}
             config={{ duration: 1000 }}
           >
-            {styles => (
+            {(styles) => (
               <>
                 <h2
                   style={{
                     position: `${styles.position}`,
-                    opacity: `${styles.opacity}`
+                    opacity: `${styles.opacity}`,
                   }}
                 >
-                  OUR TREATMENTS
+                  YOUR FACIAL
                 </h2>
                 <span
                   style={{
@@ -87,7 +87,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
                         ? `${styles.width_mobile}`
                         : props.currentScreenSize >= 360
                         ? `${styles.width_mobile_small}`
-                        : `${styles.width_mobile_tiny}`
+                        : `${styles.width_mobile_tiny}`,
                   }}
                   className="treatments_title_underline"
                 />
@@ -95,14 +95,14 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
                 <h3
                   style={{
                     position: `${styles.position}`,
-                    opacity: `${styles.opacity}`
+                    opacity: `${styles.opacity}`,
                   }}
                 >
                   <p>
                     Each facial is <br />
                     customized <br />
                     to fit your specific <br />
-                    skincare needs.
+                    skincare needs
                   </p>
                 </h3>
               </>

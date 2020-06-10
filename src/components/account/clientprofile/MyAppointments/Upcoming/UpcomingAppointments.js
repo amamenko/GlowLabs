@@ -276,6 +276,8 @@ const UpcomingAppointments = (props) => {
     }
   };
 
+  console.log(props.data ? props.data.own_appointments : null);
+
   return (
     <div
       className="my_appointments_container"

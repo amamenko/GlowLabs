@@ -34,6 +34,7 @@ import BeardCard from "./Add_On_Cards/Beard/BeardCard";
 import NoFacialSelected from "./Treatment_Cards/NoFacialSelected";
 import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import { FormGroup, Input } from "reactstrap";
+import UnsureCard from "./Treatment_Cards/Unsure/UnsureCard";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const ShoppingCart = () => {
   const rejuvenateInCart = useSelector(
     (state) => state.rejuvenateInCart.in_cart
   );
+  const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
 
   const addOnsArr = useSelector((state) => state.addOnsArr.add_ons_arr);
   const treatmentsArr = useSelector(
@@ -132,6 +134,8 @@ const ShoppingCart = () => {
         return <QuickieCard />;
       } else if (quenchInCart) {
         return <QuenchCard />;
+      } else if (unsureInCart) {
+        return <UnsureCard />;
       } else {
         if (addOnsArr.length > 0) {
           return <NoFacialSelected addOnsArr={addOnsArr} />;
@@ -188,7 +192,7 @@ const ShoppingCart = () => {
   calculateSubtotal();
 
   useEffect(() => {
-    if (location.pathname) {
+    if (location.pathname.includes("cart")) {
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
@@ -266,7 +270,11 @@ const ShoppingCart = () => {
           </FormGroup>
         </div>
       )}
-      <Link to="/availability" onClick={availabilityHasBeenClicked}>
+      <Link
+        to="/availability"
+        onClick={availabilityHasBeenClicked}
+        className="search_availability_button_container"
+      >
         <div
           className="search_availability_button"
           style={{
@@ -277,7 +285,11 @@ const ShoppingCart = () => {
           <p>Search Availability</p>
         </div>
       </Link>
-      <Link to="/" onClick={backToHome}>
+      <Link
+        to="/"
+        onClick={backToHome}
+        className="continue_shopping_button_container"
+      >
         <div
           className="continue_shopping_button"
           style={{ marginTop: counter === 0 ? "0vh" : "1.5rem" }}

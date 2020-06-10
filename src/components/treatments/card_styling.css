@@ -281,6 +281,28 @@
     margin-top: 0.3rem;
     font-size: 0.8rem;
   }
+
+  .facial_advanced_treatment_icon {
+    position: absolute;
+    top: 1.25rem;
+    font-size: 1.5rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: color 0.5s ease;
+  }
+
+  .facial_advanced_treatment_designation {
+    position: absolute;
+    bottom: 1.25rem;
+    font-size: 0.7rem;
+    left: 0;
+    right: 0;
+    margin: 0;
+    text-align: center;
+    font-weight: 600;
+    transition: color 0.5s ease;
+  }
 }
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
@@ -302,7 +324,7 @@
   .card_description_paragraph_value {
     font-size: 1.1rem;
     padding-bottom: 0.3rem;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
   }
 
   .card_description_paragraph_title {
@@ -311,13 +333,6 @@
 
   .card_description_icon {
     font-size: 0.9rem;
-  }
-}
-
-/* CSS for Average Portrait Screens (e.g. iPhone 11) */
-@media only screen and (min-width: 410px) {
-  .card_description_paragraph_value {
-    padding-left: 1rem;
   }
 }
 

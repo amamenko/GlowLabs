@@ -79,6 +79,7 @@ const Clarify = (props) => {
   const rejuvenateInCart = useSelector(
     (state) => state.rejuvenateInCart.in_cart
   );
+  const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
@@ -299,15 +300,16 @@ const Clarify = (props) => {
   const addToCart = () => {
     if (
       bacialInCart |
-      cbdInCart |
-      chemicalPeelInCart |
-      calmInCart |
-      dermaplaningInCart |
-      glowInCart |
-      microneedleInCart |
-      quenchInCart |
-      quickieInCart |
-      rejuvenateInCart
+        cbdInCart |
+        chemicalPeelInCart |
+        calmInCart |
+        dermaplaningInCart |
+        glowInCart |
+        microneedleInCart |
+        quenchInCart |
+        quickieInCart |
+        rejuvenateInCart ||
+      unsureInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
@@ -372,16 +374,16 @@ const Clarify = (props) => {
             style={
               clarifyToggle
                 ? clarifyInCart |
-                  bacialInCart |
-                  cbdInCart |
-                  chemicalPeelInCart |
-                  calmInCart |
-                  dermaplaningInCart |
-                  glowInCart |
-                  microneedleInCart |
-                  quenchInCart |
-                  quickieInCart |
-                  rejuvenateInCart
+                    bacialInCart |
+                    cbdInCart |
+                    chemicalPeelInCart |
+                    calmInCart |
+                    dermaplaningInCart |
+                    glowInCart |
+                    microneedleInCart |
+                    quenchInCart |
+                    quickieInCart |
+                    rejuvenateInCart || unsureInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -394,6 +396,20 @@ const Clarify = (props) => {
                   ? clarifyInCart
                     ? "rgba(119, 221, 119, 0.6)"
                     : bacialInCart |
+                        cbdInCart |
+                        chemicalPeelInCart |
+                        calmInCart |
+                        dermaplaningInCart |
+                        glowInCart |
+                        microneedleInCart |
+                        quenchInCart |
+                        quickieInCart |
+                        rejuvenateInCart || unsureInCart
+                    ? "rgba(211, 211, 211, 0.8"
+                    : "rgba(0, 129, 177, 0.4)"
+                  : clarifyInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : bacialInCart |
                       cbdInCart |
                       chemicalPeelInCart |
                       calmInCart |
@@ -402,21 +418,7 @@ const Clarify = (props) => {
                       microneedleInCart |
                       quenchInCart |
                       quickieInCart |
-                      rejuvenateInCart
-                    ? "rgba(211, 211, 211, 0.8"
-                    : "rgba(0, 129, 177, 0.4)"
-                  : clarifyInCart
-                  ? "rgb(119, 221, 119, 0.6)"
-                  : bacialInCart |
-                    cbdInCart |
-                    chemicalPeelInCart |
-                    calmInCart |
-                    dermaplaningInCart |
-                    glowInCart |
-                    microneedleInCart |
-                    quenchInCart |
-                    quickieInCart |
-                    rejuvenateInCart
+                      rejuvenateInCart || unsureInCart
                   ? "rgba(211, 211, 211, 0.8"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -439,15 +441,15 @@ const Clarify = (props) => {
               }}
               color={
                 bacialInCart |
-                cbdInCart |
-                chemicalPeelInCart |
-                calmInCart |
-                dermaplaningInCart |
-                glowInCart |
-                microneedleInCart |
-                quenchInCart |
-                quickieInCart |
-                rejuvenateInCart
+                  cbdInCart |
+                  chemicalPeelInCart |
+                  calmInCart |
+                  dermaplaningInCart |
+                  glowInCart |
+                  microneedleInCart |
+                  quenchInCart |
+                  quickieInCart |
+                  rejuvenateInCart || unsureInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -574,6 +576,20 @@ const Clarify = (props) => {
                                 ? clarifyInCart
                                   ? "rgba(69, 171, 69, 0.6)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      chemicalPeelInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      glowInCart |
+                                      microneedleInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "rgb(201, 201, 201)"
+                                  : "rgb(0, 129, 177)"
+                                : clarifyInCart
+                                ? "rgba(119, 221, 119, 0.6)"
+                                : bacialInCart |
                                     cbdInCart |
                                     chemicalPeelInCart |
                                     calmInCart |
@@ -582,27 +598,27 @@ const Clarify = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "rgb(201, 201, 201)"
-                                  : "rgb(0, 129, 177)"
-                                : clarifyInCart
-                                ? "rgba(119, 221, 119, 0.6)"
-                                : bacialInCart |
-                                  cbdInCart |
-                                  chemicalPeelInCart |
-                                  calmInCart |
-                                  dermaplaningInCart |
-                                  glowInCart |
-                                  microneedleInCart |
-                                  quenchInCart |
-                                  quickieInCart |
-                                  rejuvenateInCart
+                                    rejuvenateInCart || unsureInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? clarifyInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      chemicalPeelInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      glowInCart |
+                                      microneedleInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "1px solid transparent"
+                                  : "1px solid rgb(0, 129, 177)"
+                                : clarifyInCart
+                                ? "1px solid rgb(69, 171, 69, 0.8)"
+                                : bacialInCart |
                                     cbdInCart |
                                     chemicalPeelInCart |
                                     calmInCart |
@@ -611,27 +627,27 @@ const Clarify = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "1px solid transparent"
-                                  : "1px solid rgb(0, 129, 177)"
-                                : clarifyInCart
-                                ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : bacialInCart |
-                                  cbdInCart |
-                                  chemicalPeelInCart |
-                                  calmInCart |
-                                  dermaplaningInCart |
-                                  glowInCart |
-                                  microneedleInCart |
-                                  quenchInCart |
-                                  quickieInCart |
-                                  rejuvenateInCart
+                                    rejuvenateInCart || unsureInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? clarifyInCart
                                   ? "rgb(0, 0, 0)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      chemicalPeelInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      glowInCart |
+                                      microneedleInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "rgb(141, 141, 141)"
+                                  : "rgb(255, 255, 255)"
+                                : clarifyInCart
+                                ? "rgb(0, 0, 0)"
+                                : bacialInCart |
                                     cbdInCart |
                                     chemicalPeelInCart |
                                     calmInCart |
@@ -640,12 +656,11 @@ const Clarify = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "rgb(141, 141, 141)"
-                                  : "rgb(255, 255, 255)"
-                                : clarifyInCart
-                                ? "rgb(0, 0, 0)"
-                                : bacialInCart |
+                                    rejuvenateInCart || unsureInCart
+                                ? "rgb(141, 141, 141)"
+                                : "rgb(0, 129, 177)",
+                              cursor:
+                                bacialInCart |
                                   cbdInCart |
                                   chemicalPeelInCart |
                                   calmInCart |
@@ -654,20 +669,7 @@ const Clarify = (props) => {
                                   microneedleInCart |
                                   quenchInCart |
                                   quickieInCart |
-                                  rejuvenateInCart
-                                ? "rgb(141, 141, 141)"
-                                : "rgb(0, 129, 177)",
-                              cursor:
-                                bacialInCart |
-                                cbdInCart |
-                                chemicalPeelInCart |
-                                calmInCart |
-                                dermaplaningInCart |
-                                glowInCart |
-                                microneedleInCart |
-                                quenchInCart |
-                                quickieInCart |
-                                rejuvenateInCart
+                                  rejuvenateInCart || unsureInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

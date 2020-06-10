@@ -3,7 +3,7 @@ import { useLocation, Redirect } from "react-router-dom";
 import {
   disableBodyScroll,
   enableBodyScroll,
-  clearAllBodyScrollLocks
+  clearAllBodyScrollLocks,
 } from "body-scroll-lock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
@@ -19,12 +19,12 @@ const NavigationMenu = React.forwardRef((props, ref) => {
     Treatments1Ref,
     AddOnsRef,
     InstagramRef,
-    ContactRef
+    ContactRef,
   } = ref;
   const Nav_Ref = useRef(null);
-  const navbarToggle = useSelector(state => state.navbarToggle.toggle);
-  const scroll = useSelector(state => state.scrollToggle.scroll);
-  const cartIsActive = useSelector(state => state.cartIsActive.cartIsActive);
+  const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
+  const scroll = useSelector((state) => state.scrollToggle.scroll);
+  const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
 
   const [homeClicked, changeHomeClicked] = useState(false);
 
@@ -35,13 +35,13 @@ const NavigationMenu = React.forwardRef((props, ref) => {
     clearAllBodyScrollLocks();
 
     if (navbarToggle) {
-      const handleDisableScroll = el => {
+      const handleDisableScroll = (el) => {
         disableBodyScroll({ targetElement: el });
       };
 
       handleDisableScroll(NavRefTarget);
     } else {
-      const handleEnableScroll = el => {
+      const handleEnableScroll = (el) => {
         enableBodyScroll({ targetElement: el });
       };
 
@@ -133,12 +133,12 @@ const NavigationMenu = React.forwardRef((props, ref) => {
             ? scroll
               ? "all 0.7s ease"
               : "all 0s"
-            : "all 0.7s ease"
+            : "all 0.7s ease",
       }}
     >
       <ul className="navbar_items">
         <li onClick={() => navMenuScrollToHome()}>Home</li>
-        <li onClick={() => navMenuScrollToTreatments()}>Treatments</li>
+        <li onClick={() => navMenuScrollToTreatments()}>Facial</li>
         <li onClick={() => navMenuScrollToAddOns()}>Add-Ons</li>
       </ul>
       <ul className="navbar_items">

@@ -110,6 +110,7 @@ const App = () => {
   const AddOnsRef = useRef(null);
   const InstagramRef = useRef(null);
   const ContactRef = useRef(null);
+  const shoppingCartRef = useRef(null);
   const [initialScreenSize] = useState(window.innerWidth);
   const [currentScreenSize, changeCurrentScreenSize] = useState("");
   const [previousScrollPosition, setPreviousScrollPosition] = useState(
@@ -145,6 +146,9 @@ const App = () => {
     (state) => state.adminTemporaryDummyToken.admin_temporary_dummy_token
   );
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+
+  // For large screen shopping cart slide-in
+  const [cartSlideDelay, changeCartSlideDelay] = useState(false);
 
   const [updateClientInvalidateTokens, { loading: appLoading }] = useMutation(
     updateClientInvalidateTokensMutation
@@ -540,6 +544,7 @@ const App = () => {
                 <div
                   className="large_screen_shopping_cart_container"
                   style={styleprops}
+                  ref={shoppingCartRef}
                 >
                   <ShoppingCart />
                 </div>
@@ -562,8 +567,12 @@ const App = () => {
               <div
                 className="large_screen_shopping_cart_container"
                 style={props}
+                ref={shoppingCartRef}
               >
-                <ShoppingCart />
+                <ShoppingCart
+                  currentScreenSize={currentScreenSize}
+                  initialScreenSize={initialScreenSize}
+                />
               </div>
             ))
           }
@@ -572,6 +581,20 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    if (cartIsActive) {
+      changeCartSlideDelay(true);
+    } else {
+      const slideDelay = setTimeout(() => {
+        changeCartSlideDelay(false);
+      }, 500);
+
+      return () => {
+        clearTimeout(slideDelay);
+      };
+    }
+  }, [cartIsActive]);
+
   // Distort background while shopping cart slider is visible
 
   const renderSlideInShoppingCartContainer = (item) => {
@@ -579,14 +602,47 @@ const App = () => {
       <div
         className="large_screen_shopping_cart_full_container"
         style={{
-          backdropFilter: cartIsActive ? "blur(10px)" : "none",
-          transition: "background 0.2s ease",
+          display: cartSlideDelay ? "block" : "none",
+          backdropFilter: cartIsActive ? "blur(30px) brightness(50%)" : "none",
+          transition: "backdropFilter 0.5s ease",
         }}
       >
         {item}
       </div>
     );
   };
+
+  useEffect(() => {
+    const root = document.getElementsByTagName("html")[0];
+
+    if (!currentScreenSize) {
+      if (initialScreenSize >= 1200) {
+        if (cartIsActive) {
+          document.body.classList.add("no_scroll_no_fixed");
+          root.classList.add("no_scroll_no_fixed");
+        } else {
+          document.body.classList.remove("no_scroll_no_fixed");
+          root.classList.remove("no_scroll_no_fixed");
+        }
+      } else {
+        document.body.classList.remove("no_scroll_no_fixed");
+        root.classList.remove("no_scroll_no_fixed");
+      }
+    } else {
+      if (currentScreenSize >= 1200) {
+        if (cartIsActive) {
+          document.body.classList.add("no_scroll_no_fixed");
+          root.classList.add("no_scroll_no_fixed");
+        } else {
+          document.body.classList.remove("no_scroll_no_fixed");
+          root.classList.remove("no_scroll_no_fixed");
+        }
+      } else {
+        document.body.classList.remove("no_scroll_no_fixed");
+        root.classList.remove("no_scroll_no_fixed");
+      }
+    }
+  }, [cartIsActive, dispatch, currentScreenSize, initialScreenSize]);
 
   return (
     <>

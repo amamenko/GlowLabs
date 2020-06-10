@@ -147,6 +147,7 @@
   padding-bottom: 1rem;
   border-top: 2px solid rgb(211, 211, 211);
   margin-top: -2px;
+  background: rgb(255, 255, 255);
 }
 
 .cart_subtotal p {
@@ -161,6 +162,7 @@
   border-top: 2px solid rgb(211, 211, 211);
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  background: rgb(255, 255, 255);
 }
 
 .esthetician_preference_dropdown_input_field {
@@ -224,7 +226,7 @@
   .shopping_cart_container {
     padding-top: 0vh;
     margin-top: 8vh;
-    height: 100%;
+    height: 100vh;
     background: rgb(255, 255, 255);
   }
 
@@ -245,7 +247,7 @@
 
   .large_screen_shopping_cart_full_container {
     position: fixed;
-    height: 100vh;
+    height: 100%;
     z-index: 22;
     width: 100vw;
   }
@@ -254,6 +256,14 @@
     position: absolute;
     width: 33.35%;
     right: 0;
+    height: 100%;
+    overflow: scroll;
+    background: rgb(255, 255, 255);
+    padding-bottom: 30vh;
+  }
+
+  .cart_header h2 {
+    font-size: 1.5rem;
   }
 
   .empty_cart_container h3 {
@@ -266,8 +276,20 @@
     margin-bottom: 5rem;
   }
 
+  .search_availability_button,
   .continue_shopping_button {
     font-size: 1.5rem;
     padding: 1rem;
+  }
+
+  .continue_shopping_button {
+    margin-bottom: 10vh;
+  }
+
+  .search_availability_button_container,
+  .continue_shopping_button_container {
+    width: 100%;
+    display: block;
+    background: rgb(255, 255, 255);
   }
 }

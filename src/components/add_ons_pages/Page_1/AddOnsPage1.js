@@ -9,7 +9,7 @@ import "./AddOnsPage1.css";
 const AddOnsPage1 = React.forwardRef((props, ref) => {
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2
+    threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2,
   });
   const [ledRendered, changeLEDRendered] = useState("grid");
 
@@ -39,26 +39,26 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
               opacity: 0,
               width_desktop: "0%",
               width_landscape: "0%",
-              width_mobile: "0%"
+              width_mobile: "0%",
             }}
             to={{
               position: "relative",
               opacity: 1,
               width_desktop: "25%",
               width_landscape: "30%",
-              width_mobile: "45%"
+              width_mobile: "53%",
             }}
             config={{ duration: 1000 }}
           >
-            {styles => (
+            {(styles) => (
               <>
                 <h2
                   style={{
                     position: `${styles.position}`,
-                    opacity: `${styles.opacity}`
+                    opacity: `${styles.opacity}`,
                   }}
                 >
-                  OUR ADD-ONS
+                  YOUR ADD-ONS
                 </h2>
                 <span
                   style={{
@@ -75,7 +75,7 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
                         ? `${styles.width_desktop}`
                         : props.currentScreenSize >= 600
                         ? `${styles.width_landscape}`
-                        : `${styles.width_mobile}`
+                        : `${styles.width_mobile}`,
                   }}
                   className="add_ons_title_underline"
                 />
@@ -83,7 +83,7 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
                 <h3
                   style={{
                     position: `${styles.position}`,
-                    opacity: `${styles.opacity}`
+                    opacity: `${styles.opacity}`,
                   }}
                 >
                   <p>

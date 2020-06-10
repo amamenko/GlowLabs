@@ -52,6 +52,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const changeNavBarColor = () => {
     if (props.currentScreenSize === "") {
       if (props.initialScreenSize >= 600) {
+        if (props.initialScreenSize >= 1200) {
+          if (cartIsActive) {
+            return "rgb(44,44,52)";
+          }
+        }
+
         if (props.navbarToggle) {
           return "rgb(44,44,52)";
         } else {
@@ -66,6 +72,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
       }
     } else {
       if (props.currentScreenSize >= 600) {
+        if (props.currentScreenSize >= 1200) {
+          if (cartIsActive) {
+            return "rgb(44,44,52)";
+          }
+        }
+
         if (props.navbarToggle) {
           return "rgb(44,44,52)";
         } else {
@@ -286,13 +298,17 @@ const NavigationBar = React.forwardRef((props, ref) => {
               <path
                 fill={
                   props.currentScreenSize === ""
-                    ? props.initialScreenSize >= 600
+                    ? props.initialScreenSize >= 1200 && cartIsActive
+                      ? "rgb(239, 240, 243)"
+                      : props.initialScreenSize >= 600
                       ? window.scrollY <= 1
                         ? props.navbarToggle
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
+                    : props.currentScreenSize >= 1200 && cartIsActive
+                    ? "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 600
                     ? window.scrollY <= 1
                       ? props.navbarToggle
@@ -458,7 +474,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
           </p>
         </Link>
       </div>
-      <Link to="/cart" onClick={handleShoppingCartClick}>
+      <Link
+        to={cartIsActive ? location.pathname : "/cart"}
+        onClick={handleShoppingCartClick}
+      >
         <svg
           className="shopping_cart_small_screen"
           width="10%"
@@ -623,32 +642,50 @@ const NavigationBar = React.forwardRef((props, ref) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1200
                 ? window.scrollY <= 1
-                  ? "rgb(44, 44, 52)"
+                  ? cartIsActive
+                    ? "rgb(239, 240, 243)"
+                    : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 1200
               ? window.scrollY <= 1
-                ? "rgb(44, 44, 52)"
+                ? cartIsActive
+                  ? "rgb(239, 240, 243)"
+                  : "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
               : "rgb(239, 240, 243)",
         }}
       >
         <ul>
-          <li onClick={() => props.handleClickToScrollToHome(LandingPageRef)}>
+          <li
+            onClick={() => {
+              dispatch(ACTION_CART_IS_NOT_ACTIVE());
+              props.handleClickToScrollToHome(LandingPageRef);
+            }}
+          >
             HOME
           </li>
           <li
-            onClick={() =>
-              props.handleClickToScrollToTreatments(Treatments1Ref)
-            }
+            onClick={() => {
+              dispatch(ACTION_CART_IS_NOT_ACTIVE());
+              props.handleClickToScrollToTreatments(Treatments1Ref);
+            }}
           >
-            TREATMENTS
+            FACIAL
           </li>
-          <li onClick={() => props.handleClickToScrollToAddOns(AddOnsRef)}>
+          <li
+            onClick={() => {
+              dispatch(ACTION_CART_IS_NOT_ACTIVE());
+              props.handleClickToScrollToAddOns(AddOnsRef);
+            }}
+          >
             ADD-ONS
           </li>
           <li
-            onClick={() => props.handleClickToScrollToInstagram(InstagramRef)}
+            onClick={() => {
+              dispatch(ACTION_CART_IS_NOT_ACTIVE());
+              props.handleClickToScrollToInstagram(InstagramRef);
+            }}
           >
             FOLLOW US
           </li>
@@ -659,12 +696,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 props.currentScreenSize === ""
                   ? props.initialScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? "rgb(44, 44, 52)"
+                      ? cartIsActive
+                        ? "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
                     : "rgb(239, 240, 243)"
                   : props.currentScreenSize >= 1200
                   ? window.scrollY <= 1
-                    ? "rgb(44, 44, 52)"
+                    ? cartIsActive
+                      ? "rgb(239, 240, 243)"
+                      : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)",
             }}
@@ -676,12 +717,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? "rgb(239, 240, 243)"
+                        ? cartIsActive
+                          ? "rgb(44, 44, 52)"
+                          : "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? "rgb(239, 240, 243)"
+                      ? cartIsActive
+                        ? "rgb(44, 44, 52)"
+                        : "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(44, 44, 52)",
               }}
@@ -709,12 +754,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       props.currentScreenSize === ""
                         ? props.initialScreenSize >= 1200
                           ? window.scrollY <= 1
-                            ? "rgb(239, 240, 243)"
+                            ? cartIsActive
+                              ? "rgb(44, 44, 52)"
+                              : "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
                           : "rgb(44, 44, 52)"
                         : props.currentScreenSize >= 1200
                         ? window.scrollY <= 1
-                          ? "rgb(239, 240, 243)"
+                          ? cartIsActive
+                            ? "rgb(44, 44, 52)"
+                            : "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)",
                   }}
@@ -740,12 +789,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 1200
                         ? window.scrollY <= 1
-                          ? "rgb(44, 44, 52)"
+                          ? cartIsActive
+                            ? "rgb(239, 240, 243)"
+                            : "rgb(44, 44, 52)"
                           : "rgb(239, 240, 243)"
                         : "rgb(239, 240, 243)"
                       : props.currentScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? "rgb(44, 44, 52)"
+                        ? cartIsActive
+                          ? "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)",
                 }}
@@ -775,12 +828,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? "rgb(44, 44, 52)"
+                        ? cartIsActive
+                          ? "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? "rgb(44, 44, 52)"
+                      ? cartIsActive
+                        ? "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
                     : "rgb(239, 240, 243)"
                 }

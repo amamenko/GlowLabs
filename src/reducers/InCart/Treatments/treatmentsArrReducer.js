@@ -20,6 +20,8 @@ const QUICKIE_IN_CART = "QUICKIE_IN_CART";
 const QUICKIE_NOT_IN_CART = "QUICKIE_NOT_IN_CART";
 const REJUVENATE_IN_CART = "REJUVENATE_IN_CART";
 const REJUVENATE_NOT_IN_CART = "REJUVENATE_NOT_IN_CART";
+const UNSURE_IN_CART = "UNSURE_IN_CART";
+const UNSURE_NOT_IN_CART = "UNSURE_NOT_IN_CART";
 const TREATMENTS_CART_RESET = "TREATMENTS_CART_RESET";
 
 const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
@@ -37,13 +39,14 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
     case QUENCH_IN_CART:
     case QUICKIE_IN_CART:
     case REJUVENATE_IN_CART:
+    case UNSURE_IN_CART:
       return {
         ...state,
         treatments_arr: treatments_arr_clone.concat({
           name: action.payload.name,
           price: action.payload.price,
-          duration: action.payload.duration
-        })
+          duration: action.payload.duration,
+        }),
       };
     case BACIAL_NOT_IN_CART:
     case CALM_NOT_IN_CART:
@@ -56,20 +59,21 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
     case QUENCH_NOT_IN_CART:
     case QUICKIE_NOT_IN_CART:
     case REJUVENATE_NOT_IN_CART:
+    case UNSURE_NOT_IN_CART:
       return {
         ...state,
         treatments_arr:
           treatments_arr_clone.length > 0
             ? treatments_arr_clone.filter(
-                item => item.name !== action.payload.name
+                (item) => item.name !== action.payload.name
               )
-            : []
+            : [],
       };
 
     case TREATMENTS_CART_RESET:
       return {
         ...state,
-        treatments_arr: []
+        treatments_arr: [],
       };
     default:
       return { ...state };

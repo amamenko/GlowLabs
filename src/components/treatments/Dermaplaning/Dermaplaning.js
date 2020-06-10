@@ -7,6 +7,7 @@ import {
   faClock,
   faSquare,
   faTag,
+  faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import { InView } from "react-intersection-observer";
 import ACTION_DERMAPLANING_TOGGLE from "../../../actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE";
@@ -80,6 +81,7 @@ const Dermaplaning = (props) => {
   const rejuvenateInCart = useSelector(
     (state) => state.rejuvenateInCart.in_cart
   );
+  const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
@@ -300,15 +302,16 @@ const Dermaplaning = (props) => {
   const addToCart = () => {
     if (
       calmInCart |
-      cbdInCart |
-      quickieInCart |
-      clarifyInCart |
-      chemicalPeelInCart |
-      bacialInCart |
-      microneedleInCart |
-      rejuvenateInCart |
-      quenchInCart |
-      glowInCart
+        cbdInCart |
+        quickieInCart |
+        clarifyInCart |
+        chemicalPeelInCart |
+        bacialInCart |
+        microneedleInCart |
+        rejuvenateInCart |
+        quenchInCart |
+        glowInCart ||
+      unsureInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
@@ -373,16 +376,16 @@ const Dermaplaning = (props) => {
             style={
               dermaplaningToggle
                 ? clarifyInCart |
-                  bacialInCart |
-                  cbdInCart |
-                  chemicalPeelInCart |
-                  calmInCart |
-                  dermaplaningInCart |
-                  glowInCart |
-                  microneedleInCart |
-                  quenchInCart |
-                  quickieInCart |
-                  rejuvenateInCart
+                    bacialInCart |
+                    cbdInCart |
+                    chemicalPeelInCart |
+                    calmInCart |
+                    dermaplaningInCart |
+                    glowInCart |
+                    microneedleInCart |
+                    quenchInCart |
+                    quickieInCart |
+                    rejuvenateInCart || unsureInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -395,6 +398,20 @@ const Dermaplaning = (props) => {
                   ? dermaplaningInCart
                     ? "rgba(119, 221, 119, 0.6)"
                     : calmInCart |
+                        cbdInCart |
+                        quickieInCart |
+                        clarifyInCart |
+                        chemicalPeelInCart |
+                        bacialInCart |
+                        microneedleInCart |
+                        rejuvenateInCart |
+                        quenchInCart |
+                        glowInCart || unsureInCart
+                    ? "rgba(211, 211, 211, 0.8"
+                    : "rgba(0, 129, 177, 0.4)"
+                  : dermaplaningInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : calmInCart |
                       cbdInCart |
                       quickieInCart |
                       clarifyInCart |
@@ -403,21 +420,7 @@ const Dermaplaning = (props) => {
                       microneedleInCart |
                       rejuvenateInCart |
                       quenchInCart |
-                      glowInCart
-                    ? "rgba(211, 211, 211, 0.8"
-                    : "rgba(0, 129, 177, 0.4)"
-                  : dermaplaningInCart
-                  ? "rgb(119, 221, 119, 0.6)"
-                  : calmInCart |
-                    cbdInCart |
-                    quickieInCart |
-                    clarifyInCart |
-                    chemicalPeelInCart |
-                    bacialInCart |
-                    microneedleInCart |
-                    rejuvenateInCart |
-                    quenchInCart |
-                    glowInCart
+                      glowInCart || unsureInCart
                   ? "rgba(211, 211, 211, 0.8"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -438,15 +441,15 @@ const Dermaplaning = (props) => {
               style={{ display: dermaplaningInCart ? "none" : "block" }}
               color={
                 calmInCart |
-                cbdInCart |
-                quickieInCart |
-                clarifyInCart |
-                chemicalPeelInCart |
-                bacialInCart |
-                microneedleInCart |
-                rejuvenateInCart |
-                quenchInCart |
-                glowInCart
+                  cbdInCart |
+                  quickieInCart |
+                  clarifyInCart |
+                  chemicalPeelInCart |
+                  bacialInCart |
+                  microneedleInCart |
+                  rejuvenateInCart |
+                  quenchInCart |
+                  glowInCart || unsureInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -562,6 +565,15 @@ const Dermaplaning = (props) => {
                       transition: "ease all 0.5s",
                     }}
                   >
+                    <FontAwesomeIcon
+                      icon={faGem}
+                      className="facial_advanced_treatment_icon"
+                      style={{
+                        color: dermaplaningToggle
+                          ? "rgb(0, 0, 0)"
+                          : "rgb(111, 111, 111)",
+                      }}
+                    />
                     <Spring
                       from={{
                         x: 200,
@@ -589,6 +601,20 @@ const Dermaplaning = (props) => {
                                 ? dermaplaningInCart
                                   ? "rgba(69, 171, 69, 0.6)"
                                   : calmInCart |
+                                      cbdInCart |
+                                      quickieInCart |
+                                      clarifyInCart |
+                                      chemicalPeelInCart |
+                                      bacialInCart |
+                                      microneedleInCart |
+                                      rejuvenateInCart |
+                                      quenchInCart |
+                                      glowInCart || unsureInCart
+                                  ? "rgb(201, 201, 201)"
+                                  : "rgb(0, 129, 177)"
+                                : dermaplaningInCart
+                                ? "rgba(119, 221, 119, 0.6)"
+                                : calmInCart |
                                     cbdInCart |
                                     quickieInCart |
                                     clarifyInCart |
@@ -597,27 +623,27 @@ const Dermaplaning = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quenchInCart |
-                                    glowInCart
-                                  ? "rgb(201, 201, 201)"
-                                  : "rgb(0, 129, 177)"
-                                : dermaplaningInCart
-                                ? "rgba(119, 221, 119, 0.6)"
-                                : calmInCart |
-                                  cbdInCart |
-                                  quickieInCart |
-                                  clarifyInCart |
-                                  chemicalPeelInCart |
-                                  bacialInCart |
-                                  microneedleInCart |
-                                  rejuvenateInCart |
-                                  quenchInCart |
-                                  glowInCart
+                                    glowInCart || unsureInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? dermaplaningInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
                                   : calmInCart |
+                                      cbdInCart |
+                                      quickieInCart |
+                                      clarifyInCart |
+                                      chemicalPeelInCart |
+                                      bacialInCart |
+                                      microneedleInCart |
+                                      rejuvenateInCart |
+                                      quenchInCart |
+                                      glowInCart || unsureInCart
+                                  ? "1px solid transparent"
+                                  : "1px solid rgb(0, 129, 177)"
+                                : dermaplaningInCart
+                                ? "1px solid rgb(69, 171, 69, 0.8)"
+                                : calmInCart |
                                     cbdInCart |
                                     quickieInCart |
                                     clarifyInCart |
@@ -626,27 +652,27 @@ const Dermaplaning = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quenchInCart |
-                                    glowInCart
-                                  ? "1px solid transparent"
-                                  : "1px solid rgb(0, 129, 177)"
-                                : dermaplaningInCart
-                                ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : calmInCart |
-                                  cbdInCart |
-                                  quickieInCart |
-                                  clarifyInCart |
-                                  chemicalPeelInCart |
-                                  bacialInCart |
-                                  microneedleInCart |
-                                  rejuvenateInCart |
-                                  quenchInCart |
-                                  glowInCart
+                                    glowInCart || unsureInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? dermaplaningInCart
                                   ? "rgb(0, 0, 0)"
                                   : calmInCart |
+                                      cbdInCart |
+                                      quickieInCart |
+                                      clarifyInCart |
+                                      chemicalPeelInCart |
+                                      bacialInCart |
+                                      microneedleInCart |
+                                      rejuvenateInCart |
+                                      quenchInCart |
+                                      glowInCart || unsureInCart
+                                  ? "rgb(141, 141, 141)"
+                                  : "rgb(255, 255, 255)"
+                                : dermaplaningInCart
+                                ? "rgb(0, 0, 0)"
+                                : calmInCart |
                                     cbdInCart |
                                     quickieInCart |
                                     clarifyInCart |
@@ -655,12 +681,11 @@ const Dermaplaning = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quenchInCart |
-                                    glowInCart
-                                  ? "rgb(141, 141, 141)"
-                                  : "rgb(255, 255, 255)"
-                                : dermaplaningInCart
-                                ? "rgb(0, 0, 0)"
-                                : calmInCart |
+                                    glowInCart || unsureInCart
+                                ? "rgb(141, 141, 141)"
+                                : "rgb(0, 129, 177)",
+                              cursor:
+                                calmInCart |
                                   cbdInCart |
                                   quickieInCart |
                                   clarifyInCart |
@@ -669,20 +694,7 @@ const Dermaplaning = (props) => {
                                   microneedleInCart |
                                   rejuvenateInCart |
                                   quenchInCart |
-                                  glowInCart
-                                ? "rgb(141, 141, 141)"
-                                : "rgb(0, 129, 177)",
-                              cursor:
-                                calmInCart |
-                                cbdInCart |
-                                quickieInCart |
-                                clarifyInCart |
-                                chemicalPeelInCart |
-                                bacialInCart |
-                                microneedleInCart |
-                                rejuvenateInCart |
-                                quenchInCart |
-                                glowInCart
+                                  glowInCart || unsureInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",
@@ -768,6 +780,16 @@ const Dermaplaning = (props) => {
                         </>
                       )}
                     </Spring>
+                    <p
+                      className="facial_advanced_treatment_designation"
+                      style={{
+                        color: dermaplaningToggle
+                          ? "rgb(0, 0, 0)"
+                          : "rgb(111, 111, 111)",
+                      }}
+                    >
+                      Advanced Treatment
+                    </p>
                     <div
                       className="card_border_right"
                       style={{

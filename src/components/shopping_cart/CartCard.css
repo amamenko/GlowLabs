@@ -89,12 +89,25 @@
   padding-right: 0.1rem;
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
-  background: rgb(241, 241, 241);
+  background: rgb(222, 222, 222);
   border-radius: 30px;
   margin-right: 1.5rem;
+  cursor: pointer;
 }
 
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .shopping_cart_remove_button {
+    font-size: 1.5rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    margin-right: 1.5rem;
+  }
 }

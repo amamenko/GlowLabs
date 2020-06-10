@@ -45,6 +45,7 @@ body {
   }
 }
 
+.unsure_toast_container,
 .toast_container {
   background-color: rgb(214, 236, 252);
   font-family: "Montserrat", sans-serif;

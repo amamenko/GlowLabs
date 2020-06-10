@@ -7,6 +7,7 @@ import {
   faSquare,
   faClock,
   faTag,
+  faGem,
 } from "@fortawesome/free-solid-svg-icons";
 import { InView } from "react-intersection-observer";
 import ACTION_MICRONEEDLE_TOGGLE from "../../../actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE";
@@ -90,6 +91,7 @@ const Microneedle = (props) => {
   const rejuvenateInCart = useSelector(
     (state) => state.rejuvenateInCart.in_cart
   );
+  const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
 
   // Add-Ons
   const beardInCart = useSelector((state) => state.beardInCart.in_cart);
@@ -353,15 +355,16 @@ const Microneedle = (props) => {
   const addToCart = () => {
     if (
       calmInCart |
-      cbdInCart |
-      chemicalPeelInCart |
-      clarifyInCart |
-      dermaplaningInCart |
-      bacialInCart |
-      glowInCart |
-      quenchInCart |
-      quickieInCart |
-      rejuvenateInCart
+        cbdInCart |
+        chemicalPeelInCart |
+        clarifyInCart |
+        dermaplaningInCart |
+        bacialInCart |
+        glowInCart |
+        quenchInCart |
+        quickieInCart |
+        rejuvenateInCart ||
+      unsureInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
@@ -459,16 +462,16 @@ const Microneedle = (props) => {
             style={
               microneedleToggle
                 ? clarifyInCart |
-                  bacialInCart |
-                  cbdInCart |
-                  chemicalPeelInCart |
-                  calmInCart |
-                  dermaplaningInCart |
-                  glowInCart |
-                  microneedleInCart |
-                  quenchInCart |
-                  quickieInCart |
-                  rejuvenateInCart
+                    bacialInCart |
+                    cbdInCart |
+                    chemicalPeelInCart |
+                    calmInCart |
+                    dermaplaningInCart |
+                    glowInCart |
+                    microneedleInCart |
+                    quenchInCart |
+                    quickieInCart |
+                    rejuvenateInCart || unsureInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -481,6 +484,20 @@ const Microneedle = (props) => {
                   ? microneedleInCart
                     ? "rgba(119, 221, 119, 0.6)"
                     : bacialInCart |
+                        cbdInCart |
+                        chemicalPeelInCart |
+                        calmInCart |
+                        dermaplaningInCart |
+                        clarifyInCart |
+                        glowInCart |
+                        quenchInCart |
+                        quickieInCart |
+                        rejuvenateInCart || unsureInCart
+                    ? "rgba(211, 211, 211, 0.8"
+                    : "rgba(0, 129, 177, 0.4)"
+                  : microneedleInCart
+                  ? "rgb(119, 221, 119, 0.6)"
+                  : bacialInCart |
                       cbdInCart |
                       chemicalPeelInCart |
                       calmInCart |
@@ -489,21 +506,7 @@ const Microneedle = (props) => {
                       glowInCart |
                       quenchInCart |
                       quickieInCart |
-                      rejuvenateInCart
-                    ? "rgba(211, 211, 211, 0.8"
-                    : "rgba(0, 129, 177, 0.4)"
-                  : microneedleInCart
-                  ? "rgb(119, 221, 119, 0.6)"
-                  : bacialInCart |
-                    cbdInCart |
-                    chemicalPeelInCart |
-                    calmInCart |
-                    dermaplaningInCart |
-                    clarifyInCart |
-                    glowInCart |
-                    quenchInCart |
-                    quickieInCart |
-                    rejuvenateInCart
+                      rejuvenateInCart || unsureInCart
                   ? "rgba(211, 211, 211, 0.8)"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -524,15 +527,15 @@ const Microneedle = (props) => {
               style={{ display: microneedleInCart ? "none" : "block" }}
               color={
                 bacialInCart |
-                cbdInCart |
-                chemicalPeelInCart |
-                calmInCart |
-                dermaplaningInCart |
-                clarifyInCart |
-                glowInCart |
-                quenchInCart |
-                quickieInCart |
-                rejuvenateInCart
+                  cbdInCart |
+                  chemicalPeelInCart |
+                  calmInCart |
+                  dermaplaningInCart |
+                  clarifyInCart |
+                  glowInCart |
+                  quenchInCart |
+                  quickieInCart |
+                  rejuvenateInCart || unsureInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -662,6 +665,15 @@ const Microneedle = (props) => {
                       transition: "ease all 0.5s",
                     }}
                   >
+                    <FontAwesomeIcon
+                      icon={faGem}
+                      className="facial_advanced_treatment_icon"
+                      style={{
+                        color: microneedleToggle
+                          ? "rgb(0, 0, 0)"
+                          : "rgb(111, 111, 111)",
+                      }}
+                    />
                     <Spring
                       from={{ x: 300, fill: "white" }}
                       to={{ x: 0, fill: "rgba(253, 253, 150, 0.3)" }}
@@ -677,6 +689,20 @@ const Microneedle = (props) => {
                                 ? microneedleInCart
                                   ? "rgba(69, 171, 69, 0.6)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      chemicalPeelInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      clarifyInCart |
+                                      glowInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "rgb(201, 201, 201)"
+                                  : "rgb(0, 129, 177)"
+                                : microneedleInCart
+                                ? "rgba(119, 221, 119, 0.6)"
+                                : bacialInCart |
                                     cbdInCart |
                                     chemicalPeelInCart |
                                     calmInCart |
@@ -685,27 +711,27 @@ const Microneedle = (props) => {
                                     glowInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "rgb(201, 201, 201)"
-                                  : "rgb(0, 129, 177)"
-                                : microneedleInCart
-                                ? "rgba(119, 221, 119, 0.6)"
-                                : bacialInCart |
-                                  cbdInCart |
-                                  chemicalPeelInCart |
-                                  calmInCart |
-                                  dermaplaningInCart |
-                                  clarifyInCart |
-                                  glowInCart |
-                                  quenchInCart |
-                                  quickieInCart |
-                                  rejuvenateInCart
+                                    rejuvenateInCart || unsureInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? microneedleInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      chemicalPeelInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      clarifyInCart |
+                                      glowInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "1px solid transparent"
+                                  : "1px solid rgb(0, 129, 177)"
+                                : microneedleInCart
+                                ? "1px solid rgb(69, 171, 69, 0.8)"
+                                : bacialInCart |
                                     cbdInCart |
                                     chemicalPeelInCart |
                                     calmInCart |
@@ -714,27 +740,27 @@ const Microneedle = (props) => {
                                     glowInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "1px solid transparent"
-                                  : "1px solid rgb(0, 129, 177)"
-                                : microneedleInCart
-                                ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : bacialInCart |
-                                  cbdInCart |
-                                  chemicalPeelInCart |
-                                  calmInCart |
-                                  dermaplaningInCart |
-                                  clarifyInCart |
-                                  glowInCart |
-                                  quenchInCart |
-                                  quickieInCart |
-                                  rejuvenateInCart
+                                    rejuvenateInCart || unsureInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? microneedleInCart
                                   ? "rgb(0, 0, 0)"
                                   : bacialInCart |
+                                      cbdInCart |
+                                      chemicalPeelInCart |
+                                      calmInCart |
+                                      dermaplaningInCart |
+                                      clarifyInCart |
+                                      glowInCart |
+                                      quenchInCart |
+                                      quickieInCart |
+                                      rejuvenateInCart || unsureInCart
+                                  ? "rgb(141, 141, 141)"
+                                  : "rgb(255, 255, 255)"
+                                : microneedleInCart
+                                ? "rgb(0, 0, 0)"
+                                : bacialInCart |
                                     cbdInCart |
                                     chemicalPeelInCart |
                                     calmInCart |
@@ -743,12 +769,11 @@ const Microneedle = (props) => {
                                     glowInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart
-                                  ? "rgb(141, 141, 141)"
-                                  : "rgb(255, 255, 255)"
-                                : microneedleInCart
-                                ? "rgb(0, 0, 0)"
-                                : bacialInCart |
+                                    rejuvenateInCart || unsureInCart
+                                ? "rgb(141, 141, 141)"
+                                : "rgb(0, 129, 177)",
+                              cursor:
+                                bacialInCart |
                                   cbdInCart |
                                   chemicalPeelInCart |
                                   calmInCart |
@@ -757,20 +782,7 @@ const Microneedle = (props) => {
                                   glowInCart |
                                   quenchInCart |
                                   quickieInCart |
-                                  rejuvenateInCart
-                                ? "rgb(141, 141, 141)"
-                                : "rgb(0, 129, 177)",
-                              cursor:
-                                bacialInCart |
-                                cbdInCart |
-                                chemicalPeelInCart |
-                                calmInCart |
-                                dermaplaningInCart |
-                                clarifyInCart |
-                                glowInCart |
-                                quenchInCart |
-                                quickieInCart |
-                                rejuvenateInCart
+                                  rejuvenateInCart || unsureInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",
@@ -839,6 +851,16 @@ const Microneedle = (props) => {
                         </>
                       )}
                     </Spring>
+                    <p
+                      className="facial_advanced_treatment_designation"
+                      style={{
+                        color: microneedleToggle
+                          ? "rgb(0, 0, 0)"
+                          : "rgb(111, 111, 111)",
+                      }}
+                    >
+                      Advanced Treatment
+                    </p>
                     <div
                       className="card_border_right"
                       style={{

@@ -72,6 +72,7 @@ import ACTION_AVAILABILITY_RESET from "../../actions/AvailabilityClicked/ACTION_
 import ACTION_APPOINTMENT_END_TIME_RESET from "../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME_RESET";
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import UnsureSummaryCard from "./SummaryReviewCards/Treatments/UnsureSummaryCard";
 
 const ConfirmationPage = () => {
   let location = useLocation();
@@ -131,7 +132,7 @@ const ConfirmationPage = () => {
   const [addAppointment, { loading: appLoading }] = useMutation(
     addAppointmentMutation
   );
-  console.log(bookedWithCardID);
+
   useEffect(() => {
     if (userAuthenticated) {
       getClient({
@@ -225,6 +226,7 @@ const ConfirmationPage = () => {
     { name: "CBD", component: <CBDSummaryCard /> },
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
+    { name: "Unsure", component: <UnsureSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [

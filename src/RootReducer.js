@@ -231,6 +231,8 @@ import adminConfirmNewPasswordInvalidReducer from "./reducers/Admin/AdminLogin/A
 import adminNewPasswordValidReducer from "./reducers/Admin/AdminLogin/AdminNewPassword/Valid/adminNewPasswordValidReducer";
 import adminConfirmNewPasswordValidReducer from "./reducers/Admin/AdminLogin/AdminConfirmNewPassword/Valid/adminConfirmNewPasswordValidReducer";
 import adminAuthenticatedReducer from "./reducers/Admin/AdminLogin/AdminAuthenticated/adminAuthenticatedReducer";
+import unsurePopUpTriggeredReducer from "./reducers/UnsurePopUp/unsurePopUpReducer";
+import unsureInCartReducer from "./reducers/InCart/Treatments/Unsure/unsureInCartReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -271,6 +273,8 @@ const RootReducer = combineReducers({
   quenchInCart: quenchInCartReducer,
   quickieInCart: quickieInCartReducer,
   rejuvenateInCart: rejuvenateInCartReducer,
+  unsurePopUpTriggered: unsurePopUpTriggeredReducer,
+  unsureInCart: unsureInCartReducer,
   treatmentsArr: treatmentsArrReducer,
 
   // Add-Ons
