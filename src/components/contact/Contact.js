@@ -161,7 +161,10 @@ const Contact = React.forwardRef((props, ref) => {
                     </div>
                   </div>
                 </div>
-                <Footer />
+                <Footer
+                  currentScreenSize={props.currentScreenSize}
+                  initialScreenSize={props.initialScreenSize}
+                />
               </div>
             )}
           </Spring>

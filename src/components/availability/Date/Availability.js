@@ -27,8 +27,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "react-calendar";
 import "./Availability.css";
+import ACTION_CART_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
+import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
 
-const Availability = () => {
+const Availability = (props) => {
   let location = useLocation();
   const dispatch = useDispatch();
   const [numberOfWeeks, changeNumberOfWeeks] = useState(null);
@@ -157,7 +159,7 @@ const Availability = () => {
   formatDate();
 
   useEffect(() => {
-    if (location.pathname) {
+    if (location.pathname.includes("availability")) {
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
@@ -444,6 +446,7 @@ const Availability = () => {
   const handleSelectTimeButtonClick = () => {
     if (selectedDay !== "") {
       dispatch(ACTION_SELECT_TIME_ACTIVE());
+      dispatch(ACTION_TIME_PREFERENCE_PAGE_OPENED());
     } else {
       return null;
     }
@@ -453,20 +456,73 @@ const Availability = () => {
     <div className="availability_container">
       {redirectToHome()}
       <div className="availability_container_header">
-        <Link to="/cart">
-          <FontAwesomeIcon
-            className="availability_back_arrow"
-            icon={faChevronLeft}
-          />
-        </Link>
+        {!props.currentScreenSize ? (
+          props.initialScreenSize >= 1200 ? (
+            <div onClick={() => dispatch(ACTION_CART_PAGE_OPENED())}>
+              <FontAwesomeIcon
+                className="availability_back_arrow"
+                icon={faChevronLeft}
+              />
+            </div>
+          ) : (
+            <Link to="/cart">
+              <FontAwesomeIcon
+                className="availability_back_arrow"
+                icon={faChevronLeft}
+              />
+            </Link>
+          )
+        ) : props.currentScreenSize >= 1200 ? (
+          <div onClick={() => dispatch(ACTION_CART_PAGE_OPENED())}>
+            <FontAwesomeIcon
+              className="availability_back_arrow"
+              icon={faChevronLeft}
+            />
+          </div>
+        ) : (
+          <Link to="/cart">
+            <FontAwesomeIcon
+              className="availability_back_arrow"
+              icon={faChevronLeft}
+            />
+          </Link>
+        )}
         <h1>AVAILABILITY</h1>
-        <Link to={(location) => `${location.pathname}/timepreference`}>
-          <FontAwesomeIcon
-            className="availability_forward_arrow"
-            style={{ display: selectTimeActive ? "block" : "none" }}
-            icon={faChevronRight}
-          />
-        </Link>
+        {!props.currentScreenSize ? (
+          props.initialScreenSize >= 1200 ? (
+            <div onClick={() => dispatch(ACTION_TIME_PREFERENCE_PAGE_OPENED())}>
+              <FontAwesomeIcon
+                className="availability_forward_arrow"
+                icon={faChevronRight}
+                style={{ display: selectTimeActive ? "block" : "none" }}
+              />
+            </div>
+          ) : (
+            <Link to={(location) => `${location.pathname}/timepreference`}>
+              <FontAwesomeIcon
+                className="availability_forward_arrow"
+                style={{ display: selectTimeActive ? "block" : "none" }}
+                icon={faChevronRight}
+              />
+            </Link>
+          )
+        ) : props.currentScreenSize >= 1200 ? (
+          <div onClick={() => dispatch(ACTION_TIME_PREFERENCE_PAGE_OPENED())}>
+            <FontAwesomeIcon
+              className="availability_forward_arrow"
+              icon={faChevronRight}
+              style={{ display: selectTimeActive ? "block" : "none" }}
+            />
+          </div>
+        ) : (
+          <Link to={(location) => `${location.pathname}/timepreference`}>
+            <FontAwesomeIcon
+              className="availability_forward_arrow"
+              style={{ display: selectTimeActive ? "block" : "none" }}
+              icon={faChevronRight}
+            />
+          </Link>
+        )}
       </div>
       <div className="select_a_date_header">
         <h2>SELECT A DATE</h2>
@@ -501,7 +557,21 @@ const Availability = () => {
         onClickDay={(value) => handleValueClick(value)}
       />
       <Link
-        to={(location) => `${location.pathname}/timepreference`}
+        to={(location) => {
+          if (!props.currentScreenSize) {
+            if (props.initialScreenSize >= 1200) {
+              return "/";
+            } else {
+              return `${location.pathname}/timepreference`;
+            }
+          } else {
+            if (props.currentScreenSize >= 1200) {
+              return "/";
+            } else {
+              return `${location.pathname}/timepreference`;
+            }
+          }
+        }}
         style={{
           display: "block",
           pointerEvents: selectedDay !== "" ? "auto" : "none",

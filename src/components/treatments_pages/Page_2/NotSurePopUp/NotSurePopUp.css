@@ -38,3 +38,40 @@
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .unsure_popup_buttons_container {
+    padding-top: 1rem;
+  }
+
+  .unsure_popup_not_sure_button,
+  .unsure_popup_dismiss_button {
+    font-size: 1.5rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .unsure_popup_not_sure_button {
+    background: rgb(74, 74, 82);
+  }
+
+  .unsure_popup_not_sure_button:hover {
+    background: rgb(44, 44, 52);
+    transition: all 0.5s ease;
+  }
+
+  .unsure_popup_not_sure_button {
+    margin-right: 3rem;
+  }
+
+  .unsure_popup_dismiss_button {
+    margin-left: 3rem;
+    border: 2px solid rgb(74, 74, 82);
+  }
+
+  .unsure_popup_dismiss_button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.5s ease;
+  }
+}

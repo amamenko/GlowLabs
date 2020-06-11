@@ -93,6 +93,7 @@
   font-weight: 600;
   color: rgb(0, 129, 177);
   padding-right: 1.5rem;
+  cursor: pointer;
 }
 
 .time_of_day_heading {
@@ -127,6 +128,7 @@
   padding-right: 1rem;
   margin-top: 2vh;
   margin-right: 0.275rem;
+  cursor: pointer;
 }
 
 .time_preference_bottom_buttons_container {
@@ -151,7 +153,7 @@
   font-weight: 500;
   font-size: 1rem;
   padding: 0.8rem;
-  background: rgb(165, 138, 127);
+  background: rgb(44, 44, 52);
   border-radius: 30px;
   color: white;
 }
@@ -172,4 +174,78 @@
   border-radius: 30px;
   color: rgb(44, 44, 52);
   margin-top: 1.5rem;
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .select_time_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .select_time_forward_arrow,
+  .select_time_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .select_time_back_arrow {
+    left: 3.1rem;
+  }
+
+  .select_time_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .select_a_time_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .time_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .time_of_day_card_show_more {
+    font-size: 1.5rem;
+    padding-right: 3.1rem;
+  }
+
+  .time_of_day_heading {
+    font-size: 2rem;
+    padding-left: 3.1rem;
+  }
+
+  .inner_times_wrapper {
+    width: 101%;
+    flex-wrap: wrap;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    padding-bottom: 1.5rem;
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .inner_times_wrapper p {
+    font-size: 2rem;
+  }
+
+  .individual_time_wrapper {
+    transition: background 0.5s ease;
+  }
+
+  .time_preference_continue_button,
+  .change_date_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .time_preference_bottom_buttons_container {
+    position: relative;
+    padding-bottom: 0vh;
+  }
 }

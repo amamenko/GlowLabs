@@ -110,4 +110,29 @@ select {
     padding-bottom: 0.4rem;
     margin-right: 1.5rem;
   }
+
+  .shopping_cart_card_description h3 {
+    font-size: 2rem;
+  }
+
+  .shopping_cart_duration {
+    font-size: 1.25rem;
+  }
+
+  .shopping_cart_price {
+    font-size: 2.5rem;
+  }
+
+  .shopping_cart_remove_button {
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    margin-right: 3.1rem;
+  }
+
+  .book_a_facial_statement {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
 }

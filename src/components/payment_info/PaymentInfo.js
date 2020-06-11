@@ -35,6 +35,9 @@ import ACTION_SQUARE_CUSTOMER_ID_RESET from "../../actions/PaymentInfo/SquareCus
 import ACTION_SQUARE_CUSTOMER_ID from "../../actions/PaymentInfo/SquareCustomerID/ACTION_SQUARE_CUSTOMER_ID";
 import ACTION_BOOKED_WITH_CARD_ID_RESET from "../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID_RESET";
 import ACTION_BOOKED_WITH_CARD_ID from "../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID";
+import ACTION_CONFIRMATION_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CONFIRMATION_PAGE_OPENED";
+import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
+import ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
 
 const PaymentInfo = (props) => {
   const dispatch = useDispatch();
@@ -174,7 +177,6 @@ const PaymentInfo = (props) => {
               dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
               dispatch(ACTION_SQUARE_CUSTOMER_ID_RESET());
             };
-            console.log("NOOOOOOOOOO");
             deleteCustomerData();
           }
         }, 500);
@@ -202,15 +204,40 @@ const PaymentInfo = (props) => {
 
   useEffect(() => {
     if (!squareFormLoading) {
-      window.scrollTo(0, 0);
+      if (!props.currentScreenSize) {
+        if (!props.initialScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        } else {
+          window.scrollTo(0, props.largeScreenFrozenScrollPosition);
+        }
+      } else {
+        if (!props.currentScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        } else {
+          window.scrollTo(0, props.largeScreenFrozenScrollPosition);
+        }
+      }
     }
-  }, [squareFormLoading]);
+  }, [
+    squareFormLoading,
+    props.currentScreenSize,
+    props.initialScreenSize,
+    props.largeScreenFrozenScrollPosition,
+  ]);
 
   useEffect(() => {
     if (location.pathname) {
-      window.scrollTo(0, 0);
+      if (!props.currentScreenSize) {
+        if (!props.initialScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        }
+      } else {
+        if (!props.currentScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        }
+      }
     }
-  }, [location]);
+  }, [location, props.currentScreenSize, props.initialScreenSize]);
 
   const override = css`
     display: block;
@@ -608,7 +635,7 @@ const PaymentInfo = (props) => {
               )[0];
 
               dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
-              console.log(matchedDuplicateCard);
+
               if (saveCardChecked) {
                 if (userAuthenticated) {
                   if (
@@ -730,7 +757,21 @@ const PaymentInfo = (props) => {
 
   const redirectToCheckout = () => {
     if (successfulCardNonce) {
-      return <Redirect to="/checkout/confirmation" />;
+      if (!props.currentScreenSize) {
+        if (props.initialScreenSize >= 1200) {
+          dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
+        } else {
+          dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
+          return <Redirect to="/checkout/confirmation" />;
+        }
+      } else {
+        if (props.currentScreenSize >= 1200) {
+          dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
+        } else {
+          dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
+          return <Redirect to="/checkout/confirmation" />;
+        }
+      }
     }
   };
 
@@ -805,14 +846,14 @@ const PaymentInfo = (props) => {
             width={
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800
-                  ? "2rem"
+                  ? "1.5rem"
                   : props.initialScreenSize >= 1600
                   ? "1rem"
                   : props.initialScreenSize >= 1200
                   ? "0.5rem"
                   : "100%"
                 : props.currentScreenSize >= 1800
-                ? "2rem"
+                ? "1.5rem"
                 : props.currentScreenSize >= 1600
                 ? "1rem"
                 : props.currentScreenSize >= 1200
@@ -844,7 +885,7 @@ const PaymentInfo = (props) => {
               marginTop:
                 props.currentScreenSize === ""
                   ? props.initialScreenSize >= 1800
-                    ? "-0.2rem"
+                    ? "-0.5rem"
                     : props.initialScreenSize >= 1600
                     ? "-0.2rem"
                     : props.initialScreenSize >= 1200
@@ -853,7 +894,7 @@ const PaymentInfo = (props) => {
                     ? "-0.5rem"
                     : "0rem"
                   : props.currentScreenSize >= 1800
-                  ? "-0.2rem"
+                  ? "-0.5rem"
                   : props.currentScreenSize >= 1600
                   ? "-0.2rem"
                   : props.currentScreenSize >= 1200
@@ -906,7 +947,36 @@ const PaymentInfo = (props) => {
       </Modal>
       <div className="payment_info_container_header">
         <Link
-          to={userAuthenticated ? "/availability/timepreference" : "/checkout"}
+          to={() => {
+            if (!props.currentScreenSize) {
+              if (props.initialScreenSize >= 1200) {
+                return "/";
+              } else {
+                if (userAuthenticated) {
+                  return "/availability/timepreference";
+                } else {
+                  return "/checkout";
+                }
+              }
+            } else {
+              if (props.currentScreenSize >= 1200) {
+                return "/";
+              } else {
+                if (userAuthenticated) {
+                  return "/availability/timepreference";
+                } else {
+                  return "/checkout";
+                }
+              }
+            }
+          }}
+          onClick={() => {
+            if (userAuthenticated) {
+              dispatch(ACTION_TIME_PREFERENCE_PAGE_OPENED());
+            } else {
+              dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED());
+            }
+          }}
         >
           <FontAwesomeIcon
             className="payment_info_back_arrow"
@@ -915,7 +985,26 @@ const PaymentInfo = (props) => {
         </Link>
         <h1>PAYMENT INFO</h1>
         {userAuthenticated && bookedWithCardID ? (
-          <Link to="/checkout">
+          <Link
+            to={() => {
+              if (!props.currentScreenSize) {
+                if (props.initialScreenSize >= 1200) {
+                  return "/";
+                } else {
+                  return "/checkout/confirmation";
+                }
+              } else {
+                if (props.currentScreenSize >= 1200) {
+                  return "/";
+                } else {
+                  return "/checkout/confirmation";
+                }
+              }
+            }}
+            onClick={() => {
+              dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
+            }}
+          >
             <FontAwesomeIcon
               className="payment_info_forward_arrow"
               icon={faChevronRight}
@@ -1206,7 +1295,21 @@ const PaymentInfo = (props) => {
           (!selectedCreditCard.name &&
             (!cardHolderFirstName || !cardHolderLastName)) ? (
             <Link
-              to="/checkout/confirmation"
+              to={() => {
+                if (!props.currentScreenSize) {
+                  if (props.initialScreenSize >= 1200) {
+                    return "/";
+                  } else {
+                    return "/checkout/confirmation";
+                  }
+                } else {
+                  if (props.currentScreenSize >= 1200) {
+                    return "/";
+                  } else {
+                    return "/checkout/confirmation";
+                  }
+                }
+              }}
               style={{
                 display: "block",
                 pointerEvents:
@@ -1214,6 +1317,7 @@ const PaymentInfo = (props) => {
                   (!cardHolderFirstName || !cardHolderLastName)
                     ? "none"
                     : "auto",
+                cursor: "pointer",
               }}
               onClick={() => {
                 if (userAuthenticated) {
@@ -1221,6 +1325,7 @@ const PaymentInfo = (props) => {
                     dispatch(
                       ACTION_BOOKED_WITH_CARD_ID(selectedCreditCardFullData.id)
                     );
+                    dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
                   }
                 }
               }}
@@ -1228,7 +1333,7 @@ const PaymentInfo = (props) => {
               <div className="sq-creditcard">Submit Card Information</div>
             </Link>
           ) : (
-            <CreditCardSubmitButton>
+            <CreditCardSubmitButton style={{ cursor: "pointer" }}>
               Submit Card Information
             </CreditCardSubmitButton>
           )}

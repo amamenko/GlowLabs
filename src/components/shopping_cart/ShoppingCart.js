@@ -35,8 +35,9 @@ import NoFacialSelected from "./Treatment_Cards/NoFacialSelected";
 import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import { FormGroup, Input } from "reactstrap";
 import UnsureCard from "./Treatment_Cards/Unsure/UnsureCard";
+import ACTION_AVAILABILITY_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
 
-const ShoppingCart = () => {
+const ShoppingCart = (props) => {
   const dispatch = useDispatch();
   let location = useLocation();
 
@@ -87,6 +88,7 @@ const ShoppingCart = () => {
   };
 
   const availabilityHasBeenClicked = () => {
+    dispatch(ACTION_AVAILABILITY_PAGE_OPENED());
     if (!availabilityClicked) {
       dispatch(ACTION_AVAILABILITY_CLICKED());
       document.body.style.setProperty("background", "rgb(255, 255, 255)");
@@ -189,7 +191,11 @@ const ShoppingCart = () => {
     }
   }, [addOnsArr, treatmentsArr, dispatch]);
 
-  calculateSubtotal();
+  useEffect(() => {
+    if (!totalPrice) {
+      calculateSubtotal();
+    }
+  }, [totalPrice, calculateSubtotal]);
 
   useEffect(() => {
     if (location.pathname.includes("cart")) {
@@ -213,7 +219,26 @@ const ShoppingCart = () => {
           />
         </Link>
         <h1>MY CART</h1>
-        <Link to="/availability">
+        <Link
+          to={
+            !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? "/"
+                : "/availability"
+              : props.currentScreenSize >= 1200
+              ? "/"
+              : "/availability"
+          }
+          onClick={() =>
+            !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? dispatch(ACTION_AVAILABILITY_PAGE_OPENED())
+                : null
+              : props.currentScreenSize >= 1200
+              ? dispatch(ACTION_AVAILABILITY_PAGE_OPENED())
+              : null
+          }
+        >
           <FontAwesomeIcon
             className="shopping_cart_forward_arrow"
             style={{ display: availabilityClicked ? "block" : "none" }}
@@ -271,7 +296,15 @@ const ShoppingCart = () => {
         </div>
       )}
       <Link
-        to="/availability"
+        to={
+          !props.currentScreenSize
+            ? props.initialScreenSize >= 1200
+              ? "/"
+              : "/availability"
+            : props.currentScreenSize >= 1200
+            ? "/"
+            : "/availability"
+        }
         onClick={availabilityHasBeenClicked}
         className="search_availability_button_container"
       >

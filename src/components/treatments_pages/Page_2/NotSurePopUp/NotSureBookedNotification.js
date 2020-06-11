@@ -1,5 +1,6 @@
 import React from "react";
 import "./NotSurePopUp.css";
+import "../../../treatments/card_styling.css";
 
 const NotSureBookedNotification = (props) => {
   return (

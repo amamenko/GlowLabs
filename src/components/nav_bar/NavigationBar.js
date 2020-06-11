@@ -15,6 +15,7 @@ import {
 } from "../../graphql/queries/queries";
 import ACTION_LOG_OUT_CLICKED from "../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
 import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
@@ -32,6 +33,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
   );
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
+  const cartPageOpened = useSelector(
+    (state) => state.cartPageOpened.cart_page_opened
+  );
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
@@ -110,9 +114,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
           cartDeactivated();
         } else {
           cartActivated();
+          if (!cartPageOpened) {
+            dispatch(ACTION_CART_PAGE_OPENED());
+          }
         }
       } else {
         cartActivated();
+        if (!cartPageOpened) {
+          dispatch(ACTION_CART_PAGE_OPENED());
+        }
       }
     } else {
       if (props.currentScreenSize >= 1200) {
@@ -120,9 +130,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
           cartDeactivated();
         } else {
           cartActivated();
+          if (!cartPageOpened) {
+            dispatch(ACTION_CART_PAGE_OPENED());
+          }
         }
       } else {
         cartActivated();
+        if (!cartPageOpened) {
+          dispatch(ACTION_CART_PAGE_OPENED());
+        }
       }
     }
   };
@@ -132,6 +148,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
       !location.pathname.includes("/account/clientprofile") ||
       !location.pathname.includes("/admin")
     ) {
+      dispatch(ACTION_CART_IS_NOT_ACTIVE());
       dispatch(ACTION_LOGIN_IS_ACTIVE());
       toast.dismiss();
     }

@@ -42,7 +42,7 @@ const CalmNotification = (props) => {
           id="layer1"
           transform="translate(14.5 -102)"
           strokeMiterlimit="4"
-          fill="rgb(186, 225, 253)"
+          fill="rgba(186, 225, 253, 0.7)"
         >
           <path
             className="calm_icon_path"

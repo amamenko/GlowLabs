@@ -481,6 +481,18 @@
   .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
     font-size: 0.5rem;
   }
+
+  .facial_advanced_treatment_icon {
+    top: auto;
+    bottom: 7rem;
+    left: 0;
+    font-size: 2rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 5rem;
+    font-size: 1.2rem;
+  }
 }
 
 /* CSS for Regular-Sized Desktops */

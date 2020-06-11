@@ -233,6 +233,7 @@ import adminConfirmNewPasswordValidReducer from "./reducers/Admin/AdminLogin/Adm
 import adminAuthenticatedReducer from "./reducers/Admin/AdminLogin/AdminAuthenticated/adminAuthenticatedReducer";
 import unsurePopUpTriggeredReducer from "./reducers/UnsurePopUp/unsurePopUpReducer";
 import unsureInCartReducer from "./reducers/InCart/Treatments/Unsure/unsureInCartReducer";
+import cartPageOpenedReducer from "./reducers/InCart/CartPageOpened/cartPageOpenedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -301,6 +302,7 @@ const RootReducer = combineReducers({
 
   // Cart Reducers
   cartIsActive: cartIsActiveReducer,
+  cartPageOpened: cartPageOpenedReducer,
   availabilityClicked: availabilityClickedReducer,
   selectedDay: selectedDayReducer,
   reformattedDay: reformattedDayReducer,

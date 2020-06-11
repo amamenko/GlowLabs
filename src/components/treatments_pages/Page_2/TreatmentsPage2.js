@@ -110,7 +110,8 @@ const TreatmentsPage2 = (props) => {
         !quenchInCart &&
         !quickieInCart &&
         !rejuvenateInCart &&
-        !unsureInCart
+        !unsureInCart &&
+        !cartIsActive
       ) {
         toast.dismiss();
         toast(
@@ -119,7 +120,7 @@ const TreatmentsPage2 = (props) => {
             initialScreenSize={props.initialScreenSize}
           />,
           {
-            className: "unsure_toast_container",
+            className: "toast_container",
             autoClose: false,
             closeButton: false,
           }

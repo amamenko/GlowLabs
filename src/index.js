@@ -5,6 +5,7 @@ import React, {
   useLayoutEffect,
   useEffect,
   useMemo,
+  useCallback,
 } from "react";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider, useMutation, useQuery } from "@apollo/react-hooks";
@@ -80,6 +81,11 @@ import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN from "./actions/Admin/AdminLogin/Admin
 import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET from "./actions/Admin/AdminLogin/AdminTemporaryDummyToken/ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET";
 import ACTION_ADMIN_AUTHENTICATED from "./actions/Admin/AdminLogin/AdminAuthenticated/ACTION_ADMIN_AUTHENTICATED";
 import ACTION_ADMIN_NOT_AUTHENTICATED from "./actions/Admin/AdminLogin/AdminAuthenticated/ACTION_NOT_AUTHENTICATED";
+import Availability from "./components/availability/Date/Availability";
+import TimePreference from "./components/availability/Time/TimePreference";
+import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import GuestCheckout from "./components/checkout/GuestCheckout";
+import ConfirmationPage from "./components/checkout/ConfirmationPage";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -117,6 +123,12 @@ const App = () => {
     window.pageYOffset
   );
 
+  // Needed for large screen frozen position when cart is toggled due to Square form causing re-rendering
+  const [
+    largeScreenFrozenScrollPosition,
+    changeLargeScreenFrozenScrollPosition,
+  ] = useState("");
+
   const navbarVisible = useSelector(
     (state) => state.navbarIsVisibleReducer.visible
   );
@@ -145,6 +157,10 @@ const App = () => {
   const adminTemporaryDummyToken = useSelector(
     (state) => state.adminTemporaryDummyToken.admin_temporary_dummy_token
   );
+  const cartPageOpened = useSelector(
+    (state) => state.cartPageOpened.cart_page_opened
+  );
+
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
   // For large screen shopping cart slide-in
@@ -526,6 +542,77 @@ const App = () => {
     registerFont();
   }, []);
 
+  useMemo(() => {
+    if (!cartIsActive) {
+      if (largeScreenFrozenScrollPosition !== "") {
+        changeLargeScreenFrozenScrollPosition("");
+      }
+    }
+  }, [
+    cartIsActive,
+    largeScreenFrozenScrollPosition,
+    changeLargeScreenFrozenScrollPosition,
+  ]);
+
+  const shoppingCartConditionalActiveRendering = () => {
+    if (
+      !largeScreenFrozenScrollPosition &&
+      largeScreenFrozenScrollPosition !== 0
+    ) {
+      changeLargeScreenFrozenScrollPosition(window.scrollY);
+    }
+
+    if (!cartPageOpened || cartPageOpened === "Cart") {
+      return (
+        <ShoppingCart
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+        />
+      );
+    } else if (cartPageOpened === "Availability") {
+      return (
+        <Availability
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+        />
+      );
+    } else if (cartPageOpened === "TimePreference") {
+      return (
+        <TimePreference
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+        />
+      );
+    } else if (cartPageOpened === "GuestCheckout") {
+      return (
+        <GuestCheckout
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+        />
+      );
+    } else if (cartPageOpened === "PaymentInfo") {
+      return (
+        <PaymentInfo
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+          getClientData={getClientData ? getClientData : null}
+          clientDataRefetch={clientDataRefetch}
+          largeScreenFrozenScrollPosition={largeScreenFrozenScrollPosition}
+          changeLargeScreenFrozenScrollPosition={
+            changeLargeScreenFrozenScrollPosition
+          }
+        />
+      );
+    } else if (cartPageOpened === "ConfirmationPage") {
+      return (
+        <ConfirmationPage
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
+        />
+      );
+    }
+  };
+
   const largeScreenShoppingCartRender = () => {
     if (!currentScreenSize) {
       if (initialScreenSize >= 1200) {
@@ -546,7 +633,7 @@ const App = () => {
                   style={styleprops}
                   ref={shoppingCartRef}
                 >
-                  <ShoppingCart />
+                  {shoppingCartConditionalActiveRendering()}
                 </div>
               ))
             }
@@ -569,10 +656,7 @@ const App = () => {
                 style={props}
                 ref={shoppingCartRef}
               >
-                <ShoppingCart
-                  currentScreenSize={currentScreenSize}
-                  initialScreenSize={initialScreenSize}
-                />
+                {shoppingCartConditionalActiveRendering()}
               </div>
             ))
           }
@@ -597,20 +681,35 @@ const App = () => {
 
   // Distort background while shopping cart slider is visible
 
-  const renderSlideInShoppingCartContainer = (item) => {
-    return (
-      <div
-        className="large_screen_shopping_cart_full_container"
-        style={{
-          display: cartSlideDelay ? "block" : "none",
-          backdropFilter: cartIsActive ? "blur(30px) brightness(50%)" : "none",
-          transition: "backdropFilter 0.5s ease",
-        }}
-      >
-        {item}
-      </div>
-    );
-  };
+  const renderSlideInShoppingCartContainer = useCallback(
+    (item) => {
+      if (cartIsActive) {
+        return (
+          <div
+            className="large_screen_shopping_cart_full_container"
+            style={{
+              display: cartSlideDelay ? "block" : "none",
+              backdropFilter: cartIsActive
+                ? "blur(30px) brightness(50%)"
+                : "none",
+              transition: "backdropFilter 0.5s ease",
+            }}
+            onClick={(e) => {
+              if (
+                e.target.className ===
+                "large_screen_shopping_cart_full_container"
+              ) {
+                dispatch(ACTION_CART_IS_NOT_ACTIVE());
+              }
+            }}
+          >
+            {item}
+          </div>
+        );
+      }
+    },
+    [cartIsActive, cartSlideDelay, dispatch]
+  );
 
   useEffect(() => {
     const root = document.getElementsByTagName("html")[0];

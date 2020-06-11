@@ -130,6 +130,7 @@ const NotSurePopUp = (props) => {
           <div
             className="unsure_popup_not_sure_button"
             onClick={() => {
+              toast.dismiss();
               dispatch(ACTION_UNSURE_IN_CART());
               dispatch(ACTION_INCREMENT_COUNTER());
               dispatch(ACTION_NAVBAR_IS_VISIBLE());
@@ -139,7 +140,7 @@ const NotSurePopUp = (props) => {
                   currentScreenSize={props.currentScreenSize}
                   initialScreenSize={props.initialScreenSize}
                 />,
-                { autoClose: 5000 }
+                { autoClose: 4000 }
               );
             }}
           >

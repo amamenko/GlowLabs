@@ -73,8 +73,10 @@ import ACTION_APPOINTMENT_END_TIME_RESET from "../../actions/AppointmentEndTime/
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import UnsureSummaryCard from "./SummaryReviewCards/Treatments/UnsureSummaryCard";
+import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
+import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 
-const ConfirmationPage = () => {
+const ConfirmationPage = (props) => {
   let location = useLocation();
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counterReducer.counter);
@@ -151,6 +153,18 @@ const ConfirmationPage = () => {
     left: 25%;
     right: 25%;
   `;
+
+  useEffect(() => {
+    const addOnsPriceArr = addOnsArr.map((x) => x.price);
+    const treatmentsPriceArr = treatmentsArr.map((x) => x.price);
+    const allPricesArr = addOnsPriceArr.concat(treatmentsPriceArr);
+
+    const sum = allPricesArr.reduce((a, b) => a + b, 0);
+
+    if (sum !== totalPrice) {
+      dispatch(ACTION_TOTAL_PRICE(sum));
+    }
+  }, [addOnsArr, dispatch, totalPrice, treatmentsArr]);
 
   const variablesModel = {
     date: reformattedDay,
@@ -243,9 +257,17 @@ const ConfirmationPage = () => {
 
   useEffect(() => {
     if (location.pathname) {
-      window.scrollTo(0, 0);
+      if (!props.currentScreenSize) {
+        if (!props.initialScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        }
+      } else {
+        if (!props.currentScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        }
+      }
     }
-  }, [location.pathname]);
+  }, [location.pathname, props.currentScreenSize, props.initialScreenSize]);
 
   const treatmentsComponentNames = treatmentsArr.map((item) => item.name);
 
@@ -369,7 +391,18 @@ const ConfirmationPage = () => {
     <div className="confirmation_page_container">
       {redirectToHome()}
       <div className="confirmation_page_container_header">
-        <Link to="/paymentinfo">
+        <Link
+          to={
+            !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? "/"
+                : "/paymentinfo"
+              : props.currentScreenSize >= 1200
+              ? "/"
+              : "/paymentinfo"
+          }
+          onClick={() => dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED())}
+        >
           <FontAwesomeIcon
             className="confirmation_page_back_arrow"
             icon={faChevronLeft}
@@ -379,7 +412,9 @@ const ConfirmationPage = () => {
       </div>
       <div className="confirmation_page_header">
         <h2>BOOKING SUMMARY</h2>
-        <h3>{counter} treatments</h3>
+        <h3>
+          {counter} treatment{counter > 1 ? "s" : null}
+        </h3>
       </div>
       <p className="confirmation_page_statement">
         Almost there! Please make sure that the following booking information is
@@ -451,7 +486,17 @@ const ConfirmationPage = () => {
         <p>TOTAL</p>
         <p>${totalPrice}</p>
       </div>
-      <Link to="/checkout/confirmation">
+      <Link
+        to={
+          props.currentScreenSize
+            ? props.initialScreenSize >= 1200
+              ? "/"
+              : "/checkout/confirmation"
+            : props.currentScreenSize >= 1200
+            ? "/"
+            : "/checkout/confirmation"
+        }
+      >
         <div className="book_appointment_button" onClick={handleSubmitBooking}>
           <p>Book Appointment</p>
         </div>

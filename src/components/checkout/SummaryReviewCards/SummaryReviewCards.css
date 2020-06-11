@@ -78,3 +78,23 @@
   font-size: 2.2rem;
   font-weight: 500;
 }
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .summary_card_booking_description_left_section h2 {
+    font-size: 2rem;
+  }
+
+  .summary_card_booking_description_left_section p {
+    font-size: 1.5rem;
+  }
+
+  .summary_card_booking_description_right_section {
+    width: 10vw;
+    margin-right: 3.1rem;
+  }
+
+  .summary_card_booking_description_right_section p {
+    font-size: 3rem;
+  }
+}

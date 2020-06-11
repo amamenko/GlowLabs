@@ -1,8 +1,9 @@
 .contact_page_container {
-  height: 110vh;
+  height: 140vh;
   position: relative;
   background: rgb(255, 255, 255);
-  overflow-x: hidden;
+  overflow: hidden;
+  padding-top: 0vh;
 }
 
 .contacts_title_underline {
@@ -347,13 +348,17 @@
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .contact_page_container {
-    height: 92vh;
+    height: 120vh;
+    position: relative;
+    background: rgb(255, 255, 255);
+    overflow: hidden;
+    padding-top: 3vh;
   }
 
   .contacts_text_container {
     width: 16vw;
     position: absolute;
-    top: 6.1rem;
+    top: 16rem;
     right: 10.5rem;
     z-index: 5;
     border: 1px solid transparent;

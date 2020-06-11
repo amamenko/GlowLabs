@@ -44,6 +44,7 @@ import { BounceLoader } from "react-spinners";
 import { css } from "emotion";
 import { useMutation } from "@apollo/react-hooks";
 import { deleteAppointmentMutation } from "../../../../../graphql/queries/queries";
+import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 
 const UpcomingAppointments = (props) => {
   const dispatch = useDispatch();
@@ -158,6 +159,7 @@ const UpcomingAppointments = (props) => {
     { name: "CBD", component: <CBDSummaryCard /> },
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
+    { name: "Unsure", component: <UnsureSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [

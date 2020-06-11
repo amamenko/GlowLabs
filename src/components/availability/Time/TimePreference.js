@@ -39,8 +39,11 @@ import "./TimePreference.css";
 
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../bootstrap.min.css";
+import ACTION_AVAILABILITY_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
+import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
+import ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
 
-const TimePreference = () => {
+const TimePreference = (props) => {
   const dispatch = useDispatch();
 
   const addOnsArr = useSelector((state) => state.addOnsArr.add_ons_arr);
@@ -100,6 +103,8 @@ const TimePreference = () => {
   const phoneIsInvalid = useSelector(
     (state) => state.phoneIsInvalid.phone_invalid
   );
+
+  const [individualItemHovered, changeIndividualItemHovered] = useState("");
 
   const { data } = useQuery(getAllAppointmentsQuery, {
     fetchPolicy: "no-cache",
@@ -313,7 +318,7 @@ const TimePreference = () => {
     { Sun: "Sunday" },
   ];
 
-  const getFullDayOfTheWeek = () => {
+  const getFullDayOfTheWeek = useCallback(() => {
     if (selectedDay) {
       const dayThreeLetters = selectedDay.toString().slice(0, 3);
 
@@ -324,11 +329,16 @@ const TimePreference = () => {
           fullDayName = daysOfTheWeekArr[i][dayThreeLetters];
         }
       }
-      dispatch(ACTION_DAY_OF_THE_WEEK(fullDayName));
-    }
-  };
 
-  getFullDayOfTheWeek();
+      return fullDayName;
+    }
+  }, [daysOfTheWeekArr, selectedDay]);
+
+  useEffect(() => {
+    if (!dayOfTheWeek) {
+      dispatch(ACTION_DAY_OF_THE_WEEK(getFullDayOfTheWeek()));
+    }
+  }, [dayOfTheWeek, dispatch, getFullDayOfTheWeek]);
 
   const handleMorningCollapse = () => {
     if (morningCollapseIsOpen) {
@@ -551,7 +561,7 @@ const TimePreference = () => {
     dispatch(ACTION_TOTAL_DURATION(totalDurationValue));
   }, [addOnsArr, dispatch, treatmentsArr]);
 
-  const handleAppointmentEndTime = useCallback(() => {
+  useEffect(() => {
     if (selectedTime) {
       let endTotalTime = "";
       let endMinutes =
@@ -595,21 +605,69 @@ const TimePreference = () => {
     }
   }, [selectedTime, totalDuration, dispatch]);
 
-  handleAppointmentEndTime();
-
   return (
     <div className="select_time_container">
       {redirectToHome()}
       <div className="select_time_container_header">
-        <Link to="/availability">
+        <Link
+          to={() => {
+            if (!props.currentScreenSize) {
+              if (props.initialScreenSize >= 1200) {
+                return "/";
+              } else {
+                return "/availability";
+              }
+            } else {
+              if (props.currentScreenSize >= 1200) {
+                return "/";
+              } else {
+                return "/availability";
+              }
+            }
+          }}
+        >
           <FontAwesomeIcon
             className="select_time_back_arrow"
             icon={faChevronLeft}
-            onClick={() => dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET)}
+            onClick={() => {
+              dispatch(ACTION_AVAILABILITY_PAGE_OPENED());
+              dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET);
+            }}
           />
         </Link>
         <h1>AVAILABILITY</h1>
-        <Link to={userAuthenticated ? "/paymentinfo" : "/checkout"}>
+        <Link
+          to={() => {
+            if (!props.currentScreenSize) {
+              if (props.initialScreenSize >= 1200) {
+                return "/";
+              } else {
+                if (userAuthenticated) {
+                  return "/paymentinfo";
+                } else {
+                  return "/checkout";
+                }
+              }
+            } else {
+              if (props.currentScreenSize >= 1200) {
+                return "/";
+              } else {
+                if (userAuthenticated) {
+                  return "/paymentinfo";
+                } else {
+                  return "/checkout";
+                }
+              }
+            }
+          }}
+          onClick={() => {
+            if (userAuthenticated) {
+              dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
+            } else {
+              dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED());
+            }
+          }}
+        >
           <FontAwesomeIcon
             className="select_time_forward_arrow"
             style={{ display: continueToCheckoutButton ? "block" : "none" }}
@@ -621,7 +679,8 @@ const TimePreference = () => {
         <h2>SELECT A TIME</h2>
       </div>
       <p className="time_statement">
-        Choose a time for your appointment on {dayOfTheWeek}, {reformattedDay}.
+        Choose a time for your appointment on {getFullDayOfTheWeek()},{" "}
+        {reformattedDay}.
       </p>
       <div className="time_of_day_selectors_wrapper">
         <div className="time_of_day_card_container">
@@ -643,6 +702,17 @@ const TimePreference = () => {
                   key={i}
                   className="individual_time_wrapper"
                   onClick={handleTimeClick}
+                  onMouseEnter={() =>
+                    changeIndividualItemHovered({
+                      arr: "morningTimesArr",
+                      index: i,
+                    })
+                  }
+                  onMouseLeave={() => {
+                    if (individualItemHovered !== "") {
+                      changeIndividualItemHovered("");
+                    }
+                  }}
                   style={{
                     background:
                       item === selectedTime
@@ -668,6 +738,9 @@ const TimePreference = () => {
                               .utc()
                               .valueOf()
                         ? "#f0f0f0"
+                        : individualItemHovered.arr === "morningTimesArr" &&
+                          individualItemHovered.index === i
+                        ? "rgba(0, 129, 177, 0.4)"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
@@ -718,6 +791,9 @@ const TimePreference = () => {
                               .utc()
                               .valueOf()
                         ? "rgb(201, 201, 201)"
+                        : individualItemHovered.arr === "morningTimesArr" &&
+                          individualItemHovered.index === i
+                        ? "2px solid rgba(0, 129, 177, 0.4)"
                         : "2px solid rgb(0, 0, 0)",
                     pointerEvents:
                       bookedTimes.includes(item) ||
@@ -769,6 +845,17 @@ const TimePreference = () => {
                   key={i}
                   className="individual_time_wrapper"
                   onClick={handleTimeClick}
+                  onMouseEnter={() =>
+                    changeIndividualItemHovered({
+                      arr: "afternoonTimesArr",
+                      index: i,
+                    })
+                  }
+                  onMouseLeave={() => {
+                    if (individualItemHovered !== "") {
+                      changeIndividualItemHovered("");
+                    }
+                  }}
                   style={{
                     background:
                       item === selectedTime
@@ -794,6 +881,9 @@ const TimePreference = () => {
                               .utc()
                               .valueOf()
                         ? "#f0f0f0"
+                        : individualItemHovered.arr === "afternoonTimesArr" &&
+                          individualItemHovered.index === i
+                        ? "rgba(0, 129, 177, 0.4)"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
@@ -844,6 +934,9 @@ const TimePreference = () => {
                               .utc()
                               .valueOf()
                         ? "rgb(201, 201, 201)"
+                        : individualItemHovered.arr === "afternoonTimesArr" &&
+                          individualItemHovered.index === i
+                        ? "2px solid rgba(0, 129, 177, 0.4)"
                         : "2px solid rgb(0, 0, 0)",
                     pointerEvents:
                       bookedTimes.includes(item) ||
@@ -895,6 +988,17 @@ const TimePreference = () => {
                   key={i}
                   className="individual_time_wrapper"
                   onClick={handleTimeClick}
+                  onMouseEnter={() =>
+                    changeIndividualItemHovered({
+                      arr: "lateAfternoonTimesArr",
+                      index: i,
+                    })
+                  }
+                  onMouseLeave={() => {
+                    if (individualItemHovered !== "") {
+                      changeIndividualItemHovered("");
+                    }
+                  }}
                   style={{
                     opacity:
                       dayOfTheWeek === "Friday"
@@ -974,6 +1078,10 @@ const TimePreference = () => {
                               .utc()
                               .valueOf()
                         ? "#f0f0f0"
+                        : individualItemHovered.arr ===
+                            "lateAfternoonTimesArr" &&
+                          individualItemHovered.index === i
+                        ? "rgba(0, 129, 177, 0.4)"
                         : "rgb(255, 255, 255)",
                     color:
                       item === selectedTime
@@ -1024,6 +1132,10 @@ const TimePreference = () => {
                               .utc()
                               .valueOf()
                         ? "rgb(201, 201, 201)"
+                        : individualItemHovered.arr ===
+                            "lateAfternoonTimesArr" &&
+                          individualItemHovered.index === i
+                        ? "2px solid rgba(0, 129, 177, 0.4)"
                         : "2px solid rgb(0, 0, 0)",
                   }}
                 >
@@ -1053,6 +1165,17 @@ const TimePreference = () => {
                     key={i}
                     className="individual_time_wrapper"
                     onClick={handleTimeClick}
+                    onMouseEnter={() =>
+                      changeIndividualItemHovered({
+                        arr: "eveningTimesArr",
+                        index: i,
+                      })
+                    }
+                    onMouseLeave={() => {
+                      if (individualItemHovered !== "") {
+                        changeIndividualItemHovered("");
+                      }
+                    }}
                     style={{
                       opacity:
                         dayOfTheWeek === "Sunday"
@@ -1132,6 +1255,9 @@ const TimePreference = () => {
                                 .utc()
                                 .valueOf()
                           ? "#f0f0f0"
+                          : individualItemHovered.arr === "eveningTimesArr" &&
+                            individualItemHovered.index === i
+                          ? "rgba(0, 129, 177, 0.4)"
                           : "rgb(255, 255, 255)",
                       color:
                         item === selectedTime
@@ -1182,6 +1308,9 @@ const TimePreference = () => {
                                 .utc()
                                 .valueOf()
                           ? "rgb(201, 201, 201)"
+                          : individualItemHovered.arr === "eveningTimesArr" &&
+                            individualItemHovered.index === i
+                          ? "2px solid rgba(0, 129, 177, 0.4)"
                           : "2px solid rgb(0, 0, 0)",
                     }}
                   >
@@ -1212,7 +1341,29 @@ const TimePreference = () => {
           }}
         >
           <Link
-            to={userAuthenticated ? "/paymentinfo" : "/checkout"}
+            to={() => {
+              if (!props.currentScreenSize) {
+                if (props.initialScreenSize >= 1200) {
+                  return "/";
+                } else {
+                  if (userAuthenticated) {
+                    return "/paymentinfo";
+                  } else {
+                    return "/checkout";
+                  }
+                }
+              } else {
+                if (props.currentScreenSize >= 1200) {
+                  return "/";
+                } else {
+                  if (userAuthenticated) {
+                    return "/paymentinfo";
+                  } else {
+                    return "/checkout";
+                  }
+                }
+              }
+            }}
             style={{
               display: "block",
               pointerEvents: selectedTime !== "" ? "auto" : "none",
@@ -1228,12 +1379,38 @@ const TimePreference = () => {
                   : "rgb(201, 201, 201)",
                 transition: "background 0.5s ease, color 0.5s ease",
               }}
+              onClick={() => {
+                if (userAuthenticated) {
+                  dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
+                } else {
+                  dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED());
+                }
+              }}
             >
               <p>Continue Checkout</p>
             </div>
           </Link>
-          <Link to="/availability">
-            <div className="change_date_button">
+          <Link
+            to={() => {
+              if (!props.currentScreenSize) {
+                if (props.initialScreenSize >= 1200) {
+                  return "/";
+                } else {
+                  return "/availability";
+                }
+              } else {
+                if (props.currentScreenSize >= 1200) {
+                  return "/";
+                } else {
+                  return "/availability";
+                }
+              }
+            }}
+          >
+            <div
+              className="change_date_button"
+              onClick={() => dispatch(ACTION_AVAILABILITY_PAGE_OPENED())}
+            >
               <p>Change Date</p>
             </div>
           </Link>
