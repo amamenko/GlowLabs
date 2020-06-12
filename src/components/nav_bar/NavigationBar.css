@@ -149,8 +149,8 @@
   .navbar_items li {
     display: flex;
     text-decoration: none;
-    font-size: 3rem;
-    margin-bottom: 3rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
     font-weight: 500;
     color: rgb(239, 240, 243);
   }
@@ -202,6 +202,11 @@
   .nav_sign_in_button_small_screen {
     margin-right: 3.2rem;
     font-size: 1rem;
+  }
+
+  .navbar_items li {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -357,10 +362,10 @@
     position: relative;
     font-weight: 600;
     border: 1px solid transparent;
-    border-radius: 20px;
+    border-radius: 30px;
     margin-top: -0.1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 2.8rem;
+    padding-right: 2.8rem;
     margin-left: 0.5rem;
   }
 
@@ -376,12 +381,19 @@
 
   .sign_in_user_icon {
     display: inline-block;
+    margin-right: 0.2rem;
   }
 
   .shopping_cart_large_screen {
     width: 80%;
     position: relative;
     font-size: 5rem;
+  }
+
+  .nav_bar_profile_picture_thumbnail {
+    height: 2rem;
+    width: 2rem;
+    margin-top: 0.5rem;
   }
 
   .shopping_cart_large_screen:hover {

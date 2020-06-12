@@ -110,9 +110,6 @@
   font: 400 16px system-ui;
   font-weight: 500;
   padding: 19px;
-  color: #373f4a;
-  background-color: transparent;
-  line-height: 24px;
   -webkit-font-smoothing: antialiased;
   color: #373f4a;
   background-color: transparent;
@@ -187,7 +184,6 @@ select {
 
 .sq-creditcard {
   display: flex;
-  height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;

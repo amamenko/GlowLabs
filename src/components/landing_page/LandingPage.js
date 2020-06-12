@@ -266,7 +266,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       } else {
         if (window.scrollY <= 50) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
-        } else if (window.scrollY >= 7100) {
+        } else if (window.scrollY >= 7500) {
           document.body.style.setProperty("background", "rgb(0, 129, 177)");
         } else {
           document.body.style.setProperty("background", "rgb(255, 255, 255)");
@@ -556,35 +556,35 @@ const LandingPage = React.forwardRef((props, ref) => {
                           : `${styleprops.opacity}`,
                         marginTop: lineRenderScroll
                           ? !props.currentScreenSize
-                            ? props.initialScreenSize >= 410
+                            ? props.initialScreenSize >= 414
                               ? "8rem"
                               : props.initialScreenSize >= 360
                               ? "5.5rem"
                               : "4.5rem"
-                            : props.currentScreenSize >= 410
+                            : props.currentScreenSize >= 414
                             ? "8rem"
                             : props.currentScreenSize >= 360
                             ? "5.5rem"
                             : "4.5rem"
                           : CSS.supports(`(-webkit-overflow-scrolling: touch)`)
                           ? !props.currentScreenSize
-                            ? props.initialScreenSize >= 410
+                            ? props.initialScreenSize >= 414
                               ? "8rem"
                               : props.initialScreenSize >= 360
                               ? "5.5rem"
                               : "4.5rem"
-                            : props.currentScreenSize >= 410
+                            : props.currentScreenSize >= 414
                             ? "8rem"
                             : props.currentScreenSize >= 360
                             ? "5.5rem"
                             : "4.5rem"
                           : !props.currentScreenSize
-                          ? props.initialScreenSize >= 410
+                          ? props.initialScreenSize >= 414
                             ? "1.5rem"
                             : props.initialScreenSize >= 360
                             ? "1.2rem"
                             : "1rem"
-                          : props.currentScreenSize >= 410
+                          : props.currentScreenSize >= 414
                           ? "1.5rem"
                           : props.currentScreenSize >= 360
                           ? "1.2rem"
@@ -643,6 +643,60 @@ const LandingPage = React.forwardRef((props, ref) => {
                       <FontAwesomeIcon
                         className="landing_page_bottom_icon"
                         icon={faChevronDown}
+                        style={{
+                          marginTop: !props.currentScreenSize
+                            ? props.initialScreenSize >= 414
+                              ? lineRenderScroll
+                                ? isSafari
+                                  ? "1.5rem"
+                                  : "-0.5rem"
+                                : isSafari
+                                ? "-5rem"
+                                : "0rem"
+                              : props.initialScreenSize >= 400
+                              ? lineRenderScroll
+                                ? "2rem"
+                                : "1.5rem"
+                              : props.initialScreenSize >= 375
+                              ? lineRenderScroll
+                                ? "0.2rem"
+                                : "1.5rem"
+                              : props.initialScreenSize >= 360
+                              ? lineRenderScroll
+                                ? "-1rem"
+                                : "1.5rem"
+                              : props.initialScreenSize >= 300
+                              ? lineRenderScroll
+                                ? "0rem"
+                                : "1.5rem"
+                              : "1rem"
+                            : props.currentScreenSize >= 414
+                            ? lineRenderScroll
+                              ? isSafari
+                                ? "1.5rem"
+                                : "-0.5rem"
+                              : isSafari
+                              ? "-5rem"
+                              : "0rem"
+                            : props.currentScreenSize >= 400
+                            ? lineRenderScroll
+                              ? "2rem"
+                              : "1.5rem"
+                            : props.currentScreenSize >= 375
+                            ? lineRenderScroll
+                              ? "0.2rem"
+                              : "1.5rem"
+                            : props.currentScreenSize >= 360
+                            ? lineRenderScroll
+                              ? "-1rem"
+                              : "1.5rem"
+                            : props.currentScreenSize >= 300
+                            ? lineRenderScroll
+                              ? "0rem"
+                              : "1.5rem"
+                            : "1rem",
+                          opacity: splashScreenComplete ? 1 : 0,
+                        }}
                       />
                     </div>
                   </div>

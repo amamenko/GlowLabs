@@ -728,55 +728,85 @@ const NavigationBar = React.forwardRef((props, ref) => {
             }}
           >
             <Link
-              to="/login"
-              style={{
-                color:
-                  props.currentScreenSize === ""
-                    ? props.initialScreenSize >= 1200
-                      ? window.scrollY <= 1
-                        ? cartIsActive
-                          ? "rgb(44, 44, 52)"
-                          : "rgb(239, 240, 243)"
-                        : "rgb(44, 44, 52)"
-                      : "rgb(44, 44, 52)"
-                    : props.currentScreenSize >= 1200
-                    ? window.scrollY <= 1
-                      ? cartIsActive
-                        ? "rgb(44, 44, 52)"
-                        : "rgb(239, 240, 243)"
-                      : "rgb(44, 44, 52)"
-                    : "rgb(44, 44, 52)",
-              }}
+              to={
+                location.pathname.includes("/account/clientprofile")
+                  ? location.pathname
+                  : location.pathname.includes("/admin/")
+                  ? location.pathname
+                  : props.adminDummyToken
+                  ? "/admin/menu"
+                  : "/account/login"
+              }
+              onClick={handleLoginClick}
+              style={{ pointerEvents: logoutClicked ? "none" : "auto" }}
             >
-              {userAuthenticated ? (
+              {userAuthenticated || props.adminDummyToken ? (
                 <span className="fa-layers fa-fw letter_circle">
-                  <p>
-                    {data
-                      ? data.client !== null
-                        ? data.client.firstName[0].toUpperCase()
-                        : ""
-                      : ""}
+                  <p
+                    style={{
+                      color:
+                        props.currentScreenSize === ""
+                          ? props.initialScreenSize >= 600
+                            ? window.scrollY <= 1
+                              ? cartIsActive
+                                ? "rgb(239, 240, 243)"
+                                : "rgb(44, 44, 52)"
+                              : "rgb(44, 44, 52)"
+                            : "rgb(239, 240, 243)"
+                          : props.currentScreenSize >= 600
+                          ? window.scrollY <= 1
+                            ? cartIsActive
+                              ? "rgb(239, 240, 243)"
+                              : "rgb(44, 44, 52)"
+                            : "rgb(44, 44, 52)"
+                          : "rgb(239, 240, 243)",
+                      marginLeft: "0rem",
+                    }}
+                  >
+                    {getEmployeeData
+                      ? getEmployeeData.employee
+                        ? getEmployeeData.employee.firstName
+                          ? getEmployeeData.employee.firstName[0].toUpperCase()
+                          : clientNavbarCircleRender()
+                        : clientNavbarCircleRender()
+                      : clientNavbarCircleRender()}
                   </p>
                   <FontAwesomeIcon
                     icon={faCircle}
+                    style={{
+                      color:
+                        props.currentScreenSize === ""
+                          ? props.initialScreenSize >= 600
+                            ? window.scrollY <= 1
+                              ? cartIsActive
+                                ? "rgb(44, 44, 52)"
+                                : "rgb(239, 240, 243)"
+                              : "rgb(44, 44, 52)"
+                            : "rgb(44, 44, 52)"
+                          : props.currentScreenSize >= 600
+                          ? window.scrollY <= 1
+                            ? cartIsActive
+                              ? "rgb(44, 44, 52)"
+                              : "rgb(239, 240, 243)"
+                            : "rgb(44, 44, 52)"
+                          : "rgb(44, 44, 52)",
+                    }}
                     className="sign_in_circle_icon"
                   />
                 </span>
               ) : (
                 <FontAwesomeIcon
-                  icon={faUser}
-                  className="sign_in_user_icon"
                   style={{
                     color:
                       props.currentScreenSize === ""
-                        ? props.initialScreenSize >= 1200
+                        ? props.initialScreenSize >= 600
                           ? window.scrollY <= 1
                             ? cartIsActive
                               ? "rgb(44, 44, 52)"
                               : "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
                           : "rgb(44, 44, 52)"
-                        : props.currentScreenSize >= 1200
+                        : props.currentScreenSize >= 600
                         ? window.scrollY <= 1
                           ? cartIsActive
                             ? "rgb(44, 44, 52)"
@@ -784,15 +814,46 @@ const NavigationBar = React.forwardRef((props, ref) => {
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)",
                   }}
+                  icon={faUser}
+                  className="sign_in_user_icon"
                 />
               )}
-              <p>
-                {location.pathname.includes("/account/clientprofile")
-                  ? userAuthenticated
+              <p
+                style={{
+                  color:
+                    props.currentScreenSize === ""
+                      ? props.initialScreenSize >= 600
+                        ? window.scrollY <= 1
+                          ? cartIsActive
+                            ? "rgb(44, 44, 52)"
+                            : "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
+                        : "rgb(44, 44, 52)"
+                      : props.currentScreenSize >= 600
+                      ? window.scrollY <= 1
+                        ? cartIsActive
+                          ? "rgb(44, 44, 52)"
+                          : "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
+                      : "rgb(44, 44, 52)",
+                  marginLeft: dummyToken
+                    ? dummyToken.picture
+                      ? "0.5rem"
+                      : "1.5rem"
+                    : props.adminDummyToken
+                    ? "1.5rem"
+                    : "0.5rem",
+                }}
+              >
+                {location.pathname.includes("/account/clientprofile") ||
+                location.pathname.includes("/admin")
+                  ? userAuthenticated || props.adminDummyToken
                     ? "Log Out"
                     : "Log In"
                   : userAuthenticated
                   ? "Menu"
+                  : props.adminDummyToken
+                  ? "Admin"
                   : "Log In"}
               </p>
             </Link>

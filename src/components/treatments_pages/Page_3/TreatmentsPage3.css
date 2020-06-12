@@ -22,6 +22,14 @@
   }
 }
 
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .treatments_page_3_container {
+    row-gap: 4vh;
+    margin-top: 2.5vh;
+  }
+}
+
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .treatments_page_3_container {

@@ -120,3 +120,78 @@
 .login_redirect_button p {
   color: rgb(44, 44, 52);
 }
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .sign_up_page_background {
+    width: 100%;
+    height: 100%;
+    background: rgb(154, 154, 162);
+  }
+
+  .sign_up_page_container {
+    height: 100vh;
+    width: 25%;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+
+  .sign_up_logo_container {
+    height: 60%;
+    width: 100%;
+    top: -22vh;
+  }
+
+  .sign_up_content_container {
+    height: 70%;
+    width: 100%;
+    justify-content: flex-end;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .sign_up_prompt {
+    font-size: 2rem;
+    padding-top: 2em;
+    padding-bottom: 3rem;
+    top: -2.5vh;
+  }
+
+  .sign_up_page_form {
+    padding-top: 10vh;
+    padding-bottom: 1vh;
+  }
+
+  .signup_page_bottom_buttons_container {
+    padding-bottom: 0vh;
+  }
+
+  .sign_up_individual_form_field {
+    margin-bottom: 1rem;
+  }
+
+  .login_redirect_button,
+  .create_account_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .input_field_login {
+    font-size: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .create_account_button {
+    margin-bottom: -5vh;
+  }
+
+  .already_have_an_account_question {
+    font-size: 1.5rem;
+    margin-bottom: -4vh;
+  }
+
+  .sign_up_required_fields {
+    padding-right: 13rem;
+  }
+}

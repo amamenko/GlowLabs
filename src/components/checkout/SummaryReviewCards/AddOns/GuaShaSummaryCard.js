@@ -2,7 +2,7 @@ import React from "react";
 import "../SummaryReviewCards.css";
 import { useLocation } from "react-router-dom";
 
-const GuaShaSummaryCard = () => {
+const GuaShaSummaryCard = (props) => {
   const location = useLocation();
 
   return (
@@ -15,7 +15,19 @@ const GuaShaSummaryCard = () => {
       }}
     >
       <div className="summary_card_image_circle">
-        <svg width="100%" height="6rem" viewBox="0 0 56.356 56.356">
+        <svg
+          width="100%"
+          height={
+            !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? "10rem"
+                : "6rem"
+              : props.currentScreenSize >= 1200
+              ? "10rem"
+              : "6rem"
+          }
+          viewBox="0 0 56.356 56.356"
+        >
           <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
           <g transform="translate(12 11)">
             <path

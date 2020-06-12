@@ -118,11 +118,27 @@
   }
 }
 
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .instagram_page_wrapping {
+    margin-bottom: -26vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .instagram_page_wrapping {
+    margin-top: 40vh;
+    margin-bottom: 2vh;
+  }
+}
+
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .instagram_page_wrapping {
     height: 85vh;
     margin-top: 10vh;
+    margin-bottom: 0;
   }
 
   .instagram_images_wrapping {
@@ -195,6 +211,7 @@
     height: 10vh;
     padding-top: 5vh;
     padding-bottom: 0vh;
+    margin-bottom: 0vh;
   }
 
   .instagram_images_top_wrapping,

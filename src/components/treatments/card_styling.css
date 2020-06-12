@@ -334,6 +334,35 @@
   .card_description_icon {
     font-size: 0.9rem;
   }
+
+  .facial_advanced_treatment_designation {
+    font-size: 0.8rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-height: 800px) {
+  .card_description_icon {
+    font-size: 0.8rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.8rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.8rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    top: 0.8rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 0.8rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */

@@ -41,7 +41,7 @@ import "./TimePreference.css";
 import "../../../bootstrap.min.css";
 import ACTION_AVAILABILITY_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
 import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
-import ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
+import ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
 
 const TimePreference = (props) => {
   const dispatch = useDispatch();
@@ -664,7 +664,7 @@ const TimePreference = (props) => {
             if (userAuthenticated) {
               dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
             } else {
-              dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED());
+              dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED());
             }
           }}
         >
@@ -702,13 +702,24 @@ const TimePreference = (props) => {
                   key={i}
                   className="individual_time_wrapper"
                   onClick={handleTimeClick}
-                  onMouseEnter={() =>
-                    changeIndividualItemHovered({
-                      arr: "morningTimesArr",
-                      index: i,
-                    })
-                  }
-                  onMouseLeave={() => {
+                  onMouseOver={() => {
+                    if (!props.currentScreenSize) {
+                      if (props.initialScreenSize >= 1200) {
+                        changeIndividualItemHovered({
+                          arr: "morningTimesArr",
+                          index: i,
+                        });
+                      }
+                    } else {
+                      if (props.currentScreenSize >= 1200) {
+                        changeIndividualItemHovered({
+                          arr: "morningTimesArr",
+                          index: i,
+                        });
+                      }
+                    }
+                  }}
+                  onMouseOut={() => {
                     if (individualItemHovered !== "") {
                       changeIndividualItemHovered("");
                     }
@@ -845,13 +856,24 @@ const TimePreference = (props) => {
                   key={i}
                   className="individual_time_wrapper"
                   onClick={handleTimeClick}
-                  onMouseEnter={() =>
-                    changeIndividualItemHovered({
-                      arr: "afternoonTimesArr",
-                      index: i,
-                    })
-                  }
-                  onMouseLeave={() => {
+                  onMouseOver={() => {
+                    if (!props.currentScreenSize) {
+                      if (props.initialScreenSize >= 1200) {
+                        changeIndividualItemHovered({
+                          arr: "afternoonTimesArr",
+                          index: i,
+                        });
+                      }
+                    } else {
+                      if (props.currentScreenSize >= 1200) {
+                        changeIndividualItemHovered({
+                          arr: "afternoonTimesArr",
+                          index: i,
+                        });
+                      }
+                    }
+                  }}
+                  onMouseOut={() => {
                     if (individualItemHovered !== "") {
                       changeIndividualItemHovered("");
                     }
@@ -988,13 +1010,24 @@ const TimePreference = (props) => {
                   key={i}
                   className="individual_time_wrapper"
                   onClick={handleTimeClick}
-                  onMouseEnter={() =>
-                    changeIndividualItemHovered({
-                      arr: "lateAfternoonTimesArr",
-                      index: i,
-                    })
-                  }
-                  onMouseLeave={() => {
+                  onMouseOver={() => {
+                    if (!props.currentScreenSize) {
+                      if (props.initialScreenSize >= 1200) {
+                        changeIndividualItemHovered({
+                          arr: "lateAfternoonTimesArr",
+                          index: i,
+                        });
+                      }
+                    } else {
+                      if (props.currentScreenSize >= 1200) {
+                        changeIndividualItemHovered({
+                          arr: "lateAfternoonTimesArr",
+                          index: i,
+                        });
+                      }
+                    }
+                  }}
+                  onMouseOut={() => {
                     if (individualItemHovered !== "") {
                       changeIndividualItemHovered("");
                     }
@@ -1165,13 +1198,24 @@ const TimePreference = (props) => {
                     key={i}
                     className="individual_time_wrapper"
                     onClick={handleTimeClick}
-                    onMouseEnter={() =>
-                      changeIndividualItemHovered({
-                        arr: "eveningTimesArr",
-                        index: i,
-                      })
-                    }
-                    onMouseLeave={() => {
+                    onMouseOver={() => {
+                      if (!props.currentScreenSize) {
+                        if (props.initialScreenSize >= 1200) {
+                          changeIndividualItemHovered({
+                            arr: "eveningTimesArr",
+                            index: i,
+                          });
+                        }
+                      } else {
+                        if (props.currentScreenSize >= 1200) {
+                          changeIndividualItemHovered({
+                            arr: "eveningTimesArr",
+                            index: i,
+                          });
+                        }
+                      }
+                    }}
+                    onMouseOut={() => {
                       if (individualItemHovered !== "") {
                         changeIndividualItemHovered("");
                       }
@@ -1383,7 +1427,7 @@ const TimePreference = (props) => {
                 if (userAuthenticated) {
                   dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
                 } else {
-                  dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED());
+                  dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED());
                 }
               }}
             >

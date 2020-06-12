@@ -1,11 +1,23 @@
 import React from "react";
 import "../SummaryReviewCards.css";
 
-const MicroneedleSummaryCard = () => {
+const MicroneedleSummaryCard = (props) => {
   return (
     <div className="summary_card_container">
       <div className="summary_card_image_circle">
-        <svg width="100%" height="6rem" viewBox="0 0 132.292 132.292">
+        <svg
+          width="100%"
+          height={
+            !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? "10rem"
+                : "6rem"
+              : props.currentScreenSize >= 1200
+              ? "10rem"
+              : "6rem"
+          }
+          viewBox="0 0 132.292 132.292"
+        >
           <circle
             cx="66.146"
             cy="66.146"

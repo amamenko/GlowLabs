@@ -134,6 +134,34 @@
   align-self: flex-start;
 }
 
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .contact_page_container {
+    margin-top: 22vh;
+    padding-top: 2vh;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .contact_page_container {
+      height: 130vh;
+      margin-top: 25vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .contact_page_container {
+    height: 145vh;
+  }
+
+  .contact_page_container {
+    margin-top: 0vh;
+    padding-top: 8vh;
+  }
+}
+
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .contact_page_container {

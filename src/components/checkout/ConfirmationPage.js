@@ -229,30 +229,198 @@ const ConfirmationPage = (props) => {
   };
 
   const treatmentsSummaryCardComponentsArr = [
-    { name: "Calm", component: <CalmSummaryCard /> },
-    { name: "Bacial", component: <BacialSummaryCard /> },
-    { name: "Clarify", component: <ClarifySummaryCard /> },
-    { name: "Dermaplaning", component: <DermaplaningSummaryCard /> },
-    { name: "Glow", component: <GlowSummaryCard /> },
-    { name: "Quench", component: <QuenchSummaryCard /> },
-    { name: "Quickie", component: <QuickieSummaryCard /> },
-    { name: "ChemicalPeel", component: <ChemicalPeelSummaryCard /> },
-    { name: "CBD", component: <CBDSummaryCard /> },
-    { name: "Microneedling", component: <MicroneedleSummaryCard /> },
-    { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
-    { name: "Unsure", component: <UnsureSummaryCard /> },
+    {
+      name: "Calm",
+      component: (
+        <CalmSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Bacial",
+      component: (
+        <BacialSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Clarify",
+      component: (
+        <ClarifySummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Dermaplaning",
+      component: (
+        <DermaplaningSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Glow",
+      component: (
+        <GlowSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Quench",
+      component: (
+        <QuenchSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Quickie",
+      component: (
+        <QuickieSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "ChemicalPeel",
+      component: (
+        <ChemicalPeelSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "CBD",
+      component: (
+        <CBDSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Microneedling",
+      component: (
+        <MicroneedleSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Rejuvenate",
+      component: (
+        <RejuvenateSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Unsure",
+      component: (
+        <UnsureSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
   ];
 
   const addOnsSummaryCardComponentsArr = [
-    { name: "ExtraExtractions", component: <ExtraExtractionsSummaryCard /> },
-    { name: "HydroJelly", component: <HydroJellyMaskSummaryCard /> },
-    { name: "LED", component: <LEDTherapySummaryCard /> },
-    { name: "Microcurrent", component: <MicrocurrentSummaryCard /> },
-    { name: "Microdermabrasion", component: <MicrodermabrasionSummaryCard /> },
-    { name: "Dermarolling", component: <DermarollingSummaryCard /> },
-    { name: "NanoNeedling", component: <NanoNeedlingSummaryCard /> },
-    { name: "GuaSha", component: <GuaShaSummaryCard /> },
-    { name: "Beard", component: <BeardSummaryCard /> },
+    {
+      name: "ExtraExtractions",
+      component: (
+        <ExtraExtractionsSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "HydroJelly",
+      component: (
+        <HydroJellyMaskSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "LED",
+      component: (
+        <LEDTherapySummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Microcurrent",
+      component: (
+        <MicrocurrentSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Microdermabrasion",
+      component: (
+        <MicrodermabrasionSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Dermarolling",
+      component: (
+        <DermarollingSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "NanoNeedling",
+      component: (
+        <NanoNeedlingSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "GuaSha",
+      component: (
+        <GuaShaSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
+    {
+      name: "Beard",
+      component: (
+        <BeardSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
   ];
 
   useEffect(() => {

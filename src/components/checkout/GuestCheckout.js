@@ -12,6 +12,8 @@ import ACTION_BOOKING_SUMMARY_ACTIVE from "../../actions/ContinueToBookingSummar
 import ACTION_APPOINTMENT_NOTES_INVALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_INVALID";
 import ACTION_APPOINTMENT_NOTES_VALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_VALID";
 import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
+import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
+import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -23,7 +25,7 @@ import "./GuestCheckout.css";
 // Minified Bootstrap CSS file (for Forms)
 import "../../bootstrap_forms.min.css";
 
-const GuestCheckout = () => {
+const GuestCheckout = (props) => {
   const dispatch = useDispatch();
   let location = useLocation();
 
@@ -87,6 +89,7 @@ const GuestCheckout = () => {
 
   const handleConfirmDetailsButtonClick = () => {
     dispatch(ACTION_BOOKING_SUMMARY_ACTIVE());
+    dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
   };
 
   const renderRemainingCharacters = () => {
@@ -122,23 +125,53 @@ const GuestCheckout = () => {
 
   useEffect(() => {
     if (location.pathname) {
-      window.scrollTo(0, 0);
+      if (!props.currentScreenSize) {
+        if (!props.initialScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        }
+      } else {
+        if (!props.currentScreenSize >= 1200) {
+          window.scrollTo(0, 0);
+        }
+      }
     }
-  }, [location.pathname]);
+  }, [location.pathname, props.currentScreenSize, props.initialScreenSize]);
 
   return (
     <div className="checkout_container">
       {redirectToHome()}
       {redirectToConfirmationPage()}
       <div className="checkout_container_header">
-        <Link to="/availability/timepreference">
+        <Link
+          to={
+            !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? "/"
+                : "/availability/timepreference"
+              : props.currentScreenSize >= 1200
+              ? "/"
+              : "/availability/timepreference"
+          }
+          onClick={() => dispatch(ACTION_TIME_PREFERENCE_PAGE_OPENED())}
+        >
           <FontAwesomeIcon
             className="checkout_back_arrow"
             icon={faChevronLeft}
           />
         </Link>
         <h1>CHECKOUT</h1>
-        <Link to="/checkout/confirmation">
+        <Link
+          to={
+            !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? "/"
+                : "/paymentinfo"
+              : props.currentScreenSize >= 1200
+              ? "/"
+              : "/paymentinfo"
+          }
+          onClick={() => dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED())}
+        >
           <FontAwesomeIcon
             className="checkout_forward_arrow"
             style={{
@@ -237,7 +270,15 @@ const GuestCheckout = () => {
         </Form>
         <div className="guest_checkout_bottom_buttons_container">
           <Link
-            to="/paymentinfo"
+            to={
+              !props.currentScreenSize
+                ? props.initialScreenSize >= 1200
+                  ? "/"
+                  : "/paymentinfo"
+                : props.currentScreenSize >= 1200
+                ? "/"
+                : "/paymentinfo"
+            }
             style={{
               display: "block",
               pointerEvents:
@@ -276,7 +317,18 @@ const GuestCheckout = () => {
               <p>Payment Details</p>
             </div>
           </Link>
-          <Link to="/availability/timepreference">
+          <Link
+            to={
+              !props.currentScreenSize
+                ? props.initialScreenSize >= 1200
+                  ? "/"
+                  : "/availability/timepreference"
+                : props.currentScreenSize >= 1200
+                ? "/"
+                : "/availability/timepreference"
+            }
+            onClick={() => dispatch(ACTION_TIME_PREFERENCE_PAGE_OPENED())}
+          >
             <div className="change_time_button">
               <p>Change Time</p>
             </div>
