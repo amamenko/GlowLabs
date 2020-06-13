@@ -132,11 +132,6 @@
 }
 
 .time_preference_bottom_buttons_container {
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
   width: 100%;
   margin-bottom: 6vh;
   padding-bottom: 6vh;

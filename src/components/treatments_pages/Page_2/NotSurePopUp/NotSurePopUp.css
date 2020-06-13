@@ -42,14 +42,14 @@
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .unsure_popup_buttons_container {
-    padding-top: 1rem;
+    padding-top: 0.5rem;
   }
 
   .unsure_popup_not_sure_button,
   .unsure_popup_dismiss_button {
-    font-size: 1.5rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
+    font-size: 0.8rem;
+    padding-left: 2.3rem;
+    padding-right: 2.3rem;
   }
 
   .unsure_popup_not_sure_button {
@@ -62,16 +62,38 @@
   }
 
   .unsure_popup_not_sure_button {
-    margin-right: 3rem;
+    margin-right: 0.5rem;
   }
 
   .unsure_popup_dismiss_button {
-    margin-left: 3rem;
+    margin-left: 0.5rem;
     border: 2px solid rgb(74, 74, 82);
   }
 
   .unsure_popup_dismiss_button:hover {
     background: rgba(255, 255, 255, 0.3);
     transition: background 0.5s ease;
+  }
+
+  /* CSS for Regular-Sized Desktops */
+  @media only screen and (min-width: 1600px) {
+    .unsure_popup_buttons_container {
+      padding-top: 1rem;
+    }
+
+    .unsure_popup_not_sure_button,
+    .unsure_popup_dismiss_button {
+      font-size: 1.5rem;
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+
+    .unsure_popup_not_sure_button {
+      margin-right: 3rem;
+    }
+
+    .unsure_popup_dismiss_button {
+      margin-left: 3rem;
+    }
   }
 }

@@ -15,14 +15,14 @@ import "../GuestCheckout.css";
 const PhoneNumber = () => {
   const dispatch = useDispatch();
   // Phone Number States
-  const phoneNumber = useSelector(state => state.phoneNumber.phone_number);
-  const phoneIsValid = useSelector(state => state.phoneIsValid.phone_valid);
+  const phoneNumber = useSelector((state) => state.phoneNumber.phone_number);
+  const phoneIsValid = useSelector((state) => state.phoneIsValid.phone_valid);
   const phoneIsInvalid = useSelector(
-    state => state.phoneIsInvalid.phone_invalid
+    (state) => state.phoneIsInvalid.phone_invalid
   );
   const [
     phoneNumberAlreadyRegistered,
-    changePhoneNumberAlreadyRegistered
+    changePhoneNumberAlreadyRegistered,
   ] = useState(false);
 
   // Regular Expression for Phone Number Validation - allows only phone numbers in the format (xxx) xxx - xxx, with x values being digits
@@ -32,10 +32,10 @@ const PhoneNumber = () => {
   const phoneNumberAutocompleteReg = /^(1*\d{10})$/g;
 
   const { data } = useQuery(getClientsQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
-  const validatePhoneNumber = number => {
+  const validatePhoneNumber = (number) => {
     const validPhoneNumber = phoneNumberReg.test(number);
     const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
 
@@ -55,7 +55,7 @@ const PhoneNumber = () => {
     }
   };
 
-  const handlePhoneNumber = e => {
+  const handlePhoneNumber = (e) => {
     validatePhoneNumber(e.currentTarget.value);
     dispatch(ACTION_PHONE_NUMBER(e.currentTarget.value));
   };
@@ -66,7 +66,8 @@ const PhoneNumber = () => {
         for (let i = 0; i < data.clients.length; i++) {
           if (
             data.clients[i].phoneNumber === phoneNumber &&
-            data.clients[i].password !== null
+            (data.clients[i].password !== null ||
+              data.clients[i].tokenCount > 0)
           ) {
             changePhoneNumberAlreadyRegistered(true);
             dispatch(ACTION_PHONE_NOT_VALID());
@@ -78,7 +79,7 @@ const PhoneNumber = () => {
     }
   }, [data, phoneNumber, dispatch]);
 
-  const phoneNumberTyping = e => {
+  const phoneNumberTyping = (e) => {
     let currentTyping = e.currentTarget.value;
 
     changePhoneNumberAlreadyRegistered(false);
@@ -165,7 +166,7 @@ const PhoneNumber = () => {
     e.currentTarget.value = currentTyping;
   };
 
-  const phoneNumberKeyTyping = e => {
+  const phoneNumberKeyTyping = (e) => {
     if (
       (e.keyCode >= 8 && e.keyCode < 32) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||

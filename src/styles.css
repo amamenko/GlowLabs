@@ -154,6 +154,13 @@ body {
   ::-webkit-scrollbar {
     display: none; /* Chrome Safari */
   }
+
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 29vw;
+    margin-left: -8.3rem;
+  }
 }
 
 /* CSS for Regular-Sized Desktops */

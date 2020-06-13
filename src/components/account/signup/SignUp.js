@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, FormGroup, Label, Input } from "reactstrap";
@@ -16,6 +16,7 @@ import "./SignUp.css";
 const SignUp = (props) => {
   let location = useLocation();
   const dispatch = useDispatch();
+
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -53,6 +54,11 @@ const SignUp = (props) => {
     (state) =>
       state.createAccountConfirmPassword.create_account_confirm_password
   );
+
+  const [
+    createAccountStepTwoTriggered,
+    changeCreateAccountStepTwoTriggered,
+  ] = useState(false);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -122,92 +128,141 @@ const SignUp = (props) => {
         <div className="sign_up_content_container">
           <p className="sign_up_prompt">Create your account</p>
           <Form className="sign_up_page_form">
-            <FormGroup className="sign_up_individual_form_field">
-              <Label for="firstName">
-                {" "}
-                <div className="top_form_container">
-                  <div className="required_label">
-                    First Name<p className="required_label red_asterisk">* </p>
-                  </div>
-                  <div className="required_fields_container">
-                    <p className="red_asterisk">* </p>{" "}
-                    <p className="required_fields_statement sign_up_required_fields">
-                      {" "}
-                      Required Fields
-                    </p>
-                  </div>
-                </div>
-              </Label>
-              <Input
-                type="text"
-                name="firstName"
-                defaultValue={createAccountFirstName}
-                maxLength={50}
-                onBlur={handleFirstName}
-                onChange={firstNameTyping}
-                valid={createAccountFirstName === "" ? false : true}
-                placeholder="First name"
-                className="input_field_sign_up"
-              />
-            </FormGroup>
-            <FormGroup className="sign_up_individual_form_field">
-              <Label for="lastName">
-                <div className="required_label">
-                  Last Name<p className="required_label red_asterisk">* </p>
-                </div>
-              </Label>
-              <Input
-                type="text"
-                name="lastName"
-                maxLength={50}
-                placeholder="Last name"
-                className="input_field_sign_up"
-                defaultValue={createAccountLastName}
-                onChange={lastNameTyping}
-                onBlur={handleLastName}
-                valid={createAccountLastName === "" ? false : true}
-              />
-            </FormGroup>
-            <CreateAccountEmail />
-            <CreateAccountPhoneNumber />
-            <CreateAccountPassword />
-            <CreateAccountConfirmPassword />
+            {!createAccountStepTwoTriggered ? (
+              <>
+                <FormGroup className="sign_up_individual_form_field">
+                  <Label for="firstName">
+                    {" "}
+                    <div className="top_form_container">
+                      <div className="required_label">
+                        First Name
+                        <p className="required_label red_asterisk">* </p>
+                      </div>
+                      <div className="required_fields_container">
+                        <p className="red_asterisk">* </p>{" "}
+                        <p className="required_fields_statement sign_up_required_fields">
+                          {" "}
+                          Required Fields
+                        </p>
+                      </div>
+                    </div>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="firstName"
+                    defaultValue={createAccountFirstName}
+                    maxLength={50}
+                    onBlur={handleFirstName}
+                    onChange={firstNameTyping}
+                    valid={createAccountFirstName === "" ? false : true}
+                    placeholder="First name"
+                    className="input_field_sign_up"
+                  />
+                </FormGroup>
+                <FormGroup className="sign_up_individual_form_field">
+                  <Label for="lastName">
+                    <div className="required_label">
+                      Last Name<p className="required_label red_asterisk">* </p>
+                    </div>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="lastName"
+                    maxLength={50}
+                    placeholder="Last name"
+                    className="input_field_sign_up"
+                    defaultValue={createAccountLastName}
+                    onChange={lastNameTyping}
+                    onBlur={handleLastName}
+                    valid={createAccountLastName === "" ? false : true}
+                  />
+                </FormGroup>
+                <CreateAccountEmail />
+                <CreateAccountPhoneNumber />{" "}
+              </>
+            ) : (
+              <div className="sign_up_password_form_container">
+                <CreateAccountPassword />
+                <CreateAccountConfirmPassword />{" "}
+              </div>
+            )}
           </Form>
           <div className="signup_page_bottom_buttons_container">
-            <div
-              className="create_account_button"
-              style={{
-                background:
-                  createAccountFirstName &&
-                  createAccountLastName &&
-                  createAccountEmailValid &&
-                  createAccountPhoneNumberValid &&
-                  createAccountPasswordValid &&
-                  createAccountConfirmPasswordValid
-                    ? "rgb(165, 138, 127)"
-                    : "#f0f0f0",
-                color:
-                  createAccountFirstName &&
-                  createAccountLastName &&
-                  createAccountEmailValid &&
-                  createAccountPhoneNumberValid &&
-                  createAccountPasswordValid &&
-                  createAccountConfirmPasswordValid
-                    ? "rgb(255, 255, 255)"
-                    : "rgb(201, 201, 201)",
-                transition: "background 0.5s ease, color 0.5s ease",
-              }}
-            >
-              <p>Create Account</p>
-            </div>
-            <p className="already_have_an_account_question">
-              Already have an account?
-            </p>
-            <div className="login_redirect_button">
-              <Link to="/account/login">
-                <p>Log In</p>
-              </Link>
-            </div>
+            {createAccountStepTwoTriggered ? (
+              <div
+                className="create_account_button"
+                style={{
+                  background:
+                    createAccountPasswordValid &&
+                    createAccountConfirmPasswordValid
+                      ? "rgb(44, 44, 52)"
+                      : "#f0f0f0",
+                  color:
+                    createAccountPasswordValid &&
+                    createAccountConfirmPasswordValid
+                      ? "rgb(255, 255, 255)"
+                      : "rgb(201, 201, 201)",
+                  transition: "background 0.5s ease, color 0.5s ease",
+                  pointerEvents:
+                    createAccountPasswordValid &&
+                    createAccountConfirmPasswordValid
+                      ? "auto"
+                      : "none",
+                }}
+              >
+                <p>Create Account</p>
+              </div>
+            ) : (
+              <div
+                className="create_account_button"
+                style={{
+                  background:
+                    createAccountFirstName &&
+                    createAccountLastName &&
+                    createAccountEmailValid &&
+                    createAccountPhoneNumberValid
+                      ? "rgb(44, 44, 52)"
+                      : "#f0f0f0",
+                  color:
+                    createAccountFirstName &&
+                    createAccountLastName &&
+                    createAccountEmailValid &&
+                    createAccountPhoneNumberValid
+                      ? "rgb(255, 255, 255)"
+                      : "rgb(201, 201, 201)",
+                  transition: "background 0.5s ease, color 0.5s ease",
+                  pointerEvents:
+                    createAccountFirstName &&
+                    createAccountLastName &&
+                    createAccountEmailValid &&
+                    createAccountPhoneNumberValid
+                      ? "auto"
+                      : "none",
+                }}
+                onClick={() => changeCreateAccountStepTwoTriggered(true)}
+              >
+                <p>Next Step</p>
+              </div>
+            )}
+            {createAccountStepTwoTriggered ? (
+              <div
+                className="login_redirect_button"
+                onClick={() => changeCreateAccountStepTwoTriggered(false)}
+              >
+                <p>Change Contact Details</p>
+              </div>
+            ) : (
+              <>
+                <p className="already_have_an_account_question">
+                  Already have an account?
+                </p>
+                <div className="login_redirect_button">
+                  <Link to="/account/login">
+                    <p>Log In</p>
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -58,7 +58,10 @@ const CreateAccountEmail = () => {
       if (data) {
         for (let i = 0; i < data.clients.length; i++) {
           if (data.clients[i].email === createAccountEmail) {
-            if (data.clients[i].password !== null) {
+            if (
+              data.clients[i].password !== null ||
+              data.clients[i].tokenCount > 0
+            ) {
               changeEmailAlreadyRegistered(true);
               dispatch(ACTION_CREATE_ACCOUNT_EMAIL_INVALID());
               dispatch(ACTION_CREATE_ACCOUNT_EMAIL_NOT_VALID());

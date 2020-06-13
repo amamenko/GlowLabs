@@ -15,24 +15,24 @@ const PhoneNumber = () => {
   const dispatch = useDispatch();
   // Phone Number States
   const createAccountPhoneNumber = useSelector(
-    state => state.createAccountPhoneNumber.create_account_phone_number
+    (state) => state.createAccountPhoneNumber.create_account_phone_number
   );
   const createAccountPhoneNumberValid = useSelector(
-    state =>
+    (state) =>
       state.createAccountPhoneNumberValid.create_account_phone_number_valid
   );
   const createAccountPhoneNumberInvalid = useSelector(
-    state =>
+    (state) =>
       state.createAccountPhoneNumberInvalid.create_account_phone_number_invalid
   );
   const facebookCompleteRegistration = useSelector(
-    state =>
+    (state) =>
       state.facebookCompleteRegistration.facebook_complete_registration_active
   );
 
   const [
     phoneNumberAlreadyRegistered,
-    changePhoneNumberAlreadyRegistered
+    changePhoneNumberAlreadyRegistered,
   ] = useState(false);
 
   // Regular Expression for Phone Number Validation - allows only phone numbers in the format (xxx) xxx - xxx, with x values being digits
@@ -42,7 +42,7 @@ const PhoneNumber = () => {
   const phoneNumberAutocompleteReg = /^(1*\d{10})$/g;
 
   const { data } = useQuery(getClientsQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
   useMemo(() => {
@@ -51,7 +51,8 @@ const PhoneNumber = () => {
         for (let i = 0; i < data.clients.length; i++) {
           if (
             data.clients[i].phoneNumber === createAccountPhoneNumber &&
-            data.clients[i].password !== null
+            (data.clients[i].password !== null ||
+              data.clients[i].tokenCount > 0)
           ) {
             changePhoneNumberAlreadyRegistered(true);
             dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
@@ -63,7 +64,7 @@ const PhoneNumber = () => {
   }, [data, createAccountPhoneNumber, dispatch]);
 
   useEffect(() => {
-    const validatePhoneNumber = number => {
+    const validatePhoneNumber = (number) => {
       const validPhoneNumber = phoneNumberReg.test(number);
       const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
 
@@ -89,10 +90,10 @@ const PhoneNumber = () => {
     dispatch,
     phoneNumberAlreadyRegistered,
     phoneNumberAutocompleteReg,
-    phoneNumberReg
+    phoneNumberReg,
   ]);
 
-  const phoneNumberTyping = e => {
+  const phoneNumberTyping = (e) => {
     let currentTyping = e.currentTarget.value;
 
     if (createAccountPhoneNumber.length !== 15) {
@@ -191,7 +192,7 @@ const PhoneNumber = () => {
     e.currentTarget.value = currentTyping;
   };
 
-  const phoneNumberKeyTyping = e => {
+  const phoneNumberKeyTyping = (e) => {
     if (
       (e.keyCode >= 8 && e.keyCode < 32) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||

@@ -364,8 +364,8 @@
     border: 1px solid transparent;
     border-radius: 30px;
     margin-top: -0.1rem;
-    padding-left: 2.8rem;
-    padding-right: 2.8rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     margin-left: 0.5rem;
   }
 
@@ -434,6 +434,8 @@
 
   .nav_sign_in_button_large_screen {
     margin-left: 0rem;
+    padding-left: 2.8rem;
+    padding-right: 2.8rem;
   }
 }
 

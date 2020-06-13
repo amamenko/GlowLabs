@@ -113,6 +113,10 @@
 
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
+  .footer_container {
+    height: 25vh;
+    padding-bottom: 0vh;
+  }
   .footer_all_icons_container {
     flex-direction: row;
     align-items: center;
@@ -131,6 +135,7 @@
 
   .footer_logo_svg {
     transform: scale(1);
+    bottom: -8vh;
   }
 }
 

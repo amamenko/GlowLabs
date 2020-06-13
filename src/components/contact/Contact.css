@@ -94,6 +94,8 @@
 
 .open_status_flex_container h3 {
   display: none;
+  color: rgb(0, 129, 177);
+  -webkit-text-fill-color: rgb(0, 129, 177);
 }
 
 .day_and_time_container {
@@ -229,10 +231,10 @@
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .contact_page_container {
-    height: 85vh;
+    height: 100vh;
     margin-top: 0vh;
     background: rgb(255, 255, 255);
-    overflow-x: visible;
+    overflow: visible;
   }
 
   .contacts_content_flex_wrapper {
@@ -257,7 +259,7 @@
     width: 100vw;
     height: 40vh;
     margin-left: 0rem;
-    margin-top: 5vh;
+    margin-top: 1vh;
   }
 
   .contact_written_content_flex_container {
@@ -322,6 +324,7 @@
 @media only screen and (min-width: 1600px) {
   .contact_page_container {
     height: 85vh;
+    overflow: hidden;
   }
 
   .contacts_page_wrapping h2 {
@@ -379,7 +382,6 @@
     height: 120vh;
     position: relative;
     background: rgb(255, 255, 255);
-    overflow: hidden;
     padding-top: 3vh;
   }
 

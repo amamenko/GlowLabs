@@ -227,17 +227,26 @@
   .login_page_background {
     width: 100%;
     height: 100%;
-    background: rgb(154, 154, 162);
+    /* Photo by Karolina Grabowska from Pexels */
+    background-image: linear-gradient(
+        to bottom,
+        rgba(111, 111, 111, 0) 0%,
+        rgba(111, 111, 111, 0.65) 100%
+      ),
+      url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 100% 100%;
   }
 
   .login_page_container {
-    width: 25%;
+    width: 33.333%;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 
   .login_content_container {
-    height: 35%;
+    height: 75%;
     width: 100%;
     justify-content: flex-end;
   }
@@ -250,25 +259,56 @@
 
   .create_account_redirect_button,
   .log_in_button {
-    font-size: 1.5rem;
-    padding: 1rem;
+    font-size: 1rem;
+    padding: 0.8rem;
   }
 
   .login_or_container {
     padding-top: 2rem;
     padding-bottom: 2rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .continue_with_facebook_button {
-    padding: 1rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    padding: 0.8rem;
   }
 
   .input_field_login {
     font-size: 1.5rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+
+  .dont_have_an_account_question {
+    font-size: 1rem;
+    margin-bottom: 1vh;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .login_page_container {
+    width: 25%;
+  }
+
+  .login_content_container {
+    height: 35%;
+  }
+
+  .create_account_redirect_button,
+  .log_in_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .login_or_container {
+    font-size: 1.5rem;
+  }
+
+  .continue_with_facebook_button {
+    padding: 1rem;
+    font-size: 1.5rem;
   }
 
   .dont_have_an_account_question {

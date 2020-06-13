@@ -16,10 +16,10 @@ const Email = () => {
   const dispatch = useDispatch();
 
   // Email States
-  const email = useSelector(state => state.email.email);
-  const emailIsValid = useSelector(state => state.emailIsValid.email_valid);
+  const email = useSelector((state) => state.email.email);
+  const emailIsValid = useSelector((state) => state.emailIsValid.email_valid);
   const emailIsInvalid = useSelector(
-    state => state.emailIsInvalid.email_invalid
+    (state) => state.emailIsInvalid.email_invalid
   );
   const [emailAlreadyRegistered, changeEmailAlreadyRegistered] = useState(
     false
@@ -29,10 +29,10 @@ const Email = () => {
   const emailReg = /^[^\s@#!]+@{1}[^\s@.#!]+\.{1}[^\s@.]+$/;
 
   const { data } = useQuery(getClientsQuery, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
-  const validateEmail = e => {
+  const validateEmail = (e) => {
     const validEmail = emailReg.test(e.currentTarget.value);
     dispatch(ACTION_EMAIL(e.currentTarget.value.trim()));
 
@@ -57,7 +57,10 @@ const Email = () => {
       if (data) {
         for (let i = 0; i < data.clients.length; i++) {
           if (data.clients[i].email === email) {
-            if (data.clients[i].password !== null) {
+            if (
+              data.clients[i].password !== null ||
+              data.clients[i].tokenCount > 0
+            ) {
               changeEmailAlreadyRegistered(true);
               dispatch(ACTION_EMAIL_INVALID());
               dispatch(ACTION_EMAIL_NOT_VALID());

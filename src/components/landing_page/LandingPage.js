@@ -272,6 +272,8 @@ const LandingPage = React.forwardRef((props, ref) => {
           document.body.style.setProperty("background", "rgb(255, 255, 255)");
         }
       }
+    } else {
+      document.body.style.setProperty("background", "rgb(255, 255, 255)");
     }
   };
 

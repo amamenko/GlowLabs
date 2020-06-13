@@ -35,6 +35,7 @@ const getClientsQuery = gql`
       email
       phoneNumber
       profilePicture
+      tokenCount
       consentForm {
         date
         surgeryLast3Months

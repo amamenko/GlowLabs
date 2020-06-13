@@ -214,6 +214,22 @@ const App = () => {
   }, [getEmployeeData]);
 
   useEffect(() => {
+    if (cartIsActive) {
+      if (!navbarVisible) {
+        dispatch(ACTION_NAVBAR_IS_VISIBLE());
+      }
+    }
+  }, [cartIsActive, navbarVisible, dispatch]);
+
+  useEffect(() => {
+    if (cartIsActive) {
+      if (document.body.style.background !== "rgb(255, 255, 255") {
+        document.body.style.setProperty("background", "rgb(255, 255, 255)");
+      }
+    }
+  }, [cartIsActive]);
+
+  useEffect(() => {
     let currentDummyToken;
     let temporaryFacebookDummyToken;
     let currentAdminDummyToken;
