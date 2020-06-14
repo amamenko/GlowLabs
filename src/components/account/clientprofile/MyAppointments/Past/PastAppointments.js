@@ -36,6 +36,7 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
+import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 
 const PastAppointments = (props) => {
   const individualAppointmentRef = useRef(null);
@@ -106,6 +107,7 @@ const PastAppointments = (props) => {
     { name: "CBD", component: <CBDSummaryCard /> },
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
+    { name: "Not Sure", component: <UnsureSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [

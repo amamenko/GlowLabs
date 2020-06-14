@@ -91,6 +91,12 @@ const Login = (props) => {
     }
   };
 
+  const redirectToUpcomingAppointments = () => {
+    if (userAuthenticated) {
+      return <Redirect to="/account/clientprofile/upcomingappointments" />;
+    }
+  };
+
   const redirectToFacebookCompleteRegistration = () => {
     if (facebookCompleteRegistration) {
       return <Redirect to="/account/completeregistration" />;
@@ -170,8 +176,15 @@ const Login = (props) => {
 
   return (
     <div className="login_page_background">
+      <div className="login_page_background_blurry" />
       <div className="login_page_container">
-        {redirectToClientProfile()}
+        {!props.currentScreenSize
+          ? props.initialScreenSize >= 1200
+            ? redirectToUpcomingAppointments()
+            : redirectToClientProfile()
+          : props.currentScreenSize >= 1200
+          ? redirectToUpcomingAppointments()
+          : redirectToClientProfile()}
         {redirectToFacebookCompleteRegistration()}
         <div className="login_logo_container">
           <svg height="22rem" width="100%" viewBox="0 0 463.021 463.021">
@@ -290,6 +303,16 @@ const Login = (props) => {
             loading={signInLoading}
           />
         </Modal>
+      </div>
+      <div className="login_page_descriptive_text">
+        <h2>Your skin care.</h2>
+        <h2>Your way.</h2>
+        <ul>
+          <li>Keep track of appointments</li>
+          <li>Get skincare product recommendations</li>
+          <li>Track skin progress with before/after photos</li>
+          <li>Build your skin profile</li>
+        </ul>
       </div>
     </div>
   );

@@ -129,3 +129,10 @@
   font-size: 0.2rem;
   font-weight: 500;
 }
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .client_profile_page_container {
+    display: none;
+  }
+}

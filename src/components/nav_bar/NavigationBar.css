@@ -343,7 +343,7 @@
     cursor: pointer;
   }
 
-  .nav_links li:hover {
+  .nav_bar_hover_link_container p:hover {
     color: rgb(191, 191, 191);
     transition: all 0.5s ease;
   }
@@ -478,6 +478,10 @@
 
   .nav_sign_in_button_large_screen {
     left: 1.5rem;
+  }
+
+  .nav_sign_in_button_large_screen p {
+    font-size: 1.8rem;
   }
 
   .cart_item_number_circle {

@@ -442,3 +442,58 @@
   justify-content: center;
   background: rgb(244, 239, 243);
 }
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .my_appointments_container {
+    position: absolute;
+    width: 80%;
+    padding-top: 8vh;
+    right: 0;
+  }
+
+  .my_appointments_header {
+    height: 8vh;
+    font-weight: 600;
+    width: 80%;
+  }
+
+  .my_appointments_header h1 {
+    font-size: 2rem;
+  }
+
+  .my_appointments_header_back_arrow {
+    display: none;
+  }
+
+  .my_appointments_content_container {
+    padding-top: 14vh;
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+
+  .my_individual_appointment_expand_icon {
+    right: 11vw;
+  }
+
+  .my_individual_appointment_container {
+    cursor: pointer;
+  }
+
+  .my_individual_selected_appointment_container {
+    width: 69%;
+    top: -1.1rem;
+    left: 29%;
+  }
+
+  .my_appointment_date_square {
+    padding: 0.5rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    width: 5%;
+  }
+
+  .my_appointments_sub_header {
+    display: none;
+  }
+}

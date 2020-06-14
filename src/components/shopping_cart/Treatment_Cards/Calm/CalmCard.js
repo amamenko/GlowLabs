@@ -9,13 +9,13 @@ import ACTION_REFORMATTED_DAY_RESET from "../../../../actions/SelectedDay/Reform
 import ACTION_SELECTED_TIME_RESET from "../../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 import "../../CartCard.css";
 
-const CalmCard = props => {
+const CalmCard = (props) => {
   const dispatch = useDispatch();
 
   const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
+    (state) => state.reformattedDay.reformattedDay
   );
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
+  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
 
   const handleRemove = () => {
     dispatch(ACTION_CALM_NOT_IN_CART());
@@ -39,7 +39,7 @@ const CalmCard = props => {
             id="layer1"
             transform="translate(14.5 -102)"
             strokeMiterlimit="4"
-            fill="rgb(255, 198, 207)"
+            fill="rgba(186, 225, 253, 0.7)"
           >
             <path
               className="calm_icon_path"

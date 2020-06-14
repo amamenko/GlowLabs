@@ -62,7 +62,7 @@ const Footer = (props) => {
         </div>
       </div>
       <div className="footer_copyright_statement">
-        &copy; {new Date().getFullYear()} GLOW LABS, LLC
+        &copy; {new Date().getFullYear()} GLOWLABORATORIES, LLC
       </div>
       <p className="footer_company_address">1506 BROADWAY HEWLETT, NY 11557</p>
       <div className="footer_logo_container">

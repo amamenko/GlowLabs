@@ -192,10 +192,8 @@ const ShoppingCart = (props) => {
   }, [addOnsArr, treatmentsArr, dispatch]);
 
   useEffect(() => {
-    if (!totalPrice) {
-      calculateSubtotal();
-    }
-  }, [totalPrice, calculateSubtotal]);
+    calculateSubtotal();
+  }, [calculateSubtotal]);
 
   useEffect(() => {
     if (location.pathname.includes("cart")) {
@@ -212,7 +210,10 @@ const ShoppingCart = (props) => {
           borderBottom: counter === 0 ? "1px solid rgb(44, 44, 52)" : "none",
         }}
       >
-        <Link to="/" onClick={backToHome}>
+        <Link
+          to={location.pathname.includes("account") ? location.pathname : "/"}
+          onClick={backToHome}
+        >
           <FontAwesomeIcon
             className="shopping_cart_back_arrow"
             icon={faChevronLeft}

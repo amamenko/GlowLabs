@@ -228,15 +228,21 @@
     width: 100%;
     height: 100%;
     /* Photo by Karolina Grabowska from Pexels */
-    background-image: linear-gradient(
-        to bottom,
-        rgba(111, 111, 111, 0) 0%,
-        rgba(111, 111, 111, 0.65) 100%
-      ),
-      url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
+    background-image: url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
     background-repeat: no-repeat;
+    background-position: 100%, 100%;
     background-size: contain;
-    background-position: 100% 100%;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .login_page_background_blurry {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    height: 100%;
+    width: 75%;
+    position: absolute;
+    right: 0;
   }
 
   .login_page_container {
@@ -249,6 +255,8 @@
     height: 75%;
     width: 100%;
     justify-content: flex-end;
+    position: relative;
+    z-index: 999999;
   }
 
   .sign_in_prompt {
@@ -283,6 +291,29 @@
   .dont_have_an_account_question {
     font-size: 1rem;
     margin-bottom: 1vh;
+  }
+
+  .login_page_descriptive_text {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+  }
+
+  .login_page_descriptive_text h2 {
+    font-size: 7rem;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+  }
+
+  .login_page_descriptive_text ul {
+    padding-top: 1rem;
+    padding-left: 3rem;
+  }
+
+  .login_page_descriptive_text ul li {
+    font-size: 2rem;
+    line-height: 5rem;
+    color: rgb(255, 255, 255);
   }
 }
 

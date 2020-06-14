@@ -4,7 +4,7 @@ const ACTION_UNSURE_NOT_IN_CART = () => {
   return {
     type: UNSURE_NOT_IN_CART,
     payload: {
-      name: "Unsure",
+      name: "Not Sure",
     },
   };
 };

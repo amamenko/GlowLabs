@@ -81,14 +81,14 @@ const ClientProfile = (props) => {
     }
   }, [dispatch, splashScreenComplete, splashScreenHalfway]);
 
-  const loadingCompleted = useCallback(() => {
+  const loadingCompleted = () => {
     changeLoadingSpinnerActive(true);
     if (!pdfLoading) {
       changePDFLoading(true);
     } else {
       return null;
     }
-  }, [pdfLoading]);
+  };
 
   useMemo(() => {
     if (
@@ -122,6 +122,20 @@ const ClientProfile = (props) => {
   const redirectToLogInPage = () => {
     if (!userAuthenticated) {
       return <Redirect to="/account/login" />;
+    }
+  };
+
+  const redirectToUpcomingAppointments = () => {
+    if (userAuthenticated) {
+      if (!props.currentScreenSize) {
+        if (props.initialScreenSize >= 1200) {
+          return <Redirect to="/account/clientprofile/upcomingappointments" />;
+        }
+      } else {
+        if (props.currentScreenSize >= 1200) {
+          return <Redirect to="/account/clientprofile/upcomingappointments" />;
+        }
+      }
     }
   };
 
@@ -178,6 +192,7 @@ const ClientProfile = (props) => {
         style={{ display: "none" }}
       />
       {redirectToLogInPage()}
+      {redirectToUpcomingAppointments()}
       <div className="client_profile_page_header">
         <h1>MENU</h1>
       </div>

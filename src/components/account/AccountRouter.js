@@ -21,6 +21,8 @@ import {
 import MyProfile from "./clientprofile/MyProfile/MyProfile";
 import SkinCareRoutine from "./clientprofile/MyProfile/SkinCareRoutine/SkinCareRoutine";
 import MyRoutine from "./clientprofile/MyProfile/SkinCareRoutine/MyRoutine";
+import LargeScreenSideMenu from "./LargeScreenSideMenu/LargeScreenSideMenu";
+import "./LargeScreenSideMenu/LargeScreenSideMenu.css";
 
 const AccountRouter = (props) => {
   const [getOwnAppointments, { data, called, refetch }] = useLazyQuery(
@@ -38,118 +40,139 @@ const AccountRouter = (props) => {
   });
 
   return (
-    <Switch>
-      <Route exact path={props.path + "/login"} component={Login} />
-      <Route exact path={props.path + "/signup"} component={SignUp} />
-      <Route
-        exact
-        path={props.path + "/completeregistration"}
-        render={() => <FacebookCompleteRegistration />}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile"}
-        render={() => (
-          <ClientProfile
-            called={called}
-            refetch={refetch}
-            pastAppointmentsCalled={pastAppointmentsCalled}
-            getOwnAppointments={getOwnAppointments}
-            getOwnPastAppointments={getOwnPastAppointments}
-            getClientData={props.getClientData}
-          />
-        )}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/profile"}
-        render={() => <MyProfile getClientData={props.getClientData} />}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/profile/routine"}
-        render={() => <SkinCareRoutine getClientData={props.getClientData} />}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/profile/myroutine"}
-        render={() => (
-          <MyRoutine
-            getClientData={props.getClientData}
-            clientDataRefetch={props.clientDataRefetch}
-          />
-        )}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/upcomingappointments"}
-        render={() => (
-          <UpcomingAppointments data={data ? data : null} refetch={refetch} />
-        )}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/pastappointments"}
-        render={() => (
-          <PastAppointments
-            data={pastAppointmentsData ? pastAppointmentsData : null}
-          />
-        )}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/consentform/page1"}
-        component={ConsentFormPage1}
+    <>
+      <LargeScreenSideMenu
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        called={called}
+        refetch={refetch}
+        pastAppointmentsCalled={pastAppointmentsCalled}
+        getOwnAppointments={getOwnAppointments}
+        getOwnPastAppointments={getOwnPastAppointments}
+        getClientData={props.getClientData}
       />
-      <Route
-        exact
-        path={props.path + "/clientprofile/consentform/page2"}
-        component={ConsentFormPage2}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/consentform/page3"}
-        component={ConsentFormPage3}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/consentform/page4"}
-        component={ConsentFormPage4}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/consentform/page5"}
-        component={ConsentFormPage5}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/consentform/page6"}
-        component={ConsentFormPage6}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-      />
-      <Route
-        exact
-        path={props.path + "/clientprofile/consentform/page7"}
-        render={() => (
-          <ConsentFormPage7
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
-            clientDataRefetch={props.clientDataRefetch}
-          />
-        )}
-      />
-    </Switch>
+      <Switch>
+        <Route exact path={props.path + "/login"} component={Login} />
+        <Route exact path={props.path + "/signup"} component={SignUp} />
+        <Route
+          exact
+          path={props.path + "/completeregistration"}
+          render={() => <FacebookCompleteRegistration />}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile"}
+          render={() => (
+            <ClientProfile
+              called={called}
+              refetch={refetch}
+              pastAppointmentsCalled={pastAppointmentsCalled}
+              getOwnAppointments={getOwnAppointments}
+              getOwnPastAppointments={getOwnPastAppointments}
+              getClientData={props.getClientData}
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/profile"}
+          render={() => <MyProfile getClientData={props.getClientData} />}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/profile/routine"}
+          render={() => <SkinCareRoutine getClientData={props.getClientData} />}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/profile/myroutine"}
+          render={() => (
+            <MyRoutine
+              getClientData={props.getClientData}
+              clientDataRefetch={props.clientDataRefetch}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/upcomingappointments"}
+          render={() => (
+            <UpcomingAppointments
+              data={data ? data : null}
+              refetch={refetch}
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/pastappointments"}
+          render={() => (
+            <PastAppointments
+              data={pastAppointmentsData ? pastAppointmentsData : null}
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/consentform/page1"}
+          component={ConsentFormPage1}
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/consentform/page2"}
+          component={ConsentFormPage2}
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/consentform/page3"}
+          component={ConsentFormPage3}
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/consentform/page4"}
+          component={ConsentFormPage4}
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/consentform/page5"}
+          component={ConsentFormPage5}
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/consentform/page6"}
+          component={ConsentFormPage6}
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+        <Route
+          exact
+          path={props.path + "/clientprofile/consentform/page7"}
+          render={() => (
+            <ConsentFormPage7
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+              clientDataRefetch={props.clientDataRefetch}
+            />
+          )}
+        />
+      </Switch>
+    </>
   );
 };
 

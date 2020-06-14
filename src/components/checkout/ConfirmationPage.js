@@ -329,7 +329,7 @@ const ConfirmationPage = (props) => {
       ),
     },
     {
-      name: "Unsure",
+      name: "Not Sure",
       component: (
         <UnsureSummaryCard
           initialScreenSize={props.initialScreenSize}

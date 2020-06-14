@@ -57,7 +57,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
     if (props.currentScreenSize === "") {
       if (props.initialScreenSize >= 600) {
         if (props.initialScreenSize >= 1200) {
-          if (cartIsActive) {
+          if (cartIsActive || location.pathname.includes("account")) {
             return "rgb(44,44,52)";
           }
         }
@@ -77,7 +77,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
     } else {
       if (props.currentScreenSize >= 600) {
         if (props.currentScreenSize >= 1200) {
-          if (cartIsActive) {
+          if (cartIsActive || location.pathname.includes("account")) {
             return "rgb(44,44,52)";
           }
         }
@@ -315,7 +315,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
               <path
                 fill={
                   props.currentScreenSize === ""
-                    ? props.initialScreenSize >= 1200 && cartIsActive
+                    ? props.initialScreenSize >= 1200 &&
+                      (cartIsActive || location.pathname.includes("account"))
                       ? "rgb(239, 240, 243)"
                       : props.initialScreenSize >= 600
                       ? window.scrollY <= 1
@@ -324,7 +325,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
-                    : props.currentScreenSize >= 1200 && cartIsActive
+                    : props.currentScreenSize >= 1200 &&
+                      (cartIsActive || location.pathname.includes("account"))
                     ? "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 600
                     ? window.scrollY <= 1
@@ -659,14 +661,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1200
                 ? window.scrollY <= 1
-                  ? cartIsActive
+                  ? cartIsActive || location.pathname.includes("account")
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 1200
               ? window.scrollY <= 1
-                ? cartIsActive
+                ? cartIsActive || location.pathname.includes("account")
                   ? "rgb(239, 240, 243)"
                   : "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
@@ -677,34 +679,227 @@ const NavigationBar = React.forwardRef((props, ref) => {
           <li
             onClick={() => {
               dispatch(ACTION_CART_IS_NOT_ACTIVE());
-              props.handleClickToScrollToHome(LandingPageRef);
+
+              if (!props.currentScreenSize) {
+                if (props.initialScreenSize >= 1200) {
+                  if (location.pathname.includes("account")) {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToHome(LandingPageRef);
+                    }, 100);
+                  } else {
+                    props.handleClickToScrollToHome(LandingPageRef);
+                  }
+                } else {
+                  props.handleClickToScrollToHome(LandingPageRef);
+                }
+              } else if (props.currentScreenSize >= 1200) {
+                if (location.pathname.includes("account")) {
+                  // Delay on larger screens to allow for ref to mount
+                  setTimeout(() => {
+                    props.handleClickToScrollToHome(LandingPageRef);
+                  }, 100);
+                } else {
+                  props.handleClickToScrollToHome(LandingPageRef);
+                }
+              } else {
+                props.handleClickToScrollToHome(LandingPageRef);
+              }
             }}
           >
-            HOME
+            <Link
+              to="/"
+              className="nav_bar_hover_link_container"
+              style={{
+                color:
+                  props.currentScreenSize === ""
+                    ? props.initialScreenSize >= 1200
+                      ? window.scrollY <= 1
+                        ? cartIsActive || location.pathname.includes("account")
+                          ? "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
+                        : "rgb(239, 240, 243)"
+                      : "rgb(239, 240, 243)"
+                    : props.currentScreenSize >= 1200
+                    ? window.scrollY <= 1
+                      ? cartIsActive || location.pathname.includes("account")
+                        ? "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
+                      : "rgb(239, 240, 243)"
+                    : "rgb(239, 240, 243)",
+              }}
+            >
+              <p>HOME</p>
+            </Link>
           </li>
           <li
             onClick={() => {
               dispatch(ACTION_CART_IS_NOT_ACTIVE());
-              props.handleClickToScrollToTreatments(Treatments1Ref);
+
+              if (!props.currentScreenSize) {
+                if (props.initialScreenSize >= 1200) {
+                  if (location.pathname.includes("account")) {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToTreatments(Treatments1Ref);
+                    }, 100);
+                  } else {
+                    props.handleClickToScrollToTreatments(Treatments1Ref);
+                  }
+                } else {
+                  props.handleClickToScrollToTreatments(Treatments1Ref);
+                }
+              } else if (props.currentScreenSize >= 1200) {
+                if (location.pathname.includes("account")) {
+                  // Delay on larger screens to allow for ref to mount
+                  setTimeout(() => {
+                    props.handleClickToScrollToTreatments(Treatments1Ref);
+                  }, 100);
+                } else {
+                  props.handleClickToScrollToTreatments(Treatments1Ref);
+                }
+              } else {
+                props.handleClickToScrollToTreatments(Treatments1Ref);
+              }
             }}
           >
-            FACIAL
+            <Link
+              to="/"
+              className="nav_bar_hover_link_container"
+              style={{
+                color:
+                  props.currentScreenSize === ""
+                    ? props.initialScreenSize >= 1200
+                      ? window.scrollY <= 1
+                        ? cartIsActive || location.pathname.includes("account")
+                          ? "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
+                        : "rgb(239, 240, 243)"
+                      : "rgb(239, 240, 243)"
+                    : props.currentScreenSize >= 1200
+                    ? window.scrollY <= 1
+                      ? cartIsActive || location.pathname.includes("account")
+                        ? "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
+                      : "rgb(239, 240, 243)"
+                    : "rgb(239, 240, 243)",
+              }}
+            >
+              <p>FACIAL</p>
+            </Link>
           </li>
           <li
             onClick={() => {
               dispatch(ACTION_CART_IS_NOT_ACTIVE());
-              props.handleClickToScrollToAddOns(AddOnsRef);
+
+              if (!props.currentScreenSize) {
+                if (props.initialScreenSize >= 1200) {
+                  if (location.pathname.includes("account")) {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToAddOns(AddOnsRef);
+                    }, 100);
+                  } else {
+                    props.handleClickToScrollToAddOns(AddOnsRef);
+                  }
+                } else {
+                  props.handleClickToScrollToAddOns(AddOnsRef);
+                }
+              } else if (props.currentScreenSize >= 1200) {
+                if (location.pathname.includes("account")) {
+                  // Delay on larger screens to allow for ref to mount
+                  setTimeout(() => {
+                    props.handleClickToScrollToAddOns(AddOnsRef);
+                  }, 100);
+                } else {
+                  props.handleClickToScrollToAddOns(AddOnsRef);
+                }
+              } else {
+                props.handleClickToScrollToAddOns(AddOnsRef);
+              }
             }}
           >
-            ADD-ONS
+            <Link
+              to="/"
+              className="nav_bar_hover_link_container"
+              style={{
+                color:
+                  props.currentScreenSize === ""
+                    ? props.initialScreenSize >= 1200
+                      ? window.scrollY <= 1
+                        ? cartIsActive || location.pathname.includes("account")
+                          ? "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
+                        : "rgb(239, 240, 243)"
+                      : "rgb(239, 240, 243)"
+                    : props.currentScreenSize >= 1200
+                    ? window.scrollY <= 1
+                      ? cartIsActive || location.pathname.includes("account")
+                        ? "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
+                      : "rgb(239, 240, 243)"
+                    : "rgb(239, 240, 243)",
+              }}
+            >
+              <p>ADD-ONS</p>
+            </Link>
           </li>
           <li
             onClick={() => {
               dispatch(ACTION_CART_IS_NOT_ACTIVE());
-              props.handleClickToScrollToInstagram(InstagramRef);
+
+              if (!props.currentScreenSize) {
+                if (props.initialScreenSize >= 1200) {
+                  if (location.pathname.includes("account")) {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToInstagram(InstagramRef);
+                    }, 100);
+                  } else {
+                    props.handleClickToScrollToInstagram(InstagramRef);
+                  }
+                } else {
+                  props.handleClickToScrollToInstagram(InstagramRef);
+                }
+              } else if (props.currentScreenSize >= 1200) {
+                if (location.pathname.includes("account")) {
+                  // Delay on larger screens to allow for ref to mount
+                  setTimeout(() => {
+                    props.handleClickToScrollToInstagram(InstagramRef);
+                  }, 100);
+                } else {
+                  props.handleClickToScrollToInstagram(InstagramRef);
+                }
+              } else {
+                props.handleClickToScrollToInstagram(InstagramRef);
+              }
             }}
           >
-            FOLLOW US
+            {" "}
+            <Link
+              to="/"
+              className="nav_bar_hover_link_container"
+              style={{
+                color:
+                  props.currentScreenSize === ""
+                    ? props.initialScreenSize >= 1200
+                      ? window.scrollY <= 1
+                        ? cartIsActive || location.pathname.includes("account")
+                          ? "rgb(239, 240, 243)"
+                          : "rgb(44, 44, 52)"
+                        : "rgb(239, 240, 243)"
+                      : "rgb(239, 240, 243)"
+                    : props.currentScreenSize >= 1200
+                    ? window.scrollY <= 1
+                      ? cartIsActive || location.pathname.includes("account")
+                        ? "rgb(239, 240, 243)"
+                        : "rgb(44, 44, 52)"
+                      : "rgb(239, 240, 243)"
+                    : "rgb(239, 240, 243)",
+              }}
+            >
+              <p>FOLLOW US</p>
+            </Link>
           </li>
           <li
             className="nav_sign_in_button_large_screen"
@@ -713,14 +908,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 props.currentScreenSize === ""
                   ? props.initialScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive
+                      ? cartIsActive || location.pathname.includes("account")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
                     : "rgb(239, 240, 243)"
                   : props.currentScreenSize >= 1200
                   ? window.scrollY <= 1
-                    ? cartIsActive
+                    ? cartIsActive || location.pathname.includes("account")
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
@@ -748,14 +943,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         props.currentScreenSize === ""
                           ? props.initialScreenSize >= 600
                             ? window.scrollY <= 1
-                              ? cartIsActive
+                              ? cartIsActive ||
+                                location.pathname.includes("account")
                                 ? "rgb(239, 240, 243)"
                                 : "rgb(44, 44, 52)"
                               : "rgb(44, 44, 52)"
                             : "rgb(239, 240, 243)"
                           : props.currentScreenSize >= 600
                           ? window.scrollY <= 1
-                            ? cartIsActive
+                            ? cartIsActive ||
+                              location.pathname.includes("account")
                               ? "rgb(239, 240, 243)"
                               : "rgb(44, 44, 52)"
                             : "rgb(44, 44, 52)"
@@ -778,14 +975,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         props.currentScreenSize === ""
                           ? props.initialScreenSize >= 600
                             ? window.scrollY <= 1
-                              ? cartIsActive
+                              ? cartIsActive ||
+                                location.pathname.includes("account")
                                 ? "rgb(44, 44, 52)"
                                 : "rgb(239, 240, 243)"
                               : "rgb(44, 44, 52)"
                             : "rgb(44, 44, 52)"
                           : props.currentScreenSize >= 600
                           ? window.scrollY <= 1
-                            ? cartIsActive
+                            ? cartIsActive ||
+                              location.pathname.includes("account")
                               ? "rgb(44, 44, 52)"
                               : "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
@@ -801,14 +1000,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       props.currentScreenSize === ""
                         ? props.initialScreenSize >= 600
                           ? window.scrollY <= 1
-                            ? cartIsActive
+                            ? cartIsActive ||
+                              location.pathname.includes("account")
                               ? "rgb(44, 44, 52)"
                               : "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
                           : "rgb(44, 44, 52)"
                         : props.currentScreenSize >= 600
                         ? window.scrollY <= 1
-                          ? cartIsActive
+                          ? cartIsActive ||
+                            location.pathname.includes("account")
                             ? "rgb(44, 44, 52)"
                             : "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
@@ -824,21 +1025,22 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 600
                         ? window.scrollY <= 1
-                          ? cartIsActive
+                          ? cartIsActive ||
+                            location.pathname.includes("account")
                             ? "rgb(44, 44, 52)"
                             : "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)"
                       : props.currentScreenSize >= 600
                       ? window.scrollY <= 1
-                        ? cartIsActive
+                        ? cartIsActive || location.pathname.includes("account")
                           ? "rgb(44, 44, 52)"
                           : "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)",
                   marginLeft: dummyToken
                     ? dummyToken.picture
-                      ? "0.5rem"
+                      ? "1rem"
                       : "1.5rem"
                     : props.adminDummyToken
                     ? "1.5rem"
@@ -867,14 +1069,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 1200
                         ? window.scrollY <= 1
-                          ? cartIsActive
+                          ? cartIsActive ||
+                            location.pathname.includes("account")
                             ? "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
                           : "rgb(239, 240, 243)"
                         : "rgb(239, 240, 243)"
                       : props.currentScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive
+                        ? cartIsActive || location.pathname.includes("account")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
@@ -906,14 +1109,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive
+                        ? cartIsActive || location.pathname.includes("account")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive
+                      ? cartIsActive || location.pathname.includes("account")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"

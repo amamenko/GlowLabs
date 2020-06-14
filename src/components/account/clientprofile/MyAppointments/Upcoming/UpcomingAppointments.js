@@ -159,7 +159,7 @@ const UpcomingAppointments = (props) => {
     { name: "CBD", component: <CBDSummaryCard /> },
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
-    { name: "Unsure", component: <UnsureSummaryCard /> },
+    { name: "Not Sure", component: <UnsureSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [
@@ -278,8 +278,6 @@ const UpcomingAppointments = (props) => {
     }
   };
 
-  console.log(props.data ? props.data.own_appointments : null);
-
   return (
     <div
       className="my_appointments_container"
@@ -304,7 +302,17 @@ const UpcomingAppointments = (props) => {
             icon={faChevronLeft}
           />
         </Link>
-        <h1>MY APPOINTMENTS</h1>
+        <h1>
+          MY{" "}
+          {!props.currentScreenSize
+            ? props.initialScreenSize >= 1200
+              ? "UPCOMING "
+              : null
+            : props.currentScreenSize >= 1200
+            ? "UPCOMING "
+            : null}
+          APPOINTMENTS
+        </h1>
       </div>
       <div
         className="my_appointments_sub_header"

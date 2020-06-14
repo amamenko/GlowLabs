@@ -88,3 +88,69 @@
   padding-right: 6rem;
   white-space: nowrap;
 }
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .admin_login_page_background {
+    width: 100%;
+    height: 100%;
+    /* Photo by Kari Shea on Unsplash */
+    background-image: url("../../../images/GlowLabsAdminSectionBackgroundCompressed.jpg");
+    background-repeat: no-repeat;
+    background-position: 100%, 100%;
+    background-size: contain;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .admin_login_page_background_blurry {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    height: 100%;
+    width: 75%;
+    position: absolute;
+    right: 0;
+  }
+
+  .admin_login_page_container {
+    width: 33.333%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .admin_section_designator_container {
+    top: 18vh;
+  }
+
+  .admin_sign_in_prompt {
+    font-size: 2rem;
+    padding-top: 2em;
+    padding-bottom: 3rem;
+  }
+
+  .admin_login_content_container {
+    height: 10%;
+    width: 100%;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 999999;
+  }
+
+  .admin_log_in_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .admin_login_page_container {
+    width: 25%;
+  }
+
+  .admin_log_in_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin-top: 3rem;
+  }
+}

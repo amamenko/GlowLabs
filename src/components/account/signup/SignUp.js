@@ -94,6 +94,7 @@ const SignUp = (props) => {
 
   return (
     <div className="sign_up_page_background">
+      <div className="sign_up_page_background_blurry" />
       <div className="sign_up_page_container">
         {redirectToHome()}
         <div className="sign_up_logo_container">
@@ -124,7 +125,6 @@ const SignUp = (props) => {
             </g>
           </svg>
         </div>
-
         <div className="sign_up_content_container">
           <p className="sign_up_prompt">Create your account</p>
           <Form className="sign_up_page_form">
@@ -265,6 +265,16 @@ const SignUp = (props) => {
             )}
           </div>
         </div>
+      </div>{" "}
+      <div className="sign_up_page_descriptive_text">
+        <h2>Your skin care.</h2>
+        <h2>Your way.</h2>
+        <ul>
+          <li>Keep track of appointments</li>
+          <li>Get skincare product recommendations</li>
+          <li>Track skin progress with before/after photos</li>
+          <li>Build your skin profile</li>
+        </ul>
       </div>
     </div>
   );
