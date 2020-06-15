@@ -45,7 +45,7 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
               position: "relative",
               opacity: 1,
               width_desktop: "28%",
-              width_landscape: "30%",
+              width_landscape: "32%",
               width_mobile: "53%",
             }}
             config={{ duration: 1000 }}

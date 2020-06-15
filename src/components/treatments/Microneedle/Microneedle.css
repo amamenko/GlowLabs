@@ -14,7 +14,7 @@
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .microneedle_wrapping {
-    height: 64%;
+    height: 67%;
     width: 50%;
   }
 }

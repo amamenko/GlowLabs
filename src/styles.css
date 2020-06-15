@@ -125,11 +125,13 @@ body {
 
 .logout_button {
   background: rgb(44, 44, 52);
+  cursor: pointer;
 }
 
 .cancel_logout_button {
   border: 2px solid rgb(44, 44, 52);
   color: rgb(44, 44, 52);
+  cursor: pointer;
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */
@@ -182,5 +184,26 @@ body {
     width: 30.8vw;
     margin-left: -31.6rem;
     border: 1px solid rgb(211, 211, 211);
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .log_out_modal {
+    height: 45%;
+    margin-top: 0%;
+    width: 25vw;
+  }
+
+  .log_out_modal_contents h2 {
+    font-size: 2rem;
+    width: 60%;
+  }
+
+  .cancel_logout_button,
+  .logout_button {
+    font-size: 1.5rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
   }
 }

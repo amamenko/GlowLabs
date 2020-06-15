@@ -16,6 +16,8 @@
     height: 4px;
     width: 1.8rem;
     transition: all 0.5s ease;
+    position: relative;
+    z-index: 99999;
   }
 
   .navbar {
@@ -192,7 +194,7 @@
 @media only screen and (min-width: 360px) {
   .burger {
     height: 3rem;
-    width: 30%;
+    width: 100%;
   }
 
   .cart_item_number_circle {
@@ -218,7 +220,7 @@
   }
 }
 
-/* CSS for Tablet Portrait / Mobile Landscape */
+/* CSS for Tablet / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .nav_logo_container {
     left: 3.6rem;
@@ -238,8 +240,8 @@
         to right,
         rgb(251, 251, 251) 0%,
         rgb(251, 251, 251) 50%,
-        rgb(255, 198, 207) 50.05%,
-        rgb(255, 198, 207) 100%
+        rgb(224, 224, 232) 50.05%,
+        rgb(224, 224, 232) 100%
       )
       solid;
     border-bottom: 17vh
@@ -247,8 +249,8 @@
         to right,
         rgb(251, 251, 251) 0%,
         rgb(251, 251, 251) 50%,
-        rgb(255, 198, 207) 50.05%,
-        rgb(255, 198, 207) 100%
+        rgb(224, 224, 232) 50.05%,
+        rgb(224, 224, 232) 100%
       )
       solid;
   }
@@ -444,7 +446,7 @@
   .nav_links li {
     display: flex;
     list-style: none;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: 500;
   }
 
@@ -454,30 +456,49 @@
   }
 
   .cart_item_number_circle {
-    margin-top: 1rem;
-    right: 2.55rem;
+    margin-top: 0.2rem;
+    right: 2.4rem;
   }
 
   .cart_item_number_circle p {
-    font-size: 1.3rem;
-    top: -0.2rem;
-    margin-right: -0.12rem;
+    font-size: 1rem;
+    top: 0.2rem;
+    margin-right: 0.1rem;
   }
 
   .logo_svg {
-    left: 5rem;
+    left: 4.5rem;
+  }
+
+  .nav_sign_in_button_large_screen {
+    height: 85%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 0.2rem;
+    left: 1.5rem;
+  }
+
+  .shopping_cart_large_screen {
+    right: -1.5rem;
+    margin-top: 0.3rem;
   }
 }
 
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
-  .shopping_cart_large_screen {
-    right: -1.5rem;
-    margin-top: 0.3rem;
+  .nav_links li {
+    display: flex;
+    list-style: none;
+    font-size: 2rem;
+    font-weight: 500;
   }
 
   .nav_sign_in_button_large_screen {
+    height: 100%;
     left: 1.5rem;
+    padding-left: 2.8rem;
+    padding-right: 2.8rem;
+    margin-top: -0.1rem;
   }
 
   .nav_sign_in_button_large_screen p {
@@ -492,5 +513,9 @@
   .cart_item_number_circle p {
     top: 0.4rem;
     margin-right: 0.3rem;
+  }
+
+  .logo_svg {
+    left: 5rem;
   }
 }

@@ -26,8 +26,10 @@ const TopAnimationBottomShelf = (props) => {
       }}
       to={{
         top: !props.currentScreenSize
-          ? props.initialScreenSize >= 1800
+          ? props.initialScreenSize >= 2200
             ? "71%"
+            : props.initialScreenSize >= 1800
+            ? "69%"
             : props.initialScreenSize >= 1200
             ? props.isSafari
               ? "4%"
@@ -37,8 +39,10 @@ const TopAnimationBottomShelf = (props) => {
             : props.initialScreenSize >= 360
             ? "40%"
             : "38.2%"
-          : props.currentScreenSize >= 1800
+          : props.currentScreenSize >= 2200
           ? "71%"
+          : props.currentScreenSize >= 1800
+          ? "69%"
           : props.currentScreenSize >= 1200
           ? props.isSafari
             ? "4%"
@@ -71,8 +75,10 @@ const TopAnimationBottomShelf = (props) => {
             top:
               !props.currentScreenSize || !splashScreenComplete
                 ? `${styles.top}`
-                : props.currentScreenSize >= 1800
+                : props.currentScreenSize >= 2200
                 ? "71%"
+                : props.currentScreenSize >= 1800
+                ? "69%"
                 : props.currentScreenSize >= 1200
                 ? props.isSafari
                   ? "4%"

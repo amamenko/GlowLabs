@@ -467,33 +467,158 @@
   }
 
   .my_appointments_content_container {
-    padding-top: 14vh;
+    padding-top: 9vh;
     margin-left: 10vw;
     margin-right: 10vw;
   }
 
   .my_individual_appointment_expand_icon {
     right: 11vw;
-  }
-
-  .my_individual_appointment_container {
     cursor: pointer;
   }
 
   .my_individual_selected_appointment_container {
-    width: 69%;
-    top: -1.1rem;
-    left: 29%;
+    width: 68%;
+    top: -7rem;
+    left: 30%;
   }
 
+  .my_past_appointment_date_square,
   .my_appointment_date_square {
-    padding: 0.5rem;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    width: 5%;
+    width: 8%;
+    cursor: pointer;
+  }
+
+  .my_past_appointment_date_square p,
+  .my_appointment_date_square p {
+    font-size: 2rem;
   }
 
   .my_appointments_sub_header {
     display: none;
+  }
+
+  .my_appointment_information_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .my_appointment_date_time {
+    width: 22%;
+    line-height: 1.5rem;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .my_appointment_information_container p {
+    font-size: 1.2rem;
+    width: 22%;
+    line-height: 1.5rem;
+    cursor: pointer;
+  }
+
+  .my_individual_appointment_expand_icon {
+    position: absolute;
+    right: 11vw;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .my_individual_selected_appointment_back_arrow_icon {
+    font-size: 4rem;
+    cursor: pointer;
+  }
+
+  .selected_appointment_total_header p,
+  .selected_appointment_treatments_header p,
+  .selected_appointment_add_ons_header p,
+  .selected_appointment_date_and_time_header p {
+    font-size: 2rem;
+    padding-top: 2rem;
+  }
+
+  .selected_appointment_date_and_time_content p {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+  }
+
+  .react-add-to-calendar__button {
+    font-size: 1.5rem;
+  }
+
+  .react-add-to-calendar__dropdown ul li {
+    font-size: 1.5rem;
+  }
+
+  .react-add-to-calendar__dropdown ul li:not(:first-child) {
+    padding-top: 1.5rem;
+  }
+
+  .my_selected_appointment_treatment_container {
+    width: 87%;
+    margin-left: -10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .my_selected_appointment_treatment_container svg {
+    transform: scale(2);
+  }
+
+  .my_selected_appointment_treatment_container h2,
+  .my_selected_appointment_treatment_container p {
+    font-size: 2rem;
+  }
+
+  .cancel_appointment_button {
+    width: 33.35%;
+    font-size: 1.5rem;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  .cancel_appointment_button p,
+  .back_to_all_appointments_button p {
+    font-size: 1.5rem;
+  }
+
+  .back_to_all_appointments_button {
+    width: 33.35%;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  .modal_x {
+    cursor: pointer;
+  }
+
+  .yes_cancel_appointment_button p,
+  .no_dont_cancel_appointment_button p {
+    font-size: 1.5rem;
+  }
+
+  .yes_cancel_appointment_button,
+  .no_dont_cancel_appointment_button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  .cancel_appointment_modal_content_container div h2 {
+    font-size: 2rem;
+    width: 80%;
+  }
+
+  .cancel_appointment_modal_content_container {
+    height: 45%;
+    top: -12%;
+    width: 25vw;
   }
 }

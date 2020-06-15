@@ -19,9 +19,9 @@ import ACTION_LOGIN_EMAIL_NOT_INVALID from "../../../actions/Login/LoginEmail/In
 import ACTION_REGISTERED_CLIENT_FOUND from "../../../actions/Login/RegisteredClientFound/ACTION_REGISTERED_CLIENT_FOUND";
 import ACTION_REGISTERED_CLIENT_FOUND_RESET from "../../../actions/Login/RegisteredClientFound/ACTION_REGISTERED_CLIENT_FOUND_RESET";
 import ACTION_LOGIN_PASSWORD_NOT_INVALID from "../../../actions/Login/LoginPassword/Invalid/ACTION_LOGIN_PASSWORD_NOT_INVALID";
-import "./Login.css";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import "./Login.css";
 
 const Login = (props) => {
   let location = useLocation();

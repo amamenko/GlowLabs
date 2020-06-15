@@ -167,7 +167,7 @@ const Microneedle = (props) => {
     if (microneedleToggle) {
       return (
         <>
-          <div className="card_description_paragraph_toggle">
+          <div className="card_description_microneedle_toggle">
             <div
               className="card_description_icon_wrapper_container"
               style={{

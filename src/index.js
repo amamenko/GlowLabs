@@ -117,8 +117,14 @@ const App = () => {
   const InstagramRef = useRef(null);
   const ContactRef = useRef(null);
   const shoppingCartRef = useRef(null);
+  // Browser width on initial opening of app
   const [initialScreenSize] = useState(window.innerWidth);
+  // Current browser width if different from initial browser width
   const [currentScreenSize, changeCurrentScreenSize] = useState("");
+  // Browser height on initial opening of app
+  const [initialScreenHeight] = useState(window.innerHeight);
+  // Current browser height if different from initial browser height
+  const [currentScreenHeight, changeCurrentScreenHeight] = useState("");
   const [previousScrollPosition, setPreviousScrollPosition] = useState(
     window.pageYOffset
   );
@@ -301,6 +307,7 @@ const App = () => {
     const updateSize = () => {
       if (!touchScaling) {
         changeCurrentScreenSize(window.innerWidth);
+        changeCurrentScreenHeight(window.innerHeight);
       }
     };
 
@@ -893,34 +900,46 @@ const App = () => {
                 : `${styles.marginTop}`,
               transition: "margin-top 0.5s ease",
               height: !currentScreenSize
-                ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                ? initialScreenSize <= 1000 &&
+                  initialScreenSize >= 600 &&
+                  initialScreenSize > initialScreenHeight
                   ? window.scrollY <= 1
                     ? "30vh"
                     : "15vh"
                   : "8vh"
-                : currentScreenSize <= 1000 && currentScreenSize >= 600
+                : currentScreenSize <= 1000 &&
+                  currentScreenSize >= 600 &&
+                  currentScreenSize > currentScreenHeight
                 ? window.scrollY <= 1
                   ? "30vh"
                   : "15vh"
                 : "8vh",
               paddingTop: !currentScreenSize
-                ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                ? initialScreenSize <= 1000 &&
+                  initialScreenSize >= 600 &&
+                  initialScreenSize > initialScreenHeight
                   ? window.scrollY <= 1
                     ? "15vh"
                     : "0vh"
                   : "0vh"
-                : currentScreenSize <= 1000 && currentScreenSize >= 600
+                : currentScreenSize <= 1000 &&
+                  currentScreenSize >= 600 &&
+                  currentScreenSize > currentScreenHeight
                 ? window.scrollY <= 1
                   ? "15vh"
                   : "0vh"
                 : "0vh",
               paddingBottom: !currentScreenSize
-                ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                ? initialScreenSize <= 1000 &&
+                  initialScreenSize >= 600 &&
+                  initialScreenSize > initialScreenHeight
                   ? window.scrollY <= 1
                     ? "15vh"
                     : "0vh"
                   : "0vh"
-                : currentScreenSize <= 1000 && currentScreenSize >= 600
+                : currentScreenSize <= 1000 &&
+                  currentScreenSize >= 600 &&
+                  currentScreenSize > currentScreenHeight
                 ? window.scrollY <= 1
                   ? "15vh"
                   : "0vh"
@@ -935,6 +954,8 @@ const App = () => {
               navbarToggle={navbarToggle}
               currentScreenSize={currentScreenSize}
               initialScreenSize={initialScreenSize}
+              currentScreenHeight={currentScreenHeight}
+              initialScreenHeight={initialScreenHeight}
               handleClickToScrollToHome={handleClickToScrollToHome}
               handleClickToScrollToTreatments={handleClickToScrollToTreatments}
               handleClickToScrollToAddOns={handleClickToScrollToAddOns}
@@ -981,6 +1002,8 @@ const App = () => {
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
+                currentScreenHeight={currentScreenHeight}
+                initialScreenHeight={initialScreenHeight}
                 handleClickToScrollToHome={handleClickToScrollToHome}
                 handleClickToScrollToTreatments={
                   handleClickToScrollToTreatments

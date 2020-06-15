@@ -20,7 +20,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
-import "./ConfirmationPage.css";
 import CalmSummaryCard from "./SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "./SummaryReviewCards/Treatments/BacialSummaryCard";
 import ClarifySummaryCard from "./SummaryReviewCards/Treatments/ClarifySummaryCard";
@@ -75,6 +74,7 @@ import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCRO
 import UnsureSummaryCard from "./SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
 import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
+import "./ConfirmationPage.css";
 
 const ConfirmationPage = (props) => {
   let location = useLocation();
@@ -424,18 +424,10 @@ const ConfirmationPage = (props) => {
   ];
 
   useEffect(() => {
-    if (location.pathname) {
-      if (!props.currentScreenSize) {
-        if (!props.initialScreenSize >= 1200) {
-          window.scrollTo(0, 0);
-        }
-      } else {
-        if (!props.currentScreenSize >= 1200) {
-          window.scrollTo(0, 0);
-        }
-      }
+    if (location.pathname.includes("confirmation")) {
+      window.scrollTo(0, 0);
     }
-  }, [location.pathname, props.currentScreenSize, props.initialScreenSize]);
+  }, [location.pathname]);
 
   const treatmentsComponentNames = treatmentsArr.map((item) => item.name);
 

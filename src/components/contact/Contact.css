@@ -167,8 +167,22 @@
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .contact_page_container {
-    margin-top: -17vh;
     overflow-x: hidden;
+    height: 150vh;
+    margin-top: -20vh;
+  }
+
+  .contacts_text_container {
+    width: 15vw;
+  }
+
+  .contacts_text_container p {
+    font-size: 0.65rem;
+    line-height: 1.5rem;
+  }
+
+  .contact_icon {
+    margin-right: 0.1rem;
   }
 
   .contacts_map_container {
@@ -198,11 +212,6 @@
     padding-top: 0.5rem;
   }
 
-  .contacts_text_container p {
-    font-size: 0.8rem;
-    line-height: 1.1rem;
-  }
-
   .contacts_text_container h3 {
     display: none;
   }
@@ -221,6 +230,7 @@
 
   .open_status_flex_container h3 {
     display: block;
+    padding-bottom: 1rem;
   }
 
   .open_status {
@@ -312,6 +322,7 @@
     align-self: flex-start;
     color: rgb(0, 129, 177);
     -webkit-text-fill-color: rgb(0, 129, 177);
+    padding-bottom: 0;
   }
 
   .open_status {

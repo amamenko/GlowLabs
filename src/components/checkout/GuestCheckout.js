@@ -124,18 +124,10 @@ const GuestCheckout = (props) => {
   };
 
   useEffect(() => {
-    if (location.pathname) {
-      if (!props.currentScreenSize) {
-        if (!props.initialScreenSize >= 1200) {
-          window.scrollTo(0, 0);
-        }
-      } else {
-        if (!props.currentScreenSize >= 1200) {
-          window.scrollTo(0, 0);
-        }
-      }
+    if (location.pathname.includes("checkout")) {
+      window.scrollTo(0, 0);
     }
-  }, [location.pathname, props.currentScreenSize, props.initialScreenSize]);
+  }, [location.pathname]);
 
   return (
     <div className="checkout_container">

@@ -27,7 +27,6 @@ const Hamburger = (props) => {
   return (
     <div
       className="burger"
-      onClick={props.onClick}
       style={{
         justifyContent: props.navbarToggle ? "center" : "space-evenly",
         alignItems:
@@ -46,6 +45,7 @@ const Hamburger = (props) => {
     >
       <div
         className="burger_line"
+        onClick={props.onClick}
         style={{
           position: props.navbarToggle ? "absolute" : "relative",
           right: props.navbarToggle ? "auto" : "null",
@@ -72,6 +72,7 @@ const Hamburger = (props) => {
       />
       <div
         className="burger_line"
+        onClick={props.onClick}
         style={{
           position: props.navbarToggle ? "absolute" : "relative",
           right: props.navbarToggle ? "auto" : "null",

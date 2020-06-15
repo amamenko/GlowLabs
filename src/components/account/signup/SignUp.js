@@ -11,12 +11,17 @@ import ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET from "../../../actions/CreateAccou
 import ACTION_CREATE_ACCOUNT_FIRST_NAME from "../../../actions/CreateAccount/CreateAccountFirstName/ACTION_CREATE_ACCOUNT_FIRST_NAME";
 import ACTION_CREATE_ACCOUNT_LAST_NAME from "../../../actions/CreateAccount/CreateAccountLastName/ACTION_CREATE_ACCOUNT_LAST_NAME";
 import ACTION_CREATE_ACCOUNT_LAST_NAME_RESET from "../../../actions/CreateAccount/CreateAccountLastName/ACTION_CREATE_ACCOUNT_LAST_NAME_RESET";
+import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
+import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import "./SignUp.css";
 
 const SignUp = (props) => {
   let location = useLocation();
   const dispatch = useDispatch();
 
+  const splashScreenHalfway = useSelector(
+    (state) => state.splashScreenHalfway.splashScreenHalfway
+  );
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -91,6 +96,15 @@ const SignUp = (props) => {
   const lastNameTyping = () => {
     dispatch(ACTION_CREATE_ACCOUNT_LAST_NAME_RESET());
   };
+
+  useEffect(() => {
+    if (!splashScreenComplete) {
+      dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+    }
+    if (!splashScreenHalfway) {
+      dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
+    }
+  }, [dispatch, splashScreenComplete, splashScreenHalfway]);
 
   return (
     <div className="sign_up_page_background">

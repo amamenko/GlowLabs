@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
@@ -45,6 +45,7 @@ import ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED from "../../../actions/InCart/Cart
 
 const TimePreference = (props) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const addOnsArr = useSelector((state) => state.addOnsArr.add_ons_arr);
   const treatmentsArr = useSelector(
@@ -109,6 +110,12 @@ const TimePreference = (props) => {
   const { data } = useQuery(getAllAppointmentsQuery, {
     fetchPolicy: "no-cache",
   });
+
+  useEffect(() => {
+    if (location.pathname.includes("/availability/timepreference")) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   const alreadyBookedAppointments = data
     ? data.all_appointments.filter((item) => item.date === reformattedDay)

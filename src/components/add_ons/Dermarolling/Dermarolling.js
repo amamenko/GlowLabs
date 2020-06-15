@@ -109,7 +109,7 @@ const Dermarolling = (props) => {
     if (dermarollingToggle) {
       return (
         <>
-          <div className="card_description_paragraph_toggle">
+          <div className="card_description_add_on_paragraph_toggle">
             <div className="card_description_icon_wrapper_container">
               <div className="card_description_paragraph_icon_wrapper">
                 <FontAwesomeIcon

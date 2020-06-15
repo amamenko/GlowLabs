@@ -15,7 +15,7 @@ import {
   faChevronCircleDown,
   faSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { Redirect, Link, useLocation } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import {
@@ -41,7 +41,6 @@ import ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED from "../../actions/InCart/Ca
 
 const PaymentInfo = (props) => {
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
@@ -224,20 +223,6 @@ const PaymentInfo = (props) => {
     props.initialScreenSize,
     props.largeScreenFrozenScrollPosition,
   ]);
-
-  useEffect(() => {
-    if (location.pathname) {
-      if (!props.currentScreenSize) {
-        if (!props.initialScreenSize >= 1200) {
-          window.scrollTo(0, 0);
-        }
-      } else {
-        if (!props.currentScreenSize >= 1200) {
-          window.scrollTo(0, 0);
-        }
-      }
-    }
-  }, [location, props.currentScreenSize, props.initialScreenSize]);
 
   const override = css`
     display: block;

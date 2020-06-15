@@ -952,18 +952,14 @@
 
   .bottom_content h1 {
     text-align: left;
-    font-size: 6.1rem;
-    padding-top: 15rem;
+    font-size: 4rem;
+    padding-top: 5rem;
     padding-bottom: 3rem;
   }
 
-  .landing_page_text_block {
-    margin-bottom: 9rem;
-  }
-
   .landing_page_description {
-    font-size: 2.9rem;
-    line-height: 5.5rem;
+    font-size: 2rem;
+    line-height: 4rem;
   }
 
   .landing_page_cta {
@@ -972,11 +968,12 @@
 
   .call_to_action_button {
     font-size: 2rem;
-    margin-top: 7rem;
+    margin-top: 4rem;
   }
 
   .sun_screen {
-    top: 62.5%;
+    top: 60%;
+    left: 83%;
   }
 }
 
@@ -984,5 +981,20 @@
 @media only screen and (min-width: 2200px) {
   .sun_screen {
     top: 61%;
+    left: 81%;
+  }
+
+  .landing_page_text_block {
+    margin-bottom: 9rem;
+  }
+
+  .bottom_content h1 {
+    font-size: 6.1rem;
+    padding-top: 15rem;
+  }
+
+  .landing_page_description {
+    font-size: 2.9rem;
+    line-height: 5.5rem;
   }
 }

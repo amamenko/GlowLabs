@@ -401,13 +401,13 @@ const UpcomingAppointments = (props) => {
                             </h2>
                             <span className="logout_buttons_container">
                               <div
-                                className="logout_button"
+                                className="logout_button yes_cancel_appointment_button"
                                 onClick={() => handleCancelAppointment(item)}
                               >
                                 <p>YES, CANCEL</p>
                               </div>
                               <div
-                                className="cancel_logout_button"
+                                className="cancel_logout_button no_dont_cancel_appointment_button"
                                 onClick={() =>
                                   changeCancelAppointmentClicked(false)
                                 }
@@ -445,9 +445,15 @@ const UpcomingAppointments = (props) => {
                           .format("LLLL")
                           .split(" ").length - 2
                       )
-                      .join(" ") +
-                      ", " +
-                      item.startTime +
+                      .join(" ") + ", "}
+                    {!props.currentScreenSize ? (
+                      props.initialScreenSize >= 1200 ? (
+                        <br />
+                      ) : null
+                    ) : props.currentScreenSize >= 1200 ? (
+                      <br />
+                    ) : null}
+                    {item.startTime +
                       " " +
                       (Number(item.startTime.split(":")[0]) >= 12 ||
                       Number(item.startTime.split(":")[0]) < 9

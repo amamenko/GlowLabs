@@ -252,7 +252,17 @@ const PastAppointments = (props) => {
             icon={faChevronLeft}
           />
         </Link>
-        <h1>MY APPOINTMENTS</h1>
+        <h1>
+          MY{" "}
+          {!props.currentScreenSize
+            ? props.initialScreenSize >= 1200
+              ? "PAST "
+              : null
+            : props.currentScreenSize >= 1200
+            ? "PAST "
+            : null}
+          APPOINTMENTS
+        </h1>
       </div>
       <div
         className="my_appointments_sub_header"
@@ -304,9 +314,15 @@ const PastAppointments = (props) => {
                           .format("LLLL")
                           .split(" ").length - 2
                       )
-                      .join(" ") +
-                      ", " +
-                      item.startTime +
+                      .join(" ") + ", "}
+                    {!props.currentScreenSize ? (
+                      props.initialScreenSize >= 1200 ? (
+                        <br />
+                      ) : null
+                    ) : props.currentScreenSize >= 1200 ? (
+                      <br />
+                    ) : null}
+                    {item.startTime +
                       " " +
                       (Number(item.startTime.split(":")[0]) >= 12 ||
                       Number(item.startTime.split(":")[0]) < 9

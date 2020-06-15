@@ -47,7 +47,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
               position: "relative",
               opacity: 1,
               width_desktop: "24%",
-              width_landscape: "38%",
+              width_landscape: "28%",
               width_mobile: "45%",
               width_mobile_small: "48%",
               width_mobile_tiny: "48%",

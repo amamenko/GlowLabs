@@ -27,6 +27,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { BounceLoader } from "react-spinners";
 import { Modal } from "reactstrap";
 import ConsentFormPDF from "../clientprofile/ConsentForm/ConsentFormPDF";
+import ACTION_LOG_OUT_CLICKED from "../../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
+import ACTION_CART_IS_NOT_ACTIVE from "../../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 
 const LargeScreenSideMenu = (props) => {
   const dispatch = useDispatch();
@@ -35,6 +37,12 @@ const LargeScreenSideMenu = (props) => {
   const pdfDownloadRef = useRef(null);
 
   const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
+  const logoutClicked = useSelector(
+    (state) => state.logoutClicked.log_out_clicked
+  );
+  const consentFormLastPageOpened = useSelector(
+    (state) => state.consentFormLastPageOpened.consent_form_active_page
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [pdfLoading, changePDFLoading] = useState(false);
@@ -243,8 +251,12 @@ const LargeScreenSideMenu = (props) => {
     <div
       className="large_sceen_logged_in_side_menu"
       style={{
-        filter: cartIsActive ? "blur(8px) brightness(70%)" : "none",
-        pointerEvents: cartIsActive ? "none" : "auto",
+        filter: cartIsActive
+          ? "blur(8px) brightness(70%)"
+          : logoutClicked
+          ? "blur(5px) brightness(50%)"
+          : "none",
+        pointerEvents: cartIsActive || logoutClicked ? "none" : "auto",
       }}
     >
       <Modal
@@ -398,8 +410,7 @@ const LargeScreenSideMenu = (props) => {
       <div className="large_screen_side_menu_item_container">
         <Link
           className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+          to="/account/clientprofile/upcomingappointments"
         >
           <div
             className="large_screen_side_menu_item_selected_border"
@@ -419,9 +430,14 @@ const LargeScreenSideMenu = (props) => {
       <div className="large_screen_side_menu_item_container">
         <Link
           className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+          to="/account/clientprofile/pastappointments"
         >
+          <div
+            className="large_screen_side_menu_item_selected_border"
+            style={{
+              opacity: location.pathname.includes("pastappointments") ? 1 : 0,
+            }}
+          />
           <FontAwesomeIcon
             icon={faHistory}
             className="large_screen_side_menu_item_icon"
@@ -432,9 +448,14 @@ const LargeScreenSideMenu = (props) => {
       <div className="large_screen_side_menu_item_container">
         <Link
           className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+          to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
         >
+          <div
+            className="large_screen_side_menu_item_selected_border"
+            style={{
+              opacity: location.pathname.includes("consentform") ? 1 : 0,
+            }}
+          />
           <FontAwesomeIcon
             icon={faFileSignature}
             className="large_screen_side_menu_item_icon"
@@ -510,17 +531,21 @@ const LargeScreenSideMenu = (props) => {
         </Link>
       </div>
       <div className="large_screen_side_menu_item_container large_screen_side_menu_log_out">
-        <Link
+        <div
           className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+          onClick={() => {
+            dispatch(ACTION_LOG_OUT_CLICKED());
+            if (cartIsActive) {
+              dispatch(ACTION_CART_IS_NOT_ACTIVE());
+            }
+          }}
         >
           <FontAwesomeIcon
             icon={faSignOutAlt}
             className="large_screen_side_menu_item_icon"
           />
           <h2>Log Out</h2>
-        </Link>
+        </div>
       </div>
       <p className="large_screen_side_menu_copyright">
         &copy; {new Date().getFullYear()} GLOWLABORATORIES, LLC

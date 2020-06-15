@@ -1,126 +1,133 @@
-.sign_up_page_container {
-  height: 135vh;
-  background: rgb(255, 255, 255);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-top: -11vh;
-  padding-bottom: 12vh;
-}
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .sign_up_page_container {
+    height: 135vh;
+    background: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: -11vh;
+    padding-bottom: 12vh;
+  }
 
-.sign_up_content_container {
-  height: 65%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  position: absolute;
-  bottom: 12vh;
-}
+  .sign_up_content_container {
+    height: 65%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 12vh;
+  }
 
-.sign_up_logo_container {
-  position: absolute;
-  height: 60%;
-  width: 100%;
-  top: -21.5vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+  .sign_up_logo_container {
+    position: absolute;
+    height: 60%;
+    width: 100%;
+    top: -21.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-.sign_up_prompt {
-  font-weight: 500;
-  font-size: 1.3rem;
-  padding-top: 14rem;
-  padding-bottom: 2rem;
-  color: rgb(121, 121, 121);
-  position: absolute;
-  top: -33.5vh;
-  width: 90%;
-  text-align: center;
-}
+  .sign_up_prompt {
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding-top: 14rem;
+    padding-bottom: 2rem;
+    color: rgb(121, 121, 121);
+    position: absolute;
+    top: -33.5vh;
+    width: 90%;
+    text-align: center;
+  }
 
-.complete_registration_prompt {
-  font-weight: 500;
-  font-size: 1.3rem;
-  padding-top: 14rem;
-  padding-bottom: 2rem;
-  color: rgb(121, 121, 121);
-  position: absolute;
-  top: -38vh;
-  width: 90%;
-  text-align: center;
-}
+  .complete_registration_prompt {
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding-top: 14rem;
+    padding-bottom: 2rem;
+    color: rgb(121, 121, 121);
+    position: absolute;
+    top: -38vh;
+    width: 90%;
+    text-align: center;
+  }
 
-.sign_up_page_form {
-  width: 90%;
-}
+  .sign_up_page_form {
+    width: 90%;
+  }
 
-.input_field_sign_up {
-  width: 100%;
-  font-size: 1.3rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  margin-bottom: 0.5rem;
-  position: relative;
-  line-height: 0;
-}
+  .input_field_sign_up {
+    width: 100%;
+    font-size: 1.3rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    line-height: 0;
+  }
 
-.input_field_sign_up::placeholder {
-  padding-top: 0.75rem;
-}
+  .input_field_sign_up::placeholder {
+    padding-top: 0.75rem;
+  }
 
-.invalid-feedback {
-  margin-bottom: 0.5rem;
-}
+  .invalid-feedback {
+    margin-bottom: 0.5rem;
+  }
 
-.signup_page_bottom_buttons_container {
-  width: 100%;
-  height: 20vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 2vh;
-}
+  .signup_page_bottom_buttons_container {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 2vh;
+  }
 
-.create_account_button {
-  width: 90%;
-  background: rgb(44, 44, 52);
-  color: rgb(255, 255, 255);
-  text-align: center;
-  border-radius: 30px;
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.8rem;
-  cursor: pointer;
-}
+  .create_account_button {
+    width: 90%;
+    background: rgb(44, 44, 52);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.8rem;
+    cursor: pointer;
+  }
 
-.already_have_an_account_question {
-  font-weight: 500;
-  margin-top: 2vh;
-}
+  .already_have_an_account_question {
+    font-weight: 500;
+    margin-top: 2vh;
+  }
 
-.login_redirect_button {
-  width: 90%;
-  background: rgb(255, 255, 255);
-  border: 2px solid rgb(44, 44, 52);
-  color: rgb(44, 44, 52);
-  text-align: center;
-  border-radius: 30px;
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.8rem;
-  cursor: pointer;
-}
+  .login_redirect_button {
+    width: 90%;
+    background: rgb(255, 255, 255);
+    border: 2px solid rgb(44, 44, 52);
+    color: rgb(44, 44, 52);
+    text-align: center;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.8rem;
+    cursor: pointer;
+  }
 
-.login_redirect_button p {
-  color: rgb(44, 44, 52);
+  .login_redirect_button p {
+    color: rgb(44, 44, 52);
+  }
+
+  .sign_up_page_descriptive_text {
+    display: none;
+  }
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
@@ -213,6 +220,7 @@
   }
 
   .sign_up_page_descriptive_text {
+    display: block;
     position: absolute;
     top: 25%;
     left: 30%;

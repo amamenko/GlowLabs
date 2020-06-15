@@ -371,44 +371,59 @@ const LandingPage = React.forwardRef((props, ref) => {
           from={{
             top: !props.currentScreenSize
               ? "100%"
-              : props.initialScreenSize >= 600
-              ? props.currentScreenSize >= 600
+              : // Detect portrait mode or landscape
+              props.initialScreenSize >= 600 &&
+                props.initialScreenSize > props.initialScreenHeight
+              ? props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
                 ? "0%"
                 : "100%"
-              : props.currentScreenSize >= 600
+              : props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
               ? "0%"
               : "0%",
             right: !props.currentScreenSize
               ? "100%"
-              : props.initialScreenSize >= 600
-              ? props.currentScreenSize >= 600
+              : props.initialScreenSize >= 600 &&
+                props.initialScreenSize > props.initialScreenHeight
+              ? props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
                 ? "100%"
                 : "0%"
-              : props.currentScreenSize >= 600
+              : props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
               ? "100%"
               : "0%",
           }}
           to={{
             top: !props.currentScreenSize
-              ? props.initialScreenSize >= 600
+              ? props.initialScreenSize >= 600 &&
+                props.initialScreenSize > props.initialScreenHeight
                 ? "0%"
                 : "50%"
-              : props.initialScreenSize >= 600
-              ? props.currentScreenSize >= 600
+              : props.initialScreenSize >= 600 &&
+                props.initialScreenSize > props.initialScreenHeight
+              ? props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
                 ? "0%"
                 : "50%"
-              : props.currentScreenSize >= 600
+              : props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
               ? "0%"
               : "50%",
             right: !props.currentScreenSize
-              ? props.initialScreenSize >= 600
+              ? props.initialScreenSize >= 600 &&
+                props.initialScreenSize > props.initialScreenHeight
                 ? "50%"
                 : "0%"
-              : props.initialScreenSize >= 600
-              ? props.currentScreenSize >= 600
+              : props.initialScreenSize >= 600 &&
+                props.initialScreenSize > props.initialScreenHeight
+              ? props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
                 ? "50%"
                 : "0%"
-              : props.currentScreenSize >= 600
+              : props.currentScreenSize >= 600 &&
+                props.currentScreenSize > props.currentScreenHeight
               ? "50%"
               : "0%",
           }}
@@ -430,40 +445,52 @@ const LandingPage = React.forwardRef((props, ref) => {
               style={{
                 top: splashScreenComplete
                   ? !props.currentScreenSize
-                    ? props.initialScreenSize >= 600
+                    ? props.initialScreenSize >= 600 &&
+                      props.initialScreenSize > props.initialScreenHeight
                       ? "0%"
                       : "50%"
-                    : props.currentScreenSize >= 600
+                    : props.currentScreenSize >= 600 &&
+                      props.currentScreenSize > props.currentScreenHeight
                     ? "0%"
                     : "50%"
                   : !props.currentScreenSize
-                  ? props.initialScreenSize >= 600
+                  ? props.initialScreenSize >= 600 &&
+                    props.initialScreenSize > props.initialScreenHeight
                     ? "0%"
                     : `${styles.top}`
-                  : props.initialScreenSize >= 600
-                  ? props.currentScreenSize >= 600
+                  : props.initialScreenSize >= 600 &&
+                    props.initialScreenSize > props.initialScreenHeight
+                  ? props.currentScreenSize >= 600 &&
+                    props.currentScreenSize > props.currentScreenHeight
                     ? "0%"
                     : `${styles.top}`
-                  : props.currentScreenSize >= 600
+                  : props.currentScreenSize >= 600 &&
+                    props.currentScreenSize > props.currentScreenHeight
                   ? "0%"
                   : `${styles.top}`,
                 right: splashScreenComplete
                   ? !props.currentScreenSize
-                    ? props.initialScreenSize >= 600
+                    ? props.initialScreenSize >= 600 &&
+                      props.initialScreenSize > props.initialScreenHeight
                       ? "50%"
                       : "0%"
-                    : props.currentScreenSize >= 600
+                    : props.currentScreenSize >= 600 &&
+                      props.currentScreenSize > props.currentScreenHeight
                     ? "50%"
                     : "0%"
                   : !props.currentScreenSize
-                  ? props.initialScreenSize >= 600
+                  ? props.initialScreenSize >= 600 &&
+                    props.initialScreenSize > props.initialScreenHeight
                     ? `${styles.right}`
                     : "0%"
-                  : props.initialScreenSize >= 600
-                  ? props.currentScreenSize >= 600
+                  : props.initialScreenSize >= 600 &&
+                    props.initialScreenSize > props.initialScreenHeight
+                  ? props.currentScreenSize >= 600 &&
+                    props.currentScreenSize > props.currentScreenHeight
                     ? `${styles.right}`
                     : "0%"
-                  : props.currentScreenSize >= 600
+                  : props.currentScreenSize >= 600 &&
+                    props.currentScreenSize > props.currentScreenHeight
                   ? `${styles.right}`
                   : "0%",
               }}

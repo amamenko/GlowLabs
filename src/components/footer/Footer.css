@@ -111,16 +111,35 @@
   }
 }
 
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .footer_container {
+    height: 40vh;
+    padding-bottom: 50vh;
+  }
+
+  .footer_all_icons_container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer_icon {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .footer_logo_svg {
+    transform: scale(0.2);
+    top: -55vh;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .footer_container {
     height: 25vh;
     padding-bottom: 0vh;
-  }
-  .footer_all_icons_container {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
   }
 
   .footer_icon {
@@ -136,6 +155,7 @@
   .footer_logo_svg {
     transform: scale(1);
     bottom: -8vh;
+    top: auto;
   }
 }
 
