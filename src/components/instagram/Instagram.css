@@ -444,4 +444,37 @@
     height: 48vh;
     padding-top: 20vh;
   }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_page_wrapping {
+    height: 100vh;
+    margin-top: 23vh;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_top_page_wrapping {
+    padding-top: 5vh;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_images_wrapping {
+    margin-top: 70vh;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .large_screen_follow_prompt {
+    margin-top: 100vh;
+    padding-top: 20vh;
+  }
+  _::-webkit-full-page-media,
+  _:future,
+  .large_screen_follow_prompt p {
+    margin-top: 0vh;
+  }
 }

@@ -159,6 +159,14 @@
     align-self: center;
     margin-right: 1.3rem;
   }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .treatments_page_1_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
 }
 
 /* CSS for Big Desktops */

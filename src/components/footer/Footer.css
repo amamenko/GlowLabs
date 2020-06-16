@@ -199,4 +199,31 @@
     transform: scale(1.5);
     bottom: 0;
   }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_logo_path_container {
+    transform: translate(0%, 0%);
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_all_icons_container {
+    padding-top: 4rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_copyright_statement {
+    padding-top: 3rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_logo_svg {
+    transform: scale(0.1);
+    bottom: -85vh;
+  }
 }

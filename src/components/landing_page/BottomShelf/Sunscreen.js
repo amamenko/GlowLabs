@@ -2,9 +2,9 @@ import React from "react";
 import { Spring } from "react-spring/renderprops";
 import { useSelector } from "react-redux";
 
-const Sunscreen = props => {
+const Sunscreen = (props) => {
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   return (
     <Spring
@@ -17,16 +17,16 @@ const Sunscreen = props => {
               ? 5000
               : 4000
             : 4000,
-        duration: 550
+        duration: 550,
       }}
     >
-      {props => (
+      {(props) => (
         <svg
           className="sun_screen"
           width="100%"
           style={{
             display: splashScreenComplete ? "inline" : `${props.display}`,
-            opacity: splashScreenComplete ? "1" : `${props.opacity}`
+            opacity: splashScreenComplete ? "1" : `${props.opacity}`,
           }}
           viewBox="0 0 50 50"
         >

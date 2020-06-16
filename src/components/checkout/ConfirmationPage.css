@@ -436,4 +436,13 @@
   .summary_card_subtotal_container p {
     font-size: 3rem;
   }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .summary_facial_container h2,
+  .summary_add_ons_container h2 {
+    padding-left: 0;
+  }
 }

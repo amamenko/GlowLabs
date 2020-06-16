@@ -46,6 +46,14 @@
     margin-top: 2.7rem;
     margin-bottom: -10vh;
   }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .add_ons_page_3_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
 }
 
 /* CSS for Big Desktops */

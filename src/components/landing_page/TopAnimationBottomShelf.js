@@ -7,6 +7,9 @@ const TopAnimationBottomShelf = (props) => {
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
+  const userAuthenticated = useSelector(
+    (state) => state.userAuthenticated.user_authenticated
+  );
 
   return (
     <Spring
@@ -27,7 +30,9 @@ const TopAnimationBottomShelf = (props) => {
       to={{
         top: !props.currentScreenSize
           ? props.initialScreenSize >= 2200
-            ? "71%"
+            ? props.isSafari
+              ? "66%"
+              : "71%"
             : props.initialScreenSize >= 1800
             ? "69%"
             : props.initialScreenSize >= 1200
@@ -40,7 +45,9 @@ const TopAnimationBottomShelf = (props) => {
             ? "40%"
             : "38.2%"
           : props.currentScreenSize >= 2200
-          ? "71%"
+          ? props.isSafari
+            ? "66%"
+            : "71%"
           : props.currentScreenSize >= 1800
           ? "69%"
           : props.currentScreenSize >= 1200
@@ -76,7 +83,9 @@ const TopAnimationBottomShelf = (props) => {
               !props.currentScreenSize || !splashScreenComplete
                 ? `${styles.top}`
                 : props.currentScreenSize >= 2200
-                ? "71%"
+                ? props.isSafari
+                  ? "66%"
+                  : "71%"
                 : props.currentScreenSize >= 1800
                 ? "69%"
                 : props.currentScreenSize >= 1200

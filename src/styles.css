@@ -11,12 +11,17 @@ body {
   font-family: "Montserrat", sans-serif;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  -webkit-text-size-adjust: none;
 }
 
 body {
   height: 100%;
 }
-
+@media (max-width: 96em) {
+  html {
+    font-size: 8px;
+  }
+}
 .reset_scroll_behavior {
   scroll-behavior: auto;
 }

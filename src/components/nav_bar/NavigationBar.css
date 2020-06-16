@@ -511,6 +511,7 @@
   }
 
   .cart_item_number_circle p {
+    font-size: 1.2rem;
     top: 0.4rem;
     margin-right: 0.3rem;
   }

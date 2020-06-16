@@ -707,7 +707,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToHome(LandingPageRef);
-                    }, 100);
+                    }, 200);
                   } else {
                     props.handleClickToScrollToHome(LandingPageRef);
                   }
@@ -719,7 +719,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToHome(LandingPageRef);
-                  }, 100);
+                  }, 200);
                 } else {
                   props.handleClickToScrollToHome(LandingPageRef);
                 }
@@ -763,7 +763,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToTreatments(Treatments1Ref);
-                    }, 100);
+                    }, 200);
                   } else {
                     props.handleClickToScrollToTreatments(Treatments1Ref);
                   }
@@ -775,7 +775,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToTreatments(Treatments1Ref);
-                  }, 100);
+                  }, 200);
                 } else {
                   props.handleClickToScrollToTreatments(Treatments1Ref);
                 }
@@ -819,7 +819,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToAddOns(AddOnsRef);
-                    }, 100);
+                    }, 200);
                   } else {
                     props.handleClickToScrollToAddOns(AddOnsRef);
                   }
@@ -831,7 +831,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToAddOns(AddOnsRef);
-                  }, 100);
+                  }, 200);
                 } else {
                   props.handleClickToScrollToAddOns(AddOnsRef);
                 }
@@ -875,7 +875,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToInstagram(InstagramRef);
-                    }, 100);
+                    }, 200);
                   } else {
                     props.handleClickToScrollToInstagram(InstagramRef);
                   }
@@ -887,7 +887,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToInstagram(InstagramRef);
-                  }, 100);
+                  }, 200);
                 } else {
                   props.handleClickToScrollToInstagram(InstagramRef);
                 }

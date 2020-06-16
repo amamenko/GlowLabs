@@ -43,6 +43,9 @@ const LargeScreenSideMenu = (props) => {
   const consentFormLastPageOpened = useSelector(
     (state) => state.consentFormLastPageOpened.consent_form_active_page
   );
+  const userAuthenticated = useSelector(
+    (state) => state.userAuthenticated.user_authenticated
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [pdfLoading, changePDFLoading] = useState(false);
@@ -257,6 +260,15 @@ const LargeScreenSideMenu = (props) => {
           ? "blur(5px) brightness(50%)"
           : "none",
         pointerEvents: cartIsActive || logoutClicked ? "none" : "auto",
+        display: userAuthenticated
+          ? !props.currentScreenSize
+            ? props.initialScreenSize >= 1200
+              ? "flex"
+              : "none"
+            : props.currentScreenSize >= 1200
+            ? "flex"
+            : "none"
+          : "none",
       }}
     >
       <Modal

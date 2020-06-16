@@ -727,6 +727,9 @@ const App = () => {
               backdropFilter: cartIsActive
                 ? "blur(30px) brightness(50%)"
                 : "none",
+              WebkitBackdropFilter: cartIsActive
+                ? "blur(30px) brightness(50%)"
+                : "none",
               transition: "backdropFilter 0.5s ease",
             }}
             onClick={(e) => {

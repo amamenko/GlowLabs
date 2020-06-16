@@ -12,16 +12,16 @@ import ACTION_SURGERY_LAST_3_MONTHS_YES from "../../../../../actions/ConsentForm
 import ACTION_SURGERY_LAST_3_MONTHS_YES_RESET from "../../../../../actions/ConsentForm/SurgeryLast3Months/Yes/ACTION_SURGERY_LAST_3_MONTHS_YES_RESET";
 import ACTION_SURGERY_LAST_3_MONTHS_NOTES from "../../../../../actions/ConsentForm/SurgeryLast3Months/Yes/Notes/ACTION_SURGERY_LAST_3_MONTHS_NOTES";
 
-const SurgeryLast3Months = props => {
+const SurgeryLast3Months = (props) => {
   const dispatch = useDispatch();
   const surgeryLast3MonthsNo = useSelector(
-    state => state.surgeryLast3MonthsNo.surgery_last_3_months_no_active
+    (state) => state.surgeryLast3MonthsNo.surgery_last_3_months_no_active
   );
   const surgeryLast3MonthsYes = useSelector(
-    state => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
+    (state) => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
   );
   const surgeryLast3MonthsNotes = useSelector(
-    state => state.surgeryLast3MonthsNotes.surgery_last_3_months_notes
+    (state) => state.surgeryLast3MonthsNotes.surgery_last_3_months_notes
   );
   const [pageOpened, changePageOpened] = useState(false);
 
@@ -38,7 +38,7 @@ const SurgeryLast3Months = props => {
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -99,7 +99,7 @@ const SurgeryLast3Months = props => {
                   : props.currentScreenSize >= 360
                   ? "-0.5rem"
                   : "0rem",
-              display: "block"
+              display: "block",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -141,7 +141,7 @@ const SurgeryLast3Months = props => {
     }
   };
 
-  const handleSurgeryNotes = e => {
+  const handleSurgeryNotes = (e) => {
     dispatch(ACTION_SURGERY_LAST_3_MONTHS_NOTES(e.currentTarget.value.trim()));
   };
 
@@ -200,7 +200,7 @@ const SurgeryLast3Months = props => {
           <Input
             type="textarea"
             style={{
-              fontFamily: "Montserrat"
+              fontFamily: "Montserrat",
             }}
             defaultValue={surgeryLast3MonthsNotes}
             placeholder="Enter any recent surgery details here."

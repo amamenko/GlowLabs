@@ -323,4 +323,19 @@ select {
     padding-left: 1rem;
     font-size: 1.5rem;
   }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .sq-cardholder-input::placeholder {
+    padding-top: 0.6rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .client_consent_form_checkbox {
+    margin-left: 0.5rem;
+    margin-right: 1.5rem;
+  }
 }
