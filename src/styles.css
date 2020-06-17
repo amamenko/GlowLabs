@@ -17,11 +17,7 @@ body {
 body {
   height: 100%;
 }
-@media (max-width: 96em) {
-  html {
-    font-size: 8px;
-  }
-}
+
 .reset_scroll_behavior {
   scroll-behavior: auto;
 }

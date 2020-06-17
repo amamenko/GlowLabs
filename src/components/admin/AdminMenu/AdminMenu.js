@@ -51,9 +51,20 @@ const AdminMenu = (props) => {
     }
   };
 
+  const redirectToClientsPage = () => {
+    if (!props.currentScreenSize) {
+      if (props.initialScreenSize >= 1200) {
+        return <Redirect to="/admin/clients" />;
+      }
+    } else if (props.currentScreenSize >= 1200) {
+      return <Redirect to="/admin/clients" />;
+    }
+  };
+
   return (
     <div className="admin_menu_container">
       {redirectToAdminLogInPage()}
+      {redirectToClientsPage()}
       <div className="admin_menu_page_header">
         <h1>ADMIN MENU</h1>
       </div>

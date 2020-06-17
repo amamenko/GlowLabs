@@ -71,6 +71,7 @@
   align-items: center;
   justify-content: space-around;
   margin-top: 3vh;
+  margin-bottom: 10vh;
 }
 
 .consent_form_bottom_button_container.page_1 {
@@ -337,8 +338,8 @@
   }
 
   .consent_form_signature_container {
-    width: 50%;
-    height: 20vh;
+    width: 15%;
+    height: 10%;
     margin-left: 11vw;
     margin-right: 11vw;
   }
@@ -351,17 +352,42 @@
   }
 
   .consent_form_date_field:not(:first-child) {
-    margin-right: 3rem;
+    margin-left: 1rem;
   }
 
   .consent_form_date_field {
     width: 10%;
     font-size: 1.5rem;
-    padding: 0.1rem;
-    margin-left: 3rem;
+    padding: 0.05rem;
+    margin-right: 1rem;
   }
 
-  .consent_form_signature_clear_container {
+  .final_booking_modal {
+    height: 60%;
+    top: 18%;
+    width: 25vw;
+  }
+
+  .dismiss_modal_button {
+    width: 100%;
+    padding: 1rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .dismiss_modal_button p {
     font-size: 1.5rem;
+  }
+
+  .modal_confirmation_statement {
+    font-size: 1.5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    line-height: 2rem;
+  }
+
+  .modal_consent_form_icon {
+    left: -148%;
+    top: -7.7vh;
   }
 }

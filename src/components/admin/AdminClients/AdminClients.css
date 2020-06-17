@@ -144,6 +144,7 @@
   padding-bottom: 20vh;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
+  position: relative;
 }
 
 .admin_individual_selected_client_contents_container p {
@@ -163,6 +164,7 @@
   padding-left: 1rem;
   font-weight: 600;
   color: rgba(0, 129, 177, 0.7);
+  cursor: pointer;
 }
 
 .admin_individual_selected_client_back_arrow_icon {
@@ -171,6 +173,7 @@
   z-index: 99999;
   opacity: 0.99;
   color: rgb(0, 129, 177);
+  cursor: pointer;
 }
 
 .admin_client_profile_top_section {
@@ -198,6 +201,7 @@
 
 .admin_individual_selected_client_camera_icon {
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .admin_individual_client_initials_profile_avatar {
@@ -395,10 +399,6 @@
   padding-top: 0.5rem;
 }
 
-.admin_individual_selected_client_contact_info_container p:nth-child(2) {
-  color: rgb(200, 200, 200);
-}
-
 .admin_individual_selected_client_contact_info_container p {
   display: inline-block;
   font-size: 0.7rem;
@@ -421,4 +421,295 @@
   text-align: center;
   font-size: 0.7rem;
   color: rgb(55, 55, 55);
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .admin_clients_container {
+    position: absolute;
+    width: 80%;
+    padding-top: 8vh;
+    right: 0;
+  }
+
+  .admin_clients_header {
+    height: 8vh;
+    font-weight: 600;
+    width: 80%;
+  }
+
+  .admin_clients_header h1 {
+    font-size: 2rem;
+  }
+
+  .admin_clients_back_arrow {
+    display: none;
+  }
+
+  .admin_clients_content_container {
+    padding-top: 2vh;
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+
+  .admin_clients_searchbar_container {
+    margin-left: 9vw;
+  }
+
+  .admin_clients_searchbar_icon {
+    left: 4.2rem;
+  }
+
+  .admin_clients_searchbar_input_field {
+    width: 82%;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 3rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .admin_individual_client_full_name {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .admin_individual_client_full_name p {
+    width: 22%;
+    line-height: 1.5rem;
+    text-align: start;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .admin_individual_client_full_name p:nth-child(2),
+  .admin_individual_client_full_name p:nth-child(3) {
+    padding-top: 0;
+    font-size: 1.2rem;
+  }
+
+  .admin_individual_client_expand_icon {
+    right: 11vw;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .admin_individual_client_initials_square {
+    width: 8%;
+    cursor: pointer;
+  }
+
+  .admin_individual_client_initials_square p {
+    font-size: 2rem;
+  }
+
+  .admin_individual_selected_client_container {
+    margin-top: auto;
+    width: 60%;
+    top: 16vh;
+    left: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .admin_individual_selected_client_contents_container {
+    overflow: hidden;
+  }
+
+  .my_individual_selected_appointment_back_arrow_icon {
+    font-size: 4rem;
+    cursor: pointer;
+  }
+
+  .admin_client_profile_client_avatar_container {
+    justify-content: flex-start;
+    margin-top: 2rem;
+  }
+
+  .admin_individual_client_initials_profile_avatar,
+  .admin_individual_client_picture_profile_avatar {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .admin_individual_client_initials_profile_avatar p {
+    font-size: 4rem;
+  }
+
+  .admin_individual_selected_client_camera_icon_container {
+    right: auto;
+    left: 10%;
+    padding: 0.5rem;
+  }
+
+  .admin_individual_selected_client_back_arrow_icon {
+    font-size: 3rem;
+  }
+
+  .admin_individual_selected_client_back_container p {
+    font-size: 1.5rem;
+  }
+
+  .admin_individual_selected_client_full_name_container {
+    width: 100%;
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 2rem;
+    position: absolute;
+    top: 7vh;
+    left: 20%;
+  }
+
+  .admin_individual_selected_client_contact_info_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 0.5rem;
+    position: absolute;
+    top: 13vh;
+    left: 19.5%;
+  }
+
+  .admin_individual_selected_membership_type_container {
+    padding-top: 5.5rem;
+  }
+
+  .admin_individual_selected_client_contact_info_container p {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+
+  .admin_client_profile_bottom_buttons_container {
+    margin-top: 3vh;
+  }
+
+  .profile_button_icon,
+  .profile_button_container h2 {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .profile_button_container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-left: 1rem;
+  }
+
+  .profile_button_container p {
+    width: 100%;
+    bottom: auto;
+    left: 5rem;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .admin_individual_client_add_photo_modal_contents h2 {
+    top: 5rem;
+    font-size: 2rem;
+  }
+
+  .admin_individual_client_add_photo_modal_content_container {
+    height: 50%;
+    top: 0;
+    width: 25vw;
+  }
+
+  .admin_individual_client_add_photo_modal_buttons_container {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 0;
+    height: 40vh;
+    top: -14vh;
+  }
+
+  .fileContainer .uploadIcon {
+    width: 10vh;
+    height: 10vw;
+    margin-bottom: 0;
+    position: absolute;
+    top: -12vh;
+  }
+
+  .admin_individual_client_take_a_photo_button {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
+    margin-bottom: 5rem;
+  }
+
+  .fileContainer .chooseFileButton {
+    margin-top: 6rem;
+    font-size: 1.5rem;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
+
+  .admin_individual_client_confirm_photo_button {
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 1.5rem;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-bottom: 14vh;
+    cursor: pointer;
+  }
+
+  .fileContainer .uploadPictureContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .react-html5-camera-photo > img,
+  .react-html5-camera-photo > video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .fileContainer .deleteImage {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    color: #fff;
+    background: #ff4081;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+  }
 }

@@ -222,6 +222,10 @@
   padding-bottom: 10%;
 }
 
+.login_page_descriptive_text {
+  display: none;
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .login_page_background {
@@ -294,6 +298,7 @@
   }
 
   .login_page_descriptive_text {
+    display: block;
     position: absolute;
     top: 25%;
     left: 30%;

@@ -6,6 +6,8 @@ import AdminClients from "./AdminClients/AdminClients";
 import { useQuery } from "@apollo/react-hooks";
 import { getClientsQuery } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
+import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
+import UpcomingAppointments from "../account/clientprofile/MyAppointments/Upcoming/UpcomingAppointments";
 
 const AdminRouter = (props) => {
   const { data: getClientsData, refetch: getClientsRefetch } = useQuery(
@@ -30,49 +32,62 @@ const AdminRouter = (props) => {
   }, [getClientsData]);
 
   return (
-    <Switch>
-      <Route
-        exact
-        path={props.path}
-        render={() => (
-          <AdminLoginPage
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
-            getEmployeeData={
-              props.getEmployeeData ? props.getEmployeeData : null
-            }
-            employeeDataRefetch={props.employeeDataRefetch}
-          />
-        )}
+    <>
+      <LargeScreenSideMenu
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+        getEmployeeData={props.getEmployeeData ? props.getEmployeeData : null}
+        employeeDataRefetch={props.employeeDataRefetch}
       />
-      <Route
-        exact
-        path={props.path + "/menu"}
-        render={() => (
-          <AdminMenu
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
-            getEmployeeData={
-              props.getEmployeeData ? props.getEmployeeData : null
-            }
-            employeeDataRefetch={props.employeeDataRefetch}
-          />
-        )}
-      />
-      <Route
-        exact
-        path={props.path + "/clients"}
-        render={() => (
-          <AdminClients
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
-            getClientsData={getClientsData ? getClientsData : null}
-            getClientsRefetch={getClientsRefetch}
-            randomColorArray={randomColorArray ? randomColorArray : null}
-          />
-        )}
-      />
-    </Switch>
+      <Switch>
+        <Route
+          exact
+          path={props.path}
+          render={() => (
+            <AdminLoginPage
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+              getEmployeeData={
+                props.getEmployeeData ? props.getEmployeeData : null
+              }
+              employeeDataRefetch={props.employeeDataRefetch}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/menu"}
+          render={() => (
+            <AdminMenu
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+              getEmployeeData={
+                props.getEmployeeData ? props.getEmployeeData : null
+              }
+              employeeDataRefetch={props.employeeDataRefetch}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/clients"}
+          render={() => (
+            <AdminClients
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+              getClientsData={getClientsData ? getClientsData : null}
+              getClientsRefetch={getClientsRefetch}
+              randomColorArray={randomColorArray ? randomColorArray : null}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/clients/:fullname/upcomingappointments"}
+          component={UpcomingAppointments}
+        />
+      </Switch>
+    </>
   );
 };
 

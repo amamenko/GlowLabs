@@ -35,9 +35,13 @@ import {
 } from "body-scroll-lock";
 import imageCompression from "browser-image-compression";
 import ImageUploader from "react-images-upload";
-import Camera from "react-html5-camera-photo";
-import { useMutation } from "@apollo/react-hooks";
-import { updateClientProfilePictureMutation } from "../../../graphql/queries/queries";
+import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
+import { useMutation, useLazyQuery } from "@apollo/react-hooks";
+import {
+  updateClientProfilePictureMutation,
+  getOwnAppointmentsQuery,
+  getOwnPastAppointmentsQuery,
+} from "../../../graphql/queries/queries";
 import moment from "moment";
 import LZString from "lz-string";
 import "react-html5-camera-photo/build/css/index.css";
@@ -81,6 +85,7 @@ const AdminClients = (props) => {
     false
   );
   const [takeAPhotoSelected, changeTakeAPhotoSelected] = useState(false);
+  const [webcamURI, changeWebcamURI] = useState("");
   const [imageUploaded, changeImageUploaded] = useState("");
   const [imagePreviewAvailable, changeImagePreviewAvailable] = useState(false);
   const [imageLoading, changeImageLoading] = useState(false);
@@ -99,6 +104,20 @@ const AdminClients = (props) => {
     right: 25%;
   `;
 
+  const [getOwnAppointments, { data: getOwnAppointmentsData }] = useLazyQuery(
+    getOwnAppointmentsQuery,
+    {
+      fetchPolicy: "no-cache",
+    }
+  );
+
+  const [
+    getOwnPastAppointments,
+    { data: pastAppointmentsData, called: pastAppointmentsCalled },
+  ] = useLazyQuery(getOwnPastAppointmentsQuery, {
+    fetchPolicy: "no-cache",
+  });
+
   useEffect(() => {
     if (!splashScreenComplete) {
       dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
@@ -113,6 +132,14 @@ const AdminClients = (props) => {
       return <Redirect to="/admin" />;
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (pdfLoading) {
+        changePDFLoading(false);
+      }
+    };
+  }, [pdfLoading]);
 
   useEffect(() => {
     const checkModalRef = setInterval(() => {
@@ -158,14 +185,30 @@ const AdminClients = (props) => {
 
   const handleImageUploaded = async (picture) => {
     changeImageLoading(true);
-    if (picture[0]) {
+    if (picture[0] || typeof picture === "string") {
       const reader = new FileReader();
       changeImagePreviewAvailable(true);
       try {
-        const compressedImage = await imageCompression(picture[0], {
-          maxSizeMB: 0.3,
-          maxWidthOrHeight: 300,
-        });
+        let compressedImage;
+
+        if (typeof picture === "object") {
+          compressedImage = await imageCompression(picture[0], {
+            maxSizeMB: 0.3,
+            maxWidthOrHeight: 300,
+          });
+        } else if (typeof picture === "string") {
+          await fetch(picture)
+            .then((res) => {
+              return res.blob();
+            })
+            .then(async (blob) => {
+              compressedImage = await imageCompression(blob, {
+                maxSizeMB: 0.3,
+                maxWidthOrHeight: 300,
+              });
+            });
+        }
+
         reader.readAsDataURL(compressedImage);
 
         reader.onloadend = async () => {
@@ -223,6 +266,18 @@ const AdminClients = (props) => {
       }
     }
   }, [clientFilter, props.getClientsData]);
+
+  useMemo(() => {
+    if (clientToggled) {
+      const clientEmail = [...props.getClientsData.clients].filter(
+        (x) => x._id === clientToggled
+      )[0].email;
+
+      getOwnAppointments({
+        variables: { _id: clientToggled, email: clientEmail },
+      });
+    }
+  }, [clientToggled, getOwnAppointments, props.getClientsData]);
 
   // Allows click only if selected client modal is not active
 
@@ -282,6 +337,10 @@ const AdminClients = (props) => {
           backToClientsRef.current.className === e.currentTarget.className
         ) {
           changeClientToggled("");
+
+          if (pdfLoading) {
+            changePDFLoading(false);
+          }
         }
       }
     }
@@ -312,6 +371,8 @@ const AdminClients = (props) => {
     changeImageUploaded("");
     changeAddProfilePhotoClicked(false);
     changeImagePreviewAvailable(false);
+    changeTakeAPhotoSelected(false);
+    changeWebcamURI("");
   };
 
   useMemo(() => {
@@ -378,7 +439,8 @@ const AdminClients = (props) => {
         if (pdfDownloadRef) {
           pdfDownloadRef.current.click();
         }
-      }, 2000);
+        changePDFLoading(false);
+      }, 3000);
       return () => {
         clearTimeout(loadingSpinnerDuration);
       };
@@ -399,17 +461,22 @@ const AdminClients = (props) => {
       <div
         className="profile_button_container"
         onClick={() => loadingCompleted()}
+        style={{
+          cursor: "pointer",
+        }}
       >
         <FontAwesomeIcon
           className="profile_button_icon"
           icon={faFileDownload}
           style={{
             color: "rgba(0, 129, 177, 0.9)",
+            cursor: "pointer",
           }}
         />
         <h2
           style={{
             color: "rgba(0, 129, 177, 0.9)",
+            cursor: "pointer",
           }}
         >
           Download Latest Consent Form
@@ -431,17 +498,151 @@ const AdminClients = (props) => {
           icon={faFilePdf}
           style={{
             color: "rgba(177, 48, 0, 0.9)",
+            cursor: "default",
           }}
         />
         <h2
           style={{
             color: "rgba(177, 48, 0, 0.9)",
+            cursor: "default",
           }}
         >
           No Consent Form on File
         </h2>
       </div>
     );
+  };
+
+  const renderBarInContactInfo = () => {
+    if (!props.currentScreenSize) {
+      if (props.initialScreenSize >= 1200) {
+        return null;
+      } else {
+        return <p style={{ color: "rgb(200, 200, 200)" }}>|</p>;
+      }
+    } else {
+      if (props.currentScreenSize >= 1200) {
+        return null;
+      } else {
+        return <p style={{ color: "rgb(200, 200, 200)" }}>|</p>;
+      }
+    }
+  };
+
+  const renderDownloadConsentFormButton = (item) => {
+    if (item) {
+      if (item.consentForm) {
+        if (item.consentForm.date) {
+          return (
+            <>
+              {pdfLoading ? (
+                <PDFDownloadLink
+                  document={
+                    <ConsentFormPDF
+                      getClientData={{ client: item }}
+                      signature={
+                        signature
+                          ? signature.current
+                            ? signature.current.canvasContainer.children[1].toDataURL()
+                            : null
+                          : null
+                      }
+                      consentFormLastUpdated={moment
+                        .unix(item.consentForm.createdAt / 1000)
+                        .format("l")}
+                      onClick={handlePDFDownloadClick}
+                    />
+                  }
+                  fileName={
+                    item.firstName[0].toUpperCase() +
+                    item.firstName.slice(1).toLowerCase() +
+                    "_" +
+                    item.lastName[0].toUpperCase() +
+                    item.lastName.slice(1).toLowerCase() +
+                    "_" +
+                    "Glow_Labs_Consent_Form.pdf"
+                  }
+                >
+                  <div
+                    className="profile_button_container"
+                    ref={pdfDownloadRef}
+                    style={{
+                      cursor: item.consentForm
+                        ? item.consentForm.date
+                          ? "pointer"
+                          : "default"
+                        : "default",
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      className="profile_button_icon"
+                      icon={
+                        item.consentForm
+                          ? item.consentForm.date
+                            ? faFileDownload
+                            : faFilePdf
+                          : faFilePdf
+                      }
+                      style={{
+                        color: item.consentForm
+                          ? item.consentForm.date
+                            ? "rgba(0, 129, 177, 0.9)"
+                            : "rgba(177, 48, 0, 0.9)"
+                          : "rgba(177, 48, 0, 0.9)",
+                        cursor: item.consentForm
+                          ? item.consentForm.date
+                            ? "pointer"
+                            : "default"
+                          : "default",
+                      }}
+                    />
+                    <h2
+                      style={{
+                        color: item.consentForm
+                          ? item.consentForm.date
+                            ? "rgba(0, 129, 177, 0.9)"
+                            : "rgba(177, 48, 0, 0.9)"
+                          : "rgba(177, 48, 0, 0.9)",
+                        cursor: item.consentForm
+                          ? item.consentForm.date
+                            ? "pointer"
+                            : "default"
+                          : "default",
+                      }}
+                    >
+                      {item.consentForm
+                        ? item.consentForm.date
+                          ? "Download Latest Consent Form"
+                          : "No Consent Form on File"
+                        : "No Consent Form on File"}
+                    </h2>
+                    {item.consentForm ? (
+                      item.consentForm.date ? (
+                        <p>
+                          {"(" +
+                            moment
+                              .unix(item.consentForm.createdAt / 1000)
+                              .format("l") +
+                            ")"}
+                        </p>
+                      ) : null
+                    ) : null}
+                  </div>
+                </PDFDownloadLink>
+              ) : (
+                consentFormOnFile(item)
+              )}
+            </>
+          );
+        } else {
+          return noConsentFormOnFile();
+        }
+      } else {
+        return noConsentFormOnFile();
+      }
+    } else {
+      return noConsentFormOnFile();
+    }
   };
 
   return (
@@ -540,9 +741,17 @@ const AdminClients = (props) => {
                                 className="admin_individual_client_add_photo_modal_content_container"
                                 style={styleprops}
                               >
-                                {takeAPhotoSelected ? (
+                                {takeAPhotoSelected &&
+                                !imagePreviewAvailable ? (
                                   <>
-                                    <Camera isSilentMode={true} />
+                                    <Camera
+                                      isSilentMode={true}
+                                      onTakePhotoAnimationDone={(dataUri) => {
+                                        handleImageUploaded(dataUri);
+                                        changeWebcamURI(dataUri);
+                                      }}
+                                      imageType={IMAGE_TYPES.JPG}
+                                    />
                                     <div className="admin_individual_client_add_photo_modal_contents">
                                       <FontAwesomeIcon
                                         className="modal_x"
@@ -561,9 +770,10 @@ const AdminClients = (props) => {
                                       icon={faTimes}
                                       onClick={() => {
                                         changeAddProfilePhotoClicked(false);
-
+                                        changeTakeAPhotoSelected(false);
                                         changeImageUploaded("");
                                         changeImagePreviewAvailable(false);
+                                        changeWebcamURI("");
                                       }}
                                     />
                                     <h2>Update client profile picture</h2>
@@ -597,6 +807,36 @@ const AdminClients = (props) => {
                                         singleImage={true}
                                         withPreview={true}
                                       />
+                                      {(imageUploaded ||
+                                        imagePreviewAvailable) &&
+                                      takeAPhotoSelected ? (
+                                        <div className="fileContainer">
+                                          <div className="uploadPictureContainer">
+                                            <div
+                                              className="deleteImage"
+                                              onClick={() => {
+                                                changeWebcamURI("");
+                                                changeImagePreviewAvailable(
+                                                  false
+                                                );
+                                                changeImageLoading(false);
+                                                changeImagePreviewAvailable(
+                                                  false
+                                                );
+                                                changeTakeAPhotoSelected(false);
+                                                changeImageUploaded("");
+                                              }}
+                                            >
+                                              X
+                                            </div>
+                                            <img
+                                              src={webcamURI}
+                                              className="uploadPicture"
+                                              alt="preview"
+                                            />
+                                          </div>
+                                        </div>
+                                      ) : null}
                                       {imageUploaded ||
                                       imagePreviewAvailable ? (
                                         <div
@@ -606,10 +846,28 @@ const AdminClients = (props) => {
                                           <p>Confirm photo</p>
                                         </div>
                                       ) : null}
-                                      {props.initialScreenSize >= 1200 ||
-                                      props.currentScreenSize >= 1200 ? (
+                                      {(props.initialScreenSize >= 1200 &&
+                                        !imageUploaded &&
+                                        !imagePreviewAvailable) ||
+                                      (props.currentScreenSize >= 1200 &&
+                                        !imageUploaded &&
+                                        !imagePreviewAvailable) ? (
                                         <>
-                                          <p>OR</p>
+                                          <p
+                                            style={{
+                                              display: !props.currentScreenSize
+                                                ? props.initialScreenSize >=
+                                                  1200
+                                                  ? "block"
+                                                  : "none"
+                                                : props.currentScreenSize >=
+                                                  1200
+                                                ? "block"
+                                                : "none",
+                                            }}
+                                          >
+                                            OR
+                                          </p>
                                           <div
                                             className="admin_individual_client_take_a_photo_button"
                                             onClick={() =>
@@ -774,15 +1032,32 @@ const AdminClients = (props) => {
                                   </div>
                                   <div className="admin_individual_selected_client_contact_info_container">
                                     <p>{item.email}</p>
-                                    <p>|</p>
+                                    {renderBarInContactInfo()}
                                     <p>{item.phoneNumber}</p>
                                   </div>
-                                  <div className="admin_individual_selected_client_contact_info_container">
+                                  <div className="admin_individual_selected_client_contact_info_container admin_individual_selected_membership_type_container">
                                     <p>Membership Type: Default</p>
                                   </div>
                                 </div>
                                 <div className="admin_client_profile_bottom_buttons_container">
-                                  <div className="profile_button_container">
+                                  <Link
+                                    to={{
+                                      pathname:
+                                        "/admin/clients/" +
+                                        item.firstName.toLowerCase() +
+                                        item.lastName.toLowerCase() +
+                                        "/upcomingappointments",
+                                      state: {
+                                        getOwnAppointmentsData: getOwnAppointmentsData,
+                                        wow: "wow",
+                                        initialScreenSize:
+                                          props.initialScreenSize,
+                                        currentScreenSize:
+                                          props.currentScreenSize,
+                                      },
+                                    }}
+                                    className="profile_button_container"
+                                  >
                                     <FontAwesomeIcon
                                       className="profile_button_icon"
                                       icon={faCalendarAlt}
@@ -792,7 +1067,7 @@ const AdminClients = (props) => {
                                       className="profile_button_expand"
                                       icon={faChevronRight}
                                     />
-                                  </div>
+                                  </Link>
                                   <div className="profile_button_container">
                                     <FontAwesomeIcon
                                       className="profile_button_icon"
@@ -830,106 +1105,7 @@ const AdminClients = (props) => {
                                       icon={faChevronRight}
                                     />
                                   </div>
-                                  {item.consentForm ? (
-                                    item.consentForm.date ? (
-                                      <>
-                                        {pdfLoading ? (
-                                          <PDFDownloadLink
-                                            document={
-                                              <ConsentFormPDF
-                                                getClientData={{ client: item }}
-                                                signature={
-                                                  signature
-                                                    ? signature.current
-                                                      ? signature.current.canvasContainer.children[1].toDataURL()
-                                                      : null
-                                                    : null
-                                                }
-                                                consentFormLastUpdated={moment
-                                                  .unix(
-                                                    item.consentForm.createdAt /
-                                                      1000
-                                                  )
-                                                  .format("l")}
-                                                onClick={handlePDFDownloadClick}
-                                              />
-                                            }
-                                            fileName={
-                                              item.firstName[0].toUpperCase() +
-                                              item.firstName
-                                                .slice(1)
-                                                .toLowerCase() +
-                                              "_" +
-                                              item.lastName[0].toUpperCase() +
-                                              item.lastName
-                                                .slice(1)
-                                                .toLowerCase() +
-                                              "_" +
-                                              "Glow_Labs_Consent_Form.pdf"
-                                            }
-                                          >
-                                            <div
-                                              className="profile_button_container"
-                                              ref={pdfDownloadRef}
-                                            >
-                                              <FontAwesomeIcon
-                                                className="profile_button_icon"
-                                                icon={
-                                                  item.consentForm
-                                                    ? item.consentForm.date
-                                                      ? faFileDownload
-                                                      : faFilePdf
-                                                    : faFilePdf
-                                                }
-                                                style={{
-                                                  color: item.consentForm
-                                                    ? item.consentForm.date
-                                                      ? "rgba(0, 129, 177, 0.9)"
-                                                      : "rgba(177, 48, 0, 0.9)"
-                                                    : "rgba(177, 48, 0, 0.9)",
-                                                }}
-                                              />
-                                              <h2
-                                                style={{
-                                                  color: item.consentForm
-                                                    ? item.consentForm.date
-                                                      ? "rgba(0, 129, 177, 0.9)"
-                                                      : "rgba(177, 48, 0, 0.9)"
-                                                    : "rgba(177, 48, 0, 0.9)",
-                                                }}
-                                              >
-                                                {item.consentForm
-                                                  ? item.consentForm.date
-                                                    ? "Download Latest Consent Form"
-                                                    : "No Consent Form on File"
-                                                  : "No Consent Form on File"}
-                                              </h2>
-                                              {item.consentForm ? (
-                                                item.consentForm.date ? (
-                                                  <p>
-                                                    {"(" +
-                                                      moment
-                                                        .unix(
-                                                          item.consentForm
-                                                            .createdAt / 1000
-                                                        )
-                                                        .format("l") +
-                                                      ")"}
-                                                  </p>
-                                                ) : null
-                                              ) : null}
-                                            </div>
-                                          </PDFDownloadLink>
-                                        ) : (
-                                          consentFormOnFile(item)
-                                        )}
-                                      </>
-                                    ) : (
-                                      noConsentFormOnFile()
-                                    )
-                                  ) : (
-                                    noConsentFormOnFile()
-                                  )}
+                                  {renderDownloadConsentFormButton(item)}
                                 </div>
                               </div>
                             </div>

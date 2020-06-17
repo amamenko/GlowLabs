@@ -395,7 +395,7 @@
   .nav_bar_profile_picture_thumbnail {
     height: 2rem;
     width: 2rem;
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
   }
 
   .shopping_cart_large_screen:hover {
@@ -518,5 +518,17 @@
 
   .logo_svg {
     left: 5rem;
+  }
+
+  .sign_in_circle_icon {
+    font-size: 2rem;
+  }
+
+  .letter_circle {
+    top: 0.6rem;
+  }
+
+  .fa-layers.fa-fw.letter_circle p {
+    font-size: 1.2rem;
   }
 }

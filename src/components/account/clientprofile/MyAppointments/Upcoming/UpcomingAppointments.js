@@ -63,6 +63,9 @@ const UpcomingAppointments = (props) => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const adminAuthenticated = useSelector(
+    (state) => state.adminAuthenticated.admin_authenticated
+  );
   const [appointmentToggled, changeAppointmentToggled] = useState("");
   const [cancelAppointmentClicked, changeCancelAppointmentClicked] = useState(
     false
@@ -136,7 +139,7 @@ const UpcomingAppointments = (props) => {
   };
 
   const redirectToLogInPage = () => {
-    if (!userAuthenticated) {
+    if (!userAuthenticated && !adminAuthenticated) {
       return <Redirect to="/account/login" />;
     }
   };
@@ -235,6 +238,8 @@ const UpcomingAppointments = (props) => {
       </div>
     ));
   };
+
+  console.log(props.location ? props.location.state : null);
 
   // Allows click only if selected appointment modal is not active
 

@@ -322,6 +322,12 @@ const ConsentFormPage7 = (props) => {
   };
 
   useEffect(() => {
+    if (finalBookButtonActive) {
+      props.clientDataRefetch();
+    }
+  }, [finalBookButtonActive, props]);
+
+  useEffect(() => {
     if (appLoading) {
       if (!loadingSpinnerActive) {
         dispatch(ACTION_LOADING_SPINNER_ACTIVE());
@@ -586,7 +592,15 @@ const ConsentFormPage7 = (props) => {
                       className="dismiss_modal_button"
                       onClick={handleModalBackToClientProfile}
                     >
-                      <p>BACK TO MENU</p>
+                      <p>
+                        {!props.currentScreenSize
+                          ? props.initialScreenSize >= 1200
+                            ? "BACK TO APPOINTMENTS"
+                            : "BACK TO MENU"
+                          : props.currentScreenSize >= 1200
+                          ? "BACK TO APPOINTMENTS"
+                          : "BACK TO MENU"}
+                      </p>
                     </div>
                   </Link>
                 </div>

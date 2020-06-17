@@ -118,8 +118,8 @@ const getAllAppointmentsQuery = gql`
 `;
 
 const getOwnAppointmentsQuery = gql`
-  {
-    own_appointments {
+  query($_id: ID, $email: String) {
+    own_appointments(_id: $_id, email: $email) {
       id
       date
       startTime

@@ -101,7 +101,7 @@ const AccountRouter = (props) => {
           render={() => (
             <UpcomingAppointments
               data={data ? data : null}
-              refetch={refetch}
+              refetch={refetch ? refetch : null}
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
             />

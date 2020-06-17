@@ -15,6 +15,9 @@ import {
   faCommentDots,
   faFileDownload,
   faFilePdf,
+  faUsers,
+  faBriefcase,
+  faCalendarWeek,
 } from "@fortawesome/free-solid-svg-icons";
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -46,6 +49,12 @@ const LargeScreenSideMenu = (props) => {
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
   );
+  const finalBookButtonActive = useSelector(
+    (state) => state.finalBookButton.final_book_button_active
+  );
+  const adminAuthenticated = useSelector(
+    (state) => state.adminAuthenticated.admin_authenticated
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [pdfLoading, changePDFLoading] = useState(false);
@@ -56,6 +65,14 @@ const LargeScreenSideMenu = (props) => {
     left: 25%;
     right: 25%;
   `;
+
+  useEffect(() => {
+    return () => {
+      if (pdfLoading) {
+        changePDFLoading(false);
+      }
+    };
+  }, [pdfLoading]);
 
   const loadingCompleted = useCallback(() => {
     changeLoadingSpinnerActive(true);
@@ -75,7 +92,8 @@ const LargeScreenSideMenu = (props) => {
             pdfDownloadRef.current.click();
           }
         }
-      }, 2000);
+        changePDFLoading(false);
+      }, 3000);
       return () => {
         clearTimeout(loadingSpinnerDuration);
       };
@@ -256,19 +274,23 @@ const LargeScreenSideMenu = (props) => {
       style={{
         filter: cartIsActive
           ? "blur(8px) brightness(70%)"
-          : logoutClicked
+          : logoutClicked || finalBookButtonActive
           ? "blur(5px) brightness(50%)"
           : "none",
-        pointerEvents: cartIsActive || logoutClicked ? "none" : "auto",
-        display: userAuthenticated
-          ? !props.currentScreenSize
-            ? props.initialScreenSize >= 1200
+        pointerEvents:
+          cartIsActive || logoutClicked || finalBookButtonActive
+            ? "none"
+            : "auto",
+        display:
+          userAuthenticated || adminAuthenticated
+            ? !props.currentScreenSize
+              ? props.initialScreenSize >= 1200
+                ? "flex"
+                : "none"
+              : props.currentScreenSize >= 1200
               ? "flex"
               : "none"
-            : props.currentScreenSize >= 1200
-            ? "flex"
-            : "none"
-          : "none",
+            : "none",
       }}
     >
       <Modal
@@ -353,14 +375,61 @@ const LargeScreenSideMenu = (props) => {
       </div>
       <div className="large_screen_side_menu_profile_container">
         <div className="large_screen_side_menu_profile_client_avatar_container">
-          <FontAwesomeIcon
-            className="large_screen_side_menu_profile_client_avatar"
-            icon={faUserCircle}
-          />
+          {props.getClientData ? (
+            props.getClientData.client ? (
+              props.getClientData.client.profilePicture ? (
+                <img
+                  className="large_screen_side_menu_profile_client_photo_avatar"
+                  src={LZString.decompressFromUTF16(
+                    props.getClientData.client.profilePicture
+                  )}
+                  alt={
+                    props.getClientData.client.firstName[0].toUpperCase() +
+                    props.getClientData.client.firstName
+                      .slice(1)
+                      .toLowerCase() +
+                    " " +
+                    props.getClientData.client.lastName[0].toUpperCase() +
+                    props.getClientData.client.lastName.slice(1).toLowerCase() +
+                    " Profile Picture"
+                  }
+                />
+              ) : (
+                <FontAwesomeIcon
+                  className="large_screen_side_menu_profile_client_avatar"
+                  icon={faUserCircle}
+                />
+              )
+            ) : (
+              <FontAwesomeIcon
+                className="large_screen_side_menu_profile_client_avatar"
+                icon={faUserCircle}
+              />
+            )
+          ) : (
+            <FontAwesomeIcon
+              className="large_screen_side_menu_profile_client_avatar"
+              icon={faUserCircle}
+            />
+          )}
         </div>
         <div className="large_screen_side_menu_profile_contact_information_container">
           <div className="large_screen_side_menu_profile_name_container">
             <p>
+              {props.getEmployeeData
+                ? props.getEmployeeData.employee
+                  ? props.getEmployeeData.employee.firstName
+                    ? props.getEmployeeData.employee.firstName
+                    : null
+                  : null
+                : null}{" "}
+              {props.getEmployeeData
+                ? props.getEmployeeData.employee
+                  ? props.getEmployeeData.employee.lastName
+                    ? props.getEmployeeData.employee.lastName
+                    : null
+                  : null
+                : null}
               {props.getClientData
                 ? props.getClientData.client
                   ? props.getClientData.client.firstName
@@ -379,13 +448,24 @@ const LargeScreenSideMenu = (props) => {
           </div>
           <div className="large_screen_side_menu_profile_membership_type_container">
             <p>Membership Type</p>
-            <p>Default</p>
+            <p>
+              {props.getClientData
+                ? "Default"
+                : props.getEmployeeData
+                ? "Admin"
+                : null}
+            </p>
           </div>
         </div>
         <div className="large_screen_side_menu_profile_email_and_phone_container">
           <div className="large_screen_side_menu_profile_email_container">
             <h2>Email Address</h2>
             <p>
+              {props.getEmployeeData
+                ? props.getEmployeeData.employee
+                  ? props.getEmployeeData.employee.email
+                  : null
+                : null}
               {props.getClientData
                 ? props.getClientData.client
                   ? props.getClientData.client.email
@@ -396,6 +476,11 @@ const LargeScreenSideMenu = (props) => {
           <div className="large_screen_side_menu_profile_phone_number_container">
             <h2>Phone Number</h2>
             <p>
+              {props.getEmployeeData
+                ? props.getEmployeeData.employee
+                  ? props.getEmployeeData.employee.phoneNumber
+                  : null
+                : null}
               {props.getClientData
                 ? props.getClientData.client
                   ? props.getClientData.client.phoneNumber
@@ -405,142 +490,192 @@ const LargeScreenSideMenu = (props) => {
           </div>
         </div>
       </div>
-      <div className="large_screen_side_menu_underline_separator" />
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
-        >
-          <FontAwesomeIcon
-            icon={faHome}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>Home</h2>
-        </Link>
-      </div>
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/account/clientprofile/upcomingappointments"
-        >
-          <div
-            className="large_screen_side_menu_item_selected_border"
-            style={{
-              opacity: location.pathname.includes("upcomingappointments")
-                ? 1
-                : 0,
-            }}
-          />
-          <FontAwesomeIcon
-            icon={faCalendarAlt}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>Upcoming Appointments</h2>
-        </Link>
-      </div>{" "}
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/account/clientprofile/pastappointments"
-        >
-          <div
-            className="large_screen_side_menu_item_selected_border"
-            style={{
-              opacity: location.pathname.includes("pastappointments") ? 1 : 0,
-            }}
-          />
-          <FontAwesomeIcon
-            icon={faHistory}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>Past Appointments</h2>
-        </Link>
-      </div>{" "}
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
-        >
-          <div
-            className="large_screen_side_menu_item_selected_border"
-            style={{
-              opacity: location.pathname.includes("consentform") ? 1 : 0,
-            }}
-          />
-          <FontAwesomeIcon
-            icon={faFileSignature}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>Consent Form</h2>
-        </Link>
-      </div>
-      {renderDownloadConsentFormButton()}
-      <div className="large_screen_side_menu_underline_separator" />
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
-        >
-          <FontAwesomeIcon
-            icon={faSpa}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>My Skin Care Routine</h2>
-        </Link>
-      </div>{" "}
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
-        >
-          <FontAwesomeIcon
-            icon={faCommentDots}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>Recommended Skin Care Routine</h2>
-        </Link>
-      </div>
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
-        >
-          <FontAwesomeIcon
-            icon={faPencilAlt}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>Quizzes</h2>
-        </Link>
-      </div>
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
-        >
-          <FontAwesomeIcon
-            icon={faQuestion}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>FAQ</h2>
-        </Link>
-      </div>
-      <div className="large_screen_side_menu_item_container">
-        <Link
-          className="large_screen_side_menu_item"
-          to="/"
-          onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
-        >
-          <FontAwesomeIcon
-            icon={faCamera}
-            className="large_screen_side_menu_item_icon"
-          />
-          <h2>Before / After Photos</h2>
-        </Link>
+      <div className="large_screen_side_menu_all_items_container">
+        <div className="large_screen_side_menu_underline_separator" />
+        <div className="large_screen_side_menu_item_container">
+          <Link
+            className="large_screen_side_menu_item"
+            to="/"
+            onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+          >
+            <FontAwesomeIcon
+              icon={faHome}
+              className="large_screen_side_menu_item_icon"
+            />
+            <h2>Home</h2>
+          </Link>
+        </div>
+        {props.getEmployeeData ? (
+          <div className="large_screen_side_menu_item_container">
+            <Link className="large_screen_side_menu_item" to="/admin/clients">
+              <div
+                className="large_screen_side_menu_item_selected_border"
+                style={{
+                  opacity: location.pathname.includes("/admin/clients") ? 1 : 0,
+                }}
+              />
+              <FontAwesomeIcon
+                icon={faUsers}
+                className="large_screen_side_menu_item_icon"
+              />
+              <h2>Clients</h2>
+            </Link>
+          </div>
+        ) : (
+          <div className="large_screen_side_menu_item_container">
+            <Link
+              className="large_screen_side_menu_item"
+              to="/account/clientprofile/upcomingappointments"
+            >
+              <div
+                className="large_screen_side_menu_item_selected_border"
+                style={{
+                  opacity: location.pathname.includes("upcomingappointments")
+                    ? 1
+                    : 0,
+                }}
+              />
+              <FontAwesomeIcon
+                icon={faCalendarAlt}
+                className="large_screen_side_menu_item_icon"
+              />
+              <h2>Upcoming Appointments</h2>
+            </Link>
+          </div>
+        )}{" "}
+        {props.getEmployeeData ? (
+          <div className="large_screen_side_menu_item_container">
+            <Link className="large_screen_side_menu_item" to="/admin/clients">
+              <FontAwesomeIcon
+                icon={faBriefcase}
+                className="large_screen_side_menu_item_icon"
+              />
+              <h2>Staff</h2>
+            </Link>
+          </div>
+        ) : (
+          <div className="large_screen_side_menu_item_container">
+            <Link
+              className="large_screen_side_menu_item"
+              to="/account/clientprofile/pastappointments"
+            >
+              <div
+                className="large_screen_side_menu_item_selected_border"
+                style={{
+                  opacity: location.pathname.includes("pastappointments")
+                    ? 1
+                    : 0,
+                }}
+              />
+              <FontAwesomeIcon
+                icon={faHistory}
+                className="large_screen_side_menu_item_icon"
+              />
+              <h2>Past Appointments</h2>
+            </Link>
+          </div>
+        )}{" "}
+        {props.getEmployeeData ? (
+          <div className="large_screen_side_menu_item_container">
+            <Link className="large_screen_side_menu_item" to="/admin/clients">
+              <FontAwesomeIcon
+                icon={faCalendarWeek}
+                className="large_screen_side_menu_item_icon"
+              />
+              <h2>My Schedule</h2>
+            </Link>
+          </div>
+        ) : (
+          <div className="large_screen_side_menu_item_container">
+            <Link
+              className="large_screen_side_menu_item"
+              to={`/account/clientprofile/consentform/${consentFormLastPageOpened}`}
+            >
+              <div
+                className="large_screen_side_menu_item_selected_border"
+                style={{
+                  opacity: location.pathname.includes("consentform") ? 1 : 0,
+                }}
+              />
+              <FontAwesomeIcon
+                icon={faFileSignature}
+                className="large_screen_side_menu_item_icon"
+              />
+              <h2>Consent Form</h2>
+            </Link>
+          </div>
+        )}
+        {renderDownloadConsentFormButton()}
+        {props.getEmployeeData ? null : (
+          <>
+            <div className="large_screen_side_menu_underline_separator" />
+            <div className="large_screen_side_menu_item_container">
+              <Link
+                className="large_screen_side_menu_item"
+                to="/"
+                onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+              >
+                <FontAwesomeIcon
+                  icon={faSpa}
+                  className="large_screen_side_menu_item_icon"
+                />
+                <h2>My Skin Care Routine</h2>
+              </Link>
+            </div>{" "}
+            <div className="large_screen_side_menu_item_container">
+              <Link
+                className="large_screen_side_menu_item"
+                to="/"
+                onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+              >
+                <FontAwesomeIcon
+                  icon={faCommentDots}
+                  className="large_screen_side_menu_item_icon"
+                />
+                <h2>Recommended Skin Care Routine</h2>
+              </Link>
+            </div>
+            <div className="large_screen_side_menu_item_container">
+              <Link
+                className="large_screen_side_menu_item"
+                to="/"
+                onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+              >
+                <FontAwesomeIcon
+                  icon={faPencilAlt}
+                  className="large_screen_side_menu_item_icon"
+                />
+                <h2>Quizzes</h2>
+              </Link>
+            </div>
+            <div className="large_screen_side_menu_item_container">
+              <Link
+                className="large_screen_side_menu_item"
+                to="/"
+                onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+              >
+                <FontAwesomeIcon
+                  icon={faQuestion}
+                  className="large_screen_side_menu_item_icon"
+                />
+                <h2>FAQ</h2>
+              </Link>
+            </div>
+            <div className="large_screen_side_menu_item_container">
+              <Link
+                className="large_screen_side_menu_item"
+                to="/"
+                onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+              >
+                <FontAwesomeIcon
+                  icon={faCamera}
+                  className="large_screen_side_menu_item_icon"
+                />
+                <h2>Before / After Photos</h2>
+              </Link>
+            </div>
+          </>
+        )}
       </div>
       <div className="large_screen_side_menu_item_container large_screen_side_menu_log_out">
         <div

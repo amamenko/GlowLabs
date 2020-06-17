@@ -66,6 +66,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: rgb(0, 129, 177);
+  cursor: pointer;
 }
 
 .admin_login_page_bottom_button_container {

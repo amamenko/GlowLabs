@@ -133,6 +133,14 @@ const ClientProfile = (props) => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (pdfLoading) {
+        changePDFLoading(false);
+      }
+    };
+  }, [pdfLoading]);
+
   const signature = useRef(null);
   const pdfDownloadRef = useRef(null);
 
@@ -143,7 +151,8 @@ const ClientProfile = (props) => {
         if (pdfDownloadRef) {
           pdfDownloadRef.current.click();
         }
-      }, 2000);
+        changePDFLoading(false);
+      }, 3000);
       return () => {
         clearTimeout(loadingSpinnerDuration);
       };

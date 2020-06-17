@@ -118,6 +118,11 @@ const ConsentFormPDF = (props) => {
       borderColor: "grey",
       borderWidth: 1,
     },
+    signatureImage: {
+      width: "100%",
+      height: "100%",
+      objectFit: "contain",
+    },
   });
 
   return (
@@ -578,6 +583,7 @@ const ConsentFormPDF = (props) => {
           </View>
           <View style={styles.signatureContainer}>
             <Image
+              style={styles.signatureImage}
               src={
                 props.signature
                   ? props.signature

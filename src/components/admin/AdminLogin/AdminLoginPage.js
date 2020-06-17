@@ -193,7 +193,19 @@ const AdminLoginPage = (props) => {
 
   const redirectToAdminMenu = () => {
     if (adminAuthenticated && !adminTemporaryDummyToken) {
-      return <Redirect to="/admin/menu" />;
+      if (!props.currentScreenSize) {
+        if (props.initialScreenSize >= 1200) {
+          return <Redirect to="/admin/clients" />;
+        } else {
+          return <Redirect to="/admin/menu" />;
+        }
+      } else {
+        if (props.currentScreenSize >= 1200) {
+          return <Redirect to="/admin/clients" />;
+        } else {
+          return <Redirect to="/admin/menu" />;
+        }
+      }
     }
   };
 

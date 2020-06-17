@@ -524,13 +524,13 @@ const App = () => {
     if (adminDummyToken) {
       updateEmployeeInvalidateTokens();
       dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
+      dispatch(ACTION_USER_NOT_AUTHENTICATED());
+      dispatch(ACTION_ADMIN_DUMMY_TOKEN_RESET());
     } else {
       updateClientInvalidateTokens();
       dispatch(ACTION_USER_NOT_AUTHENTICATED());
+      dispatch(ACTION_DUMMY_TOKEN_RESET());
     }
-
-    dispatch(ACTION_DUMMY_TOKEN_RESET());
-    dispatch(ACTION_ADMIN_DUMMY_TOKEN_RESET());
   };
 
   useEffect(() => {
@@ -882,7 +882,10 @@ const App = () => {
               : 1500
             : 1500,
         }}
-        immediate={location.pathname.includes("account")}
+        immediate={
+          location.pathname.includes("account") ||
+          location.pathname.includes("admin")
+        }
       >
         {(styles) => (
           <header

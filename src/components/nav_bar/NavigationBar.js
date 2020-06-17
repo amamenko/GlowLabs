@@ -60,7 +60,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
         props.initialScreenSize > props.initialScreenHeight
       ) {
         if (props.initialScreenSize >= 1200) {
-          if (cartIsActive || location.pathname.includes("account")) {
+          if (
+            cartIsActive ||
+            location.pathname.includes("account") ||
+            location.pathname.includes("admin")
+          ) {
             return "rgb(44,44,52)";
           }
         }
@@ -83,7 +87,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
         props.currentScreenSize > props.currentScreenHeight
       ) {
         if (props.currentScreenSize >= 1200) {
-          if (cartIsActive || location.pathname.includes("account")) {
+          if (
+            cartIsActive ||
+            location.pathname.includes("account") ||
+            location.pathname.includes("admin")
+          ) {
             return "rgb(44,44,52)";
           }
         }
@@ -337,7 +345,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 fill={
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200 &&
-                      (cartIsActive || location.pathname.includes("account"))
+                      (cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin"))
                       ? "rgb(239, 240, 243)"
                       : props.initialScreenSize >= 600
                       ? window.scrollY <= 5
@@ -347,7 +357,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200 &&
-                      (cartIsActive || location.pathname.includes("account"))
+                      (cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin"))
                     ? "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 600
                     ? window.scrollY <= 5
@@ -682,14 +694,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 1200
                 ? window.scrollY <= 1
-                  ? cartIsActive || location.pathname.includes("account")
+                  ? cartIsActive ||
+                    location.pathname.includes("account") ||
+                    location.pathname.includes("admin")
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 1200
               ? window.scrollY <= 1
-                ? cartIsActive || location.pathname.includes("account")
+                ? cartIsActive ||
+                  location.pathname.includes("account") ||
+                  location.pathname.includes("admin")
                   ? "rgb(239, 240, 243)"
                   : "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
@@ -703,11 +719,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
 
               if (!props.currentScreenSize) {
                 if (props.initialScreenSize >= 1200) {
-                  if (location.pathname.includes("account")) {
+                  if (
+                    location.pathname.includes("account") ||
+                    location.pathname.includes("admin")
+                  ) {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToHome(LandingPageRef);
-                    }, 200);
+                    }, 300);
                   } else {
                     props.handleClickToScrollToHome(LandingPageRef);
                   }
@@ -715,11 +734,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.handleClickToScrollToHome(LandingPageRef);
                 }
               } else if (props.currentScreenSize >= 1200) {
-                if (location.pathname.includes("account")) {
+                if (
+                  location.pathname.includes("account") ||
+                  location.pathname.includes("admin")
+                ) {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToHome(LandingPageRef);
-                  }, 200);
+                  }, 300);
                 } else {
                   props.handleClickToScrollToHome(LandingPageRef);
                 }
@@ -736,14 +758,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive || location.pathname.includes("account")
+                        ? cartIsActive ||
+                          location.pathname.includes("account") ||
+                          location.pathname.includes("admin")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive || location.pathname.includes("account")
+                      ? cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
@@ -759,11 +785,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
 
               if (!props.currentScreenSize) {
                 if (props.initialScreenSize >= 1200) {
-                  if (location.pathname.includes("account")) {
+                  if (
+                    location.pathname.includes("account") ||
+                    location.pathname.includes("admin")
+                  ) {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToTreatments(Treatments1Ref);
-                    }, 200);
+                    }, 300);
                   } else {
                     props.handleClickToScrollToTreatments(Treatments1Ref);
                   }
@@ -775,7 +804,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToTreatments(Treatments1Ref);
-                  }, 200);
+                  }, 300);
                 } else {
                   props.handleClickToScrollToTreatments(Treatments1Ref);
                 }
@@ -792,14 +821,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive || location.pathname.includes("account")
+                        ? cartIsActive ||
+                          location.pathname.includes("account") ||
+                          location.pathname.includes("admin")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive || location.pathname.includes("account")
+                      ? cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
@@ -815,11 +848,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
 
               if (!props.currentScreenSize) {
                 if (props.initialScreenSize >= 1200) {
-                  if (location.pathname.includes("account")) {
+                  if (
+                    location.pathname.includes("account") ||
+                    location.pathname.includes("admin")
+                  ) {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToAddOns(AddOnsRef);
-                    }, 200);
+                    }, 300);
                   } else {
                     props.handleClickToScrollToAddOns(AddOnsRef);
                   }
@@ -831,7 +867,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToAddOns(AddOnsRef);
-                  }, 200);
+                  }, 300);
                 } else {
                   props.handleClickToScrollToAddOns(AddOnsRef);
                 }
@@ -848,14 +884,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive || location.pathname.includes("account")
+                        ? cartIsActive ||
+                          location.pathname.includes("account") ||
+                          location.pathname.includes("admin")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive || location.pathname.includes("account")
+                      ? cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
@@ -871,11 +911,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
 
               if (!props.currentScreenSize) {
                 if (props.initialScreenSize >= 1200) {
-                  if (location.pathname.includes("account")) {
+                  if (
+                    location.pathname.includes("account") ||
+                    location.pathname.includes("admin")
+                  ) {
                     // Delay on larger screens to allow for ref to mount
                     setTimeout(() => {
                       props.handleClickToScrollToInstagram(InstagramRef);
-                    }, 200);
+                    }, 300);
                   } else {
                     props.handleClickToScrollToInstagram(InstagramRef);
                   }
@@ -883,11 +926,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.handleClickToScrollToInstagram(InstagramRef);
                 }
               } else if (props.currentScreenSize >= 1200) {
-                if (location.pathname.includes("account")) {
+                if (
+                  location.pathname.includes("account") ||
+                  location.pathname.includes("admin")
+                ) {
                   // Delay on larger screens to allow for ref to mount
                   setTimeout(() => {
                     props.handleClickToScrollToInstagram(InstagramRef);
-                  }, 200);
+                  }, 300);
                 } else {
                   props.handleClickToScrollToInstagram(InstagramRef);
                 }
@@ -905,14 +951,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive || location.pathname.includes("account")
+                        ? cartIsActive ||
+                          location.pathname.includes("account") ||
+                          location.pathname.includes("admin")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive || location.pathname.includes("account")
+                      ? cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
@@ -929,14 +979,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 props.currentScreenSize === ""
                   ? props.initialScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive || location.pathname.includes("account")
+                      ? cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"
                     : "rgb(239, 240, 243)"
                   : props.currentScreenSize >= 1200
                   ? window.scrollY <= 1
-                    ? cartIsActive || location.pathname.includes("account")
+                    ? cartIsActive ||
+                      location.pathname.includes("account") ||
+                      location.pathname.includes("admin")
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
@@ -970,18 +1024,20 @@ const NavigationBar = React.forwardRef((props, ref) => {
                           ? props.initialScreenSize >= 600
                             ? window.scrollY <= 1
                               ? cartIsActive ||
-                                location.pathname.includes("account")
+                                location.pathname.includes("account") ||
+                                location.pathname.includes("admin")
                                 ? "rgb(239, 240, 243)"
                                 : "rgb(44, 44, 52)"
-                              : "rgb(44, 44, 52)"
+                              : "rgb(239, 240, 243)"
                             : "rgb(239, 240, 243)"
                           : props.currentScreenSize >= 600
                           ? window.scrollY <= 1
                             ? cartIsActive ||
-                              location.pathname.includes("account")
+                              location.pathname.includes("account") ||
+                              location.pathname.includes("admin")
                               ? "rgb(239, 240, 243)"
                               : "rgb(44, 44, 52)"
-                            : "rgb(44, 44, 52)"
+                            : "rgb(239, 240, 243)"
                           : "rgb(239, 240, 243)",
                       marginLeft: "0rem",
                     }}
@@ -1002,7 +1058,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                           ? props.initialScreenSize >= 600
                             ? window.scrollY <= 1
                               ? cartIsActive ||
-                                location.pathname.includes("account")
+                                location.pathname.includes("account") ||
+                                location.pathname.includes("admin")
                                 ? "rgb(44, 44, 52)"
                                 : "rgb(239, 240, 243)"
                               : "rgb(44, 44, 52)"
@@ -1010,7 +1067,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                           : props.currentScreenSize >= 600
                           ? window.scrollY <= 1
                             ? cartIsActive ||
-                              location.pathname.includes("account")
+                              location.pathname.includes("account") ||
+                              location.pathname.includes("admin")
                               ? "rgb(44, 44, 52)"
                               : "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
@@ -1027,7 +1085,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         ? props.initialScreenSize >= 600
                           ? window.scrollY <= 1
                             ? cartIsActive ||
-                              location.pathname.includes("account")
+                              location.pathname.includes("account") ||
+                              location.pathname.includes("admin")
                               ? "rgb(44, 44, 52)"
                               : "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
@@ -1035,7 +1094,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         : props.currentScreenSize >= 600
                         ? window.scrollY <= 1
                           ? cartIsActive ||
-                            location.pathname.includes("account")
+                            location.pathname.includes("account") ||
+                            location.pathname.includes("admin")
                             ? "rgb(44, 44, 52)"
                             : "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
@@ -1052,14 +1112,17 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       ? props.initialScreenSize >= 600
                         ? window.scrollY <= 1
                           ? cartIsActive ||
-                            location.pathname.includes("account")
+                            location.pathname.includes("account") ||
+                            location.pathname.includes("admin")
                             ? "rgb(44, 44, 52)"
                             : "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)"
                       : props.currentScreenSize >= 600
                       ? window.scrollY <= 1
-                        ? cartIsActive || location.pathname.includes("account")
+                        ? cartIsActive ||
+                          location.pathname.includes("account") ||
+                          location.pathname.includes("admin")
                           ? "rgb(44, 44, 52)"
                           : "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
@@ -1096,14 +1159,17 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       ? props.initialScreenSize >= 1200
                         ? window.scrollY <= 1
                           ? cartIsActive ||
-                            location.pathname.includes("account")
+                            location.pathname.includes("account") ||
+                            location.pathname.includes("admin")
                             ? "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
                           : "rgb(239, 240, 243)"
                         : "rgb(239, 240, 243)"
                       : props.currentScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive || location.pathname.includes("account")
+                        ? cartIsActive ||
+                          location.pathname.includes("account") ||
+                          location.pathname.includes("admin")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
@@ -1139,14 +1205,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
                       ? window.scrollY <= 1
-                        ? cartIsActive || location.pathname.includes("account")
+                        ? cartIsActive ||
+                          location.pathname.includes("account") ||
+                          location.pathname.includes("admin")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
                     ? window.scrollY <= 1
-                      ? cartIsActive || location.pathname.includes("account")
+                      ? cartIsActive ||
+                        location.pathname.includes("account") ||
+                        location.pathname.includes("admin")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)"

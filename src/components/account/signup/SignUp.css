@@ -13,14 +13,14 @@
   }
 
   .sign_up_content_container {
-    height: 65%;
+    height: 20%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     position: absolute;
-    bottom: 12vh;
+    bottom: 55vh;
   }
 
   .sign_up_logo_container {
@@ -41,7 +41,7 @@
     padding-bottom: 2rem;
     color: rgb(121, 121, 121);
     position: absolute;
-    top: -33.5vh;
+    top: -50vh;
     width: 90%;
     text-align: center;
   }
@@ -88,7 +88,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    margin-top: 2vh;
+    margin-top: 4vh;
   }
 
   .create_account_button {
@@ -119,6 +119,7 @@
     font-size: 1rem;
     padding: 0.8rem;
     cursor: pointer;
+    margin-top: 2vh;
   }
 
   .login_redirect_button p {
@@ -172,6 +173,7 @@
     justify-content: flex-end;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    bottom: 12vh;
   }
 
   .sign_up_prompt {
@@ -188,6 +190,7 @@
 
   .signup_page_bottom_buttons_container {
     padding-bottom: 0vh;
+    margin-top: 0vh;
   }
 
   .sign_up_individual_form_field {
@@ -198,6 +201,7 @@
   .create_account_button {
     font-size: 1rem;
     padding: 0.8rem;
+    margin-top: auto;
   }
 
   .input_field_login {
@@ -270,10 +274,6 @@
   .already_have_an_account_question {
     font-size: 1.5rem;
     margin-bottom: -4vh;
-  }
-
-  .create_account_button {
-    margin-bottom: -5vh;
   }
 
   .sign_up_required_fields {
