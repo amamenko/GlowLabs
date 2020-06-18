@@ -296,16 +296,47 @@
     font-size: 1rem;
     margin-bottom: 1vh;
   }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .login_page_container {
+    width: 25%;
+  }
+
+  .login_content_container {
+    height: 65%;
+  }
+
+  .create_account_redirect_button,
+  .log_in_button {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .login_or_container {
+    font-size: 1rem;
+  }
+
+  .continue_with_facebook_button {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .dont_have_an_account_question {
+    font-size: 1rem;
+    margin-bottom: 1vh;
+  }
 
   .login_page_descriptive_text {
     display: block;
     position: absolute;
-    top: 25%;
+    top: 23%;
     left: 30%;
   }
 
   .login_page_descriptive_text h2 {
-    font-size: 7rem;
+    font-size: 5rem;
     color: rgb(255, 255, 255);
     font-weight: 700;
   }
@@ -316,18 +347,14 @@
   }
 
   .login_page_descriptive_text ul li {
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 5rem;
     color: rgb(255, 255, 255);
   }
 }
 
-/* CSS for Regular-Sized Desktops */
-@media only screen and (min-width: 1600px) {
-  .login_page_container {
-    width: 25%;
-  }
-
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
   .login_content_container {
     height: 35%;
   }
@@ -335,7 +362,6 @@
   .create_account_redirect_button,
   .log_in_button {
     font-size: 1.5rem;
-    padding: 1rem;
   }
 
   .login_or_container {
@@ -343,12 +369,22 @@
   }
 
   .continue_with_facebook_button {
-    padding: 1rem;
     font-size: 1.5rem;
   }
 
   .dont_have_an_account_question {
     font-size: 1.5rem;
-    margin-bottom: 1vh;
+  }
+
+  .login_page_descriptive_text {
+    top: 25%;
+  }
+
+  .login_page_descriptive_text h2 {
+    font-size: 7rem;
+  }
+
+  .login_page_descriptive_text ul li {
+    font-size: 2rem;
   }
 }

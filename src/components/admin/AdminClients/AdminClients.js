@@ -1054,6 +1054,8 @@ const AdminClients = (props) => {
                                           props.initialScreenSize,
                                         currentScreenSize:
                                           props.currentScreenSize,
+                                        firstName: item.firstName,
+                                        lastName: item.lastName,
                                       },
                                     }}
                                     className="profile_button_container"

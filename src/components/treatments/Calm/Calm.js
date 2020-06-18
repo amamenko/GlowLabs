@@ -244,8 +244,10 @@ const Calm = (props) => {
             }
             height={
               props.currentScreenSize === ""
-                ? props.initialScreenSize >= 1800
+                ? props.initialScreenSize >= 2200
                   ? "2rem"
+                  : props.initialScreenSize >= 1800
+                  ? "1.3rem"
                   : props.initialScreenSize >= 1600
                   ? "1.3rem"
                   : props.initialScreenSize >= 1200
@@ -253,8 +255,10 @@ const Calm = (props) => {
                   : props.initialScreenSize >= 360
                   ? "2rem"
                   : "1rem"
-                : props.currentScreenSize >= 1800
+                : props.currentScreenSize >= 2200
                 ? "2rem"
+                : props.currentScreenSize >= 1800
+                ? "1.3rem"
                 : props.currentScreenSize >= 1600
                 ? "1.3rem"
                 : props.currentScreenSize >= 1200
@@ -266,8 +270,10 @@ const Calm = (props) => {
             style={{
               marginTop:
                 props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1800
+                  ? props.initialScreenSize >= 2200
                     ? "-0.2rem"
+                    : props.initialScreenSize >= 1800
+                    ? "0"
                     : props.initialScreenSize >= 1600
                     ? "-0.2rem"
                     : props.initialScreenSize >= 1200
@@ -275,8 +281,10 @@ const Calm = (props) => {
                     : props.initialScreenSize >= 360
                     ? "-0.5rem"
                     : "0rem"
-                  : props.currentScreenSize >= 1800
+                  : props.currentScreenSize >= 2200
                   ? "-0.2rem"
+                  : props.currentScreenSize >= 1800
+                  ? "0"
                   : props.currentScreenSize >= 1600
                   ? "-0.2rem"
                   : props.currentScreenSize >= 1200

@@ -74,26 +74,48 @@
     background: rgba(255, 255, 255, 0.3);
     transition: background 0.5s ease;
   }
+}
 
-  /* CSS for Regular-Sized Desktops */
-  @media only screen and (min-width: 1600px) {
-    .unsure_popup_buttons_container {
-      padding-top: 1rem;
-    }
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .unsure_popup_buttons_container {
+    padding-top: 1rem;
+  }
 
-    .unsure_popup_not_sure_button,
-    .unsure_popup_dismiss_button {
-      font-size: 1.5rem;
-      padding-left: 4rem;
-      padding-right: 4rem;
-    }
+  .unsure_popup_not_sure_button,
+  .unsure_popup_dismiss_button {
+    font-size: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 
-    .unsure_popup_not_sure_button {
-      margin-right: 3rem;
-    }
+  .unsure_popup_not_sure_button {
+    margin-right: 3rem;
+  }
 
-    .unsure_popup_dismiss_button {
-      margin-left: 3rem;
-    }
+  .unsure_popup_dismiss_button {
+    margin-left: 3rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .unsure_popup_buttons_container {
+    padding-top: 1rem;
+  }
+
+  .unsure_popup_not_sure_button,
+  .unsure_popup_dismiss_button {
+    font-size: 1.5rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .unsure_popup_not_sure_button {
+    margin-right: 3rem;
+  }
+
+  .unsure_popup_dismiss_button {
+    margin-left: 3rem;
   }
 }

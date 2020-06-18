@@ -69,6 +69,13 @@
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .treatments_page_2_container {
+    margin-top: 0.4rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .treatments_page_2_container {
     margin-top: 0rem;
   }
 }

@@ -600,6 +600,84 @@
   }
 
   .card_description_inner_wrapper h2 {
+    font-size: 2rem;
+  }
+
+  .card_description_subheader {
+    font-size: 1rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 1rem;
+    line-height: 1.8rem;
+  }
+
+  .card_toggler {
+    font-size: 4rem;
+  }
+
+  .card_suitcase_icon {
+    font-size: 4rem;
+  }
+
+  .big_screen_in_cart {
+    padding-left: 10%;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 1.8rem;
+  }
+
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    font-size: 1.2rem;
+    margin-right: 0.9rem;
+  }
+
+  .big_screen_book_now_wrapper {
+    width: 10em;
+  }
+
+  .big_screen_book_now_wrapper p {
+    font-size: 0.7rem;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 0.7rem;
+  }
+
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .notification_text_container p {
+    color: rgb(0, 0, 0);
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .facial_advanced_treatment_icon {
+    bottom: 5.5rem;
+    font-size: 1rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 4rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .card_svg {
+    height: 65%;
+  }
+
+  .card_description_inner_wrapper h2 {
     font-size: 3rem;
   }
 
@@ -664,5 +742,15 @@
     margin-top: 0.3rem;
     font-size: 1.3rem;
     font-weight: 400;
+  }
+
+  .facial_advanced_treatment_icon {
+    bottom: 7rem;
+    font-size: 2rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 5rem;
+    font-size: 1.2rem;
   }
 }

@@ -17,6 +17,29 @@
   justify-content: center;
 }
 
+.my_appointments_back_to_client_container {
+  position: absolute;
+  top: 17.3vh;
+  left: 9%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  color: rgb(0, 129, 177);
+}
+
+.my_appointments_back_to_client_back_arrow_icon {
+  font-size: 2rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.my_appointments_back_to_client_container p {
+  font-weight: 600;
+  color: rgba(0, 129, 177, 0.7);
+  cursor: pointer;
+}
+
 .my_upcoming_appointments_empty_container h2 {
   font-size: 2.1rem;
   font-weight: 600;
@@ -620,5 +643,38 @@
     height: 45%;
     top: -12%;
     width: 25vw;
+  }
+
+  .my_upcoming_appointments_empty_container {
+    height: 60vh;
+  }
+
+  .my_upcoming_appointments_empty_container h2 {
+    font-size: 3rem;
+    margin-top: 4rem;
+  }
+
+  .my_upcoming_appointments_empty_container p {
+    width: 40%;
+    line-height: 3rem;
+    font-size: 2rem;
+    margin-top: 4rem;
+  }
+
+  .my_upcoming_appointments_empty_calendar_icon {
+    font-size: 15rem;
+  }
+
+  .my_appointments_back_to_client_back_arrow_icon {
+    font-size: 3rem;
+  }
+
+  .my_appointments_back_to_client_container p {
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .my_appointments_back_to_client_container {
+    left: 13.7%;
   }
 }

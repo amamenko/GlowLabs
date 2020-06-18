@@ -397,6 +397,80 @@
   }
 
   .contacts_text_container {
+    width: 14vw;
+    position: absolute;
+    top: 14rem;
+    right: 10.5rem;
+    z-index: 5;
+    border: 1px solid transparent;
+    padding: 3rem;
+    background: rgb(255, 255, 255);
+    border-radius: 30px;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 4rem;
+    margin-top: -11vh;
+    padding-bottom: 0.5rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 0.8rem;
+    line-height: 1.4rem;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 2rem;
+    line-height: 4rem;
+  }
+
+  .contacts_map_container {
+    margin-top: 5vh;
+    width: 50vw;
+    height: 65vh;
+    margin-left: 45vw;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contacts_page_wrapping {
+    margin-top: 8vh;
+  }
+
+  .open_status_flex_container {
+    margin-top: -65vh;
+    margin-left: -50vw;
+    width: 50vw;
+  }
+
+  .open_status_flex_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 3rem;
+    padding-bottom: 1rem;
+  }
+
+  .open_status {
+    font-size: 2rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .contact_page_container {
+    height: 120vh;
+    position: relative;
+    background: rgb(255, 255, 255);
+    padding-top: 3vh;
+  }
+
+  .contacts_text_container {
     width: 16vw;
     position: absolute;
     top: 16rem;

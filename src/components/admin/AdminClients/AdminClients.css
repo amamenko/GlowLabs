@@ -602,8 +602,8 @@
   }
 
   .profile_button_container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
     margin-left: 1rem;
   }
 
@@ -711,5 +711,9 @@
     line-height: 30px;
     width: 30px;
     height: 30px;
+  }
+
+  .profile_button_expand {
+    font-size: 2rem;
   }
 }

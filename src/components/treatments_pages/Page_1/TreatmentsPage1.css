@@ -172,6 +172,21 @@
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .treatments_page_1_header h2 {
+    font-size: 4rem;
+    line-height: 4rem;
+    margin-top: 1rem;
+  }
+
+  .treatments_page_1_header h3 p {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .treatments_page_1_header h2 {
     font-size: 5rem;
     line-height: 8rem;
     margin-top: 2rem;

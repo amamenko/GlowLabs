@@ -182,14 +182,40 @@ body {
   .toast_error_container,
   .toast_container,
   .toast_removed_container {
-    width: 30.8vw;
-    margin-left: -31.6rem;
+    width: 30vw;
+    margin-left: -18.4rem;
     border: 1px solid rgb(211, 211, 211);
+  }
+
+  .log_out_modal {
+    height: 45%;
+    margin-top: 0%;
+    width: 20vw;
+  }
+
+  .log_out_modal_contents h2 {
+    font-size: 1.5rem;
+    width: 70%;
+  }
+
+  .cancel_logout_button,
+  .logout_button {
+    font-size: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 30.8vw;
+    margin-left: -31.6rem;
+    border: 1px solid rgb(211, 211, 211);
+  }
+
   .log_out_modal {
     height: 45%;
     margin-top: 0%;

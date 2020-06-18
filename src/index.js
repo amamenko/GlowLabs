@@ -341,35 +341,33 @@ const App = () => {
       await import("scroll-behavior-polyfill");
     }
 
-    if (await Treatments1Ref.current) {
-      window.scrollTo({
-        top:
-          currentScreenSize === ""
-            ? initialScreenSize >= 1800
-              ? Treatments1Ref.current.offsetTop - 105
-              : initialScreenSize >= 1200
-              ? Treatments1Ref.current.offsetTop - 50
-              : initialScreenSize >= 600
-              ? previousScrollPosition < 450
-                ? Treatments1Ref.current.offsetTop
-                : Treatments1Ref.current.offsetTop - 40
-              : previousScrollPosition < 650
-              ? Treatments1Ref.current.offsetTop - 10
-              : Treatments1Ref.current.offsetTop - 80
-            : currentScreenSize >= 1800
+    window.scrollTo({
+      top:
+        currentScreenSize === ""
+          ? initialScreenSize >= 2200
             ? Treatments1Ref.current.offsetTop - 105
-            : currentScreenSize >= 1200
+            : initialScreenSize >= 1200
             ? Treatments1Ref.current.offsetTop - 50
-            : currentScreenSize >= 600
+            : initialScreenSize >= 600
             ? previousScrollPosition < 450
               ? Treatments1Ref.current.offsetTop
               : Treatments1Ref.current.offsetTop - 40
             : previousScrollPosition < 650
             ? Treatments1Ref.current.offsetTop - 10
-            : Treatments1Ref.current.offsetTop - 80,
-        behavior: "smooth",
-      });
-    }
+            : Treatments1Ref.current.offsetTop - 80
+          : currentScreenSize >= 2200
+          ? Treatments1Ref.current.offsetTop - 105
+          : currentScreenSize >= 1200
+          ? Treatments1Ref.current.offsetTop - 50
+          : currentScreenSize >= 600
+          ? previousScrollPosition < 450
+            ? Treatments1Ref.current.offsetTop
+            : Treatments1Ref.current.offsetTop - 40
+          : previousScrollPosition < 650
+          ? Treatments1Ref.current.offsetTop - 10
+          : Treatments1Ref.current.offsetTop - 80,
+      behavior: "smooth",
+    });
   };
 
   const handleClickToScrollToAddOns = async (ref) => {
@@ -377,35 +375,33 @@ const App = () => {
       await import("scroll-behavior-polyfill");
     }
 
-    if (await AddOnsRef.current) {
-      window.scrollTo({
-        top:
-          currentScreenSize === ""
-            ? initialScreenSize >= 1800
-              ? AddOnsRef.current.offsetTop - 105
-              : initialScreenSize >= 1200
-              ? AddOnsRef.current.offsetTop - 50
-              : initialScreenSize >= 600
-              ? previousScrollPosition < 2000
-                ? AddOnsRef.current.offsetTop
-                : AddOnsRef.current.offsetTop - 60
-              : previousScrollPosition < 3900
-              ? AddOnsRef.current.offsetTop - 5
-              : AddOnsRef.current.offsetTop - 70
-            : currentScreenSize >= 1800
+    window.scrollTo({
+      top:
+        currentScreenSize === ""
+          ? initialScreenSize >= 2200
             ? AddOnsRef.current.offsetTop - 105
-            : currentScreenSize >= 1200
+            : initialScreenSize >= 1200
             ? AddOnsRef.current.offsetTop - 50
-            : currentScreenSize >= 600
+            : initialScreenSize >= 600
             ? previousScrollPosition < 2000
               ? AddOnsRef.current.offsetTop
               : AddOnsRef.current.offsetTop - 60
             : previousScrollPosition < 3900
             ? AddOnsRef.current.offsetTop - 5
-            : AddOnsRef.current.offsetTop - 70,
-        behavior: "smooth",
-      });
-    }
+            : AddOnsRef.current.offsetTop - 70
+          : currentScreenSize >= 2200
+          ? AddOnsRef.current.offsetTop - 105
+          : currentScreenSize >= 1200
+          ? AddOnsRef.current.offsetTop - 50
+          : currentScreenSize >= 600
+          ? previousScrollPosition < 2000
+            ? AddOnsRef.current.offsetTop
+            : AddOnsRef.current.offsetTop - 60
+          : previousScrollPosition < 3900
+          ? AddOnsRef.current.offsetTop - 5
+          : AddOnsRef.current.offsetTop - 70,
+      behavior: "smooth",
+    });
   };
 
   const handleClickToScrollToInstagram = async (ref) => {
@@ -413,35 +409,33 @@ const App = () => {
       await import("scroll-behavior-polyfill");
     }
 
-    if (await InstagramRef.current) {
-      window.scrollTo({
-        top:
-          currentScreenSize === ""
-            ? initialScreenSize >= 1800
-              ? InstagramRef.current.offsetTop - 280
-              : initialScreenSize >= 1200
-              ? InstagramRef.current.offsetTop - 250
-              : initialScreenSize >= 600
-              ? previousScrollPosition < 3700
-                ? InstagramRef.current.offsetTop - 150
-                : InstagramRef.current.offsetTop - 220
-              : previousScrollPosition < 6400
-              ? InstagramRef.current.offsetTop - 290
-              : InstagramRef.current.offsetTop - 350
-            : currentScreenSize >= 1800
+    window.scrollTo({
+      top:
+        currentScreenSize === ""
+          ? initialScreenSize >= 2200
             ? InstagramRef.current.offsetTop - 280
-            : currentScreenSize >= 1200
+            : initialScreenSize >= 1200
             ? InstagramRef.current.offsetTop - 250
-            : currentScreenSize >= 600
+            : initialScreenSize >= 600
             ? previousScrollPosition < 3700
               ? InstagramRef.current.offsetTop - 150
               : InstagramRef.current.offsetTop - 220
             : previousScrollPosition < 6400
             ? InstagramRef.current.offsetTop - 290
-            : InstagramRef.current.offsetTop - 350,
-        behavior: "smooth",
-      });
-    }
+            : InstagramRef.current.offsetTop - 350
+          : currentScreenSize >= 2200
+          ? InstagramRef.current.offsetTop - 280
+          : currentScreenSize >= 1200
+          ? InstagramRef.current.offsetTop - 250
+          : currentScreenSize >= 600
+          ? previousScrollPosition < 3700
+            ? InstagramRef.current.offsetTop - 150
+            : InstagramRef.current.offsetTop - 220
+          : previousScrollPosition < 6400
+          ? InstagramRef.current.offsetTop - 290
+          : InstagramRef.current.offsetTop - 350,
+      behavior: "smooth",
+    });
   };
 
   const handleClickToScrollToContact = async (ref) => {

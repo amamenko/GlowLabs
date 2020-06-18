@@ -222,16 +222,49 @@
   .sign_up_required_fields {
     padding-right: 2rem;
   }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .sign_up_page_container {
+    width: 25%;
+  }
+
+  .sign_up_content_container {
+    height: 65%;
+  }
+
+  .sign_up_prompt {
+    font-size: 2rem;
+    padding-top: 2em;
+    padding-bottom: 3rem;
+    top: -6vh;
+  }
+
+  .login_redirect_button,
+  .create_account_button {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .already_have_an_account_question {
+    font-size: 1rem;
+    margin-bottom: -2vh;
+  }
+
+  .sign_up_required_fields {
+    padding-right: 11rem;
+  }
 
   .sign_up_page_descriptive_text {
     display: block;
     position: absolute;
-    top: 25%;
+    top: 23%;
     left: 30%;
   }
 
   .sign_up_page_descriptive_text h2 {
-    font-size: 7rem;
+    font-size: 5rem;
     color: rgb(255, 255, 255);
     font-weight: 700;
   }
@@ -242,33 +275,25 @@
   }
 
   .sign_up_page_descriptive_text ul li {
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 5rem;
     color: rgb(255, 255, 255);
   }
 }
 
-/* CSS for Regular-Sized Desktops */
-@media only screen and (min-width: 1600px) {
-  .sign_up_page_container {
-    width: 25%;
-  }
-
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
   .sign_up_content_container {
     height: 70%;
   }
 
   .sign_up_prompt {
-    font-size: 2rem;
-    padding-top: 2em;
-    padding-bottom: 3rem;
     top: 7.5vh;
   }
 
   .login_redirect_button,
   .create_account_button {
     font-size: 1.5rem;
-    padding: 1rem;
   }
 
   .already_have_an_account_question {
@@ -279,10 +304,7 @@
   .sign_up_required_fields {
     padding-right: 13rem;
   }
-}
 
-/* CSS for Huge Desktops */
-@media only screen and (min-width: 2200px) {
   .sign_up_page_form {
     margin-top: 0;
     padding-top: 0vh;
@@ -296,5 +318,25 @@
 
   .sign_up_password_form_container {
     margin-bottom: 5vh;
+  }
+
+  .sign_up_required_fields {
+    padding-right: 13rem;
+  }
+
+  .already_have_an_account_question {
+    margin-bottom: -4vh;
+  }
+
+  .sign_up_page_descriptive_text {
+    top: 25%;
+  }
+
+  .sign_up_page_descriptive_text h2 {
+    font-size: 7rem;
+  }
+
+  .sign_up_page_descriptive_text ul li {
+    font-size: 2rem;
   }
 }

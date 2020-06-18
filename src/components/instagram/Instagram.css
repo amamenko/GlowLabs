@@ -404,24 +404,37 @@
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
+  .instagram_top_page_wrapping {
+    height: 48vh;
+    padding-top: 0vh;
+  }
+
   .instagram_page_wrapping {
-    margin-top: 13vh;
+    height: 90vh;
+    margin-top: 30vh;
   }
 
   .instagram_images_wrapping {
-    margin-top: -2vh;
+    margin-top: -10vh;
   }
 
   .instagram_top_page_wrapping h2 {
-    font-size: 5rem;
-    line-height: 8rem;
-    margin-top: 2rem;
+    font-size: 4rem;
+    line-height: 4rem;
+    margin-top: 20vh;
   }
 
   .instagram_top_page_wrapping h3 p {
     margin-top: 1rem;
-    margin-bottom: 3rem;
-    font-size: 4rem;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+  }
+
+  .large_screen_follow_prompt p {
+    font-size: 3em;
+    font-weight: 500;
+    margin-bottom: 1em;
+    margin-top: 70vh;
   }
 
   .instagram_image {
@@ -443,6 +456,27 @@
   .instagram_top_page_wrapping {
     height: 48vh;
     padding-top: 20vh;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: -2vh;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 5rem;
+    line-height: 8rem;
+    margin-top: 2rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: 4rem;
+  }
+
+  .large_screen_follow_prompt p {
+    margin-bottom: 1em;
+    margin-top: 70vh;
   }
 
   /* Safari 7.1+ */

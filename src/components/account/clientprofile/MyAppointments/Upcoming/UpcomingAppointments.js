@@ -4,14 +4,10 @@ import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faEllipsisH,
   faLongArrowAltLeft,
-  faTimes,
-  faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-import moment from "moment";
-import { Transition } from "react-spring/renderprops";
+
 import CalmSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
 import ClarifySummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/ClarifySummaryCard";
@@ -37,14 +33,13 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
-import AddToCalendar from "react-add-to-calendar";
 import "react-add-to-calendar/dist/react-add-to-calendar.css";
-import { Modal } from "reactstrap";
-import { BounceLoader } from "react-spinners";
 import { css } from "emotion";
 import { useMutation } from "@apollo/react-hooks";
 import { deleteAppointmentMutation } from "../../../../../graphql/queries/queries";
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
+import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointmentsFunction";
+import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
 
 const UpcomingAppointments = (props) => {
   const dispatch = useDispatch();
@@ -239,8 +234,6 @@ const UpcomingAppointments = (props) => {
     ));
   };
 
-  console.log(props.location ? props.location.state : null);
-
   // Allows click only if selected appointment modal is not active
 
   const handleAppointmentToggled = (e, item) => {
@@ -263,7 +256,15 @@ const UpcomingAppointments = (props) => {
       }
     }
   };
-
+  console.log(
+    props
+      ? props.location
+        ? props.location.state
+          ? props.location.state
+          : null
+        : null
+      : null
+  );
   // Function for back arrow click to reset selected toggled appointment
 
   const handleAppointmentUntoggled = (e) => {
@@ -301,14 +302,16 @@ const UpcomingAppointments = (props) => {
         className="my_appointments_header"
         style={{ zIndex: logoutClicked ? 0 : 3 }}
       >
-        <Link to="/account/clientprofile">
-          <FontAwesomeIcon
-            className="my_appointments_header_back_arrow"
-            icon={faChevronLeft}
-          />
-        </Link>
+        {adminAuthenticated ? null : (
+          <Link to="/account/clientprofile">
+            <FontAwesomeIcon
+              className="my_appointments_header_back_arrow"
+              icon={faChevronLeft}
+            />
+          </Link>
+        )}
         <h1>
-          MY{" "}
+          {adminAuthenticated ? "CLIENT" : "MY"}{" "}
           {!props.currentScreenSize
             ? props.initialScreenSize >= 1200
               ? "UPCOMING "
@@ -319,434 +322,150 @@ const UpcomingAppointments = (props) => {
           APPOINTMENTS
         </h1>
       </div>
-      <div
-        className="my_appointments_sub_header"
-        style={{ zIndex: logoutClicked ? -1 : 2 }}
-      >
-        <div className="upcoming_appointments_upcoming_title_container">
-          <h2>UPCOMING</h2>
+      {adminAuthenticated ? (
+        <div className="my_appointments_back_to_client_container">
+          <FontAwesomeIcon
+            icon={faLongArrowAltLeft}
+            className="my_appointments_back_to_client_back_arrow_icon"
+          />
+          <p>
+            Back to{" "}
+            {props
+              ? props.location
+                ? props.location.state
+                  ? props.location.state.firstName
+                    ? props.location.state.lastName
+                      ? props.location.state.firstName[0].toUpperCase() +
+                        props.location.state.firstName.slice(1) +
+                        " " +
+                        props.location.state.lastName[0].toUpperCase() +
+                        props.location.state.lastName.slice(1) +
+                        "'s Profile"
+                      : "Client Profile"
+                    : "Client Profile"
+                  : "Client Profile"
+                : "Client Profile"
+              : "Client Profile"}
+          </p>
         </div>
-        <Link
-          to="/account/clientprofile/pastappointments"
-          className="sub_header_container_link"
+      ) : (
+        <div
+          className="my_appointments_sub_header"
+          style={{ zIndex: logoutClicked ? -1 : 2 }}
         >
-          <div className="upcoming_appointments_past_title_container">
-            <h2>PAST</h2>
+          <div className="upcoming_appointments_upcoming_title_container">
+            <h2>UPCOMING</h2>
           </div>
-        </Link>
-      </div>
-      <div className="my_appointments_content_container">
-        {props.data ? (
-          props.data.own_appointments.length > 0 ? (
-            props.data.own_appointments.map((item, i) => (
-              <div
-                key={i}
-                className="my_individual_appointment_container"
-                onClick={(e) => handleAppointmentToggled(e, item)}
-                ref={individualAppointmentRef}
-              >
-                <Modal
-                  isOpen={
-                    cancelAppointmentClicked && appointmentToggled === item.id
-                  }
-                  className="cancel_appointment_modal"
-                  style={{
-                    content: {
-                      position: "fixed",
-                      zIndex: 10000,
-                      opacity: 0.99,
-                      height: "100%",
-                      backdropFilter: "blur(5px)",
-                      WebkitBackdropFilter: "blur(5px)",
-                      paddingBottom: "10%",
-                      borderRadius: "none",
-                      width: "100vw",
-                      top: "0",
-                      left: "0",
-                      right: "0",
-                      bottom: "0",
-                      border: "none",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: "rgba(0, 0, 0, 0.5)",
-                    },
-                  }}
-                >
-                  <BounceLoader
-                    size={100}
-                    css={override}
-                    color={"rgb(44, 44, 52)"}
-                    loading={loadingSpinnerActive}
-                  />
-                  <Transition
-                    items={cancelAppointmentClicked && !loadingSpinnerActive}
-                    from={{ transform: "translate3d(0, -65%, 0)" }}
-                    enter={{ transform: "translate3d(0, 0, 0)" }}
-                    leave={{ display: "none" }}
-                  >
-                    {(cancelAppointmentClicked) =>
-                      cancelAppointmentClicked &&
-                      ((styleprops) => (
-                        <div
-                          className="cancel_appointment_modal_content_container"
-                          style={styleprops}
-                        >
-                          <div className="log_out_modal_contents">
-                            <FontAwesomeIcon
-                              className="modal_x"
-                              icon={faTimes}
-                              onClick={() =>
-                                changeCancelAppointmentClicked(false)
-                              }
-                            />
-                            <h2>
-                              Are you sure you want to cancel your appointment?
-                            </h2>
-                            <span className="logout_buttons_container">
-                              <div
-                                className="logout_button yes_cancel_appointment_button"
-                                onClick={() => handleCancelAppointment(item)}
-                              >
-                                <p>YES, CANCEL</p>
-                              </div>
-                              <div
-                                className="cancel_logout_button no_dont_cancel_appointment_button"
-                                onClick={() =>
-                                  changeCancelAppointmentClicked(false)
-                                }
-                              >
-                                <p>NO, GO BACK</p>
-                              </div>
-                            </span>
-                          </div>
-                        </div>
-                      ))
-                    }
-                  </Transition>
-                </Modal>
-                <div className="my_appointment_date_square">
-                  <p>
-                    {item.date
-                      .split(" ")[1]
-                      .slice(0, item.date.split(" ")[1].indexOf(","))}
-                  </p>
-                  <p>
-                    {item.date
-                      .split(" ")[0]
-                      .slice(0, 3)
-                      .toUpperCase()}
-                  </p>
-                </div>
-                <div className="my_appointment_information_container">
-                  <p className="my_appointment_date_time">
-                    {moment(item.date, "LL")
-                      .format("LLLL")
-                      .split(" ")
-                      .slice(
-                        0,
-                        moment(item.date, "LL")
-                          .format("LLLL")
-                          .split(" ").length - 2
-                      )
-                      .join(" ") + ", "}
-                    {!props.currentScreenSize ? (
-                      props.initialScreenSize >= 1200 ? (
-                        <br />
-                      ) : null
-                    ) : props.currentScreenSize >= 1200 ? (
-                      <br />
-                    ) : null}
-                    {item.startTime +
-                      " " +
-                      (Number(item.startTime.split(":")[0]) >= 12 ||
-                      Number(item.startTime.split(":")[0]) < 9
-                        ? "PM"
-                        : "AM")}
-                  </p>
-                  <p className="my_appointment_details">
-                    {item.treatments[0].name
-                      ? item.treatments[0].name === "ChemicalPeel"
-                        ? "Chemical Peel"
-                        : item.treatments[0].name
-                      : null}{" "}
-                    Facial
-                    {item.addOns[0]
-                      ? ", " +
-                        (item.addOns[0].name
-                          ? item.addOns[0].name === "ExtraExtractions"
-                            ? "Extra Extractions"
-                            : item.addOns[0].name
-                          : null) +
-                        " Add On"
-                      : null}{" "}
-                    {item.addOns.length > 1
-                      ? "+ " + (item.addOns.length - 1).toString() + " more"
-                      : null}
-                  </p>
-                  <p className="my_appointment_details">
-                    {item.duration >= 60
-                      ? Math.floor(item.duration / 60)
-                      : item.duration}{" "}
-                    {item.duration >= 60
-                      ? Math.floor(item.duration / 60) === 1
-                        ? "hour"
-                        : "hours"
-                      : null}{" "}
-                    {item.duration >= 60
-                      ? Number.isInteger(item.duration / 60)
-                        ? null
-                        : item.duration -
-                          Math.floor(item.duration / 60) * 60 +
-                          " minutes"
-                      : "minutes"}
-                  </p>
-                </div>
-                <FontAwesomeIcon
-                  style={{
-                    zIndex: logoutClicked || appointmentToggled ? 0 : 1,
-                    transitionDelay: logoutClicked
-                      ? "initial"
-                      : !appointmentToggled
-                      ? "0.5s"
-                      : "initial",
-                  }}
-                  icon={faEllipsisH}
-                  className="my_individual_appointment_expand_icon"
-                />
-                <Transition
-                  items={appointmentToggled}
-                  from={{ transform: "translateX(-100%)" }}
-                  enter={{ transform: "translateX(0%)" }}
-                  leave={{ transform: "translateX(-100%)" }}
-                  config={{ duration: 200 }}
-                >
-                  {(appointmentToggled) =>
-                    appointmentToggled === item.id &&
-                    ((styleprops) => (
-                      <div
-                        className="my_individual_selected_appointment_container"
-                        style={styleprops}
-                      >
-                        <div className="my_individual_selected_appointment_contents_container">
-                          <div
-                            className="my_individual_selected_appointment_back_container"
-                            ref={selectedAppointmentBackRef}
-                            onClick={(e) => handleAppointmentUntoggled(e)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faLongArrowAltLeft}
-                              className="my_individual_selected_appointment_back_arrow_icon"
-                            />
-                          </div>
-                          <div className="selected_appointment_date_and_time_header">
-                            <p>Appointment Date &amp; Time</p>
-                          </div>
-                          <div className="selected_appointment_date_and_time_content_container">
-                            <div className="selected_appointment_date_and_time_content">
-                              <p>
-                                {moment(item.date, "LL")
-                                  .format("LLLL")
-                                  .split(" ")
-                                  .slice(
-                                    0,
-                                    moment(item.date, "LL")
-                                      .format("LLLL")
-                                      .split(" ").length - 2
-                                  )
-                                  .join(" ")}
-                              </p>
-                              <p>
-                                {item.startTime +
-                                  " " +
-                                  (Number(item.startTime.split(":")[0]) >= 12 ||
-                                  Number(item.startTime.split(":")[0]) < 9
-                                    ? "PM"
-                                    : "AM")}{" "}
-                                -{" "}
-                                {item.endTime +
-                                  " " +
-                                  (Number(item.endTime.split(":")[0]) >= 12 ||
-                                  Number(item.endTime.split(":")[0]) < 9
-                                    ? "PM"
-                                    : "AM")}{" "}
-                              </p>
-                              <p>
-                                (
-                                {item.duration >= 60
-                                  ? Math.floor(item.duration / 60)
-                                  : item.duration}{" "}
-                                {item.duration >= 60
-                                  ? Math.floor(item.duration / 60) === 1
-                                    ? "hour"
-                                    : "hours"
-                                  : null}
-                                {Number.isInteger(item.duration / 60)
-                                  ? null
-                                  : " "}
-                                {item.duration >= 60
-                                  ? Number.isInteger(item.duration / 60)
-                                    ? null
-                                    : item.duration -
-                                      Math.floor(item.duration / 60) * 60 +
-                                      " minutes"
-                                  : "minutes"}
-                                )
-                              </p>
-                            </div>
-                            <div className="add_to_calendar_button_container">
-                              <AddToCalendar
-                                buttonTemplate={{ "calendar-plus-o": "left" }}
-                                buttonLabel="Add to Calendar"
-                                event={{
-                                  title: "GlowLabs Facial",
-                                  description:
-                                    (item.treatments[0].name
-                                      ? item.treatments[0].name ===
-                                        "ChemicalPeel"
-                                        ? "Chemical Peel"
-                                        : item.treatments[0].name
-                                      : "") +
-                                    " Facial" +
-                                    (item.addOns[0]
-                                      ? item.addOns[0].name
-                                        ? ", " +
-                                          item.addOns
-                                            .map((x) =>
-                                              x.name === "ExtraExtractions"
-                                                ? "Extra Extractions Add On"
-                                                : x.name + " Add On"
-                                            )
-                                            .join(", ")
-                                        : ""
-                                      : ""),
-                                  location: "1506 Broadway, Hewlett, NY 11557",
-                                  startTime: moment(
-                                    moment(item.date, "LL")
-                                      .format("LLLL")
-                                      .split(" ")
-                                      .slice(
-                                        0,
-                                        moment(item.date, "LL")
-                                          .format("LLLL")
-                                          .split(" ").length - 2
-                                      )
-                                      .join(" ") +
-                                      " " +
-                                      item.startTime +
-                                      " " +
-                                      (Number(item.startTime.split(":")[0]) >=
-                                        12 ||
-                                      Number(item.startTime.split(":")[0]) < 9
-                                        ? "PM"
-                                        : "AM"),
-                                    "LLLL"
-                                  ).format(),
-                                  endTime: moment(
-                                    moment(item.date, "LL")
-                                      .format("LLLL")
-                                      .split(" ")
-                                      .slice(
-                                        0,
-                                        moment(item.date, "LL")
-                                          .format("LLLL")
-                                          .split(" ").length - 2
-                                      )
-                                      .join(" ") +
-                                      " " +
-                                      item.endTime +
-                                      " " +
-                                      (Number(item.endTime.split(":")[0]) >=
-                                        12 ||
-                                      Number(item.endTime.split(":")[0]) < 9
-                                        ? "PM"
-                                        : "AM"),
-                                    "LLLL"
-                                  ).format(),
-                                }}
-                              />
-                            </div>
-                          </div>
-                          <div className="selected_appointment_treatments_header">
-                            <p>Treatment</p>
-                          </div>
-                          {renderSummaryCardTreatments(i)}
-                          {props.data ? (
-                            props.data.own_appointments ? (
-                              props.data.own_appointments[i].addOns.length ===
-                              0 ? null : (
-                                <>
-                                  <div className="selected_appointment_add_ons_header">
-                                    <p>
-                                      Add On
-                                      {props.data
-                                        ? props.data.own_appointments[i].addOns
-                                            .length > 1
-                                          ? "s"
-                                          : null
-                                        : null}
-                                    </p>
-                                  </div>
-                                  {renderSummaryCardAddOns(i)}
-                                </>
-                              )
-                            ) : null
-                          ) : null}
-                          <div className="selected_appointment_total_header">
-                            <p>Total</p>
-                            <p>${item.price}</p>
-                          </div>
-                          <div className="selected_appointments_bottom_buttons_container">
-                            <div
-                              className="cancel_appointment_button"
-                              onClick={() =>
-                                changeCancelAppointmentClicked(true)
-                              }
-                            >
-                              <p>Cancel Appointment</p>
-                            </div>
-                            <div
-                              className="back_to_all_appointments_button"
-                              ref={backToAppointmentsRef}
-                              onClick={(e) => handleAppointmentUntoggled(e)}
-                            >
-                              <p>Back to Appointments</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  }
-                </Transition>
-              </div>
-            ))
-          ) : (
-            <div className="my_upcoming_appointments_empty_container">
-              <FontAwesomeIcon
-                icon={faCalendarAlt}
-                className="my_upcoming_appointments_empty_calendar_icon"
-              />
-              <h2>No upcoming appointments</h2>
-              <p>
-                Any future appointment bookings will be added here, so check
-                back soon!
-              </p>
+          <Link
+            to="/account/clientprofile/pastappointments"
+            className="sub_header_container_link"
+          >
+            <div className="upcoming_appointments_past_title_container">
+              <h2>PAST</h2>
             </div>
-          )
-        ) : (
-          <div className="my_upcoming_appointments_empty_container">
-            <FontAwesomeIcon
-              icon={faCalendarAlt}
-              className="my_upcoming_appointments_empty_calendar_icon"
-            />
-            <h2>No upcoming appointments</h2>
-            <p>
-              Any future appointment bookings will be added here, so check back
-              soon!
-            </p>
-          </div>
-        )}
+          </Link>
+        </div>
+      )}
+      <div className="my_appointments_content_container">
+        {adminAuthenticated ? (
+          <AdminRenderUpcomingAppointments
+            data={
+              props
+                ? props.location
+                  ? props.location.state
+                    ? props.location.state.getOwnAppointmentsData
+                      ? props.location.state.getOwnAppointmentsData
+                      : null
+                    : null
+                  : null
+                : null
+            }
+            handleAppointmentToggled={handleAppointmentToggled}
+            handleAppointmentUntoggled={handleAppointmentUntoggled}
+            handleCancelAppointment={handleCancelAppointment}
+            individualAppointmentRef={individualAppointmentRef}
+            appointmentToggled={appointmentToggled}
+            override={override}
+            renderSummaryCardAddOns={renderSummaryCardAddOns}
+            renderSummaryCardTreatments={renderSummaryCardTreatments}
+            changeCancelAppointmentClicked={changeCancelAppointmentClicked}
+            cancelAppointmentClicked={cancelAppointmentClicked}
+            changeLoadingSpinnerActive={changeLoadingSpinnerActive}
+            loadingSpinnerActive={loadingSpinnerActive}
+            ref={{
+              individualAppointmentRef: individualAppointmentRef,
+              selectedAppointmentBackRef: selectedAppointmentBackRef,
+              backToAppointmentsRef: backToAppointmentsRef,
+            }}
+            currentScreenSize={
+              props
+                ? props.location
+                  ? props.location.state
+                    ? props.location.state.currentScreenSize
+                      ? props.location.state.currentScreenSize
+                      : null
+                    : null
+                  : null
+                : null
+            }
+            initialScreenSize={
+              props
+                ? props.location
+                  ? props.location.state
+                    ? props.location.state.initialScreenSize
+                      ? props.location.state.initialScreenSize
+                      : null
+                    : null
+                  : null
+                : null
+            }
+            firstName={
+              props
+                ? props.location
+                  ? props.location.state
+                    ? props.location.state.firstName
+                      ? props.location.state.firstName
+                      : null
+                    : null
+                  : null
+                : null
+            }
+            lastName={
+              props
+                ? props.location
+                  ? props.location.state
+                    ? props.location.state.lastName
+                      ? props.location.state.lastName
+                      : null
+                    : null
+                  : null
+                : null
+            }
+          />
+        ) : userAuthenticated ? (
+          <ClientRenderUpcomingAppointments
+            data={props.data}
+            handleAppointmentToggled={handleAppointmentToggled}
+            handleAppointmentUntoggled={handleAppointmentUntoggled}
+            handleCancelAppointment={handleCancelAppointment}
+            individualAppointmentRef={individualAppointmentRef}
+            appointmentToggled={appointmentToggled}
+            override={override}
+            renderSummaryCardAddOns={renderSummaryCardAddOns}
+            renderSummaryCardTreatments={renderSummaryCardTreatments}
+            changeCancelAppointmentClicked={changeCancelAppointmentClicked}
+            cancelAppointmentClicked={cancelAppointmentClicked}
+            changeLoadingSpinnerActive={changeLoadingSpinnerActive}
+            loadingSpinnerActive={loadingSpinnerActive}
+            ref={{
+              individualAppointmentRef: individualAppointmentRef,
+              selectedAppointmentBackRef: selectedAppointmentBackRef,
+              backToAppointmentsRef: backToAppointmentsRef,
+            }}
+            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={props.initialScreenSize}
+          />
+        ) : null}
       </div>
     </div>
   );

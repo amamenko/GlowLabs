@@ -114,17 +114,23 @@ const TreatmentsPage2 = (props) => {
         !cartIsActive
       ) {
         toast.dismiss();
-        toast(
-          <NotSurePopUp
-            currentScreenSize={props.currentScreenSize}
-            initialScreenSize={props.initialScreenSize}
-          />,
-          {
-            className: "toast_container",
-            autoClose: false,
-            closeButton: false,
-          }
-        );
+        const unsureToastDeployDelay = setTimeout(() => {
+          toast(
+            <NotSurePopUp
+              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={props.initialScreenSize}
+            />,
+            {
+              className: "toast_container",
+              autoClose: false,
+              closeButton: false,
+            }
+          );
+        }, 3000);
+
+        return () => {
+          clearTimeout(unsureToastDeployDelay);
+        };
       } else {
         dispatch(ACTION_UNSURE_POP_UP_TRIGGERED());
       }

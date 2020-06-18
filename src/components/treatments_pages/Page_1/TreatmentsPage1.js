@@ -37,6 +37,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
             from={{
               position: "relative",
               opacity: 0,
+              width_large_desktop: "0%",
               width_desktop: "0%",
               width_landscape: "0%",
               width_mobile: "0%",
@@ -46,6 +47,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
             to={{
               position: "relative",
               opacity: 1,
+              width_large_desktop: "25%",
               width_desktop: "24%",
               width_landscape: "28%",
               width_mobile: "45%",
@@ -70,7 +72,9 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
                     opacity: `${styles.opacity}`,
                     width:
                       props.currentScreenSize === ""
-                        ? props.initialScreenSize >= 1200
+                        ? props.initialScreenSize >= 1800
+                          ? `${styles.width_large_desktop}`
+                          : props.initialScreenSize >= 1200
                           ? `${styles.width_desktop}`
                           : props.initialScreenSize >= 600
                           ? `${styles.width_landscape}`
@@ -79,6 +83,8 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
                           : props.initialScreenSize >= 360
                           ? `${styles.width_mobile_small}`
                           : `${styles.width_mobile_tiny}`
+                        : props.currentScreenSize >= 1800
+                        ? `${styles.width_large_desktop}`
                         : props.currentScreenSize >= 1200
                         ? `${styles.width_desktop}`
                         : props.currentScreenSize >= 600
