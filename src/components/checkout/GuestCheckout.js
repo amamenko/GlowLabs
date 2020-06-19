@@ -227,7 +227,7 @@ const GuestCheckout = (props) => {
             <Label for="appointmentNotes">Appointment Notes</Label>
             <Input
               type="textarea"
-              className="form_appointment_notes"
+              className="form_appointment_notes form_notes_container"
               maxLength={1000}
               placeholder="Enter any skin care issues/concerns here."
               defaultValue={appointmentNotes}

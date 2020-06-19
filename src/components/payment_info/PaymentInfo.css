@@ -339,3 +339,177 @@ select {
     margin-right: 1.5rem;
   }
 }
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .payment_info_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .payment_info_forward_arrow,
+  .payment_info_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .payment_info_back_arrow {
+    left: 3.1rem;
+  }
+
+  .payment_info_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .payment_info_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .payment_info_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+  }
+
+  .sq-payment-form {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .sq-label {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+
+  .choose_a_credit_card_dropdown_icon {
+    top: 1rem;
+    font-size: 1rem;
+  }
+
+  .sq-error-message {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+    margin-top: 2.5rem;
+    font-size: 1rem;
+  }
+
+  .sq-creditcard {
+    font-size: 1rem;
+  }
+
+  .sq-input {
+    line-height: 0px;
+    margin: 0;
+    outline-offset: -2px;
+    padding: 0;
+  }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 4vh;
+    margin-bottom: 1rem;
+  }
+
+  .sq_save_card_information_container {
+    justify-content: flex-start;
+    padding-top: 3.1rem;
+    padding-bottom: 3.1rem;
+  }
+
+  .sq_save_card_information_container p {
+    padding-left: 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .payment_info_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .payment_info_forward_arrow,
+  .payment_info_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .payment_info_back_arrow {
+    left: 3.1rem;
+  }
+
+  .payment_info_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .payment_info_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .payment_info_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .sq-payment-form {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .sq-label {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+  }
+
+  .choose_a_credit_card_dropdown_icon {
+    top: 1rem;
+    font-size: 1rem;
+  }
+
+  .sq-error-message {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .sq-creditcard {
+    font-size: 1.5rem;
+  }
+
+  .sq-input {
+    line-height: 0px;
+    margin: 0;
+    outline-offset: -2px;
+    padding: 0;
+  }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 4vh;
+    margin-bottom: 1rem;
+  }
+
+  .sq_save_card_information_container {
+    justify-content: flex-start;
+    padding-top: 3.1rem;
+    padding-bottom: 3.1rem;
+  }
+
+  .sq_save_card_information_container p {
+    padding-left: 1rem;
+    font-size: 1.5rem;
+  }
+}

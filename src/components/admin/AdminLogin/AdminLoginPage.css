@@ -145,8 +145,35 @@
 
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
+  .admin_login_content_container {
+    height: 38%;
+  }
+
   .admin_login_page_container {
     width: 25%;
+  }
+
+  .admin_log_in_button {
+    font-size: 1rem;
+    padding: 1rem;
+    margin-top: 3rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .admin_login_content_container {
+    height: 10%;
+    width: 100%;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 999999;
+  }
+
+  .admin_sign_in_prompt {
+    font-size: 2rem;
+    padding-top: 2em;
+    padding-bottom: 3rem;
   }
 
   .admin_log_in_button {

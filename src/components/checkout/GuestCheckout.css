@@ -120,6 +120,10 @@
   padding-bottom: 3rem;
 }
 
+.form_appointment_notes.form_notes_container {
+  margin-top: 0rem;
+}
+
 .notes_character_limit {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -183,6 +187,131 @@
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
+  .checkout_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 3.1rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .top_form_container {
+    width: 29vw;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .input_field {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1.5rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .checkout_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 3.1rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .top_form_container {
+    width: 29vw;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .input_field {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1rem;
+    line-height: 1.8rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+    margin-right: 1rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
   .checkout_container h1 {
     font-size: 2.5rem;
   }

@@ -715,5 +715,6 @@
 
   .profile_button_expand {
     font-size: 2rem;
+    cursor: pointer;
   }
 }

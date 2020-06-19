@@ -209,10 +209,10 @@ button:disabled {
   .availability_statement {
     margin-left: 3.1rem;
     margin-right: 3.1rem;
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
     margin-top: 2vh;
-    margin-bottom: 2vh;
+    margin-bottom: 0vh;
   }
 
   .calendar_tiles {
@@ -225,8 +225,8 @@ button:disabled {
     border-top: 2px solid rgb(211, 211, 211);
     border-bottom: 2px solid rgb(211, 211, 211);
     padding-top: 1vh;
-    margin-top: 7vh;
-    margin-bottom: 7vh;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
     font-family: "Montserrat", sans-serif;
   }
 

@@ -53,8 +53,8 @@
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
 @media only screen and (min-width: 360px) {
   .add_ons_page_1_container {
-    gap: 0;
-    margin-top: 2rem;
+    gap: 2vh;
+    margin-top: 7vh;
   }
 
   .add_ons_page_1_header h2 {
@@ -69,6 +69,11 @@
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
+  .add_ons_page_1_container {
+    gap: 0;
+    margin-top: 2rem;
+  }
+
   .add_ons_page_1_header h2 {
     font-size: 1.5rem;
   }

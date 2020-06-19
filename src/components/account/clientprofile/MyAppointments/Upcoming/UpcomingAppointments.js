@@ -39,7 +39,6 @@ import { useMutation } from "@apollo/react-hooks";
 import { deleteAppointmentMutation } from "../../../../../graphql/queries/queries";
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointmentsFunction";
-import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
 
 const UpcomingAppointments = (props) => {
   const dispatch = useDispatch();
@@ -256,15 +255,7 @@ const UpcomingAppointments = (props) => {
       }
     }
   };
-  console.log(
-    props
-      ? props.location
-        ? props.location.state
-          ? props.location.state
-          : null
-        : null
-      : null
-  );
+
   // Function for back arrow click to reset selected toggled appointment
 
   const handleAppointmentUntoggled = (e) => {
@@ -367,105 +358,29 @@ const UpcomingAppointments = (props) => {
         </div>
       )}
       <div className="my_appointments_content_container">
-        {adminAuthenticated ? (
-          <AdminRenderUpcomingAppointments
-            data={
-              props
-                ? props.location
-                  ? props.location.state
-                    ? props.location.state.getOwnAppointmentsData
-                      ? props.location.state.getOwnAppointmentsData
-                      : null
-                    : null
-                  : null
-                : null
-            }
-            handleAppointmentToggled={handleAppointmentToggled}
-            handleAppointmentUntoggled={handleAppointmentUntoggled}
-            handleCancelAppointment={handleCancelAppointment}
-            individualAppointmentRef={individualAppointmentRef}
-            appointmentToggled={appointmentToggled}
-            override={override}
-            renderSummaryCardAddOns={renderSummaryCardAddOns}
-            renderSummaryCardTreatments={renderSummaryCardTreatments}
-            changeCancelAppointmentClicked={changeCancelAppointmentClicked}
-            cancelAppointmentClicked={cancelAppointmentClicked}
-            changeLoadingSpinnerActive={changeLoadingSpinnerActive}
-            loadingSpinnerActive={loadingSpinnerActive}
-            ref={{
-              individualAppointmentRef: individualAppointmentRef,
-              selectedAppointmentBackRef: selectedAppointmentBackRef,
-              backToAppointmentsRef: backToAppointmentsRef,
-            }}
-            currentScreenSize={
-              props
-                ? props.location
-                  ? props.location.state
-                    ? props.location.state.currentScreenSize
-                      ? props.location.state.currentScreenSize
-                      : null
-                    : null
-                  : null
-                : null
-            }
-            initialScreenSize={
-              props
-                ? props.location
-                  ? props.location.state
-                    ? props.location.state.initialScreenSize
-                      ? props.location.state.initialScreenSize
-                      : null
-                    : null
-                  : null
-                : null
-            }
-            firstName={
-              props
-                ? props.location
-                  ? props.location.state
-                    ? props.location.state.firstName
-                      ? props.location.state.firstName
-                      : null
-                    : null
-                  : null
-                : null
-            }
-            lastName={
-              props
-                ? props.location
-                  ? props.location.state
-                    ? props.location.state.lastName
-                      ? props.location.state.lastName
-                      : null
-                    : null
-                  : null
-                : null
-            }
-          />
-        ) : userAuthenticated ? (
-          <ClientRenderUpcomingAppointments
-            data={props.data}
-            handleAppointmentToggled={handleAppointmentToggled}
-            handleAppointmentUntoggled={handleAppointmentUntoggled}
-            handleCancelAppointment={handleCancelAppointment}
-            individualAppointmentRef={individualAppointmentRef}
-            appointmentToggled={appointmentToggled}
-            override={override}
-            renderSummaryCardAddOns={renderSummaryCardAddOns}
-            renderSummaryCardTreatments={renderSummaryCardTreatments}
-            changeCancelAppointmentClicked={changeCancelAppointmentClicked}
-            cancelAppointmentClicked={cancelAppointmentClicked}
-            changeLoadingSpinnerActive={changeLoadingSpinnerActive}
-            loadingSpinnerActive={loadingSpinnerActive}
-            ref={{
-              individualAppointmentRef: individualAppointmentRef,
-              selectedAppointmentBackRef: selectedAppointmentBackRef,
-              backToAppointmentsRef: backToAppointmentsRef,
-            }}
-            currentScreenSize={props.currentScreenSize}
-            initialScreenSize={props.initialScreenSize}
-          />
-        ) : null}
+        <ClientRenderUpcomingAppointments
+          data={props.data}
+          handleAppointmentToggled={handleAppointmentToggled}
+          handleAppointmentUntoggled={handleAppointmentUntoggled}
+          handleCancelAppointment={handleCancelAppointment}
+          individualAppointmentRef={individualAppointmentRef}
+          appointmentToggled={appointmentToggled}
+          override={override}
+          renderSummaryCardAddOns={renderSummaryCardAddOns}
+          renderSummaryCardTreatments={renderSummaryCardTreatments}
+          changeCancelAppointmentClicked={changeCancelAppointmentClicked}
+          cancelAppointmentClicked={cancelAppointmentClicked}
+          changeLoadingSpinnerActive={changeLoadingSpinnerActive}
+          loadingSpinnerActive={loadingSpinnerActive}
+          ref={{
+            individualAppointmentRef: individualAppointmentRef,
+            selectedAppointmentBackRef: selectedAppointmentBackRef,
+            backToAppointmentsRef: backToAppointmentsRef,
+          }}
+          currentScreenSize={props.currentScreenSize}
+          initialScreenSize={props.initialScreenSize}
+        />
+        )
       </div>
     </div>
   );

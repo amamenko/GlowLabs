@@ -17,6 +17,14 @@
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
 @media only screen and (min-width: 360px) {
   .treatments_page_3_container {
+    row-gap: 3.5vh;
+    margin-top: 1.5vh;
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .treatments_page_3_container {
     row-gap: 1.5rem;
     margin-top: 0vh;
   }

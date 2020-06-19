@@ -7,9 +7,6 @@ const TopAnimationTopShelf = (props) => {
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
-  const userAuthenticated = useSelector(
-    (state) => state.userAuthenticated.user_authenticated
-  );
 
   return (
     <Spring

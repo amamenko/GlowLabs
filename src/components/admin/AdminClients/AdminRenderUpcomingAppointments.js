@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import moment from "moment";
 import { Transition } from "react-spring/renderprops";
 import AddToCalendar from "react-add-to-calendar";
@@ -11,13 +11,200 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "reactstrap";
 import { BounceLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import { css } from "emotion";
+import { useMutation } from "@apollo/react-hooks";
+import { deleteAppointmentMutation } from "../../../graphql/queries/queries";
+import { useLocation } from "react-router-dom";
+import CalmSummaryCard from "../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
+import BacialSummaryCard from "../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
+import ClarifySummaryCard from "../../checkout/SummaryReviewCards/Treatments/ClarifySummaryCard";
+import DermaplaningSummaryCard from "../../checkout/SummaryReviewCards/Treatments/DermaplaningSummaryCard";
+import GlowSummaryCard from "../../checkout/SummaryReviewCards/Treatments/GlowSummaryCard";
+import QuenchSummaryCard from "../../checkout/SummaryReviewCards/Treatments/QuenchSummaryCard";
+import QuickieSummaryCard from "../../checkout/SummaryReviewCards/Treatments/QuickieSummaryCard";
+import ChemicalPeelSummaryCard from "../../checkout/SummaryReviewCards/Treatments/ChemicalPeelSummaryCard";
+import CBDSummaryCard from "../../checkout/SummaryReviewCards/Treatments/CBDSummaryCard";
+import MicroneedleSummaryCard from "../../checkout/SummaryReviewCards/Treatments/MicroneedleSummaryCard";
+import RejuvenateSummaryCard from "../../checkout/SummaryReviewCards/Treatments/RejuvenateSummaryCard";
+import UnsureSummaryCard from "../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
+import ExtraExtractionsSummaryCard from "../../checkout/SummaryReviewCards/AddOns/ExtraExtractionsCard";
+import HydroJellyMaskSummaryCard from "../../checkout/SummaryReviewCards/AddOns/HydroJellyMaskSummaryCard";
+import LEDTherapySummaryCard from "../../checkout/SummaryReviewCards/AddOns/LEDTherapySummaryCard";
+import MicrocurrentSummaryCard from "../../checkout/SummaryReviewCards/AddOns/MicrocurrentSummaryCard";
+import MicrodermabrasionSummaryCard from "../../checkout/SummaryReviewCards/AddOns/MicrodermabrasionSummaryCard";
+import DermarollingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/DermarollingSummaryCard";
+import NanoNeedlingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
+import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
+import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
 
-const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
-  const {
-    individualAppointmentRef,
-    selectedAppointmentBackRef,
-    backToAppointmentsRef,
-  } = ref;
+const AdminRenderUpcomingAppointments = (props) => {
+  const location = useLocation();
+  const individualAppointmentRef = useRef(null);
+  const selectedAppointmentBackRef = useRef(null);
+  const backToAppointmentsRef = useRef(null);
+
+  const logoutClicked = useSelector(
+    (state) => state.logoutClicked.log_out_clicked
+  );
+  const [appointmentToggled, changeAppointmentToggled] = useState("");
+  const [cancelAppointmentClicked, changeCancelAppointmentClicked] = useState(
+    false
+  );
+  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+  const [deleteAppointment, { loading, data }] = useMutation(
+    deleteAppointmentMutation
+  );
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
+
+  const handleCancelAppointment = (item) => {
+    deleteAppointment({
+      variables: { _id: item.id },
+    });
+  };
+
+  useEffect(() => {
+    if (location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
+  const treatmentsSummaryCardComponentsArr = [
+    { name: "Calm", component: <CalmSummaryCard /> },
+    { name: "Bacial", component: <BacialSummaryCard /> },
+    { name: "Clarify", component: <ClarifySummaryCard /> },
+    { name: "Dermaplaning", component: <DermaplaningSummaryCard /> },
+    { name: "Glow", component: <GlowSummaryCard /> },
+    { name: "Quench", component: <QuenchSummaryCard /> },
+    { name: "Quickie", component: <QuickieSummaryCard /> },
+    { name: "ChemicalPeel", component: <ChemicalPeelSummaryCard /> },
+    { name: "CBD", component: <CBDSummaryCard /> },
+    { name: "Microneedling", component: <MicroneedleSummaryCard /> },
+    { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
+    { name: "Not Sure", component: <UnsureSummaryCard /> },
+  ];
+
+  const addOnsSummaryCardComponentsArr = [
+    { name: "ExtraExtractions", component: <ExtraExtractionsSummaryCard /> },
+    { name: "HydroJelly", component: <HydroJellyMaskSummaryCard /> },
+    { name: "LED", component: <LEDTherapySummaryCard /> },
+    { name: "Microcurrent", component: <MicrocurrentSummaryCard /> },
+    { name: "Microdermabrasion", component: <MicrodermabrasionSummaryCard /> },
+    { name: "Dermarolling", component: <DermarollingSummaryCard /> },
+    { name: "NanoNeedling", component: <NanoNeedlingSummaryCard /> },
+    { name: "GuaSha", component: <GuaShaSummaryCard /> },
+    { name: "Beard", component: <BeardSummaryCard /> },
+  ];
+
+  const renderSummaryCardTreatments = (dataIndex) => {
+    let componentsArr = [];
+
+    for (let i = 0; i < treatmentsSummaryCardComponentsArr.length; i++) {
+      if (props.data) {
+        if (props.data.own_appointments) {
+          if (props.data.own_appointments[dataIndex].treatments) {
+            if (props.data.own_appointments[dataIndex].treatments[0].name) {
+              if (
+                props.data.own_appointments[dataIndex].treatments[0].name ===
+                treatmentsSummaryCardComponentsArr[i].name
+              ) {
+                componentsArr.push(
+                  treatmentsSummaryCardComponentsArr[i].component
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+    return componentsArr.map((item, index) => (
+      <div className="my_selected_appointment_treatment_container" key={index}>
+        {item}
+      </div>
+    ));
+  };
+
+  const renderSummaryCardAddOns = (dataIndex) => {
+    let componentsArr = [];
+
+    for (let i = 0; i < addOnsSummaryCardComponentsArr.length; i++) {
+      for (
+        let j = 0;
+        j < props.data.own_appointments[dataIndex].addOns.length;
+        j++
+      ) {
+        if (props.data) {
+          if (props.data.own_appointments) {
+            if (props.data.own_appointments[dataIndex].addOns !== []) {
+              if (props.data.own_appointments[dataIndex].addOns[j].name) {
+                if (
+                  props.data.own_appointments[dataIndex].addOns[j].name ===
+                  addOnsSummaryCardComponentsArr[i].name
+                ) {
+                  componentsArr.push(
+                    addOnsSummaryCardComponentsArr[i].component
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return componentsArr.map((item, index) => (
+      <div className="my_selected_appointment_treatment_container" key={index}>
+        {item}
+      </div>
+    ));
+  };
+
+  // Allows click only if selected appointment modal is not active
+
+  const handleAppointmentToggled = (e, item) => {
+    if (e.currentTarget && individualAppointmentRef) {
+      if (individualAppointmentRef.current) {
+        if (
+          individualAppointmentRef.current.className ===
+          e.currentTarget.className
+        ) {
+          if (selectedAppointmentBackRef) {
+            if (!selectedAppointmentBackRef.current) {
+              if (item) {
+                if (item.id) {
+                  changeAppointmentToggled(item.id);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  // Function for back arrow click to reset selected toggled appointment
+
+  const handleAppointmentUntoggled = (e) => {
+    if (
+      (e.currentTarget && selectedAppointmentBackRef) ||
+      (e.currentTarget && backToAppointmentsRef)
+    ) {
+      if (selectedAppointmentBackRef.current || backToAppointmentsRef.current) {
+        if (
+          selectedAppointmentBackRef.current.className ===
+            e.currentTarget.className ||
+          backToAppointmentsRef.current.className === e.currentTarget.className
+        ) {
+          changeAppointmentToggled("");
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -27,13 +214,12 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
             <div
               key={i}
               className="my_individual_appointment_container"
-              onClick={(e) => props.handleAppointmentToggled(e, item)}
+              onClick={(e) => handleAppointmentToggled(e, item)}
               ref={individualAppointmentRef}
             >
               <Modal
                 isOpen={
-                  props.cancelAppointmentClicked &&
-                  props.appointmentToggled === item.id
+                  cancelAppointmentClicked && appointmentToggled === item.id
                 }
                 className="cancel_appointment_modal"
                 style={{
@@ -196,8 +382,7 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
               </div>
               <FontAwesomeIcon
                 style={{
-                  zIndex:
-                    props.logoutClicked || props.appointmentToggled ? 0 : 1,
+                  zIndex: logoutClicked || props.appointmentToggled ? 0 : 1,
                   transitionDelay: props.logoutClicked
                     ? "initial"
                     : !props.appointmentToggled
@@ -294,16 +479,17 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                               event={{
                                 title: "GlowLabs Facial",
                                 description:
-                                  (item.treatments[0].name
-                                    ? item.treatments[0].name === "ChemicalPeel"
+                                  (props.item.treatments[0].name
+                                    ? props.item.treatments[0].name ===
+                                      "ChemicalPeel"
                                       ? "Chemical Peel"
-                                      : item.treatments[0].name
+                                      : props.item.treatments[0].name
                                     : "") +
                                   " Facial" +
-                                  (item.addOns[0]
-                                    ? item.addOns[0].name
+                                  (props.item.addOns[0]
+                                    ? props.item.addOns[0].name
                                       ? ", " +
-                                        item.addOns
+                                        props.item.addOns
                                           .map((x) =>
                                             x.name === "ExtraExtractions"
                                               ? "Extra Extractions Add On"
@@ -314,42 +500,45 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                                     : ""),
                                 location: "1506 Broadway, Hewlett, NY 11557",
                                 startTime: moment(
-                                  moment(item.date, "LL")
+                                  moment(props.item.date, "LL")
                                     .format("LLLL")
                                     .split(" ")
                                     .slice(
                                       0,
-                                      moment(item.date, "LL")
+                                      moment(props.item.date, "LL")
                                         .format("LLLL")
                                         .split(" ").length - 2
                                     )
                                     .join(" ") +
                                     " " +
-                                    item.startTime +
+                                    props.item.startTime +
                                     " " +
-                                    (Number(item.startTime.split(":")[0]) >=
-                                      12 ||
-                                    Number(item.startTime.split(":")[0]) < 9
+                                    (Number(
+                                      props.item.startTime.split(":")[0]
+                                    ) >= 12 ||
+                                    Number(props.item.startTime.split(":")[0]) <
+                                      9
                                       ? "PM"
                                       : "AM"),
                                   "LLLL"
                                 ).format(),
                                 endTime: moment(
-                                  moment(item.date, "LL")
+                                  moment(props.item.date, "LL")
                                     .format("LLLL")
                                     .split(" ")
                                     .slice(
                                       0,
-                                      moment(item.date, "LL")
+                                      moment(props.item.date, "LL")
                                         .format("LLLL")
                                         .split(" ").length - 2
                                     )
                                     .join(" ") +
                                     " " +
-                                    item.endTime +
+                                    props.item.endTime +
                                     " " +
-                                    (Number(item.endTime.split(":")[0]) >= 12 ||
-                                    Number(item.endTime.split(":")[0]) < 9
+                                    (Number(props.item.endTime.split(":")[0]) >=
+                                      12 ||
+                                    Number(props.item.endTime.split(":")[0]) < 9
                                       ? "PM"
                                       : "AM"),
                                   "LLLL"
@@ -361,7 +550,7 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                         <div className="selected_appointment_treatments_header">
                           <p>Treatment</p>
                         </div>
-                        {props.renderSummaryCardTreatments(i)}
+                        {renderSummaryCardTreatments(i)}
                         {props.data ? (
                           props.data.own_appointments ? (
                             props.data.own_appointments[i].addOns.length ===
@@ -378,28 +567,26 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                                       : null}
                                   </p>
                                 </div>
-                                {props.renderSummaryCardAddOns(i)}
+                                {renderSummaryCardAddOns(i)}
                               </>
                             )
                           ) : null
                         ) : null}
                         <div className="selected_appointment_total_header">
                           <p>Total</p>
-                          <p>${item.price}</p>
+                          <p>${props.item.price}</p>
                         </div>
                         <div className="selected_appointments_bottom_buttons_container">
                           <div
                             className="cancel_appointment_button"
-                            onClick={() =>
-                              props.changeCancelAppointmentClicked(true)
-                            }
+                            onClick={() => changeCancelAppointmentClicked(true)}
                           >
                             <p>Cancel Appointment</p>
                           </div>
                           <div
                             className="back_to_all_appointments_button"
                             ref={backToAppointmentsRef}
-                            onClick={(e) => props.handleAppointmentUntoggled(e)}
+                            onClick={(e) => handleAppointmentUntoggled(e)}
                           >
                             <p>Back to Appointments</p>
                           </div>
@@ -419,11 +606,11 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
             />
             <h2>No upcoming appointments</h2>
             <p>
-              {props.firstName[0].toUpperCase() +
-                props.firstName.slice(1).toLowerCase() +
+              {props.item.firstName[0].toUpperCase() +
+                props.item.firstName.slice(1).toLowerCase() +
                 " " +
-                props.lastName[0].toUpperCase() +
-                props.lastName.slice(1).toLowerCase() +
+                props.item.lastName[0].toUpperCase() +
+                props.item.lastName.slice(1).toLowerCase() +
                 " does not have any upcoming appointments."}
             </p>
           </div>
@@ -436,17 +623,17 @@ const AdminRenderUpcomingAppointments = React.forwardRef((props, ref) => {
           />
           <h2>No upcoming appointments</h2>
           <p>
-            {props.firstName[0].toUpperCase() +
-              props.firstName.slice(1).toLowerCase() +
+            {props.item.firstName[0].toUpperCase() +
+              props.item.firstName.slice(1).toLowerCase() +
               " " +
-              props.lastName[0].toUpperCase() +
-              props.lastName.slice(1).toLowerCase() +
+              props.item.lastName[0].toUpperCase() +
+              props.item.lastName.slice(1).toLowerCase() +
               " does not have any upcoming appointments."}
           </p>
         </div>
       )}
     </>
   );
-});
+};
 
 export default AdminRenderUpcomingAppointments;

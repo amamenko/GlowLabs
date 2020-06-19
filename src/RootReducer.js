@@ -234,6 +234,7 @@ import adminAuthenticatedReducer from "./reducers/Admin/AdminLogin/AdminAuthenti
 import unsurePopUpTriggeredReducer from "./reducers/UnsurePopUp/unsurePopUpReducer";
 import unsureInCartReducer from "./reducers/InCart/Treatments/Unsure/unsureInCartReducer";
 import cartPageOpenedReducer from "./reducers/InCart/CartPageOpened/cartPageOpenedReducer";
+import adminClientSectionSelectedReducer from "./reducers/Admin/AdminLogin/AdminClientSectionSelected/adminClientSectionSelectedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -362,6 +363,7 @@ const RootReducer = combineReducers({
   adminConfirmNewPasswordInvalid: adminConfirmNewPasswordInvalidReducer,
   adminConfirmNewPasswordValid: adminConfirmNewPasswordValidReducer,
   adminAuthenticated: adminAuthenticatedReducer,
+  adminClientSectionSelected: adminClientSectionSelectedReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

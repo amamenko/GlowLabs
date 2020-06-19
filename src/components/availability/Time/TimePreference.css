@@ -244,3 +244,155 @@
     padding-bottom: 0vh;
   }
 }
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .select_time_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .select_time_forward_arrow,
+  .select_time_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .select_time_back_arrow {
+    left: 3.1rem;
+  }
+
+  .select_time_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .select_a_time_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .time_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+  }
+
+  .time_of_day_card_show_more {
+    font-size: 1rem;
+    padding-right: 3.1rem;
+  }
+
+  .time_of_day_heading {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+  }
+
+  .inner_times_wrapper {
+    width: 101%;
+    flex-wrap: wrap;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    padding-bottom: 1.5rem;
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .inner_times_wrapper p {
+    font-size: 1.2rem;
+  }
+
+  .time_preference_continue_button,
+  .change_date_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .time_preference_bottom_buttons_container {
+    position: relative;
+    padding-bottom: 0vh;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .select_time_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .select_time_forward_arrow,
+  .select_time_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .select_time_back_arrow {
+    left: 3.1rem;
+  }
+
+  .select_time_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .select_a_time_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .time_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .time_of_day_card_show_more {
+    font-size: 1.5rem;
+    padding-right: 3.1rem;
+  }
+
+  .time_of_day_heading {
+    font-size: 2rem;
+    padding-left: 3.1rem;
+  }
+
+  .inner_times_wrapper {
+    width: 101%;
+    flex-wrap: wrap;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    padding-bottom: 1.5rem;
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .inner_times_wrapper p {
+    font-size: 2rem;
+  }
+
+  .individual_time_wrapper {
+    min-width: 32%;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 2vh;
+    margin-right: 0.275rem;
+  }
+
+  .time_preference_continue_button,
+  .change_date_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .time_preference_bottom_buttons_container {
+    position: relative;
+    padding-bottom: 0vh;
+  }
+}

@@ -37,12 +37,12 @@
 }
 
 .confirmation_page_statement {
+  margin-left: 3.1rem;
+  margin-right: 3.1rem;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
   margin-top: 2vh;
-  margin-bottom: 2vh;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
+  margin-bottom: 0vh;
 }
 
 .confirmation_page_header {
@@ -59,10 +59,10 @@
 .confirmation_page_header h2 {
   color: rgb(101, 101, 101);
   font-size: 1rem;
+  margin-left: 3.1rem;
   font-weight: 600;
   display: flex;
   align-self: center;
-  margin-left: 1.5rem;
 }
 
 .confirmation_page_header h3 {
@@ -444,5 +444,151 @@
   .summary_facial_container h2,
   .summary_add_ons_container h2 {
     padding-left: 0;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .confirmation_page_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .confirmation_page_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+    left: 3.1rem;
+  }
+
+  .confirmation_page_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .confirmation_page_header h3 {
+    font-size: 1rem;
+    margin-right: 3.1rem;
+  }
+
+  .confirmation_page_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary_client_contact_info_container,
+  .summary_selected_date_container,
+  .summary_selected_time_container {
+    margin-left: 3.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary_calendar_icon,
+  .summary_clock_icon {
+    font-size: 1.3rem;
+    margin-right: 1rem;
+  }
+
+  .summary_client_contact_info_container p,
+  .summary_selected_date_container p,
+  .summary_selected_time_container p {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  .summary_facial_container h2,
+  .summary_add_ons_container h2 {
+    font-size: 1.2rem;
+    padding-left: 3.1rem;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .book_appointment_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .summary_card_subtotal_container {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .summary_card_subtotal_container p {
+    font-size: 2rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .confirmation_page_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .confirmation_page_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+    left: 3.1rem;
+  }
+
+  .confirmation_page_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .confirmation_page_header h3 {
+    font-size: 1.5rem;
+    margin-right: 3.1rem;
+  }
+
+  .confirmation_page_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-bottom: 0rem;
+  }
+
+  .summary_client_contact_info_container,
+  .summary_selected_date_container,
+  .summary_selected_time_container {
+    margin-left: 3.1rem;
+    margin-bottom: 2vh;
+  }
+
+  .summary_calendar_icon,
+  .summary_clock_icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+
+  .summary_client_contact_info_container p,
+  .summary_selected_date_container p,
+  .summary_selected_time_container p {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .summary_facial_container h2,
+  .summary_add_ons_container h2 {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .book_appointment_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .summary_card_subtotal_container {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .summary_card_subtotal_container p {
+    font-size: 3rem;
   }
 }

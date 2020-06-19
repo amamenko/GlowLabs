@@ -11,13 +11,7 @@ import {
   faSearch,
   faEllipsisH,
   faLongArrowAltLeft,
-  faCamera,
   faTimes,
-  faSpa,
-  faChevronRight,
-  faHistory,
-  faCalendarAlt,
-  faCommentDots,
   faFilePdf,
   faFileDownload,
 } from "@fortawesome/free-solid-svg-icons";
@@ -51,6 +45,8 @@ import { BounceLoader } from "react-spinners";
 import CanvasDraw from "react-canvas-draw";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../../account/clientprofile/ConsentForm/ConsentFormPDF";
+import AdminClientIndividualProfile from "./AdminClientIndividualProfile";
+import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();
@@ -77,6 +73,9 @@ const AdminClients = (props) => {
   );
   const loginIsActive = useSelector(
     (state) => state.loginIsActive.login_is_active
+  );
+  const adminClientSectionSelected = useSelector(
+    (state) => state.adminClientSectionSelected.admin_client_section_selected
   );
   const [filteredAllClients, changeFilteredAllClients] = useState([]);
   const [clientFilter, changeClientFilter] = useState("");
@@ -977,138 +976,38 @@ const AdminClients = (props) => {
                                   />
                                   <p>Back to all clients</p>
                                 </div>
-                                <div className="admin_client_profile_top_section">
-                                  <div className="admin_client_profile_client_avatar_container">
-                                    {props.getClientsData ? (
-                                      props.getClientsData.clients.filter(
-                                        (x) => x._id === clientToggled
-                                      )[0].profilePicture ? (
-                                        <img
-                                          className="admin_individual_client_picture_profile_avatar"
-                                          src={LZString.decompressFromUTF16(
-                                            props.getClientsData.clients.filter(
-                                              (x) => x._id === clientToggled
-                                            )[0].profilePicture
-                                          )}
-                                          alt={
-                                            item.firstName[0].toUpperCase() +
-                                            item.firstName
-                                              .slice(1)
-                                              .toLowerCase() +
-                                            " " +
-                                            item.lastName[0].toUpperCase() +
-                                            item.lastName
-                                              .slice(1)
-                                              .toLowerCase() +
-                                            " Profile Picture"
-                                          }
-                                        />
-                                      ) : (
-                                        handleProfilePictureRender(item)
-                                      )
-                                    ) : (
-                                      handleProfilePictureRender(item)
-                                    )}
-                                    <div
-                                      className="admin_individual_selected_client_camera_icon_container"
-                                      onClick={() =>
-                                        changeAddProfilePhotoClicked(true)
-                                      }
-                                    >
-                                      <FontAwesomeIcon
-                                        icon={faCamera}
-                                        className="admin_individual_selected_client_camera_icon"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="admin_individual_selected_client_full_name_container">
-                                    <h2>
-                                      {item.firstName[0].toUpperCase() +
-                                        item.firstName.slice(1).toLowerCase() +
-                                        " " +
-                                        item.lastName[0].toUpperCase() +
-                                        item.lastName.slice(1).toLowerCase()}
-                                    </h2>
-                                  </div>
-                                  <div className="admin_individual_selected_client_contact_info_container">
-                                    <p>{item.email}</p>
-                                    {renderBarInContactInfo()}
-                                    <p>{item.phoneNumber}</p>
-                                  </div>
-                                  <div className="admin_individual_selected_client_contact_info_container admin_individual_selected_membership_type_container">
-                                    <p>Membership Type: Default</p>
-                                  </div>
-                                </div>
-                                <div className="admin_client_profile_bottom_buttons_container">
-                                  <Link
-                                    to={{
-                                      pathname:
-                                        "/admin/clients/" +
-                                        item.firstName.toLowerCase() +
-                                        item.lastName.toLowerCase() +
-                                        "/upcomingappointments",
-                                      state: {
-                                        getOwnAppointmentsData: getOwnAppointmentsData,
-                                        wow: "wow",
-                                        initialScreenSize:
-                                          props.initialScreenSize,
-                                        currentScreenSize:
-                                          props.currentScreenSize,
-                                        firstName: item.firstName,
-                                        lastName: item.lastName,
-                                      },
-                                    }}
-                                    className="profile_button_container"
-                                  >
-                                    <FontAwesomeIcon
-                                      className="profile_button_icon"
-                                      icon={faCalendarAlt}
-                                    />
-                                    <h2>Upcoming Appointments</h2>
-                                    <FontAwesomeIcon
-                                      className="profile_button_expand"
-                                      icon={faChevronRight}
-                                    />
-                                  </Link>
-                                  <div className="profile_button_container">
-                                    <FontAwesomeIcon
-                                      className="profile_button_icon"
-                                      icon={faHistory}
-                                    />
-                                    <h2>Past Appointments</h2>
-                                    <FontAwesomeIcon
-                                      className="profile_button_expand"
-                                      icon={faChevronRight}
-                                    />
-                                  </div>
-                                  <div className="profile_button_container">
-                                    <FontAwesomeIcon
-                                      className="profile_button_icon"
-                                      icon={faCommentDots}
-                                    />
-                                    <h2>Recommended Routine</h2>
-                                    <FontAwesomeIcon
-                                      className="profile_button_expand"
-                                      icon={faChevronRight}
-                                    />
-                                  </div>
-                                  <div className="profile_button_container">
-                                    <FontAwesomeIcon
-                                      className="profile_button_icon"
-                                      icon={faSpa}
-                                    />
-                                    <h2>
-                                      {item.firstName[0].toUpperCase() +
-                                        item.firstName.slice(1).toLowerCase()}
-                                      's Skin Care Routine
-                                    </h2>
-                                    <FontAwesomeIcon
-                                      className="profile_button_expand"
-                                      icon={faChevronRight}
-                                    />
-                                  </div>
-                                  {renderDownloadConsentFormButton(item)}
-                                </div>
+
+                                {adminClientSectionSelected === "" ? (
+                                  <AdminClientIndividualProfile
+                                    item={item}
+                                    clientToggled={clientToggled}
+                                    handleProfilePictureRender={
+                                      handleProfilePictureRender
+                                    }
+                                    changeAddProfilePhotoClicked={
+                                      changeAddProfilePhotoClicked
+                                    }
+                                    renderBarInContactInfo={
+                                      renderBarInContactInfo
+                                    }
+                                    renderDownloadConsentFormButton={
+                                      renderDownloadConsentFormButton
+                                    }
+                                  />
+                                ) : adminClientSectionSelected ===
+                                  "UpcomingAppointments" ? (
+                                  <AdminRenderUpcomingAppointments
+                                    data={getOwnAppointmentsData}
+                                    item={item}
+                                    override={override}
+                                    changeLoadingSpinnerActive={
+                                      changeLoadingSpinnerActive
+                                    }
+                                    loadingSpinnerActive={loadingSpinnerActive}
+                                    currentScreenSize={props.currentScreenSize}
+                                    initialScreenSize={props.initialScreenSize}
+                                  />
+                                ) : null}
                               </div>
                             </div>
                           ))
