@@ -125,8 +125,7 @@ select {
   }
 
   .book_a_facial_statement {
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 1rem;
   }
 }
 
@@ -149,5 +148,9 @@ select {
     padding-top: 1rem;
     padding-bottom: 1rem;
     margin-right: 3.1rem;
+  }
+
+  .book_a_facial_statement {
+    font-size: 1.5rem;
   }
 }

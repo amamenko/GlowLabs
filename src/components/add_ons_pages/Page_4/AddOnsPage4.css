@@ -7,10 +7,35 @@
   margin-top: 1.5rem;
 }
 
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .add_ons_page_4_container {
+    row-gap: 3.5vh;
+    margin-top: 4.5vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+  .add_ons_page_4_container {
+    row-gap: 5vh;
+    margin-top: 9vh;
+    margin-bottom: -11vh;
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .add_ons_page_4_container {
+    margin-top: 3vh;
+  }
+}
+
 /* Additional CSS for Mobile Phones with Smaller Heights */
 @media only screen and (min-width: 410px) and (max-device-height: 800px) {
   .add_ons_page_4_container {
     margin-top: 6vh;
+    margin-bottom: 0vh;
   }
 }
 
@@ -26,6 +51,7 @@
     margin-left: 1.6rem;
     margin-right: 1.6rem;
     margin-top: -5rem;
+    margin-bottom: 0vh;
   }
 }
 

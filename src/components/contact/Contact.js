@@ -132,7 +132,7 @@ const Contact = React.forwardRef((props, ref) => {
                           className="contact_icon"
                           icon={faPhone}
                         />{" "}
-                        (347) 417-3883
+                        (516) 442-8122
                       </p>
                     </div>
                     <div className="open_status_flex_container">

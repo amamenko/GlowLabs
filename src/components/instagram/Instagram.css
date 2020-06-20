@@ -38,6 +38,7 @@
   height: auto;
   width: 50%;
   overflow: hidden;
+  position: relative;
 }
 
 .instagram_image.left {
@@ -62,11 +63,13 @@
   line-height: 1rem;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
+  position: relative;
 }
 
 .instagram_top_page_wrapping h3 p {
   text-align: center;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .insta_handle_wrapper {
@@ -88,6 +91,7 @@
 
 .real_clients_title_underline {
   border-bottom: 3px solid rgb(44, 44, 52);
+  position: relative;
 }
 
 .instagram_page_header h3 {
@@ -118,10 +122,18 @@
   }
 }
 
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+  .instagram_page_wrapping {
+    margin-top: 55vh;
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .instagram_page_wrapping {
     margin-bottom: -26vh;
+    margin-top: 35vh;
   }
 }
 
@@ -297,6 +309,7 @@
     padding-left: 6em;
     padding-right: 6em;
     margin-top: -50vh;
+    position: relative;
   }
 
   .large_screen_follow_prompt p {
@@ -304,6 +317,7 @@
     font-weight: 500;
     margin-bottom: 1em;
     margin-top: 70vh;
+    position: relative;
   }
 
   .insta_handle_wrapper {
@@ -407,11 +421,12 @@
   .instagram_top_page_wrapping {
     height: 48vh;
     padding-top: 0vh;
+    margin-top: 5vh;
   }
 
   .instagram_page_wrapping {
     height: 90vh;
-    margin-top: 30vh;
+    padding-top: 0vh;
   }
 
   .instagram_images_wrapping {
@@ -451,11 +466,13 @@
   .instagram_page_wrapping {
     height: 95vh;
     margin-top: 25vh;
+    padding-top: 0vh;
   }
 
   .instagram_top_page_wrapping {
     height: 48vh;
     padding-top: 20vh;
+    margin-top: 0vh;
   }
 
   .instagram_images_wrapping {

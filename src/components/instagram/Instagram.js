@@ -16,7 +16,7 @@ import "./Instagram.css";
 const Instagram = React.forwardRef((props, ref) => {
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2
+    threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2,
   });
   return (
     <div className="instagram_page_wrapping" ref={props.InstagramRef}>
@@ -24,35 +24,31 @@ const Instagram = React.forwardRef((props, ref) => {
         {inView ? (
           <Spring
             from={{
-              position: "relative",
               opacity: 0,
               width_desktop: "0%",
               width_landscape: "0%",
-              width_mobile: "0%"
+              width_mobile: "0%",
             }}
             to={{
-              position: "relative",
               opacity: 1,
               width_desktop: "21%",
               width_landscape: "23%",
-              width_mobile: "35%"
+              width_mobile: "35%",
             }}
             config={{ duration: 1000 }}
           >
-            {styles => (
+            {(styles) => (
               <>
                 <div className="instagram_top_page_wrapping">
                   <h2
                     style={{
-                      position: `${styles.position}`,
-                      opacity: `${styles.opacity}`
+                      opacity: `${styles.opacity}`,
                     }}
                   >
                     FOLLOW US
                   </h2>
                   <span
                     style={{
-                      position: `${styles.position}`,
                       opacity: `${styles.opacity}`,
                       width:
                         props.currentScreenSize === ""
@@ -65,7 +61,7 @@ const Instagram = React.forwardRef((props, ref) => {
                           ? `${styles.width_desktop}`
                           : props.currentScreenSize >= 600
                           ? `${styles.width_landscape}`
-                          : `${styles.width_mobile}`
+                          : `${styles.width_mobile}`,
                     }}
                     className="real_clients_title_underline"
                   />
@@ -73,14 +69,13 @@ const Instagram = React.forwardRef((props, ref) => {
                   <h3
                     className="small_screen_follow_prompt"
                     style={{
-                      position: `${styles.position}`,
-                      opacity: `${styles.opacity}`
+                      opacity: `${styles.opacity}`,
                     }}
                   >
                     <p
                       style={{
                         position: `${styles.position}`,
-                        opacity: `${styles.opacity}`
+                        opacity: `${styles.opacity}`,
                       }}
                     >
                       Connect with us on <br />
@@ -102,8 +97,7 @@ const Instagram = React.forwardRef((props, ref) => {
                         <FontAwesomeIcon
                           className="real_clients_instagram_icon"
                           style={{
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                           icon={faInstagram}
                         />
@@ -121,8 +115,7 @@ const Instagram = React.forwardRef((props, ref) => {
                           src={Glowing_Pink}
                           style={{
                             width: "125%",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>
@@ -132,8 +125,7 @@ const Instagram = React.forwardRef((props, ref) => {
                           src={Dryness_Pink}
                           style={{
                             width: "110%",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>
@@ -153,8 +145,7 @@ const Instagram = React.forwardRef((props, ref) => {
                                 ? "150%"
                                 : "140%",
                             overflow: "hidden",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>
@@ -172,8 +163,7 @@ const Instagram = React.forwardRef((props, ref) => {
                                 ? "110%"
                                 : "110%",
                             overflow: "hidden",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>
@@ -182,14 +172,12 @@ const Instagram = React.forwardRef((props, ref) => {
                   <div
                     className="large_screen_follow_prompt"
                     style={{
-                      position: `${styles.position}`,
-                      opacity: `${styles.opacity}`
+                      opacity: `${styles.opacity}`,
                     }}
                   >
                     <p
                       style={{
-                        position: `${styles.position}`,
-                        opacity: `${styles.opacity}`
+                        opacity: `${styles.opacity}`,
                       }}
                     >
                       Connect with us <br /> on Instagram <br /> to see our
@@ -209,8 +197,7 @@ const Instagram = React.forwardRef((props, ref) => {
                         <FontAwesomeIcon
                           className="real_clients_instagram_icon"
                           style={{
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                           icon={faInstagram}
                         />
@@ -233,8 +220,7 @@ const Instagram = React.forwardRef((props, ref) => {
                                 : props.currentScreenSize >= 1200
                                 ? "130%"
                                 : "100%",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>
@@ -251,8 +237,7 @@ const Instagram = React.forwardRef((props, ref) => {
                                 : props.currentScreenSize >= 1200
                                 ? "130%"
                                 : "100%",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>
@@ -272,8 +257,7 @@ const Instagram = React.forwardRef((props, ref) => {
                                 ? "115%"
                                 : "100%",
                             overflow: "hidden",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>
@@ -290,8 +274,7 @@ const Instagram = React.forwardRef((props, ref) => {
                                 : props.currentScreenSize >= 1200
                                 ? "130%"
                                 : "100%",
-                            position: `${styles.position}`,
-                            opacity: `${styles.opacity}`
+                            opacity: `${styles.opacity}`,
                           }}
                         />
                       </div>

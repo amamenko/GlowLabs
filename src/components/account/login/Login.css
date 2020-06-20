@@ -226,6 +226,18 @@
   display: none;
 }
 
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+  .login_content_container {
+    margin-top: 10vh;
+  }
+
+  .dont_have_an_account_question {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .login_page_background {
@@ -261,6 +273,7 @@
     justify-content: flex-end;
     position: relative;
     z-index: 999999;
+    margin-top: 0vh;
   }
 
   .sign_in_prompt {

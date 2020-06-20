@@ -131,6 +131,47 @@
   }
 }
 
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+  .sign_up_prompt {
+    padding-top: 14rem;
+    padding-bottom: 2rem;
+    top: 17vh;
+  }
+
+  .sign_up_content_container {
+    height: 95%;
+    justify-content: flex-end;
+    bottom: 25vh;
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .sign_up_content_container {
+    height: 45%;
+    bottom: 37vh;
+  }
+
+  .sign_up_prompt {
+    top: -34vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .sign_up_content_container {
+    height: 95%;
+    bottom: 28vh;
+  }
+
+  .sign_up_prompt {
+    padding-top: 14rem;
+    padding-bottom: 2rem;
+    top: 25vh;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .sign_up_page_background {
@@ -217,10 +258,6 @@
   .already_have_an_account_question {
     font-size: 1rem;
     margin-bottom: 2vh;
-  }
-
-  .sign_up_required_fields {
-    padding-right: 2rem;
   }
 }
 

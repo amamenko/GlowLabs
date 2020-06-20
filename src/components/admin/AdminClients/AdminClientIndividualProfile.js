@@ -11,6 +11,7 @@ import {
 import LZString from "lz-string";
 import ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED";
 import { useDispatch } from "react-redux";
+import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 
 const AdminClientIndividualProfile = (props) => {
   const dispatch = useDispatch();

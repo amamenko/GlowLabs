@@ -67,6 +67,14 @@
   }
 }
 
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+  .add_ons_page_1_container {
+    gap: 5vh;
+    margin-top: 14vh;
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .add_ons_page_1_container {

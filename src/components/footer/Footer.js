@@ -43,14 +43,14 @@ const Footer = (props) => {
         {!props.currentScreenSize ? (
           props.initialScreenSize >= 600 ? null : (
             <div className="footer_phone_wrapping">
-              <a href="tel:1 (347) 417-3883">
+              <a href="tel:1 (516) 442-8122">
                 <FontAwesomeIcon className="footer_icon" icon={faPhoneSquare} />
               </a>
             </div>
           )
         ) : props.currentScreenSize >= 600 ? null : (
           <div className="footer_phone_wrapping">
-            <a href="tel:1 (347) 417-3883">
+            <a href="tel:1 (516) 442-8122">
               <FontAwesomeIcon className="footer_icon" icon={faPhoneSquare} />
             </a>
           </div>

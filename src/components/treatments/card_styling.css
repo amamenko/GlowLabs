@@ -223,6 +223,28 @@
   .big_screen_book_now_wrapper {
     display: none;
   }
+
+  .facial_advanced_treatment_icon {
+    position: absolute;
+    top: 1.25rem;
+    font-size: 1.5rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: color 0.5s ease;
+  }
+
+  .facial_advanced_treatment_designation {
+    position: absolute;
+    bottom: 1.25rem;
+    font-size: 0.7rem;
+    left: 0;
+    right: 0;
+    margin: 0;
+    text-align: center;
+    font-weight: 600;
+    transition: color 0.5s ease;
+  }
 }
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
@@ -285,25 +307,34 @@
   }
 
   .facial_advanced_treatment_icon {
-    position: absolute;
-    top: 1.25rem;
+    top: 1.5rem;
     font-size: 1.5rem;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    transition: color 0.5s ease;
   }
 
   .facial_advanced_treatment_designation {
-    position: absolute;
-    bottom: 1.25rem;
+    bottom: 1rem;
     font-size: 0.7rem;
-    left: 0;
-    right: 0;
-    margin: 0;
-    text-align: center;
-    font-weight: 600;
-    transition: color 0.5s ease;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-height: 800px) {
+  .card_description_icon {
+    font-size: 0.6rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.7rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.7rem;
+    margin-left: 0.6rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
   }
 }
 
@@ -339,6 +370,10 @@
 
   .facial_advanced_treatment_designation {
     font-size: 0.8rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    font-size: 1.5rem;
   }
 }
 
