@@ -1,20 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import moment from "moment";
 import { Transition } from "react-spring/renderprops";
-import AddToCalendar from "react-add-to-calendar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisH,
   faLongArrowAltLeft,
-  faTimes,
-  faCalendarAlt,
+  faHistory,
 } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "reactstrap";
-import { BounceLoader } from "react-spinners";
 import { useSelector } from "react-redux";
-import { css } from "emotion";
-import { useMutation } from "@apollo/react-hooks";
-import { deleteAppointmentMutation } from "../../../graphql/queries/queries";
 import { useLocation } from "react-router-dom";
 import CalmSummaryCard from "../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
@@ -49,26 +42,6 @@ const AdminRenderUpcomingAppointments = (props) => {
     (state) => state.logoutClicked.log_out_clicked
   );
   const [appointmentToggled, changeAppointmentToggled] = useState("");
-  const [cancelAppointmentClicked, changeCancelAppointmentClicked] = useState(
-    false
-  );
-  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
-  const [deleteAppointment, { loading, data }] = useMutation(
-    deleteAppointmentMutation
-  );
-
-  const override = css`
-    display: block;
-    position: absolute;
-    left: 25%;
-    right: 25%;
-  `;
-
-  const handleCancelAppointment = (item) => {
-    deleteAppointment({
-      variables: { _id: item.id },
-    });
-  };
 
   useEffect(() => {
     if (location.pathname) {
@@ -108,12 +81,14 @@ const AdminRenderUpcomingAppointments = (props) => {
 
     for (let i = 0; i < treatmentsSummaryCardComponentsArr.length; i++) {
       if (props.data) {
-        if (props.data.own_appointments) {
-          if (props.data.own_appointments[dataIndex].treatments) {
-            if (props.data.own_appointments[dataIndex].treatments[0].name) {
+        if (props.data.own_past_appointments) {
+          if (props.data.own_past_appointments[dataIndex].treatments) {
+            if (
+              props.data.own_past_appointments[dataIndex].treatments[0].name
+            ) {
               if (
-                props.data.own_appointments[dataIndex].treatments[0].name ===
-                treatmentsSummaryCardComponentsArr[i].name
+                props.data.own_past_appointments[dataIndex].treatments[0]
+                  .name === treatmentsSummaryCardComponentsArr[i].name
               ) {
                 componentsArr.push(
                   treatmentsSummaryCardComponentsArr[i].component
@@ -140,15 +115,15 @@ const AdminRenderUpcomingAppointments = (props) => {
     for (let i = 0; i < addOnsSummaryCardComponentsArr.length; i++) {
       for (
         let j = 0;
-        j < props.data.own_appointments[dataIndex].addOns.length;
+        j < props.data.own_past_appointments[dataIndex].addOns.length;
         j++
       ) {
         if (props.data) {
-          if (props.data.own_appointments) {
-            if (props.data.own_appointments[dataIndex].addOns !== []) {
-              if (props.data.own_appointments[dataIndex].addOns[j].name) {
+          if (props.data.own_past_appointments) {
+            if (props.data.own_past_appointments[dataIndex].addOns !== []) {
+              if (props.data.own_past_appointments[dataIndex].addOns[j].name) {
                 if (
-                  props.data.own_appointments[dataIndex].addOns[j].name ===
+                  props.data.own_past_appointments[dataIndex].addOns[j].name ===
                   addOnsSummaryCardComponentsArr[i].name
                 ) {
                   componentsArr.push(
@@ -216,103 +191,15 @@ const AdminRenderUpcomingAppointments = (props) => {
   return (
     <>
       {props.data ? (
-        props.data.own_appointments.length > 0 ? (
-          props.data.own_appointments.map((item, i) => (
+        props.data.own_past_appointments.length > 0 ? (
+          props.data.own_past_appointments.map((item, i) => (
             <div
               key={i}
               className="admin_side_my_individual_appointment_container"
               onClick={(e) => handleAppointmentToggled(e, item)}
               ref={individualAppointmentRef}
             >
-              <Modal
-                isOpen={
-                  cancelAppointmentClicked && appointmentToggled === item.id
-                }
-                className="cancel_appointment_modal"
-                style={{
-                  content: {
-                    position: "fixed",
-                    zIndex: 10000,
-                    opacity: 0.99,
-                    height: "100%",
-                    backdropFilter: "blur(5px)",
-                    WebkitBackdropFilter: "blur(5px)",
-                    paddingBottom: "10%",
-                    borderRadius: "none",
-                    width: "100vw",
-                    top: "0",
-                    left: "0",
-                    right: "0",
-                    bottom: "0",
-                    border: "none",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "rgba(0, 0, 0, 0.5)",
-                  },
-                }}
-              >
-                <BounceLoader
-                  size={100}
-                  css={override}
-                  color={"rgb(44, 44, 52)"}
-                  loading={loadingSpinnerActive}
-                />
-                <Transition
-                  items={cancelAppointmentClicked && !loadingSpinnerActive}
-                  from={{ transform: "translate3d(0, -65%, 0)" }}
-                  enter={{ transform: "translate3d(0, 0, 0)" }}
-                  leave={{ display: "none" }}
-                >
-                  {(cancelAppointmentClicked) =>
-                    cancelAppointmentClicked &&
-                    ((styleprops) => (
-                      <div
-                        className="cancel_appointment_modal_content_container"
-                        style={styleprops}
-                      >
-                        <div className="log_out_modal_contents admin_cancel_appointment">
-                          <FontAwesomeIcon
-                            className="modal_x"
-                            icon={faTimes}
-                            onClick={() =>
-                              changeCancelAppointmentClicked(false)
-                            }
-                          />
-                          <h2>
-                            Are you sure you want to cancel{" "}
-                            {props.item.firstName[0].toUpperCase() +
-                              props.item.firstName.slice(1).toLowerCase() +
-                              " " +
-                              props.item.lastName[0].toUpperCase() +
-                              props.item.lastName.slice(1).toLowerCase() +
-                              "'s"}{" "}
-                            appointment?
-                          </h2>
-                          <span className="logout_buttons_container">
-                            <div
-                              className="logout_button yes_cancel_appointment_button"
-                              onClick={() => handleCancelAppointment(item)}
-                            >
-                              <p>YES, CANCEL</p>
-                            </div>
-                            <div
-                              className="cancel_logout_button no_dont_cancel_appointment_button"
-                              onClick={() =>
-                                changeCancelAppointmentClicked(false)
-                              }
-                            >
-                              <p>NO, GO BACK</p>
-                            </div>
-                          </span>
-                        </div>
-                      </div>
-                    ))
-                  }
-                </Transition>
-              </Modal>
-              <div className="my_appointment_date_square">
+              <div className="my_past_appointment_date_square">
                 <p>
                   {item.date
                     .split(" ")[1]
@@ -392,7 +279,7 @@ const AdminRenderUpcomingAppointments = (props) => {
               <FontAwesomeIcon
                 style={{
                   zIndex: logoutClicked || appointmentToggled ? 0 : 1,
-                  transitionDelay: props.logoutClicked
+                  transitionDelay: logoutClicked
                     ? "initial"
                     : !appointmentToggled
                     ? "0.5s"
@@ -425,7 +312,7 @@ const AdminRenderUpcomingAppointments = (props) => {
                             icon={faLongArrowAltLeft}
                             className="my_individual_selected_appointment_back_arrow_icon"
                           />
-                          <p>Back to Upcoming Appointments</p>
+                          <p>Back to Past Appointments</p>
                         </div>
                         <div className="selected_appointment_date_and_time_header">
                           <p>Appointment Date &amp; Time</p>
@@ -488,16 +375,16 @@ const AdminRenderUpcomingAppointments = (props) => {
                         </div>
                         {renderSummaryCardTreatments(i)}
                         {props.data ? (
-                          props.data.own_appointments ? (
-                            props.data.own_appointments[i].addOns.length ===
-                            0 ? null : (
+                          props.data.own_past_appointments ? (
+                            props.data.own_past_appointments[i].addOns
+                              .length === 0 ? null : (
                               <>
                                 <div className="selected_appointment_add_ons_header">
                                   <p>
                                     Add On
                                     {props.data
-                                      ? props.data.own_appointments[i].addOns
-                                          .length > 1
+                                      ? props.data.own_past_appointments[i]
+                                          .addOns.length > 1
                                         ? "s"
                                         : null
                                       : null}
@@ -510,24 +397,9 @@ const AdminRenderUpcomingAppointments = (props) => {
                         ) : null}
                         <div className="selected_appointment_total_header admin_side_total_header">
                           <p>Total</p>
-                          <p>
-                            $
-                            {props.data
-                              ? props.data.own_appointments
-                                ? props.data.own_appointments[i].price
-                                  ? props.data.own_appointments[i].price
-                                  : null
-                                : null
-                              : null}
-                          </p>
+                          <p>${item.price}</p>
                         </div>
-                        <div className="selected_appointments_bottom_buttons_container">
-                          <div
-                            className="cancel_appointment_button"
-                            onClick={() => changeCancelAppointmentClicked(true)}
-                          >
-                            <p>Cancel Appointment</p>
-                          </div>
+                        <div className="selected_past_appointments_bottom_buttons_container">
                           <div
                             className="back_to_all_appointments_button"
                             ref={backToAppointmentsRef}
@@ -546,34 +418,34 @@ const AdminRenderUpcomingAppointments = (props) => {
         ) : (
           <div className="my_upcoming_appointments_empty_container">
             <FontAwesomeIcon
-              icon={faCalendarAlt}
+              icon={faHistory}
               className="my_upcoming_appointments_empty_calendar_icon"
             />
-            <h2>No upcoming appointments</h2>
+            <h2>No past appointments</h2>
             <p>
               {props.item.firstName[0].toUpperCase() +
                 props.item.firstName.slice(1).toLowerCase() +
                 " " +
                 props.item.lastName[0].toUpperCase() +
                 props.item.lastName.slice(1).toLowerCase() +
-                " does not have any upcoming appointments."}
+                " does not have any past appointments."}
             </p>
           </div>
         )
       ) : (
         <div className="my_upcoming_appointments_empty_container">
           <FontAwesomeIcon
-            icon={faCalendarAlt}
+            icon={faHistory}
             className="my_upcoming_appointments_empty_calendar_icon"
           />
-          <h2>No upcoming appointments</h2>
+          <h2>No past appointments</h2>
           <p>
             {props.item.firstName[0].toUpperCase() +
               props.item.firstName.slice(1).toLowerCase() +
               " " +
               props.item.lastName[0].toUpperCase() +
               props.item.lastName.slice(1).toLowerCase() +
-              " does not have any upcoming appointments."}
+              " does not have any past appointments."}
           </p>
         </div>
       )}

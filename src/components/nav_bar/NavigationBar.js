@@ -527,7 +527,25 @@ const NavigationBar = React.forwardRef((props, ref) => {
         </Link>
       </div>
       <Link
-        to={cartIsActive ? location.pathname : "/cart"}
+        to={
+          cartIsActive
+            ? location.pathname
+            : cartPageOpened === "Cart"
+            ? "/cart"
+            : cartPageOpened === "Availability"
+            ? "/availability"
+            : cartPageOpened === "TimePreference"
+            ? "/availability/timepreference"
+              ? cartPageOpened === "GuestCheckout"
+                ? "/checkout"
+                : cartPageOpened === "PaymentInfo"
+                ? "/paymentinfo"
+                : cartPageOpened === "ConfirmationPage"
+                ? "/checkout/confirmation"
+                : "/cart"
+              : "/cart"
+            : "/cart"
+        }
         onClick={handleShoppingCartClick}
       >
         <svg

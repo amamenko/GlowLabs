@@ -29,6 +29,7 @@ import Calendar from "react-calendar";
 import "./Availability.css";
 import ACTION_CART_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
 import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
+import ACTION_SELECTED_ESTHETICIAN from "../../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN";
 
 const Availability = (props) => {
   let location = useLocation();
@@ -51,6 +52,9 @@ const Availability = (props) => {
   );
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
+  );
+  const selectedEsthetician = useSelector(
+    (state) => state.selectedEsthetician.selectedEsthetician
   );
 
   // Checkout Form States
@@ -76,6 +80,12 @@ const Availability = (props) => {
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
+      return <Redirect to="/" />;
+    } else if (!props.currentScreenSize) {
+      if (props.initialScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      }
+    } else if (props.currentScreenSize >= 1200) {
       return <Redirect to="/" />;
     }
   };
@@ -452,6 +462,41 @@ const Availability = (props) => {
     }
   };
 
+  const renderEstheticianNames = () => {
+    if (props.getEmployeesData) {
+      if (props.getEmployeesData.employees) {
+        const filteredEmployeesArr = props.getEmployeesData.employees.filter(
+          (x) => {
+            return x.employeeRole.includes("Esthetician");
+          }
+        );
+
+        const randomEmployee =
+          filteredEmployeesArr[
+            Math.floor(Math.random() * (filteredEmployeesArr.length - 1))
+          ];
+
+        dispatch(
+          ACTION_SELECTED_ESTHETICIAN(
+            randomEmployee.firstName[0].toUpperCase() +
+              randomEmployee.firstName.slice(1) +
+              " " +
+              randomEmployee.lastName[0].toUpperCase() +
+              "."
+          )
+        );
+
+        return (
+          randomEmployee.firstName[0].toUpperCase() +
+          randomEmployee.firstName.slice(1) +
+          " " +
+          randomEmployee.lastName[0].toUpperCase() +
+          "."
+        );
+      }
+    }
+  };
+
   return (
     <div className="availability_container">
       {redirectToHome()}
@@ -465,7 +510,10 @@ const Availability = (props) => {
               />
             </div>
           ) : (
-            <Link to="/cart">
+            <Link
+              to="/cart"
+              onClick={() => dispatch(ACTION_CART_PAGE_OPENED())}
+            >
               <FontAwesomeIcon
                 className="availability_back_arrow"
                 icon={faChevronLeft}
@@ -480,7 +528,7 @@ const Availability = (props) => {
             />
           </div>
         ) : (
-          <Link to="/cart">
+          <Link to="/cart" onClick={() => dispatch(ACTION_CART_PAGE_OPENED())}>
             <FontAwesomeIcon
               className="availability_back_arrow"
               icon={faChevronLeft}
@@ -525,7 +573,12 @@ const Availability = (props) => {
         )}
       </div>
       <div className="select_a_date_header">
-        <h2>SELECT A DATE</h2>
+        <h2>
+          SELECT A DATE WITH{" "}
+          {selectedEsthetician
+            ? selectedEsthetician.toUpperCase()
+            : renderEstheticianNames()}
+        </h2>
       </div>
       <p className="availability_statement">
         You can schedule an appointment between 12 hours and 60 days ahead of

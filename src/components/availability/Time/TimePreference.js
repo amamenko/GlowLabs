@@ -312,6 +312,12 @@ const TimePreference = (props) => {
   const redirectToHome = () => {
     if (!splashScreenComplete) {
       return <Redirect to="/" />;
+    } else if (!props.currentScreenSize) {
+      if (props.initialScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      }
+    } else if (props.currentScreenSize >= 1200) {
+      return <Redirect to="/" />;
     }
   };
 

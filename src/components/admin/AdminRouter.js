@@ -8,6 +8,7 @@ import { getClientsQuery } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
 import UpcomingAppointments from "../account/clientprofile/MyAppointments/Upcoming/UpcomingAppointments";
+import AdminSchedule from "./AdminSchedule/AdminSchedule";
 
 const AdminRouter = (props) => {
   const { data: getClientsData, refetch: getClientsRefetch } = useQuery(
@@ -83,8 +84,13 @@ const AdminRouter = (props) => {
         />
         <Route
           exact
-          path={props.path + "/clients/:fullname/upcomingappointments"}
-          component={UpcomingAppointments}
+          path={props.path + "/schedule"}
+          render={() => (
+            <AdminSchedule
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
         />
       </Switch>
     </>

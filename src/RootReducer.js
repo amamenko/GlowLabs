@@ -235,6 +235,7 @@ import unsurePopUpTriggeredReducer from "./reducers/UnsurePopUp/unsurePopUpReduc
 import unsureInCartReducer from "./reducers/InCart/Treatments/Unsure/unsureInCartReducer";
 import cartPageOpenedReducer from "./reducers/InCart/CartPageOpened/cartPageOpenedReducer";
 import adminClientSectionSelectedReducer from "./reducers/Admin/AdminLogin/AdminClientSectionSelected/adminClientSectionSelectedReducer";
+import selectedEstheticianReducer from "./reducers/SelectedEsthetician/selectedEstheticianReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -320,6 +321,7 @@ const RootReducer = combineReducers({
   morningCollapse: morningCollapseReducer,
   eveningCollapse: eveningCollapseReducer,
   finalBookButton: finalBookButtonReducer,
+  selectedEsthetician: selectedEstheticianReducer,
 
   // Create Account Reducers
   createAccountEmail: createAccountEmailReducer,

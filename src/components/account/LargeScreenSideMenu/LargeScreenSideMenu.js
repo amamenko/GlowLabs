@@ -577,7 +577,13 @@ const LargeScreenSideMenu = (props) => {
         )}{" "}
         {props.getEmployeeData ? (
           <div className="large_screen_side_menu_item_container">
-            <Link className="large_screen_side_menu_item" to="/admin/clients">
+            <Link className="large_screen_side_menu_item" to="/admin/schedule">
+              <div
+                className="large_screen_side_menu_item_selected_border"
+                style={{
+                  opacity: location.pathname.includes("schedule") ? 1 : 0,
+                }}
+              />
               <FontAwesomeIcon
                 icon={faCalendarWeek}
                 className="large_screen_side_menu_item_icon"

@@ -10,8 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import LZString from "lz-string";
 import ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED";
+import ACTION_ADMIN_CLIENT_PAST_APPOINTMENTS_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PAST_APPOINTMENTS_SELECTED";
 import { useDispatch } from "react-redux";
-import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 
 const AdminClientIndividualProfile = (props) => {
   const dispatch = useDispatch();
@@ -91,7 +91,12 @@ const AdminClientIndividualProfile = (props) => {
             icon={faChevronRight}
           />
         </div>
-        <div className="profile_button_container">
+        <div
+          className="profile_button_container"
+          onClick={() =>
+            dispatch(ACTION_ADMIN_CLIENT_PAST_APPOINTMENTS_SELECTED())
+          }
+        >
           <FontAwesomeIcon className="profile_button_icon" icon={faHistory} />
           <h2>Past Appointments</h2>
           <FontAwesomeIcon

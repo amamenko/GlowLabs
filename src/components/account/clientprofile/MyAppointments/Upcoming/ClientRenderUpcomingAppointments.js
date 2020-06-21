@@ -231,6 +231,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                             icon={faLongArrowAltLeft}
                             className="my_individual_selected_appointment_back_arrow_icon"
                           />
+                          <p>Back to Upcoming Appointments</p>
                         </div>
                         <div className="selected_appointment_date_and_time_header">
                           <p>Appointment Date &amp; Time</p>

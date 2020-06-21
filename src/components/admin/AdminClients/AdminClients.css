@@ -147,13 +147,13 @@
   position: relative;
 }
 
-.admin_individual_selected_client_contents_container p {
+.admin_individual_selected_client_back_container p {
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .admin_individual_selected_client_back_container {
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -517,11 +517,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    overflow: hidden;
   }
 
   .admin_individual_selected_client_contents_container {
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
   .my_individual_selected_appointment_back_arrow_icon {
@@ -554,6 +553,11 @@
     font-size: 3rem;
   }
 
+  .admin_individual_selected_client_back_container {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
   .admin_individual_selected_client_back_container p {
     font-size: 1.5rem;
   }
@@ -567,7 +571,7 @@
     justify-content: flex-start;
     font-size: 2rem;
     position: absolute;
-    top: 7vh;
+    top: 10vh;
     left: 20%;
   }
 
@@ -578,7 +582,7 @@
     align-items: flex-start;
     padding-top: 0.5rem;
     position: absolute;
-    top: 13vh;
+    top: 16vh;
     left: 19.5%;
   }
 

@@ -38,7 +38,7 @@ import { css } from "emotion";
 import { useMutation } from "@apollo/react-hooks";
 import { deleteAppointmentMutation } from "../../../../../graphql/queries/queries";
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
-import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointmentsFunction";
+import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointments";
 
 const UpcomingAppointments = (props) => {
   const dispatch = useDispatch();
@@ -313,33 +313,7 @@ const UpcomingAppointments = (props) => {
           APPOINTMENTS
         </h1>
       </div>
-      {adminAuthenticated ? (
-        <div className="my_appointments_back_to_client_container">
-          <FontAwesomeIcon
-            icon={faLongArrowAltLeft}
-            className="my_appointments_back_to_client_back_arrow_icon"
-          />
-          <p>
-            Back to{" "}
-            {props
-              ? props.location
-                ? props.location.state
-                  ? props.location.state.firstName
-                    ? props.location.state.lastName
-                      ? props.location.state.firstName[0].toUpperCase() +
-                        props.location.state.firstName.slice(1) +
-                        " " +
-                        props.location.state.lastName[0].toUpperCase() +
-                        props.location.state.lastName.slice(1) +
-                        "'s Profile"
-                      : "Client Profile"
-                    : "Client Profile"
-                  : "Client Profile"
-                : "Client Profile"
-              : "Client Profile"}
-          </p>
-        </div>
-      ) : (
+      {
         <div
           className="my_appointments_sub_header"
           style={{ zIndex: logoutClicked ? -1 : 2 }}
@@ -356,7 +330,7 @@ const UpcomingAppointments = (props) => {
             </div>
           </Link>
         </div>
-      )}
+      }
       <div className="my_appointments_content_container">
         <ClientRenderUpcomingAppointments
           data={props.data}
@@ -380,7 +354,6 @@ const UpcomingAppointments = (props) => {
           currentScreenSize={props.currentScreenSize}
           initialScreenSize={props.initialScreenSize}
         />
-        )
       </div>
     </div>
   );

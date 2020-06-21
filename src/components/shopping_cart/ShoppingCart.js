@@ -36,6 +36,8 @@ import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import { FormGroup, Input } from "reactstrap";
 import UnsureCard from "./Treatment_Cards/Unsure/UnsureCard";
 import ACTION_AVAILABILITY_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
+import ACTION_SELECTED_ESTHETICIAN from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN";
+import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
 
 const ShoppingCart = (props) => {
   const dispatch = useDispatch();
@@ -79,6 +81,12 @@ const ShoppingCart = (props) => {
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
+      return <Redirect to="/" />;
+    } else if (!props.currentScreenSize) {
+      if (props.initialScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      }
+    } else if (props.currentScreenSize >= 1200) {
       return <Redirect to="/" />;
     }
   };
@@ -201,6 +209,30 @@ const ShoppingCart = (props) => {
     }
   }, [location.pathname]);
 
+  const renderEstheticianNames = () => {
+    if (props.getEmployeesData) {
+      if (props.getEmployeesData.employees) {
+        const filteredEmployeesArr = props.getEmployeesData.employees.filter(
+          (x) => {
+            return x.employeeRole.includes("Esthetician");
+          }
+        );
+
+        return filteredEmployeesArr.map((x, i) => {
+          return (
+            <option key={i}>
+              {x.firstName[0].toUpperCase() +
+                x.firstName.slice(1).toLowerCase() +
+                " " +
+                x.lastName[0].toUpperCase() +
+                "."}
+            </option>
+          );
+        });
+      }
+    }
+  };
+
   return (
     <div className="shopping_cart_container">
       {redirectToHome()}
@@ -230,15 +262,7 @@ const ShoppingCart = (props) => {
               ? "/"
               : "/availability"
           }
-          onClick={() =>
-            !props.currentScreenSize
-              ? props.initialScreenSize >= 1200
-                ? dispatch(ACTION_AVAILABILITY_PAGE_OPENED())
-                : null
-              : props.currentScreenSize >= 1200
-              ? dispatch(ACTION_AVAILABILITY_PAGE_OPENED())
-              : null
-          }
+          onClick={() => dispatch(ACTION_AVAILABILITY_PAGE_OPENED())}
         >
           <FontAwesomeIcon
             className="shopping_cart_forward_arrow"
@@ -285,12 +309,16 @@ const ShoppingCart = (props) => {
                 type="select"
                 name="select"
                 id="esthetician_preference"
+                onChange={(e) => {
+                  if (e.target.value === "No preference") {
+                    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
+                  } else {
+                    dispatch(ACTION_SELECTED_ESTHETICIAN(e.target.value));
+                  }
+                }}
               >
                 <option>No preference</option>
-                <option>Daiana G.</option>
-                <option>Ruth</option>
-                <option>4</option>
-                <option>5</option>
+                {renderEstheticianNames()}
               </Input>
             </div>
           </FormGroup>

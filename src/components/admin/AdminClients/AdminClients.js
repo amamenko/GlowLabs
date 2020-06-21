@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
+import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PROFILE_SELECTED.js";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FormGroup, Input, Modal } from "reactstrap";
 import { Transition } from "react-spring/renderprops";
@@ -47,6 +48,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../../account/clientprofile/ConsentForm/ConsentFormPDF";
 import AdminClientIndividualProfile from "./AdminClientIndividualProfile";
 import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
+import AdminRenderPastAppointments from "./AdminRenderPastAppointments";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();
@@ -112,7 +114,7 @@ const AdminClients = (props) => {
 
   const [
     getOwnPastAppointments,
-    { data: pastAppointmentsData, called: pastAppointmentsCalled },
+    { data: getOwnPastAppointmentsData },
   ] = useLazyQuery(getOwnPastAppointmentsQuery, {
     fetchPolicy: "no-cache",
   });
@@ -275,8 +277,17 @@ const AdminClients = (props) => {
       getOwnAppointments({
         variables: { _id: clientToggled, email: clientEmail },
       });
+
+      getOwnPastAppointments({
+        variables: { _id: clientToggled, email: clientEmail },
+      });
     }
-  }, [clientToggled, getOwnAppointments, props.getClientsData]);
+  }, [
+    clientToggled,
+    getOwnAppointments,
+    getOwnPastAppointments,
+    props.getClientsData,
+  ]);
 
   // Allows click only if selected client modal is not active
 
@@ -968,13 +979,29 @@ const AdminClients = (props) => {
                                 <div
                                   className="admin_individual_selected_client_back_container"
                                   ref={selectedClientBackRef}
-                                  onClick={(e) => handleClientUntoggled(e)}
+                                  onClick={(e) => {
+                                    adminClientSectionSelected === ""
+                                      ? handleClientUntoggled(e)
+                                      : dispatch(
+                                          ACTION_ADMIN_CLIENT_PROFILE_SELECTED()
+                                        );
+                                  }}
                                 >
                                   <FontAwesomeIcon
                                     icon={faLongArrowAltLeft}
                                     className="admin_individual_selected_client_back_arrow_icon"
                                   />
-                                  <p>Back to all clients</p>
+                                  <p>
+                                    {adminClientSectionSelected === ""
+                                      ? "Back to all clients"
+                                      : "Back to " +
+                                        item.firstName[0].toUpperCase() +
+                                        item.firstName.slice(1).toLowerCase() +
+                                        " " +
+                                        item.lastName[0].toUpperCase() +
+                                        item.lastName.slice(1).toLowerCase() +
+                                        "'s Profile"}
+                                  </p>
                                 </div>
 
                                 {adminClientSectionSelected === "" ? (
@@ -996,17 +1023,39 @@ const AdminClients = (props) => {
                                   />
                                 ) : adminClientSectionSelected ===
                                   "UpcomingAppointments" ? (
-                                  <AdminRenderUpcomingAppointments
-                                    data={getOwnAppointmentsData}
-                                    item={item}
-                                    override={override}
-                                    changeLoadingSpinnerActive={
-                                      changeLoadingSpinnerActive
-                                    }
-                                    loadingSpinnerActive={loadingSpinnerActive}
-                                    currentScreenSize={props.currentScreenSize}
-                                    initialScreenSize={props.initialScreenSize}
-                                  />
+                                  <div className="admin_side_my_appointments_content_container">
+                                    <AdminRenderUpcomingAppointments
+                                      data={getOwnAppointmentsData}
+                                      item={item}
+                                      override={override}
+                                      changeLoadingSpinnerActive={
+                                        changeLoadingSpinnerActive
+                                      }
+                                      loadingSpinnerActive={
+                                        loadingSpinnerActive
+                                      }
+                                      currentScreenSize={
+                                        props.currentScreenSize
+                                      }
+                                      initialScreenSize={
+                                        props.initialScreenSize
+                                      }
+                                    />
+                                  </div>
+                                ) : adminClientSectionSelected ===
+                                  "PastAppointments" ? (
+                                  <div className="admin_side_my_appointments_content_container">
+                                    <AdminRenderPastAppointments
+                                      data={getOwnPastAppointmentsData}
+                                      item={item}
+                                      currentScreenSize={
+                                        props.currentScreenSize
+                                      }
+                                      initialScreenSize={
+                                        props.initialScreenSize
+                                      }
+                                    />
+                                  </div>
                                 ) : null}
                               </div>
                             </div>

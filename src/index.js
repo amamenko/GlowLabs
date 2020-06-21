@@ -58,6 +58,7 @@ import {
   Switch,
   Route,
   useLocation,
+  Redirect,
 } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
@@ -67,6 +68,7 @@ import {
   updateClientInvalidateTokensMutation,
   getClientQuery,
   getEmployeeQuery,
+  getEmployeesQuery,
   updateEmployeeInvalidateTokensMutation,
 } from "./graphql/queries/queries";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -193,6 +195,10 @@ const App = () => {
     }
   );
 
+  const { data: getEmployeesData } = useQuery(getEmployeesQuery, {
+    fetchPolicy: "no-cache",
+  });
+
   const { data: getEmployeeData, refetch: employeeDataRefetch } = useQuery(
     getEmployeeQuery,
     {
@@ -226,6 +232,16 @@ const App = () => {
       }
     }
   }, [cartIsActive, navbarVisible, dispatch]);
+
+  const redirectToHome = () => {
+    if (!splashScreenComplete) {
+      if (
+        !location.pathname.includes("account") &&
+        !location.pathname.includes("admin")
+      )
+        return <Redirect to="/" />;
+    }
+  };
 
   useEffect(() => {
     if (cartIsActive) {
@@ -443,27 +459,25 @@ const App = () => {
       await import("scroll-behavior-polyfill");
     }
 
-    if (await ContactRef.current) {
-      window.scrollTo({
-        top:
-          currentScreenSize === ""
-            ? initialScreenSize >= 1800
-              ? ContactRef.current.offsetTop - 310
-              : initialScreenSize >= 1200
-              ? ContactRef.current.offsetTop - 210
-              : previousScrollPosition < 7200
-              ? ContactRef.current.offsetTop - 10
-              : ContactRef.current.offsetTop - 80
-            : currentScreenSize >= 1800
+    window.scrollTo({
+      top:
+        currentScreenSize === ""
+          ? initialScreenSize >= 1800
             ? ContactRef.current.offsetTop - 310
-            : currentScreenSize >= 1200
+            : initialScreenSize >= 1200
             ? ContactRef.current.offsetTop - 210
             : previousScrollPosition < 7200
             ? ContactRef.current.offsetTop - 10
-            : ContactRef.current.offsetTop - 80,
-        behavior: "smooth",
-      });
-    }
+            : ContactRef.current.offsetTop - 80
+          : currentScreenSize >= 1800
+          ? ContactRef.current.offsetTop - 310
+          : currentScreenSize >= 1200
+          ? ContactRef.current.offsetTop - 210
+          : previousScrollPosition < 7200
+          ? ContactRef.current.offsetTop - 10
+          : ContactRef.current.offsetTop - 80,
+      behavior: "smooth",
+    });
   };
 
   const ref = {
@@ -583,6 +597,84 @@ const App = () => {
     changeLargeScreenFrozenScrollPosition,
   ]);
 
+  const redirectToCartRoutes = () => {
+    if (cartPageOpened === "Cart") {
+      if (!currentScreenSize) {
+        if (initialScreenSize >= 1200) {
+          return <Redirect to="/" />;
+        } else {
+          return <Redirect to="/cart" />;
+        }
+      } else if (currentScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      } else {
+        return <Redirect to="/cart" />;
+      }
+    } else if (cartPageOpened === "Availability") {
+      if (!currentScreenSize) {
+        if (initialScreenSize >= 1200) {
+          return <Redirect to="/" />;
+        } else {
+          return <Redirect to="/availability" />;
+        }
+      } else if (currentScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      } else {
+        return <Redirect to="/availability" />;
+      }
+    } else if (cartPageOpened === "TimePreference") {
+      if (!currentScreenSize) {
+        if (initialScreenSize >= 1200) {
+          return <Redirect to="/" />;
+        } else {
+          return <Redirect to="/availability/timepreference" />;
+        }
+      } else if (currentScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      } else {
+        return <Redirect to="/availability/timepreference" />;
+      }
+    } else if (cartPageOpened === "PaymentInfo") {
+      if (!currentScreenSize) {
+        if (initialScreenSize >= 1200) {
+          return <Redirect to="/" />;
+        } else {
+          return <Redirect to="/paymentinfo" />;
+        }
+      } else if (currentScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      } else {
+        return <Redirect to="/paymentinfo" />;
+      }
+    } else if (cartPageOpened === "GuestCheckout") {
+      if (!currentScreenSize) {
+        if (initialScreenSize >= 1200) {
+          return <Redirect to="/" />;
+        } else {
+          return <Redirect to="/checkout" />;
+        }
+      } else if (currentScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      } else {
+        return <Redirect to="/checkout" />;
+      }
+    } else if (cartPageOpened === "ConfirmationPage") {
+      if (!currentScreenSize) {
+        if (initialScreenSize >= 1200) {
+          return <Redirect to="/" />;
+        } else {
+          return <Redirect to="/checkout/confirmation" />;
+        }
+      } else if (currentScreenSize >= 1200) {
+        return <Redirect to="/" />;
+      } else {
+        return <Redirect to="/checkout/confirmation" />;
+      }
+    } else {
+      return null;
+    }
+  };
+
   const shoppingCartConditionalActiveRendering = () => {
     if (
       !largeScreenFrozenScrollPosition &&
@@ -596,6 +688,7 @@ const App = () => {
         <ShoppingCart
           currentScreenSize={currentScreenSize}
           initialScreenSize={initialScreenSize}
+          getEmployeesData={getEmployeesData}
         />
       );
     } else if (cartPageOpened === "Availability") {
@@ -777,6 +870,7 @@ const App = () => {
 
   return (
     <>
+      {redirectToHome()}
       <Modal
         isOpen={logoutClicked}
         style={{
@@ -999,6 +1093,7 @@ const App = () => {
         <Route exact path="/">
           <KeepAlive saveScrollPosition="screen">
             <div className="main_container">
+              {redirectToCartRoutes()}
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
@@ -1074,9 +1169,30 @@ const App = () => {
           </KeepAlive>
         </Route>
 
-        <Route path="/cart" component={ShoppingCart} />
-
-        <Route path="/availability" component={AvailabilityRouter} />
+        {cartPageOpened === "Cart" ? (
+          <Route
+            render={() => (
+              <ShoppingCart
+                path="/cart"
+                getEmployeesData={getEmployeesData}
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
+          />
+        ) : cartPageOpened === "Availability" ||
+          cartPageOpened === "TimePreference" ? (
+          <Route
+            render={() => (
+              <AvailabilityRouter
+                path="/availability"
+                getEmployeesData={getEmployeesData}
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
+          />
+        ) : null}
 
         <Route path="/checkout" component={CheckoutRouter} />
 
@@ -1098,14 +1214,16 @@ const App = () => {
                 getEmployeeData={getEmployeeData ? getEmployeeData : null}
                 employeeDataRefetch={employeeDataRefetch}
               />
-            ) : (
+            ) : cartPageOpened === "PaymentInfo" ? (
               <PaymentInfo
                 exact
                 path="/paymentinfo"
                 getClientData={getClientData ? getClientData : null}
                 clientDataRefetch={clientDataRefetch}
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
               />
-            )
+            ) : null
           }
         />
       </Switch>

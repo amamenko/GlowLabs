@@ -152,8 +152,8 @@ const getOwnAppointmentsQuery = gql`
 `;
 
 const getOwnPastAppointmentsQuery = gql`
-  {
-    own_past_appointments {
+  query($_id: ID, $email: String) {
+    own_past_appointments(_id: $_id, email: $email) {
       id
       date
       startTime

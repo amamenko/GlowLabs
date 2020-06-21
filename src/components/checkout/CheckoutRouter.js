@@ -13,11 +13,25 @@ import ConsentFormPage7 from "../account/clientprofile/ConsentForm/Pages/Page7/C
 const CheckoutRouter = (props) => {
   return (
     <Switch>
-      <Route exact path={props.match.path} component={GuestCheckout} />
+      <Route
+        exact
+        path={props.match.path}
+        render={() => (
+          <GuestCheckout
+            initialScreenSize={props.initialScreenSize}
+            currentScreenSize={props.currentScreenSize}
+          />
+        )}
+      />
       <Route
         exact
         path={props.match.path + "/confirmation"}
-        component={ConfirmationPage}
+        render={() => (
+          <ConfirmationPage
+            initialScreenSize={props.initialScreenSize}
+            currentScreenSize={props.currentScreenSize}
+          />
+        )}
       />
       <Route
         exact
