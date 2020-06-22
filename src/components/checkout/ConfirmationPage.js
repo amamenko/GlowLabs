@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { Transition, Spring } from "react-spring/renderprops";
 import { css } from "emotion";
@@ -74,6 +74,10 @@ import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCRO
 import UnsureSummaryCard from "./SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
 import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
+import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
+import ACTION_FINAL_BOOKING_MODAL_ACTIVE from "../../actions/InCart/FinalBookingModal/ACTION_FINAL_BOOKING_MODAL_ACTIVE";
+import ACTION_FINAL_BOOKING_MODAL_RESET from "../../actions/InCart/FinalBookingModal/ACTION_FINAL_BOOKING_MODAL_RESET";
+import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
 import "./ConfirmationPage.css";
 
 const ConfirmationPage = (props) => {
@@ -124,8 +128,11 @@ const ConfirmationPage = (props) => {
   const bookedWithCardID = useSelector(
     (state) => state.bookedWithCardID.booked_with_card_id
   );
-  const [finalBookingModalActive, changeFinalBookingModalActive] = useState(
-    false
+  const selectedEsthetician = useSelector(
+    (state) => state.selectedEsthetician.selectedEsthetician
+  );
+  const finalBookingModal = useSelector(
+    (state) => state.finalBookingModal.final_booking_modal
   );
   const [getClient, { data }] = useLazyQuery(getClientQuery, {
     fetchPolicy: "no-cache",
@@ -172,6 +179,7 @@ const ConfirmationPage = (props) => {
     endTime: appointmentEndTime,
     duration: totalDuration,
     price: totalPrice,
+    esthetician: selectedEsthetician,
     firstName: userAuthenticated
       ? data
         ? data.client.firstName
@@ -220,6 +228,8 @@ const ConfirmationPage = (props) => {
     addAppointment({
       variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() },
     });
+
+    dispatch(ACTION_FINAL_BOOKING_MODAL_ACTIVE());
   };
 
   const redirectToHome = () => {
@@ -514,14 +524,13 @@ const ConfirmationPage = (props) => {
     } else {
       const bookingComplete = setTimeout(() => {
         dispatch(ACTION_LOADING_SPINNER_RESET());
-        changeFinalBookingModalActive(true);
       }, 3000);
 
       return () => {
         clearTimeout(bookingComplete);
       };
     }
-  }, [appLoading, dispatch, loadingSpinnerActive, finalBookingModalActive]);
+  }, [appLoading, dispatch, loadingSpinnerActive, finalBookingModal]);
 
   const handleModalBackToHome = () => {
     dispatch(ACTION_BODY_SCROLL_ALLOW());
@@ -530,6 +539,8 @@ const ConfirmationPage = (props) => {
     dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
     dispatch(ACTION_SELECTED_TIME_RESET());
     dispatch(ACTION_SELECTED_DAY_RESET());
+    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
+    dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
     dispatch(ACTION_ALL_COLLAPSE_RESET());
     dispatch(ACTION_TREATMENTS_CART_RESET());
     dispatch(ACTION_ADD_ONS_CART_RESET());
@@ -551,6 +562,7 @@ const ConfirmationPage = (props) => {
     dispatch(ACTION_CART_IS_NOT_ACTIVE());
     dispatch(ACTION_AVAILABILITY_RESET());
     dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
+    dispatch(ACTION_CART_PAGE_OPENED());
   };
 
   return (
@@ -644,7 +656,9 @@ const ConfirmationPage = (props) => {
         </p>
       </div>
       <div className="summary_facial_container">
-        <h2 className="summary_facial_container_title">My Facial</h2>
+        <h2 className="summary_facial_container_title">
+          My Facial (with {selectedEsthetician})
+        </h2>
         {renderSummaryCardTreatments()}
       </div>
       {renderSummaryCardAddOnSection()}
@@ -674,8 +688,8 @@ const ConfirmationPage = (props) => {
             position: "fixed",
             zIndex: "10000",
             height: "100%",
-            backdropFilter: "blur(5px)",
-            WebkitBackdropFilter: "blur(5px)",
+            backdropFilter: "blur(5px) brightness(50%)",
+            WebkitBackdropFilter: "blur(5px) brightness(50%)",
             paddingBottom: "10%",
             borderRadius: "none",
             width: "100vw",
@@ -695,17 +709,17 @@ const ConfirmationPage = (props) => {
         <BounceLoader
           size={100}
           css={override}
-          color={"rgb(232, 210, 195)"}
+          color={"rgb(44, 44, 52)"}
           loading={loadingSpinnerActive}
         />
         <Transition
-          items={finalBookingModalActive}
+          items={finalBookingModal}
           from={{ transform: "translate3d(0, -65%, 0)" }}
           enter={{ transform: "translate3d(0, 0, 0)" }}
           leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
-          {(finalBookingModalActive) =>
-            finalBookingModalActive &&
+          {(finalBookingModal) =>
+            finalBookingModal &&
             ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">

@@ -4,6 +4,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import "./AdminSchedule.css";
+import AdminCalendarComponent from "./AdminCalendarComponent";
 
 const AdminSchedule = (props) => {
   const logoutClicked = useSelector(
@@ -33,6 +34,10 @@ const AdminSchedule = (props) => {
           />
         </Link>
         <h1>SCHEDULE</h1>
+        <AdminCalendarComponent
+          getAllAppointmentsData={props.getAllAppointmentsData}
+          getEmployeeData={props.getEmployeeData}
+        />
       </div>
     </div>
   );

@@ -56,6 +56,7 @@
   padding-left: 0;
   border-top: none;
   border-bottom: none;
+  margin-left: 0rem;
 }
 
 .summary_card_booking_description_left_section p {
@@ -97,6 +98,10 @@
   .summary_card_booking_description_right_section p {
     font-size: 3rem;
   }
+
+  .summary_card_image_circle {
+    padding-left: 1rem;
+  }
 }
 
 /* CSS for Big Desktops */
@@ -124,11 +129,12 @@
 @media only screen and (min-width: 2200px) {
   .summary_card_booking_description_left_section h2 {
     font-size: 2rem;
-    margin-left: 0rem;
+    margin-left: -3.2rem;
   }
 
   .summary_card_booking_description_left_section p {
     font-size: 1.5rem;
+    margin-left: -3.2rem;
   }
 
   .summary_card_booking_description_right_section {

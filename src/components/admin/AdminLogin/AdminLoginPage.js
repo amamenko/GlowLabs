@@ -121,6 +121,24 @@ const AdminLoginPage = (props) => {
     }
   }, [location.pathname]);
 
+  const redirectAdminUpdatePassword = () => {
+    if (updateAdminPasswordData) {
+      if (!props.currentScreenSize) {
+        if (props.initialScreenSize >= 1200) {
+          return <Redirect to="/admin/clients" />;
+        } else {
+          return <Redirect to="/admin/menu" />;
+        }
+      } else {
+        if (props.currentScreenSize >= 1200) {
+          return <Redirect to="/admin/clients" />;
+        } else {
+          return <Redirect to="/admin/menu" />;
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     if (signInLoading) {
       const userValidation = setTimeout(() => {
@@ -192,7 +210,11 @@ const AdminLoginPage = (props) => {
   ]);
 
   const redirectToAdminMenu = () => {
-    if (adminAuthenticated && !adminTemporaryDummyToken) {
+    if (
+      adminAuthenticated &&
+      !adminTemporaryDummyToken &&
+      !updateAdminPasswordData
+    ) {
       if (!props.currentScreenSize) {
         if (props.initialScreenSize >= 1200) {
           return <Redirect to="/admin/clients" />;
@@ -222,6 +244,7 @@ const AdminLoginPage = (props) => {
       <div className="admin_login_page_background_blurry" />
       <div className="admin_login_page_container">
         {redirectToAdminMenu()}
+        {redirectAdminUpdatePassword()}
         <div className="admin_login_logo_container">
           <svg height="22rem" width="100%" viewBox="0 0 463.021 463.021">
             <g

@@ -78,6 +78,9 @@ const ShoppingCart = (props) => {
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
+  const selectedEsthetician = useSelector(
+    (state) => state.selectedEsthetician.selectedEsthetician
+  );
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -308,6 +311,7 @@ const ShoppingCart = (props) => {
                 className="esthetician_preference_input"
                 type="select"
                 name="select"
+                defaultValue={selectedEsthetician}
                 id="esthetician_preference"
                 onChange={(e) => {
                   if (e.target.value === "No preference") {

@@ -42,16 +42,22 @@
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .admin_schedule_container {
-    position: absolute;
-    width: 80%;
-    padding-top: 8vh;
-    right: 0;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   .admin_schedule_header {
+    position: absolute;
+    top: 8vh;
+    left: 10%;
     height: 8vh;
     font-weight: 600;
-    width: 80%;
+    width: 100%;
   }
 
   .admin_schedule_header h1 {
@@ -60,5 +66,16 @@
 
   .admin_schedule_back_arrow {
     display: none;
+  }
+
+  .admin_schedule_calendar_main_container {
+    position: absolute;
+    height: 65vh;
+    width: 65%;
+    top: 12vh;
+    bottom: 0;
+    left: 15vw;
+    right: 15vw;
+    margin: 0 auto;
   }
 }

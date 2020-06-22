@@ -37,12 +37,12 @@
 }
 
 .confirmation_page_statement {
-  margin-left: 3.1rem;
-  margin-right: 3.1rem;
-  font-size: 1.3rem;
-  line-height: 1.8rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
   margin-top: 2vh;
-  margin-bottom: 0vh;
+  margin-bottom: 2vh;
 }
 
 .confirmation_page_header {
@@ -59,7 +59,7 @@
 .confirmation_page_header h2 {
   color: rgb(101, 101, 101);
   font-size: 1rem;
-  margin-left: 3.1rem;
+  margin-left: 1.5rem;
   font-weight: 600;
   display: flex;
   align-self: center;
@@ -113,18 +113,14 @@
   margin-top: -1px;
 }
 
-.summary_facial_container h2,
-.summary_add_ons_container h2 {
+.summary_facial_container_title,
+.summary_add_ons_container_title {
+  background: rgba(211, 211, 211, 0.3);
   font-size: 1rem;
   font-weight: 700;
   padding-left: 1.5rem;
   padding-top: 2vh;
   padding-bottom: 2vh;
-}
-
-.summary_facial_container_title,
-.summary_add_ons_container_title {
-  background: rgba(211, 211, 211, 0.3);
 }
 
 .summary_card_subtotal_container {
@@ -415,8 +411,8 @@
     line-height: 2.5rem;
   }
 
-  .summary_facial_container h2,
-  .summary_add_ons_container h2 {
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
     font-size: 1.5rem;
     padding-left: 3.1rem;
     padding-top: 2vh;
@@ -441,8 +437,8 @@
 
   _::-webkit-full-page-media,
   _:future,
-  .summary_facial_container h2,
-  .summary_add_ons_container h2 {
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
     padding-left: 0;
   }
 }
@@ -497,8 +493,8 @@
     line-height: 1.6rem;
   }
 
-  .summary_facial_container h2,
-  .summary_add_ons_container h2 {
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
     font-size: 1.2rem;
     padding-left: 3.1rem;
     padding-top: 2vh;
@@ -555,6 +551,7 @@
   .summary_selected_time_container {
     margin-left: 3.1rem;
     margin-bottom: 2vh;
+    margin-top: 2vh;
   }
 
   .summary_calendar_icon,
@@ -570,8 +567,12 @@
     line-height: 2.5rem;
   }
 
-  .summary_facial_container h2,
-  .summary_add_ons_container h2 {
+  .confirmation_page_header h3 {
+    margin-right: 1.5rem;
+  }
+
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
     font-size: 1.5rem;
     padding-left: 3.1rem;
     padding-top: 2vh;
@@ -590,5 +591,63 @@
 
   .summary_card_subtotal_container p {
     font-size: 3rem;
+  }
+
+  .summary_card_image_circle {
+    margin-left: -3rem;
+  }
+
+  .final_booking_modal {
+    z-index: 5;
+  }
+
+  .modal_calendar_icon {
+    transform: scale(2);
+    position: absolute;
+    bottom: 28%;
+  }
+
+  .modal_calendar_icon_container {
+    height: 5%;
+    padding-bottom: 21%;
+  }
+
+  .modal_checkmark {
+    transform: scale(2);
+    top: 25%;
+  }
+
+  .modal_confirmation_statement {
+    padding-top: 0rem;
+    padding-bottom: 1rem;
+    margin-bottom: -3rem;
+  }
+
+  .modal_appointment_time,
+  .modal_appointment_provider,
+  .modal_appointment_spacer {
+    font-size: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .modal_address_container {
+    justify-content: center;
+  }
+
+  .modal_address_container p {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .modal_address_container p,
+  .modal_full_date_info {
+    font-size: 1rem;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+  }
+
+  .dismiss_modal_button {
+    margin-bottom: 20%;
   }
 }

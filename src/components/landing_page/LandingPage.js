@@ -35,6 +35,8 @@ const LandingPage = React.forwardRef((props, ref) => {
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
   const [twoFingerTouch, changeTwoFingerTouch] = useState(false);
 
+  const location = useLocation();
+
   const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
   const bodyScrollToggle = useSelector(
     (state) => state.bodyScrollToggle.overflow
@@ -50,7 +52,9 @@ const LandingPage = React.forwardRef((props, ref) => {
   const touchScaling = useSelector(
     (state) => state.fingerTouchScaling.touch_scaling
   );
-  const location = useLocation();
+  const finalBookingModal = useSelector(
+    (state) => state.finalBookingModal.final_booking_modal
+  );
 
   // For comparison after splash screen halfway point
   const [
@@ -322,6 +326,7 @@ const LandingPage = React.forwardRef((props, ref) => {
           ? "rgb(224, 224, 232)"
           : "rgb(44, 44, 52)",
         transition: "background 2s ease-out",
+        zIndex: finalBookingModal ? -1 : "auto",
       }}
     >
       <section className="main_content">

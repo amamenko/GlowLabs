@@ -81,6 +81,9 @@ const TimePreference = (props) => {
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
   );
+  const selectedEsthetician = useSelector(
+    (state) => state.selectedEsthetician.selectedEsthetician
+  );
 
   const [bookedTimes, changeBookedTimes] = useState([]);
 
@@ -689,7 +692,7 @@ const TimePreference = (props) => {
         </Link>
       </div>
       <div className="select_a_time_header">
-        <h2>SELECT A TIME</h2>
+        <h2>SELECT A TIME WITH {selectedEsthetician.toUpperCase()}</h2>
       </div>
       <p className="time_statement">
         Choose a time for your appointment on {getFullDayOfTheWeek()},{" "}
@@ -1385,7 +1388,7 @@ const TimePreference = (props) => {
             marginTop:
               dayOfTheWeek === "Sunday"
                 ? eveningCollapseIsOpen
-                  ? "-13vh"
+                  ? "-10vh"
                   : "0vh"
                 : dayOfTheWeek === "Friday"
                 ? lateAfternoonCollapseIsOpen

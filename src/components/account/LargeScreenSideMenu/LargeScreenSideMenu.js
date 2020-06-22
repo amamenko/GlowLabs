@@ -282,7 +282,8 @@ const LargeScreenSideMenu = (props) => {
             ? "none"
             : "auto",
         display:
-          userAuthenticated || adminAuthenticated
+          (userAuthenticated && location.pathname.includes("account")) ||
+          (adminAuthenticated && location.pathname.includes("admin"))
             ? !props.currentScreenSize
               ? props.initialScreenSize >= 1200
                 ? "flex"

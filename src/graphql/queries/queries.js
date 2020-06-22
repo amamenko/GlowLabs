@@ -92,6 +92,7 @@ const getAllAppointmentsQuery = gql`
       endTime
       duration
       price
+      esthetician
       treatments {
         name
         duration
@@ -126,6 +127,7 @@ const getOwnAppointmentsQuery = gql`
       endTime
       duration
       price
+      esthetician
       treatments {
         name
         duration
@@ -496,6 +498,7 @@ const addAppointmentMutation = gql`
     $lastName: String!
     $email: String!
     $phoneNumber: String!
+    $esthetician: String!
     $squareCustomerId: String
     $unsavedSquareCardIDs: String
     $bookedWithCardSquareID: String!
@@ -511,6 +514,7 @@ const addAppointmentMutation = gql`
       endTime: $endTime
       duration: $duration
       price: $price
+      esthetician: $esthetician
       client: {
         firstName: $firstName
         lastName: $lastName
@@ -536,6 +540,7 @@ const addAppointmentMutation = gql`
       duration
       price
       createdAt
+      esthetician
       client {
         firstName
         lastName

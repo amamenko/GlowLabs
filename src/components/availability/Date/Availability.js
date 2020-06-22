@@ -462,40 +462,34 @@ const Availability = (props) => {
     }
   };
 
-  const renderEstheticianNames = () => {
-    if (props.getEmployeesData) {
-      if (props.getEmployeesData.employees) {
-        const filteredEmployeesArr = props.getEmployeesData.employees.filter(
-          (x) => {
-            return x.employeeRole.includes("Esthetician");
-          }
-        );
+  useEffect(() => {
+    if (!selectedEsthetician) {
+      if (props.getEmployeesData) {
+        if (props.getEmployeesData.employees) {
+          const filteredEmployeesArr = props.getEmployeesData.employees.filter(
+            (x) => {
+              return x.employeeRole.includes("Esthetician");
+            }
+          );
 
-        const randomEmployee =
-          filteredEmployeesArr[
-            Math.floor(Math.random() * (filteredEmployeesArr.length - 1))
-          ];
+          const randomEmployee =
+            filteredEmployeesArr[
+              Math.floor(Math.random() * (filteredEmployeesArr.length - 1))
+            ];
 
-        dispatch(
-          ACTION_SELECTED_ESTHETICIAN(
-            randomEmployee.firstName[0].toUpperCase() +
-              randomEmployee.firstName.slice(1) +
-              " " +
-              randomEmployee.lastName[0].toUpperCase() +
-              "."
-          )
-        );
-
-        return (
-          randomEmployee.firstName[0].toUpperCase() +
-          randomEmployee.firstName.slice(1) +
-          " " +
-          randomEmployee.lastName[0].toUpperCase() +
-          "."
-        );
+          dispatch(
+            ACTION_SELECTED_ESTHETICIAN(
+              randomEmployee.firstName[0].toUpperCase() +
+                randomEmployee.firstName.slice(1) +
+                " " +
+                randomEmployee.lastName[0].toUpperCase() +
+                "."
+            )
+          );
+        }
       }
     }
-  };
+  });
 
   return (
     <div className="availability_container">
@@ -575,9 +569,7 @@ const Availability = (props) => {
       <div className="select_a_date_header">
         <h2>
           SELECT A DATE WITH{" "}
-          {selectedEsthetician
-            ? selectedEsthetician.toUpperCase()
-            : renderEstheticianNames()}
+          {selectedEsthetician ? selectedEsthetician.toUpperCase() : null}
         </h2>
       </div>
       <p className="availability_statement">

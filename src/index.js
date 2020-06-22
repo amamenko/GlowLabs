@@ -168,6 +168,9 @@ const App = () => {
   const cartPageOpened = useSelector(
     (state) => state.cartPageOpened.cart_page_opened
   );
+  const finalBookingModal = useSelector(
+    (state) => state.finalBookingModal.final_booking_modal
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
@@ -603,12 +606,20 @@ const App = () => {
         if (initialScreenSize >= 1200) {
           return <Redirect to="/" />;
         } else {
-          return <Redirect to="/cart" />;
+          if (cartIsActive) {
+            return <Redirect to="/cart" />;
+          } else {
+            return null;
+          }
         }
       } else if (currentScreenSize >= 1200) {
         return <Redirect to="/" />;
       } else {
-        return <Redirect to="/cart" />;
+        if (cartIsActive) {
+          return <Redirect to="/cart" />;
+        } else {
+          return null;
+        }
       }
     } else if (cartPageOpened === "Availability") {
       if (!currentScreenSize) {
@@ -696,6 +707,7 @@ const App = () => {
         <Availability
           currentScreenSize={currentScreenSize}
           initialScreenSize={initialScreenSize}
+          getEmployeesData={getEmployeesData}
         />
       );
     } else if (cartPageOpened === "TimePreference") {
@@ -818,6 +830,7 @@ const App = () => {
                 ? "blur(30px) brightness(50%)"
                 : "none",
               transition: "backdropFilter 0.5s ease",
+              zIndex: finalBookingModal ? -1 : 50,
             }}
             onClick={(e) => {
               if (
@@ -833,7 +846,7 @@ const App = () => {
         );
       }
     },
-    [cartIsActive, cartSlideDelay, dispatch]
+    [cartIsActive, cartSlideDelay, dispatch, finalBookingModal]
   );
 
   useEffect(() => {
@@ -1169,29 +1182,31 @@ const App = () => {
           </KeepAlive>
         </Route>
 
-        {cartPageOpened === "Cart" ? (
-          <Route
-            render={() => (
-              <ShoppingCart
-                path="/cart"
-                getEmployeesData={getEmployeesData}
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-              />
-            )}
-          />
-        ) : cartPageOpened === "Availability" ||
-          cartPageOpened === "TimePreference" ? (
-          <Route
-            render={() => (
-              <AvailabilityRouter
-                path="/availability"
-                getEmployeesData={getEmployeesData}
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-              />
-            )}
-          />
+        {cartIsActive ? (
+          cartPageOpened === "Cart" ? (
+            <Route
+              render={() => (
+                <ShoppingCart
+                  path="/cart"
+                  getEmployeesData={getEmployeesData}
+                  initialScreenSize={initialScreenSize}
+                  currentScreenSize={currentScreenSize}
+                />
+              )}
+            />
+          ) : cartPageOpened === "Availability" ||
+            cartPageOpened === "TimePreference" ? (
+            <Route
+              render={() => (
+                <AvailabilityRouter
+                  path="/availability"
+                  getEmployeesData={getEmployeesData}
+                  initialScreenSize={initialScreenSize}
+                  currentScreenSize={currentScreenSize}
+                />
+              )}
+            />
+          ) : null
         ) : null}
 
         <Route path="/checkout" component={CheckoutRouter} />

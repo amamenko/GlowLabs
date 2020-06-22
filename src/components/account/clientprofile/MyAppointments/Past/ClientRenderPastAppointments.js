@@ -199,7 +199,7 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
                           </div>
                         </div>
                         <div className="selected_appointment_treatments_header">
-                          <p>Treatment</p>
+                          <p>Treatment (with {item.esthetician})</p>
                         </div>
                         {props.renderSummaryCardTreatments(i)}
                         {props.data ? (

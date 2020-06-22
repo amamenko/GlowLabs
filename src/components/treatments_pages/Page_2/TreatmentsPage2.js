@@ -9,9 +9,11 @@ import { toast } from "react-toastify";
 import NotSurePopUp from "./NotSurePopUp/NotSurePopUp";
 import InView from "react-intersection-observer";
 import ACTION_UNSURE_POP_UP_TRIGGERED from "../../../actions/UnsurePopUp/ACTION_UNSURE_POP_UP_TRIGGERED";
+import { useLocation } from "react-router-dom";
 
 const TreatmentsPage2 = (props) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   // In Cart states
   const calmInCart = useSelector((state) => state.calmInCart.in_cart);
@@ -111,7 +113,8 @@ const TreatmentsPage2 = (props) => {
         !quickieInCart &&
         !rejuvenateInCart &&
         !unsureInCart &&
-        !cartIsActive
+        !cartIsActive &&
+        location.pathname === "/"
       ) {
         toast.dismiss();
         const unsureToastDeployDelay = setTimeout(() => {
@@ -153,6 +156,7 @@ const TreatmentsPage2 = (props) => {
     unsurePopUpTriggered,
     cartIsActive,
     dispatch,
+    location.pathname,
   ]);
 
   return (

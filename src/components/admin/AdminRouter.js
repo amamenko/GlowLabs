@@ -4,10 +4,12 @@ import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminClients from "./AdminClients/AdminClients";
 import { useQuery } from "@apollo/react-hooks";
-import { getClientsQuery } from "../../graphql/queries/queries";
+import {
+  getClientsQuery,
+  getAllAppointmentsQuery,
+} from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
-import UpcomingAppointments from "../account/clientprofile/MyAppointments/Upcoming/UpcomingAppointments";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
 
 const AdminRouter = (props) => {
@@ -17,6 +19,10 @@ const AdminRouter = (props) => {
       fetchPolicy: "no-cache",
     }
   );
+
+  const { data: getAllAppointmentsData } = useQuery(getAllAppointmentsQuery, {
+    fetchPolicy: "no-cache",
+  });
 
   const randomColorArray = useMemo(() => {
     if (getClientsData) {
@@ -89,6 +95,10 @@ const AdminRouter = (props) => {
             <AdminSchedule
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
+              getAllAppointmentsData={getAllAppointmentsData}
+              getEmployeeData={
+                props.getEmployeeData ? props.getEmployeeData : null
+              }
             />
           )}
         />
