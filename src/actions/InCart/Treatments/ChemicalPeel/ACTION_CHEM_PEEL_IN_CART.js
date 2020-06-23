@@ -5,9 +5,9 @@ const ACTION_CHEM_PEEL_IN_CART = () => {
     type: CHEM_PEEL_IN_CART,
     payload: {
       name: "ChemicalPeel",
-      price: 100,
-      duration: 30
-    }
+      price: 150,
+      duration: 30,
+    },
   };
 };
 

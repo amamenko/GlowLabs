@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import moment from "moment";
 import { Transition } from "react-spring/renderprops";
-import AddToCalendar from "react-add-to-calendar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisH,
@@ -69,6 +68,28 @@ const AdminRenderUpcomingAppointments = (props) => {
       variables: { _id: item.id },
     });
   };
+
+  const resetStatesAfterLoading = useCallback(() => {
+    props.getOwnAppointmentsRefetch();
+    changeLoadingSpinnerActive(false);
+    changeCancelAppointmentClicked(false);
+    changeAppointmentToggled(false);
+  }, [props]);
+
+  useEffect(() => {
+    if (data) {
+      const loadingFunction = setTimeout(() => resetStatesAfterLoading(), 2000);
+      return () => {
+        clearTimeout(loadingFunction);
+      };
+    }
+  }, [data, resetStatesAfterLoading]);
+
+  useEffect(() => {
+    if (loading) {
+      changeLoadingSpinnerActive(true);
+    }
+  }, [loading, data]);
 
   useEffect(() => {
     if (location.pathname) {

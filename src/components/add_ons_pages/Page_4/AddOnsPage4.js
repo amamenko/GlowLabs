@@ -4,10 +4,10 @@ import NanoNeedling from "../../add_ons/NanoNeedling/NanoNeedling";
 import GuaSha from "../../add_ons/GuaSha/GuaSha";
 import "./AddOnsPage4.css";
 
-const AddOnsPage4 = props => {
+const AddOnsPage4 = (props) => {
   const [
     nanoNeedlingGuashaRendered,
-    changeNanoNeedlingGuashaRendered
+    changeNanoNeedlingGuashaRendered,
   ] = useState("grid");
   const [beardRendered, changeBeardRendered] = useState("none");
 
@@ -28,7 +28,7 @@ const AddOnsPage4 = props => {
   }, [
     changeNanoNeedlingGuashaRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -53,16 +53,25 @@ const AddOnsPage4 = props => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         beardRendered={beardRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <NanoNeedling
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         nanoNeedlingGuashaRendered={nanoNeedlingGuashaRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <GuaSha
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         nanoNeedlingGuashaRendered={nanoNeedlingGuashaRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
     </div>
   );

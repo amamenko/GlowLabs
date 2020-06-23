@@ -4,12 +4,14 @@ import ACTION_MICROCURRENT_NOT_IN_CART from "../../../../actions/InCart/AddOns/M
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import "../../CartCard.css";
 
-const MicrocurrentCard = props => {
+const MicrocurrentCard = (props) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
+
+    props.resetAllCartStatesExceptTreatments();
   };
 
   return (

@@ -27,17 +27,15 @@ import ACTION_DERMAPLANE_NOT_IN_CART from "../../../actions/InCart/Treatments/De
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
-import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
-import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
-import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 import { toast } from "react-toastify";
 import DermaplaningNotification from "./DermaplaningNotification";
 import DermaplaningRemovedNotification from "./DermaplaningRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Dermaplaning.css";
 import "../../treatments_pages/Page_3/TreatmentsPage3.css";
+import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
 
 const Dermaplaning = (props) => {
   // "Learn More" states
@@ -60,6 +58,7 @@ const Dermaplaning = (props) => {
   const microneedleToggle = useSelector(
     (state) => state.microneedleToggle.toggle
   );
+  const saltCaveToggle = useSelector((state) => state.saltCaveToggle.toggle);
 
   // In Cart states
   const calmInCart = useSelector((state) => state.calmInCart.in_cart);
@@ -82,14 +81,11 @@ const Dermaplaning = (props) => {
     (state) => state.rejuvenateInCart.in_cart
   );
   const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
-  const reformattedDay = useSelector(
-    (state) => state.reformattedDay.reformattedDay
-  );
-  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
 
   const dispatch = useDispatch();
 
@@ -126,6 +122,9 @@ const Dermaplaning = (props) => {
       if (microneedleToggle) {
         dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
       }
+      if (saltCaveToggle) {
+        dispatch(ACTION_SALT_CAVE_TOGGLE_RESET());
+      }
     } else {
       dispatch(ACTION_DERMAPLANING_TOGGLE_RESET());
     }
@@ -155,7 +154,7 @@ const Dermaplaning = (props) => {
                 <p className="card_description_paragraph_title">Price</p>
               </div>
               <div className="card_description_paragraph_value">
-                <p>$120</p>
+                <p>$150</p>
               </div>
             </div>
           </div>
@@ -319,7 +318,8 @@ const Dermaplaning = (props) => {
         rejuvenateInCart |
         quenchInCart |
         glowInCart ||
-      unsureInCart
+      unsureInCart ||
+      saltCaveInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
@@ -339,16 +339,11 @@ const Dermaplaning = (props) => {
         toast.dismiss();
         dispatch(ACTION_DERMAPLANE_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
-        dispatch(ACTION_AVAILABILITY_RESET());
         dispatch(ACTION_SELECTED_DAY_RESET());
         dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
-        if (reformattedDay) {
-          dispatch(ACTION_REFORMATTED_DAY_RESET());
-        }
-        if (selectedTime) {
-          dispatch(ACTION_SELECTED_TIME_RESET());
-        }
+
+        props.resetAllCartStates();
         toast(
           <DermaplaningRemovedNotification
             currentScreenSize={props.currentScreenSize}
@@ -393,7 +388,9 @@ const Dermaplaning = (props) => {
                     microneedleInCart |
                     quenchInCart |
                     quickieInCart |
-                    rejuvenateInCart || unsureInCart
+                    rejuvenateInCart ||
+                  unsureInCart ||
+                  saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -414,7 +411,9 @@ const Dermaplaning = (props) => {
                         microneedleInCart |
                         rejuvenateInCart |
                         quenchInCart |
-                        glowInCart || unsureInCart
+                        glowInCart ||
+                      unsureInCart ||
+                      saltCaveInCart
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(0, 129, 177, 0.4)"
                   : dermaplaningInCart
@@ -428,7 +427,9 @@ const Dermaplaning = (props) => {
                       microneedleInCart |
                       rejuvenateInCart |
                       quenchInCart |
-                      glowInCart || unsureInCart
+                      glowInCart ||
+                    unsureInCart ||
+                    saltCaveInCart
                   ? "rgba(211, 211, 211, 0.8"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -457,7 +458,9 @@ const Dermaplaning = (props) => {
                   microneedleInCart |
                   rejuvenateInCart |
                   quenchInCart |
-                  glowInCart || unsureInCart
+                  glowInCart ||
+                unsureInCart ||
+                saltCaveInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -477,7 +480,7 @@ const Dermaplaning = (props) => {
             className="big_screen_card_description_icon"
             icon={faTag}
           />
-          <p className="big_screen_price">$120</p>
+          <p className="big_screen_price">$150</p>
         </div>
         <div className="big_screen_duration_wrapper">
           <FontAwesomeIcon
@@ -617,7 +620,9 @@ const Dermaplaning = (props) => {
                                       microneedleInCart |
                                       rejuvenateInCart |
                                       quenchInCart |
-                                      glowInCart || unsureInCart
+                                      glowInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : dermaplaningInCart
@@ -631,7 +636,9 @@ const Dermaplaning = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quenchInCart |
-                                    glowInCart || unsureInCart
+                                    glowInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
@@ -646,7 +653,9 @@ const Dermaplaning = (props) => {
                                       microneedleInCart |
                                       rejuvenateInCart |
                                       quenchInCart |
-                                      glowInCart || unsureInCart
+                                      glowInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : dermaplaningInCart
@@ -660,7 +669,9 @@ const Dermaplaning = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quenchInCart |
-                                    glowInCart || unsureInCart
+                                    glowInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
@@ -675,7 +686,9 @@ const Dermaplaning = (props) => {
                                       microneedleInCart |
                                       rejuvenateInCart |
                                       quenchInCart |
-                                      glowInCart || unsureInCart
+                                      glowInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : dermaplaningInCart
@@ -689,7 +702,9 @@ const Dermaplaning = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quenchInCart |
-                                    glowInCart || unsureInCart
+                                    glowInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
                               cursor:
@@ -702,7 +717,9 @@ const Dermaplaning = (props) => {
                                   microneedleInCart |
                                   rejuvenateInCart |
                                   quenchInCart |
-                                  glowInCart || unsureInCart
+                                  glowInCart ||
+                                unsureInCart ||
+                                saltCaveInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

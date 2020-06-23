@@ -2,11 +2,8 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import "../MyAppointments.css";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faLongArrowAltLeft,
-} from "@fortawesome/free-solid-svg-icons";
-import { useSelector, useDispatch } from "react-redux";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 import CalmSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
@@ -41,7 +38,6 @@ import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatment
 import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointments";
 
 const UpcomingAppointments = (props) => {
-  const dispatch = useDispatch();
   const location = useLocation();
 
   const individualAppointmentRef = useRef(null);
@@ -96,7 +92,7 @@ const UpcomingAppointments = (props) => {
         clearTimeout(loadingFunction);
       };
     }
-  }, [data, dispatch, resetStatesAfterLoading]);
+  }, [data, resetStatesAfterLoading]);
 
   useEffect(() => {
     if (loading) {

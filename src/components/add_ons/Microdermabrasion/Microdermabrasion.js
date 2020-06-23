@@ -67,6 +67,7 @@ const Microdermabrasion = (props) => {
   const chemicalPeelInCart = useSelector(
     (state) => state.chemicalPeelInCart.in_cart
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
@@ -283,7 +284,7 @@ const Microdermabrasion = (props) => {
   const microneedlingAddOnErrorToastId = "microneedling_add_on_error";
 
   const addToCart = () => {
-    if (chemicalPeelInCart) {
+    if (chemicalPeelInCart || saltCaveInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
         toast(
@@ -318,6 +319,8 @@ const Microdermabrasion = (props) => {
           dispatch(ACTION_MICRODERMABRASION_NOT_IN_CART());
           dispatch(ACTION_DECREMENT_COUNTER());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
+
+          props.resetAllCartStatesExceptTreatments();
           toast(
             <MicrodermabrasionRemovedNotification
               currentScreenSize={props.currentScreenSize}
@@ -334,6 +337,8 @@ const Microdermabrasion = (props) => {
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
           changeCartClicked(true);
           setTimeout(() => changeCartClicked(false), 200);
+
+          props.resetAllCartStatesExceptTreatments();
           toast(
             <MicrodermabrasionNotification
               currentScreenSize={props.currentScreenSize}
@@ -355,7 +360,7 @@ const Microdermabrasion = (props) => {
               microdermabrasionToggle
                 ? microdermabrasionInCart
                   ? { position: "relative" }
-                  : microneedleInCart | chemicalPeelInCart
+                  : microneedleInCart | chemicalPeelInCart || saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -367,12 +372,12 @@ const Microdermabrasion = (props) => {
                 microdermabrasionToggle
                   ? microdermabrasionInCart
                     ? "rgb(119, 221, 119, 0.6)"
-                    : microneedleInCart | chemicalPeelInCart
+                    : microneedleInCart | chemicalPeelInCart || saltCaveInCart
                     ? "rgb(211, 211, 211)"
                     : "rgba(0, 129, 177, 0.4)"
                   : microdermabrasionInCart
                   ? "rgb(119, 221, 119, 0.6)"
-                  : microneedleInCart | chemicalPeelInCart
+                  : microneedleInCart | chemicalPeelInCart || saltCaveInCart
                   ? "rgb(211, 211, 211)"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -392,7 +397,7 @@ const Microdermabrasion = (props) => {
               className="small_screen_card_description_plus"
               style={{ display: microdermabrasionInCart ? "none" : "block" }}
               color={
-                microneedleInCart | chemicalPeelInCart
+                microneedleInCart | chemicalPeelInCart || saltCaveInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -524,38 +529,45 @@ const Microdermabrasion = (props) => {
                               background: bookNowButtonHovered
                                 ? microdermabrasionInCart
                                   ? "rgba(69, 171, 69, 0.6)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart | chemicalPeelInCart ||
+                                    saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : microdermabrasionInCart
                                 ? "rgba(119, 221, 119, 0.6)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart | chemicalPeelInCart ||
+                                  saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? microdermabrasionInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart | chemicalPeelInCart ||
+                                    saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : microdermabrasionInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart | chemicalPeelInCart ||
+                                  saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? microdermabrasionInCart
                                   ? "rgb(0, 0, 0)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart | chemicalPeelInCart ||
+                                    saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : microdermabrasionInCart
                                 ? "rgb(0, 0, 0)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart | chemicalPeelInCart ||
+                                  saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
                               cursor:
-                                chemicalPeelInCart | microneedleInCart
+                                microneedleInCart | chemicalPeelInCart ||
+                                saltCaveInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

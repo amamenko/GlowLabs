@@ -26,11 +26,8 @@ import ACTION_QUENCH_NOT_IN_CART from "../../../actions/InCart/Treatments/Quench
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
-import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
-import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
-import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 
 import { toast } from "react-toastify";
 import QuenchNotification from "./QuenchNotification";
@@ -38,6 +35,7 @@ import QuenchRemovedNotification from "./QuenchRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Quench.css";
 import "../../treatments_pages/Page_2/TreatmentsPage2.css";
+import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
 
 const Quench = (props) => {
   // "Learn More" states
@@ -60,6 +58,7 @@ const Quench = (props) => {
   const microneedleToggle = useSelector(
     (state) => state.microneedleToggle.toggle
   );
+  const saltCaveToggle = useSelector((state) => state.saltCaveToggle.toggle);
 
   // In Cart states
   const calmInCart = useSelector((state) => state.calmInCart.in_cart);
@@ -82,14 +81,11 @@ const Quench = (props) => {
     (state) => state.rejuvenateInCart.in_cart
   );
   const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
-  const reformattedDay = useSelector(
-    (state) => state.reformattedDay.reformattedDay
-  );
-  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
 
   const dispatch = useDispatch();
 
@@ -126,6 +122,9 @@ const Quench = (props) => {
       if (microneedleToggle) {
         dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
       }
+      if (saltCaveToggle) {
+        dispatch(ACTION_SALT_CAVE_TOGGLE_RESET());
+      }
     } else {
       dispatch(ACTION_QUENCH_TOGGLE_RESET());
     }
@@ -155,7 +154,7 @@ const Quench = (props) => {
                 <p className="card_description_paragraph_title">Price</p>
               </div>
               <div className="card_description_paragraph_value">
-                <p>$70</p>
+                <p>$105</p>
               </div>
             </div>
           </div>
@@ -319,7 +318,8 @@ const Quench = (props) => {
         rejuvenateInCart |
         quickieInCart |
         glowInCart ||
-      unsureInCart
+      unsureInCart ||
+      saltCaveInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
@@ -339,16 +339,11 @@ const Quench = (props) => {
         toast.dismiss();
         dispatch(ACTION_QUENCH_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
-        dispatch(ACTION_AVAILABILITY_RESET());
         dispatch(ACTION_SELECTED_DAY_RESET());
         dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
-        if (reformattedDay) {
-          dispatch(ACTION_REFORMATTED_DAY_RESET());
-        }
-        if (selectedTime) {
-          dispatch(ACTION_SELECTED_TIME_RESET());
-        }
+
+        props.resetAllCartStates();
         toast(
           <QuenchRemovedNotification
             currentScreenSize={props.currentScreenSize}
@@ -393,7 +388,9 @@ const Quench = (props) => {
                     microneedleInCart |
                     quenchInCart |
                     quickieInCart |
-                    rejuvenateInCart || unsureInCart
+                    rejuvenateInCart ||
+                  unsureInCart ||
+                  saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -414,7 +411,9 @@ const Quench = (props) => {
                         microneedleInCart |
                         rejuvenateInCart |
                         quickieInCart |
-                        glowInCart || unsureInCart
+                        glowInCart ||
+                      unsureInCart ||
+                      saltCaveInCart
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(0, 129, 177, 0.4)"
                   : quenchInCart
@@ -428,7 +427,9 @@ const Quench = (props) => {
                       microneedleInCart |
                       rejuvenateInCart |
                       quickieInCart |
-                      glowInCart || unsureInCart
+                      glowInCart ||
+                    unsureInCart ||
+                    saltCaveInCart
                   ? "rgba(211, 211, 211, 0.8"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -457,7 +458,9 @@ const Quench = (props) => {
                   microneedleInCart |
                   rejuvenateInCart |
                   quickieInCart |
-                  glowInCart || unsureInCart
+                  glowInCart ||
+                unsureInCart ||
+                saltCaveInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -477,7 +480,7 @@ const Quench = (props) => {
             className="big_screen_card_description_icon"
             icon={faTag}
           />
-          <p className="big_screen_price">$70</p>
+          <p className="big_screen_price">$105</p>
         </div>
         <div className="big_screen_duration_wrapper">
           <FontAwesomeIcon
@@ -596,7 +599,9 @@ const Quench = (props) => {
                                       microneedleInCart |
                                       rejuvenateInCart |
                                       quickieInCart |
-                                      glowInCart || unsureInCart
+                                      glowInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : quenchInCart
@@ -610,7 +615,9 @@ const Quench = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quickieInCart |
-                                    glowInCart || unsureInCart
+                                    glowInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
@@ -625,7 +632,9 @@ const Quench = (props) => {
                                       microneedleInCart |
                                       rejuvenateInCart |
                                       quickieInCart |
-                                      glowInCart || unsureInCart
+                                      glowInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : quenchInCart
@@ -639,7 +648,9 @@ const Quench = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quickieInCart |
-                                    glowInCart || unsureInCart
+                                    glowInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
@@ -654,7 +665,9 @@ const Quench = (props) => {
                                       microneedleInCart |
                                       rejuvenateInCart |
                                       quickieInCart |
-                                      glowInCart || unsureInCart
+                                      glowInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : quenchInCart
@@ -668,7 +681,9 @@ const Quench = (props) => {
                                     microneedleInCart |
                                     rejuvenateInCart |
                                     quickieInCart |
-                                    glowInCart || unsureInCart
+                                    glowInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
                               cursor:
@@ -681,7 +696,9 @@ const Quench = (props) => {
                                   microneedleInCart |
                                   rejuvenateInCart |
                                   quickieInCart |
-                                  glowInCart || unsureInCart
+                                  glowInCart ||
+                                unsureInCart ||
+                                saltCaveInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

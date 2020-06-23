@@ -36,6 +36,7 @@ const TreatmentsPage2 = (props) => {
     (state) => state.rejuvenateInCart.in_cart
   );
   const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
   const unsurePopUpTriggered = useSelector(
     (state) => state.unsurePopUpTriggered.unsure_pop_up_triggered
   );
@@ -113,6 +114,7 @@ const TreatmentsPage2 = (props) => {
         !quickieInCart &&
         !rejuvenateInCart &&
         !unsureInCart &&
+        !saltCaveInCart &&
         !cartIsActive &&
         location.pathname === "/"
       ) {
@@ -155,6 +157,7 @@ const TreatmentsPage2 = (props) => {
     rejuvenateInCart,
     unsurePopUpTriggered,
     cartIsActive,
+    saltCaveInCart,
     dispatch,
     location.pathname,
   ]);
@@ -175,20 +178,24 @@ const TreatmentsPage2 = (props) => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         bacialRendered={bacialRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Glow
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Rejuvenate
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         rejuvenateRendered={rejuvenateRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Quench
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         quenchRendered={quenchRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
     </InView>
   );

@@ -5,9 +5,9 @@ const ACTION_MICRO_IN_CART = () => {
     type: MICRO_IN_CART,
     payload: {
       name: "Microneedling",
-      price: 150,
-      duration: 50
-    }
+      price: 200,
+      duration: 50,
+    },
   };
 };
 

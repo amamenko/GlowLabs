@@ -26,17 +26,15 @@ import ACTION_BACIAL_NOT_IN_CART from "../../../actions/InCart/Treatments/Bacial
 import ACTION_NAVBAR_IS_VISIBLE from "../../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_INCREMENT_COUNTER from "../../../actions/Counter/ACTION_INCREMENT_COUNTER";
 import ACTION_DECREMENT_COUNTER from "../../../actions/Counter/ACTION_DECREMENT_COUNTER";
-import ACTION_AVAILABILITY_RESET from "../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_SELECTED_DAY_RESET from "../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
-import ACTION_REFORMATTED_DAY_RESET from "../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
-import ACTION_SELECTED_TIME_RESET from "../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 import { toast } from "react-toastify";
 import BacialNotification from "./BacialNotification";
 import BacialRemovedNotification from "./BacialRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Bacial.css";
 import "../../treatments_pages/Page_1/TreatmentsPage1.css";
+import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
 
 const Bacial = (props) => {
   // "Learn More" states
@@ -59,6 +57,7 @@ const Bacial = (props) => {
   const microneedleToggle = useSelector(
     (state) => state.microneedleToggle.toggle
   );
+  const saltCaveToggle = useSelector((state) => state.saltCaveToggle.toggle);
 
   // In Cart states
   const calmInCart = useSelector((state) => state.calmInCart.in_cart);
@@ -81,14 +80,11 @@ const Bacial = (props) => {
     (state) => state.rejuvenateInCart.in_cart
   );
   const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
-  const reformattedDay = useSelector(
-    (state) => state.reformattedDay.reformattedDay
-  );
-  const selectedTime = useSelector((state) => state.selectedTime.selectedTime);
 
   const dispatch = useDispatch();
 
@@ -125,6 +121,9 @@ const Bacial = (props) => {
       if (microneedleToggle) {
         dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
       }
+      if (saltCaveToggle) {
+        dispatch(ACTION_SALT_CAVE_TOGGLE_RESET());
+      }
     } else {
       dispatch(ACTION_BACIAL_TOGGLE_RESET());
     }
@@ -154,7 +153,7 @@ const Bacial = (props) => {
                 <p className="card_description_paragraph_title">Price</p>
               </div>
               <div className="card_description_paragraph_value">
-                <p>$70</p>
+                <p>$120</p>
               </div>
             </div>
           </div>
@@ -318,7 +317,8 @@ const Bacial = (props) => {
         quenchInCart |
         quickieInCart |
         rejuvenateInCart ||
-      unsureInCart
+      unsureInCart ||
+      saltCaveInCart
     ) {
       if (!toast.isActive(inCartToastId)) {
         toast.dismiss();
@@ -338,16 +338,11 @@ const Bacial = (props) => {
         toast.dismiss();
         dispatch(ACTION_BACIAL_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
-        dispatch(ACTION_AVAILABILITY_RESET());
         dispatch(ACTION_SELECTED_DAY_RESET());
         dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
-        if (reformattedDay) {
-          dispatch(ACTION_REFORMATTED_DAY_RESET());
-        }
-        if (selectedTime) {
-          dispatch(ACTION_SELECTED_TIME_RESET());
-        }
+
+        props.resetAllCartStates();
         toast(
           <BacialRemovedNotification
             currentScreenSize={props.currentScreenSize}
@@ -392,7 +387,9 @@ const Bacial = (props) => {
                     microneedleInCart |
                     quenchInCart |
                     quickieInCart |
-                    rejuvenateInCart || unsureInCart
+                    rejuvenateInCart ||
+                  unsureInCart ||
+                  saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -413,7 +410,9 @@ const Bacial = (props) => {
                         microneedleInCart |
                         quenchInCart |
                         quickieInCart |
-                        rejuvenateInCart || unsureInCart
+                        rejuvenateInCart ||
+                      unsureInCart ||
+                      saltCaveInCart
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(0, 129, 177, 0.4)"
                   : bacialInCart
@@ -427,7 +426,9 @@ const Bacial = (props) => {
                       microneedleInCart |
                       quenchInCart |
                       quickieInCart |
-                      rejuvenateInCart || unsureInCart
+                      rejuvenateInCart ||
+                    unsureInCart ||
+                    saltCaveInCart
                   ? "rgba(211, 211, 211, 0.8"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -456,7 +457,9 @@ const Bacial = (props) => {
                   microneedleInCart |
                   quenchInCart |
                   quickieInCart |
-                  rejuvenateInCart || unsureInCart
+                  rejuvenateInCart ||
+                unsureInCart ||
+                saltCaveInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -476,7 +479,7 @@ const Bacial = (props) => {
             className="big_screen_card_description_icon"
             icon={faTag}
           />
-          <p className="big_screen_price">$70</p>
+          <p className="big_screen_price">$120</p>
         </div>
         <div className="big_screen_duration_wrapper">
           <FontAwesomeIcon
@@ -595,7 +598,9 @@ const Bacial = (props) => {
                                       microneedleInCart |
                                       quenchInCart |
                                       quickieInCart |
-                                      rejuvenateInCart || unsureInCart
+                                      rejuvenateInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : bacialInCart
@@ -609,7 +614,9 @@ const Bacial = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart || unsureInCart
+                                    rejuvenateInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
@@ -624,7 +631,9 @@ const Bacial = (props) => {
                                       microneedleInCart |
                                       quenchInCart |
                                       quickieInCart |
-                                      rejuvenateInCart || unsureInCart
+                                      rejuvenateInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : bacialInCart
@@ -638,7 +647,9 @@ const Bacial = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart || unsureInCart
+                                    rejuvenateInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
@@ -653,7 +664,9 @@ const Bacial = (props) => {
                                       microneedleInCart |
                                       quenchInCart |
                                       quickieInCart |
-                                      rejuvenateInCart || unsureInCart
+                                      rejuvenateInCart ||
+                                    unsureInCart ||
+                                    saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : bacialInCart
@@ -667,7 +680,9 @@ const Bacial = (props) => {
                                     microneedleInCart |
                                     quenchInCart |
                                     quickieInCart |
-                                    rejuvenateInCart || unsureInCart
+                                    rejuvenateInCart ||
+                                  unsureInCart ||
+                                  saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
                               cursor:
@@ -680,7 +695,9 @@ const Bacial = (props) => {
                                   microneedleInCart |
                                   quenchInCart |
                                   quickieInCart |
-                                  rejuvenateInCart || unsureInCart
+                                  rejuvenateInCart ||
+                                unsureInCart ||
+                                saltCaveInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

@@ -22,6 +22,8 @@ const REJUVENATE_IN_CART = "REJUVENATE_IN_CART";
 const REJUVENATE_NOT_IN_CART = "REJUVENATE_NOT_IN_CART";
 const UNSURE_IN_CART = "UNSURE_IN_CART";
 const UNSURE_NOT_IN_CART = "UNSURE_NOT_IN_CART";
+const SALT_CAVE_IN_CART = "SALT_CAVE_IN_CART";
+const SALT_CAVE_NOT_IN_CART = "SALT_CAVE_NOT_IN_CART";
 const TREATMENTS_CART_RESET = "TREATMENTS_CART_RESET";
 
 const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
@@ -40,6 +42,7 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
     case QUICKIE_IN_CART:
     case REJUVENATE_IN_CART:
     case UNSURE_IN_CART:
+    case SALT_CAVE_IN_CART:
       return {
         ...state,
         treatments_arr: treatments_arr_clone.concat({
@@ -60,6 +63,7 @@ const treatmentsArrReducer = (state = { treatments_arr: [] }, action) => {
     case QUICKIE_NOT_IN_CART:
     case REJUVENATE_NOT_IN_CART:
     case UNSURE_NOT_IN_CART:
+    case SALT_CAVE_NOT_IN_CART:
       return {
         ...state,
         treatments_arr:

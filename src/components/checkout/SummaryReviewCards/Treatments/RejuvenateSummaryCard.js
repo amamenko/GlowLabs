@@ -36,7 +36,7 @@ const RejuvenateSummaryCard = (props) => {
           <p>50 minutes</p>
         </div>
         <div className="summary_card_booking_description_right_section">
-          <p>$80</p>
+          <p>$105</p>
         </div>
       </div>
     </div>

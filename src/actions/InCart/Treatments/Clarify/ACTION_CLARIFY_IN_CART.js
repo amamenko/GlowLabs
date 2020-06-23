@@ -5,9 +5,9 @@ const ACTION_CLARIFY_IN_CART = () => {
     type: CLARIFY_IN_CART,
     payload: {
       name: "Clarify",
-      price: 70,
-      duration: 50
-    }
+      price: 105,
+      duration: 50,
+    },
   };
 };
 

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Rejuvenate from "../../treatments/Rejuvenate/Rejuvenate";
 import Quench from "../../treatments/Quench/Quench";
-import Quickie from "../../treatments/Quickie/Quickie";
 import ChemicalPeel from "../../treatments/ChemicalPeel/ChemicalPeel";
 import Dermaplaning from "../../treatments/Dermaplaning/Dermaplaning";
 import "./TreatmentsPage3.css";
+import SaltCave from "../../treatments/SaltCave/SaltCave";
 
 const TreatmentsPage3 = (props) => {
   const [rejuvenateRendered, changeRejuvenateRendered] = useState("grid");
   const [quenchRendered, changeQuenchRendered] = useState("none");
-  const [quickieChemPeelRendered, changeQuickieChemPeelRendered] = useState(
+  const [saltCaveChemPeelRendered, changeSaltCaveChemPeelRendered] = useState(
     "none"
   );
   const [dermaplaningRendered, changeDermaplaningRendered] = useState("grid");
@@ -53,19 +53,19 @@ const TreatmentsPage3 = (props) => {
   useEffect(() => {
     if (props.currentScreenSize === "") {
       if (props.initialScreenSize >= 600 && props.initialScreenSize <= 1200) {
-        changeQuickieChemPeelRendered("none");
+        changeSaltCaveChemPeelRendered("none");
       } else {
-        changeQuickieChemPeelRendered("grid");
+        changeSaltCaveChemPeelRendered("grid");
       }
     } else {
       if (props.currentScreenSize >= 600 && props.currentScreenSize <= 1200) {
-        changeQuickieChemPeelRendered("none");
+        changeSaltCaveChemPeelRendered("none");
       } else {
-        changeQuickieChemPeelRendered("grid");
+        changeSaltCaveChemPeelRendered("grid");
       }
     }
   }, [
-    changeQuickieChemPeelRendered,
+    changeSaltCaveChemPeelRendered,
     props.currentScreenSize,
     props.initialScreenSize,
   ]);
@@ -96,26 +96,31 @@ const TreatmentsPage3 = (props) => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         rejuvenateRendered={rejuvenateRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Quench
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         quenchRendered={quenchRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
-      <Quickie
+      <SaltCave
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
-        quickieChemPeelRendered={quickieChemPeelRendered}
+        saltCaveChemPeelRendered={saltCaveChemPeelRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <ChemicalPeel
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
-        quickieChemPeelRendered={quickieChemPeelRendered}
+        saltCaveChemPeelRendered={saltCaveChemPeelRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Dermaplaning
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         dermaplaningRendered={dermaplaningRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
     </div>
   );

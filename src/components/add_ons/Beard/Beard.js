@@ -65,6 +65,7 @@ const Beard = (props) => {
   const chemicalPeelInCart = useSelector(
     (state) => state.chemicalPeelInCart.in_cart
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
@@ -281,7 +282,7 @@ const Beard = (props) => {
   const microneedlingAddOnErrorToastId = "microneedling_add_on_error";
 
   const addToCart = () => {
-    if (chemicalPeelInCart) {
+    if (chemicalPeelInCart || saltCaveInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
         toast(
@@ -316,6 +317,8 @@ const Beard = (props) => {
           dispatch(ACTION_BEARD_NOT_IN_CART());
           dispatch(ACTION_DECREMENT_COUNTER());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
+
+          props.resetAllCartStatesExceptTreatments();
           toast(
             <BeardRemovedNotification
               currentScreenSize={props.currentScreenSize}
@@ -330,6 +333,8 @@ const Beard = (props) => {
           dispatch(ACTION_BEARD_IN_CART());
           dispatch(ACTION_INCREMENT_COUNTER());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
+
+          props.resetAllCartStatesExceptTreatments();
           changeCartClicked(true);
           setTimeout(() => changeCartClicked(false), 200);
           toast(
@@ -353,7 +358,7 @@ const Beard = (props) => {
               beardToggle
                 ? beardInCart
                   ? { position: "relative" }
-                  : microneedleInCart | chemicalPeelInCart
+                  : microneedleInCart | chemicalPeelInCart | saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -365,12 +370,12 @@ const Beard = (props) => {
                 beardToggle
                   ? beardInCart
                     ? "rgb(119, 221, 119, 0.6)"
-                    : microneedleInCart | chemicalPeelInCart
+                    : microneedleInCart | chemicalPeelInCart | saltCaveInCart
                     ? "rgb(211, 211, 211)"
                     : "rgba(0, 129, 177, 0.4)"
                   : beardInCart
                   ? "rgb(119, 221, 119, 0.6)"
-                  : microneedleInCart | chemicalPeelInCart
+                  : microneedleInCart | chemicalPeelInCart | saltCaveInCart
                   ? "rgb(211, 211, 211)"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -390,7 +395,7 @@ const Beard = (props) => {
               className="small_screen_card_description_plus"
               style={{ display: beardInCart ? "none" : "block" }}
               color={
-                microneedleInCart | chemicalPeelInCart
+                microneedleInCart | chemicalPeelInCart | saltCaveInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -520,38 +525,52 @@ const Beard = (props) => {
                               background: bookNowButtonHovered
                                 ? beardInCart
                                   ? "rgba(69, 171, 69, 0.6)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart |
+                                    chemicalPeelInCart |
+                                    saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : beardInCart
                                 ? "rgba(119, 221, 119, 0.6)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart |
+                                  chemicalPeelInCart |
+                                  saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? beardInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart |
+                                    chemicalPeelInCart |
+                                    saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : beardInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart |
+                                  chemicalPeelInCart |
+                                  saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? beardInCart
                                   ? "rgb(0, 0, 0)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart |
+                                    chemicalPeelInCart |
+                                    saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : beardInCart
                                 ? "rgb(0, 0, 0)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart |
+                                  chemicalPeelInCart |
+                                  saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
                               cursor:
-                                chemicalPeelInCart | microneedleInCart
+                                microneedleInCart |
+                                chemicalPeelInCart |
+                                saltCaveInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

@@ -4,12 +4,14 @@ import ACTION_MICRODERMABRASION_NOT_IN_CART from "../../../../actions/InCart/Add
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import "../../CartCard.css";
 
-const MicrodermabrasionCard = props => {
+const MicrodermabrasionCard = (props) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     dispatch(ACTION_MICRODERMABRASION_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
+
+    props.resetAllCartStatesExceptTreatments();
   };
 
   return (

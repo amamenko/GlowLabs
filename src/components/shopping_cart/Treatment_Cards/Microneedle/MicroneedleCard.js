@@ -1,34 +1,21 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ACTION_MICRO_NOT_IN_CART from "../../../../actions/InCart/Treatments/Microneedle/ACTION_MICRO_NOT_IN_CART";
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
-import ACTION_AVAILABILITY_RESET from "../../../../actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
 import ACTION_SELECTED_DAY_RESET from "../../../../actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
 import ACTION_SELECT_TIME_NOT_ACTIVE from "../../../../actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
-import ACTION_REFORMATTED_DAY_RESET from "../../../../actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
-import ACTION_SELECTED_TIME_RESET from "../../../../actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
 import "../../CartCard.css";
 
-const MicroneedleCard = props => {
+const MicroneedleCard = (props) => {
   const dispatch = useDispatch();
-
-  const reformattedDay = useSelector(
-    state => state.reformattedDay.reformattedDay
-  );
-  const selectedTime = useSelector(state => state.selectedTime.selectedTime);
 
   const handleRemove = () => {
     dispatch(ACTION_MICRO_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
-    dispatch(ACTION_AVAILABILITY_RESET());
     dispatch(ACTION_SELECTED_DAY_RESET());
     dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
-    if (reformattedDay) {
-      dispatch(ACTION_REFORMATTED_DAY_RESET());
-    }
-    if (selectedTime) {
-      dispatch(ACTION_SELECTED_TIME_RESET());
-    }
+
+    props.resetAllCartStates();
   };
 
   return (
@@ -69,7 +56,7 @@ const MicroneedleCard = props => {
         </div>
         <div className="cart_card_bottom_container">
           <div className="shopping_cart_price_container">
-            <p className="shopping_cart_price">$150</p>
+            <p className="shopping_cart_price">$200</p>
           </div>
           <div className="shopping_cart_remove_button" onClick={handleRemove}>
             <p>Remove</p>

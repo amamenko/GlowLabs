@@ -71,6 +71,7 @@ const Microcurrent = (props) => {
   const chemicalPeelInCart = useSelector(
     (state) => state.chemicalPeelInCart.in_cart
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
@@ -289,7 +290,7 @@ const Microcurrent = (props) => {
   const microcurrentRejuvenateErrorToastId = "microcurrent_rejuvenate_error";
 
   const addToCart = () => {
-    if (chemicalPeelInCart) {
+    if (chemicalPeelInCart || saltCaveInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
         toast(<AddOnsChemPeelErrorNotification />, {
@@ -335,6 +336,8 @@ const Microcurrent = (props) => {
             dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
             dispatch(ACTION_DECREMENT_COUNTER());
             dispatch(ACTION_NAVBAR_IS_VISIBLE());
+
+            props.resetAllCartStatesExceptTreatments();
             toast(
               <MicrocurrentRemovedNotification
                 currentScreenSize={props.currentScreenSize}
@@ -351,6 +354,8 @@ const Microcurrent = (props) => {
             dispatch(ACTION_NAVBAR_IS_VISIBLE());
             changeCartClicked(true);
             setTimeout(() => changeCartClicked(false), 200);
+
+            props.resetAllCartStatesExceptTreatments();
             toast(
               <MicrocurrentNotification
                 currentScreenSize={props.currentScreenSize}
@@ -373,7 +378,8 @@ const Microcurrent = (props) => {
               microcurrentToggle
                 ? microcurrentInCart
                   ? { position: "relative" }
-                  : rejuvenateInCart | microneedleInCart | chemicalPeelInCart
+                  : rejuvenateInCart | microneedleInCart | chemicalPeelInCart ||
+                    saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -385,12 +391,15 @@ const Microcurrent = (props) => {
                 microcurrentToggle
                   ? microcurrentInCart
                     ? "rgb(119, 221, 119, 0.6)"
-                    : rejuvenateInCart | microneedleInCart | chemicalPeelInCart
+                    : rejuvenateInCart |
+                        microneedleInCart |
+                        chemicalPeelInCart || saltCaveInCart
                     ? "rgb(211, 211, 211)"
                     : "rgba(0, 129, 177, 0.4)"
                   : microcurrentInCart
                   ? "rgb(119, 221, 119, 0.6)"
-                  : rejuvenateInCart | microneedleInCart | chemicalPeelInCart
+                  : rejuvenateInCart | microneedleInCart | chemicalPeelInCart ||
+                    saltCaveInCart
                   ? "rgb(211, 211, 211)"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -410,7 +419,8 @@ const Microcurrent = (props) => {
               className="small_screen_card_description_plus"
               style={{ display: microcurrentInCart ? "none" : "block" }}
               color={
-                rejuvenateInCart | microneedleInCart | chemicalPeelInCart
+                rejuvenateInCart | microneedleInCart | chemicalPeelInCart ||
+                saltCaveInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -536,52 +546,52 @@ const Microcurrent = (props) => {
                               background: bookNowButtonHovered
                                 ? microcurrentInCart
                                   ? "rgba(69, 171, 69, 0.6)"
-                                  : chemicalPeelInCart |
-                                    microneedleInCart |
-                                    rejuvenateInCart
+                                  : rejuvenateInCart |
+                                      microneedleInCart |
+                                      chemicalPeelInCart || saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : microcurrentInCart
                                 ? "rgba(119, 221, 119, 0.6)"
-                                : chemicalPeelInCart |
-                                  microneedleInCart |
-                                  rejuvenateInCart
+                                : rejuvenateInCart |
+                                    microneedleInCart |
+                                    chemicalPeelInCart || saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? microcurrentInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
-                                  : chemicalPeelInCart |
-                                    microneedleInCart |
-                                    rejuvenateInCart
+                                  : rejuvenateInCart |
+                                      microneedleInCart |
+                                      chemicalPeelInCart || saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : microcurrentInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : chemicalPeelInCart |
-                                  microneedleInCart |
-                                  rejuvenateInCart
+                                : rejuvenateInCart |
+                                    microneedleInCart |
+                                    chemicalPeelInCart || saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? microcurrentInCart
                                   ? "rgb(0, 0, 0)"
-                                  : chemicalPeelInCart |
-                                    microneedleInCart |
-                                    rejuvenateInCart
+                                  : rejuvenateInCart |
+                                      microneedleInCart |
+                                      chemicalPeelInCart || saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : microcurrentInCart
                                 ? "rgb(0, 0, 0)"
-                                : chemicalPeelInCart |
-                                  microneedleInCart |
-                                  rejuvenateInCart
+                                : rejuvenateInCart |
+                                    microneedleInCart |
+                                    chemicalPeelInCart || saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
                               cursor:
-                                chemicalPeelInCart |
-                                microneedleInCart |
-                                rejuvenateInCart
+                                rejuvenateInCart |
+                                  microneedleInCart |
+                                  chemicalPeelInCart || saltCaveInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

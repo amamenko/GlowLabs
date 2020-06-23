@@ -6,14 +6,14 @@ import GuaSha from "../../add_ons/GuaSha/GuaSha";
 import Beard from "../../add_ons/Beard/Beard";
 import "./AddOnsPage3.css";
 
-const AddOnsPage3 = props => {
+const AddOnsPage3 = (props) => {
   const [microdermabrasionRendered, changeMicrodermabrasionRendered] = useState(
     "grid"
   );
   const [dermarollingRendered, changeDermarollingRendered] = useState("none");
   const [
     nanoNeedlingGuashaRendered,
-    changeNanoNeedlingGuashaRendered
+    changeNanoNeedlingGuashaRendered,
   ] = useState("none");
   const [beardRendered, changeBeardRendered] = useState("grid");
 
@@ -34,7 +34,7 @@ const AddOnsPage3 = props => {
   }, [
     changeMicrodermabrasionRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const AddOnsPage3 = props => {
   }, [
     changeDermarollingRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const AddOnsPage3 = props => {
   }, [
     changeNanoNeedlingGuashaRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const AddOnsPage3 = props => {
   }, [
     changeDermarollingRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   return (
@@ -103,26 +103,41 @@ const AddOnsPage3 = props => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         microdermabrasionRendered={microdermabrasionRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <Dermarolling
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         dermarollingRendered={dermarollingRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <NanoNeedling
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         nanoNeedlingGuashaRendered={nanoNeedlingGuashaRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <GuaSha
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         nanoNeedlingGuashaRendered={nanoNeedlingGuashaRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <Beard
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         beardRendered={beardRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
     </div>
   );

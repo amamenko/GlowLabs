@@ -61,6 +61,7 @@ const LEDTherapy = (props) => {
   const chemicalPeelInCart = useSelector(
     (state) => state.chemicalPeelInCart.in_cart
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
@@ -277,7 +278,7 @@ const LEDTherapy = (props) => {
   const chemPeelAddOnErrorToastId = "chem_peel_add_on_error";
 
   const addToCart = () => {
-    if (chemicalPeelInCart) {
+    if (chemicalPeelInCart || saltCaveInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
         toast(
@@ -297,6 +298,8 @@ const LEDTherapy = (props) => {
         dispatch(ACTION_LED_NOT_IN_CART());
         dispatch(ACTION_DECREMENT_COUNTER());
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
+
+        props.resetAllCartStatesExceptTreatments();
         toast(
           <LEDTherapyRemovedNotification
             currentScreenSize={props.currentScreenSize}
@@ -313,6 +316,8 @@ const LEDTherapy = (props) => {
         dispatch(ACTION_NAVBAR_IS_VISIBLE());
         changeCartClicked(true);
         setTimeout(() => changeCartClicked(false), 200);
+
+        props.resetAllCartStatesExceptTreatments();
         toast(
           <LEDTherapyNotification
             currentScreenSize={props.currentScreenSize}
@@ -333,7 +338,7 @@ const LEDTherapy = (props) => {
               ledTherapyToggle
                 ? ledInCart
                   ? { position: "relative" }
-                  : chemicalPeelInCart
+                  : chemicalPeelInCart || saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -345,12 +350,12 @@ const LEDTherapy = (props) => {
                 ledTherapyToggle
                   ? ledInCart
                     ? "rgb(119, 221, 119, 0.6)"
-                    : chemicalPeelInCart
+                    : chemicalPeelInCart || saltCaveInCart
                     ? "rgb(211, 211, 211)"
                     : "rgba(0, 129, 177, 0.4)"
                   : ledInCart
                   ? "rgb(119, 221, 119, 0.6)"
-                  : chemicalPeelInCart
+                  : chemicalPeelInCart || saltCaveInCart
                   ? "rgb(211, 211, 211)"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -370,7 +375,9 @@ const LEDTherapy = (props) => {
               className="small_screen_card_description_plus"
               style={{ display: ledInCart ? "none" : "block" }}
               color={
-                chemicalPeelInCart ? "rgb(151, 151, 151)" : "rgb(0, 129, 177)"
+                chemicalPeelInCart || saltCaveInCart
+                  ? "rgb(151, 151, 151)"
+                  : "rgb(0, 129, 177)"
               }
               icon={faPlus}
             />
@@ -498,37 +505,40 @@ const LEDTherapy = (props) => {
                               background: bookNowButtonHovered
                                 ? ledInCart
                                   ? "rgba(69, 171, 69, 0.6)"
-                                  : chemicalPeelInCart
+                                  : chemicalPeelInCart || saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : ledInCart
                                 ? "rgba(119, 221, 119, 0.6)"
-                                : chemicalPeelInCart
+                                : chemicalPeelInCart || saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? ledInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
-                                  : chemicalPeelInCart
+                                  : chemicalPeelInCart || saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : ledInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : chemicalPeelInCart
+                                : chemicalPeelInCart || saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? ledInCart
                                   ? "rgb(0, 0, 0)"
-                                  : chemicalPeelInCart
+                                  : chemicalPeelInCart || saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : ledInCart
                                 ? "rgb(0, 0, 0)"
-                                : chemicalPeelInCart
+                                : chemicalPeelInCart || saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
-                              cursor: chemicalPeelInCart ? "auto" : "pointer",
+                              cursor:
+                                chemicalPeelInCart || saltCaveInCart
+                                  ? "auto"
+                                  : "pointer",
                               transition: "all 0.5s ease",
                             }}
                             onMouseEnter={() =>

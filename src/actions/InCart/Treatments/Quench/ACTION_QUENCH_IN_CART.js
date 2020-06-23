@@ -5,9 +5,9 @@ const ACTION_QUENCH_IN_CART = () => {
     type: QUENCH_IN_CART,
     payload: {
       name: "Quench",
-      price: 70,
-      duration: 50
-    }
+      price: 105,
+      duration: 50,
+    },
   };
 };
 

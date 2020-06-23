@@ -4,12 +4,14 @@ import ACTION_LED_NOT_IN_CART from "../../../../actions/InCart/AddOns/LEDTherapy
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import "../../CartCard.css";
 
-const LEDTherapyCard = props => {
+const LEDTherapyCard = (props) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     dispatch(ACTION_LED_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
+
+    props.resetAllCartStatesExceptTreatments();
   };
 
   return (

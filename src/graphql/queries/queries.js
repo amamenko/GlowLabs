@@ -87,6 +87,7 @@ const getEmployeesQuery = gql`
 const getAllAppointmentsQuery = gql`
   {
     all_appointments {
+      id
       date
       startTime
       endTime

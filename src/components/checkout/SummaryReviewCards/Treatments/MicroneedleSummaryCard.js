@@ -51,7 +51,7 @@ const MicroneedleSummaryCard = (props) => {
           <p>50 minutes</p>
         </div>
         <div className="summary_card_booking_description_right_section">
-          <p>$150</p>
+          <p>$200</p>
         </div>
       </div>
     </div>

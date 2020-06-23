@@ -4,12 +4,14 @@ import ACTION_HYDROJELLY_NOT_IN_CART from "../../../../actions/InCart/AddOns/Hyd
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import "../../CartCard.css";
 
-const HydroJellyMaskCard = props => {
+const HydroJellyMaskCard = (props) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     dispatch(ACTION_HYDROJELLY_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
+
+    props.resetAllCartStatesExceptTreatments();
   };
 
   return (

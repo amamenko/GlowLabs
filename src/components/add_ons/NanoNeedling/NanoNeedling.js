@@ -67,6 +67,7 @@ const NanoNeedling = (props) => {
   const chemicalPeelInCart = useSelector(
     (state) => state.chemicalPeelInCart.in_cart
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
@@ -283,7 +284,7 @@ const NanoNeedling = (props) => {
   const microneedlingAddOnErrorToastId = "microneedling_add_on_error";
 
   const addToCart = () => {
-    if (chemicalPeelInCart) {
+    if (chemicalPeelInCart || saltCaveInCart) {
       if (!toast.isActive(chemPeelAddOnErrorToastId)) {
         toast.dismiss();
         toast(
@@ -318,6 +319,8 @@ const NanoNeedling = (props) => {
           dispatch(ACTION_NANONEEDLING_NOT_IN_CART());
           dispatch(ACTION_DECREMENT_COUNTER());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
+
+          props.resetAllCartStatesExceptTreatments();
           toast(
             <NanoNeedlingRemovedNotification
               currentScreenSize={props.currentScreenSize}
@@ -334,6 +337,8 @@ const NanoNeedling = (props) => {
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
           changeCartClicked(true);
           setTimeout(() => changeCartClicked(false), 200);
+
+          props.resetAllCartStatesExceptTreatments();
           toast(
             <NanoNeedlingNotification
               currentScreenSize={props.currentScreenSize}
@@ -355,7 +360,7 @@ const NanoNeedling = (props) => {
               nanoneedlingToggle
                 ? nanoneedlingInCart
                   ? { position: "relative" }
-                  : microneedleInCart | chemicalPeelInCart
+                  : microneedleInCart | chemicalPeelInCart || saltCaveInCart
                   ? { position: "relative" }
                   : styles
                 : { position: "relative" }
@@ -367,12 +372,12 @@ const NanoNeedling = (props) => {
                 nanoneedlingToggle
                   ? nanoneedlingInCart
                     ? "rgb(119, 221, 119, 0.6)"
-                    : microneedleInCart | chemicalPeelInCart
+                    : microneedleInCart | chemicalPeelInCart || saltCaveInCart
                     ? "rgb(211, 211, 211)"
                     : "rgba(0, 129, 177, 0.4)"
                   : nanoneedlingInCart
                   ? "rgb(119, 221, 119, 0.6)"
-                  : microneedleInCart | chemicalPeelInCart
+                  : microneedleInCart | chemicalPeelInCart || saltCaveInCart
                   ? "rgb(211, 211, 211)"
                   : "rgba(0, 129, 177, 0.3)"
               }
@@ -392,7 +397,7 @@ const NanoNeedling = (props) => {
               className="small_screen_card_description_plus"
               style={{ display: nanoneedlingInCart ? "none" : "block" }}
               color={
-                microneedleInCart | chemicalPeelInCart
+                microneedleInCart | chemicalPeelInCart || saltCaveInCart
                   ? "rgb(151, 151, 151)"
                   : "rgb(0, 129, 177)"
               }
@@ -522,38 +527,45 @@ const NanoNeedling = (props) => {
                               background: bookNowButtonHovered
                                 ? nanoneedlingInCart
                                   ? "rgba(69, 171, 69, 0.6)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart | chemicalPeelInCart ||
+                                    saltCaveInCart
                                   ? "rgb(201, 201, 201)"
                                   : "rgb(0, 129, 177)"
                                 : nanoneedlingInCart
                                 ? "rgba(119, 221, 119, 0.6)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart | chemicalPeelInCart ||
+                                  saltCaveInCart
                                 ? "rgb(201, 201, 201)"
                                 : "transparent",
                               border: bookNowButtonHovered
                                 ? nanoneedlingInCart
                                   ? "1px solid rgb(69, 171, 69, 0.8)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart | chemicalPeelInCart ||
+                                    saltCaveInCart
                                   ? "1px solid transparent"
                                   : "1px solid rgb(0, 129, 177)"
                                 : nanoneedlingInCart
                                 ? "1px solid rgb(69, 171, 69, 0.8)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart | chemicalPeelInCart ||
+                                  saltCaveInCart
                                 ? "1px solid transparent"
                                 : "1px solid rgb(0, 129, 177)",
                               color: bookNowButtonHovered
                                 ? nanoneedlingInCart
                                   ? "rgb(0, 0, 0)"
-                                  : chemicalPeelInCart | microneedleInCart
+                                  : microneedleInCart | chemicalPeelInCart ||
+                                    saltCaveInCart
                                   ? "rgb(141, 141, 141)"
                                   : "rgb(255, 255, 255)"
                                 : nanoneedlingInCart
                                 ? "rgb(0, 0, 0)"
-                                : chemicalPeelInCart | microneedleInCart
+                                : microneedleInCart | chemicalPeelInCart ||
+                                  saltCaveInCart
                                 ? "rgb(141, 141, 141)"
                                 : "rgb(0, 129, 177)",
                               cursor:
-                                chemicalPeelInCart | microneedleInCart
+                                microneedleInCart | chemicalPeelInCart ||
+                                saltCaveInCart
                                   ? "auto"
                                   : "pointer",
                               transition: "all 0.5s ease",

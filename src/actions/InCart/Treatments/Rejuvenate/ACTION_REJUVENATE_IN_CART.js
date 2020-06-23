@@ -5,9 +5,9 @@ const ACTION_REJUVENATE_IN_CART = () => {
     type: REJUVENATE_IN_CART,
     payload: {
       name: "Rejuvenate",
-      price: 80,
-      duration: 50
-    }
+      price: 105,
+      duration: 50,
+    },
   };
 };
 

@@ -237,6 +237,9 @@ import cartPageOpenedReducer from "./reducers/InCart/CartPageOpened/cartPageOpen
 import adminClientSectionSelectedReducer from "./reducers/Admin/AdminLogin/AdminClientSectionSelected/adminClientSectionSelectedReducer";
 import selectedEstheticianReducer from "./reducers/SelectedEsthetician/selectedEstheticianReducer";
 import finalBookingModalReducer from "./reducers/InCart/FinalBookingModal/finalBookingModalReducer";
+import saltCaveToggleReducer from "./reducers/Treatments/SaltCave/saltCaveToggleReducer";
+import saltCaveInCartReducer from "./reducers/InCart/Treatments/SaltCave/saltCaveInCartReducer";
+import selectedSaltCaveDurationReducer from "./reducers/Treatments/SaltCave/SaltCaveDuration/selectedSaltCaveDurationReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -252,6 +255,8 @@ const RootReducer = combineReducers({
   dermaplaningToggle: dermaplaningToggleReducer,
   cbdToggle: cbdToggleReducer,
   microneedleToggle: microneedleToggleReducer,
+  saltCaveToggle: saltCaveToggleReducer,
+  selectedSaltCaveDuration: selectedSaltCaveDurationReducer,
 
   // Add-Ons
   beardToggle: beardToggleReducer,
@@ -279,6 +284,7 @@ const RootReducer = combineReducers({
   rejuvenateInCart: rejuvenateInCartReducer,
   unsurePopUpTriggered: unsurePopUpTriggeredReducer,
   unsureInCart: unsureInCartReducer,
+  saltCaveInCart: saltCaveInCartReducer,
   treatmentsArr: treatmentsArrReducer,
 
   // Add-Ons

@@ -1,0 +1,10 @@
+const SELECTED_SALT_CAVE_DURATION = "SELECTED_SALT_CAVE_DURATION";
+
+const ACTION_SELECTED_SALT_CAVE_DURATION = (duration) => {
+  return {
+    type: SELECTED_SALT_CAVE_DURATION,
+    duration,
+  };
+};
+
+export default ACTION_SELECTED_SALT_CAVE_DURATION;

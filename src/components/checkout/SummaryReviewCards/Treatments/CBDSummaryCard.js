@@ -39,7 +39,7 @@ const CBDSummaryCard = (props) => {
           <p>1 hour</p>
         </div>
         <div className="summary_card_booking_description_right_section">
-          <p>$120</p>
+          <p>$150</p>
         </div>
       </div>
     </div>

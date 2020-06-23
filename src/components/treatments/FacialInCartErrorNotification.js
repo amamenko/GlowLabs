@@ -1,8 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
-const FacialInCartErrorNotification = props => {
+const FacialInCartErrorNotification = (props) => {
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
+
   return (
     <div
       className="notification_container"
@@ -15,7 +18,7 @@ const FacialInCartErrorNotification = props => {
             : props.currentScreenSize >= 1800
             ? "3rem"
             : "0rem",
-        backgroundColor: "rgb(225, 225, 225)"
+        backgroundColor: "rgb(225, 225, 225)",
       }}
     >
       <FontAwesomeIcon
@@ -40,7 +43,7 @@ const FacialInCartErrorNotification = props => {
               : props.currentScreenSize >= 375
               ? "3.2rem"
               : "2.5rem",
-          color: "rgb(0, 0, 0)"
+          color: "rgb(0, 0, 0)",
         }}
         icon={faExclamationCircle}
       />
@@ -70,11 +73,14 @@ const FacialInCartErrorNotification = props => {
               ? "2rem"
               : props.currentScreenSize >= 375
               ? "0.8rem"
-              : "0.5rem"
+              : "0.5rem",
         }}
       >
-        <h3>Cart Contains Facial</h3>
-        <p>You already have a facial treatment in your cart</p>
+        <h3>Cart Contains {saltCaveInCart ? "Treatment" : "Facial"}</h3>
+        <p>
+          You already have a{saltCaveInCart ? null : " facial"} treatment in
+          your cart
+        </p>
       </div>
     </div>
   );

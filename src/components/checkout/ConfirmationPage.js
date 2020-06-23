@@ -79,6 +79,8 @@ import ACTION_FINAL_BOOKING_MODAL_ACTIVE from "../../actions/InCart/FinalBooking
 import ACTION_FINAL_BOOKING_MODAL_RESET from "../../actions/InCart/FinalBookingModal/ACTION_FINAL_BOOKING_MODAL_RESET";
 import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
 import "./ConfirmationPage.css";
+import SaltCaveSummaryCard from "./SummaryReviewCards/Treatments/SaltCaveSummaryCard";
+import ACTION_SELECTED_SALT_CAVE_DURATION_RESET from "../../actions/Treatments/SaltCave/SaltCaveDuration/ACTION_SELECTED_SALT_CAVE_DURATION_RESET";
 
 const ConfirmationPage = (props) => {
   let location = useLocation();
@@ -106,6 +108,7 @@ const ConfirmationPage = (props) => {
   const consentFormAnythingChanged = useSelector(
     (state) => state.consentFormAnythingChanged.consent_form_anything_changed
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
   const firstName = useSelector((state) => state.firstName.first_name);
   const lastName = useSelector((state) => state.lastName.last_name);
   const email = useSelector((state) => state.email.email);
@@ -353,6 +356,15 @@ const ConfirmationPage = (props) => {
         />
       ),
     },
+    {
+      name: "Salt Cave",
+      component: (
+        <SaltCaveSummaryCard
+          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={props.currentScreenSize}
+        />
+      ),
+    },
   ];
 
   const addOnsSummaryCardComponentsArr = [
@@ -540,6 +552,7 @@ const ConfirmationPage = (props) => {
     dispatch(ACTION_SELECTED_TIME_RESET());
     dispatch(ACTION_SELECTED_DAY_RESET());
     dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
+    dispatch(ACTION_SELECTED_SALT_CAVE_DURATION_RESET());
     dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
     dispatch(ACTION_ALL_COLLAPSE_RESET());
     dispatch(ACTION_TREATMENTS_CART_RESET());
@@ -657,7 +670,10 @@ const ConfirmationPage = (props) => {
       </div>
       <div className="summary_facial_container">
         <h2 className="summary_facial_container_title">
-          My Facial (with {selectedEsthetician})
+          My
+          {saltCaveInCart
+            ? " Treatment"
+            : " Facial (with " + selectedEsthetician + ")"}
         </h2>
         {renderSummaryCardTreatments()}
       </div>

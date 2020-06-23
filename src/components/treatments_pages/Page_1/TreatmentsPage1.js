@@ -119,15 +119,18 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
       <Calm
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Clarify
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Bacial
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         bacialRendered={bacialRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
     </div>
   );

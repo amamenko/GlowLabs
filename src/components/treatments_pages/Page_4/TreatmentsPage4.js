@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Dermaplaning from "../../treatments/Dermaplaning/Dermaplaning";
 import CBD from "../../treatments/CBD/CBD";
 import Microneedle from "../../treatments/Microneedle/Microneedle";
-import Quickie from "../../treatments/Quickie/Quickie";
+import SaltCave from "../../treatments/SaltCave/SaltCave";
 import ChemicalPeel from "../../treatments/ChemicalPeel/ChemicalPeel";
 import "./TreatmentsPage4.css";
+import JetHydroPeel from "../../treatments/JetHydroPeel/JetHydroPeel";
 
-const TreatmentsPage4 = props => {
-  const [quickieChemPeelRendered, changeQuickieChemPeelRendered] = useState(
+const TreatmentsPage4 = (props) => {
+  const [saltCaveChemPeelRendered, changeSaltCaveChemPeelRendered] = useState(
     "grid"
   );
   const [dermaplaningRendered, changeDermaplaningRendered] = useState("none");
@@ -18,21 +19,21 @@ const TreatmentsPage4 = props => {
   useEffect(() => {
     if (props.currentScreenSize === "") {
       if (props.initialScreenSize >= 600 && props.initialScreenSize <= 1200) {
-        changeQuickieChemPeelRendered("grid");
+        changeSaltCaveChemPeelRendered("grid");
       } else {
-        changeQuickieChemPeelRendered("none");
+        changeSaltCaveChemPeelRendered("none");
       }
     } else {
       if (props.currentScreenSize >= 600 && props.currentScreenSize <= 1200) {
-        changeQuickieChemPeelRendered("grid");
+        changeSaltCaveChemPeelRendered("grid");
       } else {
-        changeQuickieChemPeelRendered("none");
+        changeSaltCaveChemPeelRendered("none");
       }
     }
   }, [
-    changeQuickieChemPeelRendered,
+    changeSaltCaveChemPeelRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const TreatmentsPage4 = props => {
   }, [
     changeDermaplaningRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -78,35 +79,44 @@ const TreatmentsPage4 = props => {
   }, [
     changeCBDMicroneedlingRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   return (
     <div className="treatments_page_4_container">
-      <Quickie
+      <SaltCave
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
-        quickieChemPeelRendered={quickieChemPeelRendered}
+        saltCaveChemPeelRendered={saltCaveChemPeelRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <ChemicalPeel
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
-        quickieChemPeelRendered={quickieChemPeelRendered}
+        saltCaveChemPeelRendered={saltCaveChemPeelRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Dermaplaning
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         dermaplaningRendered={dermaplaningRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <CBD
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         cbdMicroneedlingRendered={cbdMicroneedlingRendered}
+        resetAllCartStates={props.resetAllCartStates}
       />
       <Microneedle
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         cbdMicroneedlingRendered={cbdMicroneedlingRendered}
+        resetAllCartStates={props.resetAllCartStates}
+      />
+      <JetHydroPeel
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
       />
     </div>
   );

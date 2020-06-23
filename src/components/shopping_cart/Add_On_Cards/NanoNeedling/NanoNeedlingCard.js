@@ -4,12 +4,14 @@ import ACTION_NANONEEDLING_NOT_IN_CART from "../../../../actions/InCart/AddOns/N
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import "../../CartCard.css";
 
-const NanoNeedlingCard = props => {
+const NanoNeedlingCard = (props) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     dispatch(ACTION_NANONEEDLING_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
+
+    props.resetAllCartStatesExceptTreatments();
   };
 
   return (

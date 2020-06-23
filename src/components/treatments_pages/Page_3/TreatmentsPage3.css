@@ -7,7 +7,7 @@
     grid-auto-rows: auto;
     grid-template-areas:
       "quench_card quench_card quench_card"
-      "quickie_card quickie_card quickie_card"
+      "salt_cave_card salt_cave_card salt_cave_card"
       "chemical_peel_card chemical_peel_card chemical_peel_card";
     row-gap: 3vh;
     margin-top: -1.2vh;
@@ -66,8 +66,8 @@
     height: 28.6666667vh;
     grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
     grid-template-areas:
-      "quickie_card quickie_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card"
-      "quickie_card quickie_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card";
+      "salt_cave_card salt_cave_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card"
+      "salt_cave_card salt_cave_card chemical_peel_card chemical_peel_card dermaplaning_card dermaplaning_card";
     margin-left: 1.6rem;
     margin-right: 1.6rem;
     margin-top: 2.7rem;

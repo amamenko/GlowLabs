@@ -5,7 +5,7 @@ import Microdermabrasion from "../../add_ons/Microdermabrasion/Microdermabrasion
 import Dermarolling from "../../add_ons/Dermarolling/Dermarolling";
 import "./AddOnsPage2.css";
 
-const AddOnsPage2 = props => {
+const AddOnsPage2 = (props) => {
   const [ledRendered, changeLEDRendered] = useState("none");
   const [microdermabrasionRendered, changeMicrodermabrasionRendered] = useState(
     "none"
@@ -45,7 +45,7 @@ const AddOnsPage2 = props => {
   }, [
     changeMicrodermabrasionRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const AddOnsPage2 = props => {
   }, [
     changeDermarollingRendered,
     props.currentScreenSize,
-    props.initialScreenSize
+    props.initialScreenSize,
   ]);
 
   return (
@@ -74,20 +74,32 @@ const AddOnsPage2 = props => {
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         ledRendered={ledRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <Microcurrent
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <Microdermabrasion
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         microdermabrasionRendered={microdermabrasionRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <Dermarolling
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         dermarollingRendered={dermarollingRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
     </div>
   );

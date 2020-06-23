@@ -105,12 +105,12 @@ const AdminClients = (props) => {
     right: 25%;
   `;
 
-  const [getOwnAppointments, { data: getOwnAppointmentsData }] = useLazyQuery(
-    getOwnAppointmentsQuery,
-    {
-      fetchPolicy: "no-cache",
-    }
-  );
+  const [
+    getOwnAppointments,
+    { data: getOwnAppointmentsData, refetch: getOwnAppointmentsRefetch },
+  ] = useLazyQuery(getOwnAppointmentsQuery, {
+    fetchPolicy: "no-cache",
+  });
 
   const [
     getOwnPastAppointments,
@@ -1026,6 +1026,9 @@ const AdminClients = (props) => {
                                   <div className="admin_side_my_appointments_content_container">
                                     <AdminRenderUpcomingAppointments
                                       data={getOwnAppointmentsData}
+                                      getOwnAppointmentsRefetch={
+                                        getOwnAppointmentsRefetch
+                                      }
                                       item={item}
                                       override={override}
                                       changeLoadingSpinnerActive={

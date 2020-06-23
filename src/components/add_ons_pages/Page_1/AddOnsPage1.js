@@ -101,15 +101,24 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
       <ExtraExtractions
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <HydroJellyMask
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
       <LEDTherapy
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         ledRendered={ledRendered}
+        resetAllCartStatesExceptTreatments={
+          props.resetAllCartStatesExceptTreatments
+        }
       />
     </div>
   );

@@ -48,7 +48,7 @@ const ChemicalPeelSummaryCard = (props) => {
           <p>30 minutes</p>
         </div>
         <div className="summary_card_booking_description_right_section">
-          <p>$100</p>
+          <p>$150</p>
         </div>
       </div>
     </div>

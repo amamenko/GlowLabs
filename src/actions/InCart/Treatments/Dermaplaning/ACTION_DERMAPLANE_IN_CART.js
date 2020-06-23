@@ -5,9 +5,9 @@ const ACTION_DERMAPLANE_IN_CART = () => {
     type: DERMAPLANE_IN_CART,
     payload: {
       name: "Dermaplaning",
-      price: 120,
-      duration: 75
-    }
+      price: 150,
+      duration: 75,
+    },
   };
 };
 

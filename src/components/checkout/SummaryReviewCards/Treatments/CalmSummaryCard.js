@@ -51,7 +51,7 @@ const CalmSummaryCard = (props) => {
           <p>50 minutes</p>
         </div>
         <div className="summary_card_booking_description_right_section">
-          <p>$70</p>
+          <p>$105</p>
         </div>
       </div>
     </div>

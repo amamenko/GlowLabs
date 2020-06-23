@@ -4,12 +4,14 @@ import ACTION_EXTRACTION_NOT_IN_CART from "../../../../actions/InCart/AddOns/Ext
 import ACTION_DECREMENT_COUNTER from "../../../../actions/Counter/ACTION_DECREMENT_COUNTER";
 import "../../CartCard.css";
 
-const ExtraExtractionsCard = props => {
+const ExtraExtractionsCard = (props) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     dispatch(ACTION_EXTRACTION_NOT_IN_CART());
     dispatch(ACTION_DECREMENT_COUNTER());
+
+    props.resetAllCartStatesExceptTreatments();
   };
 
   return (

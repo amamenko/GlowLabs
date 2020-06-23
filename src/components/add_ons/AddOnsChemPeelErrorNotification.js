@@ -1,8 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 const AddOnsChemPeelErrorNotification = (props) => {
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
   return (
     <div
       className="notification_container"
@@ -97,10 +99,11 @@ const AddOnsChemPeelErrorNotification = (props) => {
                 : "0.9rem",
           }}
         >
-          Not Available With This Facial
+          Not Available With This {saltCaveInCart ? "Treatment" : "Facial"}
         </h3>
         <p>
-          Add-ons are not able to be booked along with the Chemical Peel facial
+          Add-ons are not able to be booked along with the{" "}
+          {saltCaveInCart ? "Salt Cave " : "Chemical Peel facial "}
           treatment
         </p>
       </div>

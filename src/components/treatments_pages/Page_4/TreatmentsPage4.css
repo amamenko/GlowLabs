@@ -56,8 +56,8 @@
     height: 85vh;
     grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
     grid-template-areas:
-      "quickie_card quickie_card quickie_card chemical_peel_card chemical_peel_card chemical_peel_card"
-      "quickie_card quickie_card quickie_card chemical_peel_card chemical_peel_card chemical_peel_card";
+      "salt_cave_card salt_cave_card salt_cave_card chemical_peel_card chemical_peel_card chemical_peel_card"
+      "salt_cave_card salt_cave_card salt_cave_card chemical_peel_card chemical_peel_card chemical_peel_card";
     margin-left: 1.6rem;
     margin-right: 1.6rem;
     margin-top: -5.3rem;
@@ -68,14 +68,13 @@
 @media only screen and (min-width: 1200px) {
   .treatments_page_4_container {
     height: 28.6666667vh;
-    grid-template-columns: repeat(auto-fit, minmax(35%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
     grid-template-areas:
-      ". cbd_card cbd_card . microneedle_card microneedle_card ."
-      ". cbd_card cbd_card . microneedle_card microneedle_card .";
-    margin-left: 12.9%;
-    margin-right: 12.9%;
+      "cbd_card cbd_card microneedle_card microneedle_card jet_hydro_peel_card jet_hydro_peel_card"
+      "cbd_card cbd_card microneedle_card microneedle_card jet_hydro_peel_card jet_hydro_peel_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
     margin-top: 2.7rem;
-    grid-gap: 6%;
   }
 }
 

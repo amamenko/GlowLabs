@@ -31,13 +31,15 @@ import DermarollingCard from "./Add_On_Cards/Dermarolling/DermarollingCard";
 import NanoNeedlingCard from "./Add_On_Cards/NanoNeedling/NanoNeedlingCard";
 import GuaShaCard from "./Add_On_Cards/GuaSha/GuaShaCard";
 import BeardCard from "./Add_On_Cards/Beard/BeardCard";
+import UnsureCard from "./Treatment_Cards/Unsure/UnsureCard";
+import SaltCaveCard from "./Treatment_Cards/SaltCave/SaltCaveCard";
 import NoFacialSelected from "./Treatment_Cards/NoFacialSelected";
 import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import { FormGroup, Input } from "reactstrap";
-import UnsureCard from "./Treatment_Cards/Unsure/UnsureCard";
 import ACTION_AVAILABILITY_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
 import ACTION_SELECTED_ESTHETICIAN from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN";
 import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
+import { useMemo } from "react";
 
 const ShoppingCart = (props) => {
   const dispatch = useDispatch();
@@ -65,6 +67,7 @@ const ShoppingCart = (props) => {
     (state) => state.rejuvenateInCart.in_cart
   );
   const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   const addOnsArr = useSelector((state) => state.addOnsArr.add_ons_arr);
   const treatmentsArr = useSelector(
@@ -126,47 +129,141 @@ const ShoppingCart = (props) => {
       );
     } else {
       if (calmInCart) {
-        return <CalmCard />;
+        return <CalmCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (clarifyInCart) {
-        return <ClarifyCard />;
+        return <ClarifyCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (cbdInCart) {
-        return <CBDCard />;
+        return <CBDCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (glowInCart) {
-        return <GlowCard />;
+        return <GlowCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (dermaplaningInCart) {
-        return <DermaplaningCard />;
+        return (
+          <DermaplaningCard resetAllCartStates={props.resetAllCartStates} />
+        );
       } else if (chemicalPeelInCart) {
-        return <ChemicalPeelCard />;
+        return (
+          <ChemicalPeelCard resetAllCartStates={props.resetAllCartStates} />
+        );
       } else if (bacialInCart) {
-        return <BacialCard />;
+        return <BacialCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (microneedleInCart) {
-        return <MicroneedleCard />;
+        return (
+          <MicroneedleCard resetAllCartStates={props.resetAllCartStates} />
+        );
       } else if (rejuvenateInCart) {
-        return <RejuvenateCard />;
+        return <RejuvenateCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (quickieInCart) {
-        return <QuickieCard />;
+        return <QuickieCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (quenchInCart) {
-        return <QuenchCard />;
+        return <QuenchCard resetAllCartStates={props.resetAllCartStates} />;
       } else if (unsureInCart) {
-        return <UnsureCard />;
+        return <UnsureCard resetAllCartStates={props.resetAllCartStates} />;
+      } else if (saltCaveInCart) {
+        return <SaltCaveCard resetAllCartStates={props.resetAllCartStates} />;
       } else {
         if (addOnsArr.length > 0) {
-          return <NoFacialSelected addOnsArr={addOnsArr} />;
+          return (
+            <NoFacialSelected
+              addOnsArr={addOnsArr}
+              resetAllCartStates={props.resetAllCartStates}
+            />
+          );
         }
       }
     }
   };
 
   const addOnsCardComponentsArr = [
-    { name: "ExtraExtractions", component: <ExtraExtractionsCard /> },
-    { name: "HydroJelly", component: <HydroJellyMaskCard /> },
-    { name: "LED", component: <LEDTherapyCard /> },
-    { name: "Microcurrent", component: <MicrocurrentCard /> },
-    { name: "Microdermabrasion", component: <MicrodermabrasionCard /> },
-    { name: "Dermarolling", component: <DermarollingCard /> },
-    { name: "NanoNeedling", component: <NanoNeedlingCard /> },
-    { name: "GuaSha", component: <GuaShaCard /> },
-    { name: "Beard", component: <BeardCard /> },
+    {
+      name: "ExtraExtractions",
+      component: (
+        <ExtraExtractionsCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "HydroJelly",
+      component: (
+        <HydroJellyMaskCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "LED",
+      component: (
+        <LEDTherapyCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "Microcurrent",
+      component: (
+        <MicrocurrentCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "Microdermabrasion",
+      component: (
+        <MicrodermabrasionCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "Dermarolling",
+      component: (
+        <DermarollingCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "NanoNeedling",
+      component: (
+        <NanoNeedlingCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "GuaSha",
+      component: (
+        <GuaShaCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
+    {
+      name: "Beard",
+      component: (
+        <BeardCard
+          resetAllCartStatesExceptTreatments={
+            props.resetAllCartStatesExceptTreatments
+          }
+        />
+      ),
+    },
   ];
 
   const componentNames = addOnsArr.map((item) => item.name);
@@ -211,6 +308,12 @@ const ShoppingCart = (props) => {
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
+
+  useMemo(() => {
+    if (saltCaveInCart) {
+      dispatch(ACTION_SELECTED_ESTHETICIAN("Salt Cave"));
+    }
+  }, [dispatch, saltCaveInCart]);
 
   const renderEstheticianNames = () => {
     if (props.getEmployeesData) {
@@ -278,7 +381,7 @@ const ShoppingCart = (props) => {
         className="cart_header"
         style={{ display: counter === 0 ? "none" : "flex" }}
       >
-        <h2>MY FACIAL</h2>
+        <h2>MY {saltCaveInCart ? "TREATMENT" : "FACIAL"}</h2>
       </div>
       {renderCartFacials()}
       <div
@@ -295,7 +398,7 @@ const ShoppingCart = (props) => {
         <p>Cart Subtotal</p>
         <p>${totalPrice}</p>
       </div>
-      {treatmentsArr.length === 0 ? null : (
+      {treatmentsArr.length === 0 || saltCaveInCart ? null : (
         <div className="esthetician_preference_dropdown">
           <FormGroup className="esthetician_preference_formgroup">
             <p>
@@ -314,6 +417,7 @@ const ShoppingCart = (props) => {
                 defaultValue={selectedEsthetician}
                 id="esthetician_preference"
                 onChange={(e) => {
+                  props.resetAllCartStatesExceptTreatments();
                   if (e.target.value === "No preference") {
                     dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
                   } else {

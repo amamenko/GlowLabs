@@ -84,6 +84,7 @@ const TimePreference = (props) => {
   const selectedEsthetician = useSelector(
     (state) => state.selectedEsthetician.selectedEsthetician
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   const [bookedTimes, changeBookedTimes] = useState([]);
 
@@ -121,7 +122,9 @@ const TimePreference = (props) => {
   }, [location.pathname]);
 
   const alreadyBookedAppointments = data
-    ? data.all_appointments.filter((item) => item.date === reformattedDay)
+    ? data.all_appointments
+        .filter((item) => item.date === reformattedDay)
+        .filter((item) => item.esthetician === selectedEsthetician)
     : null;
 
   const alreadyBookedTimes = useCallback(() => {
@@ -692,7 +695,14 @@ const TimePreference = (props) => {
         </Link>
       </div>
       <div className="select_a_time_header">
-        <h2>SELECT A TIME WITH {selectedEsthetician.toUpperCase()}</h2>
+        <h2>
+          SELECT A TIME
+          {saltCaveInCart
+            ? null
+            : selectedEsthetician
+            ? " WITH " + selectedEsthetician.toUpperCase()
+            : null}
+        </h2>
       </div>
       <p className="time_statement">
         Choose a time for your appointment on {getFullDayOfTheWeek()},{" "}
@@ -1392,7 +1402,7 @@ const TimePreference = (props) => {
                   : "0vh"
                 : dayOfTheWeek === "Friday"
                 ? lateAfternoonCollapseIsOpen
-                  ? "-13vh"
+                  ? "-10vh"
                   : "0vh"
                 : eveningCollapseIsOpen
                 ? "-4vh"

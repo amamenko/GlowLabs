@@ -88,6 +88,54 @@ import TimePreference from "./components/availability/Time/TimePreference";
 import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import GuestCheckout from "./components/checkout/GuestCheckout";
 import ConfirmationPage from "./components/checkout/ConfirmationPage";
+import ACTION_APPOINTMENT_NOTES_RESET from "./actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_RESET";
+import ACTION_PHONE_NOT_INVALID from "./actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
+import ACTION_PHONE_NOT_VALID from "./actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
+import ACTION_REFORMATTED_DAY_CLONE_RESET from "./actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
+import ACTION_REFORMATTED_DAY_RESET from "./actions/SelectedDay/ReformattedDay/ACTION_REFORMATTED_DAY_RESET";
+import ACTION_TREATMENTS_CART_RESET from "./actions/InCart/Treatments/ACTION_TREATMENTS_CART_RESET";
+import ACTION_ALL_COLLAPSE_RESET from "./actions/SelectedTime/CollapseIsOpen/ACTION_ALL_COLLAPSE_RESET";
+import ACTION_FINAL_BOOKING_MODAL_RESET from "./actions/InCart/FinalBookingModal/ACTION_FINAL_BOOKING_MODAL_RESET";
+import ACTION_SELECTED_SALT_CAVE_DURATION_RESET from "./actions/Treatments/SaltCave/SaltCaveDuration/ACTION_SELECTED_SALT_CAVE_DURATION_RESET";
+import ACTION_SELECTED_ESTHETICIAN_RESET from "./actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
+import ACTION_SELECTED_DAY_RESET from "./actions/SelectedDay/ACTION_SELECTED_DAY_RESET";
+import ACTION_SELECTED_TIME_RESET from "./actions/SelectedTime/ACTION_SELECTED_TIME_RESET";
+import ACTION_SELECT_TIME_NOT_ACTIVE from "./actions/SelectTimeActive/ACTION_SELECT_TIME_NOT_ACTIVE";
+import ACTION_TOTAL_DURATION_RESET from "./actions/TotalDuration/ACTION_TOTAL_DURATION_RESET";
+import ACTION_CART_PAGE_OPENED from "./actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
+import ACTION_AVAILABILITY_RESET from "./actions/AvailabilityClicked/ACTION_AVAILABILITY_RESET";
+import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "./actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
+import ACTION_CONTINUE_BUTTON_RESET from "./actions/ContinueToCheckoutButtonActive/ACTION_CONTINUE_BUTTON_RESET";
+import ACTION_EMAIL_NOT_VALID from "./actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
+import ACTION_EMAIL_NOT_INVALID from "./actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
+import ACTION_FINAL_BOOK_BUTTON_RESET from "./actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_RESET";
+import ACTION_PHONE_NUMBER_RESET from "./actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
+import ACTION_LAST_NAME_RESET from "./actions/GuestCheckoutForm/LastName/ACTION_LAST_NAME_RESET";
+import ACTION_FIRST_NAME_RESET from "./actions/GuestCheckoutForm/FirstName/ACTION_FIRST_NAME_RESET";
+import ACTION_EMAIL_RESET from "./actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
+import ACTION_APPOINTMENT_END_TIME_RESET from "./actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME_RESET";
+import ACTION_TOTAL_PRICE_RESET from "./actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
+import ACTION_BACIAL_TOGGLE_RESET from "./actions/Treatments/Bacial/ACTION_BACIAL_TOGGLE_RESET";
+import ACTION_CALM_TOGGLE_RESET from "./actions/Treatments/Calm/ACTION_CALM_TOGGLE_RESET";
+import ACTION_CBD_TOGGLE_RESET from "./actions/Treatments/CBD/ACTION_CBD_TOGGLE_RESET";
+import ACTION_CHEMICAL_PEEL_TOGGLE_RESET from "./actions/Treatments/ChemicalPeel/ACTION_CHEMICAL_PEEL_TOGGLE_RESET";
+import ACTION_CLARIFY_TOGGLE_RESET from "./actions/Treatments/Clarify/ACTION_CLARIFY_TOGGLE_RESET";
+import ACTION_DERMAPLANING_TOGGLE_RESET from "./actions/Treatments/Dermaplaning/ACTION_DERMAPLANING_TOGGLE_RESET";
+import ACTION_GLOW_TOGGLE_RESET from "./actions/Treatments/Glow/ACTION_GLOW_TOGGLE_RESET";
+import ACTION_MICRONEEDLE_TOGGLE_RESET from "./actions/Treatments/Microneedle/ACTION_MICRONEEDLE_TOGGLE_RESET";
+import ACTION_QUENCH_TOGGLE_RESET from "./actions/Treatments/Quench/ACTION_QUENCH_TOGGLE_RESET";
+import ACTION_QUICKIE_TOGGLE_RESET from "./actions/Treatments/Quickie/ACTION_QUICKIE_TOGGLE_RESET";
+import ACTION_REJUVENATE_TOGGLE_RESET from "./actions/Treatments/Rejuvenate/ACTION_REJUVENATE_TOGGLE_RESET";
+import ACTION_SALT_CAVE_TOGGLE_RESET from "./actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
+import ACTION_BEARD_TOGGLE_RESET from "./actions/AddOns/Beard/ACTION_BEARD_TOGGLE_RESET";
+import ACTION_DERMAROLLING_TOGGLE_RESET from "./actions/AddOns/Dermarolling/ACTION_DERMAROLLING_TOGGLE_RESET";
+import ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET from "./actions/AddOns/ExtraExtractions/ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET";
+import ACTION_GUASHA_TOGGLE_RESET from "./actions/AddOns/GuaSha/ACTION_GUASHA_TOGGLE_RESET";
+import ACTION_HYDRO_JELLY_TOGGLE_RESET from "./actions/AddOns/HydroJellyMask/ACTION_HYDRO_JELLY_TOGGLE_RESET";
+import ACTION_LED_THERAPY_TOGGLE_RESET from "./actions/AddOns/LEDTherapy/ACTION_LED_THERAPY_TOGGLE_RESET";
+import ACTION_MICROCURRENT_TOGGLE_RESET from "./actions/AddOns/Microcurrent/ACTION_MICROCURRENT_TOGGLE_RESET";
+import ACTION_MICRODERMABRASION_TOGGLE_RESET from "./actions/AddOns/Microdermabrasion/ACTION_MICRODERMABRASION_TOGGLE_RESET";
+import ACTION_NANONEEDLING_TOGGLE_RESET from "./actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -601,9 +649,19 @@ const App = () => {
   ]);
 
   const redirectToCartRoutes = () => {
-    if (cartPageOpened === "Cart") {
-      if (!currentScreenSize) {
-        if (initialScreenSize >= 1200) {
+    if (cartIsActive) {
+      if (cartPageOpened === "Cart") {
+        if (!currentScreenSize) {
+          if (initialScreenSize >= 1200) {
+            return <Redirect to="/" />;
+          } else {
+            if (cartIsActive) {
+              return <Redirect to="/cart" />;
+            } else {
+              return null;
+            }
+          }
+        } else if (currentScreenSize >= 1200) {
           return <Redirect to="/" />;
         } else {
           if (cartIsActive) {
@@ -612,79 +670,99 @@ const App = () => {
             return null;
           }
         }
-      } else if (currentScreenSize >= 1200) {
-        return <Redirect to="/" />;
-      } else {
-        if (cartIsActive) {
-          return <Redirect to="/cart" />;
-        } else {
-          return null;
-        }
-      }
-    } else if (cartPageOpened === "Availability") {
-      if (!currentScreenSize) {
-        if (initialScreenSize >= 1200) {
+      } else if (cartPageOpened === "Availability") {
+        if (!currentScreenSize) {
+          if (initialScreenSize >= 1200) {
+            return <Redirect to="/" />;
+          } else {
+            return <Redirect to="/availability" />;
+          }
+        } else if (currentScreenSize >= 1200) {
           return <Redirect to="/" />;
         } else {
           return <Redirect to="/availability" />;
         }
-      } else if (currentScreenSize >= 1200) {
-        return <Redirect to="/" />;
-      } else {
-        return <Redirect to="/availability" />;
-      }
-    } else if (cartPageOpened === "TimePreference") {
-      if (!currentScreenSize) {
-        if (initialScreenSize >= 1200) {
+      } else if (cartPageOpened === "TimePreference") {
+        if (!currentScreenSize) {
+          if (initialScreenSize >= 1200) {
+            return <Redirect to="/" />;
+          } else {
+            return <Redirect to="/availability/timepreference" />;
+          }
+        } else if (currentScreenSize >= 1200) {
           return <Redirect to="/" />;
         } else {
           return <Redirect to="/availability/timepreference" />;
         }
-      } else if (currentScreenSize >= 1200) {
-        return <Redirect to="/" />;
-      } else {
-        return <Redirect to="/availability/timepreference" />;
-      }
-    } else if (cartPageOpened === "PaymentInfo") {
-      if (!currentScreenSize) {
-        if (initialScreenSize >= 1200) {
+      } else if (cartPageOpened === "PaymentInfo") {
+        if (!currentScreenSize) {
+          if (initialScreenSize >= 1200) {
+            return <Redirect to="/" />;
+          } else {
+            return <Redirect to="/paymentinfo" />;
+          }
+        } else if (currentScreenSize >= 1200) {
           return <Redirect to="/" />;
         } else {
           return <Redirect to="/paymentinfo" />;
         }
-      } else if (currentScreenSize >= 1200) {
-        return <Redirect to="/" />;
-      } else {
-        return <Redirect to="/paymentinfo" />;
-      }
-    } else if (cartPageOpened === "GuestCheckout") {
-      if (!currentScreenSize) {
-        if (initialScreenSize >= 1200) {
+      } else if (cartPageOpened === "GuestCheckout") {
+        if (!currentScreenSize) {
+          if (initialScreenSize >= 1200) {
+            return <Redirect to="/" />;
+          } else {
+            return <Redirect to="/checkout" />;
+          }
+        } else if (currentScreenSize >= 1200) {
           return <Redirect to="/" />;
         } else {
           return <Redirect to="/checkout" />;
         }
-      } else if (currentScreenSize >= 1200) {
-        return <Redirect to="/" />;
-      } else {
-        return <Redirect to="/checkout" />;
-      }
-    } else if (cartPageOpened === "ConfirmationPage") {
-      if (!currentScreenSize) {
-        if (initialScreenSize >= 1200) {
+      } else if (cartPageOpened === "ConfirmationPage") {
+        if (!currentScreenSize) {
+          if (initialScreenSize >= 1200) {
+            return <Redirect to="/" />;
+          } else {
+            return <Redirect to="/checkout/confirmation" />;
+          }
+        } else if (currentScreenSize >= 1200) {
           return <Redirect to="/" />;
         } else {
           return <Redirect to="/checkout/confirmation" />;
         }
-      } else if (currentScreenSize >= 1200) {
-        return <Redirect to="/" />;
       } else {
-        return <Redirect to="/checkout/confirmation" />;
+        return null;
       }
     } else {
       return null;
     }
   };
+
+  useMemo(() => {
+    if (currentScreenSize) {
+      dispatch(ACTION_BACIAL_TOGGLE_RESET());
+      dispatch(ACTION_CALM_TOGGLE_RESET());
+      dispatch(ACTION_CBD_TOGGLE_RESET());
+      dispatch(ACTION_CHEMICAL_PEEL_TOGGLE_RESET());
+      dispatch(ACTION_CLARIFY_TOGGLE_RESET());
+      dispatch(ACTION_DERMAPLANING_TOGGLE_RESET());
+      dispatch(ACTION_GLOW_TOGGLE_RESET());
+      dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
+      dispatch(ACTION_QUENCH_TOGGLE_RESET());
+      dispatch(ACTION_QUICKIE_TOGGLE_RESET());
+      dispatch(ACTION_REJUVENATE_TOGGLE_RESET());
+      dispatch(ACTION_SALT_CAVE_TOGGLE_RESET());
+      dispatch(ACTION_BEARD_TOGGLE_RESET());
+      dispatch(ACTION_DERMAROLLING_TOGGLE_RESET());
+      dispatch(ACTION_EXTRA_EXTRACTIONS_TOGGLE_RESET());
+      dispatch(ACTION_GUASHA_TOGGLE_RESET());
+      dispatch(ACTION_HYDRO_JELLY_TOGGLE_RESET());
+      dispatch(ACTION_LED_THERAPY_TOGGLE_RESET());
+      dispatch(ACTION_MICROCURRENT_TOGGLE_RESET());
+      dispatch(ACTION_MICRODERMABRASION_TOGGLE_RESET());
+      dispatch(ACTION_NANONEEDLING_TOGGLE_RESET());
+    }
+  }, [currentScreenSize, dispatch]);
 
   const shoppingCartConditionalActiveRendering = () => {
     if (
@@ -700,6 +778,10 @@ const App = () => {
           currentScreenSize={currentScreenSize}
           initialScreenSize={initialScreenSize}
           getEmployeesData={getEmployeesData}
+          resetAllCartStates={resetAllCartStates}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
         />
       );
     } else if (cartPageOpened === "Availability") {
@@ -880,6 +962,64 @@ const App = () => {
       }
     }
   }, [cartIsActive, dispatch, currentScreenSize, initialScreenSize]);
+
+  const resetAllCartStates = () => {
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+    dispatch(ACTION_TOTAL_PRICE_RESET());
+    dispatch(ACTION_TOTAL_DURATION_RESET());
+    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+    dispatch(ACTION_SELECTED_TIME_RESET());
+    dispatch(ACTION_SELECTED_DAY_RESET());
+    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
+    dispatch(ACTION_SELECTED_SALT_CAVE_DURATION_RESET());
+    dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
+    dispatch(ACTION_ALL_COLLAPSE_RESET());
+    dispatch(ACTION_TREATMENTS_CART_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+    dispatch(ACTION_PHONE_NOT_VALID());
+    dispatch(ACTION_PHONE_NOT_INVALID());
+    dispatch(ACTION_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_EMAIL_RESET());
+    dispatch(ACTION_FIRST_NAME_RESET());
+    dispatch(ACTION_LAST_NAME_RESET());
+    dispatch(ACTION_PHONE_NUMBER_RESET());
+    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
+    dispatch(ACTION_EMAIL_NOT_INVALID());
+    dispatch(ACTION_EMAIL_NOT_VALID());
+    dispatch(ACTION_CONTINUE_BUTTON_RESET());
+    dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+    dispatch(ACTION_AVAILABILITY_RESET());
+    dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
+    dispatch(ACTION_CART_PAGE_OPENED());
+  };
+
+  const resetAllCartStatesExceptTreatments = () => {
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+    dispatch(ACTION_SELECTED_TIME_RESET());
+    dispatch(ACTION_SELECTED_DAY_RESET());
+    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
+    dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
+    dispatch(ACTION_ALL_COLLAPSE_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+    dispatch(ACTION_PHONE_NOT_VALID());
+    dispatch(ACTION_PHONE_NOT_INVALID());
+    dispatch(ACTION_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_EMAIL_RESET());
+    dispatch(ACTION_FIRST_NAME_RESET());
+    dispatch(ACTION_LAST_NAME_RESET());
+    dispatch(ACTION_PHONE_NUMBER_RESET());
+    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
+    dispatch(ACTION_EMAIL_NOT_INVALID());
+    dispatch(ACTION_EMAIL_NOT_VALID());
+    dispatch(ACTION_CONTINUE_BUTTON_RESET());
+    dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+    dispatch(ACTION_AVAILABILITY_RESET());
+    dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
+    dispatch(ACTION_CART_PAGE_OPENED());
+  };
 
   return (
     <>
@@ -1126,47 +1266,68 @@ const App = () => {
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
                 Treatments1Ref={Treatments1Ref}
+                resetAllCartStates={resetAllCartStates}
               />
               <TreatmentsPage2
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStates={resetAllCartStates}
               />
               <TreatmentsPage3
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStates={resetAllCartStates}
               />
               <TreatmentsPage4
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStates={resetAllCartStates}
               />
               <TreatmentsPage5
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStates={resetAllCartStates}
               />
               <TreatmentsPage6
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStates={resetAllCartStates}
               />
               <AddOnsPage1
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 AddOnsRef={AddOnsRef}
+                resetAllCartStatesExceptTreatments={
+                  resetAllCartStatesExceptTreatments
+                }
               />
               <AddOnsPage2
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStatesExceptTreatments={
+                  resetAllCartStatesExceptTreatments
+                }
               />
               <AddOnsPage3
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStatesExceptTreatments={
+                  resetAllCartStatesExceptTreatments
+                }
               />
               <AddOnsPage4
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStatesExceptTreatments={
+                  resetAllCartStatesExceptTreatments
+                }
               />
               <AddOnsPage5
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
+                resetAllCartStatesExceptTreatments={
+                  resetAllCartStatesExceptTreatments
+                }
               />
               <Instagram
                 initialScreenSize={initialScreenSize}
@@ -1191,6 +1352,10 @@ const App = () => {
                   getEmployeesData={getEmployeesData}
                   initialScreenSize={initialScreenSize}
                   currentScreenSize={currentScreenSize}
+                  resetAllCartStates={resetAllCartStates}
+                  resetAllCartStatesExceptTreatments={
+                    resetAllCartStatesExceptTreatments
+                  }
                 />
               )}
             />

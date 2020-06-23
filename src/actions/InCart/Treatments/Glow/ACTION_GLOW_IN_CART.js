@@ -5,9 +5,9 @@ const ACTION_GLOW_IN_CART = () => {
     type: GLOW_IN_CART,
     payload: {
       name: "Glow",
-      price: 70,
-      duration: 50
-    }
+      price: 105,
+      duration: 50,
+    },
   };
 };
 

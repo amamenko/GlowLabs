@@ -56,6 +56,7 @@ const Availability = (props) => {
   const selectedEsthetician = useSelector(
     (state) => state.selectedEsthetician.selectedEsthetician
   );
+  const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
 
   // Checkout Form States
   const firstName = useSelector((state) => state.firstName.first_name);
@@ -568,8 +569,12 @@ const Availability = (props) => {
       </div>
       <div className="select_a_date_header">
         <h2>
-          SELECT A DATE WITH{" "}
-          {selectedEsthetician ? selectedEsthetician.toUpperCase() : null}
+          SELECT A DATE
+          {saltCaveInCart
+            ? null
+            : selectedEsthetician
+            ? " WITH " + selectedEsthetician.toUpperCase()
+            : null}
         </h2>
       </div>
       <p className="availability_statement">

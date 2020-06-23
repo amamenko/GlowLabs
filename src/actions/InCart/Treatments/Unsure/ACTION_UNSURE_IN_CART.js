@@ -5,7 +5,7 @@ const ACTION_UNSURE_IN_CART = () => {
     type: UNSURE_IN_CART,
     payload: {
       name: "Not Sure",
-      price: 70,
+      price: 105,
       duration: 50,
     },
   };
