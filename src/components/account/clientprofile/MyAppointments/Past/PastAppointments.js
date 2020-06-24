@@ -31,6 +31,7 @@ import {
 } from "body-scroll-lock";
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ClientRenderPastAppointments from "../Past/ClientRenderPastAppointments";
+import SaltCaveSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 
 const PastAppointments = (props) => {
   const individualAppointmentRef = useRef(null);
@@ -102,6 +103,7 @@ const PastAppointments = (props) => {
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
     { name: "Not Sure", component: <UnsureSummaryCard /> },
+    { name: "Salt Cave", component: <SaltCaveSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [

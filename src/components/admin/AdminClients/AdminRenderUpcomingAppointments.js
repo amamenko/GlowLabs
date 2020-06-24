@@ -37,6 +37,7 @@ import NanoNeedlingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/Na
 import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
+import SaltCaveSummaryCard from "../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 
 const AdminRenderUpcomingAppointments = (props) => {
   const location = useLocation();
@@ -110,6 +111,7 @@ const AdminRenderUpcomingAppointments = (props) => {
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
     { name: "Not Sure", component: <UnsureSummaryCard /> },
+    { name: "Salt Cave", component: <SaltCaveSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [
@@ -375,10 +377,11 @@ const AdminRenderUpcomingAppointments = (props) => {
                 <p className="my_appointment_details">
                   {item.treatments[0].name
                     ? item.treatments[0].name === "ChemicalPeel"
-                      ? "Chemical Peel"
-                      : item.treatments[0].name
+                      ? "Chemical Peel Facial"
+                      : item.treatments[0].name === "Salt Cave"
+                      ? "Salt Cave"
+                      : item.treatments[0].name + " Facial"
                     : null}{" "}
-                  Facial
                   {item.addOns[0]
                     ? ", " +
                       (item.addOns[0].name
@@ -505,7 +508,14 @@ const AdminRenderUpcomingAppointments = (props) => {
                           </div>
                         </div>
                         <div className="selected_appointment_treatments_header">
-                          <p>Treatment (with {item.esthetician})</p>
+                          <p>
+                            Treatment{" "}
+                            {item.treatments[0].name === "Salt Cave"
+                              ? null
+                              : item.esthetician
+                              ? "(with " + item.esthetician + ")"
+                              : null}
+                          </p>
                         </div>
                         {renderSummaryCardTreatments(i)}
                         {props.data ? (
@@ -541,6 +551,22 @@ const AdminRenderUpcomingAppointments = (props) => {
                                 : null
                               : null}
                           </p>
+                        </div>
+                        <div className="selected_appointment_date_and_time_header">
+                          <p>Notes</p>
+                        </div>
+                        <div className="selected_appointment_date_and_time_content_container">
+                          <div className="selected_appointment_date_and_time_content">
+                            <p>
+                              {props.data
+                                ? props.data.own_appointments
+                                  ? props.data.own_appointments[i].notes
+                                    ? props.data.own_appointments[i].notes
+                                    : "No notes provided"
+                                  : "No notes provided"
+                                : "No notes provided"}
+                            </p>
+                          </div>
                         </div>
                         <div className="selected_appointments_bottom_buttons_container">
                           <div

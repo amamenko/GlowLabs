@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Form, FormGroup, Label, Input, Modal } from "reactstrap";
 import CreateAccountEmail from "./CreateAccountEmail/CreateAccountEmail";
 import CreateAccountPhoneNumber from "./CreateAccountPhoneNumber/CreateAccountPhoneNumber";
 import CreateAccountPassword from "./CreateAccountPassword/CreateAccountPassword";
@@ -14,6 +14,10 @@ import ACTION_CREATE_ACCOUNT_LAST_NAME_RESET from "../../../actions/CreateAccoun
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import "./SignUp.css";
+import { registerClientMutation } from "../../../graphql/queries/queries";
+import { useMutation } from "@apollo/react-hooks";
+import { BounceLoader } from "react-spinners";
+import { css } from "emotion";
 
 const SignUp = (props) => {
   let location = useLocation();
@@ -61,9 +65,21 @@ const SignUp = (props) => {
   );
 
   const [
+    registerClient,
+    { loading: registerClientLoading, data: registerClientData },
+  ] = useMutation(registerClientMutation);
+
+  const [
     createAccountStepTwoTriggered,
     changeCreateAccountStepTwoTriggered,
   ] = useState(false);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -76,6 +92,24 @@ const SignUp = (props) => {
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
+
+  const successfulRegistrationRedirect = () => {
+    if (registerClientData) {
+      if (!props.currentScreenSize) {
+        if (props.initialScreenSize >= 1200) {
+          return <Redirect to="/account/clientprofile/upcomingappointments" />;
+        } else {
+          return <Redirect to="/account/clientprofile" />;
+        }
+      } else {
+        if (props.currentScreenSize >= 1200) {
+          return <Redirect to="/account/clientprofile/upcomingappointments" />;
+        } else {
+          return <Redirect to="/account/clientprofile" />;
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
@@ -97,6 +131,19 @@ const SignUp = (props) => {
     dispatch(ACTION_CREATE_ACCOUNT_LAST_NAME_RESET());
   };
 
+  const handleCreateAccountClick = () => {
+    registerClient({
+      variables: {
+        firstName: createAccountFirstName,
+        lastName: createAccountLastName,
+        email: createAccountEmail,
+        phoneNumber: createAccountPhoneNumber,
+        password: createAccountPassword,
+        confirmPassword: createAccountConfirmPassword,
+      },
+    });
+  };
+
   useEffect(() => {
     if (!splashScreenComplete) {
       dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
@@ -108,9 +155,21 @@ const SignUp = (props) => {
 
   return (
     <div className="sign_up_page_background">
+      <Modal
+        isOpen={registerClientLoading}
+        className="complete_registration_loading_modal"
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={registerClientLoading}
+        />
+      </Modal>
       <div className="sign_up_page_background_blurry" />
       <div className="sign_up_page_container">
         {redirectToHome()}
+        {successfulRegistrationRedirect()}
         <div className="sign_up_logo_container">
           <svg
             height="22rem"
@@ -223,6 +282,7 @@ const SignUp = (props) => {
                       ? "auto"
                       : "none",
                 }}
+                onClick={() => handleCreateAccountClick()}
               >
                 <p>Create Account</p>
               </div>

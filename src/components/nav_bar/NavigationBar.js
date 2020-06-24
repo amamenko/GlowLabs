@@ -214,7 +214,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
             />
           );
         } else {
-          return data.client.firstName[0].toUpperCase();
+          if (data) {
+            if (data.client) {
+              return data.client.firstName[0].toUpperCase();
+            }
+          }
         }
       } else {
         return "";
@@ -507,7 +511,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
               marginLeft: dummyToken
                 ? dummyToken.picture
                   ? "0.5rem"
-                  : "1.5rem"
+                  : "0.5rem"
                 : props.adminDummyToken
                 ? "1.5rem"
                 : "0.5rem",

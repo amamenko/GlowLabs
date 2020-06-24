@@ -262,21 +262,19 @@ const AdminCalendarComponent = (props) => {
 
   return (
     <div className="admin_schedule_calendar_main_container">
-      {events().length > 0 ? (
-        <Calendar
-          events={events()}
-          startAccessor="start"
-          endAccessor="end"
-          defaultDate={moment().toDate()}
-          localizer={localizer}
-          defaultView={Views.WEEK}
-          step={15}
-          timeslots={4}
-          min={new Date(0, 0, 0, 10, 0, 0)}
-          max={new Date(0, 0, 0, 22, 0, 0)}
-          onSelectEvent={(e) => changeCurrentToggledAppointment(e.id)}
-        />
-      ) : null}
+      <Calendar
+        events={events()}
+        startAccessor="start"
+        endAccessor="end"
+        defaultDate={moment().toDate()}
+        localizer={localizer}
+        defaultView={Views.WEEK}
+        step={15}
+        timeslots={4}
+        min={new Date(0, 0, 0, 10, 0, 0)}
+        max={new Date(0, 0, 0, 22, 0, 0)}
+        onSelectEvent={(e) => changeCurrentToggledAppointment(e.id)}
+      />
       <Transition
         items={currentToggledAppointment}
         from={{ transform: "translateX(-100%)" }}

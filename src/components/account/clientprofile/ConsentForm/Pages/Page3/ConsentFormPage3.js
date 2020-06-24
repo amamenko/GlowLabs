@@ -23,6 +23,9 @@ const ConsentFormPage3 = (props) => {
   const anyAccutaneYes = useSelector(
     (state) => state.anyAccutaneYes.any_accutane_yes_active
   );
+  const guestConsentFormAccessToken = useSelector(
+    (state) => state.guestConsentFormAccessToken.access_token
+  );
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -31,7 +34,7 @@ const ConsentFormPage3 = (props) => {
   };
 
   const redirectToLogInPage = () => {
-    if (!userAuthenticated) {
+    if (!userAuthenticated && !guestConsentFormAccessToken) {
       return <Redirect to="/account/login" />;
     }
   };
@@ -45,12 +48,14 @@ const ConsentFormPage3 = (props) => {
       {redirectToHome()}
       {redirectToLogInPage()}
       <div className="client_consent_form_header">
-        <Link to="/account/clientprofile">
-          <FontAwesomeIcon
-            className="client_consent_form_header_back_arrow"
-            icon={faChevronLeft}
-          />
-        </Link>
+        {guestConsentFormAccessToken ? null : (
+          <Link to="/account/clientprofile">
+            <FontAwesomeIcon
+              className="client_consent_form_header_back_arrow"
+              icon={faChevronLeft}
+            />
+          </Link>
+        )}
         <h1>CONSENT FORM</h1>
       </div>
       <AnyAccutane

@@ -68,10 +68,11 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
                 <p className="my_appointment_details">
                   {item.treatments[0].name
                     ? item.treatments[0].name === "ChemicalPeel"
-                      ? "Chemical Peel"
-                      : item.treatments[0].name
+                      ? "Chemical Peel Facial"
+                      : item.treatments[0].name === "Salt Cave"
+                      ? "Salt Cave"
+                      : item.treatments[0].name + " Facial"
                     : null}{" "}
-                  Facial
                   {item.addOns[0]
                     ? ", " +
                       (item.addOns[0].name
@@ -199,7 +200,14 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
                           </div>
                         </div>
                         <div className="selected_appointment_treatments_header">
-                          <p>Treatment (with {item.esthetician})</p>
+                          <p>
+                            Treatment{" "}
+                            {item.treatments[0].name === "Salt Cave"
+                              ? null
+                              : item.esthetician
+                              ? "(with " + item.esthetician + ")"
+                              : null}
+                          </p>
                         </div>
                         {props.renderSummaryCardTreatments(i)}
                         {props.data ? (

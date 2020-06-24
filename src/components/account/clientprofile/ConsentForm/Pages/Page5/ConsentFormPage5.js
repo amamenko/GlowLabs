@@ -18,6 +18,9 @@ const ConsentFormPage5 = (props) => {
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
   );
+  const guestConsentFormAccessToken = useSelector(
+    (state) => state.guestConsentFormAccessToken.access_token
+  );
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -26,7 +29,7 @@ const ConsentFormPage5 = (props) => {
   };
 
   const redirectToLogInPage = () => {
-    if (!userAuthenticated) {
+    if (!userAuthenticated && !guestConsentFormAccessToken) {
       return <Redirect to="/account/login" />;
     }
   };
@@ -40,12 +43,14 @@ const ConsentFormPage5 = (props) => {
       {redirectToHome()}
       {redirectToLogInPage()}
       <div className="client_consent_form_header">
-        <Link to="/account/clientprofile">
-          <FontAwesomeIcon
-            className="client_consent_form_header_back_arrow"
-            icon={faChevronLeft}
-          />
-        </Link>
+        {guestConsentFormAccessToken ? null : (
+          <Link to="/account/clientprofile">
+            <FontAwesomeIcon
+              className="client_consent_form_header_back_arrow"
+              icon={faChevronLeft}
+            />
+          </Link>
+        )}
         <h1>CONSENT FORM</h1>
       </div>
       <SkinFlakyOrItch

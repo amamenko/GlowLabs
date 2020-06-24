@@ -275,6 +275,7 @@
   .card_description_paragraph_value {
     font-size: 1rem;
     padding-bottom: 0.1rem;
+    padding-left: 1.2rem;
   }
 
   .card_description_paragraph_title {
@@ -314,6 +315,14 @@
   .facial_advanced_treatment_designation {
     bottom: 1rem;
     font-size: 0.7rem;
+  }
+
+  .facial_coming_soon_designation {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 700;
+    bottom: 5.3rem;
+    color: rgb(155, 155, 155);
   }
 }
 
@@ -578,6 +587,10 @@
   .facial_advanced_treatment_designation {
     bottom: 3.5rem;
     font-size: 0.8rem;
+  }
+
+  .facial_coming_soon_designation {
+    display: none;
   }
 }
 

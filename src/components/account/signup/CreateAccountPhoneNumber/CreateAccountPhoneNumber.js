@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import { useQuery } from "@apollo/react-hooks";
@@ -63,8 +63,8 @@ const PhoneNumber = () => {
     }
   }, [data, createAccountPhoneNumber, dispatch]);
 
-  useEffect(() => {
-    const validatePhoneNumber = (number) => {
+  const validatePhoneNumber = useCallback(
+    (number) => {
       const validPhoneNumber = phoneNumberReg.test(number);
       const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
 
@@ -80,12 +80,21 @@ const PhoneNumber = () => {
         dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
         dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID());
       }
-    };
+    },
+    [
+      dispatch,
+      phoneNumberAlreadyRegistered,
+      phoneNumberAutocompleteReg,
+      phoneNumberReg,
+    ]
+  );
 
+  useEffect(() => {
     if (createAccountPhoneNumber.length === 16) {
       validatePhoneNumber(createAccountPhoneNumber);
     }
   }, [
+    validatePhoneNumber,
     createAccountPhoneNumber,
     dispatch,
     phoneNumberAlreadyRegistered,
@@ -93,8 +102,15 @@ const PhoneNumber = () => {
     phoneNumberReg,
   ]);
 
+  const handlePhoneNumber = (e) => {
+    validatePhoneNumber(e.currentTarget.value);
+    dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER(e.currentTarget.value));
+  };
+
   const phoneNumberTyping = (e) => {
     let currentTyping = e.currentTarget.value;
+
+    dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET());
 
     if (createAccountPhoneNumber.length !== 15) {
       if (createAccountPhoneNumberValid) {
@@ -221,6 +237,7 @@ const PhoneNumber = () => {
         onKeyDown={phoneNumberKeyTyping}
         defaultValue={createAccountPhoneNumber}
         placeholder="Phone number"
+        onBlur={handlePhoneNumber}
         onChange={phoneNumberTyping}
         className="input_field_sign_up"
         invalid={

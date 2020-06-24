@@ -554,7 +554,13 @@ const Dermaplaning = (props) => {
         <div
           className="dermaplaning_wrapping"
           ref={ref}
-          style={{ display: props.dermaplaningRendered }}
+          style={{
+            display: props.dermaplaningRendered
+              ? props.dermaplaningRendered
+              : props.dermaplaningCBDRendered
+              ? props.dermaplaningCBDRendered
+              : "grid",
+          }}
         >
           {inView ? (
             <Spring

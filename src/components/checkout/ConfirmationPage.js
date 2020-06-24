@@ -81,6 +81,7 @@ import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_
 import "./ConfirmationPage.css";
 import SaltCaveSummaryCard from "./SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import ACTION_SELECTED_SALT_CAVE_DURATION_RESET from "../../actions/Treatments/SaltCave/SaltCaveDuration/ACTION_SELECTED_SALT_CAVE_DURATION_RESET";
+import ACTION_DAY_OF_THE_WEEK_RESET from "../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 
 const ConfirmationPage = (props) => {
   let location = useLocation();
@@ -137,6 +138,10 @@ const ConfirmationPage = (props) => {
   const finalBookingModal = useSelector(
     (state) => state.finalBookingModal.final_booking_modal
   );
+  const guestConsentFormAccessToken = useSelector(
+    (state) => state.guestConsentFormAccessToken.access_token
+  );
+
   const [getClient, { data }] = useLazyQuery(getClientQuery, {
     fetchPolicy: "no-cache",
   });
@@ -559,6 +564,7 @@ const ConfirmationPage = (props) => {
     dispatch(ACTION_ADD_ONS_CART_RESET());
     dispatch(ACTION_REFORMATTED_DAY_RESET());
     dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+    dispatch(ACTION_DAY_OF_THE_WEEK_RESET());
     dispatch(ACTION_PHONE_NOT_VALID());
     dispatch(ACTION_PHONE_NOT_INVALID());
     dispatch(ACTION_APPOINTMENT_NOTES_RESET());
@@ -816,9 +822,9 @@ const ConfirmationPage = (props) => {
                   </div>
                   <Link
                     to={
-                      userAuthenticated
+                      userAuthenticated || guestConsentFormAccessToken
                         ? "/account/clientprofile/consentform/page1"
-                        : "/confirmation/consentform/page1"
+                        : "/"
                     }
                   >
                     <div

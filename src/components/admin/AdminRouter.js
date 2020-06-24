@@ -11,6 +11,7 @@ import {
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
+import AdminSaltCaveSchedule from "./AdminSaltCaveSchedule/AdminSaltCaveSchedule";
 
 const AdminRouter = (props) => {
   const { data: getClientsData, refetch: getClientsRefetch } = useQuery(
@@ -93,6 +94,20 @@ const AdminRouter = (props) => {
           path={props.path + "/schedule"}
           render={() => (
             <AdminSchedule
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+              getAllAppointmentsData={getAllAppointmentsData}
+              getEmployeeData={
+                props.getEmployeeData ? props.getEmployeeData : null
+              }
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/saltcaveschedule"}
+          render={() => (
+            <AdminSaltCaveSchedule
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
               getAllAppointmentsData={getAllAppointmentsData}

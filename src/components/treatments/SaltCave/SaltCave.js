@@ -36,6 +36,15 @@ import ACTION_SALT_CAVE_NOT_IN_CART from "../../../actions/InCart/Treatments/Sal
 import ACTION_SALT_CAVE_IN_CART from "../../../actions/InCart/Treatments/SaltCave/ACTION_SALT_CAVE_IN_CART";
 import { FormGroup, Input } from "reactstrap";
 import ACTION_SELECTED_SALT_CAVE_DURATION from "../../../actions/Treatments/SaltCave/SaltCaveDuration/ACTION_SELECTED_SALT_CAVE_DURATION";
+import ACTION_BEARD_NOT_IN_CART from "../../../actions/InCart/AddOns/Beard/ACTION_BEARD_NOT_IN_CART";
+import ACTION_DERMAROLLING_NOT_IN_CART from "../../../actions/InCart/AddOns/Dermarolling/ACTION_DERMAROLLING_NOT_IN_CART";
+import ACTION_EXTRACTION_NOT_IN_CART from "../../../actions/InCart/AddOns/ExtraExtractions/ACTION_EXTRACTION_NOT_IN_CART";
+import ACTION_GUASHA_NOT_IN_CART from "../../../actions/InCart/AddOns/GuaSha/ACTION_GUASHA_NOT_IN_CART";
+import ACTION_HYDROJELLY_NOT_IN_CART from "../../../actions/InCart/AddOns/HydroJellyMask/ACTION_HYDROJELLY_NOT_IN_CART";
+import ACTION_LED_NOT_IN_CART from "../../../actions/InCart/AddOns/LEDTherapy/ACTION_LED_NOT_IN_CART";
+import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
+import ACTION_MICRODERMABRASION_NOT_IN_CART from "../../../actions/InCart/AddOns/Microdermabrasion/ACTION_MICRODERMABRASION_NOT_IN_CART";
+import ACTION_NANONEEDLING_NOT_IN_CART from "../../../actions/InCart/AddOns/NanoNeedling/ACTION_NANONEEDLING_NOT_IN_CART";
 
 const SaltCave = (props) => {
   // "Learn More" states
@@ -88,6 +97,29 @@ const SaltCave = (props) => {
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
+
+  // Add-Ons
+  const beardInCart = useSelector((state) => state.beardInCart.in_cart);
+  const dermarollingInCart = useSelector(
+    (state) => state.dermarollingInCart.in_cart
+  );
+  const extraExtractionsInCart = useSelector(
+    (state) => state.extraExtractionsInCart.in_cart
+  );
+  const guashaInCart = useSelector((state) => state.guashaInCart.in_cart);
+  const hydroJellyInCart = useSelector(
+    (state) => state.hydroJellyInCart.in_cart
+  );
+  const ledInCart = useSelector((state) => state.ledInCart.in_cart);
+  const microcurrentInCart = useSelector(
+    (state) => state.microcurrentInCart.in_cart
+  );
+  const microdermabrasionInCart = useSelector(
+    (state) => state.microdermabrasionInCart.in_cart
+  );
+  const nanoneedlingInCart = useSelector(
+    (state) => state.nanoneedlingInCart.in_cart
+  );
 
   const dispatch = useDispatch();
 
@@ -412,6 +444,42 @@ const SaltCave = (props) => {
             initialScreenSize={props.initialScreenSize}
           />
         );
+        if (beardInCart) {
+          dispatch(ACTION_BEARD_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (dermarollingInCart) {
+          dispatch(ACTION_DERMAROLLING_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (extraExtractionsInCart) {
+          dispatch(ACTION_EXTRACTION_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (guashaInCart) {
+          dispatch(ACTION_GUASHA_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (hydroJellyInCart) {
+          dispatch(ACTION_HYDROJELLY_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (ledInCart) {
+          dispatch(ACTION_LED_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (microcurrentInCart) {
+          dispatch(ACTION_MICROCURRENT_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (microdermabrasionInCart) {
+          dispatch(ACTION_MICRODERMABRASION_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
+        if (nanoneedlingInCart) {
+          dispatch(ACTION_NANONEEDLING_NOT_IN_CART());
+          dispatch(ACTION_DECREMENT_COUNTER());
+        }
       }
     }
   };

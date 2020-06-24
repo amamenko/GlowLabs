@@ -345,6 +345,7 @@
   padding-right: 4rem;
   border-radius: 30px;
   color: white;
+  display: none;
 }
 
 .fileContainer .chooseFileButton:hover {
@@ -656,6 +657,7 @@
   }
 
   .admin_individual_client_take_a_photo_button {
+    display: block;
     font-size: 1.5rem;
     margin-top: 1.5rem;
     padding: 1rem;

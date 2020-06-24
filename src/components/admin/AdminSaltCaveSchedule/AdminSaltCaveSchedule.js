@@ -3,10 +3,10 @@ import { Redirect, Link } from "react-router-dom";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
-import "./AdminSchedule.css";
-import AdminCalendarComponent from "./AdminCalendarComponent";
+import "./AdminSaltCaveSchedule.css";
+import AdminSaltCaveCalendarComponent from "./AdminSaltCaveCalendarComponent";
 
-const AdminSchedule = (props) => {
+const AdminSaltCaveSchedule = (props) => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
@@ -33,8 +33,17 @@ const AdminSchedule = (props) => {
             icon={faChevronLeft}
           />
         </Link>
-        <h1>MY SCHEDULE</h1>
-        <AdminCalendarComponent
+        <h1>
+          SALT CAVE
+          {!props.currentScreenSize
+            ? props.initialScreenSize >= 1200
+              ? " SCHEDULE"
+              : null
+            : props.currentScreenSize >= 1200
+            ? " SCHEDULE"
+            : null}
+        </h1>
+        <AdminSaltCaveCalendarComponent
           getAllAppointmentsData={props.getAllAppointmentsData}
           getEmployeeData={props.getEmployeeData}
         />
@@ -43,4 +52,4 @@ const AdminSchedule = (props) => {
   );
 };
 
-export default AdminSchedule;
+export default AdminSaltCaveSchedule;

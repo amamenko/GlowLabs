@@ -136,6 +136,8 @@ import ACTION_LED_THERAPY_TOGGLE_RESET from "./actions/AddOns/LEDTherapy/ACTION_
 import ACTION_MICROCURRENT_TOGGLE_RESET from "./actions/AddOns/Microcurrent/ACTION_MICROCURRENT_TOGGLE_RESET";
 import ACTION_MICRODERMABRASION_TOGGLE_RESET from "./actions/AddOns/Microdermabrasion/ACTION_MICRODERMABRASION_TOGGLE_RESET";
 import ACTION_NANONEEDLING_TOGGLE_RESET from "./actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
+import ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN from "./actions/ConsentForm/GuestConsentFormAccessToken/ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN";
+import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -219,6 +221,9 @@ const App = () => {
   const finalBookingModal = useSelector(
     (state) => state.finalBookingModal.final_booking_modal
   );
+  const guestConsentFormAccessToken = useSelector(
+    (state) => state.guestConsentFormAccessToken.access_token
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
@@ -241,7 +246,11 @@ const App = () => {
     {
       fetchPolicy: "no-cache",
       variables: {
-        _id: dummyToken ? dummyToken.id : null,
+        _id: dummyToken
+          ? dummyToken.id
+          : guestConsentFormAccessToken
+          ? guestConsentFormAccessToken.id
+          : null,
       },
     }
   );
@@ -307,6 +316,7 @@ const App = () => {
     let temporaryFacebookDummyToken;
     let currentAdminDummyToken;
     let temporaryAdminDummyToken;
+    let currentGuestConsentFormAccessToken;
 
     const checkCookies = () => {
       if (
@@ -314,7 +324,10 @@ const App = () => {
         temporaryFacebookDummyToken !==
           Cookies.get("temporary-facebook-dummy-token") ||
         currentAdminDummyToken !== Cookies.get("admin-dummy-token") ||
-        temporaryAdminDummyToken !== Cookies.get("temporary-admin-dummy-token")
+        temporaryAdminDummyToken !==
+          Cookies.get("temporary-admin-dummy-token") ||
+        currentGuestConsentFormAccessToken !==
+          Cookies.get("guest-consent-form-access-token")
       ) {
         currentDummyToken = Cookies.get("dummy-token");
         temporaryFacebookDummyToken = Cookies.get(
@@ -322,6 +335,9 @@ const App = () => {
         );
         currentAdminDummyToken = Cookies.get("admin-dummy-token");
         temporaryAdminDummyToken = Cookies.get("temporary-admin-dummy-token");
+        currentGuestConsentFormAccessToken = Cookies.get(
+          "guest-consent-form-access-token"
+        );
 
         if (currentDummyToken) {
           dispatch(ACTION_DUMMY_TOKEN(jwt.decode(currentDummyToken)));
@@ -348,6 +364,13 @@ const App = () => {
               dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION());
             } else {
               dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET());
+              if (currentGuestConsentFormAccessToken) {
+                dispatch(
+                  ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN(
+                    jwt.decode(currentGuestConsentFormAccessToken)
+                  )
+                );
+              }
             }
           }
         }
@@ -764,6 +787,66 @@ const App = () => {
     }
   }, [currentScreenSize, dispatch]);
 
+  const resetAllCartStates = () => {
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+    dispatch(ACTION_TOTAL_PRICE_RESET());
+    dispatch(ACTION_TOTAL_DURATION_RESET());
+    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+    dispatch(ACTION_SELECTED_TIME_RESET());
+    dispatch(ACTION_SELECTED_DAY_RESET());
+    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
+    dispatch(ACTION_SELECTED_SALT_CAVE_DURATION_RESET());
+    dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
+    dispatch(ACTION_ALL_COLLAPSE_RESET());
+    dispatch(ACTION_TREATMENTS_CART_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+    dispatch(ACTION_DAY_OF_THE_WEEK_RESET());
+    dispatch(ACTION_PHONE_NOT_VALID());
+    dispatch(ACTION_PHONE_NOT_INVALID());
+    dispatch(ACTION_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_EMAIL_RESET());
+    dispatch(ACTION_FIRST_NAME_RESET());
+    dispatch(ACTION_LAST_NAME_RESET());
+    dispatch(ACTION_PHONE_NUMBER_RESET());
+    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
+    dispatch(ACTION_EMAIL_NOT_INVALID());
+    dispatch(ACTION_EMAIL_NOT_VALID());
+    dispatch(ACTION_CONTINUE_BUTTON_RESET());
+    dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+    dispatch(ACTION_AVAILABILITY_RESET());
+    dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
+    dispatch(ACTION_CART_PAGE_OPENED());
+  };
+
+  const resetAllCartStatesExceptTreatments = () => {
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
+    dispatch(ACTION_SELECTED_TIME_RESET());
+    dispatch(ACTION_SELECTED_DAY_RESET());
+    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
+    dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
+    dispatch(ACTION_ALL_COLLAPSE_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_RESET());
+    dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+    dispatch(ACTION_DAY_OF_THE_WEEK_RESET());
+    dispatch(ACTION_PHONE_NOT_VALID());
+    dispatch(ACTION_PHONE_NOT_INVALID());
+    dispatch(ACTION_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_EMAIL_RESET());
+    dispatch(ACTION_FIRST_NAME_RESET());
+    dispatch(ACTION_LAST_NAME_RESET());
+    dispatch(ACTION_PHONE_NUMBER_RESET());
+    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
+    dispatch(ACTION_EMAIL_NOT_INVALID());
+    dispatch(ACTION_EMAIL_NOT_VALID());
+    dispatch(ACTION_CONTINUE_BUTTON_RESET());
+    dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
+    dispatch(ACTION_AVAILABILITY_RESET());
+    dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
+    dispatch(ACTION_CART_PAGE_OPENED());
+  };
+
   const shoppingCartConditionalActiveRendering = () => {
     if (
       !largeScreenFrozenScrollPosition &&
@@ -962,64 +1045,6 @@ const App = () => {
       }
     }
   }, [cartIsActive, dispatch, currentScreenSize, initialScreenSize]);
-
-  const resetAllCartStates = () => {
-    dispatch(ACTION_BODY_SCROLL_ALLOW());
-    dispatch(ACTION_TOTAL_PRICE_RESET());
-    dispatch(ACTION_TOTAL_DURATION_RESET());
-    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
-    dispatch(ACTION_SELECTED_TIME_RESET());
-    dispatch(ACTION_SELECTED_DAY_RESET());
-    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
-    dispatch(ACTION_SELECTED_SALT_CAVE_DURATION_RESET());
-    dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
-    dispatch(ACTION_ALL_COLLAPSE_RESET());
-    dispatch(ACTION_TREATMENTS_CART_RESET());
-    dispatch(ACTION_REFORMATTED_DAY_RESET());
-    dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
-    dispatch(ACTION_PHONE_NOT_VALID());
-    dispatch(ACTION_PHONE_NOT_INVALID());
-    dispatch(ACTION_APPOINTMENT_NOTES_RESET());
-    dispatch(ACTION_EMAIL_RESET());
-    dispatch(ACTION_FIRST_NAME_RESET());
-    dispatch(ACTION_LAST_NAME_RESET());
-    dispatch(ACTION_PHONE_NUMBER_RESET());
-    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
-    dispatch(ACTION_EMAIL_NOT_INVALID());
-    dispatch(ACTION_EMAIL_NOT_VALID());
-    dispatch(ACTION_CONTINUE_BUTTON_RESET());
-    dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
-    dispatch(ACTION_AVAILABILITY_RESET());
-    dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
-    dispatch(ACTION_CART_PAGE_OPENED());
-  };
-
-  const resetAllCartStatesExceptTreatments = () => {
-    dispatch(ACTION_BODY_SCROLL_ALLOW());
-    dispatch(ACTION_SELECT_TIME_NOT_ACTIVE());
-    dispatch(ACTION_SELECTED_TIME_RESET());
-    dispatch(ACTION_SELECTED_DAY_RESET());
-    dispatch(ACTION_SELECTED_ESTHETICIAN_RESET());
-    dispatch(ACTION_FINAL_BOOKING_MODAL_RESET());
-    dispatch(ACTION_ALL_COLLAPSE_RESET());
-    dispatch(ACTION_REFORMATTED_DAY_RESET());
-    dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
-    dispatch(ACTION_PHONE_NOT_VALID());
-    dispatch(ACTION_PHONE_NOT_INVALID());
-    dispatch(ACTION_APPOINTMENT_NOTES_RESET());
-    dispatch(ACTION_EMAIL_RESET());
-    dispatch(ACTION_FIRST_NAME_RESET());
-    dispatch(ACTION_LAST_NAME_RESET());
-    dispatch(ACTION_PHONE_NUMBER_RESET());
-    dispatch(ACTION_FINAL_BOOK_BUTTON_RESET());
-    dispatch(ACTION_EMAIL_NOT_INVALID());
-    dispatch(ACTION_EMAIL_NOT_VALID());
-    dispatch(ACTION_CONTINUE_BUTTON_RESET());
-    dispatch(ACTION_BOOKING_SUMMARY_NOT_ACTIVE());
-    dispatch(ACTION_AVAILABILITY_RESET());
-    dispatch(ACTION_APPOINTMENT_END_TIME_RESET());
-    dispatch(ACTION_CART_PAGE_OPENED());
-  };
 
   return (
     <>

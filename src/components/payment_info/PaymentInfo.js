@@ -426,8 +426,6 @@ const PaymentInfo = (props) => {
               }
             }
 
-            dispatch(ACTION_BOOKED_WITH_CARD_ID(cardData.id));
-
             changeSuccessfulCardNonce(true);
 
             if (!saveCardChecked && userAuthenticated) {
@@ -462,68 +460,70 @@ const PaymentInfo = (props) => {
             );
           })
           .then(async (res) => {
-            if (
-              squareStoredCreditCards.data.some(
-                (x) =>
-                  x.billing_address.postal_code ===
-                    res.data.card.billing_address.postal_code &&
-                  x.card_brand === res.data.card.card_brand &&
-                  x.cardholder_name === res.data.card.cardholder_name &&
-                  x.exp_month === res.data.card.exp_month &&
-                  x.exp_year === res.data.card.exp_year &&
-                  x.last_4 === res.data.card.last_4
-              )
-            ) {
-              const deleteCardData = {
-                customerId: userAuthenticated
-                  ? props.getClientData.client.squareCustomerId
-                  : matchedClient.squareCustomerId,
-                cardId: res.data.card.id,
-              };
+            if (squareStoredCreditCards.data) {
+              if (
+                squareStoredCreditCards.data.some(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )
+              ) {
+                const deleteCardData = {
+                  customerId: userAuthenticated
+                    ? props.getClientData.client.squareCustomerId
+                    : matchedClient.squareCustomerId,
+                  cardId: res.data.card.id,
+                };
 
-              const matchedDuplicateCard = squareStoredCreditCards.data.filter(
-                (x) =>
-                  x.billing_address.postal_code ===
-                    res.data.card.billing_address.postal_code &&
-                  x.card_brand === res.data.card.card_brand &&
-                  x.cardholder_name === res.data.card.cardholder_name &&
-                  x.exp_month === res.data.card.exp_month &&
-                  x.exp_year === res.data.card.exp_year &&
-                  x.last_4 === res.data.card.last_4
-              )[0];
+                const matchedDuplicateCard = squareStoredCreditCards.data.filter(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )[0];
 
-              dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
+                dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
 
-              if (saveCardChecked) {
-                if (userAuthenticated) {
-                  if (
-                    props.getClientData.client.unsavedSquareCardIDs.includes(
-                      matchedDuplicateCard.id
-                    )
-                  ) {
-                    removeOneUnsavedSquareCardIDs({
-                      variables: {
-                        unsavedSquareCardID: matchedDuplicateCard.id,
-                        firstName: props.getClientData.client.firstName,
-                        lastName: props.getClientData.client.lastName,
-                        email: props.getClientData.client.email,
-                      },
-                    });
+                if (saveCardChecked) {
+                  if (userAuthenticated) {
+                    if (
+                      props.getClientData.client.unsavedSquareCardIDs.includes(
+                        matchedDuplicateCard.id
+                      )
+                    ) {
+                      removeOneUnsavedSquareCardIDs({
+                        variables: {
+                          unsavedSquareCardID: matchedDuplicateCard.id,
+                          firstName: props.getClientData.client.firstName,
+                          lastName: props.getClientData.client.lastName,
+                          email: props.getClientData.client.email,
+                        },
+                      });
+                    }
                   }
                 }
-              }
 
-              return await axios.post(
-                "http://localhost:4000/customers/delete_card",
-                deleteCardData,
-                {
-                  headers: {
-                    Authorization:
-                      "Bearer " +
-                      process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
-                  },
-                }
-              );
+                return await axios.post(
+                  "http://localhost:4000/customers/delete_card",
+                  deleteCardData,
+                  {
+                    headers: {
+                      Authorization:
+                        "Bearer " +
+                        process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+                    },
+                  }
+                );
+              }
             }
 
             dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
@@ -589,68 +589,70 @@ const PaymentInfo = (props) => {
             },
           })
           .then(async (res) => {
-            if (
-              squareStoredCreditCards.data.some(
-                (x) =>
-                  x.billing_address.postal_code ===
-                    res.data.card.billing_address.postal_code &&
-                  x.card_brand === res.data.card.card_brand &&
-                  x.cardholder_name === res.data.card.cardholder_name &&
-                  x.exp_month === res.data.card.exp_month &&
-                  x.exp_year === res.data.card.exp_year &&
-                  x.last_4 === res.data.card.last_4
-              )
-            ) {
-              const deleteCardData = {
-                customerId: userAuthenticated
-                  ? props.getClientData.client.squareCustomerId
-                  : matchedClient.squareCustomerId,
-                cardId: res.data.card.id,
-              };
+            if (squareStoredCreditCards.data) {
+              if (
+                squareStoredCreditCards.data.some(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )
+              ) {
+                const deleteCardData = {
+                  customerId: userAuthenticated
+                    ? props.getClientData.client.squareCustomerId
+                    : matchedClient.squareCustomerId,
+                  cardId: res.data.card.id,
+                };
 
-              const matchedDuplicateCard = squareStoredCreditCards.data.filter(
-                (x) =>
-                  x.billing_address.postal_code ===
-                    res.data.card.billing_address.postal_code &&
-                  x.card_brand === res.data.card.card_brand &&
-                  x.cardholder_name === res.data.card.cardholder_name &&
-                  x.exp_month === res.data.card.exp_month &&
-                  x.exp_year === res.data.card.exp_year &&
-                  x.last_4 === res.data.card.last_4
-              )[0];
+                const matchedDuplicateCard = squareStoredCreditCards.data.filter(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )[0];
 
-              dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
+                dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
 
-              if (saveCardChecked) {
-                if (userAuthenticated) {
-                  if (
-                    props.getClientData.client.unsavedSquareCardIDs.includes(
-                      matchedDuplicateCard.id
-                    )
-                  ) {
-                    removeOneUnsavedSquareCardIDs({
-                      variables: {
-                        unsavedSquareCardID: matchedDuplicateCard.id,
-                        firstName: props.getClientData.client.firstName,
-                        lastName: props.getClientData.client.lastName,
-                        email: props.getClientData.client.email,
-                      },
-                    });
+                if (saveCardChecked) {
+                  if (userAuthenticated) {
+                    if (
+                      props.getClientData.client.unsavedSquareCardIDs.includes(
+                        matchedDuplicateCard.id
+                      )
+                    ) {
+                      removeOneUnsavedSquareCardIDs({
+                        variables: {
+                          unsavedSquareCardID: matchedDuplicateCard.id,
+                          firstName: props.getClientData.client.firstName,
+                          lastName: props.getClientData.client.lastName,
+                          email: props.getClientData.client.email,
+                        },
+                      });
+                    }
                   }
                 }
-              }
 
-              return await axios.post(
-                "http://localhost:4000/customers/delete_card",
-                deleteCardData,
-                {
-                  headers: {
-                    Authorization:
-                      "Bearer " +
-                      process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
-                  },
-                }
-              );
+                return await axios.post(
+                  "http://localhost:4000/customers/delete_card",
+                  deleteCardData,
+                  {
+                    headers: {
+                      Authorization:
+                        "Bearer " +
+                        process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+                    },
+                  }
+                );
+              }
             }
 
             dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));

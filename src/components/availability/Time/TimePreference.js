@@ -256,7 +256,9 @@ const TimePreference = (props) => {
                   Number(alreadyBookedAppointments[i].endTime.split(":")[1]) ===
                     35 ||
                   Number(alreadyBookedAppointments[i].endTime.split(":")[1]) ===
-                    40
+                    40 ||
+                  Number(alreadyBookedAppointments[i].endTime.split(":")[1]) ===
+                    45
                     ? 0
                     : 4 -
                       minutesArr.indexOf(

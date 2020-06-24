@@ -30,6 +30,7 @@ import "./Availability.css";
 import ACTION_CART_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
 import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
 import ACTION_SELECTED_ESTHETICIAN from "../../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN";
+import ACTION_DAY_OF_THE_WEEK_RESET from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 
 const Availability = (props) => {
   let location = useLocation();
@@ -605,6 +606,18 @@ const Availability = (props) => {
           (date.getDay() === 1) | (date.getDay() === 6)
         }
         onClickDay={(value) => handleValueClick(value)}
+        onChange={() => {
+          dispatch(ACTION_DAY_OF_THE_WEEK_RESET());
+          dispatch(ACTION_REFORMATTED_DAY_RESET());
+          dispatch(ACTION_REFORMATTED_DAY_CLONE_RESET());
+          dispatch(ACTION_ALL_COLLAPSE_RESET());
+          dispatch(ACTION_CONTINUE_BUTTON_RESET());
+          dispatch(ACTION_FIRST_NAME_RESET());
+          dispatch(ACTION_LAST_NAME_RESET());
+          dispatch(ACTION_EMAIL_RESET());
+          dispatch(ACTION_PHONE_NUMBER_RESET());
+          dispatch(ACTION_SELECTED_TIME_RESET());
+        }}
       />
       <Link
         to={(location) => {

@@ -15,6 +15,27 @@ const TreatmentsPage4 = (props) => {
   const [cbdMicroneedlingRendered, changeCBDMicroneedlingRendered] = useState(
     "none"
   );
+  const [jetHydroPeelRendered, changeJetHydroPeelRendered] = useState("none");
+
+  useEffect(() => {
+    if (props.currentScreenSize === "") {
+      if (props.initialScreenSize > 600) {
+        changeJetHydroPeelRendered("grid");
+      } else {
+        changeJetHydroPeelRendered("none");
+      }
+    } else {
+      if (props.currentScreenSize > 600) {
+        changeJetHydroPeelRendered("grid");
+      } else {
+        changeJetHydroPeelRendered("none");
+      }
+    }
+  }, [
+    props.currentScreenSize,
+    props.initialScreenSize,
+    changeJetHydroPeelRendered,
+  ]);
 
   useEffect(() => {
     if (props.currentScreenSize === "") {
@@ -117,6 +138,7 @@ const TreatmentsPage4 = (props) => {
       <JetHydroPeel
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        jetHydroPeelRendered={jetHydroPeelRendered}
       />
     </div>
   );

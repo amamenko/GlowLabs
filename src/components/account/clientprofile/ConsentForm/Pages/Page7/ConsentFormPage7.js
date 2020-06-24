@@ -144,6 +144,9 @@ const ConsentFormPage7 = (props) => {
   const anythingElseWeShouldKnow = useSelector(
     (state) => state.anythingElseWeShouldKnow.anything_else_we_should_know_notes
   );
+  const guestConsentFormAccessToken = useSelector(
+    (state) => state.guestConsentFormAccessToken.access_token
+  );
   const [finalBookingModalActive, changeFinalBookingModalActive] = useState(
     false
   );
@@ -162,6 +165,8 @@ const ConsentFormPage7 = (props) => {
     variables: {
       _id: Cookies.get("dummy-token")
         ? jwt.decode(Cookies.get("dummy-token")).id
+        : Cookies.get("guest-consent-form-access-token")
+        ? jwt.decode(Cookies.get("guest-consent-form-access-token")).id
         : null,
     },
   });
@@ -247,7 +252,7 @@ const ConsentFormPage7 = (props) => {
   };
 
   const redirectToLogInPage = () => {
-    if (!userAuthenticated) {
+    if (!userAuthenticated && !guestConsentFormAccessToken) {
       return <Redirect to="/account/login" />;
     }
   };
@@ -357,12 +362,14 @@ const ConsentFormPage7 = (props) => {
       {redirectToHome()}
       {redirectToLogInPage()}
       <div className="client_consent_form_header">
-        <Link to="/account/clientprofile">
-          <FontAwesomeIcon
-            className="client_consent_form_header_back_arrow"
-            icon={faChevronLeft}
-          />
-        </Link>
+        {guestConsentFormAccessToken ? null : (
+          <Link to="/account/clientprofile">
+            <FontAwesomeIcon
+              className="client_consent_form_header_back_arrow"
+              icon={faChevronLeft}
+            />
+          </Link>
+        )}
         <h1>CONSENT FORM</h1>
       </div>
       <h2 className="consent_form_title_designation">Skin Care Consent</h2>
@@ -533,7 +540,13 @@ const ConsentFormPage7 = (props) => {
             ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
-                  <Link to="/account/clientprofile">
+                  <Link
+                    to={
+                      guestConsentFormAccessToken
+                        ? "/"
+                        : "/account/clientprofile"
+                    }
+                  >
                     <FontAwesomeIcon
                       className="modal_x"
                       icon={faTimes}
@@ -582,12 +595,20 @@ const ConsentFormPage7 = (props) => {
                   <p className="modal_confirmation_statement">
                     {data
                       ? data.client !== null
-                        ? data.client.firstName.trim()
+                        ? data.client.firstName[0].toUpperCase() +
+                          data.client.firstName.slice(1).toLowerCase()
                         : ""
                       : ""}
                     , your consent form has been submitted.
                   </p>
-                  <Link to="/account/clientprofile" style={{ zIndex: 999 }}>
+                  <Link
+                    to={
+                      guestConsentFormAccessToken
+                        ? "/"
+                        : "/account/clientprofile"
+                    }
+                    style={{ zIndex: 999 }}
+                  >
                     <div
                       className="dismiss_modal_button"
                       onClick={handleModalBackToClientProfile}
@@ -595,10 +616,18 @@ const ConsentFormPage7 = (props) => {
                       <p>
                         {!props.currentScreenSize
                           ? props.initialScreenSize >= 1200
-                            ? "BACK TO APPOINTMENTS"
+                            ? guestConsentFormAccessToken
+                              ? "BACK TO HOME"
+                              : "BACK TO APPOINTMENTS"
+                            : guestConsentFormAccessToken
+                            ? "BACK TO HOME"
                             : "BACK TO MENU"
                           : props.currentScreenSize >= 1200
-                          ? "BACK TO APPOINTMENTS"
+                          ? guestConsentFormAccessToken
+                            ? "BACK TO HOME"
+                            : "BACK TO APPOINTMENTS"
+                          : guestConsentFormAccessToken
+                          ? "BACK TO HOME"
                           : "BACK TO MENU"}
                       </p>
                     </div>

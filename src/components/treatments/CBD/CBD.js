@@ -553,7 +553,13 @@ const CBD = (props) => {
         <div
           className="cbd_wrapping"
           ref={ref}
-          style={{ display: props.cbdMicroneedlingRendered }}
+          style={{
+            display: props.cbdMicroneedlingRendered
+              ? props.cbdMicroneedlingRendered
+              : props.dermaplaningCBDRendered
+              ? props.dermaplaningCBDRendered
+              : "grid",
+          }}
         >
           {inView ? (
             <Spring

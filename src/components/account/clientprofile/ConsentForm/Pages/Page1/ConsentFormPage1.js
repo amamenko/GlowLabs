@@ -9,27 +9,30 @@ import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
 import ACTION_CONSENT_FORM_PAGE_1 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_1";
 
-const ConsentFormPage1 = props => {
+const ConsentFormPage1 = (props) => {
   const dispatch = useDispatch();
 
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   const userAuthenticated = useSelector(
-    state => state.userAuthenticated.user_authenticated
+    (state) => state.userAuthenticated.user_authenticated
   );
 
   const surgeryLast3MonthsNo = useSelector(
-    state => state.surgeryLast3MonthsNo.surgery_last_3_months_no_active
+    (state) => state.surgeryLast3MonthsNo.surgery_last_3_months_no_active
   );
   const surgeryLast3MonthsYes = useSelector(
-    state => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
+    (state) => state.surgeryLast3MonthsYes.surgery_last_3_months_yes_active
   );
   const anyHealthProblemsNo = useSelector(
-    state => state.anyHealthProblemsNo.any_health_problems_no_active
+    (state) => state.anyHealthProblemsNo.any_health_problems_no_active
   );
   const anyHealthProblemsYes = useSelector(
-    state => state.anyHealthProblemsYes.any_health_problems_yes_active
+    (state) => state.anyHealthProblemsYes.any_health_problems_yes_active
+  );
+  const guestConsentFormAccessToken = useSelector(
+    (state) => state.guestConsentFormAccessToken.access_token
   );
 
   const redirectToHome = () => {
@@ -39,7 +42,7 @@ const ConsentFormPage1 = props => {
   };
 
   const redirectToLogInPage = () => {
-    if (!userAuthenticated) {
+    if (!userAuthenticated && !guestConsentFormAccessToken) {
       return <Redirect to="/account/login" />;
     }
   };
@@ -53,12 +56,14 @@ const ConsentFormPage1 = props => {
       {redirectToHome()}
       {redirectToLogInPage()}
       <div className="client_consent_form_header">
-        <Link to="/account/clientprofile">
-          <FontAwesomeIcon
-            className="client_consent_form_header_back_arrow"
-            icon={faChevronLeft}
-          />
-        </Link>
+        {guestConsentFormAccessToken ? null : (
+          <Link to="/account/clientprofile">
+            <FontAwesomeIcon
+              className="client_consent_form_header_back_arrow"
+              icon={faChevronLeft}
+            />
+          </Link>
+        )}
         <h1>CONSENT FORM</h1>
       </div>
       <SurgeryLast3Months
@@ -78,7 +83,7 @@ const ConsentFormPage1 = props => {
               (anyHealthProblemsNo || anyHealthProblemsYes) &&
               (surgeryLast3MonthsNo || surgeryLast3MonthsYes)
                 ? "auto"
-                : "none"
+                : "none",
           }}
         >
           <div
@@ -94,7 +99,7 @@ const ConsentFormPage1 = props => {
                 (surgeryLast3MonthsNo || surgeryLast3MonthsYes)
                   ? "rgb(255, 255, 255)"
                   : "rgb(201, 201, 201)",
-              transition: "background 0.5s ease, color 0.5s ease"
+              transition: "background 0.5s ease, color 0.5s ease",
             }}
           >
             <p>Next Page</p>

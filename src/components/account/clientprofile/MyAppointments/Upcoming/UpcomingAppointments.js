@@ -36,6 +36,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { deleteAppointmentMutation } from "../../../../../graphql/queries/queries";
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointments";
+import SaltCaveSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 
 const UpcomingAppointments = (props) => {
   const location = useLocation();
@@ -153,6 +154,7 @@ const UpcomingAppointments = (props) => {
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
     { name: "Not Sure", component: <UnsureSummaryCard /> },
+    { name: "Salt Cave", component: <SaltCaveSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [

@@ -288,6 +288,7 @@
     padding-left: 0;
   }
 
+  .large_screen_side_menu_item_container h2,
   .large_screen_side_menu_item h2 {
     position: absolute;
     left: 2rem;
@@ -374,13 +375,15 @@
 
   .large_screen_side_menu_pdf_container h2,
   .large_screen_side_menu_item_icon,
-  .large_screen_side_menu_item h2 {
+  .large_screen_side_menu_item h2,
+  .large_screen_side_menu_item_container h2 {
     font-size: 1.2rem;
     font-weight: 600;
   }
 
   .large_screen_side_menu_pdf_container h2,
-  .large_screen_side_menu_item h2 {
+  .large_screen_side_menu_item h2,
+  .large_screen_side_menu_item_container h2 {
     padding-left: 1.5rem;
   }
 

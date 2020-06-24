@@ -240,6 +240,8 @@ import finalBookingModalReducer from "./reducers/InCart/FinalBookingModal/finalB
 import saltCaveToggleReducer from "./reducers/Treatments/SaltCave/saltCaveToggleReducer";
 import saltCaveInCartReducer from "./reducers/InCart/Treatments/SaltCave/saltCaveInCartReducer";
 import selectedSaltCaveDurationReducer from "./reducers/Treatments/SaltCave/SaltCaveDuration/selectedSaltCaveDurationReducer";
+import jetHydroPeelToggleReducer from "./reducers/Treatments/JetHydroPeel/jetHydroPeelToggleReducer";
+import guestConsentFormAccessTokenReducer from "./reducers/ConsentForm/GuestConsentFormAccessToken/guestConsentFormAccessTokenReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -257,6 +259,7 @@ const RootReducer = combineReducers({
   microneedleToggle: microneedleToggleReducer,
   saltCaveToggle: saltCaveToggleReducer,
   selectedSaltCaveDuration: selectedSaltCaveDurationReducer,
+  jetHydroPeelToggle: jetHydroPeelToggleReducer,
 
   // Add-Ons
   beardToggle: beardToggleReducer,
@@ -412,6 +415,7 @@ const RootReducer = combineReducers({
   consentFormLastUpdated: consentFormLastUpdatedReducer,
   consentFormAnythingChanged: consentFormAnythingChangedReducer,
   consentFormPDF: consentFormPDFReducer,
+  guestConsentFormAccessToken: guestConsentFormAccessTokenReducer,
 
   // My Routine Morning Section Products Reducers,
   morningCleanserProductFrequency: morningCleanserProductFrequencyReducer,
