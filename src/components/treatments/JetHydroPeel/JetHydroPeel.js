@@ -264,9 +264,9 @@ const JetHydroPeel = (props) => {
 
   const bigScreenAddToCartButton = () => {
     return (
-      <>
+      <div className="jet_hydro_peel_coming_soon_container">
         <p>COMING SOON</p>
-      </>
+      </div>
     );
   };
 

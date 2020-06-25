@@ -78,10 +78,18 @@
   transform: scale(1);
 }
 
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .footer_logo_svg {
     bottom: 2vh;
+    transform: scale(1);
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .footer_logo_svg {
+    bottom: 8vh;
     transform: scale(1);
   }
 }

@@ -136,12 +136,30 @@
   align-self: flex-start;
 }
 
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .contact_page_container {
     height: 155vh;
     margin-top: 5vh;
     padding-top: 2vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .contact_page_container {
+    height: 145vh;
+    margin-top: 5vh;
+    padding-top: 2vh;
+  }
+}
+
+/* Additional CSS for Slightly Smaller Portrait Screens */
+@media only screen and (min-width: 375px) {
+  .contact_page_container {
+    height: 137vh;
+    margin-top: 0vh;
+    padding-top: 0vh;
   }
 }
 
@@ -291,12 +309,12 @@
   }
 
   .contacts_text_container {
-    margin-top: 1rem;
+    margin-top: 3rem;
   }
 
   .contacts_text_container p {
-    font-size: 1.5rem;
-    line-height: 3rem;
+    font-size: 1rem;
+    line-height: 2rem;
   }
 
   .contacts_text_container h4 {

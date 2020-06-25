@@ -35,7 +35,7 @@ const QuenchNotification = (props) => {
           cy="25"
           r="20"
           stroke="rgb(0, 129, 177)"
-          strokeWidth="0.1"
+          strokeWidth="0.5"
           fill="white"
         />
         <g transform="translate(0, -245)">

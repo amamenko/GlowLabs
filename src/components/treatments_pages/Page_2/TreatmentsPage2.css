@@ -22,11 +22,27 @@
   }
 }
 
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .treatments_page_2_container {
     row-gap: 5vh;
-    margin-top: 12vh;
+    margin-top: 12.5vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .treatments_page_2_container {
+    row-gap: 5vh;
+    margin-top: 9vh;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .treatments_page_2_container {
+    row-gap: 3.5vh;
+    margin-top: 1.9vh;
   }
 }
 

@@ -90,10 +90,14 @@ const ShoppingCart = (props) => {
       return <Redirect to="/" />;
     } else if (!props.currentScreenSize) {
       if (props.initialScreenSize >= 1200) {
-        return <Redirect to="/" />;
+        if (location.pathname !== "/") {
+          return <Redirect to="/" />;
+        }
       }
     } else if (props.currentScreenSize >= 1200) {
-      return <Redirect to="/" />;
+      if (location.pathname !== "/") {
+        return <Redirect to="/" />;
+      }
     }
   };
 

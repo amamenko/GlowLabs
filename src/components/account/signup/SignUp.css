@@ -131,18 +131,48 @@
   }
 }
 
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .sign_up_prompt {
     padding-top: 14rem;
     padding-bottom: 2rem;
-    top: 17vh;
+    top: 15vh;
   }
 
   .sign_up_content_container {
     height: 95%;
     justify-content: flex-end;
     bottom: 25vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .sign_up_prompt {
+    padding-top: 14rem;
+    padding-bottom: 2rem;
+    top: 25vh;
+  }
+
+  .sign_up_content_container {
+    height: 95%;
+    justify-content: flex-end;
+    bottom: 30vh;
+  }
+}
+
+/* Additional CSS for Slightly Smaller Portrait Screens */
+@media only screen and (min-width: 375px) {
+  .sign_up_prompt {
+    padding-top: 14rem;
+    padding-bottom: 2rem;
+    top: 32vh;
+  }
+
+  .sign_up_content_container {
+    height: 95%;
+    justify-content: flex-end;
+    bottom: 35vh;
   }
 }
 
@@ -258,6 +288,13 @@
   .already_have_an_account_question {
     font-size: 1rem;
     margin-bottom: 2vh;
+  }
+}
+
+/* CSS for Medium Laptops like Microsoft Surface Pro */
+@media only screen and (min-width: 1400px) {
+  .sign_up_required_fields {
+    padding-right: 2rem;
   }
 }
 

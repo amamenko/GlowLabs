@@ -373,6 +373,17 @@
 }
 
 /* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .small_plant {
+    top: 17%;
+  }
+
+  .q_tips {
+    top: 36.5%;
+  }
+}
+
+/* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 670px) {
   .cta_line {
     margin-top: -1.3rem;
@@ -442,9 +453,20 @@
 }
 
 /* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 410px) and (max-device-height: 850px) {
+@media only screen and (min-width: 410px) and (min-device-height: 850px) {
   .cta_line {
     margin-top: -3.5rem;
+  }
+}
+
+/* CSS for Galaxy Note S9+ */
+@media only screen and (min-width: 410px) and (min-device-height: 840px) and (max-device-height: 849px) {
+  .cta_line {
+    margin-top: -1rem;
+  }
+
+  .q_tips {
+    top: 36.2%;
   }
 }
 

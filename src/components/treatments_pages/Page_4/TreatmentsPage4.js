@@ -19,13 +19,13 @@ const TreatmentsPage4 = (props) => {
 
   useEffect(() => {
     if (props.currentScreenSize === "") {
-      if (props.initialScreenSize > 600) {
+      if (props.initialScreenSize >= 1200) {
         changeJetHydroPeelRendered("grid");
       } else {
         changeJetHydroPeelRendered("none");
       }
     } else {
-      if (props.currentScreenSize > 600) {
+      if (props.currentScreenSize >= 1200) {
         changeJetHydroPeelRendered("grid");
       } else {
         changeJetHydroPeelRendered("none");

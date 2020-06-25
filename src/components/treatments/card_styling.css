@@ -247,14 +247,14 @@
   }
 }
 
-/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+/* CSS for Smaller Portrait Screens (e.g. Galaxy Note 9) */
 @media only screen and (min-width: 360px) {
   .card_description_inner_wrapper h2 {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 
   .card_description_subheader {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .card_description_icon_wrapper_container {
@@ -290,7 +290,7 @@
   }
 
   .card_toggler {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .small_screen_card_description_plus,
@@ -321,7 +321,7 @@
     position: absolute;
     font-size: 0.6rem;
     font-weight: 700;
-    bottom: 5.3rem;
+    bottom: 4.7rem;
     color: rgb(155, 155, 155);
   }
 }
@@ -334,6 +334,7 @@
 
   .card_description_paragraph_value {
     font-size: 0.7rem;
+    padding-left: 0.9rem;
   }
 
   .card_description_paragraph_title {
@@ -344,6 +345,74 @@
   .card_description_paragraph_icon_wrapper {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .facial_advanced_treatment_icon {
+    top: 1rem;
+    font-size: 1rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 3.7rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .facial_advanced_treatment_icon {
+    top: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 1rem;
+    font-size: 0.7rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 2rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 4.7rem;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.3rem;
+  }
+
+  .card_description_subheader {
+    font-size: 0.9rem;
+  }
+
+  .card_toggler {
+    font-size: 1rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 1.1rem;
+    padding-left: 1rem;
+  }
+
+  .card_description_paragraph_title {
+    position: static;
+    font-size: 1rem;
+    margin-left: 0.8rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 5.3rem;
   }
 }
 
@@ -408,6 +477,17 @@
   .facial_advanced_treatment_designation {
     bottom: 0.8rem;
     font-size: 0.8rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 4.2rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Larger Heights */
+@media only screen and (min-width: 410px) and (min-device-height: 801px) {
+  .facial_coming_soon_designation {
+    bottom: 5rem;
   }
 }
 

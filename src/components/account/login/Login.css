@@ -226,15 +226,19 @@
   display: none;
 }
 
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .login_content_container {
-    margin-top: 10vh;
+    height: 100%;
+    margin-top: 18vh;
   }
+}
 
-  .dont_have_an_account_question {
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .login_content_container {
+    height: 80%;
+    margin-top: 15vh;
   }
 }
 

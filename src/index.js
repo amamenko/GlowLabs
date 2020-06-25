@@ -1176,14 +1176,18 @@ const App = () => {
                   initialScreenSize >= 600 &&
                   initialScreenSize > initialScreenHeight
                   ? window.scrollY <= 1
-                    ? "30vh"
+                    ? location.pathname === "/"
+                      ? "30vh"
+                      : "15vh"
                     : "15vh"
                   : "8vh"
                 : currentScreenSize <= 1000 &&
                   currentScreenSize >= 600 &&
                   currentScreenSize > currentScreenHeight
                 ? window.scrollY <= 1
-                  ? "30vh"
+                  ? location.pathname === "/"
+                    ? "30vh"
+                    : "15vh"
                   : "15vh"
                 : "8vh",
               paddingTop: !currentScreenSize
@@ -1191,14 +1195,18 @@ const App = () => {
                   initialScreenSize >= 600 &&
                   initialScreenSize > initialScreenHeight
                   ? window.scrollY <= 1
-                    ? "15vh"
+                    ? location.pathname === "/"
+                      ? "15vh"
+                      : "0vh"
                     : "0vh"
                   : "0vh"
                 : currentScreenSize <= 1000 &&
                   currentScreenSize >= 600 &&
                   currentScreenSize > currentScreenHeight
                 ? window.scrollY <= 1
-                  ? "15vh"
+                  ? location.pathname === "/"
+                    ? "15vh"
+                    : "0vh"
                   : "0vh"
                 : "0vh",
               paddingBottom: !currentScreenSize
@@ -1206,14 +1214,18 @@ const App = () => {
                   initialScreenSize >= 600 &&
                   initialScreenSize > initialScreenHeight
                   ? window.scrollY <= 1
-                    ? "15vh"
+                    ? location.pathname === "/"
+                      ? "15vh"
+                      : "0vh"
                     : "0vh"
                   : "0vh"
                 : currentScreenSize <= 1000 &&
                   currentScreenSize >= 600 &&
                   currentScreenSize > currentScreenHeight
                 ? window.scrollY <= 1
-                  ? "15vh"
+                  ? location.pathname === "/"
+                    ? "15vh"
+                    : "0vh"
                   : "0vh"
                 : "0vh",
               zIndex: finalBookButtonActive || logoutClicked ? "auto" : 500,

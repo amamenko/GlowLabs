@@ -28,12 +28,14 @@ const Instagram = React.forwardRef((props, ref) => {
               width_desktop: "0%",
               width_landscape: "0%",
               width_mobile: "0%",
+              width_smaller_mobile: "0%",
             }}
             to={{
               opacity: 1,
               width_desktop: "21%",
               width_landscape: "23%",
-              width_mobile: "35%",
+              width_mobile: "37%",
+              width_smaller_mobile: "45%",
             }}
             config={{ duration: 1000 }}
           >
@@ -56,12 +58,16 @@ const Instagram = React.forwardRef((props, ref) => {
                             ? `${styles.width_desktop}`
                             : props.initialScreenSize >= 600
                             ? `${styles.width_landscape}`
-                            : `${styles.width_mobile}`
+                            : props.initialScreenSize >= 375
+                            ? `${styles.width_mobile}`
+                            : `${styles.width_smaller_mobile}`
                           : props.currentScreenSize >= 1200
                           ? `${styles.width_desktop}`
                           : props.currentScreenSize >= 600
                           ? `${styles.width_landscape}`
-                          : `${styles.width_mobile}`,
+                          : props.currentScreenSize >= 375
+                          ? `${styles.width_mobile}`
+                          : `${styles.width_smaller_mobile}`,
                     }}
                     className="real_clients_title_underline"
                   />

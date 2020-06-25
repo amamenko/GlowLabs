@@ -100,6 +100,21 @@ select {
   -moz-appearance: none;
 }
 
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .shopping_cart_card_description h3 {
+    font-size: 1rem;
+  }
+
+  .shopping_cart_duration {
+    font-size: 0.8rem;
+  }
+
+  .shopping_cart_price {
+    font-size: 1.2rem;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .shopping_cart_remove_button {

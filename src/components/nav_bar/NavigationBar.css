@@ -212,14 +212,47 @@
   }
 }
 
+/* Additional CSS for Mobile Phones with Smaller Heights like Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .shopping_cart_small_screen {
+    margin-top: 0.2rem;
+  }
+
+  .cart_item_number_circle {
+    margin-top: 0.2rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights like Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .shopping_cart_small_screen {
+    margin-top: 0.4rem;
+  }
+
+  .cart_item_number_circle {
+    margin-top: 0.4rem;
+  }
+}
+
 /* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+@media only screen and (min-width: 375px) and (max-device-height: 800px) {
   .shopping_cart_small_screen {
     margin-top: -0.5rem;
   }
 
   .cart_item_number_circle {
     margin-top: -0.5rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Slightly Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 801px) {
+  .shopping_cart_small_screen {
+    margin-top: 0rem;
+  }
+
+  .cart_item_number_circle {
+    margin-top: 0rem;
   }
 }
 

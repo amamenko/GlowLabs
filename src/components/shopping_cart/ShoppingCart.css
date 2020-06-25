@@ -218,6 +218,34 @@
   transition: background 0.2s ease-in-out;
 }
 
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .shopping_cart_container h1,
+  .shopping_cart_back_arrow,
+  .shopping_cart_forward_arrow {
+    font-size: 1.2rem;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .large_screen_shopping_cart_full_container {
+    position: fixed;
+    height: 100%;
+    z-index: 22;
+    width: 100vw;
+  }
+
+  .large_screen_shopping_cart_container {
+    position: absolute;
+    width: 33.35%;
+    right: 0;
+    height: 100%;
+    overflow: scroll;
+    background: rgb(255, 255, 255);
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .shopping_cart_container {

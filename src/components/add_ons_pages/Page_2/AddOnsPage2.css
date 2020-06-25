@@ -18,11 +18,19 @@
   }
 }
 
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .add_ons_page_2_container {
     row-gap: 5vh;
-    margin-top: 12vh;
+    margin-top: 13.2vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .add_ons_page_2_container {
+    row-gap: 5vh;
+    margin-top: 9vh;
   }
 }
 

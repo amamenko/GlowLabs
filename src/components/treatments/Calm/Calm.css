@@ -49,8 +49,25 @@
   }
 }
 
-/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+/* CSS for Smaller Portrait Screens (e.g. Galaxy Note 9) */
 @media only screen and (min-width: 360px) {
+  .book_now_pop_up {
+    padding-top: 0.2rem;
+    left: 1.4rem;
+    width: 11rem;
+    height: 1.5rem;
+    top: 2.1rem;
+    font-size: 0.8rem;
+  }
+
+  .book_now_pop_up::before {
+    top: -1.2rem;
+    left: 8.5rem;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
   .book_now_pop_up {
     padding-top: 0.2rem;
     left: 1.9rem;

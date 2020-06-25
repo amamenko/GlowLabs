@@ -59,7 +59,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
         props.initialScreenSize >= 600 &&
         props.initialScreenSize > props.initialScreenHeight
       ) {
-        if (props.initialScreenSize >= 1200) {
+        if (props.initialScreenSize >= 600) {
           if (
             cartIsActive ||
             location.pathname.includes("account") ||
@@ -86,7 +86,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
         props.currentScreenSize >= 600 &&
         props.currentScreenSize > props.currentScreenHeight
       ) {
-        if (props.currentScreenSize >= 1200) {
+        if (props.currentScreenSize >= 600) {
           if (
             cartIsActive ||
             location.pathname.includes("account") ||
@@ -243,14 +243,18 @@ const NavigationBar = React.forwardRef((props, ref) => {
               props.initialScreenSize >= 600 &&
               props.initialScreenSize > props.initialScreenHeight
               ? window.scrollY <= 1
-                ? "30vh"
+                ? location.pathname === "/"
+                  ? "30vh"
+                  : "15vh"
                 : "15vh"
               : "8vh"
             : props.currentScreenSize <= 1000 &&
               props.currentScreenSize >= 600 &&
               props.currentScreenSize > props.currentScreenHeight
             ? window.scrollY <= 1
-              ? "30vh"
+              ? location.pathname === "/"
+                ? "30vh"
+                : "15vh"
               : "15vh"
             : "8vh",
         alignItems:
@@ -286,13 +290,17 @@ const NavigationBar = React.forwardRef((props, ref) => {
               ? props.initialScreenSize <= 1000 &&
                 props.initialScreenSize >= 600
                 ? window.scrollY <= 1
-                  ? "flex-start"
+                  ? location.pathname === "/"
+                    ? "flex-start"
+                    : "center"
                   : "center"
                 : "center"
               : props.currentScreenSize <= 1000 &&
                 props.currentScreenSize >= 600
               ? window.scrollY <= 1
-                ? "flex-start"
+                ? location.pathname === "/"
+                  ? "flex-start"
+                  : "center"
                 : "center"
               : "center",
         }}

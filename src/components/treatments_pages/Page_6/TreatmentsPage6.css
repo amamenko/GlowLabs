@@ -7,10 +7,10 @@
   .treatments_page_6_container {
     display: grid;
     height: 85vh;
-    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
     grid-template-areas:
-      ". microneedle_card ."
-      ". microneedle_card .";
+      "microneedle_card microneedle_card jet_hydro_peel_card jet_hydro_peel_card"
+      "microneedle_card microneedle_card jet_hydro_peel_card jet_hydro_peel_card";
     margin-left: 1.6rem;
     margin-right: 1.6rem;
     margin-top: -5.3rem;
