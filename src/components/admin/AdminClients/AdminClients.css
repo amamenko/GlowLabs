@@ -141,10 +141,10 @@
   height: 100%;
   width: 100%;
   overflow: auto;
+  overflow-y: scroll;
   padding-bottom: 20vh;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
-  position: relative;
 }
 
 .admin_individual_selected_client_back_container p {

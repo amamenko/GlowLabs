@@ -34,6 +34,22 @@
   }
 }
 
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  .add_ons_page_2_container {
+    row-gap: 5vh;
+    margin-top: 12vh;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) with Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) {
+  .add_ons_page_2_container {
+    row-gap: 3.5vh;
+    margin-top: 2.3vh;
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .add_ons_page_2_container {

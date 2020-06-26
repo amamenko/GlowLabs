@@ -163,6 +163,15 @@
   }
 }
 
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  .contact_page_container {
+    height: 155vh;
+    margin-top: 5vh;
+    padding-top: 2vh;
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .contact_page_container {

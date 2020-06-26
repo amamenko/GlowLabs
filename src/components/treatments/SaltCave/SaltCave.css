@@ -66,6 +66,13 @@
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .salt_cave_time_formgroup_input {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Average Portrait Screens with Larger Heights */
+@media only screen and (min-width: 410px) and (min-device-height: 800px) {
+  .salt_cave_time_formgroup_input {
     font-size: 1rem;
   }
 }

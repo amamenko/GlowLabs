@@ -23,11 +23,6 @@ import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLo
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FormGroup, Input, Modal } from "reactstrap";
 import { Transition } from "react-spring/renderprops";
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from "body-scroll-lock";
 import imageCompression from "browser-image-compression";
 import ImageUploader from "react-images-upload";
 import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
@@ -141,28 +136,6 @@ const AdminClients = (props) => {
       }
     };
   }, [pdfLoading]);
-
-  useEffect(() => {
-    const checkModalRef = setInterval(() => {
-      let currentRef;
-
-      if (selectedClientBackRef) {
-        currentRef = selectedClientBackRef.current;
-      }
-
-      if (currentRef) {
-        if (clientToggled) {
-          disableBodyScroll({ targetElement: currentRef });
-        } else {
-          enableBodyScroll({ targetElement: currentRef });
-        }
-      }
-    }, 100);
-    return () => {
-      clearInterval(checkModalRef);
-      clearAllBodyScrollLocks();
-    };
-  }, [clientToggled]);
 
   const handleChangeClientFilter = (e) => {
     changeClientFilter(e.currentTarget.value);

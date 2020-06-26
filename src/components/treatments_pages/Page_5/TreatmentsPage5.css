@@ -28,6 +28,13 @@
   }
 }
 
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  .treatments_page_5_container {
+    margin-top: 5.4rem;
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .treatments_page_5_container {

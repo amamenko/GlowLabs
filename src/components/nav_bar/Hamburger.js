@@ -54,13 +54,19 @@ const Hamburger = (props) => {
           transform: props.navbarToggle ? "rotate(-225deg)" : "rotate(0)",
           background:
             props.currentScreenSize === ""
-              ? props.initialScreenSize >= 600
+              ? props.initialScreenSize >= 768 &&
+                props.initialScreenHeight > props.initialScreenSize
+                ? "rgb(239, 240, 243)"
+                : props.initialScreenSize >= 600
                 ? window.scrollY <= 1
                   ? props.navbarToggle
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
+              : props.currentScreenSize >= 768 &&
+                props.currentScreenHeight > props.currentScreenSize
+              ? "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
               ? window.scrollY <= 1
                 ? props.navbarToggle
@@ -81,13 +87,19 @@ const Hamburger = (props) => {
           transform: props.navbarToggle ? "rotate(45deg)" : "rotate(0)",
           background:
             props.currentScreenSize === ""
-              ? props.initialScreenSize >= 600
+              ? props.initialScreenSize >= 768 &&
+                props.initialScreenHeight > props.initialScreenSize
+                ? "rgb(239, 240, 243)"
+                : props.initialScreenSize >= 600
                 ? window.scrollY <= 1
                   ? props.navbarToggle
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
+              : props.currentScreenSize >= 768 &&
+                props.currentScreenHeight > props.currentScreenSize
+              ? "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
               ? window.scrollY <= 1
                 ? props.navbarToggle

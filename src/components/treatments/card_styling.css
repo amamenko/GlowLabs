@@ -401,18 +401,46 @@
   }
 
   .card_description_paragraph_value {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     padding-left: 1rem;
   }
 
   .card_description_paragraph_title {
     position: static;
-    font-size: 1rem;
-    margin-left: 0.8rem;
+    font-size: 0.9rem;
+    margin-left: 0.7rem;
   }
 
   .facial_coming_soon_designation {
     bottom: 5.3rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+  }
+}
+
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  .facial_coming_soon_designation {
+    bottom: 3.8rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.7rem;
+    padding-left: 1.1rem;
+  }
+
+  .card_description_paragraph_title {
+    position: static;
+    font-size: 0.7rem;
+    margin-left: 0.8rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
   }
 }
 
