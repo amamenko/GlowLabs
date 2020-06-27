@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import { useLocation, Redirect } from "react-router-dom";
 import {
   disableBodyScroll,
@@ -54,9 +54,15 @@ const NavigationMenu = React.forwardRef((props, ref) => {
     dispatch(ACTION_BODY_SCROLL_ALLOW());
   };
 
+  const redirectToHome = () => {
+    return <Redirect to="/" />;
+  };
+
   const navMenuScrollToHome = () => {
     navbarItemSelect();
     clearTimeout(navbarItemSelect());
+    redirectToHome();
+
     if (cartIsActive) {
       setTimeout(() => {
         props.handleRedirectClickToHome(LandingPageRef);
@@ -74,18 +80,22 @@ const NavigationMenu = React.forwardRef((props, ref) => {
     }
   };
 
-  if (homeClicked) {
-    setTimeout(() => {
-      changeHomeClicked(false);
-    }, 100);
-    if (location.pathname !== "/") {
-      return <Redirect to="/" />;
+  useEffect(() => {
+    if (homeClicked) {
+      setTimeout(() => {
+        changeHomeClicked(false);
+      }, 100);
+      if (location.pathname !== "/") {
+        return <Redirect to="/" />;
+      }
     }
-  }
+  }, [homeClicked, location.pathname]);
 
   const navMenuScrollToTreatments = () => {
     navbarItemSelect();
     clearTimeout(navbarItemSelect());
+    redirectToHome();
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
     setTimeout(() => {
       props.handleClickToScrollToTreatments(Treatments1Ref);
     }, 300);
@@ -94,6 +104,8 @@ const NavigationMenu = React.forwardRef((props, ref) => {
   const navMenuScrollToAddOns = () => {
     navbarItemSelect();
     clearTimeout(navbarItemSelect());
+    redirectToHome();
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
     setTimeout(() => {
       props.handleClickToScrollToAddOns(AddOnsRef);
     }, 300);
@@ -102,6 +114,8 @@ const NavigationMenu = React.forwardRef((props, ref) => {
   const navMenuScrollToInstagram = () => {
     navbarItemSelect();
     clearTimeout(navbarItemSelect());
+    redirectToHome();
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
     setTimeout(() => {
       props.handleClickToScrollToInstagram(InstagramRef);
     }, 300);
@@ -110,6 +124,8 @@ const NavigationMenu = React.forwardRef((props, ref) => {
   const navMenuScrollToContact = () => {
     navbarItemSelect();
     clearTimeout(navbarItemSelect());
+    redirectToHome();
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
     setTimeout(() => {
       props.handleClickToScrollToContact(ContactRef);
     }, 300);
@@ -136,6 +152,7 @@ const NavigationMenu = React.forwardRef((props, ref) => {
             : "all 0.7s ease",
       }}
     >
+      {redirectToHome()}
       <ul className="navbar_items">
         <li onClick={() => navMenuScrollToHome()}>Home</li>
         <li onClick={() => navMenuScrollToTreatments()}>Facial</li>

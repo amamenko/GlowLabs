@@ -1,5 +1,5 @@
 .contact_page_container {
-  height: 140vh;
+  height: 165vh;
   position: relative;
   background: rgb(255, 255, 255);
   overflow: hidden;
@@ -20,13 +20,14 @@
 }
 
 .contacts_page_wrapping h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 900;
   color: rgb(44, 44, 52);
   -webkit-text-fill-color: rgb(44, 44, 52);
-  line-height: 1rem;
+  line-height: 0.5rem;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
+  position: relative;
 }
 
 .contacts_map_container {
@@ -136,6 +137,23 @@
   align-self: flex-start;
 }
 
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .contact_page_container {
+    height: 140vh;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: rgb(44, 44, 52);
+    -webkit-text-fill-color: rgb(44, 44, 52);
+    line-height: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+  }
+}
+
 /* Additional CSS for Mobile Phones with Even Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .contact_page_container {
@@ -167,7 +185,7 @@
 @media only screen and (min-width: 375px) and (max-device-height: 700px) {
   .contact_page_container {
     height: 155vh;
-    margin-top: 5vh;
+    margin-top: 6vh;
     padding-top: 2vh;
   }
 }
@@ -191,12 +209,12 @@
 /* Additional CSS for Mobile Phones with Smaller Heights */
 @media only screen and (min-width: 410px) and (max-device-height: 800px) {
   .contact_page_container {
-    height: 145vh;
+    height: 140vh;
   }
 
   .contact_page_container {
-    margin-top: 0vh;
-    padding-top: 8vh;
+    margin-top: 10vh;
+    padding-top: 0vh;
   }
 }
 

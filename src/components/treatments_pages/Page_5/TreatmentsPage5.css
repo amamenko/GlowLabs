@@ -1,16 +1,26 @@
-.treatments_page_5_container {
-  height: 28.6666667vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-auto-rows: auto;
-  grid-template-areas: "jet_hydro_peel_card jet_hydro_peel_card jet_hydro_peel_card";
-  margin-top: 4.5rem;
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .treatments_page_5_container {
+    height: 28.6666667vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: auto;
+    grid-template-areas: "jet_hydro_peel_card jet_hydro_peel_card jet_hydro_peel_card";
+    margin-top: 2.5rem;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .treatments_page_5_container {
+    margin-top: 4.5rem;
+  }
 }
 
 /* Additional CSS for Mobile Phones with Even Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .treatments_page_5_container {
-    margin-top: 5rem;
+    margin-top: 4.5rem;
   }
 }
 

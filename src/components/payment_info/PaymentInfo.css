@@ -238,6 +238,29 @@ select {
   font-weight: 500;
 }
 
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .payment_info_container h1,
+  .payment_info_back_arrow,
+  .payment_info_forward_arrow {
+    font-size: 1.2rem;
+  }
+
+  .payment_info_header {
+    height: 6vh;
+  }
+
+  .payment_info_header h2 {
+    font-size: 0.9rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .payment_info_container h1 {

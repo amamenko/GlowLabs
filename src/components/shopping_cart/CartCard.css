@@ -113,6 +113,10 @@ select {
   .shopping_cart_price {
     font-size: 1.2rem;
   }
+
+  .shopping_cart_remove_button {
+    font-size: 0.8rem;
+  }
 }
 
 /* CSS for Big Desktops */

@@ -25,7 +25,7 @@
 /* Additional CSS for Mobile Phones with Even Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .treatments_page_2_container {
-    row-gap: 5vh;
+    row-gap: 4.5vh;
     margin-top: 12.5vh;
   }
 }

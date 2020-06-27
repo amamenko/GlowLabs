@@ -185,6 +185,50 @@
   transition: none;
 }
 
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .checkout_container h1,
+  .checkout_back_arrow,
+  .checkout_back_arrow {
+    font-size: 1.2rem;
+  }
+
+  .checkout_header {
+    height: 6vh;
+  }
+
+  .checkout_header h2 {
+    font-size: 0.9rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+
+  .input_field {
+    font-size: 1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.4rem;
+    padding-left: 0.4rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 0.9rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    padding-top: 0.4rem;
+    padding-bottom: 3rem;
+  }
+
+  .top_form_container {
+    width: 84vw;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .checkout_container h1 {

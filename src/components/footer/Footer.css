@@ -44,12 +44,14 @@
 }
 
 .footer_copyright_statement {
+  font-size: 0.8rem;
   text-align: center;
   font-weight: 600;
   color: #fff;
 }
 
 .footer_company_address {
+  font-size: 0.8rem;
   text-align: center;
   font-weight: 300;
   color: #fff;
@@ -66,7 +68,7 @@
 }
 
 .footer_logo_path_container {
-  transform: translate(0%, -30%);
+  transform: translate(0%, 10%);
 }
 
 .footer_logo_svg {
@@ -76,6 +78,28 @@
   bottom: 8vh;
   margin: 0 auto;
   transform: scale(1);
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .footer_copyright_statement {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .footer_company_address {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 300;
+    color: #fff;
+    padding-bottom: 1rem;
+  }
+
+  .footer_logo_path_container {
+    transform: translate(0%, -30%);
+  }
 }
 
 /* Additional CSS for Mobile Phones with Even Smaller Heights */

@@ -177,6 +177,41 @@ button:disabled {
   border-radius: 30px;
 }
 
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .availability_container h1,
+  .availability_back_arrow,
+  .availability_forward_arrow {
+    font-size: 1.2rem;
+  }
+
+  .availability_statement {
+    font-size: 1rem;
+  }
+
+  .select_a_date_header {
+    height: 6vh;
+  }
+
+  .select_a_date_header h2 {
+    font-size: 0.9rem;
+  }
+
+  .select_time_button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+
+  .calendar_tiles {
+    font-size: 1rem;
+  }
+
+  .react-calendar {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .availability_container h1 {

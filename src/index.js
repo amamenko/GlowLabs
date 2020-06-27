@@ -138,6 +138,7 @@ import ACTION_MICRODERMABRASION_TOGGLE_RESET from "./actions/AddOns/Microdermabr
 import ACTION_NANONEEDLING_TOGGLE_RESET from "./actions/AddOns/Nanoneedling/ACTION_NANONEEDLING_TOGGLE_RESET";
 import ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN from "./actions/ConsentForm/GuestConsentFormAccessToken/ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN";
 import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
+import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -601,6 +602,14 @@ const App = () => {
     dispatch,
     location.pathname,
   ]);
+
+  useEffect(() => {
+    if (location.pathname.includes("cart")) {
+      if (!cartIsActive) {
+        dispatch(ACTION_CART_IS_ACTIVE());
+      }
+    }
+  }, [dispatch, location.pathname, cartIsActive]);
 
   const handleLogout = () => {
     if (adminDummyToken) {

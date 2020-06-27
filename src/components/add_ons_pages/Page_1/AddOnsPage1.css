@@ -5,7 +5,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-auto-rows: auto;
-    gap: 4vh;
+    gap: 3vh;
     grid-template-areas:
       "header header header"
       "extra_extractions_card extra_extractions_card extra_extractions_card"
@@ -64,6 +64,21 @@
 
   .add_ons_page_1_header h3 {
     font-size: 1.79rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .add_ons_page_1_container {
+    gap: 4.5vh;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .add_ons_page_1_container {
+    gap: 5vh;
+    margin-top: 5vh;
   }
 }
 

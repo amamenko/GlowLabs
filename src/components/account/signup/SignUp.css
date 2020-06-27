@@ -131,6 +131,19 @@
   }
 }
 
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) with Smaller Heights */
+@media only screen and (max-width: 359px) and (max-device-height: 600px) {
+  .sign_up_prompt {
+    top: 3vh;
+  }
+
+  .sign_up_content_container {
+    height: 95%;
+    justify-content: flex-end;
+    bottom: 15vh;
+  }
+}
+
 /* Additional CSS for Mobile Phones with Even Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 700px) {
   .sign_up_prompt {
@@ -173,6 +186,21 @@
     height: 95%;
     justify-content: flex-end;
     bottom: 35vh;
+  }
+}
+
+/* Additional CSS for Slightly Smaller Portrait Screens */
+@media only screen and (min-width: 375px) and (min-device-height: 600px) and (max-device-height: 700px) {
+  .sign_up_prompt {
+    padding-top: 14rem;
+    padding-bottom: 2rem;
+    top: 17vh;
+  }
+
+  .sign_up_content_container {
+    height: 95%;
+    justify-content: flex-end;
+    bottom: 25vh;
   }
 }
 

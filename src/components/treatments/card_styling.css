@@ -226,8 +226,8 @@
 
   .facial_advanced_treatment_icon {
     position: absolute;
-    top: 1.25rem;
-    font-size: 1.5rem;
+    top: 1rem;
+    font-size: 1rem;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -236,14 +236,22 @@
 
   .facial_advanced_treatment_designation {
     position: absolute;
-    bottom: 1.25rem;
-    font-size: 0.7rem;
+    bottom: 0.6rem;
+    font-size: 0.6rem;
     left: 0;
     right: 0;
     margin: 0;
     text-align: center;
     font-weight: 600;
     transition: color 0.5s ease;
+  }
+
+  .facial_coming_soon_designation {
+    position: absolute;
+    font-size: 0.5rem;
+    font-weight: 700;
+    bottom: 3.4rem;
+    color: rgb(155, 155, 155);
   }
 }
 
