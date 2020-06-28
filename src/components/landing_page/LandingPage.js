@@ -647,7 +647,9 @@ const LandingPage = React.forwardRef((props, ref) => {
                         }}
                         leave={{
                           opacity: 0,
-                          height: "0vh",
+                          tiny_portrait_height: "0vh",
+                          small_portrait_height: "0vh",
+                          portrait_height: "0vh",
                           config: { duration: 100 },
                         }}
                       >
@@ -682,10 +684,14 @@ const LandingPage = React.forwardRef((props, ref) => {
                             ? props.initialScreenSize >= 414
                               ? lineRenderScroll
                                 ? isSafari
-                                  ? "1.5rem"
+                                  ? props.initialScreenHeight > 800
+                                    ? "1.5rem"
+                                    : "-1rem"
                                   : "-0.5rem"
                                 : isSafari
-                                ? "-5rem"
+                                ? props.initialScreenHeight > 800
+                                  ? "-5rem"
+                                  : "-6rem"
                                 : "0rem"
                               : props.initialScreenSize >= 400
                               ? lineRenderScroll
@@ -693,7 +699,15 @@ const LandingPage = React.forwardRef((props, ref) => {
                                 : "1.5rem"
                               : props.initialScreenSize >= 375
                               ? lineRenderScroll
-                                ? "0.2rem"
+                                ? CSS.supports(
+                                    `(-webkit-overflow-scrolling: touch)`
+                                  )
+                                  ? "0rem"
+                                  : "0.2rem"
+                                : CSS.supports(
+                                    `(-webkit-overflow-scrolling: touch)`
+                                  )
+                                ? "-3rem"
                                 : "1.5rem"
                               : props.initialScreenSize >= 360
                               ? lineRenderScroll
@@ -701,16 +715,28 @@ const LandingPage = React.forwardRef((props, ref) => {
                                 : "1.5rem"
                               : props.initialScreenSize >= 300
                               ? lineRenderScroll
-                                ? "0rem"
+                                ? CSS.supports(
+                                    `(-webkit-overflow-scrolling: touch)`
+                                  )
+                                  ? "0rem"
+                                  : "0rem"
+                                : CSS.supports(
+                                    `(-webkit-overflow-scrolling: touch)`
+                                  )
+                                ? "-3rem"
                                 : "1.5rem"
                               : "1rem"
                             : props.currentScreenSize >= 414
                             ? lineRenderScroll
                               ? isSafari
-                                ? "1.5rem"
+                                ? props.currentScreenHeight > 800
+                                  ? "1.5rem"
+                                  : "-1rem"
                                 : "-0.5rem"
                               : isSafari
-                              ? "-5rem"
+                              ? props.currentScreenHeight > 800
+                                ? "-5rem"
+                                : "-6rem"
                               : "0rem"
                             : props.currentScreenSize >= 400
                             ? lineRenderScroll
@@ -718,7 +744,15 @@ const LandingPage = React.forwardRef((props, ref) => {
                               : "1.5rem"
                             : props.currentScreenSize >= 375
                             ? lineRenderScroll
-                              ? "0.2rem"
+                              ? CSS.supports(
+                                  `(-webkit-overflow-scrolling: touch)`
+                                )
+                                ? "0rem"
+                                : "0.2rem"
+                              : CSS.supports(
+                                  `(-webkit-overflow-scrolling: touch)`
+                                )
+                              ? "-3rem"
                               : "1.5rem"
                             : props.currentScreenSize >= 360
                             ? lineRenderScroll
@@ -726,7 +760,15 @@ const LandingPage = React.forwardRef((props, ref) => {
                               : "1.5rem"
                             : props.currentScreenSize >= 300
                             ? lineRenderScroll
-                              ? "0rem"
+                              ? CSS.supports(
+                                  `(-webkit-overflow-scrolling: touch)`
+                                )
+                                ? "0rem"
+                                : "0rem"
+                              : CSS.supports(
+                                  `(-webkit-overflow-scrolling: touch)`
+                                )
+                              ? "-3rem"
                               : "1.5rem"
                             : "1rem",
                           opacity: splashScreenComplete ? 1 : 0,

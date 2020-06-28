@@ -36,6 +36,7 @@ import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Quench.css";
 import "../../treatments_pages/Page_2/TreatmentsPage2.css";
 import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
+import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
 const Quench = (props) => {
   // "Learn More" states
@@ -59,6 +60,9 @@ const Quench = (props) => {
     (state) => state.microneedleToggle.toggle
   );
   const saltCaveToggle = useSelector((state) => state.saltCaveToggle.toggle);
+  const jetHydroPeelToggle = useSelector(
+    (state) => state.jetHydroPeelToggle.toggle
+  );
 
   // In Cart states
   const calmInCart = useSelector((state) => state.calmInCart.in_cart);
@@ -124,6 +128,9 @@ const Quench = (props) => {
       }
       if (saltCaveToggle) {
         dispatch(ACTION_SALT_CAVE_TOGGLE_RESET());
+      }
+      if (jetHydroPeelToggle) {
+        dispatch(ACTION_JET_HYDRO_PEEL_TOGGLE_RESET());
       }
     } else {
       dispatch(ACTION_QUENCH_TOGGLE_RESET());
@@ -417,7 +424,7 @@ const Quench = (props) => {
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(0, 129, 177, 0.4)"
                   : quenchInCart
-                  ? "rgb(119, 221, 119, 0.6)"
+                  ? "rgba(119, 221, 119, 0.6)"
                   : calmInCart |
                       cbdInCart |
                       chemicalPeelInCart |
@@ -759,7 +766,7 @@ const Quench = (props) => {
                       style={{
                         borderRight: quenchToggle
                           ? "1px solid rgba(25, 154, 202, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)",
+                          : "1px solid rgb(211, 211, 211)",
                       }}
                     />
                   </div>

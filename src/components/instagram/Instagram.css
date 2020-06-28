@@ -114,6 +114,20 @@
   .small_screen_follow_prompt {
     position: relative;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .instagram_page_wrapping {
+      margin-top: 55vh;
+      background: rgb(255, 255, 255);
+    }
+
+    .instagram_images_wrapping {
+      padding-top: 30vh;
+      height: 43vh;
+      width: 100%;
+    }
+  }
 }
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
@@ -195,6 +209,15 @@
   .instagram_page_header {
     height: 10vh;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .instagram_page_wrapping {
+      height: 60vh;
+      margin-top: 48vh;
+      background: rgb(255, 255, 255);
+    }
+  }
 }
 
 /* Additional CSS for Mobile Phones with Larger Heights */
@@ -227,6 +250,25 @@
   .instagram_page_wrapping {
     margin-top: 40vh;
     margin-bottom: 2vh;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_page_wrapping {
+      height: 70vh;
+      margin-top: 42vh;
+      margin-bottom: 2vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -5vh;
+    }
   }
 }
 

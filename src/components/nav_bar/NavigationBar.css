@@ -221,6 +221,14 @@
   .cart_item_number_circle {
     margin-top: 0.2rem;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .navbar_items li {
+      font-size: 2.5rem;
+      margin-top: 2rem;
+    }
+  }
 }
 
 /* Additional CSS for Mobile Phones with Smaller Heights like Galaxy Note 9 */
@@ -265,6 +273,19 @@
   .cart_item_number_circle {
     top: 0.7rem;
     right: 1rem;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+
+    .navbar_items li {
+      font-size: 2rem;
+      margin-top: 0.5rem;
+      margin-bottom: 6rem;
+    }
   }
 }
 

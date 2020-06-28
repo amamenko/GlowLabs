@@ -227,6 +227,34 @@
   .login_page_descriptive_text {
     display: none;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .login_page_container {
+      height: 103vh;
+      background: rgb(255, 255, 255);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .sign_in_prompt {
+      padding-top: 15rem;
+      padding-bottom: 4rem;
+    }
+
+    .login_or_container {
+      padding-top: 4rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .login_page_bottom_buttons_container {
+      padding-top: 15vh;
+      padding-bottom: 30vh;
+    }
+  }
 }
 
 /* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) with Smaller Heights */

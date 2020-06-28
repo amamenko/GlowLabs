@@ -253,6 +253,42 @@
     bottom: 3.4rem;
     color: rgb(155, 155, 155);
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .card_description_subheader {
+      font-size: 0.7rem;
+    }
+
+    .facial_advanced_treatment_icon {
+      top: 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      bottom: 0.5rem;
+      font-size: 0.6rem;
+      line-height: 0.7rem;
+    }
+
+    .card_description_paragraph {
+      font-size: 0.6rem;
+      line-height: 11px;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 3rem;
+    }
+
+    .card_description_paragraph_value {
+      font-size: 0.6rem;
+      padding-bottom: 0.1rem;
+    }
+
+    .card_description_paragraph_title {
+      font-size: 0.6rem;
+    }
+  }
 }
 
 /* CSS for Smaller Portrait Screens (e.g. Galaxy Note 9) */
@@ -450,6 +486,21 @@
     padding-top: 0rem;
     padding-bottom: 0rem;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .facial_coming_soon_designation {
+      bottom: 3.5rem;
+    }
+
+    .card_description_inner_wrapper h2 {
+      font-size: 1.1rem;
+    }
+
+    .card_description_subheader {
+      font-size: 0.8rem;
+    }
+  }
 }
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
@@ -524,6 +575,36 @@
 @media only screen and (min-width: 410px) and (min-device-height: 801px) {
   .facial_coming_soon_designation {
     bottom: 5rem;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .card_description_paragraph {
+      line-height: 16px;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 4rem;
+    }
+
+    .facial_advanced_treatment_icon {
+      font-size: 1.2rem;
+      top: 0.8rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      bottom: 0.6rem;
+      font-size: 0.8rem;
+      line-height: 0.9rem;
+    }
+
+    .card_description_paragraph_value {
+      padding-bottom: 0rem;
+      padding-top: 0rem;
+    }
   }
 }
 

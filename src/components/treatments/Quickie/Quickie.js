@@ -37,6 +37,7 @@ import QuickieNotification from "./QuickieNotification";
 import QuickieRemovedNotification from "./QuickieRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Quickie.css";
+import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
 const Quickie = (props) => {
   // "Learn More" states
@@ -58,6 +59,9 @@ const Quickie = (props) => {
   const cbdToggle = useSelector((state) => state.cbdToggle.toggle);
   const microneedleToggle = useSelector(
     (state) => state.microneedleToggle.toggle
+  );
+  const jetHydroPeelToggle = useSelector(
+    (state) => state.jetHydroPeelToggle.toggle
   );
 
   // In Cart states
@@ -124,6 +128,9 @@ const Quickie = (props) => {
       }
       if (microneedleToggle) {
         dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
+      }
+      if (jetHydroPeelToggle) {
+        dispatch(ACTION_JET_HYDRO_PEEL_TOGGLE_RESET());
       }
     } else {
       dispatch(ACTION_QUICKIE_TOGGLE_RESET());
@@ -417,7 +424,7 @@ const Quickie = (props) => {
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(0, 129, 177, 0.4)"
                   : quickieInCart
-                  ? "rgb(119, 221, 119, 0.6)"
+                  ? "rgba(119, 221, 119, 0.6)"
                   : calmInCart |
                       cbdInCart |
                       chemicalPeelInCart |
@@ -766,7 +773,7 @@ const Quickie = (props) => {
                       style={{
                         borderRight: quickieToggle
                           ? "1px solid rgba(25, 154, 202, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)",
+                          : "1px solid rgb(211, 211, 211)",
                       }}
                     />
                   </div>

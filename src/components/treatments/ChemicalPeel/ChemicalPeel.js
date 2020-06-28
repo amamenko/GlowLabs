@@ -47,6 +47,7 @@ import ChemicalPeelRemovedNotification from "./ChemicalPeelRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./ChemicalPeel.css";
 import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
+import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
 const ChemicalPeel = (props) => {
   // "Learn More" states
@@ -70,6 +71,9 @@ const ChemicalPeel = (props) => {
     (state) => state.microneedleToggle.toggle
   );
   const saltCaveToggle = useSelector((state) => state.saltCaveToggle.toggle);
+  const jetHydroPeelToggle = useSelector(
+    (state) => state.jetHydroPeelToggle.toggle
+  );
 
   // In Cart states
   // Treatments
@@ -159,6 +163,9 @@ const ChemicalPeel = (props) => {
       }
       if (saltCaveToggle) {
         dispatch(ACTION_SALT_CAVE_TOGGLE_RESET());
+      }
+      if (jetHydroPeelToggle) {
+        dispatch(ACTION_JET_HYDRO_PEEL_TOGGLE_RESET());
       }
     } else {
       dispatch(ACTION_CHEMICAL_PEEL_TOGGLE_RESET());
@@ -489,7 +496,7 @@ const ChemicalPeel = (props) => {
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(0, 129, 177, 0.4)"
                   : chemicalPeelInCart
-                  ? "rgb(119, 221, 119, 0.6)"
+                  ? "rgba(119, 221, 119, 0.6)"
                   : bacialInCart |
                       cbdInCart |
                       clarifyInCart |
@@ -869,7 +876,7 @@ const ChemicalPeel = (props) => {
                       style={{
                         borderRight: chemicalpeelToggle
                           ? "1px solid rgba(25, 154, 202, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)",
+                          : "1px solid rgb(211, 211, 211)",
                       }}
                     />
                   </div>

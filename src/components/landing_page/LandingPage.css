@@ -246,18 +246,22 @@
       position: -webkit-sticky;
     }
 
-    .landing_page_bottom_icon {
-      margin-top: 1.5rem;
-    }
-
     .cta_line {
-      margin-top: -1.5rem;
+      margin-top: -1rem;
     }
 
     .mirror {
       z-index: 2;
       position: absolute;
       top: 29.2%;
+    }
+
+    .q_tips {
+      top: 34.9%;
+    }
+
+    .small_plant {
+      top: 15%;
     }
 
     .bottom_content h1 {
@@ -267,6 +271,10 @@
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       font-weight: 700;
+    }
+
+    .landing_page_description {
+      line-height: 1rem;
     }
   }
 }
@@ -407,6 +415,20 @@
   .call_to_action_buttons_container {
     padding-top: 0;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .landing_page_description {
+      font-size: 12.5px;
+      line-height: 1.3rem;
+    }
+
+    .bottom_content h1 {
+      font-size: 1.4rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  }
 }
 
 /* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
@@ -541,6 +563,21 @@
 @media only screen and (min-width: 410px) and (max-device-height: 731px) {
   .cta_line {
     margin-top: -0.3rem;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .small_plant {
+      top: 17.4%;
+    }
+
+    .landing_page_description {
+      font-size: 14px;
+      line-height: 1.3rem;
+    }
   }
 }
 

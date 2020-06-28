@@ -376,7 +376,7 @@ const NanoNeedling = (props) => {
                     ? "rgb(211, 211, 211)"
                     : "rgba(0, 129, 177, 0.4)"
                   : nanoneedlingInCart
-                  ? "rgb(119, 221, 119, 0.6)"
+                  ? "rgba(119, 221, 119, 0.6)"
                   : microneedleInCart | chemicalPeelInCart || saltCaveInCart
                   ? "rgb(211, 211, 211)"
                   : "rgba(0, 129, 177, 0.3)"
@@ -625,7 +625,7 @@ const NanoNeedling = (props) => {
                       style={{
                         borderRight: nanoneedlingToggle
                           ? "1px solid rgba(25, 154, 202, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)",
+                          : "1px solid rgb(211, 211, 211)",
                       }}
                     />
                   </div>

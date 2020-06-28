@@ -261,6 +261,13 @@ select {
   }
 }
 
+/* CSS for Smaller Phones */
+@media only screen and (min-width: 361px) and (max-width: 400px) {
+  .sq_save_card_information_container {
+    padding-left: 0.5rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .payment_info_container h1 {

@@ -12,6 +12,13 @@
     row-gap: 3vh;
     margin-top: 5.5vh;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .treatments_page_2_container {
+      margin-top: 10vh;
+    }
+  }
 }
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
@@ -52,6 +59,13 @@
     row-gap: 5vh;
     margin-top: 12vh;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .treatments_page_2_container {
+      margin-top: 15vh;
+    }
+  }
 }
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
@@ -67,6 +81,15 @@
   .treatments_page_2_container {
     row-gap: 4vh;
     margin-top: 6vh;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_2_container {
+      margin-top: 8.8vh;
+    }
   }
 }
 

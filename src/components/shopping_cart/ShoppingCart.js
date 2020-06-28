@@ -40,6 +40,8 @@ import ACTION_AVAILABILITY_PAGE_OPENED from "../../actions/InCart/CartPageOpened
 import ACTION_SELECTED_ESTHETICIAN from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN";
 import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
 import { useMemo } from "react";
+import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
+import ACTION_CART_PAGE_RESET from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_RESET";
 
 const ShoppingCart = (props) => {
   const dispatch = useDispatch();
@@ -103,6 +105,7 @@ const ShoppingCart = (props) => {
 
   const backToHome = () => {
     dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    dispatch(ACTION_CART_PAGE_RESET());
   };
 
   const availabilityHasBeenClicked = () => {
@@ -342,6 +345,21 @@ const ShoppingCart = (props) => {
       }
     }
   };
+
+  useEffect(() => {
+    dispatch(ACTION_CART_IS_ACTIVE());
+    return () => {
+      dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    window.addEventListener("popstate", () => {
+      if (document.location.href.includes("availability")) {
+        dispatch(ACTION_AVAILABILITY_PAGE_OPENED());
+      }
+    });
+  }, [dispatch]);
 
   return (
     <div className="shopping_cart_container">

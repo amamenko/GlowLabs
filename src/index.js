@@ -153,7 +153,7 @@ const store = createStore(
 );
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://illo.serveousercontent.com/graphql",
   credentials: "include",
   onError: ({ graphQLErrors }) => {
     if (graphQLErrors) {
@@ -381,6 +381,14 @@ const App = () => {
     setInterval(checkCookies, 100);
   }, [dispatch, employeeDataRefetch]);
 
+  useEffect(() => {
+    if (location.pathname.includes("account")) {
+      if (cartIsActive) {
+        dispatch(ACTION_CART_IS_NOT_ACTIVE());
+      }
+    }
+  }, [dispatch, location.pathname, cartIsActive]);
+
   const handleNavbarToggle = () => {
     if (navbarToggle) {
       dispatch(ACTION_NAVBAR_TOGGLE_RESET());
@@ -604,12 +612,21 @@ const App = () => {
   ]);
 
   useEffect(() => {
-    if (location.pathname.includes("cart")) {
-      if (!cartIsActive) {
+    if (
+      location.pathname.includes("cart") ||
+      location.pathname.includes("availability")
+    ) {
+      if (cartPageOpened !== "") {
         dispatch(ACTION_CART_IS_ACTIVE());
       }
     }
-  }, [dispatch, location.pathname, cartIsActive]);
+  }, [dispatch, location.pathname, cartPageOpened]);
+
+  useEffect(() => {
+    if (cartPageOpened === "") {
+      dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    }
+  }, [cartPageOpened, dispatch]);
 
   const handleLogout = () => {
     if (adminDummyToken) {
@@ -681,93 +698,89 @@ const App = () => {
   ]);
 
   const redirectToCartRoutes = () => {
-    if (cartIsActive) {
-      if (cartPageOpened === "Cart") {
-        if (!currentScreenSize) {
-          if (initialScreenSize >= 1200) {
+    setTimeout(() => {
+      if (cartIsActive) {
+        if (cartPageOpened === "") {
+          return <Redirect to="/" />;
+        } else if (cartPageOpened === "Cart") {
+          if (!currentScreenSize) {
+            if (initialScreenSize >= 1200) {
+              return <Redirect to="/" />;
+            } else {
+              return <Redirect to="/cart" />;
+            }
+          } else if (currentScreenSize >= 1200) {
             return <Redirect to="/" />;
           } else {
-            if (cartIsActive) {
-              return <Redirect to="/cart" />;
-            } else {
-              return null;
-            }
-          }
-        } else if (currentScreenSize >= 1200) {
-          return <Redirect to="/" />;
-        } else {
-          if (cartIsActive) {
             return <Redirect to="/cart" />;
-          } else {
-            return null;
           }
-        }
-      } else if (cartPageOpened === "Availability") {
-        if (!currentScreenSize) {
-          if (initialScreenSize >= 1200) {
+        } else if (cartPageOpened === "Availability") {
+          if (!currentScreenSize) {
+            if (initialScreenSize >= 1200) {
+              return <Redirect to="/" />;
+            } else {
+              return <Redirect to="/availability" />;
+            }
+          } else if (currentScreenSize >= 1200) {
             return <Redirect to="/" />;
           } else {
             return <Redirect to="/availability" />;
           }
-        } else if (currentScreenSize >= 1200) {
-          return <Redirect to="/" />;
-        } else {
-          return <Redirect to="/availability" />;
-        }
-      } else if (cartPageOpened === "TimePreference") {
-        if (!currentScreenSize) {
-          if (initialScreenSize >= 1200) {
+        } else if (cartPageOpened === "TimePreference") {
+          if (!currentScreenSize) {
+            if (initialScreenSize >= 1200) {
+              return <Redirect to="/" />;
+            } else {
+              return <Redirect to="/availability/timepreference" />;
+            }
+          } else if (currentScreenSize >= 1200) {
             return <Redirect to="/" />;
           } else {
             return <Redirect to="/availability/timepreference" />;
           }
-        } else if (currentScreenSize >= 1200) {
-          return <Redirect to="/" />;
-        } else {
-          return <Redirect to="/availability/timepreference" />;
-        }
-      } else if (cartPageOpened === "PaymentInfo") {
-        if (!currentScreenSize) {
-          if (initialScreenSize >= 1200) {
+        } else if (cartPageOpened === "PaymentInfo") {
+          if (!currentScreenSize) {
+            if (initialScreenSize >= 1200) {
+              return <Redirect to="/" />;
+            } else {
+              return <Redirect to="/paymentinfo" />;
+            }
+          } else if (currentScreenSize >= 1200) {
             return <Redirect to="/" />;
           } else {
             return <Redirect to="/paymentinfo" />;
           }
-        } else if (currentScreenSize >= 1200) {
-          return <Redirect to="/" />;
-        } else {
-          return <Redirect to="/paymentinfo" />;
-        }
-      } else if (cartPageOpened === "GuestCheckout") {
-        if (!currentScreenSize) {
-          if (initialScreenSize >= 1200) {
+        } else if (cartPageOpened === "GuestCheckout") {
+          if (!currentScreenSize) {
+            if (initialScreenSize >= 1200) {
+              return <Redirect to="/" />;
+            } else {
+              return <Redirect to="/checkout" />;
+            }
+          } else if (currentScreenSize >= 1200) {
             return <Redirect to="/" />;
           } else {
             return <Redirect to="/checkout" />;
           }
-        } else if (currentScreenSize >= 1200) {
-          return <Redirect to="/" />;
-        } else {
-          return <Redirect to="/checkout" />;
-        }
-      } else if (cartPageOpened === "ConfirmationPage") {
-        if (!currentScreenSize) {
-          if (initialScreenSize >= 1200) {
+        } else if (cartPageOpened === "ConfirmationPage") {
+          if (!currentScreenSize) {
+            if (initialScreenSize >= 1200) {
+              return <Redirect to="/" />;
+            } else {
+              return <Redirect to="/checkout/confirmation" />;
+            }
+          } else if (currentScreenSize >= 1200) {
             return <Redirect to="/" />;
           } else {
             return <Redirect to="/checkout/confirmation" />;
           }
-        } else if (currentScreenSize >= 1200) {
-          return <Redirect to="/" />;
         } else {
-          return <Redirect to="/checkout/confirmation" />;
+          return null;
         }
       } else {
-        return null;
+        return <Redirect to="/" />;
       }
-    } else {
-      return null;
-    }
+    }, 100);
   };
 
   useMemo(() => {

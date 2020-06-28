@@ -493,6 +493,14 @@ const Availability = (props) => {
     }
   });
 
+  useEffect(() => {
+    window.addEventListener("popstate", () => {
+      if (document.location.href.includes("cart")) {
+        dispatch(ACTION_CART_PAGE_OPENED());
+      }
+    });
+  }, [dispatch]);
+
   return (
     <div className="availability_container">
       {redirectToHome()}

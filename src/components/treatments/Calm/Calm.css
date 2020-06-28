@@ -43,7 +43,7 @@
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
       .book_now_pop_up {
-        left: 3.2rem;
+        left: 2.4rem;
       }
     }
   }
@@ -63,6 +63,15 @@
   .book_now_pop_up::before {
     top: -1.2rem;
     left: 8.5rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .book_now_pop_up {
+        left: 3.2rem;
+      }
+    }
   }
 }
 

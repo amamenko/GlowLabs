@@ -69,6 +69,7 @@
 
 .footer_logo_path_container {
   transform: translate(0%, 10%);
+  -webkit-transform: translate(0%, 10%);
 }
 
 .footer_logo_svg {
@@ -78,6 +79,27 @@
   bottom: 8vh;
   margin: 0 auto;
   transform: scale(1);
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  /* CSS specific to iOS devices */
+  .footer_all_icons_container {
+    height: 20vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer_logo_path_container {
+    transform: translate(0%, 10%);
+    -webkit-transform: translate(0%, 10%);
+  }
+
+  .footer_logo_svg {
+    position: absolute;
+    top: -9vh;
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
 }
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
@@ -118,6 +140,19 @@
   }
 }
 
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .footer_logo_svg {
+      position: absolute;
+      top: 2vh;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   @supports (-webkit-overflow-scrolling: touch) {
@@ -148,6 +183,18 @@
   }
   .footer_logo_svg {
     bottom: 0;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .footer_logo_svg {
+      position: absolute;
+      top: 2vh;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
   }
 }
 

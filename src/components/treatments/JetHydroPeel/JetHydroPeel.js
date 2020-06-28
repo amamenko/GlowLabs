@@ -132,7 +132,7 @@ const JetHydroPeel = (props) => {
       return (
         <p className="card_description_paragraph">
           This non-invasive treatment uses oxygen and saline to unclog pores and
-          extract impurities while infusing skin with condition-specific serums.
+          purify skin while infusing condition-specific serums.
         </p>
       );
     }
@@ -420,7 +420,7 @@ const JetHydroPeel = (props) => {
                       style={{
                         borderRight: jetHydroPeelToggle
                           ? "1px solid rgba(25, 154, 202, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)",
+                          : "1px solid rgb(211, 211, 211)",
                       }}
                     />
                   </div>

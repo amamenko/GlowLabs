@@ -45,6 +45,7 @@ import ACTION_LED_NOT_IN_CART from "../../../actions/InCart/AddOns/LEDTherapy/AC
 import ACTION_MICROCURRENT_NOT_IN_CART from "../../../actions/InCart/AddOns/Microcurrent/ACTION_MICROCURRENT_NOT_IN_CART";
 import ACTION_MICRODERMABRASION_NOT_IN_CART from "../../../actions/InCart/AddOns/Microdermabrasion/ACTION_MICRODERMABRASION_NOT_IN_CART";
 import ACTION_NANONEEDLING_NOT_IN_CART from "../../../actions/InCart/AddOns/NanoNeedling/ACTION_NANONEEDLING_NOT_IN_CART";
+import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
 const SaltCave = (props) => {
   // "Learn More" states
@@ -67,6 +68,9 @@ const SaltCave = (props) => {
     (state) => state.microneedleToggle.toggle
   );
   const saltCaveToggle = useSelector((state) => state.saltCaveToggle.toggle);
+  const jetHydroPeelToggle = useSelector(
+    (state) => state.jetHydroPeelToggle.toggle
+  );
 
   // In Cart states
   const calmInCart = useSelector((state) => state.calmInCart.in_cart);
@@ -156,6 +160,9 @@ const SaltCave = (props) => {
       if (microneedleToggle) {
         dispatch(ACTION_MICRONEEDLE_TOGGLE_RESET());
       }
+      if (jetHydroPeelToggle) {
+        dispatch(ACTION_JET_HYDRO_PEEL_TOGGLE_RESET());
+      }
     } else {
       dispatch(ACTION_SALT_CAVE_TOGGLE_RESET());
     }
@@ -231,7 +238,7 @@ const SaltCave = (props) => {
                 />
                 <p className="card_description_paragraph_title">Price</p>
               </div>
-              <div className="card_description_paragraph_value">
+              <div className="card_description_paragraph_value salt_cave_ios_price">
                 <p>${selectedSaltCaveDuration}</p>
               </div>
             </div>
@@ -531,7 +538,7 @@ const SaltCave = (props) => {
                     ? "rgba(211, 211, 211, 0.8"
                     : "rgba(0, 129, 177, 0.4)"
                   : saltCaveInCart
-                  ? "rgb(119, 221, 119, 0.6)"
+                  ? "rgba(119, 221, 119, 0.6)"
                   : calmInCart |
                       cbdInCart |
                       chemicalPeelInCart |
@@ -945,7 +952,7 @@ const SaltCave = (props) => {
                       style={{
                         borderRight: saltCaveToggle
                           ? "1px solid rgba(25, 154, 202, 0.4)"
-                          : "1px solid rgbA(211, 211, 211)",
+                          : "1px solid rgb(211, 211, 211)",
                       }}
                     />
                   </div>

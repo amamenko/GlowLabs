@@ -214,7 +214,7 @@ const Login = (props) => {
           <p className="sign_in_prompt">Sign in to your account</p>
           <a
             className="sign_in_facebook_callback_link"
-            href="http://localhost:4000/auth/facebook/callback"
+            href="https://illo.serveousercontent.com/auth/facebook/callback"
           >
             <div className="continue_with_facebook_button">
               <FontAwesomeIcon icon={faFacebook} />

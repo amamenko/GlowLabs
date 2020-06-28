@@ -129,6 +129,27 @@
   .sign_up_page_descriptive_text {
     display: none;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .sign_up_page_container {
+      height: 160vh;
+    }
+
+    .signup_page_bottom_buttons_container {
+      height: 10vh;
+      padding-top: 20vh;
+      padding-bottom: 5vh;
+    }
+
+    .sign_up_logo_container {
+      top: -28vh;
+    }
+
+    .sign_up_prompt {
+      padding-top: 14rem;
+    }
+  }
 }
 
 /* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) with Smaller Heights */
@@ -201,6 +222,17 @@
     height: 95%;
     justify-content: flex-end;
     bottom: 25vh;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .sign_up_prompt {
+      top: 23vh;
+    }
+
+    .sign_up_content_container {
+      bottom: 30vh;
+    }
   }
 }
 
