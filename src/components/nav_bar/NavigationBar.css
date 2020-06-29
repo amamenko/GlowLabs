@@ -222,6 +222,22 @@
     margin-top: 0.2rem;
   }
 
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .shopping_cart_small_screen {
+      margin-top: 0rem;
+    }
+
+    .cart_item_number_circle {
+      margin-top: 0rem;
+    }
+
+    .navbar_items li {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+  }
+
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .navbar_items li {
@@ -262,6 +278,17 @@
   .cart_item_number_circle {
     margin-top: 0rem;
   }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .shopping_cart_small_screen {
+      margin-top: -0.3rem;
+    }
+
+    .cart_item_number_circle {
+      margin-top: -0.3rem;
+    }
+  }
 }
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
@@ -297,6 +324,39 @@
 
   .cart_item_number_circle {
     margin-top: -0.3rem;
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .cart_item_number_circle {
+      margin-top: -0.1rem;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .cart_item_number_circle {
+      margin-top: -0.1rem;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .shopping_cart_small_screen {
+      margin-top: 0.4rem;
+    }
+
+    .navbar_items li {
+      font-size: 3rem;
+      margin-bottom: 4rem;
+    }
   }
 }
 

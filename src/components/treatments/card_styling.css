@@ -422,11 +422,56 @@
   }
 
   .facial_coming_soon_designation {
-    bottom: 2rem;
-  }
-
-  .facial_coming_soon_designation {
     bottom: 4.7rem;
+  }
+}
+
+/* CSS for Pixel 4 */
+@media only screen and (min-width: 360px) and (device-height: 760px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+
+    .facial_coming_soon_designation {
+      bottom: 4.2rem;
+    }
+  }
+}
+
+/*CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 650px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+
+    .card_description_paragraph {
+      font-size: 0.6rem;
+      line-height: 13px;
+    }
+
+    .facial_advanced_treatment_icon {
+      top: 0.6rem;
+      font-size: 1rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      bottom: 0.5rem;
+      font-size: 0.7rem;
+      line-height: 0.7rem;
+    }
+
+    .card_description_paragraph_value {
+      font-size: 0.6rem;
+      padding-left: 1rem;
+    }
+
+    .card_description_paragraph_title {
+      position: static;
+      font-size: 0.6rem;
+      margin-left: 0.7rem;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 3.1rem;
+    }
   }
 }
 
@@ -503,6 +548,19 @@
   }
 }
 
+/* Additional CSS for Mobile Phones with Slightly Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 801px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .card_description_inner_wrapper h2 {
+      font-size: 1.2rem;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 4.6rem;
+    }
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .card_description_subheader {
@@ -535,6 +593,7 @@
 
   .facial_advanced_treatment_designation {
     font-size: 0.8rem;
+    line-height: 15px;
   }
 
   .facial_advanced_treatment_icon {
@@ -601,9 +660,46 @@
       line-height: 0.9rem;
     }
 
+    .card_description_icon {
+      font-size: 0.8rem;
+    }
+
+    .card_description_paragraph_title {
+      font-size: 0.8rem;
+    }
+
     .card_description_paragraph_value {
+      font-size: 0.8rem;
       padding-bottom: 0rem;
       padding-top: 0rem;
+    }
+
+    .card_description_paragraph_icon_wrapper {
+      padding-top: 0.1rem;
+      padding-bottom: 0.1rem;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .card_description_paragraph_icon_wrapper {
+      padding-left: 0.5rem;
+    }
+
+    .card_description_paragraph_value {
+      padding-left: 1.5rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      font-size: 1rem;
+      line-height: 1.3rem;
+    }
+
+    .facial_coming_soon_designation {
+      font-size: 0.8rem;
+      bottom: 5.7rem;
     }
   }
 }

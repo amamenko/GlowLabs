@@ -27,6 +27,7 @@
     "lz-string": "^1.4.4",
     "moment": "^2.24.0",
     "node-darwin-x64": "^14.0.0",
+    "prevent-orientation": "^0.2.0",
     "randomcolor": "^0.5.4",
     "react": "16.8.6",
     "react-activation": "^0.3.5",

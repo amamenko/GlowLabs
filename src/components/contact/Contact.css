@@ -182,6 +182,26 @@
   }
 }
 
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .contact_page_container {
+      height: 152vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .contact_page_container {
+      height: 169vh;
+    }
+  }
+}
+
 /* Additional CSS for Slightly Smaller Portrait Screens */
 @media only screen and (min-width: 375px) {
   .contact_page_container {
@@ -203,6 +223,16 @@
     /* CSS specific to iOS devices */
     .contact_page_container {
       height: 160vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .contact_page_container {
+      height: 143vh;
     }
   }
 }
@@ -240,6 +270,15 @@
   @supports (-webkit-overflow-scrolling: touch) {
     .contact_page_container {
       height: 145vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .contact_page_container {
+      height: 130vh;
     }
   }
 }

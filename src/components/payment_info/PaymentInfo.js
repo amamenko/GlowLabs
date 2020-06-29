@@ -1006,7 +1006,17 @@ const PaymentInfo = (props) => {
         ) : null}
       </div>
       <div className="payment_info_header">
-        <h2>ENTER YOUR PAYMENT INFORMATION</h2>
+        <h2>
+          ENTER{" "}
+          {!props.currentScreenSize
+            ? props.initialScreenSize <= 360
+              ? null
+              : "YOUR"
+            : props.currentScreenSize <= 360
+            ? null
+            : "YOUR"}{" "}
+          PAYMENT INFORMATION
+        </h2>
       </div>
       <p className="payment_info_statement">
         Your credit card will be used to hold your time slot and will not be

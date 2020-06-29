@@ -294,6 +294,53 @@
   }
 }
 
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .login_content_container {
+      height: 60%;
+      margin-top: -5vh;
+    }
+
+    .login_page_bottom_buttons_container {
+      margin-top: 15vh;
+      margin-bottom: -30vh;
+      padding-bottom: 20vh;
+    }
+
+    .dont_have_an_account_question {
+      margin-bottom: 2vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .login_page_bottom_buttons_container {
+      margin-top: 20vh;
+      margin-bottom: -30vh;
+      padding-bottom: 20vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Slightly Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 801px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .sign_in_prompt {
+      padding-top: 10rem;
+      padding-bottom: 4rem;
+    }
+
+    .dont_have_an_account_question {
+      margin-bottom: 2vh;
+    }
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) with Larger Heights */
 @media only screen and (min-width: 410px) and (max-device-height: 799px) {
   .login_content_container {
@@ -315,6 +362,56 @@
 
   .dont_have_an_account_question {
     margin-bottom: 2vh;
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .login_content_container {
+      height: 60%;
+      margin-top: 20vh;
+    }
+
+    .login_page_bottom_buttons_container {
+      margin-top: 2vh;
+      margin-bottom: 10vh;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .login_content_container {
+      height: 60%;
+      margin-top: 20vh;
+    }
+
+    .login_page_bottom_buttons_container {
+      margin-top: 2vh;
+      margin-bottom: 10vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .sign_in_prompt {
+      padding-top: 0rem;
+      padding-bottom: 4rem;
+    }
+
+    .login_content_container {
+      height: 100%;
+      margin-top: 20vh;
+    }
+
+    .login_page_bottom_buttons_container {
+      margin-top: 10vh;
+      margin-bottom: 10vh;
+    }
   }
 }
 

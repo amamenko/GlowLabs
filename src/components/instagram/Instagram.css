@@ -185,6 +185,7 @@
     margin-top: 50vh;
     background: rgb(255, 255, 255);
   }
+
   .instagram_top_page_wrapping {
     margin-top: -5vh;
   }
@@ -195,6 +196,39 @@
 
   .instagram_page_header {
     height: 6vh;
+  }
+}
+
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .instagram_page_wrapping {
+      height: 60vh;
+    }
+
+    .instagram_page_header {
+      height: 10vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .instagram_page_wrapping {
+      height: 70vh;
+      margin-top: 52vh;
+    }
+
+    .instagram_page_header {
+      height: 22vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: 5vh;
+    }
   }
 }
 
@@ -231,8 +265,23 @@
   .instagram_page_header {
     height: 10vh;
   }
-}
 
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_page_wrapping {
+      height: 75vh;
+      margin-top: 39vh;
+      margin-bottom: 2vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -5vh;
+    }
+  }
+}
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .instagram_page_wrapping {
@@ -268,6 +317,51 @@
 
     .instagram_images_wrapping {
       margin-top: -5vh;
+    }
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_page_wrapping {
+      margin-top: 38vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -8vh;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_wrapping {
+      height: 45vh;
+      margin-top: 35vh;
+      margin-bottom: 2vh;
+    }
+
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -8vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .instagram_top_page_wrapping h2 {
+      font-size: 1.75rem;
     }
   }
 }

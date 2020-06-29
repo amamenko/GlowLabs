@@ -317,6 +317,120 @@
   margin-bottom: 50%;
 }
 
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .confirmation_page_container h1,
+  .confirmation_page_back_arrow {
+    font-size: 1.2rem;
+  }
+
+  .confirmation_page_header {
+    height: 6vh;
+  }
+
+  .confirmation_page_statement {
+    font-size: 0.9rem;
+  }
+
+  .confirmation_page_header h2,
+  .confirmation_page_header h3 {
+    font-size: 0.9rem;
+  }
+
+  .summary_client_contact_info_container p,
+  .summary_selected_date_container p,
+  .summary_selected_time_container p {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+
+  .summary_card_subtotal_container p {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
+    font-size: 0.8rem;
+  }
+
+  .dismiss_modal_button {
+    font-size: 0.7rem;
+    padding: 0.4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-top: 10%;
+    margin-bottom: 25%;
+  }
+
+  .modal_appointment_time,
+  .modal_appointment_provider,
+  .modal_appointment_spacer {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-block;
+  }
+
+  .modal_address_container p,
+  .modal_full_date_info {
+    font-size: 0.6rem;
+  }
+
+  .modal_calendar_icon_container {
+    position: relative;
+    width: 120%;
+    height: 18%;
+    padding-bottom: 28%;
+  }
+
+  .final_booking_modal {
+    margin-top: 0%;
+  }
+
+  .final_booking_modal_contents {
+    padding-top: 30%;
+  }
+
+  .modal_confirmation_statement {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+
+  .modal_bottom_info_container {
+    padding-top: 0.4rem;
+  }
+}
+
+/* CSS for Smaller Portrait Screens (e.g. Galaxy S5) */
+@media only screen and (min-width: 360px) and (max-width: 374px) {
+  .final_booking_modal {
+    height: 65%;
+  }
+
+  .modal_calendar_icon_container {
+    position: relative;
+    width: 113%;
+    height: 12%;
+    padding-bottom: 25%;
+  }
+}
+
+/* CSS for Slightly Smaller Portrait Screens (e.g. iPhones 6/7/8) */
+@media only screen and (min-width: 375px) and (max-width: 409px) {
+  .final_booking_modal {
+    height: 80%;
+    margin-top: 5%;
+  }
+}
+
+/* CSS for Slightly Smaller Portrait Screens with Longer Screens (e.g. iPhone X) */
+@media only screen and (min-width: 375px) and (max-width: 409px) and (min-height: 800px) {
+  .final_booking_modal {
+    height: 65%;
+    margin-top: 0%;
+  }
+}
+
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
   .final_booking_modal {
@@ -359,6 +473,14 @@
 
   .modal_checkmark {
     top: 6%;
+  }
+}
+
+/* CSS for Larger Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) and (min-device-height: 800px) and (max-device-height: 900px) {
+  .final_booking_modal {
+    height: 65%;
+    margin-top: 2%;
   }
 }
 

@@ -38,6 +38,17 @@
   }
 }
 
+/*CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 650px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .treatments_page_4_container {
+      row-gap: 5vh;
+      margin-top: 8vh;
+    }
+  }
+}
+
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
 @media only screen and (min-width: 375px) {
   .treatments_page_4_container {
@@ -67,6 +78,36 @@
   .treatments_page_4_container {
     row-gap: 4vh;
     margin-top: 2.8rem;
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_4_container {
+      row-gap: 3vh;
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_4_container {
+      row-gap: 3.5vh;
+      margin-top: 2.2rem;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .treatments_page_4_container {
+      row-gap: 4vh;
+      margin-top: 3.5rem;
+    }
   }
 }
 

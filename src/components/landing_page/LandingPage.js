@@ -129,7 +129,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       : props.currentScreenSize >= 600
       ? window.scrollY < 50
       : window.scrollY < 345;
-    const userLineRenderScroll = window.scrollY < 40;
+    const userLineRenderScroll = window.scrollY < 30;
 
     if (!userScroll) {
       dispatch(ACTION_USER_SCROLLED());
@@ -270,7 +270,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       } else {
         if (window.scrollY <= 50) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
-        } else if (window.scrollY >= 7750) {
+        } else if (window.scrollY >= 8250) {
           document.body.style.setProperty("background", "rgb(0, 129, 177)");
         } else {
           document.body.style.setProperty("background", "rgb(255, 255, 255)");
@@ -636,6 +636,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                           tiny_portrait_height: "0vh",
                           small_portrait_height: "0vh",
                           portrait_height: "0vh",
+                          large_portrait_height: "0vh",
                           config: { duration: 100 },
                         }}
                         enter={{
@@ -643,6 +644,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                           tiny_portrait_height: "14vh",
                           small_portrait_height: "13vh",
                           portrait_height: "16vh",
+                          large_portrait_height: "13vh",
                           config: { duration: 100 },
                         }}
                         leave={{
@@ -660,11 +662,15 @@ const LandingPage = React.forwardRef((props, ref) => {
                               style={{
                                 opacity: `${rendered.opacity}`,
                                 height: !props.currentScreenSize
-                                  ? props.initialScreenSize >= 410
+                                  ? props.initialScreenSize >= 479
+                                    ? `${rendered.large_portrait_height}`
+                                    : props.initialScreenSize >= 410
                                     ? `${rendered.portrait_height}`
                                     : props.initialScreenSize >= 360
                                     ? `${rendered.small_portrait_height}`
                                     : `${rendered.tiny_portrait_height}`
+                                  : props.currentScreenSize >= 479
+                                  ? `${rendered.large_portrait_height}`
                                   : props.currentScreenSize >= 410
                                   ? `${rendered.portrait_height}`
                                   : props.currentScreenSize >= 360

@@ -436,6 +436,78 @@
   .cta_line {
     margin-top: -2.2rem;
   }
+
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .mirror {
+      top: 28.8%;
+    }
+
+    .q_tips {
+      top: 37.6%;
+    }
+
+    .small_plant {
+      top: 18%;
+    }
+
+    .bottom_content h1 {
+      font-size: 1.2rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .landing_page_description {
+      font-size: 12px;
+      line-height: 1.2rem;
+    }
+  }
+}
+
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .bottom_content h1 {
+      font-size: 1.4rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .landing_page_description {
+      font-size: 12px;
+      line-height: 1.3rem;
+    }
+
+    .cta_line {
+      margin-top: -2.5rem;
+    }
+  }
+}
+
+/* Additional CSS for iPhones 11 Pro, X, Xs */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) and (max-device-height: 815px) {
+  .cta_line {
+    margin-top: -1.9rem;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .bottom_content h1 {
+      font-size: 1.4rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .landing_page_description {
+      font-size: 12px;
+      line-height: 1.2rem;
+    }
+
+    .cta_line {
+      margin-top: -1.9rem;
+    }
+  }
 }
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
@@ -570,6 +642,10 @@
 @media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
+    .splash_screen {
+      transform: translate(0vh, 7vh);
+    }
+
     .small_plant {
       top: 17.4%;
     }
@@ -577,6 +653,76 @@
     .landing_page_description {
       font-size: 14px;
       line-height: 1.3rem;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .cta_line {
+      margin-top: -3rem;
+    }
+
+    .potted_plant {
+      height: 10%;
+      top: 14%;
+      left: 22%;
+    }
+
+    .small_plant {
+      height: 10%;
+      top: 19%;
+      left: 29%;
+    }
+
+    .cream {
+      height: 10%;
+      top: 15.3%;
+    }
+
+    .hand_cream {
+      height: 10%;
+      top: 16%;
+      left: 55%;
+    }
+
+    .mirror {
+      height: 10%;
+      top: 32.3%;
+      left: 22%;
+    }
+
+    .bottle {
+      height: 10%;
+      top: 34.8%;
+      left: 37%;
+    }
+
+    .q_tips {
+      height: 10%;
+      left: 52%;
+      top: 38.2%;
+    }
+
+    .sun_screen {
+      height: 10%;
+      top: 34%;
+      left: 57%;
+    }
+
+    .bottom_content h1 {
+      font-size: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      margin-left: 3.1rem;
+      margin-right: 3rem;
+    }
+
+    .landing_page_description {
+      font-size: 16px;
+      line-height: 1.8rem;
     }
   }
 }

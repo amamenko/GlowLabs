@@ -139,6 +139,7 @@ import ACTION_NANONEEDLING_TOGGLE_RESET from "./actions/AddOns/Nanoneedling/ACTI
 import ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN from "./actions/ConsentForm/GuestConsentFormAccessToken/ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN";
 import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE";
+import PreventOrientation from "prevent-orientation";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -153,7 +154,7 @@ const store = createStore(
 );
 
 const client = new ApolloClient({
-  uri: "https://illo.serveousercontent.com/graphql",
+  uri: "http://localhost:4000/graphql",
   credentials: "include",
   onError: ({ graphQLErrors }) => {
     if (graphQLErrors) {
@@ -272,6 +273,72 @@ const App = () => {
           : null,
       },
     }
+  );
+
+  // Temporary Portrait Mode Lock for Mobile Phones
+  useEffect(() => {
+    const preventScroll = (e) => e.preventDefault();
+
+    if (!currentScreenSize) {
+      if (initialScreenSize < 1024) {
+        if (initialScreenSize > initialScreenHeight) {
+          dispatch(ACTION_BODY_SCROLL_RESET());
+
+          document.body.addEventListener("touchmove", preventScroll, false);
+
+          // force to portrait orientation
+          new PreventOrientation({
+            text: "Mobile landscape mode coming soon!",
+            color: "rgb(90, 90, 90)",
+            background:
+              "linear-gradient(to right, rgb(235, 212, 196), rgb(227, 188, 164))",
+            fontSize: "1.2rem",
+          }).forceOrientationToAngle(0);
+        } else {
+          dispatch(ACTION_BODY_SCROLL_ALLOW());
+
+          document.body.removeEventListener("touchmove", preventScroll, false);
+        }
+      }
+    } else {
+      if (currentScreenSize < 1024) {
+        if (currentScreenSize > currentScreenHeight) {
+          dispatch(ACTION_BODY_SCROLL_RESET());
+
+          document.body.addEventListener("touchmove", preventScroll, false);
+
+          // force to portrait orientation
+          new PreventOrientation({
+            text: "Mobile landscape mode coming soon!",
+            color: "rgb(90, 90, 90)",
+            background:
+              "linear-gradient(to right, rgb(235, 212, 196), rgb(227, 188, 164))",
+            fontSize: "1.2rem",
+            height: "100vh",
+          }).forceOrientationToAngle(0);
+        } else {
+          dispatch(ACTION_BODY_SCROLL_ALLOW());
+
+          document.body.removeEventListener("touchmove", preventScroll, false);
+        }
+      }
+    }
+  }, [
+    currentScreenSize,
+    currentScreenHeight,
+    initialScreenHeight,
+    initialScreenSize,
+    dispatch,
+  ]);
+
+  // Resets height for Android keyboard show
+  document.documentElement.style.setProperty("overflow", "auto");
+  const metaViewport = document.querySelector("meta[name=viewport]");
+  metaViewport.setAttribute(
+    "content",
+    "height=" +
+      initialScreenHeight +
+      "px, width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover"
   );
 
   useMemo(() => {

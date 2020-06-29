@@ -259,6 +259,22 @@ select {
     font-size: 0.8rem;
     padding: 0.7rem;
   }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 9vh;
+  }
+
+  .sq_save_card_information_container {
+    padding-left: 0.3rem;
+  }
+
+  .payment_info_statement {
+    font-size: 0.9rem;
+    line-height: 1.1rem;
+  }
 }
 
 /* CSS for Smaller Phones */

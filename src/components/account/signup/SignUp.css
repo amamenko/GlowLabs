@@ -133,21 +133,31 @@
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .sign_up_page_container {
-      height: 160vh;
+      height: 140vh;
+      margin-top: -2vh;
     }
 
     .signup_page_bottom_buttons_container {
-      height: 10vh;
+      height: 5vh;
       padding-top: 20vh;
+      margin-top: 15vh;
       padding-bottom: 5vh;
     }
 
     .sign_up_logo_container {
-      top: -28vh;
+      top: -31vh;
     }
 
     .sign_up_prompt {
-      padding-top: 14rem;
+      padding-top: 10.5rem;
+    }
+
+    .sign_up_page_form {
+      margin-bottom: -4rem;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -44vh;
     }
   }
 }
@@ -195,6 +205,69 @@
   }
 }
 
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .sign_up_page_container {
+      height: 135vh;
+      margin-top: -11vh;
+      padding-bottom: 12vh;
+    }
+
+    .sign_up_content_container {
+      height: 60%;
+      justify-content: flex-end;
+      bottom: 10vh;
+    }
+
+    .sign_up_prompt {
+      top: -45vh;
+    }
+
+    .sign_up_page_form {
+      margin-bottom: 17rem;
+    }
+
+    .signup_page_bottom_buttons_container {
+      position: absolute;
+      padding-top: 20vh;
+      margin-top: -15vh;
+      padding-bottom: 5vh;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -30vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .sign_up_prompt {
+      top: -5vh;
+    }
+
+    .sign_up_content_container {
+      height: 100%;
+      justify-content: flex-end;
+      bottom: 0vh;
+    }
+
+    .signup_page_bottom_buttons_container {
+      padding-top: 20vh;
+      margin-top: 0vh;
+      padding-bottom: 15vh;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -40vh;
+    }
+  }
+}
+
 /* Additional CSS for Slightly Smaller Portrait Screens */
 @media only screen and (min-width: 375px) {
   .sign_up_prompt {
@@ -227,11 +300,65 @@
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .sign_up_prompt {
-      top: 23vh;
+      top: 12vh;
     }
 
     .sign_up_content_container {
       bottom: 30vh;
+    }
+
+    .signup_page_bottom_buttons_container {
+      height: 5vh;
+      padding-top: 20vh;
+      margin-top: 15vh;
+      padding-bottom: 5vh;
+    }
+
+    .sign_up_logo_container {
+      top: -31vh;
+    }
+
+    .sign_up_prompt {
+      padding-top: 15rem;
+    }
+
+    .sign_up_page_form {
+      margin-bottom: -6rem;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -35vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Slightly Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 801px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .sign_up_page_container {
+      height: 135vh;
+      margin-top: -2vh;
+    }
+
+    .sign_up_prompt {
+      top: 22vh;
+    }
+
+    .sign_up_logo_container {
+      top: -29.5vh;
+    }
+
+    .sign_up_page_form {
+      margin-bottom: -7rem;
+    }
+
+    .signup_page_bottom_buttons_container {
+      height: 10vh;
+      padding-bottom: 0vh;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -33vh;
     }
   }
 }
@@ -259,6 +386,134 @@
     padding-top: 14rem;
     padding-bottom: 2rem;
     top: 25vh;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .sign_up_page_container {
+      height: 140vh;
+      margin-top: -2.1vh;
+      padding-bottom: 12vh;
+    }
+
+    .sign_up_prompt {
+      top: 22vh;
+    }
+
+    .sign_up_content_container {
+      bottom: 35vh;
+    }
+
+    .signup_page_bottom_buttons_container {
+      width: 100%;
+      height: 20vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 0vh;
+    }
+
+    .sign_up_page_form {
+      margin-bottom: 0rem;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -35vh;
+    }
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .sign_up_page_container {
+      height: 120vh;
+      margin-top: -2.1vh;
+      padding-bottom: 12vh;
+    }
+
+    .sign_up_logo_container {
+      top: -25vh;
+    }
+
+    .sign_up_prompt {
+      top: -33vh;
+    }
+
+    .sign_up_page_form {
+      margin-bottom: -5rem;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -25vh;
+    }
+
+    .signup_page_bottom_buttons_container {
+      width: 100%;
+      height: 5vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 5vh;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .sign_up_page_container {
+      height: 120vh;
+      margin-top: -2.1vh;
+      padding-bottom: 12vh;
+    }
+
+    .sign_up_logo_container {
+      top: -25vh;
+    }
+
+    .sign_up_prompt {
+      top: -33vh;
+    }
+
+    .sign_up_page_form {
+      margin-bottom: -5rem;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -25vh;
+    }
+
+    .signup_page_bottom_buttons_container {
+      width: 100%;
+      height: 5vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 5vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .sign_up_prompt {
+      top: -30vh;
+    }
+
+    .signup_page_bottom_buttons_container {
+      margin-top: -10vh;
+    }
+
+    .sign_up_password_form_container {
+      margin-top: -23vh;
+    }
   }
 }
 

@@ -59,6 +59,28 @@
   }
 }
 
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .unsure_popup_not_sure_button {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      margin-right: 1rem;
+    }
+
+    .unsure_popup_dismiss_button {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      margin-left: 1rem;
+    }
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .unsure_popup_buttons_container {

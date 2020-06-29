@@ -31,6 +31,26 @@
   }
 }
 
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .treatments_page_5_container {
+      margin-top: 5.3rem;
+    }
+  }
+}
+
+/*CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 650px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .treatments_page_5_container {
+      margin-top: 4.6rem;
+    }
+  }
+}
+
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
 @media only screen and (min-width: 375px) {
   .treatments_page_5_container {
@@ -48,6 +68,15 @@
     /* CSS specific to iOS devices */
     .treatments_page_5_container {
       margin-top: 5rem;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Slightly Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 801px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_5_container {
+      margin-top: 3.5rem;
     }
   }
 }
@@ -71,6 +100,33 @@
   @supports (-webkit-overflow-scrolling: touch) {
     .treatments_page_5_container {
       margin-top: 4rem;
+    }
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_5_container {
+      margin-top: 3rem;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_5_container {
+      margin-top: 3.8rem;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .treatments_page_5_container {
+      margin-top: 5rem;
     }
   }
 }
