@@ -43,6 +43,7 @@ body {
   position: static;
 }
 
+/* For temporarily locking in portrait mode on mobile */
 .wrapper-prevent-orientation {
   height: 200vh !important;
   display: flex;
@@ -174,6 +175,16 @@ body {
     display: none; /* Chrome Safari */
   }
 
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 28.5vw;
+    margin-left: -5rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
   .toast_error_container,
   .toast_container,
   .toast_removed_container {

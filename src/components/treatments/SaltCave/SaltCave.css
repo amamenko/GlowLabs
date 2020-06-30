@@ -175,6 +175,17 @@
 
   .salt_cave_time_formgroup_input {
     font-size: 0.7rem;
+    padding-right: 1.5rem;
+    color: rgb(0, 129, 177);
+    font-weight: 600;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+/* CSS for Medium Desktops */
+@media only screen and (min-width: 1400px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 0.7rem;
     padding-right: 2rem;
     color: rgb(0, 129, 177);
     font-weight: 600;

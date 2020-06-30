@@ -131,6 +131,15 @@
   }
 }
 
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .add_ons_page_2_container {
+      margin-top: 0vh;
+    }
+  }
+}
+
 /* Google Pixel 4XL */
 @media screen and (device-width: 480px) and (device-height: 1014px) {
   @supports not (-webkit-overflow-scrolling: touch) {
@@ -159,19 +168,33 @@
 @media only screen and (min-width: 1200px) {
   .add_ons_page_2_container {
     height: 28.6666667vh;
-    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
     grid-template-areas:
       "microcurrent_card microcurrent_card microdermabrasion_card microdermabrasion_card dermarolling_card dermarolling_card"
       "microcurrent_card microcurrent_card microdermabrasion_card microdermabrasion_card dermarolling_card dermarolling_card";
     margin-left: 1.6rem;
     margin-right: 1.6rem;
+    margin-top: 1.5rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .add_ons_page_2_container {
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
     margin-top: 1rem;
   }
-
   /* Safari 7.1+ */
 
   _::-webkit-full-page-media,
   _:future,
+  .add_ons_page_2_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
   .add_ons_page_2_container {
     grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
   }

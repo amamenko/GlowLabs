@@ -140,6 +140,7 @@ import ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN from "./actions/ConsentForm/GuestC
 import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import PreventOrientation from "prevent-orientation";
+import { isAndroid } from "react-device-detect";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -281,10 +282,12 @@ const App = () => {
 
     if (!currentScreenSize) {
       if (initialScreenSize < 1024) {
-        if (initialScreenSize > initialScreenHeight) {
+        if (window.matchMedia("(orientation: landscape)").matches) {
           dispatch(ACTION_BODY_SCROLL_RESET());
 
-          document.body.addEventListener("touchmove", preventScroll, false);
+          document.body.addEventListener("touchmove", preventScroll, {
+            passive: false,
+          });
 
           // force to portrait orientation
           new PreventOrientation({
@@ -294,18 +297,16 @@ const App = () => {
               "linear-gradient(to right, rgb(235, 212, 196), rgb(227, 188, 164))",
             fontSize: "1.2rem",
           }).forceOrientationToAngle(0);
-        } else {
-          dispatch(ACTION_BODY_SCROLL_ALLOW());
-
-          document.body.removeEventListener("touchmove", preventScroll, false);
         }
       }
     } else {
       if (currentScreenSize < 1024) {
-        if (currentScreenSize > currentScreenHeight) {
+        if (window.matchMedia("(orientation: landscape)").matches) {
           dispatch(ACTION_BODY_SCROLL_RESET());
 
-          document.body.addEventListener("touchmove", preventScroll, false);
+          document.body.addEventListener("touchmove", preventScroll, {
+            passive: false,
+          });
 
           // force to portrait orientation
           new PreventOrientation({
@@ -317,9 +318,15 @@ const App = () => {
             height: "100vh",
           }).forceOrientationToAngle(0);
         } else {
-          dispatch(ACTION_BODY_SCROLL_ALLOW());
+          if (splashScreenComplete) {
+            dispatch(ACTION_BODY_SCROLL_ALLOW());
 
-          document.body.removeEventListener("touchmove", preventScroll, false);
+            document.body.removeEventListener(
+              "touchmove",
+              preventScroll,
+              false
+            );
+          }
         }
       }
     }
@@ -328,18 +335,21 @@ const App = () => {
     currentScreenHeight,
     initialScreenHeight,
     initialScreenSize,
+    splashScreenComplete,
     dispatch,
   ]);
 
-  // Resets height for Android keyboard show
-  document.documentElement.style.setProperty("overflow", "auto");
-  const metaViewport = document.querySelector("meta[name=viewport]");
-  metaViewport.setAttribute(
-    "content",
-    "height=" +
-      initialScreenHeight +
-      "px, width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover"
-  );
+  if (isAndroid) {
+    // Resets height to prevent Android keyboard input focus zoom
+    document.documentElement.style.setProperty("overflow", "auto");
+    const metaViewport = document.querySelector("meta[name=viewport]");
+    metaViewport.setAttribute(
+      "content",
+      "height=" +
+        initialScreenHeight +
+        ", width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover"
+    );
+  }
 
   useMemo(() => {
     if (getClientData) {

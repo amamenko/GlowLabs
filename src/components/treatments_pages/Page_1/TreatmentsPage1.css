@@ -158,19 +158,20 @@
 @media only screen and (min-width: 1200px) {
   .treatments_page_1_container {
     height: 60vh;
-    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
     grid-template-areas:
       "header header header header header header"
       "calm_card calm_card clarify_card clarify_card bacial_card bacial_card"
       "calm_card calm_card clarify_card clarify_card bacial_card bacial_card";
     margin-left: 1.6rem;
     margin-right: 1.6rem;
+    gap: 0;
   }
 
   .treatments_page_1_header h2 {
     display: flex;
     align-self: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 3rem;
     text-align: left;
     margin-right: 1.5rem;
@@ -197,6 +198,24 @@
 
   _::-webkit-full-page-media,
   _:future,
+  .treatments_page_1_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .treatments_page_1_header h2 {
+    font-size: 3rem;
+  }
+
+  .treatments_page_1_container {
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
   .treatments_page_1_container {
     grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
   }

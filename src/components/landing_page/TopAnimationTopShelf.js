@@ -35,7 +35,7 @@ const TopAnimationTopShelf = (props) => {
               ? "26%"
               : props.initialScreenSize >= 1200
               ? props.isSafari
-                ? "4%"
+                ? "28%"
                 : "30%"
               : props.initialScreenSize >= 768
               ? "20%"
@@ -52,7 +52,7 @@ const TopAnimationTopShelf = (props) => {
             ? "26%"
             : props.currentScreenSize >= 1200
             ? props.isSafari
-              ? "4%"
+              ? "28%"
               : "30%"
             : props.currentScreenSize >= 768
             ? "20%"
@@ -92,7 +92,7 @@ const TopAnimationTopShelf = (props) => {
                 ? "26%"
                 : props.currentScreenSize >= 1200
                 ? props.isSafari
-                  ? "auto"
+                  ? "28%"
                   : "30%"
                 : props.currentScreenSize >= 768
                 ? "20%"

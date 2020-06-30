@@ -127,6 +127,13 @@
   }
 }
 
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .add_ons_page_3_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .add_ons_page_3_container {

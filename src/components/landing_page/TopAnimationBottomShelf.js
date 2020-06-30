@@ -34,7 +34,7 @@ const TopAnimationBottomShelf = (props) => {
             ? "69%"
             : props.initialScreenSize >= 1200
             ? props.isSafari
-              ? "4%"
+              ? "68%"
               : "73%"
             : props.initialScreenSize >= 768
             ? "38%"
@@ -51,7 +51,7 @@ const TopAnimationBottomShelf = (props) => {
           ? "69%"
           : props.currentScreenSize >= 1200
           ? props.isSafari
-            ? "4%"
+            ? "68%"
             : "73%"
           : props.currentScreenSize >= 768
           ? "38%"
@@ -91,7 +91,7 @@ const TopAnimationBottomShelf = (props) => {
                 ? "69%"
                 : props.currentScreenSize >= 1200
                 ? props.isSafari
-                  ? "4%"
+                  ? "68%"
                   : "73%"
                 : props.currentScreenSize >= 768
                 ? "38%"

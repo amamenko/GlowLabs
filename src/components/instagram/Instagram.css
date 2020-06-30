@@ -489,7 +489,7 @@
   }
 
   .instagram_top_page_wrapping h2 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 3rem;
     text-align: left;
     margin-right: 1.5rem;
@@ -574,6 +574,34 @@
 
       .large_screen_follow_prompt {
         margin-top: 25vh;
+      }
+    }
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .instagram_top_page_wrapping h2 {
+    font-size: 3rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .instagram_page_wrapping {
+    display: block;
+    height: 110vh;
+  }
+
+  .instagram_top_page_wrapping {
+    padding-top: 20vh;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .instagram_top_page_wrapping {
+        padding-top: 10vh;
       }
     }
   }

@@ -124,13 +124,13 @@
   }
 
   .admin_sign_in_prompt {
-    font-size: 2rem;
-    padding-top: 2em;
-    padding-bottom: 3rem;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 4rem;
   }
 
   .admin_login_content_container {
-    height: 10%;
+    height: 52%;
     width: 100%;
     justify-content: flex-end;
     position: relative;
@@ -140,6 +140,17 @@
   .admin_log_in_button {
     font-size: 1rem;
     padding: 0.8rem;
+    margin-top: 2rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .admin_login_content_container {
+    height: 52%;
+  }
+  .admin_log_in_button {
+    margin-top: 3rem;
   }
 }
 

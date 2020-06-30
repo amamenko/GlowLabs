@@ -23,6 +23,6 @@
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .quench_wrapping {
-    height: auto;
+    height: 28.6666667vh;
   }
 }

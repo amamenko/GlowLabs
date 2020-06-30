@@ -117,7 +117,7 @@
 @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
   @supports (-webkit-overflow-scrolling: touch) {
     .treatments_page_5_container {
-      margin-top: 3.8rem;
+      margin-top: 2.3rem;
     }
   }
 }

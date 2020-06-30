@@ -195,7 +195,7 @@
 @media only screen and (min-width: 1200px) {
   .add_ons_page_1_container {
     height: 60vh;
-    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
     grid-template-areas:
       "header header header header header header"
       "extra_extractions_card extra_extractions_card hydro_jelly_card hydro_jelly_card led_therapy_card led_therapy_card"
@@ -203,12 +203,13 @@
     margin-left: 1.6rem;
     margin-right: 1.6rem;
     margin-top: 1rem;
+    gap: 0;
   }
 
   .add_ons_page_1_header h2 {
     display: flex;
     align-self: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 3rem;
     text-align: left;
     margin-right: 1.5rem;
@@ -232,11 +233,29 @@
     align-self: center;
     margin-right: 1.25rem;
   }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .add_ons_page_1_container {
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+  }
+
+  .add_ons_page_1_header h2 {
+    font-size: 3rem;
+  }
 
   /* Safari 7.1+ */
 
   _::-webkit-full-page-media,
   _:future,
+  .add_ons_page_1_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
   .add_ons_page_1_container {
     grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
   }

@@ -949,6 +949,7 @@
   .splash_screen {
     font-size: 3em;
     transform: scale(1.3) translate(0vh, 20vh);
+    -webkit-transform: scale(1.3) translate(0vh, 20vh);
   }
 
   .header {
@@ -964,7 +965,7 @@
     align-self: flex-start;
     margin-left: 3.1rem;
     text-align: left;
-    font-size: 3rem;
+    font-size: 2.9rem;
     padding-top: 7rem;
     padding-bottom: 1.2rem;
     margin-right: 3rem;
@@ -1009,7 +1010,7 @@
     font-size: 1.4rem;
     font-weight: 500;
     margin-left: 3.1rem;
-    margin-top: 0rem;
+    margin-top: -3rem;
     padding: 1rem;
     padding-left: 3rem;
     padding-right: 3rem;
@@ -1041,14 +1042,14 @@
     height: 20%;
     width: 50%;
     top: 16%;
-    left: 41%;
+    left: 38%;
   }
 
   .small_plant {
     height: 23%;
     width: 25%;
     top: 25%;
-    left: 58%;
+    left: 57%;
   }
 
   .cream {
@@ -1056,7 +1057,7 @@
     height: 20%;
     width: 25%;
     top: 19%;
-    left: 64%;
+    left: 65%;
   }
 
   .hand_cream {
@@ -1064,7 +1065,7 @@
     height: 17%;
     width: 20%;
     top: 22%;
-    left: 75%;
+    left: 79%;
   }
 
   .mirror {
@@ -1072,21 +1073,21 @@
     height: 25%;
     width: 25%;
     top: 54%;
-    left: 53%;
+    left: 50%;
   }
 
   .bottle {
     z-index: 2;
     height: 25%;
     top: 60%;
-    left: 62.5%;
+    left: 62%;
   }
 
   .q_tips {
     height: 35%;
     width: 25%;
     top: 65%;
-    left: 74%;
+    left: 76%;
   }
 
   .sun_screen {
@@ -1094,7 +1095,152 @@
     height: 25%;
     width: 10%;
     top: 61%;
+    left: 85%;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .bottom_content h1 {
+    font-size: 3rem;
+  }
+
+  .call_to_action_button {
+    margin-top: 0rem;
+  }
+
+  .potted_plant {
+    left: 41%;
+  }
+
+  .small_plant {
+    left: 58%;
+  }
+
+  .cream {
+    left: 64%;
+  }
+
+  .hand_cream {
+    left: 75%;
+  }
+
+  .mirror {
+    left: 53%;
+  }
+
+  .bottle {
+    left: 62.5%;
+  }
+
+  .q_tips {
+    left: 74%;
+  }
+
+  .sun_screen {
     left: 81%;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .splash_screen {
+        font-size: 2em;
+        transform: scale(1.3) translate(0vh, 20vh);
+        -webkit-transform: scale(1.3) translate(0vh, 20vh);
+      }
+
+      .potted_plant {
+        height: 20%;
+        width: 10%;
+        top: 14%;
+        left: 60%;
+      }
+
+      .small_plant {
+        height: 20%;
+        width: 12%;
+        top: 24%;
+        left: 63.5%;
+      }
+
+      .cream {
+        height: 20%;
+        width: 11%;
+        top: 17%;
+        left: 70%;
+      }
+
+      .hand_cream {
+        height: 20%;
+        width: 10%;
+        top: 19%;
+        left: 80%;
+      }
+
+      .mirror {
+        height: 20%;
+        width: 11%;
+        top: 54%;
+        left: 59%;
+      }
+
+      .bottle {
+        height: 20%;
+        top: 58%;
+        left: 61%;
+      }
+
+      .q_tips {
+        height: 25%;
+        width: 15%;
+        top: 63.5%;
+        left: 76%;
+      }
+
+      .sun_screen {
+        height: 25%;
+        width: 12%;
+        top: 54.5%;
+        left: 81%;
+      }
+
+      .landing_page_description {
+        margin-top: 7rem;
+      }
+
+      .call_to_action_button {
+        margin-top: 12rem;
+      }
+    }
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .splash_screen {
+    transform: scale(1.3) translate(0vh, 10vh);
+  }
+
+  .bottom_content h1 {
+    font-size: 3.6rem;
+    margin-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .landing_page_description {
+    font-size: 1.7rem;
+    line-height: 3.5rem;
+    padding-bottom: 0rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .call_to_action_button {
+    font-size: 1.5rem;
+    padding: 1.2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-top: 3rem;
   }
 
   /* Safari Only */
@@ -1160,34 +1306,6 @@
         left: 81%;
       }
     }
-  }
-}
-
-/* CSS for Regular-Sized Desktops */
-@media only screen and (min-width: 1600px) {
-  .splash_screen {
-    transform: scale(1.3) translate(0vh, 10vh);
-  }
-
-  .bottom_content h1 {
-    font-size: 3.6rem;
-    margin-top: 3rem;
-    padding-bottom: 3rem;
-  }
-
-  .landing_page_description {
-    font-size: 1.7rem;
-    line-height: 3.5rem;
-    padding-bottom: 0rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .call_to_action_button {
-    font-size: 1.5rem;
-    padding: 1.2rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-    margin-top: 3rem;
   }
 }
 

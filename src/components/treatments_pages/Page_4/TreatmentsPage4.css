@@ -95,8 +95,8 @@
 @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
   @supports (-webkit-overflow-scrolling: touch) {
     .treatments_page_4_container {
-      row-gap: 3.5vh;
-      margin-top: 2.2rem;
+      row-gap: 2.5vh;
+      margin-top: 1.5vh;
     }
   }
 }
@@ -136,6 +136,13 @@
     margin-left: 1.6rem;
     margin-right: 1.6rem;
     margin-top: 2.7rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .treatments_page_4_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
   }
 }
 

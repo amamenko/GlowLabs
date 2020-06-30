@@ -89,9 +89,9 @@
 
   .unsure_popup_not_sure_button,
   .unsure_popup_dismiss_button {
-    font-size: 0.8rem;
-    padding-left: 2.3rem;
-    padding-right: 2.3rem;
+    font-size: 0.7rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .unsure_popup_not_sure_button {
@@ -115,6 +115,16 @@
   .unsure_popup_dismiss_button:hover {
     background: rgba(255, 255, 255, 0.3);
     transition: background 0.5s ease;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .unsure_popup_not_sure_button,
+  .unsure_popup_dismiss_button {
+    font-size: 0.8rem;
+    padding-left: 2.3rem;
+    padding-right: 2.3rem;
   }
 }
 

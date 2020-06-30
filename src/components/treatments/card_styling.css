@@ -661,15 +661,15 @@
     }
 
     .card_description_icon {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     .card_description_paragraph_title {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     .card_description_paragraph_value {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       padding-bottom: 0rem;
       padding-top: 0rem;
     }
@@ -786,7 +786,7 @@
 
   .big_screen_price,
   .big_screen_duration {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: rgb(0, 129, 177);
   }
@@ -830,7 +830,7 @@
   }
 
   .big_screen_book_now_wrapper {
-    width: 8em;
+    width: 6.9em;
     display: flex;
     flex-direction: row;
     justify-items: center;
@@ -839,10 +839,10 @@
     z-index: 5;
     top: auto;
     bottom: 0;
-    padding: 0.4rem;
+    padding: 0.2rem;
     margin-bottom: 1rem;
-    padding-right: 0.8rem;
-    padding-left: 0.8rem;
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
     border: 1px solid rgb(0, 129, 177);
     border-radius: 20px;
     cursor: pointer;
@@ -858,7 +858,7 @@
   .big_screen_book_now_wrapper p {
     display: flex;
     align-self: center;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: 600;
   }
 
@@ -872,7 +872,7 @@
 
   .facial_advanced_treatment_icon {
     top: auto;
-    bottom: 13.5rem;
+    bottom: 12.5rem;
     left: 0;
     font-size: 1rem;
   }
@@ -884,6 +884,53 @@
 
   .facial_coming_soon_designation {
     display: none;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1440px) {
+  .big_screen_book_now_wrapper {
+    width: 8em;
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+    padding: 0.4rem;
+  }
+
+  .big_screen_book_now_wrapper p {
+    display: flex;
+    align-self: center;
+    font-size: 0.6rem;
+    font-weight: 600;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgb(0, 129, 177);
+  }
+
+  .facial_advanced_treatment_icon {
+    top: auto;
+    bottom: 13.5rem;
+    left: 0;
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1440px) and (max-device-height: 900px) {
+  .facial_advanced_treatment_icon {
+    bottom: 13rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .facial_advanced_treatment_icon {
+        bottom: 13.5rem;
+      }
+    }
   }
 }
 

@@ -480,7 +480,7 @@
     align-items: center;
     justify-content: center;
     list-style: none;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
   }
@@ -542,6 +542,40 @@
     fill: rgb(255, 255, 255);
     stroke: rgb(255, 255, 255);
     transition: all 0.5s ease;
+  }
+
+  .cart_item_number_circle {
+    right: 2.6rem;
+    margin-top: 0rem;
+  }
+
+  .cart_item_number_circle p {
+    top: 0rem;
+    left: 0.2rem;
+  }
+}
+
+/* CSS for Medium-Sized Laptop */
+@media only screen and (min-width: 1400px) {
+  .nav_links li {
+    font-size: 1rem;
+  }
+
+  .cart_item_number_circle {
+    right: 2.5rem;
+    margin-top: -0.3rem;
+  }
+
+  .cart_item_number_circle p {
+    top: 0.1rem;
+    left: auto;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .cart_item_number_circle {
+    right: 3rem;
   }
 }
 

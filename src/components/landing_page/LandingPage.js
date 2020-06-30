@@ -129,7 +129,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       : props.currentScreenSize >= 600
       ? window.scrollY < 50
       : window.scrollY < 345;
-    const userLineRenderScroll = window.scrollY < 30;
+    const userLineRenderScroll = window.scrollY < 80;
 
     if (!userScroll) {
       dispatch(ACTION_USER_SCROLLED());

@@ -299,6 +299,25 @@
   }
 }
 
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .footer_icon {
+    font-size: 2rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .footer_logo_svg {
+        transform: scale(0.1);
+        -webkit-transform: scale(0.1);
+        bottom: -83vh;
+        top: auto;
+      }
+    }
+  }
+}
+
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
   .footer_icon {

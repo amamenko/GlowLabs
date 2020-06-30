@@ -61,7 +61,7 @@
   @supports not (-webkit-overflow-scrolling: touch) {
     /* CSS for other than iOS devices */
     .treatments_page_2_container {
-      gap: 5vh;
+      row-gap: 5vh;
       margin-top: 11vh;
     }
   }
@@ -140,8 +140,8 @@
 @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
   @supports (-webkit-overflow-scrolling: touch) {
     .treatments_page_2_container {
-      margin-top: 3.5vh;
-      row-gap: 3.5vh;
+      margin-top: 0vh;
+      row-gap: 2.5vh;
     }
   }
 }
@@ -173,12 +173,21 @@
 @media only screen and (min-width: 1200px) {
   .treatments_page_2_container {
     height: 28.6666667vh;
-    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
     grid-template-areas:
       "glow_card glow_card rejuvenate_card rejuvenate_card quench_card quench_card"
       "glow_card glow_card rejuvenate_card rejuvenate_card quench_card quench_card";
     margin-left: 1.6rem;
     margin-right: 1.6rem;
+    margin-top: 1.5rem;
+    row-gap: 0;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .treatments_page_2_container {
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
     margin-top: 1rem;
   }
 
@@ -186,6 +195,13 @@
 
   _::-webkit-full-page-media,
   _:future,
+  .treatments_page_2_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
   .treatments_page_2_container {
     grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
   }
@@ -202,5 +218,6 @@
 @media only screen and (min-width: 2200px) {
   .treatments_page_2_container {
     margin-top: 0rem;
+    row-gap: 1.5rem;
   }
 }
