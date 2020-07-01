@@ -203,6 +203,13 @@
   }
 }
 
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .treatments_page_1_container {
+    grid-template-columns: repeat(auto-fit, minmax(25.28%, 1fr));
+  }
+}
+
 /* CSS for Medium Laptops */
 @media only screen and (min-width: 1400px) {
   .treatments_page_1_header h2 {

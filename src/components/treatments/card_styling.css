@@ -887,6 +887,35 @@
   }
 }
 
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.2rem;
+  }
+
+  .card_description_subheader {
+    font-size: 0.8rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 2.8rem;
+    font-size: 0.6rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    top: auto;
+    bottom: 10.2rem;
+    left: 0;
+    font-size: 1rem;
+  }
+
+  .card_svg {
+    position: absolute;
+    top: 2vh;
+    height: 65%;
+  }
+}
+
 /* CSS for Medium Laptops */
 @media only screen and (min-width: 1440px) {
   .big_screen_book_now_wrapper {

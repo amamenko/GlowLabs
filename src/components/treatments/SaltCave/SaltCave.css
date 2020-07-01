@@ -182,6 +182,21 @@
     padding-bottom: 0.5rem;
   }
 }
+
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 0.7rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .salt_cave_wrapping {
+    height: 28.6666667vh;
+  }
+}
+
 /* CSS for Medium Desktops */
 @media only screen and (min-width: 1400px) {
   .salt_cave_time_formgroup_input {

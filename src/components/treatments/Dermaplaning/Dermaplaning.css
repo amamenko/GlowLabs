@@ -25,3 +25,10 @@
     height: auto;
   }
 }
+
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .dermaplaning_wrapping {
+    height: 28.6666667vh;
+  }
+}

@@ -1099,6 +1099,52 @@
   }
 }
 
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .potted_plant {
+    left: 40%;
+    top: 17%;
+  }
+
+  .small_plant {
+    left: 58%;
+    top: 25.8%;
+  }
+
+  .cream {
+    left: 65%;
+    top: 20%;
+  }
+
+  .hand_cream {
+    left: 77%;
+    top: 23.5%;
+  }
+
+  .mirror {
+    left: 53%;
+    top: 55.5%;
+  }
+
+  .bottle {
+    left: 62.5%;
+    top: 61%;
+  }
+
+  .q_tips {
+    left: 74%;
+    top: 66%;
+  }
+
+  .sun_screen {
+    left: 83%;
+  }
+
+  .call_to_action_button {
+    margin-top: -8rem;
+  }
+}
+
 /* CSS for Medium Laptops */
 @media only screen and (min-width: 1400px) {
   .bottom_content h1 {

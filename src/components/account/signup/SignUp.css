@@ -815,6 +815,22 @@
   }
 }
 
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .sign_up_password_form_container {
+    margin-top: -25vh;
+  }
+
+  .sign_up_page_form {
+    margin-bottom: -1rem;
+  }
+
+  .complete_registration_bottom_buttons_container {
+    margin-top: 5vh;
+    margin-bottom: 0;
+  }
+}
+
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
   .sign_up_content_container {

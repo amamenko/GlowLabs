@@ -555,6 +555,14 @@
   }
 }
 
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .nav_sign_in_button_large_screen {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+  }
+}
+
 /* CSS for Medium-Sized Laptop */
 @media only screen and (min-width: 1400px) {
   .nav_links li {

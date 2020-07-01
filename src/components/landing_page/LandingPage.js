@@ -324,7 +324,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       style={{
         background: splashScreenHalfway
           ? "rgb(224, 224, 232)"
-          : "rgb(44, 44, 52)",
+          : "rgb(255, 255, 255)",
         transition: "background 2s ease-out",
         zIndex: finalBookingModal ? -1 : "auto",
       }}
