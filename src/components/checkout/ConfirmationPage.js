@@ -184,6 +184,12 @@ const ConfirmationPage = (props) => {
   const variablesModel = {
     date: reformattedDay,
     startTime: selectedTime,
+    morningOrEvening:
+      Number(selectedTime.slice(0, 1)) > 1
+        ? "PM"
+        : Number(selectedTime.slice(0, 2)) < 12
+        ? "AM"
+        : "PM",
     endTime: appointmentEndTime,
     duration: totalDuration,
     price: totalPrice,

@@ -34,6 +34,13 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .jet_hydro_peel_wrapping {
+    height: 14.3333333vh;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .jet_hydro_peel_wrapping {

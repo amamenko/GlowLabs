@@ -90,6 +90,14 @@
   white-space: nowrap;
 }
 
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) with Smaller Heights */
+@media only screen and (max-width: 359px) and (max-device-height: 600px) {
+  .admin_sign_in_prompt {
+    font-size: 1.2rem;
+    padding-top: 2rem;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .admin_login_page_background {

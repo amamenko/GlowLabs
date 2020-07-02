@@ -183,6 +183,8 @@ const App = () => {
   const [previousScrollPosition, setPreviousScrollPosition] = useState(
     window.pageYOffset
   );
+  const [scrollValue, changeScrollValue] = useState(0);
+  const [scrollDirection, changeScrollDirection] = useState("");
 
   // Needed for large screen frozen position when cart is toggled due to Square form causing re-rendering
   const [
@@ -229,6 +231,7 @@ const App = () => {
   );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+  const [treatmentsPageInView, changeTreatmentsPageInView] = useState(false);
 
   // For large screen shopping cart slide-in
   const [cartSlideDelay, changeCartSlideDelay] = useState(false);
@@ -1145,6 +1148,37 @@ const App = () => {
     }
   }, [cartIsActive, dispatch, currentScreenSize, initialScreenSize]);
 
+  const treatmentsPageIsVisibleFunction = () => {
+    return changeTreatmentsPageInView(true);
+  };
+
+  const treatmentsPageIsNotVisibleFunction = () => {
+    return changeTreatmentsPageInView(false);
+  };
+
+  const handleScrollDirection = useCallback(
+    (e) => {
+      if (scrollValue > e.currentTarget.scrollY) {
+        changeScrollDirection("Up");
+        changeScrollValue(e.currentTarget.scrollY);
+      } else {
+        changeScrollDirection("Down");
+        changeScrollValue(e.currentTarget.scrollY);
+      }
+    },
+    [scrollValue]
+  );
+
+  useEffect(() => {
+    changeScrollValue(window.scrollY);
+
+    window.addEventListener("scroll", handleScrollDirection);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollDirection);
+    };
+  }, [handleScrollDirection]);
+
   return (
     <>
       {redirectToHome()}
@@ -1381,7 +1415,10 @@ const App = () => {
       <Switch>
         <Route exact path="/">
           <KeepAlive saveScrollPosition="screen">
-            <div className="main_container">
+            <div
+              className="main_container"
+              onScroll={(e) => handleScrollDirection(e)}
+            >
               {redirectToCartRoutes()}
               <LandingPage
                 currentScreenSize={currentScreenSize}
@@ -1396,6 +1433,8 @@ const App = () => {
                 handleClickToScrollToInstagram={handleClickToScrollToInstagram}
                 handleClickToScrollToContact={handleClickToScrollToContact}
                 navbarVisible={navbarVisible}
+                treatmentsPageInView={treatmentsPageInView}
+                scrollDirection={scrollDirection}
                 ref={ref}
               />
               <TreatmentsPage1
@@ -1403,6 +1442,13 @@ const App = () => {
                 initialScreenSize={initialScreenSize}
                 Treatments1Ref={Treatments1Ref}
                 resetAllCartStates={resetAllCartStates}
+                treatmentsPageIsVisibleFunction={
+                  treatmentsPageIsVisibleFunction
+                }
+                treatmentsPageIsNotVisibleFunction={
+                  treatmentsPageIsNotVisibleFunction
+                }
+                treatmentsPageInView={treatmentsPageInView}
               />
               <TreatmentsPage2
                 initialScreenSize={initialScreenSize}

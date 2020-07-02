@@ -170,7 +170,7 @@
 /* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) with Smaller Heights */
 @media only screen and (max-width: 359px) and (max-device-height: 600px) {
   .sign_up_prompt {
-    top: 5vh;
+    top: -1vh;
   }
 
   .sign_up_content_container {
@@ -180,7 +180,7 @@
   }
 
   .complete_registration_prompt {
-    top: -55vh;
+    top: -58vh;
   }
 
   .sign_up_required_fields {
@@ -188,7 +188,7 @@
   }
 
   .sign_up_page_form {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
   }
 
   .signup_page_bottom_buttons_container {
@@ -196,7 +196,7 @@
   }
 
   .complete_registration_bottom_buttons_container {
-    margin-top: 20vh;
+    margin-top: 17vh;
     margin-bottom: 0;
   }
 
@@ -561,7 +561,7 @@
     }
 
     .sign_up_password_form_container {
-      margin-top: -25vh;
+      margin-top: -32vh;
     }
 
     .complete_registration_prompt {

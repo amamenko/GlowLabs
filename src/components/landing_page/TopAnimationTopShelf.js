@@ -38,7 +38,7 @@ const TopAnimationTopShelf = (props) => {
                 ? "28%"
                 : "30%"
               : props.initialScreenSize >= 768
-              ? "20%"
+              ? "18%"
               : props.initialScreenSize >= 600
               ? "28%"
               : props.initialScreenSize >= 360
@@ -55,7 +55,7 @@ const TopAnimationTopShelf = (props) => {
               ? "28%"
               : "30%"
             : props.currentScreenSize >= 768
-            ? "20%"
+            ? "18%"
             : props.currentScreenSize >= 600
             ? "28%"
             : props.currentScreenSize >= 360
@@ -95,7 +95,7 @@ const TopAnimationTopShelf = (props) => {
                   ? "28%"
                   : "30%"
                 : props.currentScreenSize >= 768
-                ? "20%"
+                ? "18%"
                 : props.currentScreenSize >= 600
                 ? "28%"
                 : props.currentScreenSize >= 360
@@ -114,7 +114,7 @@ const TopAnimationTopShelf = (props) => {
                   : props.initialScreenSize >= 1600
                   ? "20em"
                   : props.initialScreenSize >= 768
-                  ? "15em"
+                  ? "10em"
                   : props.initialScreenSize >= 360
                   ? "7em"
                   : "5em"
@@ -125,7 +125,7 @@ const TopAnimationTopShelf = (props) => {
                 : props.currentScreenSize >= 1600
                 ? "20em"
                 : props.currentScreenSize >= 768
-                ? "15em"
+                ? "10em"
                 : props.currentScreenSize >= 360
                 ? "7em"
                 : "5em"

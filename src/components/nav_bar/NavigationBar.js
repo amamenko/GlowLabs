@@ -291,7 +291,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize <= 1000 &&
                 props.initialScreenSize >= 600
-                ? window.scrollY <= 1
+                ? !window.matchMedia("(orientation: landscape)").matches
+                  ? "center"
+                  : window.scrollY <= 1
                   ? location.pathname === "/"
                     ? "flex-start"
                     : "center"
@@ -299,7 +301,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 : "center"
               : props.currentScreenSize <= 1000 &&
                 props.currentScreenSize >= 600
-              ? window.scrollY <= 1
+              ? !window.matchMedia("(orientation: landscape)").matches
+                ? "center"
+                : window.scrollY <= 1
                 ? location.pathname === "/"
                   ? "flex-start"
                   : "center"
@@ -339,7 +343,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 props.currentScreenSize === ""
                   ? props.initialScreenSize <= 1000 &&
                     props.initialScreenSize >= 600
-                    ? window.scrollY <= 1
+                    ? !window.matchMedia("(orientation: landscape)").matches
+                      ? "translate(0 -70.02)"
+                      : window.scrollY <= 1
                       ? "translate(0 -140.02)"
                       : "translate(0 50.02)"
                     : props.initialScreenSize >= 1600
@@ -347,7 +353,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     : "translate(0 50.02)"
                   : props.currentScreenSize <= 1000 &&
                     props.currentScreenSize >= 600
-                  ? window.scrollY <= 1
+                  ? !window.matchMedia("(orientation: landscape)").matches
+                    ? "translate(0 -70.02)"
+                    : window.scrollY <= 1
                     ? "translate(0 -140.02)"
                     : "translate(0 50.02)"
                   : props.currentScreenSize >= 1600
@@ -405,15 +413,19 @@ const NavigationBar = React.forwardRef((props, ref) => {
             props.currentScreenSize === ""
               ? props.initialScreenSize <= 1000 &&
                 props.initialScreenSize >= 600
+                ? window.matchMedia("(orientation: landscape)").matches
+                  ? window.scrollY <= 5
+                    ? "0.6rem"
+                    : "1rem"
+                  : "auto"
+                : "auto"
+              : props.currentScreenSize <= 1000 &&
+                props.currentScreenSize >= 600
+              ? window.matchMedia("(orientation: landscape)").matches
                 ? window.scrollY <= 5
                   ? "0.6rem"
                   : "1rem"
                 : "auto"
-              : props.currentScreenSize <= 1000 &&
-                props.currentScreenSize >= 600
-              ? window.scrollY <= 5
-                ? "0.6rem"
-                : "1rem"
               : "auto",
           paddingLeft: userAuthenticated ? "2rem" : "1rem",
           background:
@@ -650,7 +662,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
               props.currentScreenSize === ""
                 ? props.initialScreenSize <= 1000 &&
                   props.initialScreenSize >= 600
-                  ? window.scrollY <= 5
+                  ? !window.matchMedia("(orientation: landscape)").matches
+                    ? "0.4rem"
+                    : window.scrollY <= 5
                     ? "0.4rem"
                     : "0.8rem"
                   : props.initialScreenSize >= 400
@@ -660,7 +674,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   : "0.5rem"
                 : props.currentScreenSize <= 1000 &&
                   props.currentScreenSize >= 600
-                ? window.scrollY <= 5
+                ? !window.matchMedia("(orientation: landscape)").matches
+                  ? "0.4rem"
+                  : window.scrollY <= 5
                   ? "0.4rem"
                   : "0.8rem"
                 : props.currentScreenSize >= 400
@@ -714,7 +730,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
             top:
               props.currentScreenSize === ""
                 ? props.initialScreenSize <= 1000 &&
-                  props.initialScreenSize >= 600
+                  props.initialScreenSize >= 600 &&
+                  window.matchMedia("(orientation: landscape)").matches
                   ? window.scrollY <= 5
                     ? "0.4rem"
                     : "0.8rem"
@@ -724,7 +741,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   ? "1rem"
                   : "0.3rem"
                 : props.currentScreenSize <= 1000 &&
-                  props.currentScreenSize >= 600
+                  props.currentScreenSize >= 600 &&
+                  window.matchMedia("(orientation: landscape)").matches
                 ? window.scrollY <= 5
                   ? "0.4rem"
                   : "0.8rem"

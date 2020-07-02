@@ -877,7 +877,59 @@
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
   .splash_screen {
-    transform: scale(1) translate(0vh, 10vh);
+    transform: scale(1) translate(0vh, 15vh);
+  }
+
+  .bottom_content {
+    padding-top: 0vh;
+    height: 62vh;
+    background: rgb(251, 251, 251);
+  }
+
+  .bottom_content h1 {
+    display: flex;
+    align-self: center;
+    text-align: center;
+    font-size: 3rem;
+    padding-top: 0rem;
+    padding-bottom: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3rem;
+  }
+
+  .landing_page_description {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    font-size: 1.65rem;
+    line-height: 2.5rem;
+    text-align: center;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    padding-bottom: 2rem;
+  }
+
+  .call_to_action_buttons_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .call_to_action_button {
+    display: inline-block;
+    background: rgb(0, 129, 177);
+    color: white;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-left: 0;
+    margin-top: 1rem;
+    padding: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    border-radius: 40px;
+    cursor: pointer;
   }
 
   .top_content_top_shelf {
@@ -892,55 +944,55 @@
 
   .potted_plant {
     height: 11%;
-    top: 12.2%;
-    left: 16%;
+    top: 10%;
+    left: 19%;
   }
 
   .small_plant {
-    height: 10%;
-    top: 18.2%;
-    left: 30%;
+    height: 11%;
+    top: 15.5%;
+    left: 32%;
   }
 
   .cream {
     height: 13%;
     width: 25%;
-    top: 12%;
-    left: 38%;
+    top: 10%;
+    left: 38.5%;
   }
 
   .hand_cream {
-    height: 19%;
+    height: 12%;
     width: 20%;
-    top: 9.8%;
-    left: 58%;
+    top: 11.5%;
+    left: 55%;
   }
 
   .mirror {
-    height: 12%;
+    height: 13%;
     width: 25%;
-    top: 29.5%;
-    left: 22%;
+    top: 28%;
+    left: 24%;
   }
 
   .bottle {
-    height: 12%;
-    top: 32%;
-    left: 35.5%;
+    height: 13%;
+    top: 31%;
+    left: 36%;
   }
 
   .q_tips {
-    height: 25%;
+    height: 15%;
     width: 25%;
-    top: 30.2%;
-    left: 52.5%;
+    top: 35%;
+    left: 49%;
   }
 
   .sun_screen {
-    height: 20%;
+    height: 15%;
     width: 20%;
-    top: 26.8%;
-    left: 60%;
+    top: 28.5%;
+    left: 56%;
   }
 }
 

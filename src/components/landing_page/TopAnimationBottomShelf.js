@@ -113,7 +113,7 @@ const TopAnimationBottomShelf = (props) => {
                   : props.initialScreenSize >= 1600
                   ? "20em"
                   : props.initialScreenSize >= 768
-                  ? "15em"
+                  ? "10em"
                   : props.initialScreenSize >= 360
                   ? "7em"
                   : "5em"
@@ -124,7 +124,7 @@ const TopAnimationBottomShelf = (props) => {
                 : props.currentScreenSize >= 1600
                 ? "20em"
                 : props.currentScreenSize >= 768
-                ? "15em"
+                ? "10em"
                 : props.currentScreenSize >= 360
                 ? "7em"
                 : "5em"

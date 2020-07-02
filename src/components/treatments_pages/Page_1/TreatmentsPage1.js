@@ -1,36 +1,79 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Calm from "../../treatments/Calm/Calm";
 import Clarify from "../../treatments/Clarify/Clarify";
 import Bacial from "../../treatments/Bacial/Bacial";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
+import composeRefs from "@seznam/compose-react-refs";
 import "./TreatmentsPage1.css";
 
 const TreatmentsPage1 = React.forwardRef((props, ref) => {
+  const {
+    currentScreenSize,
+    initialScreenSize,
+    treatmentsPageIsVisibleFunction,
+    treatmentsPageIsNotVisibleFunction,
+    treatmentsPageInView,
+    Treatments1Ref,
+    resetAllCartStates,
+  } = props;
+
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2,
+    threshold: initialScreenSize >= 1200 ? 0.7 : 0.2,
   });
+
+  const [multipleTriggerInViewRef, Treatments1InView] = useInView({
+    triggerOnce: false,
+    threshold: !currentScreenSize
+      ? initialScreenSize >= 1200
+        ? 0.7
+        : 0.2
+      : currentScreenSize >= 1200
+      ? 0.7
+      : 0.2,
+  });
+
+  useMemo(() => {
+    if (Treatments1InView) {
+      if (!treatmentsPageInView) {
+        treatmentsPageIsVisibleFunction();
+      }
+    } else {
+      if (treatmentsPageInView) {
+        treatmentsPageIsNotVisibleFunction();
+      }
+    }
+  }, [
+    Treatments1InView,
+    treatmentsPageIsVisibleFunction,
+    treatmentsPageIsNotVisibleFunction,
+    treatmentsPageInView,
+  ]);
+
   const [bacialRendered, changeBacialRendered] = useState("grid");
 
   useEffect(() => {
-    if (props.currentScreenSize === "") {
-      if (props.initialScreenSize >= 1200) {
+    if (currentScreenSize === "") {
+      if (initialScreenSize >= 1200) {
         changeBacialRendered("grid");
       } else {
         changeBacialRendered("none");
       }
     } else {
-      if (props.currentScreenSize >= 1200) {
+      if (currentScreenSize >= 1200) {
         changeBacialRendered("grid");
       } else {
         changeBacialRendered("none");
       }
     }
-  }, [changeBacialRendered, props.currentScreenSize, props.initialScreenSize]);
+  }, [changeBacialRendered, currentScreenSize, initialScreenSize]);
 
   return (
-    <div className="treatments_page_1_container" ref={props.Treatments1Ref}>
+    <div
+      className="treatments_page_1_container"
+      ref={composeRefs(Treatments1Ref, multipleTriggerInViewRef)}
+    >
       <header className="treatments_page_1_header" ref={inViewRef}>
         {inView ? (
           <Spring
@@ -39,6 +82,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
               opacity: 0,
               width_large_desktop: "0%",
               width_desktop: "0%",
+              width_tablet: "0%",
               width_landscape: "0%",
               width_mobile: "0%",
               width_mobile_small: "0%",
@@ -49,6 +93,7 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
               opacity: 1,
               width_large_desktop: "25%",
               width_desktop: "24%",
+              width_tablet: "40%",
               width_landscape: "28%",
               width_mobile: "45%",
               width_mobile_small: "48%",
@@ -71,27 +116,31 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
                     position: `${styles.position}`,
                     opacity: `${styles.opacity}`,
                     width:
-                      props.currentScreenSize === ""
-                        ? props.initialScreenSize >= 1800
+                      currentScreenSize === ""
+                        ? initialScreenSize >= 1800
                           ? `${styles.width_large_desktop}`
-                          : props.initialScreenSize >= 1200
+                          : initialScreenSize >= 1200
                           ? `${styles.width_desktop}`
-                          : props.initialScreenSize >= 600
+                          : initialScreenSize >= 768
+                          ? `${styles.width_tablet}`
+                          : initialScreenSize >= 600
                           ? `${styles.width_landscape}`
-                          : props.initialScreenSize >= 410
+                          : initialScreenSize >= 410
                           ? `${styles.width_mobile}`
-                          : props.initialScreenSize >= 360
+                          : initialScreenSize >= 360
                           ? `${styles.width_mobile_small}`
                           : `${styles.width_mobile_tiny}`
-                        : props.currentScreenSize >= 1800
+                        : currentScreenSize >= 1800
                         ? `${styles.width_large_desktop}`
-                        : props.currentScreenSize >= 1200
+                        : currentScreenSize >= 1200
                         ? `${styles.width_desktop}`
-                        : props.currentScreenSize >= 600
+                        : currentScreenSize >= 768
+                        ? `${styles.width_tablet}`
+                        : currentScreenSize >= 600
                         ? `${styles.width_landscape}`
-                        : props.currentScreenSize >= 410
+                        : currentScreenSize >= 410
                         ? `${styles.width_mobile}`
-                        : props.currentScreenSize >= 360
+                        : currentScreenSize >= 360
                         ? `${styles.width_mobile_small}`
                         : `${styles.width_mobile_tiny}`,
                   }}
@@ -117,20 +166,20 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
         ) : null}
       </header>
       <Calm
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStates={props.resetAllCartStates}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStates={resetAllCartStates}
       />
       <Clarify
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStates={props.resetAllCartStates}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStates={resetAllCartStates}
       />
       <Bacial
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
         bacialRendered={bacialRendered}
-        resetAllCartStates={props.resetAllCartStates}
+        resetAllCartStates={resetAllCartStates}
       />
     </div>
   );

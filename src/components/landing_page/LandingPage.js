@@ -129,7 +129,6 @@ const LandingPage = React.forwardRef((props, ref) => {
       : props.currentScreenSize >= 600
       ? window.scrollY < 50
       : window.scrollY < 345;
-    const userLineRenderScroll = window.scrollY < 80;
 
     if (!userScroll) {
       dispatch(ACTION_USER_SCROLLED());
@@ -137,14 +136,14 @@ const LandingPage = React.forwardRef((props, ref) => {
       dispatch(ACTION_USER_SCROLLED_RESET());
     }
 
-    if (!userLineRenderScroll) {
+    if (props.treatmentsPageInView) {
       setLineRenderScroll(true);
     } else {
       setLineRenderScroll(false);
     }
   }, [
     dispatch,
-    setLineRenderScroll,
+    props.treatmentsPageInView,
     props.currentScreenSize,
     props.initialScreenSize,
   ]);
@@ -324,7 +323,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       style={{
         background: splashScreenHalfway
           ? "rgb(224, 224, 232)"
-          : "rgb(255, 255, 255)",
+          : "rgb(245, 245, 245)",
         transition: "background 2s ease-out",
         zIndex: finalBookingModal ? -1 : "auto",
       }}
@@ -660,6 +659,10 @@ const LandingPage = React.forwardRef((props, ref) => {
                           ((rendered) => (
                             <span
                               style={{
+                                display:
+                                  props.scrollDirection === "Up"
+                                    ? "none"
+                                    : "block",
                                 opacity: `${rendered.opacity}`,
                                 height: !props.currentScreenSize
                                   ? props.initialScreenSize >= 479

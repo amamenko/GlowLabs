@@ -169,6 +169,15 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .treatments_page_2_container {
+    height: 50vh;
+    grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+    margin-top: -2rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .treatments_page_2_container {

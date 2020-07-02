@@ -90,6 +90,7 @@ const getAllAppointmentsQuery = gql`
       id
       date
       startTime
+      morningOrEvening
       endTime
       duration
       price
@@ -125,6 +126,7 @@ const getOwnAppointmentsQuery = gql`
       id
       date
       startTime
+      morningOrEvening
       endTime
       duration
       price
@@ -160,6 +162,7 @@ const getOwnPastAppointmentsQuery = gql`
       id
       date
       startTime
+      morningOrEvening
       endTime
       duration
       price
@@ -192,6 +195,7 @@ const getAppointmentQuery = gql`
   query getAppointmentQuery(
     $date: String
     $startTime: String
+    $morningOrEvening: String
     $endTime: String
     $duration: Int
     $price: Int
@@ -204,6 +208,7 @@ const getAppointmentQuery = gql`
     appointment(
       date: $date
       startTime: $startTime
+      morningOrEvening: $morningOrEvening
       endTime: $endTime
       duration: $duration
       price: $price
@@ -217,6 +222,7 @@ const getAppointmentQuery = gql`
     ) {
       date
       startTime
+      morningOrEvening
       endTime
       duration
       price
@@ -492,6 +498,7 @@ const addAppointmentMutation = gql`
   mutation addAppointmentMutation(
     $date: String!
     $startTime: String!
+    $morningOrEvening: String!
     $endTime: String!
     $duration: Int!
     $price: Int!
@@ -512,6 +519,7 @@ const addAppointmentMutation = gql`
     addAppointment(
       date: $date
       startTime: $startTime
+      morningOrEvening: $morningOrEvening
       endTime: $endTime
       duration: $duration
       price: $price
@@ -537,6 +545,7 @@ const addAppointmentMutation = gql`
     ) {
       date
       startTime
+      morningOrEvening
       endTime
       duration
       price

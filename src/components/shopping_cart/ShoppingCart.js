@@ -349,9 +349,15 @@ const ShoppingCart = (props) => {
   useEffect(() => {
     dispatch(ACTION_CART_IS_ACTIVE());
     return () => {
-      dispatch(ACTION_CART_IS_NOT_ACTIVE());
+      if (!props.currentScreenSize) {
+        if (props.initialScreenSize < 1200) {
+          dispatch(ACTION_CART_IS_NOT_ACTIVE());
+        }
+      } else if (props.currentScreenSize < 1200) {
+        dispatch(ACTION_CART_IS_NOT_ACTIVE());
+      }
     };
-  }, [dispatch]);
+  }, [dispatch, props.currentScreenSize, props.initialScreenSize]);
 
   useEffect(() => {
     window.addEventListener("popstate", () => {

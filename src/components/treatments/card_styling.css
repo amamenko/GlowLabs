@@ -756,6 +756,41 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.2rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.7rem;
+    line-height: 17px;
+    padding-top: 0.7rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.7rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.7rem;
+  }
+
+  .card_description_icon {
+    font-size: 0.7rem;
+  }
+
+  .card_toggler {
+    font-size: 0.9rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    font-size: 1.2rem;
+    top: 1.2rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .card_svg {
