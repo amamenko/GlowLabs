@@ -191,6 +191,28 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .add_ons_page_1_container {
+    height: 50vh;
+    grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+    margin-top: -25vh;
+  }
+
+  .add_ons_page_1_header h2 {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    margin-top: 0rem;
+  }
+
+  .add_ons_page_1_header h3 p {
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+    font-size: 1.8rem;
+    padding-bottom: 0rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .add_ons_page_1_container {

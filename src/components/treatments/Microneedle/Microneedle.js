@@ -200,7 +200,7 @@ const Microneedle = (props) => {
                 />
                 <p className="card_description_paragraph_title">Duration</p>
               </div>
-              <div className="card_description_paragraph_value">
+              <div className="card_description_paragraph_value microneedle_paragraph_value">
                 <p>50 minutes</p>
               </div>
               <div

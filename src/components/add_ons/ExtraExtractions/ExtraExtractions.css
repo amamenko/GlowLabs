@@ -18,6 +18,13 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .extra_extractions_wrapping {
+    height: 20.8vh;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .extra_extractions_wrapping {

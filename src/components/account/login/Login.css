@@ -723,6 +723,41 @@
   }
 }
 
+/* CSS for Medium Laptops like Microsoft Surface Pro */
+@media only screen and (min-width: 1400px) {
+  .complete_registration_content_container {
+    height: 100%;
+  }
+
+  .sign_up_page_form.facebook_phone_number_form {
+    margin-bottom: -6vh;
+  }
+
+  .login_page_descriptive_text {
+    display: block;
+    position: absolute;
+    top: 23%;
+    left: 37%;
+  }
+
+  .login_page_descriptive_text h2 {
+    font-size: 5rem;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+  }
+
+  .login_page_descriptive_text ul {
+    padding-top: 1rem;
+    padding-left: 3rem;
+  }
+
+  .login_page_descriptive_text ul li {
+    font-size: 1.5rem;
+    line-height: 5rem;
+    color: rgb(255, 255, 255);
+  }
+}
+
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
   .complete_registration_page_container,

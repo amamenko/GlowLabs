@@ -744,6 +744,38 @@
   .sign_up_required_fields {
     padding-right: 2rem;
   }
+
+  .sign_up_prompt {
+    top: 25vh;
+  }
+
+  .sign_up_password_form_container {
+    margin-bottom: 12vh;
+  }
+
+  .sign_up_page_descriptive_text {
+    display: block;
+    position: absolute;
+    top: 23%;
+    left: 37%;
+  }
+
+  .sign_up_page_descriptive_text h2 {
+    font-size: 5rem;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+  }
+
+  .sign_up_page_descriptive_text ul {
+    padding-top: 1rem;
+    padding-left: 3rem;
+  }
+
+  .sign_up_page_descriptive_text ul li {
+    font-size: 1.5rem;
+    line-height: 5rem;
+    color: rgb(255, 255, 255);
+  }
 }
 
 /* CSS for Medium Laptops */
@@ -828,6 +860,10 @@
   .complete_registration_bottom_buttons_container {
     margin-top: 5vh;
     margin-bottom: 0;
+  }
+
+  .sign_up_required_fields {
+    padding-right: 10rem;
   }
 }
 

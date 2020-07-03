@@ -38,6 +38,7 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
               position: "relative",
               opacity: 0,
               width_desktop: "0%",
+              width_tablet: "0%",
               width_landscape: "0%",
               width_mobile: "0%",
             }}
@@ -45,6 +46,7 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
               position: "relative",
               opacity: 1,
               width_desktop: "28%",
+              width_tablet: "48%",
               width_landscape: "32%",
               width_mobile: "53%",
             }}
@@ -68,11 +70,15 @@ const AddOnsPage1 = React.forwardRef((props, ref) => {
                       props.currentScreenSize === ""
                         ? props.initialScreenSize >= 1200
                           ? `${styles.width_desktop}`
+                          : props.initialScreenSize >= 768
+                          ? `${styles.width_tablet}`
                           : props.initialScreenSize >= 600
                           ? `${styles.width_landscape}`
                           : `${styles.width_mobile}`
                         : props.currentScreenSize >= 1200
                         ? `${styles.width_desktop}`
+                        : props.currentScreenSize >= 768
+                        ? `${styles.width_tablet}`
                         : props.currentScreenSize >= 600
                         ? `${styles.width_landscape}`
                         : `${styles.width_mobile}`,

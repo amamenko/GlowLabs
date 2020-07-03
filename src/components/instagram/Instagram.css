@@ -584,6 +584,10 @@
   .instagram_top_page_wrapping h2 {
     font-size: 3rem;
   }
+
+  .instagram_top_page_wrapping {
+    padding-top: 15vh;
+  }
 }
 
 /* CSS for Medium Laptops */

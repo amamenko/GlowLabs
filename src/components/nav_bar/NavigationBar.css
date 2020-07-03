@@ -28,6 +28,7 @@
     align-items: center;
     width: 100%;
     height: 8vh;
+    overflow: hidden;
   }
 
   .nav_logo_container {
@@ -434,8 +435,17 @@
 
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .navbar {
+    z-index: 999999;
+  }
+
+  .nav_logo_container {
+    max-height: 8vh;
+  }
+
   .shopping_cart_small_screen {
     margin-top: 0rem;
+    transform: scale(1.5) translate(-15%, 30%);
   }
 
   .burger_line {
@@ -453,18 +463,18 @@
   }
 
   .nav_logo_container {
-    transform: scale(1.8) translate(10%, 21%);
-  }
-
-  .shopping_cart_small_screen {
-    transform: scale(1.5) translate(0, 30%);
+    transform: scale(1.8) translate(10%, -3%);
   }
 
   .nav_sign_in_button_small_screen {
-    margin-right: 5rem;
+    margin-right: 6.5rem;
     font-size: 1.5rem;
     padding-right: 1rem;
     text-align: center;
+  }
+
+  .cart_item_number_circle {
+    transform: scale(1.5) translate(0rem, 0vh);
   }
 }
 
@@ -606,13 +616,18 @@
   }
 
   .cart_item_number_circle {
-    right: 2.5rem;
-    margin-top: -0.3rem;
+    right: 2.8rem;
+    margin-top: 0rem;
   }
 
   .cart_item_number_circle p {
     top: 0.1rem;
     left: auto;
+  }
+
+  .nav_sign_in_button_large_screen {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }
 

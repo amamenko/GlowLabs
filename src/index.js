@@ -1361,7 +1361,15 @@ const App = () => {
                     : "0vh"
                   : "0vh"
                 : "0vh",
-              zIndex: finalBookButtonActive || logoutClicked ? "auto" : 500,
+              zIndex:
+                finalBookButtonActive || logoutClicked
+                  ? "auto"
+                  : location.pathname === "/"
+                  ? 999
+                  : location.pathname.includes("account") ||
+                    location.path.includes("admin")
+                  ? 500
+                  : 999,
               display: loginIsActive ? "none" : "flex",
             }}
           >
@@ -1388,7 +1396,19 @@ const App = () => {
 
       <ToastContainer
         toastClassName="toast_container"
-        position={"bottom-right"}
+        position={
+          !currentScreenSize
+            ? initialScreenSize >= 768
+              ? !window.matchMedia("(orientation: landscape)").matches
+                ? "bottom-center"
+                : "bottom-right"
+              : "bottom-right"
+            : currentScreenSize >= 768
+            ? !window.matchMedia("(orientation: landscape)").matches
+              ? "bottom-center"
+              : "bottom-right"
+            : "bottom-right"
+        }
         autoClose={3000}
         newestOnTop={false}
         hideProgressBar

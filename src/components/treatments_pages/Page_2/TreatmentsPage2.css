@@ -174,7 +174,7 @@
   .treatments_page_2_container {
     height: 50vh;
     grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
-    margin-top: -2rem;
+    margin-top: -2.8rem;
   }
 }
 

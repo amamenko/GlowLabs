@@ -22,7 +22,11 @@
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
   .microneedle_wrapping {
-    height: 14.3333333vh;
+    height: 20.8vh;
+  }
+
+  .card_description_paragraph_value.microneedle_paragraph_value {
+    padding-bottom: 0.37rem;
   }
 }
 
