@@ -8,12 +8,17 @@ import AnyHealthProblems from "../../Questions/AnyHealthProblems";
 import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
 import ACTION_CONSENT_FORM_PAGE_1 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_1";
+import ACTION_SPLASH_SCREEN_COMPLETE from "../../../../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
+import ACTION_SPLASH_SCREEN_HALFWAY from "../../../../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 
 const ConsentFormPage1 = (props) => {
   const dispatch = useDispatch();
 
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
+  );
+  const splashScreenHalfway = useSelector(
+    (state) => state.splashScreenHalfway.splashScreenHalfway
   );
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
@@ -35,15 +40,20 @@ const ConsentFormPage1 = (props) => {
     (state) => state.guestConsentFormAccessToken.access_token
   );
 
-  const redirectToHome = () => {
+  useEffect(() => {
     if (!splashScreenComplete) {
-      return <Redirect to="/" />;
+      dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
     }
-  };
+    if (!splashScreenHalfway) {
+      dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
+    }
+  }, [dispatch, splashScreenComplete, splashScreenHalfway]);
 
   const redirectToLogInPage = () => {
     if (!userAuthenticated && !guestConsentFormAccessToken) {
-      return <Redirect to="/account/login" />;
+      setTimeout(() => {
+        return <Redirect to="/account/login" />;
+      }, 1000);
     }
   };
 
@@ -53,7 +63,6 @@ const ConsentFormPage1 = (props) => {
 
   return (
     <div className="client_consent_form_container">
-      {redirectToHome()}
       {redirectToLogInPage()}
       <div className="client_consent_form_header">
         {guestConsentFormAccessToken ? null : (

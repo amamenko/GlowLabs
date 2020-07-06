@@ -1014,6 +1014,7 @@
 
   .header {
     height: 8vh;
+    position: fixed;
   }
 
   .bottom_content {
@@ -1272,58 +1273,58 @@
       }
 
       .potted_plant {
-        height: 20%;
+        height: 15%;
         width: 10%;
-        top: 14%;
-        left: 60%;
+        top: 17%;
+        left: 63%;
       }
 
       .small_plant {
-        height: 20%;
+        height: 15%;
         width: 12%;
-        top: 24%;
-        left: 63.5%;
+        top: 24.5%;
+        left: 65%;
       }
 
       .cream {
-        height: 20%;
+        height: 15%;
         width: 11%;
-        top: 17%;
+        top: 19%;
         left: 70%;
       }
 
       .hand_cream {
-        height: 20%;
+        height: 13%;
         width: 10%;
-        top: 19%;
-        left: 80%;
+        top: 21.3%;
+        left: 78%;
       }
 
       .mirror {
-        height: 20%;
+        height: 15%;
         width: 11%;
-        top: 54%;
-        left: 59%;
+        top: 57%;
+        left: 62%;
       }
 
       .bottle {
-        height: 20%;
-        top: 58%;
-        left: 61%;
+        height: 15%;
+        top: 60.5%;
+        left: 62%;
       }
 
       .q_tips {
-        height: 25%;
+        height: 18%;
         width: 15%;
-        top: 63.5%;
-        left: 76%;
+        top: 64.5%;
+        left: 74.5%;
       }
 
       .sun_screen {
-        height: 25%;
+        height: 15%;
         width: 12%;
-        top: 54.5%;
-        left: 81%;
+        top: 59%;
+        left: 78%;
       }
 
       .landing_page_description {

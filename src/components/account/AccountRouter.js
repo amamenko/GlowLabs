@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./login/Login";
 import SignUp from "./signup/SignUp";
 import ClientProfile from "./clientprofile/ClientProfile";
@@ -171,6 +171,8 @@ const AccountRouter = (props) => {
             />
           )}
         />
+        {/* If no path matches, redirect to home */}
+        <Route render={() => <Redirect to="/" />} />
       </Switch>
     </>
   );

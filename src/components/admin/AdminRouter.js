@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminClients from "./AdminClients/AdminClients";
@@ -117,6 +117,8 @@ const AdminRouter = (props) => {
             />
           )}
         />
+        {/* If no path matches, redirect to home */}
+        <Route render={() => <Redirect to="/" />} />
       </Switch>
     </>
   );

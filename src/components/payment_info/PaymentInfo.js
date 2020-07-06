@@ -1032,6 +1032,7 @@ const PaymentInfo = (props) => {
           createVerificationDetails={createVerificationDetails}
           paymentFormLoaded={() => changeSquareFormLoading(false)}
           className="square_payment_form"
+          placeholderCVV="CVC"
         >
           <fieldset className="sq-fieldset">
             <FormGroup className="choose_a_credit_card_formgroup">

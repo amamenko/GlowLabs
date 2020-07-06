@@ -1367,7 +1367,7 @@ const App = () => {
                   : location.pathname === "/"
                   ? 999
                   : location.pathname.includes("account") ||
-                    location.path.includes("admin")
+                    location.pathname.includes("admin")
                   ? 500
                   : 999,
               display: loginIsActive ? "none" : "flex",
@@ -1608,6 +1608,8 @@ const App = () => {
             ) : null
           }
         />
+        {/* If no path matches, redirect to home */}
+        <Route render={() => <Redirect to="/" />} />
       </Switch>
     </>
   );

@@ -294,14 +294,16 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                               buttonTemplate={{ "calendar-plus-o": "left" }}
                               buttonLabel="Add to Calendar"
                               event={{
-                                title: "GlowLabs Facial",
+                                title: "Glow Labs Appointment",
                                 description:
                                   (item.treatments[0].name
                                     ? item.treatments[0].name === "ChemicalPeel"
                                       ? "Chemical Peel"
                                       : item.treatments[0].name
                                     : "") +
-                                  " Facial" +
+                                  (item.treatments[0].name === "Salt Cave"
+                                    ? " Treatment"
+                                    : " Facial") +
                                   (item.addOns[0]
                                     ? item.addOns[0].name
                                       ? ", " +
@@ -329,11 +331,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                                     " " +
                                     item.startTime +
                                     " " +
-                                    (Number(item.startTime.split(":")[0]) >=
-                                      12 ||
-                                    Number(item.startTime.split(":")[0]) < 9
-                                      ? "PM"
-                                      : "AM"),
+                                    item.morningOrEvening,
                                   "LLLL"
                                 ).format(),
                                 endTime: moment(
@@ -348,14 +346,13 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                                     )
                                     .join(" ") +
                                     " " +
-                                    item.endTime +
+                                    item.startTime +
                                     " " +
-                                    (Number(item.endTime.split(":")[0]) >= 12 ||
-                                    Number(item.endTime.split(":")[0]) < 9
-                                      ? "PM"
-                                      : "AM"),
+                                    item.morningOrEvening,
                                   "LLLL"
-                                ).format(),
+                                )
+                                  .add(item.duration, "minutes")
+                                  .format(),
                               }}
                             />
                           </div>

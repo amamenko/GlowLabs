@@ -3,7 +3,7 @@ import "../MyAppointments.css";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CalmSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
 import ClarifySummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/ClarifySummaryCard";
@@ -32,6 +32,8 @@ import {
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ClientRenderPastAppointments from "../Past/ClientRenderPastAppointments";
 import SaltCaveSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
+import ACTION_SPLASH_SCREEN_COMPLETE from "../../../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
+import ACTION_SPLASH_SCREEN_HALFWAY from "../../../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 
 const PastAppointments = (props) => {
   const individualAppointmentRef = useRef(null);
@@ -39,8 +41,13 @@ const PastAppointments = (props) => {
   const backToAppointmentsRef = useRef(null);
 
   const location = useLocation();
+  const dispatch = useDispatch();
+
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
+  );
+  const splashScreenHalfway = useSelector(
+    (state) => state.splashScreenHalfway.splashScreenHalfway
   );
   const userAuthenticated = useSelector(
     (state) => state.userAuthenticated.user_authenticated
@@ -72,11 +79,14 @@ const PastAppointments = (props) => {
     };
   }, [appointmentToggled]);
 
-  const redirectToHome = () => {
+  useEffect(() => {
     if (!splashScreenComplete) {
-      return <Redirect to="/" />;
+      dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
     }
-  };
+    if (!splashScreenHalfway) {
+      dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
+    }
+  }, [dispatch, splashScreenComplete, splashScreenHalfway]);
 
   const redirectToLogInPage = () => {
     if (!userAuthenticated) {
@@ -236,7 +246,6 @@ const PastAppointments = (props) => {
         zIndex: logoutClicked ? -1 : "auto",
       }}
     >
-      {redirectToHome()}
       {redirectToLogInPage()}
       <div
         className="my_appointments_header"
