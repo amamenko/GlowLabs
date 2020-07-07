@@ -712,6 +712,37 @@
   .instagram_image img {
     visibility: visible;
   }
+
+      /* Safari Only */
+      @media not all and (min-resolution: 0.001dpcm) {
+        @supports (-webkit-appearance: none) {
+          .instagram_top_page_wrapping h2 {
+            font-size: 4rem;
+            line-height: 0rem;
+            margin-top: -120vh;
+            padding-bottom: 0rem;
+            margin-bottom: 3rem;
+          }
+
+
+          .instagram_top_page_wrapping {
+            height: 0vh;
+            padding-top: 2vh;
+            margin-top: 12vh;
+          }
+
+          .instagram_images_wrapping {
+            margin-top: 20vh;
+          }
+
+          .large_screen_follow_prompt p {
+            font-size: 3em;
+            font-weight: 500;
+            margin-bottom: 1em;
+            margin-top: 15vh;
+          }
+        }
+      }
 }
 
 /* CSS for Huge Desktops */

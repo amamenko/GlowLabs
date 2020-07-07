@@ -229,6 +229,15 @@
   .treatments_page_2_container {
     margin-top: 0.4rem;
   }
+
+    /* Safari Only */
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        .treatments_page_2_container {
+          margin-top: 0rem;
+        }
+      }
+    }
 }
 
 /* CSS for Huge Desktops */

@@ -715,6 +715,16 @@
     right: -1.5rem;
     margin-top: 0.3rem;
   }
+
+    /* Safari Only */
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        .cart_item_number_circle p {
+          top: 0.1rem;
+          margin-right: 0.05rem;
+        }
+      }
+    }
 }
 
 /* CSS for Huge Desktops */

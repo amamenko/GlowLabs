@@ -160,4 +160,14 @@
   .treatments_page_4_container {
     margin-top: 3rem;
   }
+  
+
+    /* Safari Only */
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        .treatments_page_4_container {
+          grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+        }
+      }
+    }
 }

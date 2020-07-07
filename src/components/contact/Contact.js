@@ -17,9 +17,7 @@ const Contact = React.forwardRef((props, ref) => {
   const today = new Date().getDay();
 
   const hours_today = () => {
-    if (today === 0) {
-      return <p className="open_status">Open today until 6:00 PM</p>;
-    } else if ((today === 1) | (today === 6)) {
+    if ((today === 6)) {
       return <p className="open_status">Closed today</p>;
     } else if (today === 5) {
       return <p className="open_status">Open today until 4:00 PM</p>;
@@ -148,8 +146,8 @@ const Contact = React.forwardRef((props, ref) => {
                           <p>Sat</p>
                         </div>
                         <div className="hours_container">
-                          <p>10:00 AM - 6:00 PM</p>
-                          <p>Closed</p>
+                          <p>10:00 AM - 8:00 PM</p>
+                          <p>10:00 AM - 8:00 PM</p>
                           <p>10:00 AM - 8:00 PM</p>
                           <p>10:00 AM - 8:00 PM</p>
                           <p>10:00 AM - 8:00 PM</p>

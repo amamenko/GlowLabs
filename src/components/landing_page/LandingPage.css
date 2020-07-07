@@ -1524,6 +1524,81 @@
     top: 60%;
     left: 83%;
   }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .splash_screen {
+        font-size: 2em;
+        transform: scale(2) translate(0vh, 13vh);
+      }
+
+      .bottom_content h1 {
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+      }
+
+      .call_to_action_button {
+        font-size: 2rem;
+        margin-top: 20rem;
+      }
+
+      .potted_plant {
+        height: 25%;
+        width: 10%;
+        top: 12%;
+        left: 60%;
+      }
+
+      .small_plant {
+        height: 25%;
+        width: 12%;
+        top: 23%;
+        left: 63%;
+      }
+
+      .cream {
+        height: 25%;
+        width: 11%;
+        top: 15%;
+        left: 70%;
+      }
+
+      .hand_cream {
+        height: 25%;
+        width: 10%;
+        top: 17%;
+        left: 80%;
+      }
+
+      .mirror {
+        height: 25%;
+        width: 11%;
+        top: 55%;
+        left: 59%;
+      }
+
+      .bottle {
+        height: 20%;
+        top: 63%;
+        left: 61%;
+      }
+
+      .q_tips {
+        height: 25%;
+        width: 15%;
+        top: 68%;
+        left: 76%;
+      }
+
+      .sun_screen {
+        height: 22%;
+        width: 12%;
+        margin-top: 0;
+        left: 81%;
+      }
+    }
+  }
 }
 
 /* CSS for Huge Desktops */

@@ -262,6 +262,15 @@
     margin-bottom: 2rem;
     font-size: 3rem;
   }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .treatments_page_1_container {
+        grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+      }
+    }
+  }
 }
 
 /* CSS for Huge Desktops */
