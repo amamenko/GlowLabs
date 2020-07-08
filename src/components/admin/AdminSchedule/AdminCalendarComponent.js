@@ -260,6 +260,22 @@ const AdminCalendarComponent = (props) => {
     }
   };
 
+  let formats = {
+    timeGutterFormat: "h A",
+  };
+
+  const timeSlot = document.getElementsByClassName(
+    "rbc-timeslot-group rbc-time-slot"
+  );
+  console.log(timeSlot);
+  const wow = (i) => console.log(i);
+
+  for (let i = 0; i < timeSlot.length; i++) {
+    timeSlot[i].addEventListener("mouseover", wow(i), {
+      passive: false,
+    });
+  }
+
   return (
     <div className="admin_schedule_calendar_main_container">
       <Calendar
@@ -271,8 +287,7 @@ const AdminCalendarComponent = (props) => {
         defaultView={Views.WEEK}
         step={15}
         timeslots={4}
-        min={new Date(0, 0, 0, 10, 0, 0)}
-        max={new Date(0, 0, 0, 22, 0, 0)}
+        formats={formats}
         onSelectEvent={(e) => changeCurrentToggledAppointment(e.id)}
       />
       <Transition

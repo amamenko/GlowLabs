@@ -122,7 +122,7 @@
 
   .admin_schedule_calendar_main_container {
     position: absolute;
-    height: 65vh;
+    height: 78vh;
     width: 65%;
     top: 12vh;
     bottom: 0;
@@ -135,6 +135,45 @@
   .rbc-toolbar {
     font-size: 16px !important;
   }
+
+  .rbc-label {
+    font-size: 2rem;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: 600;
+  }
+
+  .rbc-label span {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .rbc-time-view {
+    border: none !important;
+  }
+
+  .rbc-time-gutter .rbc-time-slot {
+    padding-top: 0.727rem;
+    padding-bottom: 0.727rem;
+  }
+
+  .rbc-time-gutter .rbc-timeslot-group {
+    border: none;
+  }
+
+  .rbc-day-slot .rbc-time-slot {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  /* 
+  .rbc-day-slot .rbc-time-slot::after {
+    content: var(--time);
+  } */
 
   .rbc-toolbar button {
     font-size: 16px !important;
