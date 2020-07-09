@@ -28,6 +28,7 @@ import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import "./AdminSchedule.css";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import consentFormAnythingChangedReducer from "../../../reducers/FinalBookButton/ConsentFormAnythingChanged/consentFormAnythingChangedReducer";
 
 const AdminCalendarComponent = (props) => {
   const selectedAppointmentBackRef = useRef(null);
@@ -264,17 +265,42 @@ const AdminCalendarComponent = (props) => {
     timeGutterFormat: "h A",
   };
 
-  const timeSlot = document.getElementsByClassName(
-    "rbc-timeslot-group rbc-time-slot"
-  );
-  console.log(timeSlot);
-  const wow = (i) => console.log(i);
+  useEffect(() => {
+    const timeSlot = document.getElementsByClassName("rbc-day-slot");
+    const timeLabels = document.getElementsByClassName("rbc-label");
 
-  for (let i = 0; i < timeSlot.length; i++) {
-    timeSlot[i].addEventListener("mouseover", wow(i), {
-      passive: false,
-    });
-  }
+    const minutesArr = ["00", "15", "30", "45"];
+
+    for (let i = 0; i < timeSlot.length; i++) {
+      for (let j = 0; j < timeSlot[i].children.length; j++) {
+        for (let k = 0; k < timeLabels.length; k++) {
+          if (timeSlot[i].children[j].children.length > 0) {
+            if (timeLabels[k].innerHTML) {
+              [...timeSlot[i].children[j].children].forEach((x, i) => {
+                for (
+                  let l = 0;
+                  l < timeSlot[i].children[j].children.length;
+                  l++
+                ) {
+                  timeSlot[i].children[j].children[l].innerText =
+                    timeLabels[j + 1].innerHTML.split(" ")[0] +
+                    ":" +
+                    minutesArr[l] +
+                    " " +
+                    timeLabels[j + 1].innerHTML.split(" ")[1];
+
+                  timeSlot[i].children[j].children[l].style.paddingTop =
+                    "0.407rem";
+                  timeSlot[i].children[j].children[l].style.paddingBottom =
+                    "0.407rem";
+                }
+              });
+            }
+          }
+        }
+      }
+    }
+  }, []);
 
   return (
     <div className="admin_schedule_calendar_main_container">

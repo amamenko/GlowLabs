@@ -23,7 +23,7 @@
   .add_ons_page_5_container {
     height: 50vh;
     grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
-    margin-top: -17.2rem;
+    margin-top: -16.2rem;
   }
 }
 

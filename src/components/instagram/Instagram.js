@@ -26,6 +26,7 @@ const Instagram = React.forwardRef((props, ref) => {
             from={{
               opacity: 0,
               width_desktop: "0%",
+              width_tablet: "0%",
               width_landscape: "0%",
               width_mobile: "0%",
               width_smaller_mobile: "0%",
@@ -33,6 +34,7 @@ const Instagram = React.forwardRef((props, ref) => {
             to={{
               opacity: 1,
               width_desktop: "21%",
+              width_tablet: "34%",
               width_landscape: "23%",
               width_mobile: "37%",
               width_smaller_mobile: "45%",
@@ -56,6 +58,8 @@ const Instagram = React.forwardRef((props, ref) => {
                         props.currentScreenSize === ""
                           ? props.initialScreenSize >= 1200
                             ? `${styles.width_desktop}`
+                            : props.initialScreenSize >= 768
+                            ? `${styles.width_tablet}`
                             : props.initialScreenSize >= 600
                             ? `${styles.width_landscape}`
                             : props.initialScreenSize >= 375
@@ -63,6 +67,8 @@ const Instagram = React.forwardRef((props, ref) => {
                             : `${styles.width_smaller_mobile}`
                           : props.currentScreenSize >= 1200
                           ? `${styles.width_desktop}`
+                          : props.currentScreenSize >= 768
+                          ? `${styles.width_tablet}`
                           : props.currentScreenSize >= 600
                           ? `${styles.width_landscape}`
                           : props.currentScreenSize >= 375

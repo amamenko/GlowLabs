@@ -130,7 +130,7 @@
   .treatments_page_4_container {
     height: 50vh;
     grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
-    margin-top: -17.6rem;
+    margin-top: -16.2rem;
   }
 }
 
@@ -160,14 +160,13 @@
   .treatments_page_4_container {
     margin-top: 3rem;
   }
-  
 
-    /* Safari Only */
-    @media not all and (min-resolution: 0.001dpcm) {
-      @supports (-webkit-appearance: none) {
-        .treatments_page_4_container {
-          grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
-        }
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .treatments_page_4_container {
+        grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
       }
     }
+  }
 }

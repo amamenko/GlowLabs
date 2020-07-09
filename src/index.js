@@ -1264,11 +1264,11 @@ const App = () => {
         config={{
           delay: !currentScreenSize
             ? initialScreenSize >= 600
-              ? 3300
+              ? 3500
               : 2500
             : initialScreenSize >= 600
             ? currentScreenSize >= 600
-              ? 3300
+              ? 3500
               : 2500
             : 2500,
           duration: !currentScreenSize

@@ -170,10 +170,6 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
-  /* 
-  .rbc-day-slot .rbc-time-slot::after {
-    content: var(--time);
-  } */
 
   .rbc-toolbar button {
     font-size: 16px !important;
