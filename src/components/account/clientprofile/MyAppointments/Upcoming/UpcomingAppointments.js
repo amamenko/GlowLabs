@@ -39,6 +39,7 @@ import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointments
 import SaltCaveSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 
 const UpcomingAppointments = (props) => {
   const location = useLocation();
@@ -63,10 +64,10 @@ const UpcomingAppointments = (props) => {
   const adminAuthenticated = useSelector(
     (state) => state.adminAuthenticated.admin_authenticated
   );
-  const [appointmentToggled, changeAppointmentToggled] = useState("");
-  const [cancelAppointmentClicked, changeCancelAppointmentClicked] = useState(
-    false
+  const cancelAppointmentClicked = useSelector(
+    (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
+  const [appointmentToggled, changeAppointmentToggled] = useState("");
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [deleteAppointment, { loading, data }] = useMutation(
     deleteAppointmentMutation
@@ -88,9 +89,9 @@ const UpcomingAppointments = (props) => {
   const resetStatesAfterLoading = useCallback(() => {
     props.refetch();
     changeLoadingSpinnerActive(false);
-    changeCancelAppointmentClicked(false);
+    dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET());
     changeAppointmentToggled(false);
-  }, [props]);
+  }, [props, dispatch]);
 
   useEffect(() => {
     if (data) {
@@ -297,7 +298,10 @@ const UpcomingAppointments = (props) => {
       {redirectToLogInPage()}
       <div
         className="my_appointments_header"
-        style={{ zIndex: logoutClicked ? 0 : 3 }}
+        style={{
+          zIndex: cancelAppointmentClicked ? 0 : 3,
+          filter: cancelAppointmentClicked ? "blur(5px)" : "none",
+        }}
       >
         {adminAuthenticated ? null : (
           <Link to="/account/clientprofile">
@@ -348,7 +352,6 @@ const UpcomingAppointments = (props) => {
           override={override}
           renderSummaryCardAddOns={renderSummaryCardAddOns}
           renderSummaryCardTreatments={renderSummaryCardTreatments}
-          changeCancelAppointmentClicked={changeCancelAppointmentClicked}
           cancelAppointmentClicked={cancelAppointmentClicked}
           changeLoadingSpinnerActive={changeLoadingSpinnerActive}
           loadingSpinnerActive={loadingSpinnerActive}

@@ -28,7 +28,6 @@ import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import "./AdminSchedule.css";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import consentFormAnythingChangedReducer from "../../../reducers/FinalBookButton/ConsentFormAnythingChanged/consentFormAnythingChangedReducer";
 
 const AdminCalendarComponent = (props) => {
   const selectedAppointmentBackRef = useRef(null);

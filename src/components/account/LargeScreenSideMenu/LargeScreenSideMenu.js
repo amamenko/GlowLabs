@@ -59,6 +59,9 @@ const LargeScreenSideMenu = (props) => {
   const guestConsentFormAccessToken = useSelector(
     (state) => state.guestConsentFormAccessToken.access_token
   );
+  const cancelAppointmentClicked = useSelector(
+    (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [pdfLoading, changePDFLoading] = useState(false);
@@ -288,11 +291,14 @@ const LargeScreenSideMenu = (props) => {
       style={{
         filter: cartIsActive
           ? "blur(8px) brightness(70%)"
-          : logoutClicked || finalBookButtonActive
+          : logoutClicked || finalBookButtonActive || cancelAppointmentClicked
           ? "blur(5px) brightness(50%)"
           : "none",
         pointerEvents:
-          cartIsActive || logoutClicked || finalBookButtonActive
+          cartIsActive ||
+          logoutClicked ||
+          finalBookButtonActive ||
+          cancelAppointmentClicked
             ? "none"
             : "auto",
         display:

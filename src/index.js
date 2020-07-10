@@ -166,6 +166,7 @@ const client = new ApolloClient({
 
 const App = () => {
   const location = useLocation();
+
   const LandingPageRef = useRef(null);
   const Treatments1Ref = useRef(null);
   const AddOnsRef = useRef(null);
@@ -213,6 +214,7 @@ const App = () => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const adminDummyToken = useSelector(
     (state) => state.adminDummyToken.admin_dummy_token
@@ -1361,15 +1363,14 @@ const App = () => {
                     : "0vh"
                   : "0vh"
                 : "0vh",
-              zIndex:
-                finalBookButtonActive || logoutClicked
-                  ? "auto"
-                  : location.pathname === "/"
-                  ? 999
-                  : location.pathname.includes("account") ||
-                    location.pathname.includes("admin")
-                  ? 500
-                  : 999,
+              zIndex: finalBookButtonActive
+                ? "auto"
+                : location.pathname === "/"
+                ? 999
+                : location.pathname.includes("account") ||
+                  location.pathname.includes("admin")
+                ? 500
+                : 999,
               display: loginIsActive ? "none" : "flex",
             }}
           >

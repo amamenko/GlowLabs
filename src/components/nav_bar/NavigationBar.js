@@ -31,6 +31,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const cancelAppointmentClicked = useSelector(
+    (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
+  );
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
   const cartPageOpened = useSelector(
@@ -235,7 +238,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
           ? "none"
           : props.scroll
           ? "drop-shadow(0 0 3px rgba(0, 0, 0, 0.4)"
+          : cancelAppointmentClicked || logoutClicked
+          ? "blur(5px) brightness(50%)"
           : "none",
+
         transition: "background 0.5s ease, filter 0.5s ease",
         height:
           props.currentScreenSize === ""
@@ -460,7 +466,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
               : "/account/login"
           }
           onClick={handleLoginClick}
-          style={{ pointerEvents: logoutClicked ? "none" : "auto" }}
+          style={{
+            pointerEvents:
+              logoutClicked || cancelAppointmentClicked ? "none" : "auto",
+          }}
         >
           {userAuthenticated || props.adminDummyToken ? (
             <span className="fa-layers fa-fw letter_circle">
@@ -1109,7 +1118,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   ? handleLogoutClicked
                   : handleLoginClick
               }
-              style={{ pointerEvents: logoutClicked ? "none" : "auto" }}
+              style={{
+                pointerEvents:
+                  logoutClicked || cancelAppointmentClicked ? "none" : "auto",
+              }}
             >
               {userAuthenticated || props.adminDummyToken ? (
                 <span className="fa-layers fa-fw letter_circle">

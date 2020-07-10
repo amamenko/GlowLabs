@@ -242,6 +242,7 @@ import saltCaveInCartReducer from "./reducers/InCart/Treatments/SaltCave/saltCav
 import selectedSaltCaveDurationReducer from "./reducers/Treatments/SaltCave/SaltCaveDuration/selectedSaltCaveDurationReducer";
 import jetHydroPeelToggleReducer from "./reducers/Treatments/JetHydroPeel/jetHydroPeelToggleReducer";
 import guestConsentFormAccessTokenReducer from "./reducers/ConsentForm/GuestConsentFormAccessToken/guestConsentFormAccessTokenReducer";
+import cancelAppointmentClickedReducer from "./reducers/CancelAppointmentClicked/cancelAppointmentClickedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -333,6 +334,7 @@ const RootReducer = combineReducers({
   finalBookButton: finalBookButtonReducer,
   selectedEsthetician: selectedEstheticianReducer,
   finalBookingModal: finalBookingModalReducer,
+  cancelAppointmentClicked: cancelAppointmentClickedReducer,
 
   // Create Account Reducers
   createAccountEmail: createAccountEmailReducer,

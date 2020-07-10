@@ -705,8 +705,8 @@
 
   .nav_sign_in_button_large_screen {
     height: 85%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     margin-top: 0.2rem;
     left: 1.5rem;
   }
@@ -715,6 +715,13 @@
     right: -1.5rem;
     margin-top: 0.3rem;
   }
+
+  .nav_bar_profile_picture_thumbnail {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-top: 0.3rem;
+  }
+
 
     /* Safari Only */
     @media not all and (min-resolution: 0.001dpcm) {
@@ -773,5 +780,11 @@
 
   .fa-layers.fa-fw.letter_circle p {
     font-size: 1.2rem;
+  }
+
+  .nav_bar_profile_picture_thumbnail {
+    height: 2rem;
+    width: 2rem;
+    margin-top: 0.3rem;
   }
 }

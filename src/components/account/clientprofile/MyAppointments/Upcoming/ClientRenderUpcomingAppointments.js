@@ -9,10 +9,14 @@ import {
   faTimes,
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "reactstrap";
+import Modal from "react-modal";
 import { BounceLoader } from "react-spinners";
+import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
+import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
+import { useDispatch } from "react-redux";
 
 const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
+  const dispatch = useDispatch();
   const {
     individualAppointmentRef,
     selectedAppointmentBackRef,
@@ -87,7 +91,9 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                             className="modal_x"
                             icon={faTimes}
                             onClick={() =>
-                              props.changeCancelAppointmentClicked(false)
+                              dispatch(
+                                ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
+                              )
                             }
                           />
                           <h2>
@@ -105,7 +111,9 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                             <div
                               className="cancel_logout_button no_dont_cancel_appointment_button"
                               onClick={() =>
-                                props.changeCancelAppointmentClicked(false)
+                                dispatch(
+                                  ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
+                                )
                               }
                             >
                               <p>NO, GO BACK</p>
@@ -163,7 +171,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                       : item.treatments[0].name === "Salt Cave"
                       ? "Salt Cave"
                       : item.treatments[0].name + " Facial"
-                    : null}{" "}
+                    : null}
                   {item.addOns[0]
                     ? ", " +
                       (item.addOns[0].name
@@ -197,8 +205,11 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
               </div>
               <FontAwesomeIcon
                 style={{
-                  zIndex:
-                    props.logoutClicked || props.appointmentToggled ? 0 : 1,
+                  zIndex: props.cancelAppointmentClicked
+                    ? -1
+                    : props.logoutClicked || props.appointmentToggled
+                    ? 0
+                    : 1,
                   transitionDelay: props.logoutClicked
                     ? "initial"
                     : !props.appointmentToggled
@@ -220,7 +231,10 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                   ((styleprops) => (
                     <div
                       className="my_individual_selected_appointment_container"
-                      style={styleprops}
+                      style={{
+                        ...styleprops,
+                        ...{ zIndex: props.cancelAppointmentClicked ? 0 : 1 },
+                      }}
                     >
                       <div className="my_individual_selected_appointment_contents_container">
                         <div
@@ -397,7 +411,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                           <div
                             className="cancel_appointment_button"
                             onClick={() =>
-                              props.changeCancelAppointmentClicked(true)
+                              dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED())
                             }
                           >
                             <p>Cancel Appointment</p>

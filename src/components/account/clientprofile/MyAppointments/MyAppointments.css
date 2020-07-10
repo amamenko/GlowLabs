@@ -498,6 +498,7 @@
   height: 100vh;
   width: 100%;
   position: fixed;
+  z-index: 5;
   top: 0;
   margin-left: auto;
   margin-right: auto;
@@ -807,5 +808,99 @@
     padding-top: 1rem;
     position: fixed;
     overflow-x: hidden;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .my_appointment_date_square {
+    padding: 3.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_past_appointment_date_square {
+    padding: 3.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_appointment_information_container p {
+    font-size: 1rem;
+    width: 27%;
+  }
+
+  .my_individual_selected_appointment_back_container {
+    padding-top: 4vh;
+    padding-bottom: 2vh;
+  }
+
+  .my_selected_appointment_treatment_container {
+    width: 90%;
+    margin-left: -9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .my_selected_appointment_treatment_container svg {
+    transform: scale(1.5);
+  }
+
+  .my_selected_appointment_treatment_container h2,
+  .my_selected_appointment_treatment_container p {
+    font-size: 2rem;
+  }
+
+  .my_upcoming_appointments_empty_container {
+    height: 75vh;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .my_appointment_date_square {
+    padding: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_past_appointment_date_square {
+    padding: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_appointment_information_container p {
+    font-size: 1.2rem;
+    width: 22%;
+  }
+
+  .my_individual_selected_appointment_back_container {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .my_selected_appointment_treatment_container {
+    width: 87%;
+    margin-left: -10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .my_selected_appointment_treatment_container svg {
+    transform: scale(2);
+  }
+
+  .my_selected_appointment_treatment_container h2,
+  .my_selected_appointment_treatment_container p {
+    font-size: 2rem;
+  }
+
+  .my_upcoming_appointments_empty_container {
+    height: 60vh;
   }
 }

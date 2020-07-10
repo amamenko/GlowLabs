@@ -235,6 +235,10 @@
   font-size: 2rem;
 }
 
+.consent_form_submit_page {
+  height: 100%;
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .client_consent_form_container {
@@ -389,5 +393,60 @@
   .modal_consent_form_icon {
     left: -148%;
     top: -7.7vh;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .client_consent_form_container {
+    height: 120vh;
+  }
+
+  .client_consent_form_content_container {
+    margin-top: 1rem;
+  }
+
+  .client_consent_form_question {
+    font-size: 1.5rem;
+  }
+
+  .client_consent_form_checkbox_description {
+    font-size: 1.5rem;
+    margin-left: 0rem;
+  }
+
+  .client_consent_form_checkbox {
+    transform: scale(1.2) translate(0%, -18%);
+  }
+
+  .modal_consent_form_checkmark {
+    top: -15%;
+    left: 12%;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .client_consent_form_content_container {
+    margin-top: 3rem;
+  }
+
+  .client_consent_form_question {
+    font-size: 2rem;
+  }
+
+  .client_consent_form_checkbox_description {
+    font-size: 1.8rem;
+    margin-left: 1rem;
+  }
+
+  .client_consent_form_checkbox {
+    transform: scale(1.5) translate(0%, -26%);
+    margin-top: 1rem;
+  }
+
+  .modal_consent_form_checkmark {
+    top: -10%;
+    left: 12%;
   }
 }

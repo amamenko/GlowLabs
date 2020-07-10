@@ -72,7 +72,7 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
                       : item.treatments[0].name === "Salt Cave"
                       ? "Salt Cave"
                       : item.treatments[0].name + " Facial"
-                    : null}{" "}
+                    : null}
                   {item.addOns[0]
                     ? ", " +
                       (item.addOns[0].name
@@ -267,11 +267,8 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
             icon={faHistory}
             className="my_upcoming_appointments_empty_calendar_icon"
           />
-          <h2>No upcoming appointments</h2>
-          <p>
-            Any future appointment bookings will be added here, so check back
-            soon!
-          </p>
+          <h2>No past appointments</h2>
+          <p>Any previous appointment information will be available here</p>
         </div>
       )}
     </>

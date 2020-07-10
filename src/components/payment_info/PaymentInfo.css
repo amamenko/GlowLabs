@@ -519,7 +519,7 @@ select {
   }
 
   .choose_a_credit_card_dropdown_icon {
-    top: 1rem;
+    top: 0.7rem;
     font-size: 1rem;
   }
 
@@ -545,19 +545,23 @@ select {
   #sq-payment-form-sq-postal-code,
   #sq-payment-form-sq-cvv,
   #sq-payment-form-sq-card-number {
-    height: 4vh;
+    height: 6vh;
     margin-bottom: 1rem;
   }
 
   .sq_save_card_information_container {
     justify-content: flex-start;
-    padding-top: 3.1rem;
-    padding-bottom: 3.1rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
   }
 
   .sq_save_card_information_container p {
     padding-left: 1rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .client_consent_form_checkbox svg {
+    margin-left: -0.1rem;
   }
 }
 
@@ -650,5 +654,9 @@ select {
   .client_consent_form_checkbox {
     margin-left: 0.8rem;
     margin-right: 1.5rem;
+  }
+
+  .client_consent_form_checkbox svg {
+    margin-left: 0;
   }
 }

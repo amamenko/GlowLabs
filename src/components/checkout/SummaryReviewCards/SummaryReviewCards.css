@@ -119,8 +119,8 @@
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .summary_card_booking_description_left_section h2 {
-    font-size: 1.5rem;
-    margin-left: -3.2rem;
+    font-size: 1.2rem;
+    margin-left: 0rem;
   }
 
   .summary_card_booking_description_left_section p {
