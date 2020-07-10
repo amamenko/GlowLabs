@@ -21,7 +21,8 @@ import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/A
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PROFILE_SELECTED.js";
 import { Redirect, Link, useLocation } from "react-router-dom";
-import { FormGroup, Input, Modal } from "reactstrap";
+import { FormGroup, Input } from "reactstrap";
+import Modal from "react-modal";
 import { Transition } from "react-spring/renderprops";
 import imageCompression from "browser-image-compression";
 import ImageUploader from "react-images-upload";
@@ -44,6 +45,7 @@ import ConsentFormPDF from "../../account/clientprofile/ConsentForm/ConsentFormP
 import AdminClientIndividualProfile from "./AdminClientIndividualProfile";
 import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
 import AdminRenderPastAppointments from "./AdminRenderPastAppointments";
+import ACTION_ADD_PROFILE_PHOTO_CLICKED_RESET from "../../../actions/Admin/AddProfilePhotoClicked/ACTION_ADD_PROFILE_CLICKED_RESET";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();
@@ -74,12 +76,14 @@ const AdminClients = (props) => {
   const adminClientSectionSelected = useSelector(
     (state) => state.adminClientSectionSelected.admin_client_section_selected
   );
+  const addProfilePhotoClicked = useSelector(
+    (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
+  );
+
   const [filteredAllClients, changeFilteredAllClients] = useState([]);
   const [clientFilter, changeClientFilter] = useState("");
   const [clientToggled, changeClientToggled] = useState("");
-  const [addProfilePhotoClicked, changeAddProfilePhotoClicked] = useState(
-    false
-  );
+
   const [takeAPhotoSelected, changeTakeAPhotoSelected] = useState(false);
   const [webcamURI, changeWebcamURI] = useState("");
   const [imageUploaded, changeImageUploaded] = useState("");
@@ -352,7 +356,7 @@ const AdminClients = (props) => {
 
     changeImageLoading(true);
     changeImageUploaded("");
-    changeAddProfilePhotoClicked(false);
+    dispatch(ACTION_ADD_PROFILE_PHOTO_CLICKED_RESET());
     changeImagePreviewAvailable(false);
     changeTakeAPhotoSelected(false);
     changeWebcamURI("");
@@ -644,7 +648,7 @@ const AdminClients = (props) => {
       </Modal>
       <div
         className="admin_clients_header"
-        style={{ zIndex: logoutClicked ? 0 : 5 }}
+        style={{ zIndex: logoutClicked || addProfilePhotoClicked ? 0 : 5 }}
       >
         <Link to="/admin/menu">
           <FontAwesomeIcon
@@ -740,7 +744,9 @@ const AdminClients = (props) => {
                                         className="modal_x"
                                         icon={faTimes}
                                         onClick={() => {
-                                          changeAddProfilePhotoClicked(false);
+                                          dispatch(
+                                            ACTION_ADD_PROFILE_PHOTO_CLICKED_RESET()
+                                          );
                                           changeTakeAPhotoSelected(false);
                                         }}
                                       />
@@ -752,7 +758,9 @@ const AdminClients = (props) => {
                                       className="modal_x"
                                       icon={faTimes}
                                       onClick={() => {
-                                        changeAddProfilePhotoClicked(false);
+                                        dispatch(
+                                          ACTION_ADD_PROFILE_PHOTO_CLICKED_RESET()
+                                        );
                                         changeTakeAPhotoSelected(false);
                                         changeImageUploaded("");
                                         changeImagePreviewAvailable(false);
@@ -925,7 +933,12 @@ const AdminClients = (props) => {
                               className="admin_individual_selected_client_container"
                               style={{
                                 ...styleprops,
-                                ...{ zIndex: logoutClicked ? 0 : 1 },
+                                ...{
+                                  zIndex:
+                                    logoutClicked || addProfilePhotoClicked
+                                      ? 0
+                                      : 1,
+                                },
                               }}
                             >
                               <CanvasDraw
@@ -983,9 +996,6 @@ const AdminClients = (props) => {
                                     clientToggled={clientToggled}
                                     handleProfilePictureRender={
                                       handleProfilePictureRender
-                                    }
-                                    changeAddProfilePhotoClicked={
-                                      changeAddProfilePhotoClicked
                                     }
                                     renderBarInContactInfo={
                                       renderBarInContactInfo

@@ -291,6 +291,7 @@
 
   .large_screen_side_menu_item_container h2,
   .large_screen_side_menu_item h2 {
+    font-size: 1rem;
     position: absolute;
     left: 2rem;
   }

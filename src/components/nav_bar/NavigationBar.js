@@ -41,6 +41,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const cartPageOpened = useSelector(
     (state) => state.cartPageOpened.cart_page_opened
   );
+  const addProfilePhotoClicked = useSelector(
+    (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
+  );
   const [
     safariLandingPageNotRendered,
     changeSafariLandingPageNotRendered,
@@ -250,7 +253,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
           ? "none"
           : props.scroll
           ? "drop-shadow(0 0 3px rgba(0, 0, 0, 0.4)"
-          : cancelAppointmentClicked || logoutClicked || pdfLoading
+          : cancelAppointmentClicked ||
+            logoutClicked ||
+            pdfLoading ||
+            addProfilePhotoClicked
           ? "blur(5px) brightness(50%)"
           : "none",
 
@@ -941,6 +947,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         props.handleClickToScrollToTreatments(Treatments1Ref);
                       }, 300);
                     }
+                  } else {
+                    props.handleClickToScrollToTreatments(Treatments1Ref);
                   }
                 } else {
                   props.handleClickToScrollToTreatments(Treatments1Ref);
@@ -1025,6 +1033,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         props.handleClickToScrollToAddOns(AddOnsRef);
                       }, 300);
                     }
+                  } else {
+                    props.handleClickToScrollToAddOns(AddOnsRef);
                   }
                 } else {
                   props.handleClickToScrollToAddOns(AddOnsRef);
@@ -1045,6 +1055,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       props.handleClickToScrollToAddOns(AddOnsRef);
                     }, 300);
                   }
+                } else {
+                  props.handleClickToScrollToAddOns(AddOnsRef);
                 }
               } else {
                 props.handleClickToScrollToAddOns(AddOnsRef);
@@ -1104,6 +1116,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         props.handleClickToScrollToInstagram(InstagramRef);
                       }, 300);
                     }
+                  } else {
+                    props.handleClickToScrollToInstagram(InstagramRef);
                   }
                 } else {
                   props.handleClickToScrollToInstagram(InstagramRef);
@@ -1127,6 +1141,8 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       props.handleClickToScrollToInstagram(InstagramRef);
                     }, 300);
                   }
+                } else {
+                  props.handleClickToScrollToInstagram(InstagramRef);
                 }
               } else {
                 props.handleClickToScrollToInstagram(InstagramRef);

@@ -244,6 +244,7 @@ import jetHydroPeelToggleReducer from "./reducers/Treatments/JetHydroPeel/jetHyd
 import guestConsentFormAccessTokenReducer from "./reducers/ConsentForm/GuestConsentFormAccessToken/guestConsentFormAccessTokenReducer";
 import cancelAppointmentClickedReducer from "./reducers/CancelAppointmentClicked/cancelAppointmentClickedReducer";
 import pdfLoadingReducer from "./reducers/PDFLoading/pdfLoadingReducer";
+import addProfilePhotoClickedReducer from "./reducers/Admin/AddProfilePhotoClicked/addProfilePhotoClickedReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -380,6 +381,7 @@ const RootReducer = combineReducers({
   adminConfirmNewPasswordValid: adminConfirmNewPasswordValidReducer,
   adminAuthenticated: adminAuthenticatedReducer,
   adminClientSectionSelected: adminClientSectionSelectedReducer,
+  addProfilePhotoClicked: addProfilePhotoClickedReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

@@ -270,6 +270,7 @@
   height: 100vh;
   width: 100%;
   position: fixed;
+  z-index: 999999;
   top: 0;
   margin-left: auto;
   margin-right: auto;
@@ -723,5 +724,167 @@
   .profile_button_expand {
     font-size: 2rem;
     cursor: pointer;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .admin_individual_selected_client_contact_info_container p {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .admin_individual_selected_client_full_name_container {
+    padding-top: 1.5rem;
+    font-size: 1.5rem;
+    top: 12vh;
+    left: 22%;
+  }
+
+  .admin_individual_selected_client_contact_info_container {
+    padding-top: 0.5rem;
+    top: 19vh;
+    left: 21.5%;
+  }
+
+  .admin_individual_selected_membership_type_container {
+    padding-top: 4.8rem;
+  }
+
+  .admin_individual_selected_client_camera_icon_container {
+    right: auto;
+    left: 13%;
+    padding: 0.5rem;
+  }
+
+  .admin_individual_client_container {
+    margin-left: 2rem;
+  }
+
+  .profile_button_icon,
+  .profile_button_container h2 {
+    font-size: 1.6rem;
+  }
+
+  .profile_button_container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-left: 1rem;
+  }
+
+  .profile_button_container p {
+    left: 7rem;
+    font-size: 1.5rem;
+  }
+
+  .admin_individual_client_add_photo_modal_content_container {
+    height: 60%;
+  }
+
+  .admin_individual_client_add_photo_modal_buttons_container {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 0;
+    height: 50vh;
+    top: -14vh;
+  }
+
+  .fileContainer .uploadIcon {
+    top: -9vh;
+  }
+
+  .admin_individual_client_take_a_photo_button {
+    margin-top: 0.5rem;
+  }
+
+  .admin_individual_client_confirm_photo_button {
+    bottom: 10rem;
+  }
+
+  .fileContainer .chooseFileButton {
+    margin-top: 6rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .admin_individual_selected_client_contact_info_container p {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+
+  .admin_individual_selected_client_full_name_container {
+    padding-top: 1.5rem;
+    font-size: 2rem;
+    top: 10vh;
+    left: 20%;
+  }
+
+  .admin_individual_selected_client_contact_info_container {
+    padding-top: 0.5rem;
+    top: 16vh;
+    left: 19.5%;
+  }
+
+  .admin_individual_selected_membership_type_container {
+    padding-top: 5.5rem;
+  }
+
+  .admin_individual_selected_client_camera_icon_container {
+    right: auto;
+    left: 10%;
+    padding: 0.5rem;
+  }
+
+  .admin_individual_client_container {
+    margin-left: 1.5rem;
+  }
+
+  .profile_button_icon,
+  .profile_button_container h2 {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .profile_button_container {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    margin-left: 1rem;
+  }
+
+  .profile_button_container p {
+    left: 5rem;
+    font-size: 1.5rem;
+  }
+
+  .admin_individual_client_add_photo_modal_content_container {
+    height: 50%;
+  }
+
+  .admin_individual_client_add_photo_modal_buttons_container {
+    height: 40vh;
+  }
+
+  .fileContainer .uploadIcon {
+    top: -12vh;
+  }
+
+  .admin_individual_client_take_a_photo_button {
+    margin-top: 1.5rem;
+  }
+
+  .fileContainer .chooseFileButton {
+    margin-top: 6rem;
+  }
+
+  .admin_individual_client_confirm_photo_button {
+    bottom: 1.5rem;
   }
 }

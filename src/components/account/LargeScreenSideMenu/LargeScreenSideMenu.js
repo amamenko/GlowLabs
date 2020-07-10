@@ -65,6 +65,9 @@ const LargeScreenSideMenu = (props) => {
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
   const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
+  const addProfilePhotoClicked = useSelector(
+    (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
 
@@ -296,14 +299,17 @@ const LargeScreenSideMenu = (props) => {
           : logoutClicked ||
             finalBookButtonActive ||
             cancelAppointmentClicked ||
-            pdfLoading
+            pdfLoading ||
+            addProfilePhotoClicked
           ? "blur(5px) brightness(50%)"
           : "none",
         pointerEvents:
           cartIsActive ||
           logoutClicked ||
           finalBookButtonActive ||
-          cancelAppointmentClicked
+          cancelAppointmentClicked ||
+          pdfLoading ||
+          addProfilePhotoClicked
             ? "none"
             : "auto",
         display:

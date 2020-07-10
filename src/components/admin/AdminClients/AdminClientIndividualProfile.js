@@ -12,6 +12,7 @@ import LZString from "lz-string";
 import ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED";
 import ACTION_ADMIN_CLIENT_PAST_APPOINTMENTS_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PAST_APPOINTMENTS_SELECTED";
 import { useDispatch } from "react-redux";
+import ACTION_ADD_PROFILE_PHOTO_CLICKED from "../../../actions/Admin/AddProfilePhotoClicked/ACTION_ADD_PROFILE_PHOTO_CLICKED";
 
 const AdminClientIndividualProfile = (props) => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const AdminClientIndividualProfile = (props) => {
           )}
           <div
             className="admin_individual_selected_client_camera_icon_container"
-            onClick={() => props.changeAddProfilePhotoClicked(true)}
+            onClick={() => dispatch(ACTION_ADD_PROFILE_PHOTO_CLICKED())}
           >
             <FontAwesomeIcon
               icon={faCamera}
