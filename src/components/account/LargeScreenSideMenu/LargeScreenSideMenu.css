@@ -121,6 +121,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
   }
 
   .large_screen_side_menu_item_selected_border {

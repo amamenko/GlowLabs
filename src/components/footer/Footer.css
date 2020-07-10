@@ -413,7 +413,7 @@
     transform: translate(0%, -5%);
   }
 
-   /* Safari 7.1+ */
+  /* Safari 7.1+ */
 
   _::-webkit-full-page-media,
   _:future,
@@ -431,6 +431,6 @@
   _:future,
   .footer_logo_svg {
     transform: scale(0.1);
-    bottom: -85vh;
+    bottom: -87h;
   }
 }

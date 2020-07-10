@@ -29,10 +29,12 @@ import "./LargeScreenSideMenu.css";
 import { css } from "emotion";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { BounceLoader } from "react-spinners";
-import { Modal } from "reactstrap";
+import Modal from "react-modal";
 import ConsentFormPDF from "../clientprofile/ConsentForm/ConsentFormPDF";
 import ACTION_LOG_OUT_CLICKED from "../../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
 import ACTION_CART_IS_NOT_ACTIVE from "../../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import ACTION_PDF_LOADING_RESET from "../../../actions/PDFLoading/ACTION_PDF_LOADING_RESET";
+import ACTION_PDF_LOADING from "../../../actions/PDFLoading/ACTION_PDF_LOADING";
 
 const LargeScreenSideMenu = (props) => {
   const dispatch = useDispatch();
@@ -62,9 +64,9 @@ const LargeScreenSideMenu = (props) => {
   const cancelAppointmentClicked = useSelector(
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
+  const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
-  const [pdfLoading, changePDFLoading] = useState(false);
 
   const override = css`
     display: block;
@@ -76,19 +78,19 @@ const LargeScreenSideMenu = (props) => {
   useEffect(() => {
     return () => {
       if (pdfLoading) {
-        changePDFLoading(false);
+        dispatch(ACTION_PDF_LOADING_RESET());
       }
     };
-  }, [pdfLoading]);
+  }, [pdfLoading, dispatch]);
 
   const loadingCompleted = useCallback(() => {
     changeLoadingSpinnerActive(true);
     if (!pdfLoading) {
-      changePDFLoading(true);
+      dispatch(ACTION_PDF_LOADING());
     } else {
       return null;
     }
-  }, [pdfLoading]);
+  }, [pdfLoading, dispatch]);
 
   const handlePDFDownloadClick = useEffect(() => {
     if (loadingSpinnerActive) {
@@ -99,13 +101,13 @@ const LargeScreenSideMenu = (props) => {
             pdfDownloadRef.current.click();
           }
         }
-        changePDFLoading(false);
+        dispatch(ACTION_PDF_LOADING_RESET());
       }, 3000);
       return () => {
         clearTimeout(loadingSpinnerDuration);
       };
     }
-  }, [loadingSpinnerActive]);
+  }, [loadingSpinnerActive, dispatch]);
 
   const consentFormOnFile = (item) => {
     return (
@@ -128,7 +130,7 @@ const LargeScreenSideMenu = (props) => {
           >
             Download Latest Consent Form
           </h2>
-          <p>
+          <p style={{ display: pdfLoading ? "none" : "block" }}>
             {"(" +
               moment.unix(item.consentForm.createdAt / 1000).format("l") +
               ")"}
@@ -244,7 +246,7 @@ const LargeScreenSideMenu = (props) => {
                       </h2>
                       {props.getClientData.client.consentForm ? (
                         props.getClientData.client.consentForm.date ? (
-                          <p>
+                          <p style={{ display: pdfLoading ? "none" : "block" }}>
                             {"(" +
                               moment
                                 .unix(
@@ -291,7 +293,10 @@ const LargeScreenSideMenu = (props) => {
       style={{
         filter: cartIsActive
           ? "blur(8px) brightness(70%)"
-          : logoutClicked || finalBookButtonActive || cancelAppointmentClicked
+          : logoutClicked ||
+            finalBookButtonActive ||
+            cancelAppointmentClicked ||
+            pdfLoading
           ? "blur(5px) brightness(50%)"
           : "none",
         pointerEvents:
@@ -336,9 +341,14 @@ const LargeScreenSideMenu = (props) => {
                 ? LZString.decompressFromUTF16(
                     props.getClientData.client.consentForm.consentFormSignature
                   )
-                : null
-              : null
-            : null
+                  ? LZString.decompressFromUTF16(
+                      props.getClientData.client.consentForm
+                        .consentFormSignature
+                    ).toString()
+                  : ""
+                : ""
+              : ""
+            : ""
         }
         hideGrid={true}
         hideInterface={true}

@@ -498,7 +498,7 @@ const App = () => {
     };
   }, [currentScreenSize, initialScreenSize, touchScaling]);
 
-  const handleClickToScrollToHome = async (ref) => {
+  const handleClickToScrollToHome = async () => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -517,7 +517,7 @@ const App = () => {
     }
   };
 
-  const handleClickToScrollToTreatments = async (ref) => {
+  const handleClickToScrollToTreatments = async () => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -551,7 +551,7 @@ const App = () => {
     });
   };
 
-  const handleClickToScrollToAddOns = async (ref) => {
+  const handleClickToScrollToAddOns = async () => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -585,7 +585,7 @@ const App = () => {
     });
   };
 
-  const handleClickToScrollToInstagram = async (ref) => {
+  const handleClickToScrollToInstagram = async () => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }
@@ -619,7 +619,7 @@ const App = () => {
     });
   };
 
-  const handleClickToScrollToContact = async (ref) => {
+  const handleClickToScrollToContact = async () => {
     if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
       await import("scroll-behavior-polyfill");
     }

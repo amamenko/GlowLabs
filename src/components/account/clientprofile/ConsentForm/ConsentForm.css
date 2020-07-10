@@ -446,7 +446,13 @@
   }
 
   .modal_consent_form_checkmark {
-    top: -10%;
-    left: 12%;
+    transform: scale(1.5) translate(-0.5%, 10%);
+  }
+
+  .modal_confirmation_statement {
+    font-size: 2rem;
+    padding-top: 0rem;
+    padding-bottom: 3rem;
+    line-height: 2rem;
   }
 }

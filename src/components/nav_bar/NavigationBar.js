@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Hamburger from "./Hamburger";
 import "./NavigationBar.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
@@ -16,6 +16,7 @@ import {
 import ACTION_LOG_OUT_CLICKED from "../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
 import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
+import { isSafari } from "react-device-detect";
 
 const NavigationBar = React.forwardRef((props, ref) => {
   const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
@@ -34,11 +35,16 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const cancelAppointmentClicked = useSelector(
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
+  const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
   const cartPageOpened = useSelector(
     (state) => state.cartPageOpened.cart_page_opened
   );
+  const [
+    safariLandingPageNotRendered,
+    changeSafariLandingPageNotRendered,
+  ] = useState(false);
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
@@ -229,6 +235,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
     }
   };
 
+  const redirectToHome = () => {
+    if (safariLandingPageNotRendered) {
+      return <Redirect to="/" />;
+    }
+  };
+
   return (
     <nav
       className="navbar"
@@ -238,7 +250,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
           ? "none"
           : props.scroll
           ? "drop-shadow(0 0 3px rgba(0, 0, 0, 0.4)"
-          : cancelAppointmentClicked || logoutClicked
+          : cancelAppointmentClicked || logoutClicked || pdfLoading
           ? "blur(5px) brightness(50%)"
           : "none",
 
@@ -282,6 +294,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
         display: loginIsActive ? "none" : "flex",
       }}
     >
+      {redirectToHome()}
       <Hamburger
         onClick={props.handleNavbarToggle}
         navbarToggle={props.navbarToggle}
@@ -828,10 +841,20 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
                   ) {
-                    // Delay on larger screens to allow for ref to mount
-                    setTimeout(() => {
-                      props.handleClickToScrollToHome(LandingPageRef);
-                    }, 300);
+                    if (isSafari) {
+                      if (!LandingPageRef.current) {
+                        changeSafariLandingPageNotRendered(true);
+                      } else {
+                        setTimeout(() => {
+                          props.handleClickToScrollToHome(LandingPageRef);
+                        }, 300);
+                      }
+                    } else {
+                      // Delay on larger screens to allow for ref to mount
+                      setTimeout(() => {
+                        props.handleClickToScrollToHome(LandingPageRef);
+                      }, 300);
+                    }
                   } else {
                     props.handleClickToScrollToHome(LandingPageRef);
                   }
@@ -843,10 +866,20 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   location.pathname.includes("account") ||
                   location.pathname.includes("admin")
                 ) {
-                  // Delay on larger screens to allow for ref to mount
-                  setTimeout(() => {
-                    props.handleClickToScrollToHome(LandingPageRef);
-                  }, 300);
+                  if (isSafari) {
+                    if (!LandingPageRef.current) {
+                      changeSafariLandingPageNotRendered(true);
+                    } else {
+                      setTimeout(() => {
+                        props.handleClickToScrollToHome(LandingPageRef);
+                      }, 300);
+                    }
+                  } else {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToHome(LandingPageRef);
+                    }, 300);
+                  }
                 } else {
                   props.handleClickToScrollToHome(LandingPageRef);
                 }
@@ -894,22 +927,43 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
                   ) {
-                    // Delay on larger screens to allow for ref to mount
-                    setTimeout(() => {
-                      props.handleClickToScrollToTreatments(Treatments1Ref);
-                    }, 300);
-                  } else {
-                    props.handleClickToScrollToTreatments(Treatments1Ref);
+                    if (isSafari) {
+                      if (!Treatments1Ref.current) {
+                        changeSafariLandingPageNotRendered(true);
+                      } else {
+                        setTimeout(() => {
+                          props.handleClickToScrollToTreatments(Treatments1Ref);
+                        }, 300);
+                      }
+                    } else {
+                      // Delay on larger screens to allow for ref to mount
+                      setTimeout(() => {
+                        props.handleClickToScrollToTreatments(Treatments1Ref);
+                      }, 300);
+                    }
                   }
                 } else {
                   props.handleClickToScrollToTreatments(Treatments1Ref);
                 }
               } else if (props.currentScreenSize >= 1200) {
-                if (location.pathname.includes("account")) {
-                  // Delay on larger screens to allow for ref to mount
-                  setTimeout(() => {
-                    props.handleClickToScrollToTreatments(Treatments1Ref);
-                  }, 300);
+                if (
+                  location.pathname.includes("account") ||
+                  location.pathname.includes("admin")
+                ) {
+                  if (isSafari) {
+                    if (!Treatments1Ref.current) {
+                      changeSafariLandingPageNotRendered(true);
+                    } else {
+                      setTimeout(() => {
+                        props.handleClickToScrollToTreatments(Treatments1Ref);
+                      }, 300);
+                    }
+                  } else {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToTreatments(Treatments1Ref);
+                    }, 300);
+                  }
                 } else {
                   props.handleClickToScrollToTreatments(Treatments1Ref);
                 }
@@ -957,24 +1011,40 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
                   ) {
-                    // Delay on larger screens to allow for ref to mount
-                    setTimeout(() => {
-                      props.handleClickToScrollToAddOns(AddOnsRef);
-                    }, 300);
-                  } else {
-                    props.handleClickToScrollToAddOns(AddOnsRef);
+                    if (isSafari) {
+                      if (!AddOnsRef.current) {
+                        changeSafariLandingPageNotRendered(true);
+                      } else {
+                        setTimeout(() => {
+                          props.handleClickToScrollToAddOns(AddOnsRef);
+                        }, 300);
+                      }
+                    } else {
+                      // Delay on larger screens to allow for ref to mount
+                      setTimeout(() => {
+                        props.handleClickToScrollToAddOns(AddOnsRef);
+                      }, 300);
+                    }
                   }
                 } else {
                   props.handleClickToScrollToAddOns(AddOnsRef);
                 }
               } else if (props.currentScreenSize >= 1200) {
                 if (location.pathname.includes("account")) {
-                  // Delay on larger screens to allow for ref to mount
-                  setTimeout(() => {
-                    props.handleClickToScrollToAddOns(AddOnsRef);
-                  }, 300);
-                } else {
-                  props.handleClickToScrollToAddOns(AddOnsRef);
+                  if (isSafari) {
+                    if (!AddOnsRef.current) {
+                      changeSafariLandingPageNotRendered(true);
+                    } else {
+                      setTimeout(() => {
+                        props.handleClickToScrollToAddOns(AddOnsRef);
+                      }, 300);
+                    }
+                  } else {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToAddOns(AddOnsRef);
+                    }, 300);
+                  }
                 }
               } else {
                 props.handleClickToScrollToAddOns(AddOnsRef);
@@ -1020,12 +1090,20 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
                   ) {
-                    // Delay on larger screens to allow for ref to mount
-                    setTimeout(() => {
-                      props.handleClickToScrollToInstagram(InstagramRef);
-                    }, 300);
-                  } else {
-                    props.handleClickToScrollToInstagram(InstagramRef);
+                    if (isSafari) {
+                      if (!InstagramRef.current) {
+                        changeSafariLandingPageNotRendered(true);
+                      } else {
+                        setTimeout(() => {
+                          props.handleClickToScrollToInstagram(InstagramRef);
+                        }, 300);
+                      }
+                    } else {
+                      // Delay on larger screens to allow for ref to mount
+                      setTimeout(() => {
+                        props.handleClickToScrollToInstagram(InstagramRef);
+                      }, 300);
+                    }
                   }
                 } else {
                   props.handleClickToScrollToInstagram(InstagramRef);
@@ -1035,12 +1113,20 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   location.pathname.includes("account") ||
                   location.pathname.includes("admin")
                 ) {
-                  // Delay on larger screens to allow for ref to mount
-                  setTimeout(() => {
-                    props.handleClickToScrollToInstagram(InstagramRef);
-                  }, 300);
-                } else {
-                  props.handleClickToScrollToInstagram(InstagramRef);
+                  if (isSafari) {
+                    if (!InstagramRef.current) {
+                      changeSafariLandingPageNotRendered(true);
+                    } else {
+                      setTimeout(() => {
+                        props.handleClickToScrollToInstagram(InstagramRef);
+                      }, 300);
+                    }
+                  } else {
+                    // Delay on larger screens to allow for ref to mount
+                    setTimeout(() => {
+                      props.handleClickToScrollToInstagram(InstagramRef);
+                    }, 300);
+                  }
                 }
               } else {
                 props.handleClickToScrollToInstagram(InstagramRef);

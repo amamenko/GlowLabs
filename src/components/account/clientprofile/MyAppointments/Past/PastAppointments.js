@@ -55,6 +55,7 @@ const PastAppointments = (props) => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
   const [appointmentToggled, changeAppointmentToggled] = useState("");
 
   useEffect(() => {
@@ -243,7 +244,7 @@ const PastAppointments = (props) => {
             ? "100%"
             : "100vh"
           : "100vh",
-        zIndex: logoutClicked ? -1 : "auto",
+        zIndex: logoutClicked || pdfLoading ? -1 : "auto",
       }}
     >
       {redirectToLogInPage()}

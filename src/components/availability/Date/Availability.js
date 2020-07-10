@@ -610,9 +610,7 @@ const Availability = (props) => {
         showNeighboringMonth={false}
         showWeekNumbers={true}
         tileClassName="calendar_tiles"
-        tileDisabled={({ date }) =>
-          (date.getDay() === 1) | (date.getDay() === 6)
-        }
+        tileDisabled={({ date }) => date.getDay() === 6}
         onClickDay={(value) => handleValueClick(value)}
         onChange={() => {
           dispatch(ACTION_DAY_OF_THE_WEEK_RESET());

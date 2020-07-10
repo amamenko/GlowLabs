@@ -28,7 +28,7 @@ const TopAnimationBottomShelf = (props) => {
         top: !props.currentScreenSize
           ? props.initialScreenSize >= 2200
             ? props.isSafari
-              ? "66%"
+              ? "72%"
               : "71%"
             : props.initialScreenSize >= 1800
             ? "69%"
@@ -45,7 +45,7 @@ const TopAnimationBottomShelf = (props) => {
             : "38.2%"
           : props.currentScreenSize >= 2200
           ? props.isSafari
-            ? "66%"
+            ? "72%"
             : "71%"
           : props.currentScreenSize >= 1800
           ? "69%"

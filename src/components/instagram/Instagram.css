@@ -828,7 +828,16 @@
   _::-webkit-full-page-media,
   _:future,
   .instagram_top_page_wrapping {
+    height: 48vh;
     padding-top: 5vh;
+    margin-top: -60vh;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_top_page_wrapping h2 {
+    margin-bottom: 1.5em;
+    padding-bottom: 1rem;
   }
 
   _::-webkit-full-page-media,

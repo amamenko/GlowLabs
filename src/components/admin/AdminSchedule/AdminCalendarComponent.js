@@ -269,7 +269,6 @@ const AdminCalendarComponent = (props) => {
     const timeLabels = document.getElementsByClassName("rbc-label");
 
     const minutesArr = ["00", "15", "30", "45"];
-
     for (let i = 0; i < timeSlot.length; i++) {
       for (let j = 0; j < timeSlot[i].children.length; j++) {
         for (let k = 0; k < timeLabels.length; k++) {
@@ -281,6 +280,7 @@ const AdminCalendarComponent = (props) => {
                   l < timeSlot[i].children[j].children.length;
                   l++
                 ) {
+                  console.log(timeSlot[i].children[j].children[l]);
                   timeSlot[i].children[j].children[l].innerText =
                     timeLabels[j + 1].innerHTML.split(" ")[0] +
                     ":" +

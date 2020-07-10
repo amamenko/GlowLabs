@@ -243,6 +243,7 @@ import selectedSaltCaveDurationReducer from "./reducers/Treatments/SaltCave/Salt
 import jetHydroPeelToggleReducer from "./reducers/Treatments/JetHydroPeel/jetHydroPeelToggleReducer";
 import guestConsentFormAccessTokenReducer from "./reducers/ConsentForm/GuestConsentFormAccessToken/guestConsentFormAccessTokenReducer";
 import cancelAppointmentClickedReducer from "./reducers/CancelAppointmentClicked/cancelAppointmentClickedReducer";
+import pdfLoadingReducer from "./reducers/PDFLoading/pdfLoadingReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -418,6 +419,7 @@ const RootReducer = combineReducers({
   consentFormAnythingChanged: consentFormAnythingChangedReducer,
   consentFormPDF: consentFormPDFReducer,
   guestConsentFormAccessToken: guestConsentFormAccessTokenReducer,
+  pdfLoading: pdfLoadingReducer,
 
   // My Routine Morning Section Products Reducers,
   morningCleanserProductFrequency: morningCleanserProductFrequencyReducer,
