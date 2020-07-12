@@ -1,0 +1,9 @@
+const IMAGE_LOADING_RESET = "IMAGE_LOADING_RESET";
+
+const ACTION_IMAGE_LOADING_RESET = () => {
+  return {
+    type: IMAGE_LOADING_RESET,
+  };
+};
+
+export default ACTION_IMAGE_LOADING_RESET;

@@ -37,6 +37,7 @@ const AdminCalendarComponent = (props) => {
   const [currentToggledAppointment, changeCurrentToggledAppointment] = useState(
     ""
   );
+
   const localizer = momentLocalizer(moment);
 
   const treatmentsSummaryCardComponentsArr = [
@@ -264,43 +265,6 @@ const AdminCalendarComponent = (props) => {
     timeGutterFormat: "h A",
   };
 
-  useEffect(() => {
-    const timeSlot = document.getElementsByClassName("rbc-day-slot");
-    const timeLabels = document.getElementsByClassName("rbc-label");
-
-    const minutesArr = ["00", "15", "30", "45"];
-    for (let i = 0; i < timeSlot.length; i++) {
-      for (let j = 0; j < timeSlot[i].children.length; j++) {
-        for (let k = 0; k < timeLabels.length; k++) {
-          if (timeSlot[i].children[j].children.length > 0) {
-            if (timeLabels[k].innerHTML) {
-              [...timeSlot[i].children[j].children].forEach((x, i) => {
-                for (
-                  let l = 0;
-                  l < timeSlot[i].children[j].children.length;
-                  l++
-                ) {
-                  console.log(timeSlot[i].children[j].children[l]);
-                  timeSlot[i].children[j].children[l].innerText =
-                    timeLabels[j + 1].innerHTML.split(" ")[0] +
-                    ":" +
-                    minutesArr[l] +
-                    " " +
-                    timeLabels[j + 1].innerHTML.split(" ")[1];
-
-                  timeSlot[i].children[j].children[l].style.paddingTop =
-                    "0.407rem";
-                  timeSlot[i].children[j].children[l].style.paddingBottom =
-                    "0.407rem";
-                }
-              });
-            }
-          }
-        }
-      }
-    }
-  }, []);
-
   return (
     <div className="admin_schedule_calendar_main_container">
       <Calendar
@@ -314,6 +278,45 @@ const AdminCalendarComponent = (props) => {
         timeslots={4}
         formats={formats}
         onSelectEvent={(e) => changeCurrentToggledAppointment(e.id)}
+        slotPropGetter={(date) => {
+          if (
+            moment(date).format("dddd") === "Saturday" ||
+            (moment(date).format("dddd") === "Sunday" &&
+              moment(date).format("H") < 10) ||
+            (moment(date).format("dddd") === "Sunday" &&
+              moment(date).format("H") > 19) ||
+            (moment(date).format("dddd") === "Monday" &&
+              moment(date).format("H") < 10) ||
+            (moment(date).format("dddd") === "Monday" &&
+              moment(date).format("H") > 19) ||
+            (moment(date).format("dddd") === "Tuesday" &&
+              moment(date).format("H") < 10) ||
+            (moment(date).format("dddd") === "Tuesday" &&
+              moment(date).format("H") > 19) ||
+            (moment(date).format("dddd") === "Wednesday" &&
+              moment(date).format("H") < 10) ||
+            (moment(date).format("dddd") === "Wednesday" &&
+              moment(date).format("H") > 19) ||
+            (moment(date).format("dddd") === "Thursday" &&
+              moment(date).format("H") < 10) ||
+            (moment(date).format("dddd") === "Thursday" &&
+              moment(date).format("H") > 19) ||
+            (moment(date).format("dddd") === "Friday" &&
+              moment(date).format("H") < 10) ||
+            (moment(date).format("dddd") === "Friday" &&
+              moment(date).format("H") > 15)
+          ) {
+            let newStyle = {
+              backgroundColor: "rgb(222, 222, 222)",
+              borderTop: "1px solid rgb(212, 212, 212)",
+            };
+
+            return {
+              style: newStyle,
+            };
+          }
+        }}
+        selectable={true}
       />
       <Transition
         items={currentToggledAppointment}

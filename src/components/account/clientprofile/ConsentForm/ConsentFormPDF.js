@@ -133,7 +133,7 @@ const ConsentFormPDF = (props) => {
           <Text>&#8226;</Text>
           <Text>1506 Broadway, Hewlett, NY 11557</Text>
           <Text>&#8226;</Text>
-          <Text>(347) 417 - 3883</Text>
+          <Text>(516) 442 - 8122</Text>
         </View>
         <View
           style={{
@@ -483,7 +483,7 @@ const ConsentFormPDF = (props) => {
           <Text>&#8226;</Text>
           <Text>1506 Broadway, Hewlett, NY 11557</Text>
           <Text>&#8226;</Text>
-          <Text>(347) 417 - 3883</Text>
+          <Text>(516) 442 - 8122</Text>
         </View>
         <View
           style={{

@@ -245,6 +245,7 @@ import guestConsentFormAccessTokenReducer from "./reducers/ConsentForm/GuestCons
 import cancelAppointmentClickedReducer from "./reducers/CancelAppointmentClicked/cancelAppointmentClickedReducer";
 import pdfLoadingReducer from "./reducers/PDFLoading/pdfLoadingReducer";
 import addProfilePhotoClickedReducer from "./reducers/Admin/AddProfilePhotoClicked/addProfilePhotoClickedReducer";
+import imageLoadingReducer from "./reducers/Admin/ImageLoading/imageLoadingReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -382,6 +383,7 @@ const RootReducer = combineReducers({
   adminAuthenticated: adminAuthenticatedReducer,
   adminClientSectionSelected: adminClientSectionSelectedReducer,
   addProfilePhotoClicked: addProfilePhotoClickedReducer,
+  imageLoading: imageLoadingReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

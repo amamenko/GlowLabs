@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import "./AdminSchedule.css";
 import AdminCalendarComponent from "./AdminCalendarComponent";
+import AdminCreateAppointment from "./AdminCreateAppointment/AdminCreateAppointment";
 
 const AdminSchedule = (props) => {
   const logoutClicked = useSelector(
@@ -12,6 +13,9 @@ const AdminSchedule = (props) => {
   );
   const adminAuthenticated = useSelector(
     (state) => state.adminAuthenticated.admin_authenticated
+  );
+  const [createAppointmentClicked, changeCreateAppointmentClicked] = useState(
+    false
   );
 
   const redirectToAdminLogInPage = () => {
@@ -34,11 +38,28 @@ const AdminSchedule = (props) => {
           />
         </Link>
         <h1>MY SCHEDULE</h1>
-        <AdminCalendarComponent
-          getAllAppointmentsData={props.getAllAppointmentsData}
-          getEmployeeData={props.getEmployeeData}
-        />
       </div>
+      <div className="admin_calendar_top_buttons_container">
+        <div className="admin_calendar_create_personal_event_button">
+          <p>Create Personal Event</p>
+        </div>
+        <div
+          className="admin_calendar_create_appointment_button"
+          onClick={() => changeCreateAppointmentClicked(true)}
+        >
+          <p>Create Appointment</p>
+        </div>
+      </div>
+      <AdminCreateAppointment
+        createAppointmentClicked={createAppointmentClicked}
+        changeCreateAppointmentClicked={changeCreateAppointmentClicked}
+        getClientsData={props.getClientsData}
+        randomColorArray={props.randomColorArray}
+      />
+      <AdminCalendarComponent
+        getAllAppointmentsData={props.getAllAppointmentsData}
+        getEmployeeData={props.getEmployeeData}
+      />
     </div>
   );
 };

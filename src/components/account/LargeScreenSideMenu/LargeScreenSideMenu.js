@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -35,6 +35,8 @@ import ACTION_LOG_OUT_CLICKED from "../../../actions/LogOut/ACTION_LOG_OUT_CLICK
 import ACTION_CART_IS_NOT_ACTIVE from "../../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_PDF_LOADING_RESET from "../../../actions/PDFLoading/ACTION_PDF_LOADING_RESET";
 import ACTION_PDF_LOADING from "../../../actions/PDFLoading/ACTION_PDF_LOADING";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 
 const LargeScreenSideMenu = (props) => {
   const dispatch = useDispatch();
@@ -68,8 +70,10 @@ const LargeScreenSideMenu = (props) => {
   const addProfilePhotoClicked = useSelector(
     (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
   );
-
-  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
+  const loadingSpinnerActive = useSelector(
+    (state) => state.loadingSpinnerActive.loading_spinner
+  );
+  const imageLoading = useSelector((state) => state.imageLoading.image_loading);
 
   const override = css`
     display: block;
@@ -87,7 +91,7 @@ const LargeScreenSideMenu = (props) => {
   }, [pdfLoading, dispatch]);
 
   const loadingCompleted = useCallback(() => {
-    changeLoadingSpinnerActive(true);
+    dispatch(ACTION_LOADING_SPINNER_ACTIVE());
     if (!pdfLoading) {
       dispatch(ACTION_PDF_LOADING());
     } else {
@@ -98,7 +102,7 @@ const LargeScreenSideMenu = (props) => {
   const handlePDFDownloadClick = useEffect(() => {
     if (loadingSpinnerActive) {
       const loadingSpinnerDuration = setTimeout(() => {
-        changeLoadingSpinnerActive(false);
+        dispatch(ACTION_LOADING_SPINNER_RESET());
         if (pdfDownloadRef) {
           if (pdfDownloadRef.current) {
             pdfDownloadRef.current.click();
@@ -300,7 +304,9 @@ const LargeScreenSideMenu = (props) => {
             finalBookButtonActive ||
             cancelAppointmentClicked ||
             pdfLoading ||
-            addProfilePhotoClicked
+            addProfilePhotoClicked ||
+            loadingSpinnerActive ||
+            imageLoading
           ? "blur(5px) brightness(50%)"
           : "none",
         pointerEvents:
@@ -309,7 +315,9 @@ const LargeScreenSideMenu = (props) => {
           finalBookButtonActive ||
           cancelAppointmentClicked ||
           pdfLoading ||
-          addProfilePhotoClicked
+          addProfilePhotoClicked ||
+          loadingSpinnerActive ||
+          imageLoading
             ? "none"
             : "auto",
         display:

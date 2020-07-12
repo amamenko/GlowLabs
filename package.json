@@ -33,6 +33,7 @@
     "react": "16.8.6",
     "react-activation": "^0.3.5",
     "react-add-to-calendar": "^0.1.5",
+    "react-autosuggest": "^10.0.2",
     "react-big-calendar": "^0.25.0",
     "react-calendar": "^2.19.2",
     "react-canvas-draw": "^1.1.1",

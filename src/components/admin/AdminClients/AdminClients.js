@@ -46,6 +46,10 @@ import AdminClientIndividualProfile from "./AdminClientIndividualProfile";
 import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
 import AdminRenderPastAppointments from "./AdminRenderPastAppointments";
 import ACTION_ADD_PROFILE_PHOTO_CLICKED_RESET from "../../../actions/Admin/AddProfilePhotoClicked/ACTION_ADD_PROFILE_CLICKED_RESET";
+import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_IMAGE_LOADING from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING";
+import ACTION_IMAGE_LOADING_RESET from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING_RESET";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();
@@ -79,6 +83,10 @@ const AdminClients = (props) => {
   const addProfilePhotoClicked = useSelector(
     (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
   );
+  const loadingSpinnerActive = useSelector(
+    (state) => state.loadingSpinnerActive.loading_spinner
+  );
+  const imageLoading = useSelector((state) => state.imageLoading.image_loading);
 
   const [filteredAllClients, changeFilteredAllClients] = useState([]);
   const [clientFilter, changeClientFilter] = useState("");
@@ -88,8 +96,6 @@ const AdminClients = (props) => {
   const [webcamURI, changeWebcamURI] = useState("");
   const [imageUploaded, changeImageUploaded] = useState("");
   const [imagePreviewAvailable, changeImagePreviewAvailable] = useState(false);
-  const [imageLoading, changeImageLoading] = useState(false);
-  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [pdfLoading, changePDFLoading] = useState(false);
 
   const [
@@ -162,7 +168,7 @@ const AdminClients = (props) => {
   };
 
   const handleImageUploaded = async (picture) => {
-    changeImageLoading(true);
+    dispatch(ACTION_IMAGE_LOADING());
     if (picture[0] || typeof picture === "string") {
       const reader = new FileReader();
       changeImagePreviewAvailable(true);
@@ -194,15 +200,15 @@ const AdminClients = (props) => {
           const compressedBase64data = await LZString.compressToUTF16(
             base64data
           );
-          changeImageLoading(false);
+          dispatch(ACTION_IMAGE_LOADING_RESET());
           changeImageUploaded(compressedBase64data);
         };
       } catch (error) {
-        changeImageLoading(false);
+        dispatch(ACTION_IMAGE_LOADING_RESET());
         console.log(error);
       }
     } else {
-      changeImageLoading(false);
+      dispatch(ACTION_IMAGE_LOADING_RESET());
       changeImageUploaded("");
       changeImagePreviewAvailable(false);
       handleDeletedPreviewImage();
@@ -354,7 +360,7 @@ const AdminClients = (props) => {
       },
     });
 
-    changeImageLoading(true);
+    dispatch(ACTION_IMAGE_LOADING());
     changeImageUploaded("");
     dispatch(ACTION_ADD_PROFILE_PHOTO_CLICKED_RESET());
     changeImagePreviewAvailable(false);
@@ -410,38 +416,45 @@ const AdminClients = (props) => {
     if (imageLoading) {
       if (updateClientProfilePictureData) {
         const imageDataReceived = setTimeout(() => {
-          changeImageLoading(false);
+          dispatch(ACTION_IMAGE_LOADING_RESET());
         }, 500);
         return () => {
           clearTimeout(imageDataReceived);
         };
       }
     }
-  }, [imageLoading, updateClientProfilePictureData]);
+  }, [imageLoading, updateClientProfilePictureData, dispatch]);
 
-  const handlePDFDownloadClick = useEffect(() => {
+  useEffect(() => {
     if (loadingSpinnerActive) {
       const loadingSpinnerDuration = setTimeout(() => {
-        changeLoadingSpinnerActive(false);
         if (pdfDownloadRef) {
           pdfDownloadRef.current.click();
         }
+        dispatch(ACTION_LOADING_SPINNER_RESET());
         changePDFLoading(false);
       }, 3000);
       return () => {
         clearTimeout(loadingSpinnerDuration);
       };
+    } else {
+      if (pdfDownloadRef) {
+        if (pdfDownloadRef.current) {
+          pdfDownloadRef.current.click();
+        }
+      }
     }
-  }, [loadingSpinnerActive]);
+  }, [loadingSpinnerActive, dispatch]);
 
   const loadingCompleted = useCallback(() => {
-    changeLoadingSpinnerActive(true);
+    dispatch(ACTION_LOADING_SPINNER_ACTIVE());
+
     if (!pdfLoading) {
       changePDFLoading(true);
     } else {
       return null;
     }
-  }, [pdfLoading]);
+  }, [pdfLoading, dispatch]);
 
   const consentFormOnFile = (item) => {
     return (
@@ -537,7 +550,6 @@ const AdminClients = (props) => {
                       consentFormLastUpdated={moment
                         .unix(item.consentForm.createdAt / 1000)
                         .format("l")}
-                      onClick={handlePDFDownloadClick}
                     />
                   }
                   fileName={
@@ -648,7 +660,15 @@ const AdminClients = (props) => {
       </Modal>
       <div
         className="admin_clients_header"
-        style={{ zIndex: logoutClicked || addProfilePhotoClicked ? 0 : 5 }}
+        style={{
+          zIndex:
+            logoutClicked ||
+            addProfilePhotoClicked ||
+            loadingSpinnerActive ||
+            imageLoading
+              ? 0
+              : 5,
+        }}
       >
         <Link to="/admin/menu">
           <FontAwesomeIcon
@@ -810,7 +830,9 @@ const AdminClients = (props) => {
                                                 changeImagePreviewAvailable(
                                                   false
                                                 );
-                                                changeImageLoading(false);
+                                                dispatch(
+                                                  ACTION_IMAGE_LOADING_RESET()
+                                                );
                                                 changeImagePreviewAvailable(
                                                   false
                                                 );
@@ -935,7 +957,10 @@ const AdminClients = (props) => {
                                 ...styleprops,
                                 ...{
                                   zIndex:
-                                    logoutClicked || addProfilePhotoClicked
+                                    logoutClicked ||
+                                    addProfilePhotoClicked ||
+                                    loadingSpinnerActive ||
+                                    imageLoading
                                       ? 0
                                       : 1,
                                 },
@@ -1014,9 +1039,6 @@ const AdminClients = (props) => {
                                       }
                                       item={item}
                                       override={override}
-                                      changeLoadingSpinnerActive={
-                                        changeLoadingSpinnerActive
-                                      }
                                       loadingSpinnerActive={
                                         loadingSpinnerActive
                                       }

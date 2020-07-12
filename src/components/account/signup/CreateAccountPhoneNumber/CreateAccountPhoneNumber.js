@@ -211,6 +211,7 @@ const PhoneNumber = () => {
   const phoneNumberKeyTyping = (e) => {
     if (
       (e.keyCode >= 8 && e.keyCode < 32) ||
+      (e.keyCode >= 37 && e.keyCode <= 40) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||
       (e.keyCode >= 48 && e.keyCode <= 57)
     ) {

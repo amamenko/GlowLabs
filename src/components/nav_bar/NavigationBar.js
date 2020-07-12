@@ -35,6 +35,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const cancelAppointmentClicked = useSelector(
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
+  const imageLoading = useSelector((state) => state.imageLoading.image_loading);
   const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
@@ -44,6 +45,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const addProfilePhotoClicked = useSelector(
     (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
   );
+  const loadingSpinnerActive = useSelector(
+    (state) => state.loadingSpinnerActive.loading_spinner
+  );
+
   const [
     safariLandingPageNotRendered,
     changeSafariLandingPageNotRendered,
@@ -256,10 +261,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
           : cancelAppointmentClicked ||
             logoutClicked ||
             pdfLoading ||
-            addProfilePhotoClicked
+            addProfilePhotoClicked ||
+            loadingSpinnerActive ||
+            imageLoading
           ? "blur(5px) brightness(50%)"
           : "none",
-
         transition: "background 0.5s ease, filter 0.5s ease",
         height:
           props.currentScreenSize === ""

@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "reactstrap";
 import { BounceLoader } from "react-spinners";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { css } from "emotion";
 import { useMutation } from "@apollo/react-hooks";
 import { deleteAppointmentMutation } from "../../../graphql/queries/queries";
@@ -38,9 +38,12 @@ import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSu
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import SaltCaveSummaryCard from "../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
+import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 
 const AdminRenderUpcomingAppointments = (props) => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const individualAppointmentRef = useRef(null);
   const selectedAppointmentBackRef = useRef(null);
   const backToAppointmentsRef = useRef(null);
@@ -48,11 +51,13 @@ const AdminRenderUpcomingAppointments = (props) => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const loadingSpinnerActive = useSelector(
+    (state) => state.loadingSpinnerActive.loading_spinner
+  );
   const [appointmentToggled, changeAppointmentToggled] = useState("");
   const [cancelAppointmentClicked, changeCancelAppointmentClicked] = useState(
     false
   );
-  const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [deleteAppointment, { loading, data }] = useMutation(
     deleteAppointmentMutation
   );
@@ -72,10 +77,10 @@ const AdminRenderUpcomingAppointments = (props) => {
 
   const resetStatesAfterLoading = useCallback(() => {
     props.getOwnAppointmentsRefetch();
-    changeLoadingSpinnerActive(false);
+    dispatch(ACTION_LOADING_SPINNER_RESET());
     changeCancelAppointmentClicked(false);
     changeAppointmentToggled(false);
-  }, [props]);
+  }, [props, dispatch]);
 
   useEffect(() => {
     if (data) {
@@ -88,9 +93,9 @@ const AdminRenderUpcomingAppointments = (props) => {
 
   useEffect(() => {
     if (loading) {
-      changeLoadingSpinnerActive(true);
+      dispatch(ACTION_LOADING_SPINNER_ACTIVE());
     }
-  }, [loading, data]);
+  }, [loading, data, dispatch]);
 
   useEffect(() => {
     if (location.pathname) {

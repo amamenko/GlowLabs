@@ -122,18 +122,59 @@
 
   .admin_schedule_calendar_main_container {
     position: absolute;
-    height: 78vh;
+    height: 70vh;
     width: 65%;
-    top: 12vh;
+    top: 25vh;
     bottom: 0;
-    left: 15vw;
-    right: 15vw;
+    left: 20vw;
+    right: 0;
     margin: 0 auto;
+  }
+
+  .admin_calendar_top_buttons_container {
+    position: absolute;
+    width: 26%;
+    top: 18vh;
+    right: 7vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin_calendar_create_appointment_button {
+    padding: 1rem;
+    width: 45vw;
+    border-radius: 5px;
+    font-weight: 600;
+    background: rgb(0, 129, 177);
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 1rem;
+  }
+
+  .admin_calendar_create_personal_event_button {
+    padding: 1rem;
+    width: 45vw;
+    border-radius: 5px;
+    font-weight: 600;
+    border: 1px solid rgb(0, 129, 177);
+    color: rgb(0, 129, 177);
+    cursor: pointer;
+    text-align: center;
+    margin-right: 1rem;
   }
 
   /* React Big Calendar Style Re-Resets */
   .rbc-toolbar {
     font-size: 16px !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .rbc-toolbar-label {
+    font-size: 1.3rem !important;
+    font-weight: 600;
   }
 
   .rbc-label {
@@ -158,17 +199,52 @@
   }
 
   .rbc-time-gutter .rbc-time-slot {
-    padding-top: 0.727rem;
-    padding-bottom: 0.727rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    background: rgb(255, 255, 255) !important;
+    border-top: 1px solid rgb(255, 255, 255) !important;
+  }
+
+  .rbc-day-bg + .rbc-day-bg {
+    border-left: 1px solid rgb(255, 255, 255) !important;
+  }
+
+  .rbc-label.rbc-time-header-gutter {
+    position: relative;
+  }
+
+  .rbc-label.rbc-time-header-gutter::after {
+    content: "All Day";
+    font-size: 1rem;
+    position: absolute;
+    bottom: 0.5rem;
+  }
+
+  .rbc-header {
+    border-bottom: 1px solid transparent !important;
+    border-left: 1px solid transparent !important;
+  }
+
+  .rbc-time-content > * + * > * {
+    border-left: 1px solid rgb(255, 255, 255) !important;
   }
 
   .rbc-time-gutter .rbc-timeslot-group {
     border: none;
   }
 
+  .rbc-time-header-content {
+    border-left: 1px solid rgb(255, 255, 255) !important;
+  }
+
+  .rbc-time-header.rbc-overflowing {
+    border-right: 1px solid rgb(255, 255, 255) !important;
+  }
+
   .rbc-day-slot .rbc-time-slot {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    border-right: 1px solid rgb(211, 211, 211) !important;
   }
 
   .rbc-toolbar button {
@@ -204,5 +280,15 @@
   .rbc-agenda-time-cell {
     padding-left: 15px !important;
     padding-right: 15px !important;
+  }
+
+  .admin_create_appointment_container {
+    height: 100vh;
+    width: 66%;
+    top: 18vh;
+    left: 27vw;
+    background: rgb(255, 255, 255);
+    position: fixed;
+    z-index: 5;
   }
 }
