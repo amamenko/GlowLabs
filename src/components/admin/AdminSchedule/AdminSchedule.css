@@ -292,3 +292,19 @@
     z-index: 5;
   }
 }
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .admin_calendar_top_buttons_container {
+    width: 33.3%;
+    right: 7.5vw;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .admin_calendar_top_buttons_container {
+    width: 26%;
+    right: 7vw;
+  }
+}

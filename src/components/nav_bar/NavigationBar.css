@@ -722,16 +722,19 @@
     margin-top: 0.3rem;
   }
 
+  .letter_circle {
+    top: 0.4rem;
+  }
 
-    /* Safari Only */
-    @media not all and (min-resolution: 0.001dpcm) {
-      @supports (-webkit-appearance: none) {
-        .cart_item_number_circle p {
-          top: 0.1rem;
-          margin-right: 0.05rem;
-        }
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .cart_item_number_circle p {
+        top: 0.1rem;
+        margin-right: 0.05rem;
       }
     }
+  }
 }
 
 /* CSS for Huge Desktops */

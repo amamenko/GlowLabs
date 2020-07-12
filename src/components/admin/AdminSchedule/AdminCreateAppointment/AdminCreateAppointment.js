@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import { Transition } from "react-spring/renderprops";
-import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLongArrowAltLeft,
+  faChevronCircleDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LZString from "lz-string";
 import Autosuggest from "react-autosuggest";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import { formatDate, parseDate } from "react-day-picker/moment";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
+import "react-day-picker/lib/style.css";
 import "./AdminCreateAppointment.css";
 
 const AdminCreateAppointment = (props) => {
-  const [inputValue, changeInputValue] = useState("");
   const [inputSuggestions, changeInputSuggestions] = useState([]);
   const [clientEmail, changeClientEmail] = useState("");
   const [clientPhoneNumber, changeClientPhoneNumber] = useState("");
+  const [clientFirstName, changeClientFirstName] = useState("");
+  const [clientLastName, changeClientLastName] = useState("");
+  const [selectedAppointmentTime, changeSelectedAppointmentTime] = useState("");
+  const [selectedAppointmentDate, changeSelectedAppointmentDate] = useState("");
+
+  const timeOptions = () => {
+    const minutesArr = ["00", "15", "30", "45"];
+    const allTimeArr = [];
+
+    for (let i = 0; i < 24; i++) {
+      for (let j = 0; j < minutesArr.length; j++) {
+        allTimeArr.push(
+          (i > 12 ? i - 12 : i) +
+            ":" +
+            minutesArr[j] +
+            " " +
+            (i > 11 ? "PM" : "AM")
+        );
+      }
+    }
+
+    return allTimeArr;
+  };
 
   const clientSuggestions = props.getClientsData
     ? props.getClientsData.clients
@@ -91,12 +121,18 @@ const AdminCreateAppointment = (props) => {
   const getSuggestionValue = (suggestion) => {
     changeClientEmail(suggestion.email);
     changeClientPhoneNumber(suggestion.phoneNumber);
+    changeClientLastName(
+      suggestion.lastName[0].toUpperCase() +
+        suggestion.lastName.slice(1).toLowerCase()
+    );
+    changeClientFirstName(
+      suggestion.firstName[0].toUpperCase() +
+        suggestion.firstName.slice(1).toLowerCase()
+    );
+
     return (
       suggestion.firstName[0].toUpperCase() +
-      suggestion.firstName.slice(1).toLowerCase() +
-      " " +
-      suggestion.lastName[0].toUpperCase() +
-      suggestion.lastName.slice(1).toLowerCase()
+      suggestion.firstName.slice(1).toLowerCase()
     );
   };
 
@@ -117,7 +153,7 @@ const AdminCreateAppointment = (props) => {
   );
 
   const inputChange = (event, { newValue }) => {
-    changeInputValue(newValue);
+    changeClientFirstName(newValue);
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
@@ -129,8 +165,8 @@ const AdminCreateAppointment = (props) => {
   };
 
   const inputProps = {
-    placeholder: "Select or create client",
-    value: inputValue,
+    placeholder: "Client first name",
+    value: clientFirstName,
     onChange: inputChange,
   };
 
@@ -176,7 +212,9 @@ const AdminCreateAppointment = (props) => {
               <h2>Client Information</h2>
             </div>
             <div className="admin_create_appointment_input_information_container">
-              <div className="admin_create_appointment_label">Name</div>
+              <div className="admin_create_appointment_label admin_create_appointment_double_label">
+                First Name
+              </div>
               <Autosuggest
                 suggestions={inputSuggestions}
                 onSuggestionsFetchRequested={onSuggestionsFetchRequested}
@@ -185,6 +223,28 @@ const AdminCreateAppointment = (props) => {
                 renderSuggestion={renderSuggestion}
                 inputProps={inputProps}
               />
+              <div className="admin_create_appointment_label admin_create_appointment_double_label">
+                Last Name
+              </div>
+              <div
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-owns="react-autowhatever-1"
+                aria-controls="react-autowhatever-1"
+                aria-expanded="false"
+                className="react-autosuggest__container"
+              >
+                <input
+                  type="text"
+                  autoComplete="off"
+                  aria-autocomplete="list"
+                  aria-controls="react-autowhatever-1"
+                  className="react-autosuggest__input"
+                  value={clientLastName}
+                  onChange={(e) => changeClientLastName(e.target.value)}
+                  placeholder="Client last name"
+                />
+              </div>
             </div>
             <div className="admin_create_appointment_input_information_container">
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
@@ -242,43 +302,32 @@ const AdminCreateAppointment = (props) => {
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
                 Date
               </div>
-              <div
-                role="combobox"
-                aria-haspopup="listbox"
-                aria-owns="react-autowhatever-1"
-                aria-controls="react-autowhatever-1"
-                aria-expanded="false"
-                className="react-autosuggest__container"
-              >
-                <input
-                  type="text"
-                  autoComplete="off"
-                  aria-autocomplete="list"
-                  aria-controls="react-autowhatever-1"
-                  className="react-autosuggest__input"
-                  placeholder="Email address"
-                />
-              </div>
+              <DayPickerInput
+                classNames={{
+                  container: "react-autosuggest__container",
+                  overlay: "",
+                  overlayWrapper: "",
+                }}
+                inputProps={{ className: "react-autosuggest__input" }}
+                formatDate={formatDate}
+                parseDate={parseDate}
+                onDayChange={(day) => changeSelectedAppointmentDate(day)}
+                format="L"
+                placeholder="Appointment Date"
+              />
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
                 Time
               </div>
-              <div
-                role="combobox"
-                aria-haspopup="listbox"
-                aria-owns="react-autowhatever-1"
-                aria-controls="react-autowhatever-1"
-                aria-expanded="false"
+              <Dropdown
+                options={timeOptions()}
+                onChange={(choice) => changeSelectedAppointmentTime(choice)}
+                value={selectedAppointmentTime}
+                controlClassName="react-autosuggest__input"
                 className="react-autosuggest__container"
-              >
-                <input
-                  type="text"
-                  autoComplete="off"
-                  aria-autocomplete="list"
-                  aria-controls="react-autowhatever-1"
-                  className="react-autosuggest__input"
-                  placeholder="Phone number"
-                />
-              </div>
+                placeholder={
+                  selectedAppointmentTime ? selectedAppointmentTime : "Time"
+                }
+              />
             </div>
           </div>
         ))

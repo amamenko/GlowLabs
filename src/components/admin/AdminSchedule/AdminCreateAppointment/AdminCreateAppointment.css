@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,900&display=swap");
 
-.react-autosuggest__container {
-  position: relative;
-}
-
 .admin_create_appointment_input_information_container {
   display: flex;
   flex-direction: row;
@@ -35,6 +31,7 @@
 }
 
 .react-autosuggest__container {
+  position: relative;
   height: 100%;
   width: 100%;
 }
@@ -118,6 +115,7 @@
 .admin_individual_client_suggestion_container {
   display: flex;
   flex-direction: row;
+  background-color: #fff;
 }
 
 .react-autosuggest__suggestions-container {
@@ -128,7 +126,7 @@
   display: block;
   position: absolute;
   top: 100%;
-  width: 25%;
+  width: 100%;
   border: 1px solid #aaa;
   background-color: #fff;
   font-family: "Montserrat", sans-serif;
@@ -140,6 +138,8 @@
 }
 
 .react-autosuggest__suggestions-list {
+  max-height: 40vh;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -152,4 +152,42 @@
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .admin_create_appointment_double_label {
+    width: 44.5%;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    width: 100%;
+  }
+
+  .autosuggest_client_profile_picture {
+    width: 20%;
+    height: 6vh;
+  }
+
+  .autosuggest_client_initials_square {
+    width: 20%;
+    height: 6vh;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .admin_create_appointment_double_label {
+    width: 46%;
+  }
+
+  .autosuggest_client_profile_picture {
+    width: 25%;
+    height: 5vh;
+  }
+
+  .autosuggest_client_initials_square {
+    width: 25%;
+    height: 5vh;
+  }
 }
