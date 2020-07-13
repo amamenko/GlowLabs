@@ -178,7 +178,7 @@ const ClientProfile = (props) => {
           props.getClientData
             ? props.getClientData.client
               ? props.getClientData.client.consentForm.consentFormSignature
-                ? LZString.decompressFromUTF16(
+                ? LZString.decompressFromEncodedURIComponent(
                     props.getClientData.client.consentForm.consentFormSignature
                   )
                 : null

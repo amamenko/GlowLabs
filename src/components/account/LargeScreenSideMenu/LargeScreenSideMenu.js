@@ -352,10 +352,10 @@ const LargeScreenSideMenu = (props) => {
           props.getClientData
             ? props.getClientData.client
               ? props.getClientData.client.consentForm.consentFormSignature
-                ? LZString.decompressFromUTF16(
+                ? LZString.decompressFromEncodedURIComponent(
                     props.getClientData.client.consentForm.consentFormSignature
                   )
-                  ? LZString.decompressFromUTF16(
+                  ? LZString.decompressFromEncodedURIComponent(
                       props.getClientData.client.consentForm
                         .consentFormSignature
                     ).toString()
@@ -427,7 +427,7 @@ const LargeScreenSideMenu = (props) => {
               props.getClientData.client.profilePicture ? (
                 <img
                   className="large_screen_side_menu_profile_client_photo_avatar"
-                  src={LZString.decompressFromUTF16(
+                  src={LZString.decompressFromEncodedURIComponent(
                     props.getClientData.client.profilePicture
                   )}
                   alt={

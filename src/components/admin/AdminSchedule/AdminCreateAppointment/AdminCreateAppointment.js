@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Transition } from "react-spring/renderprops";
-import {
-  faLongArrowAltLeft,
-  faChevronCircleDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LZString from "lz-string";
 import Autosuggest from "react-autosuggest";
@@ -20,8 +17,6 @@ const AdminCreateAppointment = (props) => {
   const [clientPhoneNumber, changeClientPhoneNumber] = useState("");
   const [clientFirstName, changeClientFirstName] = useState("");
   const [clientLastName, changeClientLastName] = useState("");
-  const [selectedAppointmentTime, changeSelectedAppointmentTime] = useState("");
-  const [selectedAppointmentDate, changeSelectedAppointmentDate] = useState("");
 
   const timeOptions = () => {
     const minutesArr = ["00", "15", "30", "45"];
@@ -30,7 +25,7 @@ const AdminCreateAppointment = (props) => {
     for (let i = 0; i < 24; i++) {
       for (let j = 0; j < minutesArr.length; j++) {
         allTimeArr.push(
-          (i > 12 ? i - 12 : i) +
+          (i > 12 ? i - 12 : i === 0 ? "12" : i) +
             ":" +
             minutesArr[j] +
             " " +
@@ -53,7 +48,9 @@ const AdminCreateAppointment = (props) => {
             profilePicture: x.profilePicture ? (
               <img
                 className="autosuggest_client_profile_picture"
-                src={LZString.decompressFromUTF16(x.profilePicture)}
+                src={LZString.decompressFromEncodedURIComponent(
+                  x.profilePicture
+                )}
                 alt={
                   x.firstName[0].toUpperCase() +
                   x.firstName.slice(1).toLowerCase() +
@@ -183,6 +180,91 @@ const AdminCreateAppointment = (props) => {
     }
   };
 
+  const phoneNumberTyping = (e) => {
+    let currentTyping = e.currentTarget.value;
+
+    // Formatting for US Phone Numbers
+    if (currentTyping.length === 3) {
+      currentTyping = currentTyping.split("");
+      currentTyping.unshift("(");
+      currentTyping.push(") ");
+
+      currentTyping = currentTyping.join("");
+    } else {
+      if (currentTyping.length === 4) {
+        if (
+          currentTyping.indexOf("(") === 0 &&
+          currentTyping.indexOf(")") < 0
+        ) {
+          currentTyping = currentTyping.split("");
+          currentTyping.splice(currentTyping.indexOf("("), 1);
+
+          currentTyping = currentTyping.join("");
+        } else {
+          if (
+            currentTyping.indexOf("(") < 0 &&
+            currentTyping.indexOf(")") < 0
+          ) {
+            currentTyping = currentTyping.split("");
+            currentTyping.unshift("(");
+            currentTyping.splice(4, 0, ") ");
+
+            currentTyping = currentTyping.join("");
+          }
+        }
+      } else {
+        if (currentTyping.length === 6) {
+          if (currentTyping.indexOf(" ") < 0) {
+            currentTyping = currentTyping.split("");
+            currentTyping.splice(5, 0, " ");
+
+            currentTyping = currentTyping.join("");
+          }
+        } else {
+          if (currentTyping.length === 10) {
+            if (currentTyping.lastIndexOf(" ") === 5) {
+              currentTyping = currentTyping.split("");
+              currentTyping.splice(9, 0, " - ");
+
+              currentTyping = currentTyping.join("");
+            } else {
+              if (currentTyping.indexOf("(") < 0) {
+                currentTyping = currentTyping.split("");
+                currentTyping.unshift("(");
+                currentTyping.splice(4, 0, ") ");
+                currentTyping.splice(8, 0, " - ");
+                currentTyping = currentTyping.join("");
+              }
+            }
+          } else {
+            if (currentTyping.length === 11) {
+              if (
+                currentTyping.lastIndexOf(" ") === 9 &&
+                currentTyping.indexOf("-") < 0
+              ) {
+                currentTyping = currentTyping.split("");
+                currentTyping.splice(9, 0, " -");
+
+                currentTyping = currentTyping.join("");
+              }
+            } else {
+              if (currentTyping.length === 12) {
+                if (currentTyping.lastIndexOf(" ") === 9) {
+                  currentTyping = currentTyping.split("");
+                  currentTyping.splice(11, 0, " ");
+
+                  currentTyping = currentTyping.join("");
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    e.currentTarget.value = currentTyping;
+    changeClientPhoneNumber(currentTyping);
+  };
+
   return (
     <Transition
       items={props.createAppointmentClicked}
@@ -286,8 +368,8 @@ const AdminCreateAppointment = (props) => {
                   autoComplete="off"
                   aria-autocomplete="list"
                   onKeyDown={phoneNumberKeyTyping}
-                  onChange={(e) => changeClientPhoneNumber(e.target.value)}
-                  maxLength={20}
+                  onChange={phoneNumberTyping}
+                  maxLength={16}
                   value={clientPhoneNumber}
                   aria-controls="react-autowhatever-1"
                   className="react-autosuggest__input"
@@ -308,11 +390,15 @@ const AdminCreateAppointment = (props) => {
                   overlay: "",
                   overlayWrapper: "",
                 }}
-                inputProps={{ className: "react-autosuggest__input" }}
+                dayPickerProps={{ disabledDays: { before: new Date() } }}
+                inputProps={{
+                  className: "react-autosuggest__input",
+                }}
                 formatDate={formatDate}
                 parseDate={parseDate}
-                onDayChange={(day) => changeSelectedAppointmentDate(day)}
+                onDayChange={(day) => props.changeSelectedAppointmentDate(day)}
                 format="L"
+                value={props.selectedAppointmentDate}
                 placeholder="Appointment Date"
               />
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
@@ -320,12 +406,21 @@ const AdminCreateAppointment = (props) => {
               </div>
               <Dropdown
                 options={timeOptions()}
-                onChange={(choice) => changeSelectedAppointmentTime(choice)}
-                value={selectedAppointmentTime}
+                onChange={(choice) =>
+                  props.changeSelectedAppointmentTime(choice)
+                }
+                value={props.selectedAppointmentTime}
                 controlClassName="react-autosuggest__input"
                 className="react-autosuggest__container"
                 placeholder={
-                  selectedAppointmentTime ? selectedAppointmentTime : "Time"
+                  props.selectedAppointmentTime
+                    ? props.selectedAppointmentTime
+                    : "Appointment Time"
+                }
+                placeholderClassName={
+                  props.selectedAppointmentTime
+                    ? "admin_create_appointent_dropdown_placeholder_time"
+                    : "admin_create_appointent_dropdown_placeholder_no_time"
                 }
               />
             </div>

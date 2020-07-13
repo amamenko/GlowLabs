@@ -17,11 +17,19 @@ const AdminSchedule = (props) => {
   const [createAppointmentClicked, changeCreateAppointmentClicked] = useState(
     false
   );
+  const [selectedAppointmentDate, changeSelectedAppointmentDate] = useState("");
+  const [selectedAppointmentTime, changeSelectedAppointmentTime] = useState("");
 
   const redirectToAdminLogInPage = () => {
     if (!adminAuthenticated) {
       return <Redirect to="/admin" />;
     }
+  };
+
+  const handleCreateAppointmentToggled = (time, date) => {
+    changeCreateAppointmentClicked(true);
+    changeSelectedAppointmentTime(time);
+    changeSelectedAppointmentDate(date);
   };
 
   return (
@@ -55,10 +63,15 @@ const AdminSchedule = (props) => {
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         getClientsData={props.getClientsData}
         randomColorArray={props.randomColorArray}
+        changeSelectedAppointmentTime={changeSelectedAppointmentTime}
+        selectedAppointmentTime={selectedAppointmentTime}
+        changeSelectedAppointmentDate={changeSelectedAppointmentDate}
+        selectedAppointmentDate={selectedAppointmentDate}
       />
       <AdminCalendarComponent
         getAllAppointmentsData={props.getAllAppointmentsData}
         getEmployeeData={props.getEmployeeData}
+        handleCreateAppointmentToggled={handleCreateAppointmentToggled}
       />
     </div>
   );

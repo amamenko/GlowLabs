@@ -240,7 +240,9 @@ const ConsentFormPage7 = (props) => {
         pregnantOrNursing: pregnantOrNursingYes,
         ultimateSkinCareGoals: ultimateSkinCareGoals,
         anythingElseWeShouldKnow: anythingElseWeShouldKnow,
-        consentFormSignature: LZString.compressToUTF16(drawingSaveData),
+        consentFormSignature: LZString.compressToEncodedURIComponent(
+          drawingSaveData
+        ),
       },
     });
   };

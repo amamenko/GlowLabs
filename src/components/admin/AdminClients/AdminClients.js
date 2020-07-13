@@ -197,7 +197,8 @@ const AdminClients = (props) => {
 
         reader.onloadend = async () => {
           const base64data = reader.result;
-          const compressedBase64data = await LZString.compressToUTF16(
+
+          const compressedBase64data = LZString.compressToEncodedURIComponent(
             base64data
           );
           dispatch(ACTION_IMAGE_LOADING_RESET());
@@ -379,7 +380,7 @@ const AdminClients = (props) => {
       return (
         <img
           className="admin_individual_client_picture_profile_avatar"
-          src={LZString.decompressFromUTF16(item.profilePicture)}
+          src={LZString.decompressFromEncodedURIComponent(item.profilePicture)}
           alt={
             item.firstName[0].toUpperCase() +
             item.firstName.slice(1).toLowerCase() +
@@ -971,7 +972,7 @@ const AdminClients = (props) => {
                                 saveData={
                                   item.consentForm
                                     ? item.consentForm.consentFormSignature
-                                      ? LZString.decompressFromUTF16(
+                                      ? LZString.decompressFromEncodedURIComponent(
                                           item.consentForm.consentFormSignature
                                         )
                                       : null
@@ -1028,6 +1029,7 @@ const AdminClients = (props) => {
                                     renderDownloadConsentFormButton={
                                       renderDownloadConsentFormButton
                                     }
+                                    getClientsData={props.getClientsData}
                                   />
                                 ) : adminClientSectionSelected ===
                                   "UpcomingAppointments" ? (

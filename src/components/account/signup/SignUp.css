@@ -866,27 +866,26 @@
     padding-right: 10rem;
   }
 
-      /* Safari Only */
-      @media not all and (min-resolution: 0.001dpcm) {
-        @supports (-webkit-appearance: none) {
-          .sign_up_page_form {
-            margin-bottom: 10rem;
-          }
-
-          .sign_up_password_form_container {
-            margin-top: -5vh;
-          }
-
-          .already_have_an_account_question {
-            margin-bottom: 0vh;
-          }
-
-          .login_redirect_button {
-            margin-top: 2vh;
-          }
-
-        }
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .sign_up_page_form {
+        margin-bottom: 10rem;
       }
+
+      .sign_up_password_form_container {
+        margin-top: -5vh;
+      }
+
+      .already_have_an_account_question {
+        margin-bottom: 0vh;
+      }
+
+      .login_redirect_button {
+        margin-top: 2vh;
+      }
+    }
+  }
 }
 
 /* CSS for Huge Desktops */
@@ -946,5 +945,22 @@
 
   .sign_up_page_descriptive_text ul li {
     font-size: 2rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .sign_up_prompt {
+        top: 5vh;
+      }
+
+      .sign_up_page_form {
+        margin-top: 25vh;
+      }
+
+      .sign_up_password_form_container {
+        margin-bottom: -25vh;
+      }
+    }
   }
 }

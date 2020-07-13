@@ -27,7 +27,8 @@ const AdminClientIndividualProfile = (props) => {
             )[0].profilePicture ? (
               <img
                 className="admin_individual_client_picture_profile_avatar"
-                src={LZString.decompressFromUTF16(
+                // Uses Encoded URI Component instead of any other compression to support cross-browser compatability
+                src={LZString.decompressFromEncodedURIComponent(
                   props.getClientsData.clients.filter(
                     (x) => x._id === props.clientToggled
                   )[0].profilePicture

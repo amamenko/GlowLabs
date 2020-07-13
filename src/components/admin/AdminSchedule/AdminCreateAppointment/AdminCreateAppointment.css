@@ -9,6 +9,14 @@
   height: 5%;
 }
 
+.admin_create_appointent_dropdown_placeholder_no_time {
+  color: rgb(122, 122, 122);
+}
+
+.admin_create_appointent_dropdown_placeholder_time {
+  color: #000;
+}
+
 .admin_create_appointment_label {
   width: 20%;
   height: 100%;
@@ -51,12 +59,21 @@
   height: 100%;
   padding: 0 1.5rem;
   font-family: "Montserrat", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.5rem;
   border-top: 1px solid rgb(211, 211, 211);
   border-bottom: 1px solid rgb(211, 211, 211);
   border-right: 1px solid rgb(211, 211, 211);
   border-left: 1px solid transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Dropdown-arrow {
+  top: 50%;
+  right: 1.5rem;
 }
 
 .react-autosuggest__input:focus {
@@ -115,7 +132,10 @@
 .admin_individual_client_suggestion_container {
   display: flex;
   flex-direction: row;
-  background-color: #fff;
+}
+
+.admin_individual_client_suggestion_container:hover {
+  background: #ddd;
 }
 
 .react-autosuggest__suggestions-container {
@@ -182,12 +202,12 @@
   }
 
   .autosuggest_client_profile_picture {
-    width: 25%;
+    width: 15%;
     height: 5vh;
   }
 
   .autosuggest_client_initials_square {
-    width: 25%;
+    width: 15%;
     height: 5vh;
   }
 }

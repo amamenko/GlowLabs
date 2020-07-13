@@ -277,6 +277,9 @@ const AdminCalendarComponent = (props) => {
         step={15}
         timeslots={4}
         formats={formats}
+        scrollToTime={moment()
+          .set({ h: 10, m: 0 })
+          .toDate()}
         onSelectEvent={(e) => changeCurrentToggledAppointment(e.id)}
         slotPropGetter={(date) => {
           if (
@@ -317,6 +320,12 @@ const AdminCalendarComponent = (props) => {
           }
         }}
         selectable={true}
+        onSelectSlot={(time) =>
+          props.handleCreateAppointmentToggled(
+            moment(time.start).format("LT"),
+            moment(time.start).format("L")
+          )
+        }
       />
       <Transition
         items={currentToggledAppointment}

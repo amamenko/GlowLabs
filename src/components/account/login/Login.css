@@ -885,4 +885,14 @@
   .login_page_descriptive_text ul li {
     font-size: 2rem;
   }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .login_content_container {
+        height: 65%;
+        margin-top: -25vh;
+      }
+    }
+  }
 }

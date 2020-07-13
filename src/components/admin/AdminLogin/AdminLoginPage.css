@@ -181,14 +181,14 @@
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
-      /* Safari Only */
-      @media not all and (min-resolution: 0.001dpcm) {
-        @supports (-webkit-appearance: none) {
-          .admin_sign_in_prompt {
-            padding-top: 0rem;
-          }
-        }
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .admin_sign_in_prompt {
+        padding-top: 0rem;
       }
+    }
+  }
 }
 
 /* CSS for Huge Desktops */
@@ -211,5 +211,19 @@
     font-size: 1.5rem;
     padding: 1rem;
     margin-top: 3rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .admin_sign_in_prompt {
+        padding-top: 2rem;
+        padding-bottom: 12rem;
+      }
+
+      .admin_log_in_button {
+        margin-top: 15rem;
+      }
+    }
   }
 }
