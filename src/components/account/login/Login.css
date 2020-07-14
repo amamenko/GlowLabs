@@ -641,6 +641,20 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .login_page_background {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .complete_registration_page_container,
+  .login_page_container {
+    width: 75%;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .login_page_background {
@@ -652,6 +666,7 @@
     background-position: 100%, 100%;
     background-size: contain;
     position: absolute;
+    display: block;
     z-index: -1;
   }
 

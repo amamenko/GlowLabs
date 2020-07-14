@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Transition } from "react-spring/renderprops";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,8 @@ const AdminCreateAppointment = (props) => {
   const [clientPhoneNumber, changeClientPhoneNumber] = useState("");
   const [clientFirstName, changeClientFirstName] = useState("");
   const [clientLastName, changeClientLastName] = useState("");
+  const [selectedStaffMember, changeSelectedStaffMember] = useState("");
+  const [appointmentNotes, changeAppointmentNotes] = useState("");
 
   const timeOptions = () => {
     const minutesArr = ["00", "15", "30", "45"];
@@ -36,6 +38,47 @@ const AdminCreateAppointment = (props) => {
 
     return allTimeArr;
   };
+
+  const employeeOptions = useCallback(() => {
+    if (props.getEmployeesData) {
+      if (props.getEmployeesData.employees) {
+        const estheticians = props.getEmployeesData.employees.filter(
+          (employee) => employee.employeeRole.includes("Esthetician")
+        );
+
+        return estheticians.map(
+          (esthetician) =>
+            esthetician.firstName[0].toUpperCase() +
+            esthetician.firstName.slice(1).toLowerCase() +
+            " " +
+            esthetician.lastName[0].toUpperCase() +
+            esthetician.lastName.slice(1).toLowerCase()
+        );
+      }
+    }
+  }, [props.getEmployeesData]);
+
+  useEffect(() => {
+    if (props.getEmployeeData) {
+      if (props.getEmployeeData.employee) {
+        if (
+          props.getEmployeeData.employee.employeeRole.includes("Esthetician")
+        ) {
+          const currentEmployee = props.getEmployeeData.employee;
+
+          changeSelectedStaffMember(
+            currentEmployee.firstName[0].toUpperCase() +
+              currentEmployee.firstName.slice(1).toLowerCase() +
+              " " +
+              currentEmployee.lastName[0].toUpperCase() +
+              currentEmployee.lastName.slice(1).toLowerCase()
+          );
+        } else {
+          changeSelectedStaffMember(employeeOptions()[0]);
+        }
+      }
+    }
+  }, [props.getEmployeeData, employeeOptions]);
 
   const clientSuggestions = props.getClientsData
     ? props.getClientsData.clients
@@ -423,6 +466,55 @@ const AdminCreateAppointment = (props) => {
                     : "admin_create_appointent_dropdown_placeholder_no_time"
                 }
               />
+            </div>
+
+            <div className="admin_create_appointment_input_information_container">
+              <div className="admin_create_appointment_label">Staff</div>
+              <Dropdown
+                options={employeeOptions()}
+                onChange={(choice) => changeSelectedStaffMember(choice)}
+                value={selectedStaffMember}
+                controlClassName="react-autosuggest__input"
+                className="react-autosuggest__container"
+                placeholder={
+                  selectedStaffMember
+                    ? selectedStaffMember
+                    : "Selected Esthetician"
+                }
+                placeholderClassName={
+                  selectedStaffMember
+                    ? "admin_create_appointent_dropdown_placeholder_time"
+                    : "admin_create_appointent_dropdown_placeholder_no_time"
+                }
+              />
+            </div>
+
+            <div className="admin_create_appointment_input_information_container">
+              <div className="admin_create_appointment_label">
+                Appointment Notes
+              </div>
+              <div
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-owns="react-autowhatever-1"
+                aria-controls="react-autowhatever-1"
+                aria-expanded="false"
+                className="react-autosuggest__container"
+              >
+                <input
+                  type="text"
+                  autoComplete="off"
+                  aria-autocomplete="list"
+                  aria-controls="react-autowhatever-1"
+                  className="react-autosuggest__input"
+                  placeholder={
+                    "Enter additional notes for use by staff only (optional)"
+                  }
+                  value={appointmentNotes}
+                  maxLength={200}
+                  onChange={(e) => changeAppointmentNotes(e.target.value)}
+                />
+              </div>
             </div>
           </div>
         ))

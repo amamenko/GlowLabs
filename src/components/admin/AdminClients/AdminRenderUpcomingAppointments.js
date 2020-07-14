@@ -8,7 +8,7 @@ import {
   faTimes,
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "reactstrap";
+import Modal from "react-modal";
 import { BounceLoader } from "react-spinners";
 import { useSelector, useDispatch } from "react-redux";
 import { css } from "emotion";
@@ -40,6 +40,8 @@ import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import SaltCaveSummaryCard from "../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
+import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
 
 const AdminRenderUpcomingAppointments = (props) => {
   const location = useLocation();
@@ -55,8 +57,8 @@ const AdminRenderUpcomingAppointments = (props) => {
     (state) => state.loadingSpinnerActive.loading_spinner
   );
   const [appointmentToggled, changeAppointmentToggled] = useState("");
-  const [cancelAppointmentClicked, changeCancelAppointmentClicked] = useState(
-    false
+  const cancelAppointmentClicked = useSelector(
+    (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
   const [deleteAppointment, { loading, data }] = useMutation(
     deleteAppointmentMutation
@@ -78,7 +80,7 @@ const AdminRenderUpcomingAppointments = (props) => {
   const resetStatesAfterLoading = useCallback(() => {
     props.getOwnAppointmentsRefetch();
     dispatch(ACTION_LOADING_SPINNER_RESET());
-    changeCancelAppointmentClicked(false);
+    dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET());
     changeAppointmentToggled(false);
   }, [props, dispatch]);
 
@@ -305,7 +307,9 @@ const AdminRenderUpcomingAppointments = (props) => {
                             className="modal_x"
                             icon={faTimes}
                             onClick={() =>
-                              changeCancelAppointmentClicked(false)
+                              dispatch(
+                                ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
+                              )
                             }
                           />
                           <h2>
@@ -328,7 +332,9 @@ const AdminRenderUpcomingAppointments = (props) => {
                             <div
                               className="cancel_logout_button no_dont_cancel_appointment_button"
                               onClick={() =>
-                                changeCancelAppointmentClicked(false)
+                                dispatch(
+                                  ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
+                                )
                               }
                             >
                               <p>NO, GO BACK</p>
@@ -576,7 +582,9 @@ const AdminRenderUpcomingAppointments = (props) => {
                         <div className="selected_appointments_bottom_buttons_container">
                           <div
                             className="cancel_appointment_button"
-                            onClick={() => changeCancelAppointmentClicked(true)}
+                            onClick={() =>
+                              dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED())
+                            }
                           >
                             <p>Cancel Appointment</p>
                           </div>

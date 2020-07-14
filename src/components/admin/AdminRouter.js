@@ -100,6 +100,9 @@ const AdminRouter = (props) => {
               getEmployeeData={
                 props.getEmployeeData ? props.getEmployeeData : null
               }
+              getEmployeesData={
+                props.getEmployeesData ? props.getEmployeesData : null
+              }
               getClientsData={getClientsData ? getClientsData : null}
               randomColorArray={randomColorArray ? randomColorArray : null}
             />

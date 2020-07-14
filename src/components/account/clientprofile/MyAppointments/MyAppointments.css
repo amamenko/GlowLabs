@@ -790,7 +790,7 @@
   }
 
   .log_out_modal_contents.admin_cancel_appointment h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .admin_side_schedule_calendar_individual_selected_appointment_container {
@@ -856,6 +856,16 @@
   .my_upcoming_appointments_empty_container {
     height: 75vh;
   }
+
+  .my_selected_appointment_treatment_container.admin_side_client_treatment_container {
+    width: 98%;
+    margin-left: -8.5rem;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_calendar_schedule_treatment_container {
+    width: 95%;
+    margin-left: -11.5rem;
+  }
 }
 
 /* CSS for Huge Desktops */
@@ -902,5 +912,19 @@
 
   .my_upcoming_appointments_empty_container {
     height: 60vh;
+  }
+
+  .log_out_modal_contents.admin_cancel_appointment h2 {
+    font-size: 2rem;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_treatment_container {
+    width: 94.5%;
+    margin-left: -9rem;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_calendar_schedule_treatment_container {
+    width: 95%;
+    margin-left: -11.5rem;
   }
 }

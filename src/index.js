@@ -1595,7 +1595,7 @@ const App = () => {
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 getEmployeeData={getEmployeeData ? getEmployeeData : null}
-                employeeDataRefetch={employeeDataRefetch}
+                getEmployeesData={getEmployeesData ? getEmployeesData : null}
               />
             ) : cartPageOpened === "PaymentInfo" ? (
               <PaymentInfo

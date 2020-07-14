@@ -87,6 +87,9 @@ const AdminClients = (props) => {
     (state) => state.loadingSpinnerActive.loading_spinner
   );
   const imageLoading = useSelector((state) => state.imageLoading.image_loading);
+  const cancelAppointmentClicked = useSelector(
+    (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
+  );
 
   const [filteredAllClients, changeFilteredAllClients] = useState([]);
   const [clientFilter, changeClientFilter] = useState("");
@@ -666,9 +669,11 @@ const AdminClients = (props) => {
             logoutClicked ||
             addProfilePhotoClicked ||
             loadingSpinnerActive ||
-            imageLoading
+            imageLoading ||
+            cancelAppointmentClicked
               ? 0
               : 5,
+          filter: cancelAppointmentClicked ? "blur(5px)" : "none",
         }}
       >
         <Link to="/admin/menu">
@@ -961,7 +966,8 @@ const AdminClients = (props) => {
                                     logoutClicked ||
                                     addProfilePhotoClicked ||
                                     loadingSpinnerActive ||
-                                    imageLoading
+                                    imageLoading ||
+                                    cancelAppointmentClicked
                                       ? 0
                                       : 1,
                                 },

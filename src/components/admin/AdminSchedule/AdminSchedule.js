@@ -62,6 +62,8 @@ const AdminSchedule = (props) => {
         createAppointmentClicked={createAppointmentClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         getClientsData={props.getClientsData}
+        getEmployeeData={props.getEmployeeData}
+        getEmployeesData={props.getEmployeesData}
         randomColorArray={props.randomColorArray}
         changeSelectedAppointmentTime={changeSelectedAppointmentTime}
         selectedAppointmentTime={selectedAppointmentTime}
