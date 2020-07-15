@@ -24,6 +24,7 @@ const AdminCreateAppointment = (props) => {
   const [clientLastName, changeClientLastName] = useState("");
   const [selectedStaffMember, changeSelectedStaffMember] = useState("");
   const [appointmentNotes, changeAppointmentNotes] = useState("");
+  const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
 
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
@@ -305,6 +306,27 @@ const AdminCreateAppointment = (props) => {
     }
   };
 
+  const getTreatmentSuggestions = (value) => {
+    const inputValue = value ? value.trim().toLowerCase() : "";
+    const inputLength = inputValue.length;
+
+    if (inputLength === 0) {
+      return treatmentSuggestions;
+    } else {
+      return treatmentSuggestions.filter((x) => {
+        const treatmentName = x.name;
+
+        if (treatmentName.toLowerCase().slice(0, inputLength) === inputValue) {
+          return (
+            treatmentName.toLowerCase().slice(0, inputLength) === inputValue
+          );
+        } else {
+          return null;
+        }
+      });
+    }
+  };
+
   const getSuggestionValue = (suggestion) => {
     changeClientEmail(suggestion.email);
     changeClientPhoneNumber(suggestion.phoneNumber);
@@ -357,12 +379,16 @@ const AdminCreateAppointment = (props) => {
     changeClientFirstName(newValue);
   };
 
+  const treatmentInputChange = (event, { newValue }) => {
+    changeTreatmentInput(newValue);
+  };
+
   const onSuggestionsFetchRequested = ({ value }) => {
     changeInputSuggestions(getSuggestions(value));
   };
 
   const onTreatmentSuggestionsFetchRequested = ({ value }) => {
-    changeTreatmentInputSuggestions(getSuggestions(value));
+    changeTreatmentInputSuggestions(getTreatmentSuggestions(value));
   };
 
   const onSuggestionsClearRequested = () => {
@@ -377,6 +403,12 @@ const AdminCreateAppointment = (props) => {
     placeholder: "Client first name",
     value: clientFirstName,
     onChange: inputChange,
+  };
+
+  const treatmentInputProps = {
+    placeholder: "Add a Treatment",
+    value: treatmentInput,
+    onChange: treatmentInputChange,
   };
 
   const phoneNumberKeyTyping = (e) => {
@@ -476,6 +508,32 @@ const AdminCreateAppointment = (props) => {
     e.currentTarget.value = currentTyping;
     changeClientPhoneNumber(currentTyping);
   };
+
+  useEffect(() => {
+    const dayPickerClickFunction = (e) => {
+      if (e.target) {
+        if (
+          e.target.placeholder === "Appointment Date" ||
+          e.target.className.split(" ").includes("DayPicker-Day") ||
+          e.target.className.split(" ").includes("DayPicker-NavButton")
+        ) {
+          if (clickOutsideDayPicker) {
+            changeClickOutsideDayPicker(false);
+          }
+        } else {
+          if (!clickOutsideDayPicker) {
+            changeClickOutsideDayPicker(true);
+          }
+        }
+      }
+    };
+
+    window.addEventListener("click", dayPickerClickFunction);
+
+    return () => {
+      window.removeEventListener("click", dayPickerClickFunction);
+    };
+  }, [clickOutsideDayPicker]);
 
   return (
     <Transition
@@ -600,7 +658,9 @@ const AdminCreateAppointment = (props) => {
                 classNames={{
                   container: "react-autosuggest__container",
                   overlay: "",
-                  overlayWrapper: "",
+                  overlayWrapper: clickOutsideDayPicker
+                    ? "react-autosuggest__input_hide"
+                    : "",
                 }}
                 dayPickerProps={{ disabledDays: { before: new Date() } }}
                 inputProps={{
@@ -698,9 +758,14 @@ const AdminCreateAppointment = (props) => {
                 Amount
               </div>
             </div>
-            <div className="admin_create_appointment_input_information_container">
+            <div
+              className="admin_create_appointment_input_information_container"
+              style={{
+                borderLeft: "1px solid rgb(211, 211, 211)",
+              }}
+            >
               <Autosuggest
-                suggestions={inputSuggestions}
+                suggestions={treatmentInputSuggestions}
                 onSuggestionsFetchRequested={
                   onTreatmentSuggestionsFetchRequested
                 }
@@ -709,7 +774,7 @@ const AdminCreateAppointment = (props) => {
                 }
                 getSuggestionValue={getTreatmentSuggestionValue}
                 renderSuggestion={renderTreatmentSuggestion}
-                inputProps={inputProps}
+                inputProps={treatmentInputProps}
               />
             </div>
           </div>

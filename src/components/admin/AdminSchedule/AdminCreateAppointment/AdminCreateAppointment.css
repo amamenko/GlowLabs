@@ -101,6 +101,10 @@
   justify-content: flex-start;
 }
 
+.react-autosuggest__input_hide {
+  display: none;
+}
+
 .Dropdown-arrow {
   top: 50%;
   right: 1.5rem;
@@ -228,7 +232,7 @@
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
   .admin_create_appointment_double_label {
-    width: 46%;
+    width: 62.2%;
   }
 
   .autosuggest_client_profile_picture {
