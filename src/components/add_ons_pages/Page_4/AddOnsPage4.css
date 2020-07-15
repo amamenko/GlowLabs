@@ -46,7 +46,7 @@
 @media only screen and (min-width: 375px) and (min-device-height: 800px) {
   .add_ons_page_4_container {
     row-gap: 4vh;
-    margin-top: 2vh;
+    margin-top: 5vh;
   }
 
   @supports (-webkit-overflow-scrolling: touch) {

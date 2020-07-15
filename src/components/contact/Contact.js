@@ -17,7 +17,7 @@ const Contact = React.forwardRef((props, ref) => {
   const today = new Date().getDay();
 
   const hours_today = () => {
-    if ((today === 6)) {
+    if (today === 6) {
       return <p className="open_status">Closed today</p>;
     } else if (today === 5) {
       return <p className="open_status">Open today until 4:00 PM</p>;
@@ -35,6 +35,7 @@ const Contact = React.forwardRef((props, ref) => {
               position: "relative",
               opacity: 0,
               width_desktop: "0%",
+              width_tablet: "0%",
               width_landscape: "0%",
               width_mobile: "0%",
             }}
@@ -42,6 +43,7 @@ const Contact = React.forwardRef((props, ref) => {
               position: "relative",
               opacity: 1,
               width_desktop: "16%",
+              width_tablet: "27%",
               width_landscape: "18%",
               width_mobile: "30%",
             }}
@@ -65,11 +67,15 @@ const Contact = React.forwardRef((props, ref) => {
                       props.currentScreenSize === ""
                         ? props.initialScreenSize >= 1200
                           ? `${styles.width_desktop}`
+                          : props.initialScreenSize >= 768
+                          ? `${styles.width_tablet}`
                           : props.initialScreenSize >= 600
                           ? `${styles.width_landscape}`
                           : `${styles.width_mobile}`
                         : props.currentScreenSize >= 1200
                         ? `${styles.width_desktop}`
+                        : props.currentScreenSize >= 768
+                        ? `${styles.width_tablet}`
                         : props.currentScreenSize >= 600
                         ? `${styles.width_landscape}`
                         : `${styles.width_mobile}`,

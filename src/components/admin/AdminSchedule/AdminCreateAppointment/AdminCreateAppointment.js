@@ -10,15 +10,24 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import "react-day-picker/lib/style.css";
 import "./AdminCreateAppointment.css";
+import { useSelector } from "react-redux";
 
 const AdminCreateAppointment = (props) => {
   const [inputSuggestions, changeInputSuggestions] = useState([]);
+  const [treatmentInputSuggestions, changeTreatmentInputSuggestions] = useState(
+    []
+  );
+  const [treatmentInput, changeTreatmentInput] = useState("");
   const [clientEmail, changeClientEmail] = useState("");
   const [clientPhoneNumber, changeClientPhoneNumber] = useState("");
   const [clientFirstName, changeClientFirstName] = useState("");
   const [clientLastName, changeClientLastName] = useState("");
   const [selectedStaffMember, changeSelectedStaffMember] = useState("");
   const [appointmentNotes, changeAppointmentNotes] = useState("");
+
+  const logoutClicked = useSelector(
+    (state) => state.logoutClicked.log_out_clicked
+  );
 
   const timeOptions = () => {
     const minutesArr = ["00", "15", "30", "45"];
@@ -122,6 +131,144 @@ const AdminCreateAppointment = (props) => {
       : null
     : null;
 
+  const treatmentSuggestions = [
+    {
+      name: "Not Sure",
+      duration: 50,
+      price: 150,
+    },
+    {
+      name: "Beard Deep Cleanse Add On",
+      duration: 15,
+      price: 30,
+    },
+    {
+      name: "Extra Massage Time Add On",
+      duration: 10,
+      price: 10,
+    },
+    {
+      name: "Calm",
+      duration: 50,
+      price: 105,
+    },
+    {
+      name: "Clarify",
+      duration: 50,
+      price: 105,
+    },
+    {
+      name: "Bacial",
+      duration: 50,
+      price: 120,
+    },
+    {
+      name: "Glow",
+      duration: 50,
+      price: 105,
+    },
+    {
+      name: "Rejuvenate",
+      duration: 50,
+      price: 105,
+    },
+    {
+      name: "Quench",
+      duration: 50,
+      price: 105,
+    },
+    {
+      name: "Quickie",
+      duration: 30,
+      price: 70,
+    },
+    {
+      name: "Chemical Peel",
+      duration: 30,
+      price: 150,
+    },
+    {
+      name: "Dermaplaning Facial",
+      duration: 75,
+      price: 150,
+    },
+    {
+      name: "Organic CBD Facial",
+      duration: 60,
+      price: 120,
+    },
+    {
+      name: "Dermarolling Add On",
+      duration: 10,
+      price: 15,
+    },
+    {
+      name: "Extra Extractions Add On",
+      duration: 10,
+      price: 10,
+    },
+    {
+      name: "Extra Massage Time Add On",
+      duration: 10,
+      price: 10,
+    },
+    {
+      name: "Gua Sha Add On",
+      duration: 15,
+      price: 30,
+    },
+    {
+      name: "Hydro-Jelly Mask Add On",
+      duration: 10,
+      price: 15,
+    },
+    {
+      name: "Hydrodermabrasion Add On",
+      duration: 30,
+      price: 50,
+    },
+    {
+      name: "LED Therapy Add On",
+      duration: 10,
+      price: 15,
+    },
+    {
+      name: "Microcurrent Add On",
+      duration: 10,
+      price: 15,
+    },
+    {
+      name: "Microdermabrasion Add On",
+      duration: 15,
+      price: 20,
+    },
+    {
+      name: "Nanoneedling Infusion Add On",
+      duration: 10,
+      price: 20,
+    },
+    {
+      name: "Microneedling Infusion Facial",
+      duration: 50,
+      price: 200,
+    },
+    {
+      name: "Salt Cave Halotherapy 30 Minutes",
+      duration: 30,
+      price: 30,
+    },
+    {
+      name: "Salt Cave Halotherapy 45 Minutes",
+      duration: 45,
+      price: 45,
+    },
+    {
+      name: "Salt Cave Halotherapy 60 Minutes",
+      duration: 60,
+      price: 60,
+    },
+  ];
+
   const getSuggestions = (value) => {
     const inputValue = value ? value.trim().toLowerCase() : "";
     const inputLength = inputValue.length;
@@ -176,6 +323,12 @@ const AdminCreateAppointment = (props) => {
     );
   };
 
+  const getTreatmentSuggestionValue = (suggestion) => {
+    changeTreatmentInputSuggestions(...treatmentSuggestions, suggestion);
+
+    return suggestion.name;
+  };
+
   const renderSuggestion = (suggestion) => (
     <div className="admin_individual_client_suggestion_container">
       {suggestion.profilePicture}
@@ -192,6 +345,14 @@ const AdminCreateAppointment = (props) => {
     </div>
   );
 
+  const renderTreatmentSuggestion = (suggestion) => (
+    <div className="admin_individual_client_suggestion_container">
+      <p>{suggestion.name}</p>
+      <p>{suggestion.duration}</p>
+      <p>{suggestion.price}</p>
+    </div>
+  );
+
   const inputChange = (event, { newValue }) => {
     changeClientFirstName(newValue);
   };
@@ -200,8 +361,16 @@ const AdminCreateAppointment = (props) => {
     changeInputSuggestions(getSuggestions(value));
   };
 
+  const onTreatmentSuggestionsFetchRequested = ({ value }) => {
+    changeTreatmentInputSuggestions(getSuggestions(value));
+  };
+
   const onSuggestionsClearRequested = () => {
     changeInputSuggestions([]);
+  };
+
+  const onTreatmentSuggestionsClearRequested = () => {
+    changeTreatmentInputSuggestions([]);
   };
 
   const inputProps = {
@@ -321,7 +490,7 @@ const AdminCreateAppointment = (props) => {
         ((styleprops) => (
           <div
             className="admin_create_appointment_container"
-            style={styleprops}
+            style={{ ...styleprops, zIndex: logoutClicked ? 0 : 5 }}
           >
             <div
               className="admin_individual_selected_client_back_container"
@@ -515,6 +684,33 @@ const AdminCreateAppointment = (props) => {
                   onChange={(e) => changeAppointmentNotes(e.target.value)}
                 />
               </div>
+            </div>
+
+            <div className="admin_create_appointment_service_label_container">
+              <div className="admin_create_appointment_label">Services</div>
+              <div className="admin_create_appointment_label">Duration</div>
+              <div
+                className="admin_create_appointment_label"
+                style={{
+                  borderRight: "1px solid rgb(211, 211, 211)",
+                }}
+              >
+                Amount
+              </div>
+            </div>
+            <div className="admin_create_appointment_input_information_container">
+              <Autosuggest
+                suggestions={inputSuggestions}
+                onSuggestionsFetchRequested={
+                  onTreatmentSuggestionsFetchRequested
+                }
+                onSuggestionsClearRequested={
+                  onTreatmentSuggestionsClearRequested
+                }
+                getSuggestionValue={getTreatmentSuggestionValue}
+                renderSuggestion={renderTreatmentSuggestion}
+                inputProps={inputProps}
+              />
             </div>
           </div>
         ))

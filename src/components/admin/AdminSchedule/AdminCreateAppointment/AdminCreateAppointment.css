@@ -9,6 +9,20 @@
   height: 5%;
 }
 
+.admin_create_appointment_service_label_container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 5%;
+}
+
+.admin_create_appointment_service_label_container div {
+  flex: 1;
+}
+
 .admin_create_appointent_dropdown_placeholder_no_time {
   color: rgb(165, 165, 165);
 }

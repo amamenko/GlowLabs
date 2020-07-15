@@ -532,6 +532,8 @@ const App = () => {
             : initialScreenSize >= 600
             ? previousScrollPosition < 450
               ? Treatments1Ref.current.offsetTop
+              : initialScreenSize >= 768
+              ? Treatments1Ref.current.offsetTop - 80
               : Treatments1Ref.current.offsetTop - 40
             : previousScrollPosition < 650
             ? Treatments1Ref.current.offsetTop - 10
@@ -543,6 +545,8 @@ const App = () => {
           : currentScreenSize >= 600
           ? previousScrollPosition < 450
             ? Treatments1Ref.current.offsetTop
+            : currentScreenSize >= 768
+            ? Treatments1Ref.current.offsetTop - 80
             : Treatments1Ref.current.offsetTop - 40
           : previousScrollPosition < 650
           ? Treatments1Ref.current.offsetTop - 10
@@ -599,7 +603,11 @@ const App = () => {
             ? InstagramRef.current.offsetTop - 250
             : initialScreenSize >= 600
             ? previousScrollPosition < 3700
-              ? InstagramRef.current.offsetTop - 150
+              ? initialScreenSize >= 768
+                ? InstagramRef.current.offsetTop - 295
+                : InstagramRef.current.offsetTop - 150
+              : initialScreenSize >= 768
+              ? InstagramRef.current.offsetTop - 360
               : InstagramRef.current.offsetTop - 220
             : previousScrollPosition < 6400
             ? InstagramRef.current.offsetTop - 290
@@ -610,7 +618,11 @@ const App = () => {
           ? InstagramRef.current.offsetTop - 250
           : currentScreenSize >= 600
           ? previousScrollPosition < 3700
-            ? InstagramRef.current.offsetTop - 150
+            ? currentScreenSize >= 768
+              ? InstagramRef.current.offsetTop - 295
+              : InstagramRef.current.offsetTop - 150
+            : currentScreenSize >= 768
+            ? InstagramRef.current.offsetTop - 360
             : InstagramRef.current.offsetTop - 220
           : previousScrollPosition < 6400
           ? InstagramRef.current.offsetTop - 290

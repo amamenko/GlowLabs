@@ -838,6 +838,10 @@
     height: 100%;
   }
 
+  .sign_up_page_form.facebook_phone_number_form {
+    margin-bottom: -2vh;
+  }
+
   /* Safari Only */
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {

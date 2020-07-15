@@ -20,9 +20,7 @@
     align-items: center;
     justify-content: center;
     background: rgb(154, 154, 162);
-
-    /* Absolute used in lieu of "fixed" to remain on same stacking index as landing page SVGs  */
-    position: absolute;
+    position: fixed;
     overflow: hidden;
   }
 
@@ -1213,7 +1211,7 @@
   }
 
   .call_to_action_button {
-    margin-top: 0rem;
+    margin-top: -2rem;
   }
 
   .potted_plant {

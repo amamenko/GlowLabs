@@ -283,7 +283,7 @@
   }
 
   .admin_create_appointment_container {
-    height: 100vh;
+    height: 100%;
     width: 66%;
     top: 18vh;
     left: 27vw;
