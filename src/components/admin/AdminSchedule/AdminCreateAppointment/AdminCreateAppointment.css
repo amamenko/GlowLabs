@@ -99,6 +99,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  cursor: pointer;
 }
 
 .react-autosuggest__input_hide {
@@ -165,6 +166,13 @@
 
 .admin_individual_client_suggestion_container {
   display: flex;
+  flex-direction: row;
+}
+
+.admin_individual_client_treatment_suggestion_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: row;
 }
 

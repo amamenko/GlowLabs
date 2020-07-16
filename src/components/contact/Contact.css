@@ -360,13 +360,110 @@
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
   .contact_page_container {
-    height: 140vh;
+    height: 110vh;
   }
 
   .contacts_page_wrapping h2 {
     font-size: 2.5rem;
     line-height: 2.5rem;
     margin-top: 0rem;
+  }
+
+  .contacts_map_container {
+    width: 100vw;
+    height: 30vh;
+    overflow-x: hidden;
+    margin-left: 0rem;
+  }
+
+  .contacts_content_flex_wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0vh;
+  }
+
+  .contact_written_content_flex_container {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contacts_text_container {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contacts_text_container h3 {
+    color: rgb(44, 44, 52);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact_written_content_flex_container {
+    width: 100%;
+    margin-left: 5vw;
+    margin-top: 2vh;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contacts_text_container {
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 1.5rem;
+    line-height: 3.4rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .day_and_time_container {
+    margin-top: 0vh;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .open_status_flex_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 0vw;
+    margin-right: 3.1rem;
+    margin-top: 1rem;
+  }
+
+  .open_status_flex_container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2vh;
+    align-self: flex-start;
+    color: rgb(0, 129, 177);
+    -webkit-text-fill-color: rgb(0, 129, 177);
+    padding-bottom: 0;
+  }
+
+  .open_status {
+    font-size: 1.5rem;
+    font-weight: 700;
   }
 }
 

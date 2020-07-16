@@ -18,6 +18,7 @@ const AdminCreateAppointment = (props) => {
     []
   );
   const [treatmentInput, changeTreatmentInput] = useState("");
+  const [selectedTreatments, changeSelectedTreatments] = useState([]);
   const [clientEmail, changeClientEmail] = useState("");
   const [clientPhoneNumber, changeClientPhoneNumber] = useState("");
   const [clientFirstName, changeClientFirstName] = useState("");
@@ -346,7 +347,7 @@ const AdminCreateAppointment = (props) => {
   };
 
   const getTreatmentSuggestionValue = (suggestion) => {
-    changeTreatmentInputSuggestions(...treatmentSuggestions, suggestion);
+    changeSelectedTreatments([...selectedTreatments, suggestion]);
 
     return suggestion.name;
   };
@@ -368,10 +369,9 @@ const AdminCreateAppointment = (props) => {
   );
 
   const renderTreatmentSuggestion = (suggestion) => (
-    <div className="admin_individual_client_suggestion_container">
+    <div className="admin_individual_client_treatment_suggestion_container">
       <p>{suggestion.name}</p>
-      <p>{suggestion.duration}</p>
-      <p>{suggestion.price}</p>
+      <p>${suggestion.price}.00</p>
     </div>
   );
 
@@ -745,7 +745,6 @@ const AdminCreateAppointment = (props) => {
                 />
               </div>
             </div>
-
             <div className="admin_create_appointment_service_label_container">
               <div className="admin_create_appointment_label">Services</div>
               <div className="admin_create_appointment_label">Duration</div>
@@ -758,24 +757,150 @@ const AdminCreateAppointment = (props) => {
                 Amount
               </div>
             </div>
+            {selectedTreatments.length < 1
+              ? null
+              : selectedTreatments.map((item, i) => {
+                  return (
+                    <div
+                      className="admin_create_appointment_input_information_container"
+                      key={i}
+                      style={{
+                        borderLeft: "1px solid rgb(211, 211, 211)",
+                      }}
+                    >
+                      <div
+                        role="combobox"
+                        aria-haspopup="listbox"
+                        aria-owns="react-autowhatever-1"
+                        aria-controls="react-autowhatever-1"
+                        aria-expanded="false"
+                        className="react-autosuggest__container"
+                      >
+                        <input
+                          type="text"
+                          disabled
+                          autoComplete="off"
+                          aria-autocomplete="list"
+                          aria-controls="react-autowhatever-1"
+                          className="react-autosuggest__input"
+                          defaultValue={
+                            selectedTreatments.length < 1
+                              ? ""
+                              : selectedTreatments[i].name
+                          }
+                        />
+                      </div>
+
+                      <div
+                        role="combobox"
+                        aria-haspopup="listbox"
+                        aria-owns="react-autowhatever-1"
+                        aria-controls="react-autowhatever-1"
+                        aria-expanded="false"
+                        className="react-autosuggest__container"
+                      >
+                        <input
+                          type="text"
+                          disabled
+                          autoComplete="off"
+                          aria-autocomplete="list"
+                          aria-controls="react-autowhatever-1"
+                          className="react-autosuggest__input"
+                          defaultValue={
+                            selectedTreatments.length < 1
+                              ? ""
+                              : selectedTreatments[i].duration + " minutes"
+                          }
+                        />
+                      </div>
+                      <div
+                        role="combobox"
+                        aria-haspopup="listbox"
+                        aria-owns="react-autowhatever-1"
+                        aria-controls="react-autowhatever-1"
+                        aria-expanded="false"
+                        className="react-autosuggest__container"
+                      >
+                        <input
+                          type="text"
+                          disabled
+                          autoComplete="off"
+                          aria-autocomplete="list"
+                          aria-controls="react-autowhatever-1"
+                          className="react-autosuggest__input"
+                          defaultValue={
+                            selectedTreatments.length < 1
+                              ? ""
+                              : "$" + selectedTreatments[i].price + ".00"
+                          }
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
             <div
               className="admin_create_appointment_input_information_container"
               style={{
                 borderLeft: "1px solid rgb(211, 211, 211)",
               }}
             >
-              <Autosuggest
-                suggestions={treatmentInputSuggestions}
-                onSuggestionsFetchRequested={
-                  onTreatmentSuggestionsFetchRequested
-                }
-                onSuggestionsClearRequested={
-                  onTreatmentSuggestionsClearRequested
-                }
-                getSuggestionValue={getTreatmentSuggestionValue}
-                renderSuggestion={renderTreatmentSuggestion}
-                inputProps={treatmentInputProps}
-              />
+              <div
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-owns="react-autowhatever-1"
+                aria-controls="react-autowhatever-1"
+                aria-expanded="false"
+                className="react-autosuggest__container"
+              >
+                <Autosuggest
+                  suggestions={treatmentInputSuggestions}
+                  onSuggestionsFetchRequested={
+                    onTreatmentSuggestionsFetchRequested
+                  }
+                  onSuggestionsClearRequested={
+                    onTreatmentSuggestionsClearRequested
+                  }
+                  getSuggestionValue={getTreatmentSuggestionValue}
+                  renderSuggestion={renderTreatmentSuggestion}
+                  inputProps={treatmentInputProps}
+                  shouldRenderSuggestions={() => {
+                    return true;
+                  }}
+                />
+              </div>
+
+              <div
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-owns="react-autowhatever-1"
+                aria-controls="react-autowhatever-1"
+                aria-expanded="false"
+                className="react-autosuggest__container"
+              >
+                <input
+                  type="text"
+                  autoComplete="off"
+                  aria-autocomplete="list"
+                  aria-controls="react-autowhatever-1"
+                  className="react-autosuggest__input"
+                />
+              </div>
+              <div
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-owns="react-autowhatever-1"
+                aria-controls="react-autowhatever-1"
+                aria-expanded="false"
+                className="react-autosuggest__container"
+              >
+                <input
+                  type="text"
+                  autoComplete="off"
+                  aria-autocomplete="list"
+                  aria-controls="react-autowhatever-1"
+                  className="react-autosuggest__input"
+                />
+              </div>
             </div>
           </div>
         ))

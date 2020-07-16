@@ -28,6 +28,7 @@ import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import "./AdminSchedule.css";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useSelector } from "react-redux";
 
 const AdminCalendarComponent = (props) => {
   const selectedAppointmentBackRef = useRef(null);
@@ -36,6 +37,9 @@ const AdminCalendarComponent = (props) => {
   const [allAdminAppointments, changeAllAdminAppointments] = useState([]);
   const [currentToggledAppointment, changeCurrentToggledAppointment] = useState(
     ""
+  );
+  const logoutClicked = useSelector(
+    (state) => state.logoutClicked.log_out_clicked
   );
 
   const localizer = momentLocalizer(moment);
@@ -266,7 +270,10 @@ const AdminCalendarComponent = (props) => {
   };
 
   return (
-    <div className="admin_schedule_calendar_main_container">
+    <div
+      className="admin_schedule_calendar_main_container"
+      style={{ zIndex: logoutClicked ? -1 : "auto" }}
+    >
       <Calendar
         events={events()}
         startAccessor="start"

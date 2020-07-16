@@ -275,6 +275,24 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .footer_container {
+    height: 20vh;
+    padding-bottom: 25vh;
+  }
+
+  .footer_logo_svg {
+    transform: scale(1.5);
+    top: 15vh;
+  }
+
+  .footer_icon {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .footer_container {
