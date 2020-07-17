@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Transition } from "react-spring/renderprops";
-import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import { faLongArrowAltLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LZString from "lz-string";
 import Autosuggest from "react-autosuggest";
@@ -346,12 +346,6 @@ const AdminCreateAppointment = (props) => {
     );
   };
 
-  const getTreatmentSuggestionValue = (suggestion) => {
-    changeSelectedTreatments([...selectedTreatments, suggestion]);
-
-    return suggestion.name;
-  };
-
   const renderSuggestion = (suggestion) => (
     <div className="admin_individual_client_suggestion_container">
       {suggestion.profilePicture}
@@ -409,6 +403,13 @@ const AdminCreateAppointment = (props) => {
     placeholder: "Add a Treatment",
     value: treatmentInput,
     onChange: treatmentInputChange,
+    style: { borderRight: "1px solid transparent" },
+  };
+
+  const getTreatmentSuggestionValue = (suggestion) => {
+    changeSelectedTreatments([...selectedTreatments, suggestion]);
+
+    return "";
   };
 
   const phoneNumberKeyTyping = (e) => {
@@ -512,13 +513,30 @@ const AdminCreateAppointment = (props) => {
   useEffect(() => {
     const dayPickerClickFunction = (e) => {
       if (e.target) {
-        if (
-          e.target.placeholder === "Appointment Date" ||
-          e.target.className.split(" ").includes("DayPicker-Day") ||
-          e.target.className.split(" ").includes("DayPicker-NavButton")
-        ) {
+        if (e.target.placeholder === "Appointment Date") {
           if (clickOutsideDayPicker) {
             changeClickOutsideDayPicker(false);
+          }
+        } else if (e.target.getAttribute("class")) {
+          if (typeof (e.target.className === "string")) {
+            if (!e.target.className.baseVal) {
+              if (
+                e.target.className.split(" ").includes("DayPicker-Day") ||
+                e.target.className.split(" ").includes("DayPicker-NavButton")
+              ) {
+                if (clickOutsideDayPicker) {
+                  changeClickOutsideDayPicker(false);
+                }
+              }
+            } else {
+              if (!clickOutsideDayPicker) {
+                changeClickOutsideDayPicker(true);
+              }
+            }
+          } else {
+            if (!clickOutsideDayPicker) {
+              changeClickOutsideDayPicker(true);
+            }
           }
         } else {
           if (!clickOutsideDayPicker) {
@@ -534,6 +552,116 @@ const AdminCreateAppointment = (props) => {
       window.removeEventListener("click", dayPickerClickFunction);
     };
   }, [clickOutsideDayPicker]);
+
+  const renderSelectedTreatments = () => {
+    if (selectedTreatments.length < 1) {
+      return null;
+    } else {
+      return selectedTreatments.map((item, i) => {
+        return (
+          <div
+            className="admin_create_appointment_input_information_container"
+            key={i}
+            style={{
+              borderLeft: "1px solid rgb(211, 211, 211)",
+            }}
+          >
+            <div
+              role="combobox"
+              aria-haspopup="listbox"
+              aria-owns="react-autowhatever-1"
+              aria-controls="react-autowhatever-1"
+              aria-expanded="false"
+              className="react-autosuggest__container"
+            >
+              <input
+                type="text"
+                disabled
+                autoComplete="off"
+                aria-autocomplete="list"
+                aria-controls="react-autowhatever-1"
+                className="react-autosuggest__input"
+                value={selectedTreatments.length < 1 ? "" : item.name}
+                onChange={(e) => e.preventDefault()}
+                style={{
+                  borderLeft: "1px solid transparent",
+                  borderRight: "1px solid transparent",
+                  color: "#000",
+                }}
+              />
+            </div>
+            <div
+              role="combobox"
+              aria-haspopup="listbox"
+              aria-owns="react-autowhatever-1"
+              aria-controls="react-autowhatever-1"
+              aria-expanded="false"
+              className="react-autosuggest__container"
+            >
+              <input
+                type="text"
+                disabled
+                autoComplete="off"
+                aria-autocomplete="list"
+                aria-controls="react-autowhatever-1"
+                className="react-autosuggest__input"
+                value={
+                  selectedTreatments.length < 1
+                    ? ""
+                    : item.duration + " minutes"
+                }
+                onChange={(e) => e.preventDefault()}
+                style={{
+                  borderLeft: "1px solid transparent",
+                  borderRight: "1px solid transparent",
+                  color: "#000",
+                }}
+              />
+            </div>
+            <div
+              role="combobox"
+              aria-haspopup="listbox"
+              aria-owns="react-autowhatever-1"
+              aria-controls="react-autowhatever-1"
+              aria-expanded="false"
+              className="react-autosuggest__container"
+            >
+              <input
+                type="text"
+                disabled
+                autoComplete="off"
+                aria-autocomplete="list"
+                aria-controls="react-autowhatever-1"
+                className="react-autosuggest__input"
+                value={
+                  selectedTreatments.length < 1 ? "" : "$" + item.price + ".00"
+                }
+                onChange={(e) => e.preventDefault()}
+                style={{
+                  borderLeft: "1px solid transparent",
+                  color: "#000",
+                }}
+              />
+            </div>{" "}
+            <FontAwesomeIcon
+              icon={faTimes}
+              onClick={() => {
+                const treatmentNames = selectedTreatments.map((x) => x.name);
+
+                const treatmentsArr = selectedTreatments.slice();
+
+                treatmentsArr.splice(treatmentNames.indexOf(item.name), 1);
+
+                console.log(treatmentsArr);
+                changeSelectedTreatments(treatmentsArr);
+              }}
+              className="admin_create_appointment_treatment_delete_button"
+            />
+          </div>
+        );
+      });
+    }
+  };
 
   return (
     <Transition
@@ -757,87 +885,7 @@ const AdminCreateAppointment = (props) => {
                 Amount
               </div>
             </div>
-            {selectedTreatments.length < 1
-              ? null
-              : selectedTreatments.map((item, i) => {
-                  return (
-                    <div
-                      className="admin_create_appointment_input_information_container"
-                      key={i}
-                      style={{
-                        borderLeft: "1px solid rgb(211, 211, 211)",
-                      }}
-                    >
-                      <div
-                        role="combobox"
-                        aria-haspopup="listbox"
-                        aria-owns="react-autowhatever-1"
-                        aria-controls="react-autowhatever-1"
-                        aria-expanded="false"
-                        className="react-autosuggest__container"
-                      >
-                        <input
-                          type="text"
-                          disabled
-                          autoComplete="off"
-                          aria-autocomplete="list"
-                          aria-controls="react-autowhatever-1"
-                          className="react-autosuggest__input"
-                          defaultValue={
-                            selectedTreatments.length < 1
-                              ? ""
-                              : selectedTreatments[i].name
-                          }
-                        />
-                      </div>
-
-                      <div
-                        role="combobox"
-                        aria-haspopup="listbox"
-                        aria-owns="react-autowhatever-1"
-                        aria-controls="react-autowhatever-1"
-                        aria-expanded="false"
-                        className="react-autosuggest__container"
-                      >
-                        <input
-                          type="text"
-                          disabled
-                          autoComplete="off"
-                          aria-autocomplete="list"
-                          aria-controls="react-autowhatever-1"
-                          className="react-autosuggest__input"
-                          defaultValue={
-                            selectedTreatments.length < 1
-                              ? ""
-                              : selectedTreatments[i].duration + " minutes"
-                          }
-                        />
-                      </div>
-                      <div
-                        role="combobox"
-                        aria-haspopup="listbox"
-                        aria-owns="react-autowhatever-1"
-                        aria-controls="react-autowhatever-1"
-                        aria-expanded="false"
-                        className="react-autosuggest__container"
-                      >
-                        <input
-                          type="text"
-                          disabled
-                          autoComplete="off"
-                          aria-autocomplete="list"
-                          aria-controls="react-autowhatever-1"
-                          className="react-autosuggest__input"
-                          defaultValue={
-                            selectedTreatments.length < 1
-                              ? ""
-                              : "$" + selectedTreatments[i].price + ".00"
-                          }
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
+            {renderSelectedTreatments()}
             <div
               className="admin_create_appointment_input_information_container"
               style={{
@@ -863,9 +911,7 @@ const AdminCreateAppointment = (props) => {
                   getSuggestionValue={getTreatmentSuggestionValue}
                   renderSuggestion={renderTreatmentSuggestion}
                   inputProps={treatmentInputProps}
-                  shouldRenderSuggestions={() => {
-                    return true;
-                  }}
+                  shouldRenderSuggestions={() => true}
                 />
               </div>
 
@@ -879,10 +925,15 @@ const AdminCreateAppointment = (props) => {
               >
                 <input
                   type="text"
+                  disabled
                   autoComplete="off"
                   aria-autocomplete="list"
                   aria-controls="react-autowhatever-1"
                   className="react-autosuggest__input"
+                  style={{
+                    borderLeft: "1px solid transparent",
+                    borderRight: "1px solid transparent",
+                  }}
                 />
               </div>
               <div
@@ -895,10 +946,14 @@ const AdminCreateAppointment = (props) => {
               >
                 <input
                   type="text"
+                  disabled
                   autoComplete="off"
                   aria-autocomplete="list"
                   aria-controls="react-autowhatever-1"
                   className="react-autosuggest__input"
+                  style={{
+                    borderLeft: "1px solid transparent",
+                  }}
                 />
               </div>
             </div>

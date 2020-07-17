@@ -7,6 +7,20 @@
   align-items: center;
   width: 100%;
   height: 5%;
+  position: relative;
+}
+
+.admin_create_appointment_treatment_delete_button {
+  position: absolute;
+  right: -2%;
+  font-size: 1.5rem;
+  color: rgb(211, 211, 211);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.admin_create_appointment_treatment_delete_button:hover {
+  color: red;
 }
 
 .admin_create_appointment_service_label_container {
