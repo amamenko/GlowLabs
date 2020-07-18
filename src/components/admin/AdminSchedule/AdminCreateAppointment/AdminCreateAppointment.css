@@ -33,6 +33,12 @@
   height: 5%;
 }
 
+.admin_create_appointment_service_label_container
+  .admin_create_appointment_total_label {
+  font-size: 1.5rem;
+  background: rgb(255, 255, 255);
+}
+
 .admin_create_appointment_service_label_container div {
   flex: 1;
 }
@@ -114,6 +120,10 @@
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
+}
+
+.react-autosuggest__input:disabled {
+  background-color: rgb(255, 255, 255);
 }
 
 .react-autosuggest__input_hide {
@@ -228,6 +238,24 @@
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
+}
+
+.admin_individual_client_treatment_suggestion_picture {
+  display: flex;
+  height: 10%;
+  width: 10%;
+}
+
+.admin_individual_client_treatment_suggestion_picture svg {
+  transform: scale(1);
+}
+
+.quickie_icon_path {
+  transform: scale(0.5);
+}
+
+.hydrodermabrasion_icon_path {
+  transform: scale(0.7);
 }
 
 /* CSS for Big Desktops */

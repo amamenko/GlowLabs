@@ -11,6 +11,7 @@ import "react-dropdown/style.css";
 import "react-day-picker/lib/style.css";
 import "./AdminCreateAppointment.css";
 import { useSelector } from "react-redux";
+import treatmentSuggestions from "./TreatmentSuggestions";
 
 const AdminCreateAppointment = (props) => {
   const [inputSuggestions, changeInputSuggestions] = useState([]);
@@ -133,144 +134,6 @@ const AdminCreateAppointment = (props) => {
       : null
     : null;
 
-  const treatmentSuggestions = [
-    {
-      name: "Not Sure",
-      duration: 50,
-      price: 150,
-    },
-    {
-      name: "Beard Deep Cleanse Add On",
-      duration: 15,
-      price: 30,
-    },
-    {
-      name: "Extra Massage Time Add On",
-      duration: 10,
-      price: 10,
-    },
-    {
-      name: "Calm",
-      duration: 50,
-      price: 105,
-    },
-    {
-      name: "Clarify",
-      duration: 50,
-      price: 105,
-    },
-    {
-      name: "Bacial",
-      duration: 50,
-      price: 120,
-    },
-    {
-      name: "Glow",
-      duration: 50,
-      price: 105,
-    },
-    {
-      name: "Rejuvenate",
-      duration: 50,
-      price: 105,
-    },
-    {
-      name: "Quench",
-      duration: 50,
-      price: 105,
-    },
-    {
-      name: "Quickie",
-      duration: 30,
-      price: 70,
-    },
-    {
-      name: "Chemical Peel",
-      duration: 30,
-      price: 150,
-    },
-    {
-      name: "Dermaplaning Facial",
-      duration: 75,
-      price: 150,
-    },
-    {
-      name: "Organic CBD Facial",
-      duration: 60,
-      price: 120,
-    },
-    {
-      name: "Dermarolling Add On",
-      duration: 10,
-      price: 15,
-    },
-    {
-      name: "Extra Extractions Add On",
-      duration: 10,
-      price: 10,
-    },
-    {
-      name: "Extra Massage Time Add On",
-      duration: 10,
-      price: 10,
-    },
-    {
-      name: "Gua Sha Add On",
-      duration: 15,
-      price: 30,
-    },
-    {
-      name: "Hydro-Jelly Mask Add On",
-      duration: 10,
-      price: 15,
-    },
-    {
-      name: "Hydrodermabrasion Add On",
-      duration: 30,
-      price: 50,
-    },
-    {
-      name: "LED Therapy Add On",
-      duration: 10,
-      price: 15,
-    },
-    {
-      name: "Microcurrent Add On",
-      duration: 10,
-      price: 15,
-    },
-    {
-      name: "Microdermabrasion Add On",
-      duration: 15,
-      price: 20,
-    },
-    {
-      name: "Nanoneedling Infusion Add On",
-      duration: 10,
-      price: 20,
-    },
-    {
-      name: "Microneedling Infusion Facial",
-      duration: 50,
-      price: 200,
-    },
-    {
-      name: "Salt Cave Halotherapy 30 Minutes",
-      duration: 30,
-      price: 30,
-    },
-    {
-      name: "Salt Cave Halotherapy 45 Minutes",
-      duration: 45,
-      price: 45,
-    },
-    {
-      name: "Salt Cave Halotherapy 60 Minutes",
-      duration: 60,
-      price: 60,
-    },
-  ];
-
   const getSuggestions = (value) => {
     const inputValue = value ? value.trim().toLowerCase() : "";
     const inputLength = inputValue.length;
@@ -312,19 +175,23 @@ const AdminCreateAppointment = (props) => {
     const inputLength = inputValue.length;
 
     if (inputLength === 0) {
-      return treatmentSuggestions;
+      return treatmentSuggestions.sort((a, b) => a.name.localeCompare(b.name));
     } else {
-      return treatmentSuggestions.filter((x) => {
-        const treatmentName = x.name;
+      return treatmentSuggestions
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .filter((x) => {
+          const treatmentName = x.name;
 
-        if (treatmentName.toLowerCase().slice(0, inputLength) === inputValue) {
-          return (
+          if (
             treatmentName.toLowerCase().slice(0, inputLength) === inputValue
-          );
-        } else {
-          return null;
-        }
-      });
+          ) {
+            return (
+              treatmentName.toLowerCase().slice(0, inputLength) === inputValue
+            );
+          } else {
+            return null;
+          }
+        });
     }
   };
 
@@ -364,6 +231,12 @@ const AdminCreateAppointment = (props) => {
 
   const renderTreatmentSuggestion = (suggestion) => (
     <div className="admin_individual_client_treatment_suggestion_container">
+      {suggestion.picture ? (
+        <div className="admin_individual_client_treatment_suggestion_picture">
+          {suggestion.picture}
+        </div>
+      ) : null}
+
       <p>{suggestion.name}</p>
       <p>${suggestion.price}.00</p>
     </div>
@@ -526,6 +399,10 @@ const AdminCreateAppointment = (props) => {
               ) {
                 if (clickOutsideDayPicker) {
                   changeClickOutsideDayPicker(false);
+                }
+              } else {
+                if (!clickOutsideDayPicker) {
+                  changeClickOutsideDayPicker(true);
                 }
               }
             } else {
@@ -912,6 +789,7 @@ const AdminCreateAppointment = (props) => {
                   renderSuggestion={renderTreatmentSuggestion}
                   inputProps={treatmentInputProps}
                   shouldRenderSuggestions={() => true}
+                  focusInputOnSuggestionClick={false}
                 />
               </div>
 
@@ -955,6 +833,35 @@ const AdminCreateAppointment = (props) => {
                     borderLeft: "1px solid transparent",
                   }}
                 />
+              </div>
+            </div>
+            <div
+              className="admin_create_appointment_service_label_container"
+              style={{ marginTop: "0rem" }}
+            >
+              <div className="admin_create_appointment_label"></div>
+              <div
+                className="admin_create_appointment_label admin_create_appointment_total_label"
+                style={{
+                  borderLeft: "1px solid transparent",
+                }}
+              >
+                Total
+              </div>
+              <div
+                className="admin_create_appointment_label admin_create_appointment_total_label"
+                style={{
+                  borderLeft: "1px solid transparent",
+                  borderRight: "1px solid rgb(211, 211, 211)",
+                }}
+              >
+                {selectedTreatments.length < 1
+                  ? "$0.00"
+                  : "$" +
+                    selectedTreatments
+                      .map((x) => x.price)
+                      .reduce((a, b) => a + b, 0) +
+                    ".00"}
               </div>
             </div>
           </div>
