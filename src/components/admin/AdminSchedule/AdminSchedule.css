@@ -283,12 +283,12 @@
   }
 
   .admin_create_appointment_container {
-    height: 100%;
+    height: 100vh;
     width: 66%;
     top: 18vh;
     left: 27vw;
     background: rgb(255, 255, 255);
-    position: fixed;
+    position: absolute;
     z-index: 5;
   }
 }

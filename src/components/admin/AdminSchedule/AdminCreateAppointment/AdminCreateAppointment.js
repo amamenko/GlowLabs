@@ -175,23 +175,42 @@ const AdminCreateAppointment = (props) => {
     const inputLength = inputValue.length;
 
     if (inputLength === 0) {
-      return treatmentSuggestions.sort((a, b) => a.name.localeCompare(b.name));
-    } else {
-      return treatmentSuggestions
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .filter((x) => {
-          const treatmentName = x.name;
+      const sortedArr = [];
 
-          if (
-            treatmentName.toLowerCase().slice(0, inputLength) === inputValue
-          ) {
-            return (
-              treatmentName.toLowerCase().slice(0, inputLength) === inputValue
-            );
-          } else {
-            return null;
-          }
+      for (let i = 0; i < treatmentSuggestions.length; i++) {
+        sortedArr.push({
+          sectionTitle: treatmentSuggestions[i].sectionTitle,
+          suggestions: treatmentSuggestions[i].suggestions.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
         });
+      }
+      return sortedArr;
+    } else {
+      const sortedArr = [];
+
+      for (let i = 0; i < treatmentSuggestions.length; i++) {
+        sortedArr.push({
+          sectionTitle: treatmentSuggestions[i].sectionTitle,
+          suggestions: treatmentSuggestions[i].suggestions
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .filter((x) => {
+              const treatmentName = x.name;
+
+              if (
+                treatmentName.toLowerCase().slice(0, inputLength) === inputValue
+              ) {
+                return (
+                  treatmentName.toLowerCase().slice(0, inputLength) ===
+                  inputValue
+                );
+              } else {
+                return null;
+              }
+            }),
+        });
+        return sortedArr;
+      }
     }
   };
 
@@ -229,18 +248,20 @@ const AdminCreateAppointment = (props) => {
     </div>
   );
 
-  const renderTreatmentSuggestion = (suggestion) => (
-    <div className="admin_individual_client_treatment_suggestion_container">
-      {suggestion.picture ? (
-        <div className="admin_individual_client_treatment_suggestion_picture">
-          {suggestion.picture}
-        </div>
-      ) : null}
+  const renderTreatmentSuggestion = (suggestion) => {
+    return (
+      <div className="admin_individual_client_treatment_suggestion_container">
+        {suggestion.props.children[3].props.children ? (
+          <div className="admin_individual_client_treatment_suggestion_picture">
+            {suggestion.props.children[3].props.children}
+          </div>
+        ) : null}
 
-      <p>{suggestion.name}</p>
-      <p>${suggestion.price}.00</p>
-    </div>
-  );
+        <p>{suggestion.props.children[0].props.children}</p>
+        <p>${suggestion.props.children[2].props.children}.00</p>
+      </div>
+    );
+  };
 
   const inputChange = (event, { newValue }) => {
     changeClientFirstName(newValue);
@@ -458,7 +479,21 @@ const AdminCreateAppointment = (props) => {
                 aria-autocomplete="list"
                 aria-controls="react-autowhatever-1"
                 className="react-autosuggest__input"
-                value={selectedTreatments.length < 1 ? "" : item.name}
+                value={
+                  selectedTreatments.length < 1
+                    ? ""
+                    : item.props
+                    ? item.props.children
+                      ? item.props.children[0]
+                        ? item.props.children[0].props
+                          ? item.props.children[0].props.children
+                            ? item.props.children[0].props.children
+                            : ""
+                          : ""
+                        : ""
+                      : ""
+                    : ""
+                }
                 onChange={(e) => e.preventDefault()}
                 style={{
                   borderLeft: "1px solid transparent",
@@ -485,7 +520,17 @@ const AdminCreateAppointment = (props) => {
                 value={
                   selectedTreatments.length < 1
                     ? ""
-                    : item.duration + " minutes"
+                    : item.props
+                    ? item.props.children
+                      ? item.props.children[1]
+                        ? item.props.children[1].props
+                          ? item.props.children[1].props.children
+                            ? item.props.children[1].props.children + " minutes"
+                            : ""
+                          : ""
+                        : ""
+                      : ""
+                    : ""
                 }
                 onChange={(e) => e.preventDefault()}
                 style={{
@@ -511,7 +556,21 @@ const AdminCreateAppointment = (props) => {
                 aria-controls="react-autowhatever-1"
                 className="react-autosuggest__input"
                 value={
-                  selectedTreatments.length < 1 ? "" : "$" + item.price + ".00"
+                  selectedTreatments.length < 1
+                    ? ""
+                    : item.props
+                    ? item.props.children
+                      ? item.props.children[2]
+                        ? item.props.children[2].props
+                          ? item.props.children[2].props.children
+                            ? "$" +
+                              item.props.children[2].props.children +
+                              ".00"
+                            : ""
+                          : ""
+                        : ""
+                      : ""
+                    : ""
                 }
                 onChange={(e) => e.preventDefault()}
                 style={{
@@ -523,13 +582,33 @@ const AdminCreateAppointment = (props) => {
             <FontAwesomeIcon
               icon={faTimes}
               onClick={() => {
-                const treatmentNames = selectedTreatments.map((x) => x.name);
+                const treatmentsArr = selectedTreatments.slice().filter((x) => {
+                  if (x.props) {
+                    if (x.props.children) {
+                      if (x.props.children[0]) {
+                        if (x.props.children[0].props) {
+                          if (
+                            x.props.children[0].props.children !==
+                            item.props.children[0].props.children
+                          ) {
+                            return x.props.children[0].props.children;
+                          } else {
+                            return null;
+                          }
+                        } else {
+                          return null;
+                        }
+                      } else {
+                        return null;
+                      }
+                    } else {
+                      return null;
+                    }
+                  } else {
+                    return null;
+                  }
+                });
 
-                const treatmentsArr = selectedTreatments.slice();
-
-                treatmentsArr.splice(treatmentNames.indexOf(item.name), 1);
-
-                console.log(treatmentsArr);
                 changeSelectedTreatments(treatmentsArr);
               }}
               className="admin_create_appointment_treatment_delete_button"
@@ -538,6 +617,27 @@ const AdminCreateAppointment = (props) => {
         );
       });
     }
+  };
+
+  const renderSectionTitle = (section) => {
+    return (
+      <span className="react_autosuggest_section_title_header">
+        {section.sectionTitle}
+      </span>
+    );
+  };
+
+  const getSectionSuggestions = (section) => {
+    return section.suggestions.map((x, i) => {
+      return (
+        <>
+          <span key={i}>{x.name}</span>
+          <span key={i}>{x.duration}</span>
+          <span key={i}>{x.price}</span>
+          <span key={i}>{x.picture}</span>
+        </>
+      );
+    });
   };
 
   return (
@@ -790,6 +890,11 @@ const AdminCreateAppointment = (props) => {
                   inputProps={treatmentInputProps}
                   shouldRenderSuggestions={() => true}
                   focusInputOnSuggestionClick={false}
+                  multiSection={true}
+                  renderSectionTitle={(section) => renderSectionTitle(section)}
+                  getSectionSuggestions={(section) =>
+                    getSectionSuggestions(section)
+                  }
                 />
               </div>
 
@@ -859,7 +964,29 @@ const AdminCreateAppointment = (props) => {
                   ? "$0.00"
                   : "$" +
                     selectedTreatments
-                      .map((x) => x.price)
+                      .map((x) => {
+                        if (x.props) {
+                          if (x.props.children) {
+                            if (x.props.children[2]) {
+                              if (x.props.children[2].props) {
+                                if (x.props.children[2].props.children) {
+                                  return x.props.children[2].props.children;
+                                } else {
+                                  return null;
+                                }
+                              } else {
+                                return null;
+                              }
+                            } else {
+                              return null;
+                            }
+                          } else {
+                            return null;
+                          }
+                        } else {
+                          return null;
+                        }
+                      })
                       .reduce((a, b) => a + b, 0) +
                     ".00"}
               </div>

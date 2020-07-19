@@ -820,9 +820,9 @@
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
   .instagram_page_wrapping {
-    height: 95vh;
+    height: 100vh;
     margin-top: 25vh;
-    padding-top: 0vh;
+    padding-top: 5vh;
   }
 
   .instagram_top_page_wrapping {
@@ -849,7 +849,7 @@
 
   .large_screen_follow_prompt p {
     margin-bottom: 1em;
-    margin-top: 70vh;
+    margin-top: -10vh;
   }
 
   /* Safari 7.1+ */

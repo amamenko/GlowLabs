@@ -200,6 +200,10 @@
   flex-direction: row;
 }
 
+.admin_individual_client_treatment_suggestion_container p {
+  font-weight: 500;
+}
+
 .admin_individual_client_suggestion_container:hover {
   background: #ddd;
 }
@@ -229,6 +233,9 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .react-autosuggest__suggestion {
@@ -256,6 +263,16 @@
 
 .hydrodermabrasion_icon_path {
   transform: scale(0.7);
+}
+
+.react_autosuggest_section_title_header {
+  display: block;
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: rgb(111, 111, 111);
+  width: 100%;
+  background: rgb(235, 235, 235);
 }
 
 /* CSS for Big Desktops */
