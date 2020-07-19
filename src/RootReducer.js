@@ -246,6 +246,15 @@ import cancelAppointmentClickedReducer from "./reducers/CancelAppointmentClicked
 import pdfLoadingReducer from "./reducers/PDFLoading/pdfLoadingReducer";
 import addProfilePhotoClickedReducer from "./reducers/Admin/AddProfilePhotoClicked/addProfilePhotoClickedReducer";
 import imageLoadingReducer from "./reducers/Admin/ImageLoading/imageLoadingReducer";
+import adminAppointmentDateReducer from "./reducers/Admin/AdminCreateAppointment/AdminAppointmentDate/adminAppointmentDateReducer";
+import adminAppointmentNotesReducer from "./reducers/Admin/AdminCreateAppointment/AdminAppointmentNotes/adminAppointmentNotesReducer";
+import adminAppointmentStaffMemberReducer from "./reducers/Admin/AdminCreateAppointment/AdminAppointmentStaffMember/adminAppointmentStaffMemberReducer";
+import adminAppointmentTimeReducer from "./reducers/Admin/AdminCreateAppointment/AdminAppointmentTime/adminAppointmentTimeReducer";
+import adminClientEmailReducer from "./reducers/Admin/AdminCreateAppointment/AdminClientEmail/adminClientEmailReducer";
+import adminClientFirstNameReducer from "./reducers/Admin/AdminCreateAppointment/AdminClientFirstName/adminClientFirstNameReducer";
+import adminClientLastNameReducer from "./reducers/Admin/AdminCreateAppointment/AdminClientLastName/adminClientLastNameReducer";
+import adminClientPhoneNumberReducer from "./reducers/Admin/AdminCreateAppointment/AdminClientPhoneNumber/adminClientPhoneNumberReducer";
+import adminSelectedTreatmentsReducer from "./reducers/Admin/AdminCreateAppointment/AdminSelectedTreatments/adminSelectedTreatmentsReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -384,6 +393,17 @@ const RootReducer = combineReducers({
   adminClientSectionSelected: adminClientSectionSelectedReducer,
   addProfilePhotoClicked: addProfilePhotoClickedReducer,
   imageLoading: imageLoadingReducer,
+
+  // Admin Create Appointment Reducers,
+  adminAppointmentDate: adminAppointmentDateReducer,
+  adminAppointmentNotes: adminAppointmentNotesReducer,
+  adminAppointmentStaffMember: adminAppointmentStaffMemberReducer,
+  adminAppointmentTime: adminAppointmentTimeReducer,
+  adminClientEmail: adminClientEmailReducer,
+  adminClientFirstName: adminClientFirstNameReducer,
+  adminClientLastName: adminClientLastNameReducer,
+  adminClientPhoneNumber: adminClientPhoneNumberReducer,
+  adminSelectedTreatments: adminSelectedTreatmentsReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

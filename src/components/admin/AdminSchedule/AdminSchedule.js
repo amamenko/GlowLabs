@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./AdminSchedule.css";
 import AdminCalendarComponent from "./AdminCalendarComponent";
 import AdminCreateAppointment from "./AdminCreateAppointment/AdminCreateAppointment";
+import ACTION_ADMIN_APPOINTMENT_TIME from "../../../actions/Admin/AdminCreateAppointment/AdminAppointmentTime/ACTION_ADMIN_APPOINTMENT_TIME";
+import ACTION_ADMIN_APPOINTMENT_DATE from "../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDate/ACTION_ADMIN_APPOINTMENT_DATE";
 
 const AdminSchedule = (props) => {
+  const dispatch = useDispatch();
+
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
@@ -17,8 +21,6 @@ const AdminSchedule = (props) => {
   const [createAppointmentClicked, changeCreateAppointmentClicked] = useState(
     false
   );
-  const [selectedAppointmentDate, changeSelectedAppointmentDate] = useState("");
-  const [selectedAppointmentTime, changeSelectedAppointmentTime] = useState("");
 
   const redirectToAdminLogInPage = () => {
     if (!adminAuthenticated) {
@@ -28,8 +30,8 @@ const AdminSchedule = (props) => {
 
   const handleCreateAppointmentToggled = (time, date) => {
     changeCreateAppointmentClicked(true);
-    changeSelectedAppointmentTime(time);
-    changeSelectedAppointmentDate(date);
+    dispatch(ACTION_ADMIN_APPOINTMENT_TIME(time));
+    dispatch(ACTION_ADMIN_APPOINTMENT_DATE(date));
   };
 
   return (
@@ -62,13 +64,10 @@ const AdminSchedule = (props) => {
         createAppointmentClicked={createAppointmentClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         getClientsData={props.getClientsData}
+        getAllAppointmentsData={props.getAllAppointmentsData}
         getEmployeeData={props.getEmployeeData}
         getEmployeesData={props.getEmployeesData}
         randomColorArray={props.randomColorArray}
-        changeSelectedAppointmentTime={changeSelectedAppointmentTime}
-        selectedAppointmentTime={selectedAppointmentTime}
-        changeSelectedAppointmentDate={changeSelectedAppointmentDate}
-        selectedAppointmentDate={selectedAppointmentDate}
       />
       <AdminCalendarComponent
         getAllAppointmentsData={props.getAllAppointmentsData}

@@ -10,23 +10,65 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import "react-day-picker/lib/style.css";
 import "./AdminCreateAppointment.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentStaffMember/ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER";
+import ACTION_ADMIN_CLIENT_EMAIL from "../../../../actions/Admin/AdminCreateAppointment/AdminClientEmail/ACTION_ADMIN_CLIENT_EMIAL";
+import ACTION_ADMIN_CLIENT_PHONE_NUMBER from "../../../../actions/Admin/AdminCreateAppointment/AdminClientPhoneNumber/ACTION_ADMIN_CLIENT_PHONE_NUMBER";
+import ACTION_ADMIN_CLIENT_LAST_NAME from "../../../../actions/Admin/AdminCreateAppointment/AdminClientLastName/ACTION_ADMIN_CLIENT_LAST_NAME";
+import ACTION_ADMIN_CLIENT_FIRST_NAME from "../../../../actions/Admin/AdminCreateAppointment/AdminClientFirstName/ACTION_ADMIN_CLIENT_FIRST_NAME";
+import ACTION_ADMIN_SELECTED_TREATMENTS from "../../../../actions/Admin/AdminCreateAppointment/AdminSelectedTreatments/ACTION_ADMIN_SELECTED_TREATMENTS";
+import ACTION_ADMIN_APPOINTMENT_NOTES from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentNotes/ACTION_ADMIN_APPOINTMENT_NOTES";
 import treatmentSuggestions from "./TreatmentSuggestions";
+import ACTION_ADMIN_APPOINTMENT_DATE from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDate/ACTION_ADMIN_APPOINTMENT_DATE";
+import ACTION_ADMIN_APPOINTMENT_TIME from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentTime/ACTION_ADMIN_APPOINTMENT_TIME";
+import ACTION_ADMIN_CLIENT_FIRST_NAME_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminClientFirstName/ACTION_ADMIN_CLIENT_FIRST_NAME_RESET";
+import ACTION_ADMIN_CLIENT_LAST_NAME_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminClientLastName/ACTION_ADMIN_CLIENT_LAST_NAME_RESET";
+import ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminClientPhoneNumber/ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET";
+import ACTION_ADMIN_CLIENT_EMAIL_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminClientEmail/ACTION_ADMIN_CLIENT_EMAIL_RESET";
+import ACTION_ADMIN_SELECTED_TREATMENTS_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminSelectedTreatments/ACTION_ADMIN_SELECTED_TREATMENTS_RESET";
+import ACTION_ADMIN_APPOINTMENT_DATE_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDate/ACTION_ADMIN_APPOINTMENT_DATE_RESET";
+import ACTION_ADMIN_APPOINTMENT_NOTES_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentNotes/ACTION_ADMIN_APPOINTMENT_NOTES_RESET";
+import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentStaffMember/ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET";
+import ACTION_ADMIN_APPOINTMENT_TIME_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentTime/ACTION_ADMIN_APPOINTMENT_TIME_RESET";
+import moment from "moment";
 
 const AdminCreateAppointment = (props) => {
+  const dispatch = useDispatch();
+
   const [inputSuggestions, changeInputSuggestions] = useState([]);
   const [treatmentInputSuggestions, changeTreatmentInputSuggestions] = useState(
     []
   );
   const [treatmentInput, changeTreatmentInput] = useState("");
-  const [selectedTreatments, changeSelectedTreatments] = useState([]);
-  const [clientEmail, changeClientEmail] = useState("");
-  const [clientPhoneNumber, changeClientPhoneNumber] = useState("");
-  const [clientFirstName, changeClientFirstName] = useState("");
-  const [clientLastName, changeClientLastName] = useState("");
-  const [selectedStaffMember, changeSelectedStaffMember] = useState("");
-  const [appointmentNotes, changeAppointmentNotes] = useState("");
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
+
+  const adminClientFirstName = useSelector(
+    (state) => state.adminClientFirstName.admin_client_first_name
+  );
+  const adminClientLastName = useSelector(
+    (state) => state.adminClientLastName.admin_client_last_name
+  );
+  const adminClientEmail = useSelector(
+    (state) => state.adminClientEmail.admin_client_email
+  );
+  const adminClientPhoneNumber = useSelector(
+    (state) => state.adminClientPhoneNumber.admin_client_phone_number
+  );
+  const adminAppointmentNotes = useSelector(
+    (state) => state.adminAppointmentNotes.admin_appointment_notes
+  );
+  const adminAppointmentStaffMember = useSelector(
+    (state) => state.adminAppointmentStaffMember.admin_appointment_staff_member
+  );
+  const adminSelectedTreatments = useSelector(
+    (state) => state.adminSelectedTreatments.admin_selected_treatments
+  );
+  const adminAppointmentDate = useSelector(
+    (state) => state.adminAppointmentDate.admin_appointment_date
+  );
+  const adminAppointmentTime = useSelector(
+    (state) => state.adminAppointmentTime.admin_appointment_time
+  );
 
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
@@ -78,19 +120,28 @@ const AdminCreateAppointment = (props) => {
         ) {
           const currentEmployee = props.getEmployeeData.employee;
 
-          changeSelectedStaffMember(
-            currentEmployee.firstName[0].toUpperCase() +
-              currentEmployee.firstName.slice(1).toLowerCase() +
-              " " +
-              currentEmployee.lastName[0].toUpperCase() +
-              currentEmployee.lastName.slice(1).toLowerCase()
-          );
+          if (!adminAppointmentStaffMember) {
+            dispatch(
+              ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(
+                currentEmployee.firstName[0].toUpperCase() +
+                  currentEmployee.firstName.slice(1).toLowerCase() +
+                  " " +
+                  currentEmployee.lastName[0].toUpperCase() +
+                  currentEmployee.lastName.slice(1).toLowerCase()
+              )
+            );
+          }
         } else {
-          changeSelectedStaffMember(employeeOptions()[0]);
+          dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(employeeOptions()[0]));
         }
       }
     }
-  }, [props.getEmployeeData, employeeOptions]);
+  }, [
+    dispatch,
+    props.getEmployeeData,
+    employeeOptions,
+    adminAppointmentStaffMember,
+  ]);
 
   const clientSuggestions = props.getClientsData
     ? props.getClientsData.clients
@@ -177,10 +228,64 @@ const AdminCreateAppointment = (props) => {
     if (inputLength === 0) {
       const sortedArr = [];
 
-      for (let i = 0; i < treatmentSuggestions.length; i++) {
+      const date = moment(adminAppointmentDate, "L").format("MMMM D, YYYY");
+      const startTime = adminAppointmentTime;
+      const thirtyMinutesPrior = moment(
+        date + " " + startTime,
+        "MMMM D, YYYY hh:mm A"
+      )
+        .subtract(30, "minutes")
+        .format("MMMM D, YYYY hh:mm A");
+      const fortyFiveMinutesPrior = moment(
+        date + " " + startTime,
+        "MMMM D, YYYY hh:mm A"
+      )
+        .subtract(45, "minutes")
+        .format("MMMM D, YYYY hh:mm A");
+      const hourPrior = moment(date + " " + startTime, "MMMM D, YYYY hh:mm A")
+        .subtract(1, "hours")
+        .format("MMMM D, YYYY hh:mm A");
+
+      const thirtyMinutesAfter = moment(
+        date + " " + startTime,
+        "MMMM D, YYYY hh:mm A"
+      )
+        .add(30, "minutes")
+        .format("MMMM D, YYYY hh:mm A");
+      const fortyFiveMinutesAfter = moment(
+        date + " " + startTime,
+        "MMMM D, YYYY hh:mm A"
+      )
+        .add(45, "minutes")
+        .format("MMMM D, YYYY hh:mm A");
+      const hourAfter = moment(date + " " + startTime, "MMMM D, YYYY hh:mm A")
+        .add(1, "hours")
+        .format("MMMM D, YYYY hh:mm A");
+
+      const filteredApps = props.getAllAppointmentsData
+        ? props.getAllAppointmentsData.all_appointments.filter((x) => {
+            if (x.esthetician === "Salt Cave") {
+              return x.esthetician === "Salt Cave";
+            } else {
+              return null;
+            }
+          })
+        : null;
+
+      const sameDayApps = filteredApps.filter((x) => {
+        if (x.date === date) {
+          return x.date === date;
+        } else {
+          return null;
+        }
+      });
+
+      console.log(filteredApps);
+
+      for (let i = 0; i < treatmentSuggestions().length; i++) {
         sortedArr.push({
-          sectionTitle: treatmentSuggestions[i].sectionTitle,
-          suggestions: treatmentSuggestions[i].suggestions.sort((a, b) =>
+          sectionTitle: treatmentSuggestions()[i].sectionTitle,
+          suggestions: treatmentSuggestions()[i].suggestions.sort((a, b) =>
             a.name.localeCompare(b.name)
           ),
         });
@@ -189,11 +294,11 @@ const AdminCreateAppointment = (props) => {
     } else {
       const sortedArr = [];
 
-      for (let i = 0; i < treatmentSuggestions.length; i++) {
+      for (let i = 0; i < treatmentSuggestions().length; i++) {
         sortedArr.push({
-          sectionTitle: treatmentSuggestions[i].sectionTitle,
-          suggestions: treatmentSuggestions[i].suggestions
-            .sort((a, b) => a.name.localeCompare(b.name))
+          sectionTitle: treatmentSuggestions()[i].sectionTitle,
+          suggestions: treatmentSuggestions()
+            [i].suggestions.sort((a, b) => a.name.localeCompare(b.name))
             .filter((x) => {
               const treatmentName = x.name;
 
@@ -215,15 +320,19 @@ const AdminCreateAppointment = (props) => {
   };
 
   const getSuggestionValue = (suggestion) => {
-    changeClientEmail(suggestion.email);
-    changeClientPhoneNumber(suggestion.phoneNumber);
-    changeClientLastName(
-      suggestion.lastName[0].toUpperCase() +
-        suggestion.lastName.slice(1).toLowerCase()
+    dispatch(ACTION_ADMIN_CLIENT_EMAIL(suggestion.email));
+    dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER(suggestion.phoneNumber));
+    dispatch(
+      ACTION_ADMIN_CLIENT_LAST_NAME(
+        suggestion.lastName[0].toUpperCase() +
+          suggestion.lastName.slice(1).toLowerCase()
+      )
     );
-    changeClientFirstName(
-      suggestion.firstName[0].toUpperCase() +
-        suggestion.firstName.slice(1).toLowerCase()
+    dispatch(
+      ACTION_ADMIN_CLIENT_FIRST_NAME(
+        suggestion.firstName[0].toUpperCase() +
+          suggestion.firstName.slice(1).toLowerCase()
+      )
     );
 
     return (
@@ -264,7 +373,7 @@ const AdminCreateAppointment = (props) => {
   };
 
   const inputChange = (event, { newValue }) => {
-    changeClientFirstName(newValue);
+    dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME(newValue));
   };
 
   const treatmentInputChange = (event, { newValue }) => {
@@ -289,7 +398,7 @@ const AdminCreateAppointment = (props) => {
 
   const inputProps = {
     placeholder: "Client first name",
-    value: clientFirstName,
+    value: adminClientFirstName,
     onChange: inputChange,
   };
 
@@ -301,7 +410,9 @@ const AdminCreateAppointment = (props) => {
   };
 
   const getTreatmentSuggestionValue = (suggestion) => {
-    changeSelectedTreatments([...selectedTreatments, suggestion]);
+    dispatch(
+      ACTION_ADMIN_SELECTED_TREATMENTS([...adminSelectedTreatments, suggestion])
+    );
 
     return "";
   };
@@ -401,7 +512,7 @@ const AdminCreateAppointment = (props) => {
       }
     }
     e.currentTarget.value = currentTyping;
-    changeClientPhoneNumber(currentTyping);
+    dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER(currentTyping));
   };
 
   useEffect(() => {
@@ -452,10 +563,10 @@ const AdminCreateAppointment = (props) => {
   }, [clickOutsideDayPicker]);
 
   const renderSelectedTreatments = () => {
-    if (selectedTreatments.length < 1) {
+    if (adminSelectedTreatments.length < 1) {
       return null;
     } else {
-      return selectedTreatments.map((item, i) => {
+      return adminSelectedTreatments.map((item, i) => {
         return (
           <div
             className="admin_create_appointment_input_information_container"
@@ -480,7 +591,7 @@ const AdminCreateAppointment = (props) => {
                 aria-controls="react-autowhatever-1"
                 className="react-autosuggest__input"
                 value={
-                  selectedTreatments.length < 1
+                  adminSelectedTreatments.length < 1
                     ? ""
                     : item.props
                     ? item.props.children
@@ -518,7 +629,7 @@ const AdminCreateAppointment = (props) => {
                 aria-controls="react-autowhatever-1"
                 className="react-autosuggest__input"
                 value={
-                  selectedTreatments.length < 1
+                  adminSelectedTreatments.length < 1
                     ? ""
                     : item.props
                     ? item.props.children
@@ -556,7 +667,7 @@ const AdminCreateAppointment = (props) => {
                 aria-controls="react-autowhatever-1"
                 className="react-autosuggest__input"
                 value={
-                  selectedTreatments.length < 1
+                  adminSelectedTreatments.length < 1
                     ? ""
                     : item.props
                     ? item.props.children
@@ -582,34 +693,31 @@ const AdminCreateAppointment = (props) => {
             <FontAwesomeIcon
               icon={faTimes}
               onClick={() => {
-                const treatmentsArr = selectedTreatments.slice().filter((x) => {
-                  if (x.props) {
-                    if (x.props.children) {
-                      if (x.props.children[0]) {
-                        if (x.props.children[0].props) {
-                          if (
-                            x.props.children[0].props.children !==
-                            item.props.children[0].props.children
-                          ) {
-                            return x.props.children[0].props.children;
-                          } else {
-                            return null;
-                          }
-                        } else {
-                          return null;
-                        }
-                      } else {
-                        return null;
-                      }
-                    } else {
-                      return null;
-                    }
-                  } else {
-                    return null;
-                  }
-                });
+                let filteredArr = [];
 
-                changeSelectedTreatments(treatmentsArr);
+                const treatmentsArr = adminSelectedTreatments
+                  .slice()
+                  .filter((x, i) => {
+                    if (
+                      x.props.children[0].props.children !==
+                      item.props.children[0].props.children
+                    ) {
+                      return x.props.children[0].props.children;
+                    } else {
+                      if (
+                        !filteredArr.includes(
+                          x.props.children[0].props.children
+                        )
+                      ) {
+                        filteredArr.push(x.props.children[0].props.children);
+                        return null;
+                      } else {
+                        return x.props.children[0].props.children;
+                      }
+                    }
+                  });
+
+                dispatch(ACTION_ADMIN_SELECTED_TREATMENTS(treatmentsArr));
               }}
               className="admin_create_appointment_treatment_delete_button"
             />
@@ -657,7 +765,19 @@ const AdminCreateAppointment = (props) => {
           >
             <div
               className="admin_individual_selected_client_back_container"
-              onClick={() => props.changeCreateAppointmentClicked(false)}
+              onClick={() => {
+                props.changeCreateAppointmentClicked(false);
+
+                dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME_RESET());
+                dispatch(ACTION_ADMIN_CLIENT_LAST_NAME_RESET());
+                dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET());
+                dispatch(ACTION_ADMIN_CLIENT_EMAIL_RESET());
+                dispatch(ACTION_ADMIN_SELECTED_TREATMENTS_RESET());
+                dispatch(ACTION_ADMIN_APPOINTMENT_DATE_RESET());
+                dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
+                dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
+                dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
+              }}
             >
               <FontAwesomeIcon
                 icon={faLongArrowAltLeft}
@@ -697,8 +817,10 @@ const AdminCreateAppointment = (props) => {
                   aria-autocomplete="list"
                   aria-controls="react-autowhatever-1"
                   className="react-autosuggest__input"
-                  value={clientLastName}
-                  onChange={(e) => changeClientLastName(e.target.value)}
+                  value={adminClientLastName}
+                  onChange={(e) =>
+                    dispatch(ACTION_ADMIN_CLIENT_LAST_NAME(e.target.value))
+                  }
                   placeholder="Client last name"
                 />
               </div>
@@ -722,9 +844,11 @@ const AdminCreateAppointment = (props) => {
                   aria-controls="react-autowhatever-1"
                   className="react-autosuggest__input"
                   placeholder="Email address"
-                  value={clientEmail}
+                  value={adminClientEmail}
                   maxLength={100}
-                  onChange={(e) => changeClientEmail(e.target.value)}
+                  onChange={(e) =>
+                    dispatch(ACTION_ADMIN_CLIENT_EMAIL(e.target.value))
+                  }
                 />
               </div>
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
@@ -745,7 +869,7 @@ const AdminCreateAppointment = (props) => {
                   onKeyDown={phoneNumberKeyTyping}
                   onChange={phoneNumberTyping}
                   maxLength={16}
-                  value={clientPhoneNumber}
+                  value={adminClientPhoneNumber}
                   aria-controls="react-autowhatever-1"
                   className="react-autosuggest__input"
                   placeholder="Phone number"
@@ -773,9 +897,11 @@ const AdminCreateAppointment = (props) => {
                 }}
                 formatDate={formatDate}
                 parseDate={parseDate}
-                onDayChange={(day) => props.changeSelectedAppointmentDate(day)}
+                onDayChange={(day) =>
+                  dispatch(ACTION_ADMIN_APPOINTMENT_DATE(day))
+                }
                 format="L"
-                value={props.selectedAppointmentDate}
+                value={adminAppointmentDate}
                 placeholder="Appointment Date"
               />
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
@@ -784,18 +910,18 @@ const AdminCreateAppointment = (props) => {
               <Dropdown
                 options={timeOptions()}
                 onChange={(choice) =>
-                  props.changeSelectedAppointmentTime(choice)
+                  dispatch(ACTION_ADMIN_APPOINTMENT_TIME(choice))
                 }
-                value={props.selectedAppointmentTime}
+                value={adminAppointmentTime}
                 controlClassName="react-autosuggest__input"
                 className="react-autosuggest__container"
                 placeholder={
-                  props.selectedAppointmentTime
-                    ? props.selectedAppointmentTime
+                  adminAppointmentTime
+                    ? adminAppointmentTime
                     : "Appointment Time"
                 }
                 placeholderClassName={
-                  props.selectedAppointmentTime
+                  adminAppointmentTime
                     ? "admin_create_appointent_dropdown_placeholder_time"
                     : "admin_create_appointent_dropdown_placeholder_no_time"
                 }
@@ -806,17 +932,19 @@ const AdminCreateAppointment = (props) => {
               <div className="admin_create_appointment_label">Staff</div>
               <Dropdown
                 options={employeeOptions()}
-                onChange={(choice) => changeSelectedStaffMember(choice)}
-                value={selectedStaffMember}
+                onChange={(choice) =>
+                  dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(choice))
+                }
+                value={adminAppointmentStaffMember}
                 controlClassName="react-autosuggest__input"
                 className="react-autosuggest__container"
                 placeholder={
-                  selectedStaffMember
-                    ? selectedStaffMember
+                  adminAppointmentStaffMember
+                    ? adminAppointmentStaffMember
                     : "Selected Esthetician"
                 }
                 placeholderClassName={
-                  selectedStaffMember
+                  adminAppointmentStaffMember
                     ? "admin_create_appointent_dropdown_placeholder_time"
                     : "admin_create_appointent_dropdown_placeholder_no_time"
                 }
@@ -844,9 +972,11 @@ const AdminCreateAppointment = (props) => {
                   placeholder={
                     "Enter additional notes for use by staff only (optional)"
                   }
-                  value={appointmentNotes}
+                  value={adminAppointmentNotes}
                   maxLength={200}
-                  onChange={(e) => changeAppointmentNotes(e.target.value)}
+                  onChange={(e) =>
+                    dispatch(ACTION_ADMIN_APPOINTMENT_NOTES(e.target.value))
+                  }
                 />
               </div>
             </div>
@@ -960,10 +1090,10 @@ const AdminCreateAppointment = (props) => {
                   borderRight: "1px solid rgb(211, 211, 211)",
                 }}
               >
-                {selectedTreatments.length < 1
+                {adminSelectedTreatments.length < 1
                   ? "$0.00"
                   : "$" +
-                    selectedTreatments
+                    adminSelectedTreatments
                       .map((x) => {
                         if (x.props) {
                           if (x.props.children) {
