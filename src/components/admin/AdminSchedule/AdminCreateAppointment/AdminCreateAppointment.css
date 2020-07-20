@@ -198,6 +198,8 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  cursor: default;
+  pointer-events: none;
 }
 
 .admin_individual_client_treatment_suggestion_container p {

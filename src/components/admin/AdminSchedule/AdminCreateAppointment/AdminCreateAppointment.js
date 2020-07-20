@@ -31,6 +31,7 @@ import ACTION_ADMIN_APPOINTMENT_NOTES_RESET from "../../../../actions/Admin/Admi
 import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentStaffMember/ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET";
 import ACTION_ADMIN_APPOINTMENT_TIME_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentTime/ACTION_ADMIN_APPOINTMENT_TIME_RESET";
 import moment from "moment";
+import ACTION_ADMIN_APPOINTMENT_DURATION from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDuration/ACTION_ADMIN_APPOINTMENT_DURATION";
 
 const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
@@ -68,6 +69,9 @@ const AdminCreateAppointment = (props) => {
   );
   const adminAppointmentTime = useSelector(
     (state) => state.adminAppointmentTime.admin_appointment_time
+  );
+  const adminAppointmentDuration = useSelector(
+    (state) => state.adminAppointmentDuration.admin_appointment_duration
   );
 
   const logoutClicked = useSelector(
@@ -230,55 +234,55 @@ const AdminCreateAppointment = (props) => {
     const startTime = adminAppointmentTime;
 
     const fifteenMinutesPrior = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
       .subtract(15, "minutes")
       .format("MMMM D, YYYY h:mm A");
 
     const thirtyMinutesPrior = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
       .subtract(30, "minutes")
       .format("MMMM D, YYYY h:mm A");
 
     const fortyFiveMinutesPrior = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
       .subtract(45, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
     const hourPrior = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
       .subtract(1, "hours")
       .format("MMMM D, YYYY hh:mm A");
 
     const fifteenMinutesAfter = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
-      .add(15, "minutes")
+      .add(15 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
     const thirtyMinutesAfter = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
-      .add(30, "minutes")
+      .add(30 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
     const fortyFiveMinutesAfter = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
-      .add(45, "minutes")
+      .add(45 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
     const hourAfter = moment(
-      date + " " + startTime.value,
+      date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
     )
       .add(1, "hours")
@@ -327,26 +331,37 @@ const AdminCreateAppointment = (props) => {
     console.log(thirtyMinutesAfter);
     console.log(fortyFiveMinutesAfter);
     console.log(hourAfter);
-
+    console.log(adminAppointmentDuration === 0);
     const treatmentsSuggestionsArguments = treatmentSuggestions(
+      adminAppointmentDuration,
+      adminAppointmentDate,
+      adminAppointmentTime,
       bookedTimesArr.includes(fifteenMinutesPrior) ||
         bookedTimesArr.includes(thirtyMinutesPrior),
+
       bookedTimesArr.includes(fifteenMinutesPrior) ||
         bookedTimesArr.includes(thirtyMinutesPrior) ||
         bookedTimesArr.includes(fortyFiveMinutesPrior),
+
       bookedTimesArr.includes(fifteenMinutesPrior) ||
         bookedTimesArr.includes(thirtyMinutesPrior) ||
         bookedTimesArr.includes(fortyFiveMinutesPrior) ||
         bookedTimesArr.includes(hourPrior),
-      bookedTimesArr.includes(fifteenMinutesAfter) ||
-        bookedTimesArr.includes(thirtyMinutesAfter),
-      bookedTimesArr.includes(fifteenMinutesAfter) ||
-        bookedTimesArr.includes(thirtyMinutesAfter) ||
-        bookedTimesArr.includes(fortyFiveMinutesAfter),
-      bookedTimesArr.includes(fifteenMinutesAfter) ||
-        bookedTimesArr.includes(thirtyMinutesAfter) ||
-        bookedTimesArr.includes(fortyFiveMinutesAfter) ||
-        bookedTimesArr.includes(hourAfter)
+      adminAppointmentDuration === 0
+        ? true
+        : bookedTimesArr.includes(fifteenMinutesAfter) ||
+            bookedTimesArr.includes(thirtyMinutesAfter),
+      adminAppointmentDuration === 0
+        ? true
+        : bookedTimesArr.includes(fifteenMinutesAfter) ||
+            bookedTimesArr.includes(thirtyMinutesAfter) ||
+            bookedTimesArr.includes(fortyFiveMinutesAfter),
+      adminAppointmentDuration === 0
+        ? true
+        : bookedTimesArr.includes(fifteenMinutesAfter) ||
+            bookedTimesArr.includes(thirtyMinutesAfter) ||
+            bookedTimesArr.includes(fortyFiveMinutesAfter) ||
+            bookedTimesArr.includes(hourAfter)
     );
 
     if (inputLength === 0) {
@@ -354,14 +369,18 @@ const AdminCreateAppointment = (props) => {
 
       for (let i = 0; i < treatmentsSuggestionsArguments.length; i++) {
         sortedArr.push({
-          sectionTitle: treatmentsSuggestionsArguments[i].sectionTitle
+          sectionTitle: treatmentsSuggestionsArguments[i]
             ? treatmentsSuggestionsArguments[i].sectionTitle
+              ? treatmentsSuggestionsArguments[i].sectionTitle
+              : null
             : null,
-          suggestions: treatmentsSuggestionsArguments[
-            i
-          ].suggestions.sort((a, b) =>
-            a.name ? a.name.localeCompare(b.name) : null
-          ),
+          suggestions: treatmentsSuggestionsArguments[i]
+            ? treatmentsSuggestionsArguments[i].suggestions
+              ? treatmentsSuggestionsArguments[i].suggestions.sort((a, b) =>
+                  a.name ? a.name.localeCompare(b.name) : null
+                )
+              : null
+            : null,
         });
       }
       return sortedArr;
@@ -370,25 +389,30 @@ const AdminCreateAppointment = (props) => {
 
       for (let i = 0; i < treatmentsSuggestionsArguments.length; i++) {
         sortedArr.push({
-          sectionTitle: treatmentsSuggestionsArguments[i].sectionTitle
+          sectionTitle: treatmentsSuggestionsArguments[i]
             ? treatmentsSuggestionsArguments[i].sectionTitle
+              ? treatmentsSuggestionsArguments[i].sectionTitle
+              : null
             : null,
-          suggestions: treatmentsSuggestionsArguments[i].suggestions
-            .sort((a, b) => (a.name ? a.name.localeCompare(b.name) : null))
-            .filter((x) => {
-              const treatmentName = x.name;
+          suggestions: treatmentsSuggestionsArguments[i]
+            ? treatmentsSuggestionsArguments[i].suggestions
+                .sort((a, b) => (a.name ? a.name.localeCompare(b.name) : null))
+                .filter((x) => {
+                  const treatmentName = x.name;
 
-              if (
-                treatmentName.toLowerCase().slice(0, inputLength) === inputValue
-              ) {
-                return (
-                  treatmentName.toLowerCase().slice(0, inputLength) ===
-                  inputValue
-                );
-              } else {
-                return null;
-              }
-            }),
+                  if (
+                    treatmentName.toLowerCase().slice(0, inputLength) ===
+                    inputValue
+                  ) {
+                    return (
+                      treatmentName.toLowerCase().slice(0, inputLength) ===
+                      inputValue
+                    );
+                  } else {
+                    return null;
+                  }
+                })
+            : null,
         });
         return sortedArr;
       }
@@ -443,7 +467,11 @@ const AdminCreateAppointment = (props) => {
         ) : null}
 
         <p>{suggestion.props.children[0].props.children}</p>
-        <p>${suggestion.props.children[2].props.children}.00</p>
+        <p>
+          {suggestion.props.children[2].props.children
+            ? "$" + suggestion.props.children[2].props.children + ".00"
+            : null}
+        </p>
       </div>
     );
   };
@@ -486,6 +514,11 @@ const AdminCreateAppointment = (props) => {
   };
 
   const getTreatmentSuggestionValue = (suggestion) => {
+    dispatch(
+      ACTION_ADMIN_APPOINTMENT_DURATION(
+        adminAppointmentDuration + suggestion.props.children[1].props.children
+      )
+    );
     dispatch(
       ACTION_ADMIN_SELECTED_TREATMENTS([...adminSelectedTreatments, suggestion])
     );
@@ -793,6 +826,13 @@ const AdminCreateAppointment = (props) => {
                     }
                   });
 
+                dispatch(
+                  ACTION_ADMIN_APPOINTMENT_DURATION(
+                    treatmentsArr
+                      .map((x) => x.props.children[1].props.children)
+                      .reduce((a, b) => a + b, 0)
+                  )
+                );
                 dispatch(ACTION_ADMIN_SELECTED_TREATMENTS(treatmentsArr));
               }}
               className="admin_create_appointment_treatment_delete_button"
@@ -812,17 +852,50 @@ const AdminCreateAppointment = (props) => {
   };
 
   const getSectionSuggestions = (section) => {
-    return section.suggestions.map((x, i) => {
-      return (
-        <>
-          <span key={i}>{x.name}</span>
-          <span key={i}>{x.duration}</span>
-          <span key={i}>{x.price}</span>
-          <span key={i}>{x.picture}</span>
-        </>
-      );
-    });
+    if (section.suggestions) {
+      return section.suggestions.map((x, i) => {
+        return (
+          <>
+            <span key={i}>{x.name}</span>
+            <span key={i}>{x.duration}</span>
+            <span key={i}>{x.price}</span>
+            <span key={i}>{x.picture}</span>
+          </>
+        );
+      });
+    }
   };
+
+  // Disable hover and select on unavailable salt cave times
+  useEffect(() => {
+    const checkForHighlightedElement = setInterval(() => {
+      const highlightedTreatment = document.getElementsByClassName(
+        "react-autosuggest__suggestion--highlighted"
+      );
+
+      if (highlightedTreatment[0]) {
+        if (highlightedTreatment[0].textContent.includes("Pick a treatment")) {
+          highlightedTreatment[0].setAttribute(
+            "style",
+            "pointer-events: none; background: #fff;"
+          );
+        } else if (
+          highlightedTreatment[0].textContent.includes("Pick a date/time first")
+        ) {
+          highlightedTreatment[0].setAttribute(
+            "style",
+            "pointer-events: none; background: #fff;"
+          );
+        } else {
+          return null;
+        }
+      }
+    }, 100);
+
+    return () => {
+      clearInterval(checkForHighlightedElement);
+    };
+  }, []);
 
   return (
     <Transition
