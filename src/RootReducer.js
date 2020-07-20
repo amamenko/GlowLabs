@@ -255,6 +255,7 @@ import adminClientFirstNameReducer from "./reducers/Admin/AdminCreateAppointment
 import adminClientLastNameReducer from "./reducers/Admin/AdminCreateAppointment/AdminClientLastName/adminClientLastNameReducer";
 import adminClientPhoneNumberReducer from "./reducers/Admin/AdminCreateAppointment/AdminClientPhoneNumber/adminClientPhoneNumberReducer";
 import adminSelectedTreatmentsReducer from "./reducers/Admin/AdminCreateAppointment/AdminSelectedTreatments/adminSelectedTreatmentsReducer";
+import adminAppointmentDurationReducer from "./reducers/Admin/AdminCreateAppointment/AdminAppointmentDuration/adminAppointmentDurationReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -399,6 +400,7 @@ const RootReducer = combineReducers({
   adminAppointmentNotes: adminAppointmentNotesReducer,
   adminAppointmentStaffMember: adminAppointmentStaffMemberReducer,
   adminAppointmentTime: adminAppointmentTimeReducer,
+  adminAppointmentDuration: adminAppointmentDurationReducer,
   adminClientEmail: adminClientEmailReducer,
   adminClientFirstName: adminClientFirstNameReducer,
   adminClientLastName: adminClientLastNameReducer,

@@ -294,6 +294,19 @@
     width: 20%;
     height: 6vh;
   }
+
+  .react_autosuggest_section_title_header {
+    font-size: 0.9rem;
+    padding: 1.2rem;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    font-size: 12px;
+  }
+
+  .react-autosuggest__input {
+    font-size: 1rem;
+  }
 }
 
 /* CSS for Huge Desktops */
@@ -310,5 +323,18 @@
   .autosuggest_client_initials_square {
     width: 15%;
     height: 5vh;
+  }
+
+  .react_autosuggest_section_title_header {
+    font-size: 1.3rem;
+    padding: 1.5rem;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    font-size: 16px;
+  }
+
+  .react-autosuggest__input {
+    font-size: 1.5rem;
   }
 }

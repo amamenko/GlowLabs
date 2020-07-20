@@ -225,68 +225,142 @@ const AdminCreateAppointment = (props) => {
     const inputValue = value ? value.trim().toLowerCase() : "";
     const inputLength = inputValue.length;
 
+    const date = moment(adminAppointmentDate, "L").format("MMMM D, YYYY");
+
+    const startTime = adminAppointmentTime;
+
+    const fifteenMinutesPrior = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .subtract(15, "minutes")
+      .format("MMMM D, YYYY h:mm A");
+
+    const thirtyMinutesPrior = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .subtract(30, "minutes")
+      .format("MMMM D, YYYY h:mm A");
+
+    const fortyFiveMinutesPrior = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .subtract(45, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const hourPrior = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .subtract(1, "hours")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const fifteenMinutesAfter = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(15, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const thirtyMinutesAfter = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(30, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const fortyFiveMinutesAfter = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(45, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+    const hourAfter = moment(
+      date + " " + startTime.value,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(1, "hours")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const filteredApps = props.getAllAppointmentsData
+      ? props.getAllAppointmentsData.all_appointments.filter((x) => {
+          if (x.esthetician === "Salt Cave") {
+            return x.esthetician === "Salt Cave";
+          } else {
+            return null;
+          }
+        })
+      : null;
+
+    const sameDayApps = filteredApps.filter((x) => {
+      if (x.date === date) {
+        return x.date === date;
+      } else {
+        return null;
+      }
+    });
+
+    const bookedTimes = sameDayApps.map((x) => {
+      const interval = x.duration / 15;
+      const bookedArr = [];
+
+      for (let i = 0; i < interval + 1; i++) {
+        const start = x.date + " " + x.startTime + " " + x.morningOrEvening;
+
+        bookedArr.push(
+          moment(start, "MMMM D, YYYY hh:mm A")
+            .add(i * 15, "minutes")
+            .format("MMMM D, YYYY hh:mm A")
+        );
+      }
+
+      return bookedArr;
+    });
+
+    const bookedTimesArr = bookedTimes.flat();
+    console.log(bookedTimesArr);
+    console.log(thirtyMinutesPrior);
+    console.log(fortyFiveMinutesPrior);
+    console.log(hourPrior);
+    console.log(thirtyMinutesAfter);
+    console.log(fortyFiveMinutesAfter);
+    console.log(hourAfter);
+
+    const treatmentsSuggestionsArguments = treatmentSuggestions(
+      bookedTimesArr.includes(fifteenMinutesPrior) ||
+        bookedTimesArr.includes(thirtyMinutesPrior),
+      bookedTimesArr.includes(fifteenMinutesPrior) ||
+        bookedTimesArr.includes(thirtyMinutesPrior) ||
+        bookedTimesArr.includes(fortyFiveMinutesPrior),
+      bookedTimesArr.includes(fifteenMinutesPrior) ||
+        bookedTimesArr.includes(thirtyMinutesPrior) ||
+        bookedTimesArr.includes(fortyFiveMinutesPrior) ||
+        bookedTimesArr.includes(hourPrior),
+      bookedTimesArr.includes(fifteenMinutesAfter) ||
+        bookedTimesArr.includes(thirtyMinutesAfter),
+      bookedTimesArr.includes(fifteenMinutesAfter) ||
+        bookedTimesArr.includes(thirtyMinutesAfter) ||
+        bookedTimesArr.includes(fortyFiveMinutesAfter),
+      bookedTimesArr.includes(fifteenMinutesAfter) ||
+        bookedTimesArr.includes(thirtyMinutesAfter) ||
+        bookedTimesArr.includes(fortyFiveMinutesAfter) ||
+        bookedTimesArr.includes(hourAfter)
+    );
+
     if (inputLength === 0) {
       const sortedArr = [];
 
-      const date = moment(adminAppointmentDate, "L").format("MMMM D, YYYY");
-      const startTime = adminAppointmentTime;
-      const thirtyMinutesPrior = moment(
-        date + " " + startTime,
-        "MMMM D, YYYY hh:mm A"
-      )
-        .subtract(30, "minutes")
-        .format("MMMM D, YYYY hh:mm A");
-      const fortyFiveMinutesPrior = moment(
-        date + " " + startTime,
-        "MMMM D, YYYY hh:mm A"
-      )
-        .subtract(45, "minutes")
-        .format("MMMM D, YYYY hh:mm A");
-      const hourPrior = moment(date + " " + startTime, "MMMM D, YYYY hh:mm A")
-        .subtract(1, "hours")
-        .format("MMMM D, YYYY hh:mm A");
-
-      const thirtyMinutesAfter = moment(
-        date + " " + startTime,
-        "MMMM D, YYYY hh:mm A"
-      )
-        .add(30, "minutes")
-        .format("MMMM D, YYYY hh:mm A");
-      const fortyFiveMinutesAfter = moment(
-        date + " " + startTime,
-        "MMMM D, YYYY hh:mm A"
-      )
-        .add(45, "minutes")
-        .format("MMMM D, YYYY hh:mm A");
-      const hourAfter = moment(date + " " + startTime, "MMMM D, YYYY hh:mm A")
-        .add(1, "hours")
-        .format("MMMM D, YYYY hh:mm A");
-
-      const filteredApps = props.getAllAppointmentsData
-        ? props.getAllAppointmentsData.all_appointments.filter((x) => {
-            if (x.esthetician === "Salt Cave") {
-              return x.esthetician === "Salt Cave";
-            } else {
-              return null;
-            }
-          })
-        : null;
-
-      const sameDayApps = filteredApps.filter((x) => {
-        if (x.date === date) {
-          return x.date === date;
-        } else {
-          return null;
-        }
-      });
-
-      console.log(filteredApps);
-
-      for (let i = 0; i < treatmentSuggestions().length; i++) {
+      for (let i = 0; i < treatmentsSuggestionsArguments.length; i++) {
         sortedArr.push({
-          sectionTitle: treatmentSuggestions()[i].sectionTitle,
-          suggestions: treatmentSuggestions()[i].suggestions.sort((a, b) =>
-            a.name.localeCompare(b.name)
+          sectionTitle: treatmentsSuggestionsArguments[i].sectionTitle
+            ? treatmentsSuggestionsArguments[i].sectionTitle
+            : null,
+          suggestions: treatmentsSuggestionsArguments[
+            i
+          ].suggestions.sort((a, b) =>
+            a.name ? a.name.localeCompare(b.name) : null
           ),
         });
       }
@@ -294,11 +368,13 @@ const AdminCreateAppointment = (props) => {
     } else {
       const sortedArr = [];
 
-      for (let i = 0; i < treatmentSuggestions().length; i++) {
+      for (let i = 0; i < treatmentsSuggestionsArguments.length; i++) {
         sortedArr.push({
-          sectionTitle: treatmentSuggestions()[i].sectionTitle,
-          suggestions: treatmentSuggestions()
-            [i].suggestions.sort((a, b) => a.name.localeCompare(b.name))
+          sectionTitle: treatmentsSuggestionsArguments[i].sectionTitle
+            ? treatmentsSuggestionsArguments[i].sectionTitle
+            : null,
+          suggestions: treatmentsSuggestionsArguments[i].suggestions
+            .sort((a, b) => (a.name ? a.name.localeCompare(b.name) : null))
             .filter((x) => {
               const treatmentName = x.name;
 
