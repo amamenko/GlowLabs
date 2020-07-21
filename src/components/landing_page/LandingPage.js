@@ -180,7 +180,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                 preventScroll,
                 false
               ),
-            props.initialScreenSize >= 600 ? 5300 : 4000
+            props.initialScreenSize >= 600 ? 3300 : 2400
           );
         }
       }
@@ -231,15 +231,15 @@ const LandingPage = React.forwardRef((props, ref) => {
         },
         !props.currentScreenSize
           ? props.initialScreenSize >= 600
-            ? 5300
-            : 4400
+            ? 3300
+            : 2400
           : props.initialScreenSize >= 600
           ? props.currentScreenSize >= 600
-            ? 5300
-            : 4400
+            ? 3300
+            : 2400
           : props.currentScreenSize >= 600
-          ? 3000
-          : 4400
+          ? 3300
+          : 2400
       );
 
       return () => {
@@ -435,12 +435,12 @@ const LandingPage = React.forwardRef((props, ref) => {
           config={{
             delay: !props.currentScreenSize
               ? props.initialScreenSize >= 550
-                ? 3000
-                : 2000
+                ? 1200
+                : 500
               : props.currentScreenSize >= 550
-              ? 500
-              : 2000,
-            duration: 2000,
+              ? 1200
+              : 500,
+            duration: 1800,
           }}
         >
           {(styles) => (
@@ -505,13 +505,13 @@ const LandingPage = React.forwardRef((props, ref) => {
                 config={{
                   delay: !props.currentScreenSize
                     ? props.initialScreenSize >= 550
-                      ? 5000
-                      : 4000
+                      ? 3000
+                      : 2350
                     : props.initialScreenSize >= 550
                     ? props.currentScreenSize >= 550
-                      ? 5000
-                      : 4000
-                    : 4000,
+                      ? 3000
+                      : 2350
+                    : 2350,
                   duration: 500,
                 }}
               >

@@ -268,6 +268,18 @@ const AdminCreateAppointment = (props) => {
       .add(15 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
+    const actualAppointmentStartTime = moment(
+      date + " " + (startTime.value ? startTime.value : startTime),
+      "MMMM D, YYYY hh:mm A"
+    ).format("MMMM D, YYYY hh:mm A");
+
+    const actualAppointmentEndTime = moment(
+      date + " " + (startTime.value ? startTime.value : startTime),
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(adminAppointmentDuration, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
     const thirtyMinutesAfter = moment(
       date + " " + (startTime.value ? startTime.value : startTime),
       "MMMM D, YYYY hh:mm A"
@@ -307,7 +319,7 @@ const AdminCreateAppointment = (props) => {
     });
 
     const bookedTimes = sameDayApps.map((x) => {
-      const interval = x.duration / 15;
+      const interval = x.duration / 5;
       const bookedArr = [];
 
       for (let i = 0; i < interval + 1; i++) {
@@ -315,7 +327,7 @@ const AdminCreateAppointment = (props) => {
 
         bookedArr.push(
           moment(start, "MMMM D, YYYY hh:mm A")
-            .add(i * 15, "minutes")
+            .add(i * 5, "minutes")
             .format("MMMM D, YYYY hh:mm A")
         );
       }
@@ -332,10 +344,14 @@ const AdminCreateAppointment = (props) => {
     console.log(fortyFiveMinutesAfter);
     console.log(hourAfter);
     console.log(adminAppointmentDuration === 0);
+
+    console.log(actualAppointmentStartTime);
+    console.log(actualAppointmentEndTime);
     const treatmentsSuggestionsArguments = treatmentSuggestions(
       adminAppointmentDuration,
       adminAppointmentDate,
       adminAppointmentTime,
+
       bookedTimesArr.includes(fifteenMinutesPrior) ||
         bookedTimesArr.includes(thirtyMinutesPrior),
 
@@ -349,16 +365,19 @@ const AdminCreateAppointment = (props) => {
         bookedTimesArr.includes(hourPrior),
       adminAppointmentDuration === 0
         ? true
-        : bookedTimesArr.includes(fifteenMinutesAfter) ||
+        : bookedTimesArr.includes(actualAppointmentEndTime) ||
+            bookedTimesArr.includes(fifteenMinutesAfter) ||
             bookedTimesArr.includes(thirtyMinutesAfter),
       adminAppointmentDuration === 0
         ? true
-        : bookedTimesArr.includes(fifteenMinutesAfter) ||
+        : bookedTimesArr.includes(actualAppointmentEndTime) ||
+            bookedTimesArr.includes(fifteenMinutesAfter) ||
             bookedTimesArr.includes(thirtyMinutesAfter) ||
             bookedTimesArr.includes(fortyFiveMinutesAfter),
       adminAppointmentDuration === 0
         ? true
-        : bookedTimesArr.includes(fifteenMinutesAfter) ||
+        : bookedTimesArr.includes(actualAppointmentEndTime) ||
+            bookedTimesArr.includes(fifteenMinutesAfter) ||
             bookedTimesArr.includes(thirtyMinutesAfter) ||
             bookedTimesArr.includes(fortyFiveMinutesAfter) ||
             bookedTimesArr.includes(hourAfter)
@@ -466,7 +485,19 @@ const AdminCreateAppointment = (props) => {
           </div>
         ) : null}
 
-        <p>{suggestion.props.children[0].props.children}</p>
+        <p
+          style={{
+            color: suggestion.props.children[0].props.children
+              ? suggestion.props.children[0].props.children.includes(
+                  "Unavailable"
+                )
+                ? "rgb(177, 177, 177)"
+                : "#000"
+              : "#000",
+          }}
+        >
+          {suggestion.props.children[0].props.children}
+        </p>
         <p>
           {suggestion.props.children[2].props.children
             ? "$" + suggestion.props.children[2].props.children + ".00"
@@ -881,6 +912,13 @@ const AdminCreateAppointment = (props) => {
           );
         } else if (
           highlightedTreatment[0].textContent.includes("Pick a date/time first")
+        ) {
+          highlightedTreatment[0].setAttribute(
+            "style",
+            "pointer-events: none; background: #fff;"
+          );
+        } else if (
+          highlightedTreatment[0].textContent.includes("Unavailable")
         ) {
           highlightedTreatment[0].setAttribute(
             "style",

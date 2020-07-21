@@ -255,6 +255,68 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .shopping_cart_container h1 {
+    font-size: 2rem;
+  }
+
+  .shopping_cart_forward_arrow,
+  .shopping_cart_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .shopping_cart_back_arrow {
+    left: 3.1rem;
+  }
+
+  .shopping_cart_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .cart_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .search_availability_button,
+  .continue_shopping_button {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+
+  .cart_subtotal p {
+    font-size: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .esthetician_preference_dropdown {
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .esthetician_preference_dropdown p {
+    line-height: 2rem;
+    font-size: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .esthetician_preference_dropdown_icon {
+    font-size: 1.5rem;
+  }
+
+  .esthetician_preference_input {
+    width: 100%;
+    font: 400 1.5rem system-ui;
+    line-height: 24px;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .large_screen_shopping_cart_full_container {

@@ -12,20 +12,6 @@ const SplashScreen = () => {
     glowAnimation: [
       {
         opacity: 0.2,
-        fill: "rgba(44, 44, 52, 0.6)",
-        fillOpacity: "1",
-        stdDeviation: "2",
-        config: { duration: 200 },
-      },
-      {
-        opacity: 1,
-        fill: "rgba(44, 44, 52, 0.7)",
-        fillOpacity: "1",
-        stdDeviation: "2",
-        config: { duration: 200 },
-      },
-      {
-        opacity: 0.2,
         fill: "rgba(44, 44, 52, 0.8)",
         fillOpacity: "1",
         stdDeviation: "0",
@@ -36,14 +22,14 @@ const SplashScreen = () => {
         fill: "rgb(44, 44, 52)",
         fillOpacity: "1",
         stdDeviation: "0",
-        config: { duration: 1000 },
+        config: { duration: 500 },
       },
       {
         opacity: 0.5,
         fill: "rgb(44, 44, 52)",
         fillOpacity: "0",
         stdDeviation: "0",
-        config: { duration: 2000 },
+        config: { duration: 500 },
       },
       {
         opacity: 0,

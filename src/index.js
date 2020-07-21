@@ -1276,24 +1276,8 @@ const App = () => {
         }}
         to={{ marginTop: "0px" }}
         config={{
-          delay: !currentScreenSize
-            ? initialScreenSize >= 600
-              ? 3500
-              : 2500
-            : initialScreenSize >= 600
-            ? currentScreenSize >= 600
-              ? 3500
-              : 2500
-            : 2500,
-          duration: !currentScreenSize
-            ? initialScreenSize >= 600
-              ? 2000
-              : 1500
-            : initialScreenSize >= 600
-            ? currentScreenSize >= 600
-              ? 2000
-              : 1500
-            : 1500,
+          delay: 1800,
+          duration: 1500,
         }}
         immediate={
           location.pathname.includes("account") ||

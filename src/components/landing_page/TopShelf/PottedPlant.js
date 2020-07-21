@@ -2,9 +2,9 @@ import React from "react";
 import { Spring } from "react-spring/renderprops";
 import { useSelector } from "react-redux";
 
-const PottedPlant = props => {
+const PottedPlant = (props) => {
   const splashScreenComplete = useSelector(
-    state => state.splashScreenComplete.splashScreenComplete
+    (state) => state.splashScreenComplete.splashScreenComplete
   );
   return (
     <Spring
@@ -14,18 +14,18 @@ const PottedPlant = props => {
         delay:
           props.initialScreenSize >= 600
             ? props.currentScreenSize >= 600 || !props.currentScreenSize
-              ? 5000
-              : 4000
-            : 4000,
-        duration: 550
+              ? 3000
+              : 2350
+            : 2350,
+        duration: 550,
       }}
     >
-      {props => (
+      {(props) => (
         <svg
           className="potted_plant"
           style={{
             display: splashScreenComplete ? "inline" : `${props.display}`,
-            opacity: splashScreenComplete ? "1" : `${props.opacity}`
+            opacity: splashScreenComplete ? "1" : `${props.opacity}`,
           }}
           viewBox="0 0 50 50"
         >

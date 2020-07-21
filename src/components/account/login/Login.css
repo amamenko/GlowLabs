@@ -649,9 +649,45 @@
     justify-content: center;
     align-items: center;
   }
+
   .complete_registration_page_container,
   .login_page_container {
     width: 75%;
+  }
+
+  .complete_registration_prompt,
+  .sign_in_prompt {
+    font-size: 2rem;
+  }
+
+  .continue_with_facebook_button,
+  .complete_registration_button,
+  .login_redirect_button,
+  .create_account_redirect_button,
+  .log_in_button {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+
+  .input_field_login {
+    font-size: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .login_or_container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .dont_have_an_account_question {
+    font-size: 1.5rem;
+    margin-bottom: 1vh;
+  }
+
+  .forgot_password_question_container p {
+    font-size: 1.2rem;
   }
 }
 
@@ -735,6 +771,10 @@
   .dont_have_an_account_question {
     font-size: 1rem;
     margin-bottom: 1vh;
+  }
+
+  .forgot_password_question_container p {
+    font-size: 1rem;
   }
 }
 

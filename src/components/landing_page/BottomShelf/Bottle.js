@@ -14,9 +14,9 @@ const Bottle = (props) => {
         delay:
           props.initialScreenSize >= 600
             ? props.currentScreenSize >= 600 || !props.currentScreenSize
-              ? 5000
-              : 4000
-            : 4000,
+              ? 3000
+              : 2350
+            : 2350,
         duration: 550,
       }}
     >

@@ -643,6 +643,42 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .sign_up_page_background {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sign_up_page_container {
+    width: 75%;
+  }
+
+  .input_field_sign_up {
+    font-size: 1.5rem;
+  }
+
+  .sign_up_prompt {
+    font-size: 2rem;
+    top: -29vh;
+  }
+
+  .complete_registration_prompt {
+    font-size: 2rem;
+  }
+
+  .login_redirect_button,
+  .create_account_button {
+    font-size: 1.5rem;
+  }
+
+  .already_have_an_account_question {
+    font-size: 1.5rem;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .sign_up_page_background {
@@ -727,6 +763,10 @@
     font-size: 1.5rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+
+  .input_field_sign_up {
+    font-size: 1.3rem;
   }
 
   .create_account_button {

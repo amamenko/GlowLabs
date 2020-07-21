@@ -647,7 +647,7 @@
 @media only screen and (min-width: 1400px) {
   .instagram_page_wrapping {
     display: block;
-    height: 110vh;
+    height: 115vh;
   }
 
   .instagram_top_page_wrapping h2 {
@@ -655,10 +655,14 @@
   }
 
   .instagram_top_page_wrapping {
-    padding-top: 15vh;
+    padding-top: 20vh;
   }
 
   .instagram_images_wrapping {
+    margin-top: 0vh;
+  }
+
+  .large_screen_follow_prompt p {
     margin-top: 0vh;
   }
 }
@@ -693,6 +697,7 @@
 
   .instagram_page_wrapping {
     margin-top: 25vh;
+    height: 110vh;
   }
 
   .instagram_images_wrapping {

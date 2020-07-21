@@ -129,6 +129,18 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .shopping_cart_price {
+    font-size: 2rem;
+  }
+
+  .shopping_cart_remove_button {
+    font-size: 1.5rem;
+    margin-right: 3.1rem;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .shopping_cart_remove_button {

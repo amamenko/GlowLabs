@@ -212,6 +212,70 @@ button:disabled {
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .availability_container h1 {
+    font-size: 2rem;
+  }
+
+  .availability_forward_arrow,
+  .availability_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .availability_back_arrow {
+    left: 3.1rem;
+  }
+
+  .availability_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .select_a_date_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .availability_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+  }
+
+  .select_time_button {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+
+  .calendar_tiles {
+    font-size: 1.8rem;
+  }
+
+  .react-calendar__navigation__prev-button {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+  }
+
+  .react-calendar__navigation__next-button {
+    font-size: 1.5rem;
+    padding-right: 3.1rem;
+  }
+
+  .react-calendar__navigation__label {
+    font-size: 1.5rem;
+  }
+
+  .react-calendar {
+    padding-top: 1vh;
+    margin-top: 4vh;
+    margin-bottom: 6vh;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .availability_container h1 {
