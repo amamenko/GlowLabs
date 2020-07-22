@@ -315,6 +315,22 @@
     font: 400 1.5rem system-ui;
     line-height: 24px;
   }
+
+  .empty_shopping_cart {
+    font-size: 18rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .empty_cart_container h3 {
+    font-size: 2.5rem;
+  }
+
+  .cart_statement {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */

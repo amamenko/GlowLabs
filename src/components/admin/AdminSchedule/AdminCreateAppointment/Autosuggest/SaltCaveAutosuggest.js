@@ -63,11 +63,15 @@ const SaltCaveAutosuggest = (props) => {
   };
 
   const renderSectionTitle = (section) => {
-    return (
-      <span className="react_autosuggest_section_title_header">
-        {section.sectionTitle}
-      </span>
-    );
+    if (section.sectionTitle) {
+      return (
+        <span className="react_autosuggest_section_title_header">
+          {section.sectionTitle}
+        </span>
+      );
+    } else {
+      return null;
+    }
   };
 
   const getSectionSuggestions = (section) => {
@@ -122,70 +126,93 @@ const SaltCaveAutosuggest = (props) => {
     const startTime = adminAppointmentTime;
 
     const fifteenMinutesPrior = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     )
       .subtract(15, "minutes")
       .format("MMMM D, YYYY h:mm A");
 
     const thirtyMinutesPrior = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     )
       .subtract(30, "minutes")
       .format("MMMM D, YYYY h:mm A");
 
     const fortyFiveMinutesPrior = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     )
       .subtract(45, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
-    const hourPrior = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
-      "MMMM D, YYYY hh:mm A"
-    )
+    const hourPrior = moment(date + " " + startTime, "MMMM D, YYYY hh:mm A")
       .subtract(1, "hours")
       .format("MMMM D, YYYY hh:mm A");
 
     const fifteenMinutesAfter = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     )
       .add(15 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
     const actualAppointmentStartTime = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     ).format("MMMM D, YYYY hh:mm A");
 
+    const fifteenMinutesIntoAppointment = moment(
+      date + " " + startTime,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(15, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const thirtyMinutesIntoAppointment = moment(
+      date + " " + startTime,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(30, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const fortyFiveMinutesIntoAppointment = moment(
+      date + " " + startTime,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(45, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
+    const hourIntoAppointment = moment(
+      date + " " + startTime,
+      "MMMM D, YYYY hh:mm A"
+    )
+      .add(60, "minutes")
+      .format("MMMM D, YYYY hh:mm A");
+
     const actualAppointmentEndTime = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     )
       .add(adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
     const thirtyMinutesAfter = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     )
       .add(30 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
     const fortyFiveMinutesAfter = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
+      date + " " + startTime,
       "MMMM D, YYYY hh:mm A"
     )
       .add(45 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
-    const hourAfter = moment(
-      date + " " + (startTime.value ? startTime.value : startTime),
-      "MMMM D, YYYY hh:mm A"
-    )
-      .add(1, "hours")
+
+    const hourAfter = moment(date + " " + startTime, "MMMM D, YYYY hh:mm A")
+      .add(60 + adminAppointmentDuration, "minutes")
       .format("MMMM D, YYYY hh:mm A");
 
     const filteredApps = props.getAllAppointmentsData
@@ -229,6 +256,7 @@ const SaltCaveAutosuggest = (props) => {
       adminAppointmentDuration,
       adminAppointmentDate,
       adminAppointmentTime,
+      adminSelectedTreatments ? adminSelectedTreatments : [],
       bookedTimesArr.includes(actualAppointmentStartTime) ||
         bookedTimesArr.includes(fifteenMinutesPrior) ||
         bookedTimesArr.includes(thirtyMinutesPrior),
@@ -241,6 +269,18 @@ const SaltCaveAutosuggest = (props) => {
         bookedTimesArr.includes(thirtyMinutesPrior) ||
         bookedTimesArr.includes(fortyFiveMinutesPrior) ||
         bookedTimesArr.includes(hourPrior),
+      bookedTimes.includes(actualAppointmentStartTime) ||
+        bookedTimesArr.includes(fifteenMinutesIntoAppointment) ||
+        bookedTimesArr.includes(thirtyMinutesIntoAppointment),
+      bookedTimes.includes(actualAppointmentStartTime) ||
+        bookedTimesArr.includes(fifteenMinutesIntoAppointment) ||
+        bookedTimesArr.includes(thirtyMinutesIntoAppointment) ||
+        bookedTimesArr.includes(fortyFiveMinutesIntoAppointment),
+      bookedTimes.includes(actualAppointmentStartTime) ||
+        bookedTimesArr.includes(fifteenMinutesIntoAppointment) ||
+        bookedTimesArr.includes(thirtyMinutesIntoAppointment) ||
+        bookedTimesArr.includes(fortyFiveMinutesIntoAppointment) ||
+        bookedTimesArr.includes(hourIntoAppointment),
       adminAppointmentDuration === 0
         ? true
         : bookedTimesArr.includes(actualAppointmentEndTime) ||

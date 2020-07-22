@@ -74,6 +74,8 @@ const SignUp = (props) => {
     changeCreateAccountStepTwoTriggered,
   ] = useState(false);
 
+  console.log(createAccountStepTwoTriggered);
+
   const override = css`
     display: block;
     position: absolute;

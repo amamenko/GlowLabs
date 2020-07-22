@@ -258,6 +258,67 @@
 
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .select_time_container h1 {
+    font-size: 2rem;
+  }
+
+  .select_time_forward_arrow,
+  .select_time_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .select_time_back_arrow {
+    left: 3.1rem;
+  }
+
+  .select_time_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .select_a_time_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .time_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+  }
+
+  .time_of_day_heading {
+    font-size: 2rem;
+    padding-left: 3.1rem;
+  }
+
+  .time_of_day_card_show_more {
+    font-size: 1.5rem;
+    padding-right: 3.1rem;
+  }
+
+  .inner_times_wrapper {
+    width: 101%;
+    flex-wrap: wrap;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    padding-bottom: 1.5rem;
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .inner_times_wrapper p {
+    font-size: 2rem;
+  }
+
+  .time_preference_continue_button,
+  .change_date_button {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */

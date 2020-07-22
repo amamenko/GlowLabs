@@ -677,6 +677,14 @@
   .already_have_an_account_question {
     font-size: 1.5rem;
   }
+
+  .sign_up_required_fields {
+    padding-right: 10rem;
+  }
+
+  .sign_up_password_form_container {
+    margin-bottom: 12vh;
+  }
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
@@ -890,7 +898,7 @@
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .sign_up_password_form_container {
-    margin-top: -25vh;
+    margin-top: -30vh;
   }
 
   .sign_up_page_form {

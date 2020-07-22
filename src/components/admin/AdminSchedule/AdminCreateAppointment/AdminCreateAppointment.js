@@ -30,6 +30,7 @@ import ACTION_ADMIN_APPOINTMENT_DURATION from "../../../../actions/Admin/AdminCr
 import ClientAutosuggest from "./Autosuggest/ClientAutosuggest";
 import TreatmentAutosuggest from "./Autosuggest/TreatmentAutosuggest";
 import SaltCaveAutosuggest from "./Autosuggest/SaltCaveAutosuggest";
+import AdminPaymentInfo from "./AdminPaymentInfo/AdminPaymentInfo";
 
 const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
@@ -647,7 +648,7 @@ const AdminCreateAppointment = (props) => {
               <Dropdown
                 options={timeOptions()}
                 onChange={(choice) =>
-                  dispatch(ACTION_ADMIN_APPOINTMENT_TIME(choice))
+                  dispatch(ACTION_ADMIN_APPOINTMENT_TIME(choice.value))
                 }
                 value={adminAppointmentTime}
                 controlClassName="react-autosuggest__input"
@@ -786,6 +787,10 @@ const AdminCreateAppointment = (props) => {
                     ".00"}
               </div>
             </div>
+            <div className="admin_create_appointment_section_header">
+              <h2>Payment Details</h2>
+            </div>
+            <AdminPaymentInfo />
           </div>
         ))
       }

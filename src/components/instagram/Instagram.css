@@ -780,7 +780,7 @@
     font-size: 3em;
     font-weight: 500;
     margin-bottom: 1em;
-    margin-top: 70vh;
+    margin-top: -10vh;
   }
 
   .instagram_image {
@@ -800,6 +800,10 @@
         margin-top: -120vh;
         padding-bottom: 0rem;
         margin-bottom: 3rem;
+      }
+
+      .instagram_page_wrapping {
+        height: 90vh;
       }
 
       .instagram_top_page_wrapping {

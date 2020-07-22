@@ -229,6 +229,64 @@
   }
 }
 
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .checkout_container h1 {
+    font-size: 2rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 3.1rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .input_field {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1.5rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .checkout_container h1 {
