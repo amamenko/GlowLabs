@@ -19,7 +19,6 @@ const AdminPaymentInfo = () => {
         cardNonceResponseReceived={() => console.log("OK")}
         createVerificationDetails={() => console.log("OK")}
         // paymentFormLoaded={() => changeSquareFormLoading(false)}
-
         placeholderCVV="CVC"
         inputStyles={[
           {
@@ -39,11 +38,11 @@ const AdminPaymentInfo = () => {
           },
         ]}
       >
-        <CreditCardNumberInput />
-        <CreditCardExpirationDateInput />
-        <CreditCardPostalCodeInput />
-        <CreditCardCVVInput />
-        <CreditCardSubmitButton />
+        <CreditCardNumberInput label="Credit Card" />
+        <CreditCardExpirationDateInput label="Expiration" />
+        <CreditCardPostalCodeInput label="Zip Code" />
+        <CreditCardCVVInput label="CVC" />
+        <CreditCardSubmitButton>Book Appointment</CreditCardSubmitButton>
       </SquarePaymentForm>
     </div>
   );

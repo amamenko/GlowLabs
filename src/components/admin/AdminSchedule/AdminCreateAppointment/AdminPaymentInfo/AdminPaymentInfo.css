@@ -1,6 +1,6 @@
 .admin_square_input {
   height: 56px;
-  font-size: 2rem;
+  font-size: 1rem;
   box-sizing: border-box;
   border: 1px solid #e0e2e3;
   background-color: white;
@@ -19,4 +19,93 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding-bottom: 10vh;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div:first-child {
+  display: flex;
+  flex: 0 1 100%;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div > .sq-label {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 0 1 33.3333%;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: rgb(235, 235, 235);
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  border-left: 1px solid rgb(211, 211, 211);
+  border-right: 1px solid transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1.5rem;
+  text-transform: capitalize;
+  height: 45%;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:first-of-type
+  > .sq-label {
+  flex: 0 1 26%;
+  height: 79%;
+  border-right: 1px solid transparent;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:first-of-type
+  > .sq-input {
+  border-left: 1px solid transparent;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div > .sq-input {
+  width: 100%;
+  height: 100%;
+  padding: 0 0.6rem;
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  border-right: 1px solid rgb(211, 211, 211);
+  border-left: 1px solid rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div
+  > .sq-input:first-of-type {
+  border-right: none;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:first-of-type
+  > .sq-input {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:last-of-type
+  > .sq-input,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:last-of-type
+  > .sq-label {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_square_payment_form_container > .sq-payment-form div {
+  flex: 0 1 33.333333%;
 }
