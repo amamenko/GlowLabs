@@ -12,6 +12,10 @@
   transition: border-color 0.2s ease-in-out;
 }
 
+.admin_square_payment_form_container {
+  padding-bottom: 10vh;
+}
+
 .admin_square_payment_form_container > .sq-payment-form {
   padding-left: 0;
   padding-right: 0;
@@ -19,10 +23,9 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-bottom: 10vh;
 }
 
-.admin_square_payment_form_container > .sq-payment-form div:first-child {
+.admin_square_payment_form_container > .sq-payment-form div:nth-of-type(3) {
   display: flex;
   flex: 0 1 100%;
   flex-direction: row;
@@ -33,7 +36,6 @@
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
-  flex: 0 1 33.3333%;
   font-size: 1.2rem;
   font-weight: 600;
   background: rgb(235, 235, 235);
@@ -52,7 +54,7 @@
 
 .admin_square_payment_form_container
   > .sq-payment-form
-  div:first-of-type
+  div::nth-of-type(3)
   > .sq-label {
   flex: 0 1 26%;
   height: 79%;
@@ -61,7 +63,7 @@
 
 .admin_square_payment_form_container
   > .sq-payment-form
-  div:first-of-type
+  div::nth-of-type(3)
   > .sq-input {
   border-left: 1px solid transparent;
 }
@@ -77,20 +79,20 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   cursor: pointer;
 }
 
 .admin_square_payment_form_container
   > .sq-payment-form
   div
-  > .sq-input:first-of-type {
+  > .sq-input::nth-of-type(4) {
   border-right: none;
 }
 
 .admin_square_payment_form_container
   > .sq-payment-form
-  div:first-of-type
+  div::nth-of-type(3)
   > .sq-input {
   border-right: 1px solid rgb(211, 211, 211);
 }
@@ -106,6 +108,53 @@
   border-right: 1px solid rgb(211, 211, 211);
 }
 
-.admin_square_payment_form_container > .sq-payment-form div {
-  flex: 0 1 33.333333%;
+.admin_create_appointment_cardholder_container {
+  display: flex;
+  flex-direction: row;
+  flex: 0 1 50%;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:not(:first-child):not(:nth-child(2))
+  > .sq-label {
+  width: 100%;
+  flex: 0 1 23%;
+}
+
+.admin_create_appointment_cardholder_container > .sq-label {
+  flex: 0 1 60%;
+  height: 5vh !important;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:not(:first-child):not(:nth-child(2))
+  ~ div {
+  flex: 0 1 33.33333%;
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-label {
+    height: 52%;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:nth-of-type(3)
+    > .sq-label {
+    height: 81%;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input {
+    padding-top: 0.5rem;
+    height: 5vh !important;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
+    margin-top: 4rem;
+  }
 }

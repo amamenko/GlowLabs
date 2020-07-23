@@ -327,7 +327,7 @@ const AdminCreateAppointment = (props) => {
                 style={{
                   borderLeft: "1px solid transparent",
                   borderRight: "1px solid transparent",
-                  color: "#000",
+                  color: "#4a90e2",
                 }}
               />
             </div>
@@ -365,7 +365,7 @@ const AdminCreateAppointment = (props) => {
                 style={{
                   borderLeft: "1px solid transparent",
                   borderRight: "1px solid transparent",
-                  color: "#000",
+                  color: "#4a90e2",
                 }}
               />
             </div>
@@ -404,7 +404,7 @@ const AdminCreateAppointment = (props) => {
                 onChange={(e) => e.preventDefault()}
                 style={{
                   borderLeft: "1px solid transparent",
-                  color: "#000",
+                  color: "#4a90e2",
                 }}
               />
             </div>{" "}
@@ -632,6 +632,9 @@ const AdminCreateAppointment = (props) => {
                 dayPickerProps={{ disabledDays: { before: new Date() } }}
                 inputProps={{
                   className: "react-autosuggest__input",
+                  style: {
+                    color: "#4a90e2",
+                  },
                 }}
                 formatDate={formatDate}
                 parseDate={parseDate}
