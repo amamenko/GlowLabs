@@ -55,11 +55,11 @@ const AdminPaymentInfo = () => {
       >
         <div className="admin_create_appointment_cardholder_container">
           <span className="sq-label">Cardholder First Name</span>
-          <input className="sq-input"></input>
+          <input className="sq-input" placeholder="Enter first name"></input>
         </div>
         <div className="admin_create_appointment_cardholder_container">
           <span className="sq-label">Cardholder Last Name</span>
-          <input className="sq-input"></input>
+          <input className="sq-input" placeholder="Enter last name"></input>
         </div>
 
         <CreditCardNumberInput label="Credit Card" />

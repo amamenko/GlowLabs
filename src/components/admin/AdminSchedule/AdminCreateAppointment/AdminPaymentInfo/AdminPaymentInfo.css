@@ -74,8 +74,8 @@
   padding: 0 0.6rem;
   border-top: 1px solid rgb(211, 211, 211);
   border-bottom: 1px solid rgb(211, 211, 211);
-  border-right: 1px solid rgb(211, 211, 211);
-  border-left: 1px solid rgb(211, 211, 211);
+  border-right: none;
+  border-left: none;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -108,12 +108,27 @@
   border-right: 1px solid rgb(211, 211, 211);
 }
 
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(3)
+  > iframe {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(4)
+  > iframe {
+  border-left: 1px solid rgb(211, 211, 211);
+}
+
 .admin_create_appointment_cardholder_container {
   display: flex;
   flex-direction: row;
   flex: 0 1 50%;
   width: 100%;
   margin-bottom: 2rem;
+  border-right: 1px solid rgb(211, 211, 211);
 }
 
 .admin_square_payment_form_container
@@ -136,6 +151,36 @@
   flex: 0 1 33.33333%;
 }
 
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .admin_create_appointment_cardholder_container > .sq-label {
+    flex: 0 1 79%;
+    height: 6vh !important;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:not(:first-child):not(:nth-child(2))
+    > .sq-label {
+    flex: 0 1 28%;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:nth-of-type(3)
+    > .sq-label {
+    height: 79%;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input {
+    height: 6vh !important;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
+    margin-top: 1.8rem;
+  }
+}
+
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
   .admin_square_payment_form_container > .sq-payment-form div > .sq-label {
@@ -156,5 +201,16 @@
 
   .admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
     margin-top: 4rem;
+  }
+
+  .admin_create_appointment_cardholder_container > .sq-label {
+    flex: 0 1 60%;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:not(:first-child):not(:nth-child(2))
+    > .sq-label {
+    flex: 0 1 23%;
   }
 }
