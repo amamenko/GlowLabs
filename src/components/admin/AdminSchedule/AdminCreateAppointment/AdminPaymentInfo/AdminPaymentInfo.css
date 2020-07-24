@@ -12,8 +12,13 @@
   transition: border-color 0.2s ease-in-out;
 }
 
+.sq-input:hover {
+  cursor: text !important;
+}
+
 .admin_square_payment_form_container {
   padding-bottom: 10vh;
+  padding-top: 4vh;
 }
 
 .admin_square_payment_form_container > .sq-payment-form {
@@ -23,6 +28,11 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
+  background: rgb(122, 172, 1);
+  padding: 2rem;
 }
 
 .admin_square_payment_form_container > .sq-payment-form div:nth-of-type(3) {
@@ -151,6 +161,21 @@
   flex: 0 1 33.33333%;
 }
 
+.admin_create_appointment_cardholder_container > .sq-input {
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-family: "Montserrat";
+  color: black;
+}
+
+.admin_create_appointment_cardholder_container > .sq-input {
+  text-indent: 0.6rem;
+}
+
+.sq-input:focus {
+  outline: none;
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .admin_create_appointment_cardholder_container > .sq-label {
@@ -183,6 +208,10 @@
 
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
+  .admin_create_appointment_cardholder_container > .sq-label {
+    height: 5vh !important;
+  }
+
   .admin_square_payment_form_container > .sq-payment-form div > .sq-label {
     height: 52%;
   }
@@ -200,7 +229,7 @@
   }
 
   .admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
-    margin-top: 4rem;
+    margin-top: 2.5rem;
   }
 
   .admin_create_appointment_cardholder_container > .sq-label {

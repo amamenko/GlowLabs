@@ -31,11 +31,19 @@ import ClientAutosuggest from "./Autosuggest/ClientAutosuggest";
 import TreatmentAutosuggest from "./Autosuggest/TreatmentAutosuggest";
 import SaltCaveAutosuggest from "./Autosuggest/SaltCaveAutosuggest";
 import AdminPaymentInfo from "./AdminPaymentInfo/AdminPaymentInfo";
+import { Collapse } from "reactstrap";
+// Minified Bootstrap CSS file (for Collapse feature)
+import "../../../../bootstrap.min.css";
 
 const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
 
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
+  const [addCardCollapseOpen, changeAddCardCollapseOpen] = useState(false);
+  const [
+    bookWithoutCardCollapseOpen,
+    changeBookWithoutCardCollapseOpen,
+  ] = useState(false);
 
   const adminClientLastName = useSelector(
     (state) => state.adminClientLastName.admin_client_last_name
@@ -793,7 +801,39 @@ const AdminCreateAppointment = (props) => {
             <div className="admin_create_appointment_section_header">
               <h2>Payment Details</h2>
             </div>
-            <AdminPaymentInfo />
+            <div className="admin_payment_info_buttons_container">
+              <div
+                className="admin_add_credit_card_button"
+                onClick={() => {
+                  changeAddCardCollapseOpen(!addCardCollapseOpen);
+                  changeBookWithoutCardCollapseOpen(false);
+                }}
+              >
+                Add Card
+              </div>
+              OR
+              <div
+                className="admin_book_without_card_button"
+                onClick={() => {
+                  changeBookWithoutCardCollapseOpen(
+                    !bookWithoutCardCollapseOpen
+                  );
+                  changeAddCardCollapseOpen(false);
+                }}
+              >
+                Book Without Card
+              </div>
+            </div>
+            <Collapse isOpen={addCardCollapseOpen}>
+              <AdminPaymentInfo />
+            </Collapse>
+            <Collapse isOpen={bookWithoutCardCollapseOpen}>
+              <div className="admin_square_payment_form_container">
+                <div className="sq-payment-form">
+                  <div className="sq-creditcard">Book Appointment</div>
+                </div>
+              </div>
+            </Collapse>
           </div>
         ))
       }

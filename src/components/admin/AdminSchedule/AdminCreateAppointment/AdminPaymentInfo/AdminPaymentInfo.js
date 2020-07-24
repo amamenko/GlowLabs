@@ -11,6 +11,8 @@ import "./AdminPaymentInfo.css";
 
 const AdminPaymentInfo = () => {
   const [errorMessages, changeErrorMessage] = useState([]);
+  const [cardHolderFirstName, changeCardHolderFirstName] = useState("");
+  const [cardHolderLastName, changeCardHolderLastName] = useState("");
 
   const cardNonceResponseReceived = (
     errors,
@@ -55,11 +57,25 @@ const AdminPaymentInfo = () => {
       >
         <div className="admin_create_appointment_cardholder_container">
           <span className="sq-label">Cardholder First Name</span>
-          <input className="sq-input" placeholder="Enter first name"></input>
+          <input
+            className="sq-input"
+            placeholder="Enter first name"
+            value={cardHolderFirstName}
+            onChange={(e) =>
+              changeCardHolderFirstName(e.target.value.toUpperCase())
+            }
+          />
         </div>
         <div className="admin_create_appointment_cardholder_container">
           <span className="sq-label">Cardholder Last Name</span>
-          <input className="sq-input" placeholder="Enter last name"></input>
+          <input
+            className="sq-input"
+            placeholder="Enter last name"
+            value={cardHolderLastName}
+            onChange={(e) =>
+              changeCardHolderLastName(e.target.value.toUpperCase())
+            }
+          />
         </div>
 
         <CreditCardNumberInput label="Credit Card" />

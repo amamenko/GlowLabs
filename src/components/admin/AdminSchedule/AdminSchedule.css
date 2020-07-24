@@ -290,6 +290,7 @@
     background: rgb(255, 255, 255);
     position: absolute;
     z-index: 5;
+    padding-bottom: 20vh;
   }
 }
 

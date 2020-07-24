@@ -277,6 +277,53 @@
   background: rgb(235, 235, 235);
 }
 
+.admin_payment_info_buttons_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.admin_add_credit_card_button {
+  width: 33.333%;
+  background: blue;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #4a90e2;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 24px;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out;
+  border: 0;
+  padding: 1.5rem;
+}
+
+.admin_book_without_card_button {
+  width: 33.333%;
+  background: #fff;
+  color: #4a90e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  line-height: 24px;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out;
+  border: 2px solid #4a90e2;
+  padding: 1.5rem;
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .admin_create_appointment_double_label {
