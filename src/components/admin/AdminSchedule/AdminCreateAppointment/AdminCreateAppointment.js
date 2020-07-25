@@ -809,7 +809,7 @@ const AdminCreateAppointment = (props) => {
                   changeBookWithoutCardCollapseOpen(false);
                 }}
               >
-                Add Card
+                Book With Card
               </div>
               OR
               <div

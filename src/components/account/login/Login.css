@@ -655,6 +655,10 @@
     width: 75%;
   }
 
+  .complete_registration_content_container {
+    height: 25%;
+  }
+
   .complete_registration_prompt,
   .sign_in_prompt {
     font-size: 2rem;
