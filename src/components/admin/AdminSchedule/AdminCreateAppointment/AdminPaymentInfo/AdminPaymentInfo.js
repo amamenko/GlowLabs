@@ -47,26 +47,29 @@ const AdminPaymentInfo = (props) => {
   );
 
   useEffect(() => {
-    if (bookedWithCardID) {
-      if (squareStoredCreditCards) {
-        const cardFullData = squareStoredCreditCards.data.filter(
-          (x) => x.id === bookedWithCardID
-        )[0];
+    if (squareStoredCreditCards) {
+      if (
+        selectedCreditCard &&
+        selectedCreditCard.name &&
+        selectedCreditCard.id
+      ) {
+        const creditCardSplitArr = selectedCreditCard.name.split(" -");
 
-        if (!selectedCreditCard.name) {
-          changeSelectedCreditCard({
-            name:
-              cardFullData.card_brand.split("_").join(" ") +
-              " - " +
-              cardFullData.last_4,
-            id: cardFullData.id,
-          });
+        const fullData = squareStoredCreditCards.data.find((x) => {
+          return (
+            x.card_brand === creditCardSplitArr[0].replace(" ", "_").trim() &&
+            x.last_4 ===
+              creditCardSplitArr[creditCardSplitArr.length - 1].trim() &&
+            x.id === selectedCreditCard.id
+          );
+        });
 
-          changeSelectedCreditCardFullData(cardFullData);
+        if (fullData) {
+          changeSelectedCreditCardFullData(fullData);
         }
       }
     }
-  }, [bookedWithCardID, squareStoredCreditCards, selectedCreditCard]);
+  }, [selectedCreditCard, squareStoredCreditCards]);
 
   useEffect(() => {
     const iFrameLabel = [...document.getElementsByClassName("sq-label")].filter(
@@ -169,27 +172,29 @@ const AdminPaymentInfo = (props) => {
       )
       .catch((e) => changeSquareStoredCreditCards(""));
   }, [selectedClient]);
-  console.log(selectedCreditCard);
+
   useEffect(() => {
     if (squareStoredCreditCards) {
       const cardFullData = squareStoredCreditCards.data.filter(
         (x) => x.id === selectedCreditCard.id
       )[0];
-      console.log(cardFullData);
-      if (!selectedCreditCard.name) {
-        changeSelectedCreditCard({
-          name:
-            cardFullData.card_brand.split("_").join(" ") +
-            " - " +
-            cardFullData.last_4,
-          id: cardFullData.id,
-        });
 
-        changeSelectedCreditCardFullData(cardFullData);
+      if (!selectedCreditCard.name) {
+        if (cardFullData) {
+          changeSelectedCreditCard({
+            name:
+              cardFullData.card_brand.split("_").join(" ") +
+              " - " +
+              cardFullData.last_4,
+            id: cardFullData.id,
+          });
+
+          changeSelectedCreditCardFullData(cardFullData);
+        }
       }
     }
   }, [bookedWithCardID, squareStoredCreditCards, selectedCreditCard]);
-  console.log(selectedCreditCardFullData);
+
   useEffect(() => {
     if (!squareStoredCreditCards) {
       if (selectedClient.length > 0) {
@@ -233,10 +238,26 @@ const AdminPaymentInfo = (props) => {
             };
           });
       } else {
-        return [{ value: "", label: "No cards saved on file" }];
+        return [
+          {
+            value: JSON.stringify({
+              name: "",
+              id: "",
+            }),
+            label: "No cards saved on file",
+          },
+        ];
       }
     } else {
-      return [{ value: "", label: "No cards saved on file" }];
+      return [
+        {
+          value: JSON.stringify({
+            name: "",
+            id: "",
+          }),
+          label: "No cards saved on file",
+        },
+      ];
     }
   };
 
@@ -252,7 +273,7 @@ const AdminPaymentInfo = (props) => {
       );
     }
   };
-  console.log(selectedCreditCard);
+  console.log(selectedCreditCardFullData);
   return (
     <div className="admin_square_payment_form_container">
       <SquarePaymentForm
@@ -261,8 +282,6 @@ const AdminPaymentInfo = (props) => {
         locationId={process.env.REACT_APP_SQUARE_SANDBOX_LOCATION_ID}
         cardNonceResponseReceived={cardNonceResponseReceived}
         createVerificationDetails={() => console.log("OK")}
-        // paymentFormLoaded={() => changeSquareFormLoading(false)}
-
         inputStyles={[
           {
             fontSize: "24px",
@@ -285,12 +304,15 @@ const AdminPaymentInfo = (props) => {
           <div className="sq-label">Choose a credit card</div>
           <Dropdown
             options={[
-              { value: "", label: "NEW CARD" },
+              {
+                value: JSON.stringify({
+                  name: "NEW CARD",
+                  id: "NEW CARD",
+                }),
+                label: "NEW CARD",
+              },
               ...renderStoredCreditCardOptions(),
             ].flat()}
-            // onChange={(choice) =>
-            //   dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(choice))
-            // }
             value={
               selectedCreditCard
                 ? selectedCreditCard.name
@@ -300,16 +322,13 @@ const AdminPaymentInfo = (props) => {
             }
             onChange={(item) => {
               const itemValue = JSON.parse(item.value);
+              changeSelectedCreditCard({ name: "", id: "" });
+              changeSelectedCreditCardFullData("");
 
               if (selectedCreditCard.name) {
                 dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
 
-                changeSelectedCreditCard({
-                  name: itemValue.name,
-                  id: itemValue.id,
-                });
-
-                if (itemValue.name === "") {
+                if (itemValue.name === "" || itemValue.name === "NEW CARD") {
                   dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
 
                   changeSelectedCreditCard({ name: "", id: "" });
@@ -322,23 +341,24 @@ const AdminPaymentInfo = (props) => {
                   name: itemValue.name,
                   id: itemValue.id,
                 });
+
+                const cardFullData = squareStoredCreditCards.data.filter(
+                  (x) => x.id === selectedCreditCard.id
+                )[0];
+
+                changeSelectedCreditCardFullData(cardFullData);
               }
             }}
             controlClassName="sq-input"
             className="sq-creditcard"
             placeholder={
               adminClientFirstName && adminClientLastName
-                ? "Select a credit card saved on file"
+                ? "NEW CARD"
                 : "No client selected"
             }
             disabled={
               adminClientFirstName && adminClientLastName ? false : true
             }
-            // placeholderClassName={
-            //   adminAppointmentStaffMember
-            //     ? "admin_create_appointent_dropdown_placeholder_time"
-            //     : "admin_create_appointent_dropdown_placeholder_no_time"
-            // }
           />
         </div>
         <div className="admin_create_appointment_cardholder_container">
@@ -346,7 +366,13 @@ const AdminPaymentInfo = (props) => {
           <input
             className="sq-input"
             placeholder="Enter first name"
-            value={cardHolderFirstName}
+            value={
+              selectedCreditCardFullData
+                ? selectedCreditCardFullData.cardholder_name
+                  ? selectedCreditCardFullData.cardholder_name.split(" ")[0]
+                  : cardHolderFirstName
+                : cardHolderFirstName
+            }
             onChange={(e) =>
               changeCardHolderFirstName(e.target.value.toUpperCase())
             }
@@ -357,12 +383,69 @@ const AdminPaymentInfo = (props) => {
           <input
             className="sq-input"
             placeholder="Enter last name"
-            value={cardHolderLastName}
+            value={
+              selectedCreditCardFullData
+                ? selectedCreditCardFullData.cardholder_name
+                  ? selectedCreditCardFullData.cardholder_name.split(" ")[1]
+                  : cardHolderFirstName
+                : cardHolderFirstName
+            }
             onChange={(e) =>
               changeCardHolderLastName(e.target.value.toUpperCase())
             }
           />
         </div>
+        {selectedCreditCardFullData ? (
+          <>
+            <div>
+              {/* Space in "EXPIRATION " important to distinguish between new card and toggled card form inputs */}
+              <span className="sq-label">Expiration </span>
+              <input
+                name="expiration_date"
+                type="text"
+                className="sq-cardholder-input"
+                disabled={selectedCreditCardFullData ? true : false}
+                value={
+                  selectedCreditCardFullData.exp_month >= 10
+                    ? selectedCreditCardFullData.exp_month.toString() +
+                      "/" +
+                      selectedCreditCardFullData.exp_year.toString().substr(-2)
+                    : "0" +
+                      selectedCreditCardFullData.exp_month.toString() +
+                      "/" +
+                      selectedCreditCardFullData.exp_year.toString().substr(-2)
+                }
+              />
+            </div>
+            <div>
+              {/* Space in "ZIP CODE " important to distinguish between new card and toggled card form inputs */}
+              <span className="sq-label">Zip Code </span>
+              <input
+                name="postal_code"
+                type="text"
+                className="sq-cardholder-input"
+                disabled={selectedCreditCardFullData ? true : false}
+                value={selectedCreditCardFullData.billing_address.postal_code}
+              />
+            </div>
+            <div>
+              {/* Space in "CVC " important to distinguish between new card and toggled card form inputs */}
+              <span className="sq-label">CVC </span>
+              <input
+                name="cvc_code"
+                type="text"
+                className="sq-cardholder-input"
+                disabled={selectedCreditCardFullData ? true : false}
+                value={
+                  selectedCreditCardFullData.card_brand.toLowerCase() ===
+                  "american_express"
+                    ? "••••"
+                    : "•••"
+                }
+              />
+            </div>
+          </>
+        ) : null}
 
         <CreditCardNumberInput label="Credit Card" />
         <CreditCardExpirationDateInput label="Expiration" />

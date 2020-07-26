@@ -527,6 +527,9 @@ const AdminCreateAppointment = (props) => {
                 dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
                 dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
                 dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
+
+                changeAddCardCollapseOpen(false);
+                changeClickOutsideDayPicker(false);
               }}
             >
               <FontAwesomeIcon

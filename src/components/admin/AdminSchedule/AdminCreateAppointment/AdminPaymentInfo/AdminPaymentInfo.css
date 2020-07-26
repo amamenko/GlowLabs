@@ -183,6 +183,13 @@
 .admin_square_payment_form_container
   > .sq-payment-form
   div:first-child
+  > .Dropdown-placeholder {
+  font-size: 1.5rem;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:first-child
   > .is-selected {
   height: 100%;
   width: 100%;
@@ -192,14 +199,20 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  color: #000;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
+  margin-top: -0.3rem;
+  padding-top: 0.5rem;
 }
 
 .admin_square_payment_form_container > .sq-payment-form div > .Dropdown-option {
   text-align: left;
   margin: 0;
   padding-top: 0rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 1.1em;
   text-indent: -0.3rem;
   font-family: "Montserrat", sans-serif;
 }
@@ -245,11 +258,32 @@
     height: 6vh !important;
   }
 
+  .admin_create_appointment_cardholder_container > .sq-input {
+    line-height: 25px;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
+    margin-top: -0.3rem;
+    padding-top: 0.5rem;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    > .admin_create_appointment_input_information_container
+    > .sq-creditcard {
+    height: 7vh !important;
+  }
+
+  .admin_create_appointment_cardholder_container {
+    margin-top: 1.7rem;
+  }
+
   .admin_square_payment_form_container
     > .sq-payment-form
     div:not(:nth-child(2)):not(:nth-child(3))
     > .sq-label {
     flex: 0 1 28%;
+    height: 6vh;
   }
 
   .admin_square_payment_form_container
@@ -265,11 +299,37 @@
 
   .admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
     margin-top: 1.8rem;
+    font-size: 1.5rem;
   }
 }
 
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    > .admin_create_appointment_input_information_container
+    > .sq-creditcard {
+    height: 5vh !important;
+    margin-top: 0;
+  }
+
+  .admin_create_appointment_cardholder_container > .sq-input {
+    font-size: 1.5rem;
+    line-height: 0px;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:first-child
+    > .is-selected {
+    font-size: 1.5rem;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
+    margin-top: 0rem;
+    padding-top: 0rem;
+  }
+
   .admin_create_appointment_cardholder_container > .sq-label {
     height: 5vh !important;
   }
