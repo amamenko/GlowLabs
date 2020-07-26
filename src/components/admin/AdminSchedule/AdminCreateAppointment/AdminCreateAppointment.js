@@ -825,7 +825,7 @@ const AdminCreateAppointment = (props) => {
               </div>
             </div>
             <Collapse isOpen={addCardCollapseOpen}>
-              <AdminPaymentInfo />
+              <AdminPaymentInfo getClientsData={props.getClientsData} />
             </Collapse>
             <Collapse isOpen={bookWithoutCardCollapseOpen}>
               <div className="admin_square_payment_form_container">

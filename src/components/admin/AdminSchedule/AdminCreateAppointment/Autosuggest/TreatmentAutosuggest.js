@@ -75,7 +75,7 @@ const TreatmentAutosuggest = (props) => {
   };
 
   const treatmentInputProps = {
-    placeholder: "Add a Facial Treatment",
+    placeholder: "Add a Treatment",
     value: treatmentInput,
     onChange: treatmentInputChange,
     style: { borderRight: "1px solid transparent" },
