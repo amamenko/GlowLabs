@@ -12,6 +12,15 @@
   transition: border-color 0.2s ease-in-out;
 }
 
+.sq-payment-form-hidden {
+  display: none !important;
+}
+
+.sq-input:disabled {
+  background: rgba(240, 240, 240, 0.6);
+  background-color: none;
+}
+
 .sq-input:hover {
   cursor: text !important;
 }
@@ -120,15 +129,23 @@
 
 .admin_square_payment_form_container
   > .sq-payment-form
-  div:nth-child(3)
-  > iframe {
+  div:nth-child(7)
+  > .sq-input,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(7)
+  > .sq-label {
   border-right: 1px solid rgb(211, 211, 211);
 }
 
 .admin_square_payment_form_container
   > .sq-payment-form
   div:nth-child(5)
-  > iframe {
+  > iframe,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(5)
+  > .sq-input {
   border-left: 1px solid rgb(211, 211, 211);
 }
 
@@ -152,7 +169,11 @@
 .admin_square_payment_form_container
   > .sq-payment-form
   div:nth-child(4)
-  > iframe {
+  > iframe,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(4)
+  > .sq-input {
   border-right: 1px solid rgb(211, 211, 211);
 }
 
@@ -258,8 +279,11 @@
     height: 6vh !important;
   }
 
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input,
   .admin_create_appointment_cardholder_container > .sq-input {
+    font-size: 1.5rem;
     line-height: 25px;
+    text-indent: 0.8rem;
   }
 
   .admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
@@ -313,9 +337,11 @@
     margin-top: 0;
   }
 
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input,
   .admin_create_appointment_cardholder_container > .sq-input {
     font-size: 1.5rem;
     line-height: 0px;
+    text-indent: 0.8rem;
   }
 
   .admin_square_payment_form_container
@@ -327,7 +353,7 @@
 
   .admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
     margin-top: 0rem;
-    padding-top: 0rem;
+    padding-top: 0.5rem;
   }
 
   .admin_create_appointment_cardholder_container > .sq-label {
@@ -371,5 +397,11 @@
     div:not(:nth-child(2)):not(:nth-child(3))
     > .sq-label {
     flex: 0 1 26.9%;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div.sq-selected-credit-card-details {
+    margin-bottom: 2rem;
   }
 }

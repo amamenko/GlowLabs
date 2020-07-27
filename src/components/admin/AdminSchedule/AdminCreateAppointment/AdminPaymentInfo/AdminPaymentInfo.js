@@ -47,6 +47,17 @@ const AdminPaymentInfo = (props) => {
   );
 
   useEffect(() => {
+    if (selectedClient.length < 1) {
+      changeSelectedCreditCardFullData("");
+      changeSelectedCreditCard({
+        name: "",
+        id: "",
+      });
+      changeSquareStoredCreditCards("");
+    }
+  }, [selectedClient.length]);
+
+  useEffect(() => {
     if (squareStoredCreditCards) {
       if (
         selectedCreditCard &&
@@ -79,6 +90,7 @@ const AdminPaymentInfo = (props) => {
         x.innerText === "Zip Code" ||
         x.innerText === "CVC"
     );
+
     const iFrameLabelHidden = [
       ...document.getElementsByClassName("sq-label"),
     ].filter((x) => x.className.includes("sq-payment-form-hidden"));
@@ -132,10 +144,12 @@ const AdminPaymentInfo = (props) => {
         changeSelectedClient(
           props.getClientsData.clients.filter((x, i) => {
             return (
-              x.firstName === adminClientFirstName &&
-              x.lastName === adminClientLastName &&
-              x.email === adminClientEmail &&
-              x.phoneNumber === adminClientPhoneNumber
+              x.firstName.toLowerCase() ===
+                adminClientFirstName.toLowerCase() &&
+              x.lastName.toLowerCase() === adminClientLastName.toLowerCase() &&
+              x.email.toLowerCase() === adminClientEmail.toLowerCase() &&
+              x.phoneNumber.toLowerCase() ===
+                adminClientPhoneNumber.toLowerCase()
             );
           })
         );
@@ -273,7 +287,7 @@ const AdminPaymentInfo = (props) => {
       );
     }
   };
-  console.log(selectedCreditCardFullData);
+
   return (
     <div className="admin_square_payment_form_container">
       <SquarePaymentForm
@@ -322,8 +336,6 @@ const AdminPaymentInfo = (props) => {
             }
             onChange={(item) => {
               const itemValue = JSON.parse(item.value);
-              changeSelectedCreditCard({ name: "", id: "" });
-              changeSelectedCreditCardFullData("");
 
               if (selectedCreditCard.name) {
                 dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
@@ -333,18 +345,41 @@ const AdminPaymentInfo = (props) => {
 
                   changeSelectedCreditCard({ name: "", id: "" });
                   changeSelectedCreditCardFullData("");
+                } else {
+                  dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+
+                  changeSelectedCreditCard({ name: "", id: "" });
+                  changeSelectedCreditCardFullData("");
+
+                  changeSelectedCreditCard({
+                    name: itemValue.name,
+                    id: itemValue.id,
+                  });
+
+                  const cardFullData = squareStoredCreditCards.data.filter(
+                    (x) => x.id === selectedCreditCard.id
+                  )[0];
+
+                  changeSelectedCreditCardFullData(cardFullData);
                 }
               } else {
                 dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+
+                changeSelectedCreditCard({ name: "", id: "" });
+                changeSelectedCreditCardFullData("");
 
                 changeSelectedCreditCard({
                   name: itemValue.name,
                   id: itemValue.id,
                 });
 
-                const cardFullData = squareStoredCreditCards.data.filter(
-                  (x) => x.id === selectedCreditCard.id
-                )[0];
+                const cardFullData = squareStoredCreditCards
+                  ? squareStoredCreditCards.data
+                    ? squareStoredCreditCards.data.filter(
+                        (x) => x.id === selectedCreditCard.id
+                      )[0]
+                    : null
+                  : null;
 
                 changeSelectedCreditCardFullData(cardFullData);
               }
@@ -373,6 +408,7 @@ const AdminPaymentInfo = (props) => {
                   : cardHolderFirstName
                 : cardHolderFirstName
             }
+            disabled={selectedCreditCardFullData ? true : false}
             onChange={(e) =>
               changeCardHolderFirstName(e.target.value.toUpperCase())
             }
@@ -387,24 +423,42 @@ const AdminPaymentInfo = (props) => {
               selectedCreditCardFullData
                 ? selectedCreditCardFullData.cardholder_name
                   ? selectedCreditCardFullData.cardholder_name.split(" ")[1]
-                  : cardHolderFirstName
-                : cardHolderFirstName
+                  : cardHolderLastName
+                : cardHolderLastName
             }
             onChange={(e) =>
               changeCardHolderLastName(e.target.value.toUpperCase())
             }
+            disabled={selectedCreditCardFullData ? true : false}
           />
         </div>
         {selectedCreditCardFullData ? (
           <>
+            <div className="sq-selected-credit-card-details">
+              {/* Space in "Credit Card " important to distinguish between new card and toggled card form inputs */}
+              <span className="sq-label">Credit Card &nbsp;</span>
+              <input
+                name="credit_card"
+                type="text"
+                maxLength="100"
+                className="sq-input"
+                disabled={true}
+                value={
+                  selectedCreditCardFullData.card_brand.toLowerCase() ===
+                  "american_express"
+                    ? "•••• •••••• •" + selectedCreditCardFullData.last_4
+                    : "•••• •••• •••• " + selectedCreditCardFullData.last_4
+                }
+              />
+            </div>
             <div>
-              {/* Space in "EXPIRATION " important to distinguish between new card and toggled card form inputs */}
-              <span className="sq-label">Expiration </span>
+              {/* Space in "Expiration " important to distinguish between new card and toggled card form inputs */}
+              <span className="sq-label">Expiration &nbsp;</span>
               <input
                 name="expiration_date"
                 type="text"
-                className="sq-cardholder-input"
-                disabled={selectedCreditCardFullData ? true : false}
+                className="sq-input"
+                disabled={true}
                 value={
                   selectedCreditCardFullData.exp_month >= 10
                     ? selectedCreditCardFullData.exp_month.toString() +
@@ -418,24 +472,24 @@ const AdminPaymentInfo = (props) => {
               />
             </div>
             <div>
-              {/* Space in "ZIP CODE " important to distinguish between new card and toggled card form inputs */}
-              <span className="sq-label">Zip Code </span>
+              {/* Space in "Zip Code " important to distinguish between new card and toggled card form inputs */}
+              <span className="sq-label">Zip Code &nbsp;</span>
               <input
                 name="postal_code"
                 type="text"
-                className="sq-cardholder-input"
-                disabled={selectedCreditCardFullData ? true : false}
+                className="sq-input"
+                disabled={true}
                 value={selectedCreditCardFullData.billing_address.postal_code}
               />
             </div>
             <div>
               {/* Space in "CVC " important to distinguish between new card and toggled card form inputs */}
-              <span className="sq-label">CVC </span>
+              <span className="sq-label">CVC &nbsp;</span>
               <input
                 name="cvc_code"
                 type="text"
-                className="sq-cardholder-input"
-                disabled={selectedCreditCardFullData ? true : false}
+                className="sq-input"
+                disabled={true}
                 value={
                   selectedCreditCardFullData.card_brand.toLowerCase() ===
                   "american_express"
