@@ -37,6 +37,8 @@ const TopAnimationTopShelf = (props) => {
               ? props.isSafari
                 ? "28%"
                 : "30%"
+              : props.initialScreenSize >= 1024
+              ? "20%"
               : props.initialScreenSize >= 768
               ? "18%"
               : props.initialScreenSize >= 600
@@ -54,6 +56,8 @@ const TopAnimationTopShelf = (props) => {
             ? props.isSafari
               ? "28%"
               : "30%"
+            : props.currentScreenSize >= 1024
+            ? "20%"
             : props.currentScreenSize >= 768
             ? "18%"
             : props.currentScreenSize >= 600
@@ -94,6 +98,8 @@ const TopAnimationTopShelf = (props) => {
                 ? props.isSafari
                   ? "28%"
                   : "30%"
+                : props.currentScreenSize >= 1024
+                ? "20%"
                 : props.currentScreenSize >= 768
                 ? "18%"
                 : props.currentScreenSize >= 600

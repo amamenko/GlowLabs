@@ -178,6 +178,13 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .treatments_page_2_container {
+    margin-top: -3.5rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .treatments_page_2_container {
@@ -230,14 +237,14 @@
     margin-top: 0.4rem;
   }
 
-    /* Safari Only */
-    @media not all and (min-resolution: 0.001dpcm) {
-      @supports (-webkit-appearance: none) {
-        .treatments_page_2_container {
-          margin-top: 0rem;
-        }
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .treatments_page_2_container {
+        margin-top: 0rem;
       }
     }
+  }
 }
 
 /* CSS for Huge Desktops */

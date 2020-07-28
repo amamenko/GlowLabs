@@ -140,3 +140,19 @@
     top: 2.7rem;
   }
 }
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .book_now_pop_up {
+    padding-top: 0.4rem;
+    width: 12rem;
+    height: 2rem;
+    top: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .book_now_pop_up {
+    left: 5.8rem;
+    top: 3rem;
+  }
+}

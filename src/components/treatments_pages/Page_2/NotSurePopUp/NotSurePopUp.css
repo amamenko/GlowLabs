@@ -112,6 +112,16 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .unsure_popup_not_sure_button,
+  .unsure_popup_dismiss_button {
+    font-size: 1.8rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .unsure_popup_buttons_container {

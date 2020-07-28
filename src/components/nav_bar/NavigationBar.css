@@ -478,6 +478,26 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .nav_logo_container {
+    transform: scale(1.8) translate(10%, -19%);
+  }
+
+  .nav_sign_in_button_small_screen {
+    margin-right: 8rem;
+    font-size: 1.8rem;
+  }
+
+  .shopping_cart_small_screen {
+    transform: scale(1.5) translate(-15%, 40%);
+  }
+
+  .cart_item_number_circle {
+    transform: scale(1.5) translate(-1vh, 0.5vh);
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .logo {

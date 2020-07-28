@@ -177,10 +177,25 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 1rem;
+  }
+
+  .salt_cave_time_formgroup_dropdown_input_field {
+    margin-left: 1.5rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .salt_cave_wrapping {
     height: auto;
+  }
+
+  .salt_cave_time_formgroup_dropdown_input_field {
+    margin-left: 0.8rem;
   }
 
   .salt_cave_time_formgroup_dropdown_icon {

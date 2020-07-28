@@ -1002,6 +1002,87 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .potted_plant {
+    height: 10%;
+    top: 12.5%;
+    left: 22.5%;
+  }
+
+  .small_plant {
+    height: 11%;
+    top: 17%;
+    left: 33%;
+  }
+
+  .cream {
+    height: 10%;
+    top: 13.8%;
+    left: 38%;
+  }
+
+  .hand_cream {
+    height: 10%;
+    top: 14.3%;
+    left: 51.5%;
+  }
+
+  .mirror {
+    height: 11%;
+    top: 29.5%;
+    left: 27.5%;
+  }
+
+  .bottle {
+    height: 11%;
+    top: 32%;
+    left: 37.5%;
+  }
+
+  .q_tips {
+    height: 13%;
+    top: 35%;
+    left: 48%;
+  }
+
+  .sun_screen {
+    height: 11%;
+    top: 31%;
+    left: 53%;
+  }
+
+  .bottom_content {
+    padding-top: 0vh;
+  }
+
+  .bottom_content h1 {
+    margin-left: 3.1rem;
+    font-size: 3.5rem;
+    padding-top: 0rem;
+    padding-bottom: 3rem;
+    margin-right: 3rem;
+  }
+
+  .landing_page_text_block {
+    margin-bottom: 9rem;
+    margin-top: 0rem;
+  }
+
+  .landing_page_description {
+    font-size: 1.5rem;
+    line-height: 3rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    padding-bottom: 3rem;
+  }
+
+  .call_to_action_button {
+    margin-top: 1.5rem;
+    font-size: 2.5rem;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .splash_screen {

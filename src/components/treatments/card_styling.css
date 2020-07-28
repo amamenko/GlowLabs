@@ -818,6 +818,83 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.4rem;
+  }
+
+  .card_description_subheader {
+    font-size: 1.1rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 1rem;
+    line-height: 25px;
+    padding-top: 0rem;
+  }
+
+  .card_description_icon {
+    font-size: 1rem;
+  }
+
+  .card_toggler {
+    font-size: 1.3rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 1rem;
+    padding-bottom: 0.21rem;
+    padding-left: 1.8rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 1rem;
+    margin-left: 1.5rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    font-size: 1.5rem;
+    top: 1.5rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 1.1rem;
+    font-size: 1rem;
+    line-height: 1.3rem;
+  }
+
+  .facial_coming_soon_designation {
+    font-size: 0.8rem;
+    bottom: 6rem;
+  }
+
+  .notification_removed_container,
+  .notification_container {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .notification_removed_container svg,
+  .notification_container svg {
+    transform: scale(1.5);
+  }
+
+  .notification_text_container h3 {
+    font-size: 2rem !important;
+  }
+
+  .notification_text_container p {
+    margin-top: 0.3rem !important;
+    font-size: 1.5rem !important;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .card_svg {
@@ -950,6 +1027,7 @@
   .facial_advanced_treatment_designation {
     bottom: 3.5rem;
     font-size: 0.8rem;
+    line-height: 0.9rem;
   }
 
   .facial_coming_soon_designation {
@@ -1007,7 +1085,7 @@
     flex: 3;
   }
 
-    .big_screen_card_description_icon,
+  .big_screen_card_description_icon,
   .big_screen_card_description_suitcase {
     flex: 1;
   }
