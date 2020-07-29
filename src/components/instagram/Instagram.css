@@ -630,6 +630,31 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .instagram_page_wrapping {
+    display: block;
+    height: 95vh;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 3.2rem;
+    line-height: 3rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+  }
+
+  .insta_handle_wrapper {
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+
 /* CSS for Smaller Laptops */
 @media only screen and (min-width: 1200px) {
   .small_screen_follow_prompt {

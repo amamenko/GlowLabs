@@ -125,6 +125,13 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .add_ons_page_4_container {
+    margin-top: -22rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .add_ons_page_4_container {

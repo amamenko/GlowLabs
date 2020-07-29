@@ -116,6 +116,7 @@ const getAllAppointmentsQuery = gql`
       }
       bookedWithCardSquareID
       notes
+      confirmed
     }
   }
 `;
@@ -152,6 +153,7 @@ const getOwnAppointmentsQuery = gql`
       }
       bookedWithCardSquareID
       notes
+      confirmed
     }
   }
 `;
@@ -187,6 +189,7 @@ const getOwnPastAppointmentsQuery = gql`
       }
       bookedWithCardSquareID
       notes
+      confirmed
     }
   }
 `;
@@ -244,6 +247,7 @@ const getAppointmentQuery = gql`
       }
       bookedWithCardSquareID
       notes
+      confirmed
     }
   }
 `;
@@ -571,6 +575,35 @@ const addAppointmentMutation = gql`
       }
       bookedWithCardSquareID
       notes
+      confirmed
+    }
+  }
+`;
+
+const confirmAppointmentMutation = gql`
+  mutation($_id: ID) {
+    confirmAppointment(_id: $_id) {
+      createdAt
+      esthetician
+      date
+      startTime
+      morningOrEvening
+      endTime
+      duration
+      price
+      treatments {
+        name
+        price
+        duration
+      }
+      addOns {
+        name
+        price
+        duration
+      }
+      bookedWithCardSquareID
+      notes
+      confirmed
     }
   }
 `;
@@ -1229,6 +1262,7 @@ export {
   getAllAppointmentsQuery,
   getAppointmentQuery,
   addAppointmentMutation,
+  confirmAppointmentMutation,
   deleteAppointmentMutation,
   deleteMyRoutineItemMutation,
   addClientMutation,

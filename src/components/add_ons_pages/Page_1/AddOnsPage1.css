@@ -215,6 +215,20 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .add_ons_page_1_header h2 {
+    font-size: 3.2rem;
+    line-height: 3rem;
+  }
+
+  .add_ons_page_1_header h3 p {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .add_ons_page_1_container {

@@ -89,6 +89,10 @@
   padding-right: 2px !important;
 }
 
+.admin_appointment_confirmed_checkmark {
+  margin-right: 0.3rem;
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .admin_schedule_container {

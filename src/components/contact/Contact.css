@@ -467,6 +467,14 @@
   }
 }
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .contacts_page_wrapping h2 {
+    font-size: 3.2rem;
+    line-height: 3rem;
+  }
+}
+
 /* CSS for laptops and regular-sized desktops */
 @media only screen and (min-width: 1200px) {
   .contact_page_container {

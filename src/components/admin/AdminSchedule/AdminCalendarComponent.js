@@ -24,7 +24,10 @@ import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSu
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
 import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLongArrowAltLeft,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import "./AdminSchedule.css";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -208,7 +211,29 @@ const AdminCalendarComponent = (props) => {
       return allAdminAppointments.map((x) => {
         return {
           id: x.id,
-          title:
+          title: (
+            <>
+              {x.confirmed ? (
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  className="admin_appointment_confirmed_checkmark"
+                />
+              ) : null}
+              {x.client.firstName[0].toUpperCase() +
+                x.client.firstName.slice(1).toLowerCase() +
+                " " +
+                x.client.lastName[0].toUpperCase() +
+                x.client.lastName.slice(1).toLowerCase() +
+                " - " +
+                x.treatments[0].name +
+                " " +
+                "Facial" +
+                (x.addOns === []
+                  ? null
+                  : x.addOns.map((x) => `${x.name}, Add-On`))}
+            </>
+          ),
+          text:
             x.client.firstName[0].toUpperCase() +
             x.client.firstName.slice(1).toLowerCase() +
             " " +
@@ -278,6 +303,7 @@ const AdminCalendarComponent = (props) => {
         events={events()}
         startAccessor="start"
         endAccessor="end"
+        tooltipAccessor={(x) => x.text}
         defaultDate={moment().toDate()}
         localizer={localizer}
         defaultView={Views.WEEK}
