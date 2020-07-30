@@ -223,24 +223,20 @@ const ConfirmationPage = (props) => {
       dispatch(ACTION_FINAL_BOOK_BUTTON_ACTIVE());
     }
 
-    const treatmentsMap = () => {
-      for (let i = 0; i < treatmentsArr.length; i++) {
-        return treatmentsArr.map((item) => ({
-          treatment_name: item.name,
-          treatment_duration: Number(item.duration),
-          treatment_price: Number(item.price),
-        }))[i];
-      }
+    const treatmentsArray = () => {
+      return {
+        treatments: treatmentsArr,
+      };
     };
 
-    const addOnsMap = () => {
+    const addOnsArray = () => {
       return {
         addOns: addOnsArr,
       };
     };
 
     addAppointment({
-      variables: { ...variablesModel, ...treatmentsMap(), ...addOnsMap() },
+      variables: { ...variablesModel, ...treatmentsArray(), ...addOnsArray() },
     });
 
     dispatch(ACTION_FINAL_BOOKING_MODAL_ACTIVE());

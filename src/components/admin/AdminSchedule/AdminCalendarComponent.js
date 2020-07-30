@@ -207,65 +207,71 @@ const AdminCalendarComponent = (props) => {
   }, [props.getAllAppointmentsData, props.getEmployeeData]);
 
   const events = () => {
-    if (allAdminAppointments.length > 0) {
-      return allAdminAppointments.map((x) => {
-        return {
-          id: x.id,
-          title: (
-            <>
-              {x.confirmed ? (
-                <FontAwesomeIcon
-                  icon={faCheckCircle}
-                  className="admin_appointment_confirmed_checkmark"
-                />
-              ) : null}
-              {x.client.firstName[0].toUpperCase() +
-                x.client.firstName.slice(1).toLowerCase() +
-                " " +
-                x.client.lastName[0].toUpperCase() +
-                x.client.lastName.slice(1).toLowerCase() +
-                " - " +
-                x.treatments[0].name +
-                " " +
-                "Facial" +
-                (x.addOns === []
-                  ? null
-                  : x.addOns.map((x) => `${x.name}, Add-On`))}
-            </>
-          ),
-          text:
-            x.client.firstName[0].toUpperCase() +
-            x.client.firstName.slice(1).toLowerCase() +
-            " " +
-            x.client.lastName[0].toUpperCase() +
-            x.client.lastName.slice(1).toLowerCase() +
-            " - " +
-            x.treatments[0].name +
-            " " +
-            "Facial" +
-            (x.addOns === [] ? null : x.addOns.map((x) => `${x.name}, Add-On`)),
-          start: moment(
-            x.date +
+    if (allAdminAppointments) {
+      if (allAdminAppointments.length > 0) {
+        return allAdminAppointments.map((x) => {
+          return {
+            id: x.id,
+            title: (
+              <>
+                {x.confirmed ? (
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    className="admin_appointment_confirmed_checkmark"
+                  />
+                ) : null}
+                {x.client.firstName[0].toUpperCase() +
+                  x.client.firstName.slice(1).toLowerCase() +
+                  " " +
+                  x.client.lastName[0].toUpperCase() +
+                  x.client.lastName.slice(1).toLowerCase() +
+                  " - " +
+                  x.treatments[0].name +
+                  " " +
+                  "Facial" +
+                  (x.addOns === []
+                    ? null
+                    : x.addOns.map((x) => `${x.name}, Add-On`))}
+              </>
+            ),
+            text:
+              x.client.firstName[0].toUpperCase() +
+              x.client.firstName.slice(1).toLowerCase() +
               " " +
-              x.startTime +
-              (Number(x.startTime.split(":")[0]) < 9 ||
-              Number(x.startTime.split(":")[0]) >= 12
-                ? "PM"
-                : "AM"),
-            "LLL"
-          ).toDate(),
-          end: moment(
-            x.date +
+              x.client.lastName[0].toUpperCase() +
+              x.client.lastName.slice(1).toLowerCase() +
+              " - " +
+              x.treatments[0].name +
               " " +
-              x.endTime +
-              (Number(x.endTime.split(":")[0]) < 9 ||
-              Number(x.endTime.split(":")[0]) >= 12
-                ? "PM"
-                : "AM"),
-            "LLL"
-          ).toDate(),
-        };
-      });
+              "Facial" +
+              (x.addOns === []
+                ? null
+                : x.addOns.map((x) => `${x.name}, Add-On`)),
+            start: moment(
+              x.date +
+                " " +
+                x.startTime +
+                (Number(x.startTime.split(":")[0]) < 9 ||
+                Number(x.startTime.split(":")[0]) >= 12
+                  ? "PM"
+                  : "AM"),
+              "LLL"
+            ).toDate(),
+            end: moment(
+              x.date +
+                " " +
+                x.endTime +
+                (Number(x.endTime.split(":")[0]) < 9 ||
+                Number(x.endTime.split(":")[0]) >= 12
+                  ? "PM"
+                  : "AM"),
+              "LLL"
+            ).toDate(),
+          };
+        });
+      } else {
+        return [];
+      }
     } else {
       return [];
     }

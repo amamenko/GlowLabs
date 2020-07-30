@@ -1,8 +1,16 @@
 import { gql } from "apollo-boost";
 
 gql`
-  input AddOnInput {
-    addOns: [AddOnType]
+  type TreatmentType {
+    name: String!
+    duration: Int!
+    price: Int!
+  }
+`;
+
+gql`
+  input TreatmentInput {
+    addOns: [TreatmentType]
   }
 `;
 
@@ -11,6 +19,12 @@ gql`
     name: String!
     duration: Int!
     price: Int!
+  }
+`;
+
+gql`
+  input AddOnInput {
+    addOns: [AddOnType]
   }
 `;
 
@@ -513,10 +527,8 @@ const addAppointmentMutation = gql`
     $esthetician: String!
     $squareCustomerId: String
     $unsavedSquareCardIDs: String
-    $bookedWithCardSquareID: String!
-    $treatment_name: String!
-    $treatment_duration: Int!
-    $treatment_price: Int!
+    $bookedWithCardSquareID: String
+    $treatments: [TreatmentInput]
     $addOns: [AddOnInput]
     $notes: String
   ) {
@@ -536,13 +548,7 @@ const addAppointmentMutation = gql`
         squareCustomerId: $squareCustomerId
         unsavedSquareCardIDs: $unsavedSquareCardIDs
       }
-      treatments: [
-        {
-          name: $treatment_name
-          duration: $treatment_duration
-          price: $treatment_price
-        }
-      ]
+      treatments: $treatments
       addOns: $addOns
       bookedWithCardSquareID: $bookedWithCardSquareID
       notes: $notes

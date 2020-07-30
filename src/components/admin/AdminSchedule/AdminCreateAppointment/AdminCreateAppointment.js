@@ -34,6 +34,12 @@ import AdminPaymentInfo from "./AdminPaymentInfo/AdminPaymentInfo";
 import { Collapse } from "reactstrap";
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../../bootstrap.min.css";
+import { addAppointmentMutation } from "../../../../graphql/queries/queries";
+import { useMutation } from "@apollo/react-hooks";
+import ACTION_TOTAL_DURATION from "../../../../actions/TotalDuration/ACTION_TOTAL_DURATION";
+import ACTION_TOTAL_DURATION_RESET from "../../../../actions/TotalDuration/ACTION_TOTAL_DURATION_RESET";
+import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
+import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 
 const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
@@ -45,6 +51,9 @@ const AdminCreateAppointment = (props) => {
     changeBookWithoutCardCollapseOpen,
   ] = useState(false);
 
+  const adminClientFirstName = useSelector(
+    (state) => state.adminClientFirstName.admin_client_first_name
+  );
   const adminClientLastName = useSelector(
     (state) => state.adminClientLastName.admin_client_last_name
   );
@@ -69,9 +78,20 @@ const AdminCreateAppointment = (props) => {
   const adminAppointmentTime = useSelector(
     (state) => state.adminAppointmentTime.admin_appointment_time
   );
+  const totalPrice = useSelector((state) => state.totalPrice.totalPrice);
+  const totalDuration = useSelector(
+    (state) => state.totalDuration.totalDuration
+  );
 
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
+  );
+
+  const [selectedTreatments, changeSelectedTreatments] = useState([]);
+  const [selectedAddOns, changeSelectedAddOns] = useState([]);
+
+  const [addAppointment, { loading: appLoading }] = useMutation(
+    addAppointmentMutation
   );
 
   const timeOptions = () => {
@@ -498,6 +518,129 @@ const AdminCreateAppointment = (props) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (adminSelectedTreatments.length > 0) {
+      const treatments = adminSelectedTreatments.filter(
+        (item) => !item.props.children[0].props.children.includes("Add On")
+      );
+      const addOns = adminSelectedTreatments.filter((item) =>
+        item.props.children[0].props.children.includes("Add On")
+      );
+
+      changeSelectedTreatments(
+        treatments.map((item) => {
+          return {
+            name: item.props.children[0].props.children,
+            duration: item.props.children[1].props.children,
+            price: item.props.children[2].props.children,
+          };
+        })
+      );
+
+      changeSelectedAddOns(
+        addOns.map((item) => {
+          return {
+            name: item.props.children[0].props.children,
+            duration: item.props.children[1].props.children,
+            price: item.props.children[2].props.children,
+          };
+        })
+      );
+    }
+  }, [adminSelectedTreatments]);
+
+  useEffect(() => {
+    if (selectedTreatments.length > 0 || selectedAddOns.length > 0) {
+      const filteredTreatments = selectedTreatments.filter(
+        (item) => !item.name.includes("Before") && !item.name.includes("After")
+      );
+
+      const allTreatments = filteredTreatments.concat(selectedAddOns);
+
+      const durationsArr = allTreatments.map((treatment) => treatment.duration);
+
+      dispatch(ACTION_TOTAL_DURATION(durationsArr.reduce((a, b) => a + b, 0)));
+    } else {
+      dispatch(ACTION_TOTAL_DURATION_RESET());
+    }
+  }, [dispatch, selectedAddOns, selectedTreatments]);
+
+  const variablesModel = {
+    date: adminAppointmentDate,
+    startTime: adminAppointmentTime,
+    morningOrEvening:
+      Number(adminAppointmentTime.slice(0, 1)) > 1
+        ? "PM"
+        : Number(adminAppointmentTime.slice(0, 2)) < 12
+        ? "AM"
+        : "PM",
+    // endTime: appointmentEndTime,
+    duration: totalDuration,
+    price: totalPrice,
+    esthetician: adminAppointmentStaffMember,
+    firstName: adminClientFirstName,
+    lastName: adminClientLastName,
+    email: adminClientEmail,
+    phoneNumber: adminClientPhoneNumber,
+    // bookedWithCardSquareID: bookedWithCardID,
+    notes: adminAppointmentNotes,
+    // squareCustomerId: userAuthenticated ? null : squareCustomerID,
+  };
+
+  const handleSubmitBooking = (e) => {
+    e.preventDefault();
+
+    const treatmentsArray = () => {
+      return {
+        treatments: selectedTreatments,
+      };
+    };
+
+    const addOnsArray = () => {
+      return {
+        addOns: selectedAddOns,
+      };
+    };
+
+    addAppointment({
+      variables: { ...variablesModel, ...treatmentsArray(), ...addOnsArray() },
+    });
+  };
+
+  useEffect(() => {
+    if (adminSelectedTreatments.length < 1) {
+      dispatch(ACTION_TOTAL_PRICE_RESET());
+    } else {
+      const totalTime = adminSelectedTreatments
+        .map((x) => {
+          if (x.props) {
+            if (x.props.children) {
+              if (x.props.children[2]) {
+                if (x.props.children[2].props) {
+                  if (x.props.children[2].props.children) {
+                    return x.props.children[2].props.children;
+                  } else {
+                    return null;
+                  }
+                } else {
+                  return null;
+                }
+              } else {
+                return null;
+              }
+            } else {
+              return null;
+            }
+          } else {
+            return null;
+          }
+        })
+        .reduce((a, b) => a + b, 0);
+
+      dispatch(ACTION_TOTAL_PRICE(totalTime));
+    }
+  }, [adminSelectedTreatments, dispatch]);
+
   return (
     <Transition
       items={props.createAppointmentClicked}
@@ -770,35 +913,7 @@ const AdminCreateAppointment = (props) => {
                   borderRight: "1px solid rgb(211, 211, 211)",
                 }}
               >
-                {adminSelectedTreatments.length < 1
-                  ? "$0.00"
-                  : "$" +
-                    adminSelectedTreatments
-                      .map((x) => {
-                        if (x.props) {
-                          if (x.props.children) {
-                            if (x.props.children[2]) {
-                              if (x.props.children[2].props) {
-                                if (x.props.children[2].props.children) {
-                                  return x.props.children[2].props.children;
-                                } else {
-                                  return null;
-                                }
-                              } else {
-                                return null;
-                              }
-                            } else {
-                              return null;
-                            }
-                          } else {
-                            return null;
-                          }
-                        } else {
-                          return null;
-                        }
-                      })
-                      .reduce((a, b) => a + b, 0) +
-                    ".00"}
+                {!totalPrice ? "$0.00" : "$" + totalPrice + ".00"}
               </div>
             </div>
             <div className="admin_create_appointment_section_header">
