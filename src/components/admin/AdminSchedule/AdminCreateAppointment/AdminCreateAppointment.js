@@ -552,7 +552,7 @@ const AdminCreateAppointment = (props) => {
   useEffect(() => {
     if (selectedTreatments.length > 0 || selectedAddOns.length > 0) {
       const filteredTreatments = selectedTreatments.filter(
-        (item) => !item.name.includes("Before") && !item.name.includes("After")
+        (item) => !item.name.includes("Salt Cave")
       );
 
       const allTreatments = filteredTreatments.concat(selectedAddOns);
@@ -567,13 +567,8 @@ const AdminCreateAppointment = (props) => {
 
   const variablesModel = {
     date: adminAppointmentDate,
-    startTime: adminAppointmentTime,
-    morningOrEvening:
-      Number(adminAppointmentTime.slice(0, 1)) > 1
-        ? "PM"
-        : Number(adminAppointmentTime.slice(0, 2)) < 12
-        ? "AM"
-        : "PM",
+    startTime: adminAppointmentTime.split(" ")[0],
+    morningOrEvening: adminAppointmentTime.split(" ")[1],
     // endTime: appointmentEndTime,
     duration: totalDuration,
     price: totalPrice,
