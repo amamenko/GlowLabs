@@ -1,3 +1,87 @@
+.main_content {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.landing_page_drawing {
+  position: absolute;
+  top: 8vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 42%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing_page_drawing svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.bottom_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 1rem;
+}
+
+.landing_page_text_block h1 {
+  grid-area: top-text;
+  font-size: 6vw;
+}
+
+.landing_page_description {
+  grid-area: description;
+  font-size: 3vw;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.landing_page_cta {
+  grid-area: cta;
+  -moz-animation: bounce 2s infinite;
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
+}
+
+.landing_page_text_block {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "top-text"
+    "description"
+    "cta";
+  grid-gap: 2em;
+  text-align: center;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  height: 40%;
+}
+
+.call_to_action_buttons_container {
+  display: none;
+}
+
 /* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
 @media only screen and (min-width: 300px) {
   .landing_page_container {
@@ -51,24 +135,6 @@
     font-size: 3rem;
   }
 
-  .top_content_top_shelf {
-    grid-area: main;
-    position: absolute;
-    bottom: auto;
-    left: 0;
-    right: 0;
-    filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
-  }
-
-  .top_content_bottom_shelf {
-    grid-area: main;
-    position: absolute;
-    bottom: auto;
-    left: 0;
-    right: 0;
-    filter: drop-shadow(2px 5px 2px rgba(0, 0, 0, 0.4));
-  }
-
   .bottom_content {
     grid-area: main;
     position: absolute;
@@ -76,46 +142,20 @@
     left: 0;
     right: 0;
     background: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
   }
 
   .bottom_content h1 {
-    text-align: center;
     color: rgb(44, 44, 52);
-    font-size: 1.3rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
     font-weight: 700;
   }
 
-  .landing_page_text_block {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-  }
-
   .landing_page_description {
-    display: flex;
-    position: relative;
-    align-items: center;
     color: rgba(107, 107, 96, 0.89);
-    font-size: 10.2px;
     font-weight: 500;
-    line-height: 1.2rem;
-    text-align: center;
-    margin-right: 2rem;
-    margin-left: 2rem;
   }
 
   .landing_page_cta {
     display: flex;
-    top: 5rem;
-    bottom: 5rem;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -162,83 +202,6 @@
     }
   }
 
-  .potted_plant {
-    position: absolute;
-    height: 12%;
-    width: 25%;
-    top: 10.3%;
-    left: 22%;
-    filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .small_plant {
-    position: absolute;
-    z-index: 2;
-    height: 15%;
-    width: 25%;
-    top: 14.8%;
-    left: 28%;
-    filter: drop-shadow(10px -2px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .cream {
-    z-index: 2;
-    position: absolute;
-    height: 12%;
-    width: 25%;
-    top: 12%;
-    left: 38%;
-    filter: drop-shadow(5px 0px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .hand_cream {
-    position: absolute;
-    height: 12%;
-    width: 25%;
-    top: 12.8%;
-    left: 55%;
-    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .mirror {
-    z-index: 2;
-    position: absolute;
-    height: 12%;
-    width: 25%;
-    top: 28.8%;
-    left: 21%;
-    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .bottle {
-    z-index: 2;
-    position: absolute;
-    height: 12%;
-    width: 25%;
-    top: 31.5%;
-    left: 36%;
-    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .q_tips {
-    position: absolute;
-    z-index: 2;
-    height: 15%;
-    width: 25%;
-    top: 34.6%;
-    left: 52.5%;
-    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-  }
-
-  .sun_screen {
-    position: absolute;
-    height: 12%;
-    width: 25%;
-    top: 31%;
-    left: 57%;
-    filter: drop-shadow(7px -2px 2px rgba(0, 0, 0, 0.1));
-  }
-
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .landing_page_cta {
@@ -251,26 +214,8 @@
       margin-top: -1rem;
     }
 
-    .mirror {
-      z-index: 2;
-      position: absolute;
-      top: 29.2%;
-    }
-
-    .q_tips {
-      top: 34.9%;
-    }
-
-    .small_plant {
-      top: 15%;
-    }
-
     .bottom_content h1 {
-      text-align: center;
       color: rgb(44, 44, 52);
-      font-size: 1.3rem;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
       font-weight: 700;
     }
 
@@ -282,58 +227,7 @@
 
 /* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
 @media only screen and (min-width: 360px) {
-  .potted_plant {
-    height: 15%;
-    top: 10%;
-    left: 20%;
-  }
-
-  .small_plant {
-    top: 16.8%;
-  }
-
-  .cream {
-    height: 15%;
-    top: 12.6%;
-  }
-
-  .hand_cream {
-    height: 15%;
-    top: 13%;
-    left: 57%;
-  }
-
-  .mirror {
-    height: 15%;
-    top: 29.1%;
-    left: 20%;
-  }
-
-  .bottle {
-    height: 15%;
-    top: 31.8%;
-    left: 38%;
-  }
-
-  .q_tips {
-    left: 54%;
-    top: 36.25%;
-  }
-
-  .sun_screen {
-    height: 15%;
-    top: 31.5%;
-    left: 59%;
-  }
-
-  .bottom_content h1 {
-    font-size: 1.65rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-
   .landing_page_description {
-    font-size: 12.5px;
     line-height: 1.5rem;
   }
 
@@ -378,36 +272,6 @@
 }
 
 /* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 700px) {
-  .small_plant {
-    top: 17.4%;
-  }
-
-  .cream {
-    top: 12.2%;
-  }
-
-  .mirror {
-    top: 28.5%;
-  }
-
-  .q_tips {
-    top: 37.1%;
-  }
-}
-
-/* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (min-device-height: 701px) {
-  .small_plant {
-    top: 17%;
-  }
-
-  .q_tips {
-    top: 36.5%;
-  }
-}
-
-/* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 670px) {
   .cta_line {
     margin-top: -1.3rem;
@@ -420,14 +284,7 @@
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .landing_page_description {
-      font-size: 12.5px;
       line-height: 1.3rem;
-    }
-
-    .bottom_content h1 {
-      font-size: 1.4rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
     }
   }
 }
@@ -440,23 +297,6 @@
 
   @supports not (-webkit-overflow-scrolling: touch) {
     /* CSS for other than iOS devices */
-    .mirror {
-      top: 28.8%;
-    }
-
-    .q_tips {
-      top: 37.6%;
-    }
-
-    .small_plant {
-      top: 18%;
-    }
-
-    .bottom_content h1 {
-      font-size: 1.2rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
 
     .landing_page_description {
       font-size: 12px;
@@ -469,14 +309,8 @@
 @media only screen and (min-width: 360px) and (min-device-height: 740px) {
   @supports not (-webkit-overflow-scrolling: touch) {
     /* CSS for other than iOS devices */
-    .bottom_content h1 {
-      font-size: 1.4rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
 
     .landing_page_description {
-      font-size: 12px;
       line-height: 1.3rem;
     }
 
@@ -494,14 +328,8 @@
 
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
-    .bottom_content h1 {
-      font-size: 1.4rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
 
     .landing_page_description {
-      font-size: 12px;
       line-height: 1.2rem;
     }
 
@@ -517,16 +345,7 @@
     transform: translate(0vh, 0vh);
   }
 
-  .mirror {
-    top: 28.6%;
-  }
-
-  .cream {
-    top: 12.3%;
-  }
-
   .landing_page_description {
-    font-size: 14px;
     line-height: 1.5rem;
   }
 
@@ -604,22 +423,6 @@
 
 /* Additional CSS for Mobile Phones with Smaller Heights */
 @media only screen and (min-width: 410px) and (max-device-height: 800px) {
-  .mirror {
-    top: 28.2%;
-  }
-
-  .cream {
-    top: 12%;
-  }
-
-  .q_tips {
-    top: 37%;
-  }
-
-  .small_plant {
-    top: 17%;
-  }
-
   .call_to_action_buttons_container {
     padding-top: 0rem;
   }
@@ -647,12 +450,7 @@
       transform: translate(0vh, 7vh);
     }
 
-    .small_plant {
-      top: 17.4%;
-    }
-
     .landing_page_description {
-      font-size: 14px;
       line-height: 1.3rem;
     }
   }
@@ -666,63 +464,7 @@
       margin-top: -3rem;
     }
 
-    .potted_plant {
-      height: 10%;
-      top: 14%;
-      left: 22%;
-    }
-
-    .small_plant {
-      height: 10%;
-      top: 19%;
-      left: 29%;
-    }
-
-    .cream {
-      height: 10%;
-      top: 15.3%;
-    }
-
-    .hand_cream {
-      height: 10%;
-      top: 16%;
-      left: 55%;
-    }
-
-    .mirror {
-      height: 10%;
-      top: 32.3%;
-      left: 22%;
-    }
-
-    .bottle {
-      height: 10%;
-      top: 34.8%;
-      left: 37%;
-    }
-
-    .q_tips {
-      height: 10%;
-      left: 52%;
-      top: 38.2%;
-    }
-
-    .sun_screen {
-      height: 10%;
-      top: 34%;
-      left: 57%;
-    }
-
-    .bottom_content h1 {
-      font-size: 2rem;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-      margin-left: 3.1rem;
-      margin-right: 3rem;
-    }
-
     .landing_page_description {
-      font-size: 16px;
       line-height: 1.8rem;
     }
   }
@@ -735,42 +477,12 @@
   }
 
   .bottom_content {
-    padding-top: 30vh;
     height: 100vh;
     background: rgb(251, 251, 251);
   }
 
-  .bottom_content h1 {
-    display: flex;
-    align-self: flex-start;
-    text-align: left;
-    font-size: 1.7rem;
-    padding-top: 0rem;
-    padding-bottom: 5rem;
-    margin-left: 3.1rem;
-    margin-right: 3rem;
-  }
-
-  .landing_page_text_block {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    text-align: left;
-    padding-bottom: 10rem;
-  }
-
   .landing_page_description {
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    font-size: 0.9rem;
     line-height: 1.7rem;
-    text-align: left;
-    margin-left: 3.1rem;
-    margin-right: 3.1rem;
-    padding-bottom: 8rem;
   }
 
   .landing_page_cta {
@@ -802,77 +514,6 @@
   .bottom_content {
     right: 50%;
   }
-
-  .top_content_top_shelf {
-    left: 50%;
-    right: 0;
-  }
-
-  .top_content_bottom_shelf {
-    left: 50%;
-    right: 0;
-  }
-
-  .potted_plant {
-    z-index: 2;
-    height: 20%;
-    width: 35%;
-    top: 13%;
-    left: 50%;
-  }
-
-  .small_plant {
-    height: 21%;
-    width: 22%;
-    top: 22.8%;
-    left: 60%;
-  }
-
-  .cream {
-    z-index: 2;
-    height: 20%;
-    width: 25%;
-    top: 16%;
-    left: 63.5%;
-  }
-
-  .hand_cream {
-    z-index: 2;
-    height: 19%;
-    width: 20%;
-    top: 18%;
-    left: 73.5%;
-  }
-
-  .mirror {
-    z-index: 2;
-    height: 20%;
-    width: 25%;
-    top: 45%;
-    left: 55%;
-  }
-
-  .bottle {
-    z-index: 2;
-    height: 20%;
-    top: 49.5%;
-    left: 62%;
-  }
-
-  .q_tips {
-    height: 25%;
-    width: 25%;
-    top: 55%;
-    left: 70%;
-  }
-
-  .sun_screen {
-    z-index: 2;
-    height: 22%;
-    width: 10%;
-    top: 47%;
-    left: 80%;
-  }
 }
 
 /* CSS for Tablets in Portrait Mode */
@@ -881,33 +522,20 @@
     transform: scale(1) translate(0vh, 15vh);
   }
 
+  .landing_page_text_block h1 {
+    font-size: 4vw;
+  }
+
   .bottom_content {
-    padding-top: 0vh;
     height: 62vh;
     background: rgb(251, 251, 251);
   }
 
-  .bottom_content h1 {
-    display: flex;
-    align-self: center;
-    text-align: center;
-    font-size: 3rem;
-    padding-top: 0rem;
-    padding-bottom: 2rem;
-    margin-left: 3.1rem;
-    margin-right: 3rem;
-  }
-
   .landing_page_description {
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    font-size: 1.65rem;
-    line-height: 2.5rem;
+    line-height: 3rem;
     text-align: center;
     margin-left: 3.1rem;
     margin-right: 3.1rem;
-    padding-bottom: 2rem;
   }
 
   .call_to_action_buttons_container {
@@ -937,144 +565,12 @@
     position: absolute;
     z-index: 99999999999;
   }
-
-  .top_content_top_shelf {
-    left: 0;
-    right: 0;
-  }
-
-  .top_content_bottom_shelf {
-    left: 0;
-    right: 0;
-  }
-
-  .potted_plant {
-    height: 11%;
-    top: 10%;
-    left: 19%;
-  }
-
-  .small_plant {
-    height: 11%;
-    top: 15.5%;
-    left: 32%;
-  }
-
-  .cream {
-    height: 13%;
-    width: 25%;
-    top: 10%;
-    left: 38.5%;
-  }
-
-  .hand_cream {
-    height: 12%;
-    width: 20%;
-    top: 11.5%;
-    left: 55%;
-  }
-
-  .mirror {
-    height: 13%;
-    width: 25%;
-    top: 28%;
-    left: 24%;
-  }
-
-  .bottle {
-    height: 13%;
-    top: 31%;
-    left: 36%;
-  }
-
-  .q_tips {
-    height: 15%;
-    width: 25%;
-    top: 35%;
-    left: 49%;
-  }
-
-  .sun_screen {
-    height: 15%;
-    width: 20%;
-    top: 28.5%;
-    left: 56%;
-  }
 }
 
 /* CSS for Larger Tablets in Portrait Mode */
 @media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
-  .potted_plant {
-    height: 10%;
-    top: 12.5%;
-    left: 22.5%;
-  }
-
-  .small_plant {
-    height: 11%;
-    top: 17%;
-    left: 33%;
-  }
-
-  .cream {
-    height: 10%;
-    top: 13.8%;
-    left: 38%;
-  }
-
-  .hand_cream {
-    height: 10%;
-    top: 14.3%;
-    left: 51.5%;
-  }
-
-  .mirror {
-    height: 11%;
-    top: 29.5%;
-    left: 27.5%;
-  }
-
-  .bottle {
-    height: 11%;
-    top: 32%;
-    left: 37.5%;
-  }
-
-  .q_tips {
-    height: 13%;
-    top: 35%;
-    left: 48%;
-  }
-
-  .sun_screen {
-    height: 11%;
-    top: 31%;
-    left: 53%;
-  }
-
-  .bottom_content {
-    padding-top: 0vh;
-  }
-
-  .bottom_content h1 {
-    margin-left: 3.1rem;
-    font-size: 3.5rem;
-    padding-top: 0rem;
-    padding-bottom: 3rem;
-    margin-right: 3rem;
-  }
-
-  .landing_page_text_block {
-    margin-bottom: 9rem;
-    margin-top: 0rem;
-  }
-
   .landing_page_description {
-    font-size: 1.5rem;
     line-height: 3rem;
-    margin-left: 3.1rem;
-    margin-right: 3.1rem;
-    padding-bottom: 3rem;
   }
 
   .call_to_action_button {
@@ -1091,46 +587,35 @@
     -webkit-transform: scale(1.3) translate(0vh, 20vh);
   }
 
+  .landing_page_text_block {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .landing_page_text_block h1 {
+    font-size: 3vw;
+    text-align: center;
+  }
+
   .header {
     height: 8vh;
     position: fixed;
   }
 
   .bottom_content {
-    padding-top: 2vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   .bottom_content h1 {
-    display: flex;
-    align-self: flex-start;
-    margin-left: 3.1rem;
     text-align: left;
-    font-size: 2.9rem;
-    padding-top: 7rem;
-    padding-bottom: 1.2rem;
-    margin-right: 3rem;
-  }
-
-  .landing_page_text_block {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    text-align: left;
-    margin-bottom: 9rem;
-    margin-top: 4rem;
   }
 
   .landing_page_description {
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    font-size: 1.45rem;
+    font-size: 1.6vw;
     line-height: 3rem;
     text-align: left;
-    margin-left: 3.1rem;
-    margin-right: 3.1rem;
   }
 
   .landing_page_cta {
@@ -1140,7 +625,7 @@
   .call_to_action_buttons_container {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -1149,197 +634,99 @@
     color: white;
     font-size: 1.4rem;
     font-weight: 500;
-    margin-left: 3.1rem;
-    margin-top: -3rem;
     padding: 1rem;
     padding-left: 3rem;
     padding-right: 3rem;
     border-radius: 40px;
     cursor: pointer;
+    margin: 0;
   }
 
   .call_to_action_button:hover {
     background: rgb(0, 79, 127);
     transition: all 0.5s ease;
   }
+}
+
+@media only screen and (min-width: 1215px) and (max-width: 1223px) {
+  .landing_page_text_block h1 {
+    text-align: center;
+  }
 
   .bottom_content {
-    right: 50%;
+    padding-top: 2vh;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
   }
 
-  .top_content_top_shelf {
-    left: 50%;
-    right: 0;
+  .landing_page_description {
+    text-align: center;
   }
 
-  .top_content_bottom_shelf {
-    left: 50%;
-    right: 0;
-  }
-
-  .potted_plant {
-    z-index: 2;
-    height: 20%;
-    width: 50%;
-    top: 16%;
-    left: 38%;
-  }
-
-  .small_plant {
-    height: 23%;
-    width: 25%;
-    top: 25%;
-    left: 57%;
-  }
-
-  .cream {
-    z-index: 2;
-    height: 20%;
-    width: 25%;
-    top: 19%;
-    left: 65%;
-  }
-
-  .hand_cream {
-    z-index: 2;
-    height: 17%;
-    width: 20%;
-    top: 22%;
-    left: 79%;
-  }
-
-  .mirror {
-    z-index: 2;
-    height: 25%;
-    width: 25%;
-    top: 54%;
-    left: 50%;
-  }
-
-  .bottle {
-    z-index: 2;
-    height: 25%;
-    top: 60%;
-    left: 62%;
-  }
-
-  .q_tips {
-    height: 35%;
-    width: 25%;
-    top: 65%;
-    left: 76%;
-  }
-
-  .sun_screen {
-    z-index: 2;
-    height: 25%;
-    width: 10%;
-    top: 61%;
-    left: 85%;
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 }
 
 /* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
-@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
-  .potted_plant {
-    left: 40%;
-    top: 17%;
+@media only screen and (min-width: 1224px) and (max-device-height: 1200px) {
+  .landing_page_text_block h1 {
+    text-align: left;
   }
 
-  .small_plant {
-    left: 58%;
-    top: 25.8%;
+  .bottom_content {
+    padding-top: 2vh;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
   }
 
-  .cream {
-    left: 65%;
-    top: 20%;
+  .landing_page_description {
+    text-align: left;
   }
 
-  .hand_cream {
-    left: 77%;
-    top: 23.5%;
-  }
-
-  .mirror {
-    left: 53%;
-    top: 55.5%;
-  }
-
-  .bottle {
-    left: 62.5%;
-    top: 61%;
-  }
-
-  .q_tips {
-    left: 74%;
-    top: 66%;
-  }
-
-  .sun_screen {
-    left: 83%;
-  }
-
-  .call_to_action_button {
-    margin-top: -8rem;
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: left;
   }
 }
 
 /* CSS for Medium Laptops */
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 1360px) {
   .bottom_content h1 {
-    font-size: 3rem;
+    text-align: left;
+  }
+
+  .bottom_content {
+    padding-top: 2vh;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .landing_page_description {
+    text-align: left;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.5vw;
   }
 
   .call_to_action_button {
     margin-top: -2rem;
-  }
-
-  .potted_plant {
-    left: 43%;
-    height: 15%;
-    top: 19%;
-  }
-
-  .small_plant {
-    left: 59%;
-    height: 15%;
-    top: 26.5%;
-  }
-
-  .cream {
-    height: 16%;
-    left: 63%;
-    top: 20%;
-  }
-
-  .hand_cream {
-    height: 16%;
-    left: 73%;
-    top: 21%;
-  }
-
-  .mirror {
-    height: 18%;
-    top: 59%;
-    left: 56%;
-  }
-
-  .bottle {
-    height: 16%;
-    left: 63.5%;
-    top: 64.5%;
-  }
-
-  .q_tips {
-    height: 17%;
-    left: 70%;
-    top: 70%;
-  }
-
-  .sun_screen {
-    left: 79%;
-    top: 59%;
   }
 
   /* Safari Only */
@@ -1349,65 +736,6 @@
         font-size: 2em;
         transform: scale(1.3) translate(0vh, 20vh);
         -webkit-transform: scale(1.3) translate(0vh, 20vh);
-      }
-
-      .potted_plant {
-        height: 15%;
-        width: 10%;
-        top: 17%;
-        left: 63%;
-      }
-
-      .small_plant {
-        height: 15%;
-        width: 12%;
-        top: 24.5%;
-        left: 65%;
-      }
-
-      .cream {
-        height: 15%;
-        width: 11%;
-        top: 19%;
-        left: 70%;
-      }
-
-      .hand_cream {
-        height: 13%;
-        width: 10%;
-        top: 21.3%;
-        left: 78%;
-      }
-
-      .mirror {
-        height: 15%;
-        width: 11%;
-        top: 57%;
-        left: 62%;
-      }
-
-      .bottle {
-        height: 15%;
-        top: 60.5%;
-        left: 62%;
-      }
-
-      .q_tips {
-        height: 18%;
-        width: 15%;
-        top: 64.5%;
-        left: 74.5%;
-      }
-
-      .sun_screen {
-        height: 15%;
-        width: 12%;
-        top: 59%;
-        left: 78%;
-      }
-
-      .landing_page_description {
-        margin-top: 7rem;
       }
 
       .call_to_action_button {
@@ -1423,17 +751,14 @@
     transform: scale(1.3) translate(0vh, 10vh);
   }
 
-  .bottom_content h1 {
-    font-size: 3.6rem;
-    margin-top: 3rem;
-    padding-bottom: 3rem;
+  .landing_page_text_block {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
   }
 
   .landing_page_description {
-    font-size: 1.7rem;
+    font-size: 1.6vw;
     line-height: 3.5rem;
-    padding-bottom: 0rem;
-    margin-bottom: 0.2rem;
   }
 
   .call_to_action_button {
@@ -1444,128 +769,12 @@
     margin-top: 3rem;
   }
 
-  .potted_plant {
-    z-index: 2;
-    height: 20%;
-    width: 50%;
-    top: 16%;
-    left: 41%;
-  }
-
-  .small_plant {
-    height: 23%;
-    width: 25%;
-    top: 25%;
-    left: 58%;
-  }
-
-  .cream {
-    z-index: 2;
-    height: 20%;
-    width: 25%;
-    top: 19%;
-    left: 64%;
-  }
-
-  .hand_cream {
-    z-index: 2;
-    height: 17%;
-    width: 20%;
-    top: 22%;
-    left: 75%;
-  }
-
-  .mirror {
-    z-index: 2;
-    height: 25%;
-    width: 25%;
-    top: 54%;
-    left: 53%;
-  }
-
-  .bottle {
-    z-index: 2;
-    height: 25%;
-    top: 60%;
-    left: 62.5%;
-  }
-
-  .q_tips {
-    height: 35%;
-    width: 25%;
-    top: 65%;
-    left: 74%;
-  }
-
-  .sun_screen {
-    z-index: 2;
-    height: 25%;
-    width: 10%;
-    top: 61%;
-    left: 81%;
-  }
-
   /* Safari Only */
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
       .splash_screen {
         font-size: 2em;
         transform: scale(0.6) translate(0vh, -60vh);
-      }
-
-      .potted_plant {
-        height: 10%;
-        width: 10%;
-        top: 7%;
-        left: 60%;
-      }
-
-      .small_plant {
-        height: 12%;
-        width: 12%;
-        top: 11.25%;
-        left: 63%;
-      }
-
-      .cream {
-        height: 11%;
-        width: 11%;
-        top: 8%;
-        left: 70%;
-      }
-
-      .hand_cream {
-        height: 10%;
-        width: 10%;
-        top: 9.25%;
-        left: 80%;
-      }
-
-      .mirror {
-        height: 11%;
-        width: 11%;
-        top: 27%;
-        left: 59%;
-      }
-
-      .bottle {
-        height: 11%;
-        top: 29.5%;
-        left: 61%;
-      }
-
-      .q_tips {
-        height: 15%;
-        width: 15%;
-        top: 31.75%;
-        left: 77%;
-      }
-
-      .sun_screen {
-        height: 12%;
-        width: 12%;
-        margin-top: -58em;
-        left: 81%;
       }
     }
   }
@@ -1578,15 +787,8 @@
     top: 15%;
   }
 
-  .bottom_content h1 {
-    text-align: left;
-    font-size: 4rem;
-    padding-top: 5rem;
-    padding-bottom: 3rem;
-  }
-
   .landing_page_description {
-    font-size: 2.1rem;
+    font-size: 1.7vw;
     line-height: 4rem;
   }
 
@@ -1599,11 +801,6 @@
     margin-top: 4rem;
   }
 
-  .sun_screen {
-    top: 60%;
-    left: 83%;
-  }
-
   /* Safari Only */
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
@@ -1612,69 +809,9 @@
         transform: scale(2) translate(0vh, 13vh);
       }
 
-      .bottom_content h1 {
-        padding-top: 6rem;
-        padding-bottom: 3rem;
-      }
-
       .call_to_action_button {
         font-size: 2rem;
         margin-top: 20rem;
-      }
-
-      .potted_plant {
-        height: 25%;
-        width: 10%;
-        top: 12%;
-        left: 60%;
-      }
-
-      .small_plant {
-        height: 25%;
-        width: 12%;
-        top: 23%;
-        left: 63%;
-      }
-
-      .cream {
-        height: 25%;
-        width: 11%;
-        top: 15%;
-        left: 70%;
-      }
-
-      .hand_cream {
-        height: 25%;
-        width: 10%;
-        top: 17%;
-        left: 80%;
-      }
-
-      .mirror {
-        height: 25%;
-        width: 11%;
-        top: 55%;
-        left: 59%;
-      }
-
-      .bottle {
-        height: 20%;
-        top: 63%;
-        left: 61%;
-      }
-
-      .q_tips {
-        height: 25%;
-        width: 15%;
-        top: 68%;
-        left: 76%;
-      }
-
-      .sun_screen {
-        height: 22%;
-        width: 12%;
-        margin-top: 0;
-        left: 81%;
       }
     }
   }
@@ -1682,86 +819,7 @@
 
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
-  .sun_screen {
-    top: 61%;
-    left: 81%;
-  }
-
-  .landing_page_text_block {
-    margin-bottom: 9rem;
-  }
-
-  .bottom_content h1 {
-    font-size: 6.1rem;
-    padding-top: 15rem;
-  }
-
   .landing_page_description {
-    font-size: 2.9rem;
-    line-height: 5.5rem;
-  }
-
-  /* Safari 7.1+ */
-
-  _::-webkit-full-page-media,
-  _:future,
-  .hand_cream,
-  .sun_screen {
-    transform: scale(1.3) translate(0, 320%);
-    -webkit-transform: scale(1.3) translate(0, 320%);
-  }
-  _::-webkit-full-page-media,
-  _:future,
-  .sun_screen {
-    transform: scale(1) translate(0, 5%);
-    -webkit-transform: scale(1) translate(0, 5%);
-  }
-  _::-webkit-full-page-media,
-  _:future,
-  .q_tips {
-    transform: scale(1.3) translate(8%, 8%);
-    -webkit-transform: scale(1.3) translate(8%, 8%);
-  }
-
-  _::-webkit-full-page-media,
-  _:future,
-  .hand_cream {
-    transform: scale(1) translate(0, 17%);
-    -webkit-transform: scale(1) translate(0, 17%);
-  }
-
-  _::-webkit-full-page-media,
-  _:future,
-  .cream {
-    transform: scale(1) translate(0, 17%);
-    -webkit-transform: scale(1) translate(0, 17%);
-  }
-
-  _::-webkit-full-page-media,
-  _:future,
-  .bottle {
-    transform: scale(1) translate(0, 7%);
-    -webkit-transform: scale(1) translate(0, 7%);
-  }
-
-  _::-webkit-full-page-media,
-  _:future,
-  .small_plant {
-    transform: scale(1) translate(1%, 17%);
-    -webkit-transform: scale(1) translate(1%, 17%);
-  }
-
-  _::-webkit-full-page-media,
-  _:future,
-  .potted_plant {
-    transform: scale(1) translate(0, 18%);
-    -webkit-transform: scale(1) translate(0, 18%);
-  }
-
-  _::-webkit-full-page-media,
-  _:future,
-  .mirror {
-    transform: scale(1.2) translate(0, 0%);
-    -webkit-transform: scale(1.2) translate(0, 0%);
+    line-height: 5rem;
   }
 }

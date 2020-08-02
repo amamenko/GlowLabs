@@ -28,10 +28,10 @@ const TreatmentsPage1 = React.forwardRef((props, ref) => {
     threshold: !currentScreenSize
       ? initialScreenSize >= 1200
         ? 0.7
-        : 0.2
+        : 0.4
       : currentScreenSize >= 1200
       ? 0.7
-      : 0.2,
+      : 0.4,
   });
 
   useMemo(() => {
