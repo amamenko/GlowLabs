@@ -886,12 +886,12 @@
   }
 
   .notification_text_container h3 {
-    font-size: 2rem !important;
+    font-size: 2rem;
   }
 
   .notification_text_container p {
-    margin-top: 0.3rem !important;
-    font-size: 1.5rem !important;
+    margin-top: 0.3rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -903,6 +903,17 @@
     bottom: auto;
     width: 100%;
     height: 75%;
+  }
+
+  .notification_removed_container svg,
+  .notification_container svg {
+    transform: scale(1);
+  }
+
+  .notification_removed_container,
+  .notification_container {
+    padding-top: 0vh;
+    padding-bottom: 0vh;
   }
 
   .card_description_microneedle_toggle {

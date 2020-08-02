@@ -71,11 +71,11 @@
     "top-text"
     "description"
     "cta";
-  grid-gap: 2em;
+  grid-gap: 1rem;
   text-align: center;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-  height: 40%;
+  height: 75%;
 }
 
 .call_to_action_buttons_container {
@@ -181,13 +181,6 @@
     transition: margin-top 0.07s ease-in-out, opacity 0.5s ease;
   }
 
-  .cta_line {
-    border-left: 5px solid rgb(44, 44, 52);
-    position: absolute;
-    text-align: center;
-    border-radius: 2px;
-  }
-
   @supports not (-webkit-overflow-scrolling: touch) {
     /* CSS for other than iOS devices */
     .landing_page_cta {
@@ -195,10 +188,6 @@
       width: 100%;
       position: sticky;
       transition: all 0.5s ease;
-    }
-
-    .cta_line {
-      margin-top: -1.3rem;
     }
   }
 
@@ -208,10 +197,6 @@
       min-height: 100%;
       min-width: 100%;
       position: -webkit-sticky;
-    }
-
-    .cta_line {
-      margin-top: -1rem;
     }
 
     .bottom_content h1 {
@@ -242,18 +227,10 @@
     .landing_page_bottom_icon {
       margin-top: 1.5rem;
     }
-
-    .cta_line {
-      margin-top: -1.5rem;
-    }
   }
 
   @supports not (-webkit-overflow-scrolling: touch) {
     /* CSS for other than iOS devices */
-    .cta_line {
-      margin-top: -2rem;
-    }
-
     .landing_page_bottom_icon {
       margin-top: 0.5rem;
     }
@@ -261,26 +238,7 @@
 }
 
 /* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 740px) {
-  .cta_line {
-    margin-top: -2.7rem;
-  }
-
-  .call_to_action_buttons_container {
-    padding-top: 1rem;
-  }
-}
-
-/* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 670px) {
-  .cta_line {
-    margin-top: -1.3rem;
-  }
-
-  .call_to_action_buttons_container {
-    padding-top: 0;
-  }
-
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .landing_page_description {
@@ -291,13 +249,8 @@
 
 /* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
 @media only screen and (min-width: 360px) and (max-device-height: 650px) {
-  .cta_line {
-    margin-top: -2.2rem;
-  }
-
   @supports not (-webkit-overflow-scrolling: touch) {
     /* CSS for other than iOS devices */
-
     .landing_page_description {
       font-size: 12px;
       line-height: 1.2rem;
@@ -309,32 +262,19 @@
 @media only screen and (min-width: 360px) and (min-device-height: 740px) {
   @supports not (-webkit-overflow-scrolling: touch) {
     /* CSS for other than iOS devices */
-
     .landing_page_description {
       line-height: 1.3rem;
-    }
-
-    .cta_line {
-      margin-top: -2.5rem;
     }
   }
 }
 
 /* Additional CSS for iPhones 11 Pro, X, Xs */
 @media only screen and (min-width: 375px) and (min-device-height: 800px) and (max-device-height: 815px) {
-  .cta_line {
-    margin-top: -1.9rem;
-  }
-
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
 
     .landing_page_description {
       line-height: 1.2rem;
-    }
-
-    .cta_line {
-      margin-top: -1.9rem;
     }
   }
 }
@@ -357,65 +297,10 @@
   .call_to_action_buttons_container {
     padding-top: 0;
   }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .landing_page_bottom_icon {
-      margin-top: -5rem;
-    }
-
-    .cta_line {
-      margin-top: -1.5rem;
-    }
-  }
-
-  @supports not (-webkit-overflow-scrolling: touch) {
-    /* CSS for other than iOS devices */
-    .cta_line {
-      margin-top: -2.8rem;
-    }
-
-    .landing_page_bottom_icon {
-      margin-top: 0rem;
-    }
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 410px) and (min-device-height: 850px) {
-  .cta_line {
-    margin-top: -3.5rem;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .landing_page_bottom_icon {
-      margin-top: -5rem;
-    }
-
-    .cta_line {
-      margin-top: -1.5rem;
-    }
-  }
-}
-
-/* CSS for Galaxy Note S9+ */
-@media only screen and (min-width: 410px) and (min-device-height: 840px) and (max-device-height: 849px) {
-  .cta_line {
-    margin-top: -1rem;
-  }
-
-  .q_tips {
-    top: 36.2%;
-  }
 }
 
 /* Additional CSS for Mobile Phones with Smaller Heights */
 @media only screen and (min-width: 410px) and (max-device-height: 830px) {
-  .cta_line {
-    margin-top: -0.7rem;
-  }
-
   .call_to_action_buttons_container {
     padding-top: 1rem;
   }
@@ -428,30 +313,12 @@
   }
 }
 
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 410px) and (max-device-height: 740px) {
-  .cta_line {
-    margin-top: -3rem;
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 410px) and (max-device-height: 731px) {
-  .cta_line {
-    margin-top: -0.3rem;
-  }
-}
-
 /* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
 @media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .splash_screen {
       transform: translate(0vh, 7vh);
-    }
-
-    .landing_page_description {
-      line-height: 1.3rem;
     }
   }
 }
@@ -462,10 +329,6 @@
     /* CSS for other than iOS devices */
     .cta_line {
       margin-top: -3rem;
-    }
-
-    .landing_page_description {
-      line-height: 1.8rem;
     }
   }
 }
@@ -481,8 +344,20 @@
     background: rgb(251, 251, 251);
   }
 
+  .bottom_content h1 {
+    font-size: 5vw;
+  }
+
+  .landing_page_text_block {
+    flex: 0;
+    height: 40%;
+  }
+
   .landing_page_description {
-    line-height: 1.7rem;
+    font-size: 2.8vw;
+    line-height: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
   }
 
   .landing_page_cta {
@@ -500,19 +375,14 @@
     display: inline-block;
     background: rgb(0, 129, 177);
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 500;
     margin-left: 3.1rem;
-    margin-top: 2rem;
-    padding: 0.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     border-radius: 40px;
     cursor: pointer;
-  }
-
-  .bottom_content {
-    right: 50%;
   }
 }
 
@@ -522,17 +392,22 @@
     transform: scale(1) translate(0vh, 15vh);
   }
 
+  .landing_page_text_block {
+    flex: 0;
+    height: 40%;
+  }
+
   .landing_page_text_block h1 {
     font-size: 4vw;
   }
 
   .bottom_content {
-    height: 62vh;
     background: rgb(251, 251, 251);
   }
 
   .landing_page_description {
-    line-height: 3rem;
+    font-size: 2vw;
+    line-height: 2rem;
     text-align: center;
     margin-left: 3.1rem;
     margin-right: 3.1rem;
@@ -553,7 +428,6 @@
     font-size: 2rem;
     font-weight: 500;
     margin-left: 0;
-    margin-top: 1rem;
     padding: 1rem;
     padding-left: 4rem;
     padding-right: 4rem;
@@ -567,15 +441,145 @@
   }
 }
 
+@media only screen and (min-width: 900px) and (max-device-height: 930px) {
+  .bottom_content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    font-size: 3.5vw;
+    text-align: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.75vw;
+    line-height: 2.5rem;
+    text-align: left;
+    margin: 0;
+  }
+
+  .landing_page_text_block {
+    flex: 0;
+    grid-gap: 2rem;
+    height: 40%;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 1018px) {
+  .bottom_content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    font-size: 3.5vw;
+    text-align: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.75vw;
+    line-height: 2.5rem;
+    text-align: left;
+    margin: 0;
+  }
+
+  .landing_page_text_block {
+    flex: 0;
+    grid-gap: 2rem;
+    height: 40%;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .call_to_action_button {
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+}
+
+/* CSS for Half Screen Desktops */
+@media only screen and (min-width: 951px) and (max-width: 1017px) and (max-device-height: 1020px) {
+  .landing_page_text_block h1 {
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .landing_page_description {
+    font-size: 2vw;
+    line-height: 2.7rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    text-align: center;
+  }
+
+  .bottom_content {
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    text-align: center;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 /* CSS for Larger Tablets in Portrait Mode */
 @media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
   .landing_page_description {
     line-height: 3rem;
   }
 
+  .landing_page_text_block {
+    margin-bottom: 5vh;
+    grid-gap: 2rem;
+  }
+
   .call_to_action_button {
-    margin-top: 1.5rem;
     font-size: 2.5rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
   }
 }
 
@@ -590,6 +594,9 @@
   .landing_page_text_block {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
+    margin-bottom: 10vh;
+    grid-gap: 2rem;
+    height: 40%;
   }
 
   .landing_page_text_block h1 {
@@ -648,32 +655,8 @@
   }
 }
 
-@media only screen and (min-width: 1215px) and (max-width: 1223px) {
-  .landing_page_text_block h1 {
-    text-align: center;
-  }
-
-  .bottom_content {
-    padding-top: 2vh;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-  }
-
-  .landing_page_description {
-    text-align: center;
-  }
-
-  .call_to_action_buttons_container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
 /* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
-@media only screen and (min-width: 1224px) and (max-device-height: 1200px) {
+@media only screen and (min-width: 1220px) and (max-device-height: 1200px) {
   .landing_page_text_block h1 {
     text-align: left;
   }
@@ -725,10 +708,6 @@
     font-size: 1.5vw;
   }
 
-  .call_to_action_button {
-    margin-top: -2rem;
-  }
-
   /* Safari Only */
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
@@ -736,10 +715,6 @@
         font-size: 2em;
         transform: scale(1.3) translate(0vh, 20vh);
         -webkit-transform: scale(1.3) translate(0vh, 20vh);
-      }
-
-      .call_to_action_button {
-        margin-top: 12rem;
       }
     }
   }
@@ -766,7 +741,6 @@
     padding: 1.2rem;
     padding-left: 3rem;
     padding-right: 3rem;
-    margin-top: 3rem;
   }
 
   /* Safari Only */
@@ -798,7 +772,6 @@
 
   .call_to_action_button {
     font-size: 2rem;
-    margin-top: 4rem;
   }
 
   /* Safari Only */
@@ -811,7 +784,6 @@
 
       .call_to_action_button {
         font-size: 2rem;
-        margin-top: 20rem;
       }
     }
   }

@@ -281,68 +281,68 @@ const App = () => {
     }
   );
 
-  // Temporary Portrait Mode Lock for Mobile Phones
-  useEffect(() => {
-    const preventScroll = (e) => e.preventDefault();
+  // // Temporary Portrait Mode Lock for Mobile Phones
+  // useEffect(() => {
+  //   const preventScroll = (e) => e.preventDefault();
 
-    if (!currentScreenSize) {
-      if (initialScreenSize < 1024) {
-        if (window.matchMedia("(orientation: landscape)").matches) {
-          dispatch(ACTION_BODY_SCROLL_RESET());
+  //   if (!currentScreenSize) {
+  //     if (initialScreenSize < 1024) {
+  //       if (window.matchMedia("(orientation: landscape)").matches) {
+  //         dispatch(ACTION_BODY_SCROLL_RESET());
 
-          document.body.addEventListener("touchmove", preventScroll, {
-            passive: false,
-          });
+  //         document.body.addEventListener("touchmove", preventScroll, {
+  //           passive: false,
+  //         });
 
-          // force to portrait orientation
-          new PreventOrientation({
-            text: "Mobile landscape mode coming soon!",
-            color: "rgb(90, 90, 90)",
-            background:
-              "linear-gradient(to right, rgb(235, 212, 196), rgb(227, 188, 164))",
-            fontSize: "1.2rem",
-          }).forceOrientationToAngle(0);
-        }
-      }
-    } else {
-      if (currentScreenSize < 1024) {
-        if (window.matchMedia("(orientation: landscape)").matches) {
-          dispatch(ACTION_BODY_SCROLL_RESET());
+  //         // force to portrait orientation
+  //         new PreventOrientation({
+  //           text: "Mobile landscape mode coming soon!",
+  //           color: "rgb(90, 90, 90)",
+  //           background:
+  //             "linear-gradient(to right, rgb(235, 212, 196), rgb(227, 188, 164))",
+  //           fontSize: "1.2rem",
+  //         }).forceOrientationToAngle(0);
+  //       }
+  //     }
+  //   } else {
+  //     if (currentScreenSize < 1024) {
+  //       if (window.matchMedia("(orientation: landscape)").matches) {
+  //         dispatch(ACTION_BODY_SCROLL_RESET());
 
-          document.body.addEventListener("touchmove", preventScroll, {
-            passive: false,
-          });
+  //         document.body.addEventListener("touchmove", preventScroll, {
+  //           passive: false,
+  //         });
 
-          // force to portrait orientation
-          new PreventOrientation({
-            text: "Mobile landscape mode coming soon!",
-            color: "rgb(90, 90, 90)",
-            background:
-              "linear-gradient(to right, rgb(235, 212, 196), rgb(227, 188, 164))",
-            fontSize: "1.2rem",
-            height: "100vh",
-          }).forceOrientationToAngle(0);
-        } else {
-          if (splashScreenComplete) {
-            dispatch(ACTION_BODY_SCROLL_ALLOW());
+  //         // force to portrait orientation
+  //         new PreventOrientation({
+  //           text: "Mobile landscape mode coming soon!",
+  //           color: "rgb(90, 90, 90)",
+  //           background:
+  //             "linear-gradient(to right, rgb(235, 212, 196), rgb(227, 188, 164))",
+  //           fontSize: "1.2rem",
+  //           height: "100vh",
+  //         }).forceOrientationToAngle(0);
+  //       } else {
+  //         if (splashScreenComplete) {
+  //           dispatch(ACTION_BODY_SCROLL_ALLOW());
 
-            document.body.removeEventListener(
-              "touchmove",
-              preventScroll,
-              false
-            );
-          }
-        }
-      }
-    }
-  }, [
-    currentScreenSize,
-    currentScreenHeight,
-    initialScreenHeight,
-    initialScreenSize,
-    splashScreenComplete,
-    dispatch,
-  ]);
+  //           document.body.removeEventListener(
+  //             "touchmove",
+  //             preventScroll,
+  //             false
+  //           );
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, [
+  //   currentScreenSize,
+  //   currentScreenHeight,
+  //   initialScreenHeight,
+  //   initialScreenSize,
+  //   splashScreenComplete,
+  //   dispatch,
+  // ]);
 
   if (isAndroid) {
     // Resets height to prevent Android keyboard input focus zoom

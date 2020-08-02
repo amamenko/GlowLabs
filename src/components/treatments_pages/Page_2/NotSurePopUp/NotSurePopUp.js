@@ -1,5 +1,6 @@
 import React from "react";
 import "./NotSurePopUp.css";
+import "../../../treatments/card_styling.css";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import ACTION_INCREMENT_COUNTER from "../../../../actions/Counter/ACTION_INCREMENT_COUNTER";
