@@ -403,10 +403,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         location.pathname.includes("admin"))
                       ? "rgb(239, 240, 243)"
                       : props.initialScreenSize >= 768 &&
-                        props.initialScreenHeight > props.initialScreenSize
+                        props.initialScreenHeight >= props.initialScreenSize
                       ? "rgb(239, 240, 243)"
                       : props.initialScreenSize >= 600
-                      ? window.scrollY <= 5
+                      ? props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 5
                         ? props.navbarToggle
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
@@ -418,10 +420,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         location.pathname.includes("admin"))
                     ? "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 768 &&
-                      props.currentScreenHeight > props.currentScreenSize
+                      props.currentScreenHeight >= props.currentScreenSize
                     ? "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 600
-                    ? window.scrollY <= 5
+                    ? props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(239, 240, 243)"
+                      : window.scrollY <= 5
                       ? props.navbarToggle
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
@@ -462,7 +466,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
           background:
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 768 &&
-                props.initialScreenHeight > props.initialScreenSize
+                props.initialScreenHeight >= props.initialScreenSize
                 ? "rgb(239, 240, 243)"
                 : props.initialScreenSize >= 600
                 ? window.scrollY <= 5
@@ -470,10 +474,12 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 768 &&
-                props.currentScreenHeight > props.currentScreenSize
+                props.currentScreenHeight >= props.currentScreenSize
               ? "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
-              ? window.scrollY <= 5
+              ? props.currentScreenHeight >= props.currentScreenSize
+                ? "rgb(239, 240, 243)"
+                : window.scrollY <= 5
                 ? "rgb(44, 44, 52)"
                 : "rgb(239, 240, 243)"
               : "rgb(239, 240, 243)",
@@ -503,18 +509,22 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   color:
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 768 &&
-                        props.initialScreenHeight > props.initialScreenSize
-                        ? "rgb(44, 44, 52)"
+                        props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(239, 240, 243)"
                         : props.initialScreenSize >= 600
-                        ? window.scrollY <= 5
+                        ? props.currentScreenHeight >= props.currentScreenSize
+                          ? "rgb(239, 240, 243)"
+                          : window.scrollY <= 5
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(239, 240, 243)"
                       : props.currentScreenSize >= 768 &&
-                        props.currentScreenHeight > props.currentScreenSize
-                      ? "rgb(44, 44, 52)"
+                        props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(239, 240, 243)"
                       : props.currentScreenSize >= 600
-                      ? window.scrollY <= 5
+                      ? props.currentScreenHeight >= props.currentScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 5
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(239, 240, 243)",
@@ -535,18 +545,22 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   color:
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 768 &&
-                        props.initialScreenHeight > props.initialScreenSize
+                        props.initialScreenHeight >= props.initialScreenSize
                         ? "rgb(44, 44, 52)"
                         : props.initialScreenSize >= 600
-                        ? window.scrollY <= 5
+                        ? props.initialScreenHeight >= props.initialScreenSize
+                          ? "rgb(44, 44, 52)"
+                          : window.scrollY <= 5
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)"
                       : props.currentScreenSize >= 768 &&
-                        props.currentScreenHeight > props.currentScreenSize
+                        props.currentScreenHeight >= props.currentScreenSize
                       ? "rgb(44, 44, 52)"
                       : props.currentScreenSize >= 600
-                      ? window.scrollY <= 5
+                      ? props.currentScreenHeight >= props.currentScreenSize
+                        ? "rgb(44, 44, 52)"
+                        : window.scrollY <= 5
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)",
@@ -560,18 +574,22 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 color:
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 768 &&
-                      props.initialScreenHeight > props.initialScreenSize
+                      props.initialScreenHeight >= props.initialScreenSize
                       ? "rgb(44, 44, 52)"
                       : props.initialScreenSize >= 600
-                      ? window.scrollY <= 5
+                      ? props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(44, 44, 52)"
+                        : window.scrollY <= 5
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)"
                     : props.currentScreenSize >= 768 &&
-                      props.currentScreenHeight > props.currentScreenSize
+                      props.currentScreenHeight >= props.currentScreenSize
                     ? "rgb(44, 44, 52)"
                     : props.currentScreenSize >= 600
-                    ? window.scrollY <= 5
+                    ? props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(44, 44, 52)"
+                      : window.scrollY <= 5
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(44, 44, 52)",
@@ -585,18 +603,22 @@ const NavigationBar = React.forwardRef((props, ref) => {
               color:
                 props.currentScreenSize === ""
                   ? props.initialScreenSize >= 768 &&
-                    props.initialScreenHeight > props.initialScreenSize
+                    props.initialScreenHeight >= props.initialScreenSize
                     ? "rgb(44, 44, 52)"
                     : props.initialScreenSize >= 600
-                    ? window.scrollY <= 5
+                    ? props.initialScreenHeight >= props.initialScreenSize
+                      ? "rgb(44, 44, 52)"
+                      : window.scrollY <= 5
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(44, 44, 52)"
                   : props.currentScreenSize >= 768 &&
-                    props.currentScreenHeight > props.currentScreenSize
+                    props.currentScreenHeight >= props.currentScreenSize
                   ? "rgb(44, 44, 52)"
                   : props.currentScreenSize >= 600
-                  ? window.scrollY <= 5
+                  ? props.currentScreenHeight >= props.currentScreenSize
+                    ? "rgb(44, 44, 52)"
+                    : window.scrollY <= 5
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(44, 44, 52)",
@@ -669,20 +691,24 @@ const NavigationBar = React.forwardRef((props, ref) => {
           stroke={
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 768 &&
-                props.initialScreenHeight > props.initialScreenSize
+                props.initialScreenHeight >= props.initialScreenSize
                 ? "rgb(239, 240, 243)"
                 : props.initialScreenSize >= 600
-                ? window.scrollY <= 5
+                ? props.initialScreenHeight >= props.initialScreenSize
+                  ? "rgb(239, 240, 243)"
+                  : window.scrollY <= 5
                   ? props.navbarToggle
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 768 &&
-                props.currentScreenHeight > props.currentScreenSize
+                props.currentScreenHeight >= props.currentScreenSize
               ? "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
-              ? window.scrollY <= 5
+              ? props.currentScreenHeight >= props.currentScreenSize
+                ? "rgb(239, 240, 243)"
+                : window.scrollY <= 5
                 ? props.navbarToggle
                   ? "rgb(239, 240, 243)"
                   : "rgb(44, 44, 52)"
@@ -724,20 +750,24 @@ const NavigationBar = React.forwardRef((props, ref) => {
             fill={
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 768 &&
-                  props.initialScreenHeight > props.initialScreenSize
+                  props.initialScreenHeight >= props.initialScreenSize
                   ? "rgb(239, 240, 243)"
                   : props.initialScreenSize >= 600
-                  ? window.scrollY <= 5
+                  ? props.initialScreenHeight >= props.initialScreenSize
+                    ? "rgb(239, 240, 243)"
+                    : window.scrollY <= 5
                     ? props.navbarToggle
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)"
                 : props.currentScreenSize >= 768 &&
-                  props.currentScreenHeight > props.currentScreenSize
+                  props.currentScreenHeight >= props.currentScreenSize
                 ? "rgb(239, 240, 243)"
                 : props.currentScreenSize >= 600
-                ? window.scrollY <= 5
+                ? props.currentScreenHeight >= props.currentScreenSize
+                  ? "rgb(239, 240, 243)"
+                  : window.scrollY <= 5
                   ? props.navbarToggle
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
@@ -907,7 +937,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 color:
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
-                      ? window.scrollY <= 1
+                      ? props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 1
                         ? cartIsActive ||
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
@@ -916,7 +948,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
-                    ? window.scrollY <= 1
+                    ? props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(239, 240, 243)"
+                      : window.scrollY <= 1
                       ? cartIsActive ||
                         location.pathname.includes("account") ||
                         location.pathname.includes("admin")
@@ -993,7 +1027,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 color:
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
-                      ? window.scrollY <= 1
+                      ? props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 1
                         ? cartIsActive ||
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
@@ -1002,7 +1038,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
-                    ? window.scrollY <= 1
+                    ? props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(239, 240, 243)"
+                      : window.scrollY <= 1
                       ? cartIsActive ||
                         location.pathname.includes("account") ||
                         location.pathname.includes("admin")
@@ -1076,7 +1114,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 color:
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
-                      ? window.scrollY <= 1
+                      ? props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 1
                         ? cartIsActive ||
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
@@ -1085,7 +1125,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
-                    ? window.scrollY <= 1
+                    ? props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(239, 240, 243)"
+                      : window.scrollY <= 1
                       ? cartIsActive ||
                         location.pathname.includes("account") ||
                         location.pathname.includes("admin")
@@ -1163,7 +1205,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 color:
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
-                      ? window.scrollY <= 1
+                      ? props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 1
                         ? cartIsActive ||
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
@@ -1172,7 +1216,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
-                    ? window.scrollY <= 1
+                    ? props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(239, 240, 243)"
+                      : window.scrollY <= 1
                       ? cartIsActive ||
                         location.pathname.includes("account") ||
                         location.pathname.includes("admin")
@@ -1191,7 +1237,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
               background:
                 props.currentScreenSize === ""
                   ? props.initialScreenSize >= 1200
-                    ? window.scrollY <= 1
+                    ? props.initialScreenHeight >= props.initialScreenSize
+                      ? "rgb(239, 240, 243)"
+                      : window.scrollY <= 1
                       ? cartIsActive ||
                         location.pathname.includes("account") ||
                         location.pathname.includes("admin")
@@ -1200,7 +1248,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       : "rgb(239, 240, 243)"
                     : "rgb(239, 240, 243)"
                   : props.currentScreenSize >= 1200
-                  ? window.scrollY <= 1
+                  ? props.currentScreenHeight >= props.currentScreenSize
+                    ? "rgb(239, 240, 243)"
+                    : window.scrollY <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
                       location.pathname.includes("admin")
@@ -1238,7 +1288,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       color:
                         props.currentScreenSize === ""
                           ? props.initialScreenSize >= 600
-                            ? window.scrollY <= 1
+                            ? props.initialScreenHeight >=
+                              props.initialScreenSize
+                              ? "rgb(239, 240, 243)"
+                              : window.scrollY <= 1
                               ? cartIsActive ||
                                 location.pathname.includes("account") ||
                                 location.pathname.includes("admin")
@@ -1247,7 +1300,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                               : "rgb(239, 240, 243)"
                             : "rgb(239, 240, 243)"
                           : props.currentScreenSize >= 600
-                          ? window.scrollY <= 1
+                          ? props.currentScreenHeight >= props.currentScreenSize
+                            ? "rgb(239, 240, 243)"
+                            : window.scrollY <= 1
                             ? cartIsActive ||
                               location.pathname.includes("account") ||
                               location.pathname.includes("admin")
@@ -1272,7 +1327,10 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       color:
                         props.currentScreenSize === ""
                           ? props.initialScreenSize >= 600
-                            ? window.scrollY <= 1
+                            ? props.initialScreenHeight >=
+                              props.initialScreenSize
+                              ? "rgb(44, 44, 52)"
+                              : window.scrollY <= 1
                               ? cartIsActive ||
                                 location.pathname.includes("account") ||
                                 location.pathname.includes("admin")
@@ -1281,7 +1339,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                               : "rgb(44, 44, 52)"
                             : "rgb(44, 44, 52)"
                           : props.currentScreenSize >= 600
-                          ? window.scrollY <= 1
+                          ? props.currentScreenHeight >= props.currentScreenSize
+                            ? "rgb(44, 44, 52)"
+                            : window.scrollY <= 1
                             ? cartIsActive ||
                               location.pathname.includes("account") ||
                               location.pathname.includes("admin")
@@ -1299,7 +1359,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     color:
                       props.currentScreenSize === ""
                         ? props.initialScreenSize >= 600
-                          ? window.scrollY <= 1
+                          ? props.initialScreenHeight >= props.initialScreenSize
+                            ? "rgb(44, 44, 52)"
+                            : window.scrollY <= 1
                             ? cartIsActive ||
                               location.pathname.includes("account") ||
                               location.pathname.includes("admin")
@@ -1308,7 +1370,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                             : "rgb(44, 44, 52)"
                           : "rgb(44, 44, 52)"
                         : props.currentScreenSize >= 600
-                        ? window.scrollY <= 1
+                        ? props.currentScreenHeight >= props.currentScreenSize
+                          ? "rgb(44, 44, 52)"
+                          : window.scrollY <= 1
                           ? cartIsActive ||
                             location.pathname.includes("account") ||
                             location.pathname.includes("admin")
@@ -1326,7 +1390,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   color:
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 600
-                        ? window.scrollY <= 1
+                        ? props.initialScreenHeight >= props.initialScreenSize
+                          ? "rgb(44, 44, 52)"
+                          : window.scrollY <= 1
                           ? cartIsActive ||
                             location.pathname.includes("account") ||
                             location.pathname.includes("admin")
@@ -1335,7 +1401,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)"
                       : props.currentScreenSize >= 600
-                      ? window.scrollY <= 1
+                      ? props.currentScreenHeight >= props.currentScreenSize
+                        ? "rgb(44, 44, 52)"
+                        : window.scrollY <= 1
                         ? cartIsActive ||
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
@@ -1373,7 +1441,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   fill:
                     props.currentScreenSize === ""
                       ? props.initialScreenSize >= 1200
-                        ? window.scrollY <= 1
+                        ? props.initialScreenHeight >= props.initialScreenSize
+                          ? "rgb(239, 240, 243)"
+                          : window.scrollY <= 1
                           ? cartIsActive ||
                             location.pathname.includes("account") ||
                             location.pathname.includes("admin")
@@ -1382,7 +1452,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                           : "rgb(239, 240, 243)"
                         : "rgb(239, 240, 243)"
                       : props.currentScreenSize >= 1200
-                      ? window.scrollY <= 1
+                      ? props.currentScreenHeight >= props.currentScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 1
                         ? cartIsActive ||
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
@@ -1420,7 +1492,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 stroke={
                   props.currentScreenSize === ""
                     ? props.initialScreenSize >= 1200
-                      ? window.scrollY <= 1
+                      ? props.initialScreenHeight >= props.initialScreenSize
+                        ? "rgb(239, 240, 243)"
+                        : window.scrollY <= 1
                         ? cartIsActive ||
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
@@ -1429,7 +1503,9 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         : "rgb(239, 240, 243)"
                       : "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 1200
-                    ? window.scrollY <= 1
+                    ? props.currentScreenHeight >= props.currentScreenSize
+                      ? "rgb(239, 240, 243)"
+                      : window.scrollY <= 1
                       ? cartIsActive ||
                         location.pathname.includes("account") ||
                         location.pathname.includes("admin")

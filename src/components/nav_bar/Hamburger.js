@@ -55,20 +55,24 @@ const Hamburger = (props) => {
           background:
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 768 &&
-                props.initialScreenHeight > props.initialScreenSize
+                props.initialScreenHeight >= props.initialScreenSize
                 ? "rgb(239, 240, 243)"
                 : props.initialScreenSize >= 600
-                ? window.scrollY <= 1
+                ? props.initialScreenHeight >= props.initialScreenSize
+                  ? "rgb(239, 240, 243)"
+                  : window.scrollY <= 1
                   ? props.navbarToggle
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 768 &&
-                props.currentScreenHeight > props.currentScreenSize
+                props.currentScreenHeight >= props.currentScreenSize
               ? "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
-              ? window.scrollY <= 1
+              ? props.currentScreenHeight >= props.currentScreenSize
+                ? "rgb(239, 240, 243)"
+                : window.scrollY <= 1
                 ? props.navbarToggle
                   ? "rgb(239, 240, 243)"
                   : "rgb(44, 44, 52)"
@@ -88,20 +92,24 @@ const Hamburger = (props) => {
           background:
             props.currentScreenSize === ""
               ? props.initialScreenSize >= 768 &&
-                props.initialScreenHeight > props.initialScreenSize
+                props.initialScreenHeight >= props.initialScreenSize
                 ? "rgb(239, 240, 243)"
                 : props.initialScreenSize >= 600
-                ? window.scrollY <= 1
+                ? props.initialScreenHeight >= props.initialScreenSize
+                  ? "rgb(239, 240, 243)"
+                  : window.scrollY <= 1
                   ? props.navbarToggle
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)"
               : props.currentScreenSize >= 768 &&
-                props.currentScreenHeight > props.currentScreenSize
+                props.currentScreenHeight >= props.currentScreenSize
               ? "rgb(239, 240, 243)"
               : props.currentScreenSize >= 600
-              ? window.scrollY <= 1
+              ? props.currentScreenHeight >= props.currentScreenSize
+                ? "rgb(239, 240, 243)"
+                : window.scrollY <= 1
                 ? props.navbarToggle
                   ? "rgb(239, 240, 243)"
                   : "rgb(44, 44, 52)"

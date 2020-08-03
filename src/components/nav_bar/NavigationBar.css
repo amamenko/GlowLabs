@@ -371,6 +371,10 @@
     margin-left: 3.1rem;
   }
 
+  .nav_logo_container {
+    transform: translate(0%, 20%);
+  }
+
   .nav_sign_in_button_small_screen {
     margin-right: 6rem;
   }
@@ -397,7 +401,7 @@
   }
 
   .nav_menu {
-    margin-top: 12vh;
+    margin-top: 8vh;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -463,7 +467,7 @@
   }
 
   .nav_logo_container {
-    transform: scale(1.8) translate(10%, -3%);
+    transform: scale(1.8) translate(10%, 10%);
   }
 
   .nav_sign_in_button_small_screen {
@@ -475,6 +479,20 @@
 
   .cart_item_number_circle {
     transform: scale(1.5) translate(0rem, 0vh);
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (min-device-height: 1000px) and (max-device-height: 1300px) {
+  .nav_logo_container {
+    transform: scale(1.8) translate(10%, -999%);
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1001px) {
+  .nav_logo_container {
+    transform: scale(1.8) translate(10%, -20%);
   }
 }
 
@@ -592,6 +610,10 @@
     margin-left: 0.5rem;
   }
 
+  .letter_circle {
+    top: 0.5rem;
+  }
+
   .sign_in_user_icon {
     display: inline-block;
     margin-right: 0.2rem;
@@ -681,6 +703,10 @@
     margin-right: 1.4rem;
   }
 
+  .letter_circle {
+    top: 0.5rem;
+  }
+
   .cart_item_number_circle {
     right: 2.5rem;
   }
@@ -688,12 +714,13 @@
   .logo_svg {
     transform: scale(2);
     position: absolute;
-    top: 7vh;
+    top: 6vh;
     left: 3.8rem;
   }
 
   .nav_sign_in_button_large_screen {
     margin-left: 0rem;
+    padding: 0.5rem;
     padding-left: 2.8rem;
     padding-right: 2.8rem;
   }
@@ -726,6 +753,7 @@
 
   .logo_svg {
     left: 4.5rem;
+    top: 6.5vh;
   }
 
   .nav_sign_in_button_large_screen {
@@ -748,7 +776,7 @@
   }
 
   .letter_circle {
-    top: 0.4rem;
+    top: 0.5rem;
   }
 
   /* Safari Only */
@@ -796,6 +824,7 @@
 
   .logo_svg {
     left: 5rem;
+    top: 7vh;
   }
 
   .sign_in_circle_icon {
