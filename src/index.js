@@ -141,6 +141,7 @@ import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACT
 import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import PreventOrientation from "prevent-orientation";
 import { isAndroid } from "react-device-detect";
+import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -1370,7 +1371,7 @@ const App = () => {
               display: loginIsActive ? "none" : "flex",
             }}
           >
-            <NavigationBar
+            <ResponsiveNavigationBar
               scroll={scroll}
               handleNavbarToggle={handleNavbarToggle}
               navbarToggle={navbarToggle}
