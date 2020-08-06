@@ -2,7 +2,7 @@
   background: rgb(44, 44, 52);
   height: 8vh;
   width: 100%;
-  position: fixed;
+  position: absolute;
   overflow: hidden;
   top: 0;
   display: flex;
@@ -52,6 +52,7 @@
 
 .nav_cart_container {
   position: relative;
+  cursor: pointer;
 }
 
 .navbar_cart_icon {
@@ -68,8 +69,8 @@
   stroke: #fff;
 }
 
-.nav_cart_container p {
-  color: #000;
+.nav_cart_number_circle_container p {
+  color: rgb(44, 44, 52);
   position: absolute;
   top: -0.4vw;
   right: 0.1vw;
@@ -84,6 +85,14 @@
   stroke: #fff;
 }
 
+.navbar_cart_icon_light {
+  stroke: #fff !important;
+}
+
+.navbar_cart_icon_dark {
+  stroke: rgb(44, 44, 52) !important;
+}
+
 .nav_login_container {
   height: calc(1.4rem + 0.5vw);
   padding-left: calc(0.8rem + 1vw);
@@ -94,10 +103,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .nav_login_container h2 {
-  color: #000 !important;
+  color: rgb(44, 44, 52) !important;
   margin: 0;
   font-size: calc(0.6rem + 0.5vw);
   height: 100%;
@@ -110,9 +120,99 @@
 
 .nav_burger_menu {
   padding-top: 0.3vh;
+  cursor: pointer;
 }
 
-@media only screen and (min-width: 768px) {
+.nav_sign_in_link_container {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  align-self: center;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter_circle {
+  position: absolute;
+  bottom: 0;
+  top: 1vw;
+  left: 0;
+  right: auto;
+  display: flex;
+  padding: 0.6rem;
+  border-radius: 30px;
+  margin: 0 auto;
+}
+
+.fa-layers.fa-fw.letter_circle p {
+  font-size: 0.5rem;
+}
+
+.nav_sign_in_link_container p {
+  font-size: 0.9rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+@media only screen and (min-width: 370px) {
+  .nav_burger_menu {
+    margin-right: 0.5vw;
+  }
+
+  .navbar_logo_container svg {
+    padding-top: 0.4rem;
+    min-width: 8rem;
+  }
+
+  .navbar_cart_icon {
+    font-size: calc(2rem + 0.5vw);
+  }
+
+  .nav_login_container {
+    height: calc(2rem + 0.5vw);
+    padding-left: calc(1rem + 1vw);
+    padding-right: calc(1rem + 1vw);
+    margin-right: 1vw;
+  }
+
+  .nav_login_container h2 {
+    font-size: calc(1rem + 0.5vw);
+  }
+
+  .letter_circle {
+    top: 1.7vw;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .letter_circle {
+    top: 1.2vw;
+  }
+}
+
+@media only screen and (min-width: 748px) {
+  .nav_cart_number_circle_container p {
+    top: -0.14vw;
+  }
+
+  .left_nav {
+    margin-left: 3.1rem;
+  }
+
+  .right_nav {
+    margin-right: 3.1rem;
+  }
+
+  .letter_circle {
+    top: 0.8vw;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
   .nav_burger_menu {
     display: none;
   }
@@ -138,7 +238,7 @@
     margin-right: 0;
   }
 
-  .nav_cart_container p {
+  .nav_cart_number_circle_container p {
     top: -0.15vw;
     right: 0.1vw;
   }
@@ -147,10 +247,35 @@
 @media only screen and (min-width: 1200px) {
   .right_nav {
     margin-right: 3.1rem;
-    margin-left: 3.1rem;
+    margin-left: 6.1rem;
   }
 
   .left_nav {
     margin-left: 3.1rem;
+  }
+
+  .navbar_cart_icon {
+    font-size: calc(1.2rem + 0.5vw);
+  }
+
+  .letter_circle {
+    top: 0.65vw;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .nav_cart_number_circle_container p {
+    top: -0.1vw;
+    right: -0.02vw;
+  }
+
+  .letter_circle {
+    top: 0.55vw;
+  }
+}
+
+@media only screen and (min-width: 2200px) {
+  .letter_circle {
+    top: 0.45vw;
   }
 }

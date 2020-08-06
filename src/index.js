@@ -1374,7 +1374,6 @@ const App = () => {
             <ResponsiveNavigationBar
               scroll={scroll}
               handleNavbarToggle={handleNavbarToggle}
-              navbarToggle={navbarToggle}
               currentScreenSize={currentScreenSize}
               initialScreenSize={initialScreenSize}
               currentScreenHeight={currentScreenHeight}
@@ -1386,6 +1385,7 @@ const App = () => {
               handleClickToScrollToContact={handleClickToScrollToContact}
               adminDummyToken={adminDummyToken}
               getEmployeeData={getEmployeeData}
+              scrollValue={scrollValue}
               ref={ref}
             />
           </header>

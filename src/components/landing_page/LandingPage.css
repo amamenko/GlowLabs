@@ -436,7 +436,7 @@
   }
 
   .header {
-    position: absolute;
+    position: fixed;
     z-index: 99999999999;
   }
 }
@@ -515,7 +515,9 @@
   }
 
   .call_to_action_button {
-    font-size: 2rem;
+    display: inline-block;
+    color: white;
+    font-size: 1.4rem;
     font-weight: 500;
     padding: 1rem;
     padding-left: 3rem;
@@ -523,6 +525,59 @@
     border-radius: 40px;
     cursor: pointer;
     margin: 0;
+  }
+
+  .call_to_action_button:hover {
+    background: rgb(0, 79, 127);
+    transition: all 0.5s ease;
+  }
+}
+
+/* CSS for Half Screen Desktops */
+@media only screen and (min-width: 951px) and (orientation: landscape) {
+  .landing_page_text_block {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 0vh;
+    grid-gap: 2rem;
+    height: 40%;
+  }
+
+  .landing_page_text_block h1 {
+    font-size: 3vw;
+    text-align: center;
+  }
+
+  .header {
+    height: 8vh;
+    position: fixed;
+  }
+
+  .bottom_content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    text-align: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.6vw;
+    line-height: 3rem;
+    text-align: left;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
   }
 }
 
@@ -591,8 +646,8 @@
   }
 
   .landing_page_text_block {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
     margin-bottom: 0vh;
     grid-gap: 2rem;
     height: 40%;
