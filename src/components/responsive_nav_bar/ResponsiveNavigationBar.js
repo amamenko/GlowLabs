@@ -379,7 +379,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
           >
             {navbarToggle ? (
               <BurgerX
-                key={props.scrollValue > 1}
+                key={"burger_x"}
                 scrollValue={props.scrollValue}
                 navbarToggle={navbarToggle}
                 cartIsActive={cartIsActive}
@@ -391,7 +391,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
               />
             ) : (
               <BurgerMenu
-                key={props.scrollValue > 1}
+                key={"burger_menu"}
                 scrollValue={props.scrollValue}
                 navbarToggle={navbarToggle}
                 cartIsActive={cartIsActive}

@@ -10,6 +10,7 @@ import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 
 const NavigationMenu = React.forwardRef((props, ref) => {
@@ -34,19 +35,21 @@ const NavigationMenu = React.forwardRef((props, ref) => {
     clearAllBodyScrollLocks();
 
     if (navbarToggle) {
+      dispatch(ACTION_BODY_SCROLL_RESET());
       const handleDisableScroll = (el) => {
         disableBodyScroll({ targetElement: el });
       };
 
       handleDisableScroll(NavRefTarget);
     } else {
+      dispatch(ACTION_BODY_SCROLL_ALLOW());
       const handleEnableScroll = (el) => {
         enableBodyScroll({ targetElement: el });
       };
 
       handleEnableScroll(NavRefTarget);
     }
-  }, [navbarToggle]);
+  }, [navbarToggle, dispatch]);
 
   const navbarItemSelect = () => {
     dispatch(ACTION_NAVBAR_TOGGLE_RESET());
