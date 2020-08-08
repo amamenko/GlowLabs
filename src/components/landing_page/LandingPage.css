@@ -442,6 +442,32 @@
   }
 }
 
+@media only screen and (min-width: 550px) and (orientation: portrait) {
+  .call_to_action_button {
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .bottom_content h1 {
+    font-size: 3vh;
+  }
+
+  .landing_page_description {
+    font-size: 1.5vh;
+    line-height: 3vh;
+  }
+
+  .landing_page_text_block {
+    grid-gap: 5vh;
+  }
+}
+
 @media only screen and (min-width: 900px) and (max-device-height: 930px) {
   .bottom_content {
     justify-content: center;
@@ -518,7 +544,7 @@
   .call_to_action_button {
     display: inline-block;
     color: white;
-    font-size: 1.4rem;
+    font-size: 2rem;
     font-weight: 500;
     padding: 1rem;
     padding-left: 3rem;
@@ -635,6 +661,39 @@
     border-radius: 40px;
     cursor: pointer;
     margin: 0;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .splash_screen {
+    font-size: 3em;
+    transform: scale(1) translate(0vh, 20vh);
+    -webkit-transform: scale(1) translate(0vh, 20vh);
+  }
+
+  .call_to_action_button {
+    font-size: 2.5rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .bottom_content h1 {
+    font-size: 5vh;
+  }
+
+  .landing_page_description {
+    font-size: 2vh;
+    line-height: 4vh;
+  }
+
+  .landing_page_text_block {
+    grid-gap: 5vh;
   }
 }
 

@@ -212,6 +212,13 @@
   }
 }
 
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .nav_menu {
+    display: flex;
+  }
+}
+
 @media only screen and (min-width: 1200px) and (orientation: landscape) {
   .nav_burger_menu {
     display: none;

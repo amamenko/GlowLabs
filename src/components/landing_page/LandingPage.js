@@ -19,7 +19,6 @@ import ACTION_TOUCH_SCALING_RESET from "../../actions/FingerTouchScaling/ACTION_
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import { useLocation } from "react-router-dom";
 import "./LandingPage.css";
-import "../../styles.css";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
@@ -147,10 +146,15 @@ const LandingPage = React.forwardRef((props, ref) => {
       if (!navbarToggle) {
         document.body.classList.remove("no_scroll_no_fixed");
       }
-      document.body.classList.add("scroll_reset");
+      if (splashScreenComplete) {
+        document.body.classList.add("scroll_reset");
+      } else {
+        document.body.classList.remove("scroll_reset");
+        document.body.classList.add("no_scroll");
+      }
     } else if (bodyScrollToggle === "hidden") {
       document.body.classList.remove("scroll_reset");
-      if (navbarToggle) {
+      if (!navbarToggle) {
         document.body.classList.add("no_scroll_no_fixed");
       } else {
         document.body.classList.add("no_scroll");

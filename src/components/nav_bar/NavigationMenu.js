@@ -134,7 +134,9 @@ const NavigationMenu = React.forwardRef((props, ref) => {
       ref={Nav_Ref}
       style={{
         backgroundColor: "rgb(44, 44, 52)",
-        right: navbarToggle ? 0 : 1200,
+        right: navbarToggle ? 0 : 1400,
+        // Important to account for extra white space on right of navmenu for larger portrait screens
+        left: navbarToggle ? "0vw" : "initial",
         transition:
           props.currentScreenSize === ""
             ? props.initialScreenSize >= 600

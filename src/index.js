@@ -1303,63 +1303,9 @@ const App = () => {
                   : "-200px"
                 : `${styles.marginTop}`,
               transition: "margin-top 0.5s ease",
-              height: !currentScreenSize
-                ? initialScreenSize <= 1000 &&
-                  initialScreenSize >= 600 &&
-                  initialScreenSize > initialScreenHeight
-                  ? window.scrollY <= 1
-                    ? location.pathname === "/"
-                      ? "30vh"
-                      : "15vh"
-                    : "15vh"
-                  : "8vh"
-                : currentScreenSize <= 1000 &&
-                  currentScreenSize >= 600 &&
-                  currentScreenSize > currentScreenHeight
-                ? window.scrollY <= 1
-                  ? location.pathname === "/"
-                    ? "30vh"
-                    : "15vh"
-                  : "15vh"
-                : "8vh",
-              paddingTop: !currentScreenSize
-                ? initialScreenSize <= 1000 &&
-                  initialScreenSize >= 600 &&
-                  initialScreenSize > initialScreenHeight
-                  ? window.scrollY <= 1
-                    ? location.pathname === "/"
-                      ? "15vh"
-                      : "0vh"
-                    : "0vh"
-                  : "0vh"
-                : currentScreenSize <= 1000 &&
-                  currentScreenSize >= 600 &&
-                  currentScreenSize > currentScreenHeight
-                ? window.scrollY <= 1
-                  ? location.pathname === "/"
-                    ? "15vh"
-                    : "0vh"
-                  : "0vh"
-                : "0vh",
-              paddingBottom: !currentScreenSize
-                ? initialScreenSize <= 1000 &&
-                  initialScreenSize >= 600 &&
-                  initialScreenSize > initialScreenHeight
-                  ? window.scrollY <= 1
-                    ? location.pathname === "/"
-                      ? "15vh"
-                      : "0vh"
-                    : "0vh"
-                  : "0vh"
-                : currentScreenSize <= 1000 &&
-                  currentScreenSize >= 600 &&
-                  currentScreenSize > currentScreenHeight
-                ? window.scrollY <= 1
-                  ? location.pathname === "/"
-                    ? "15vh"
-                    : "0vh"
-                  : "0vh"
-                : "0vh",
+              height: "8vh",
+              paddingTop: "0vh",
+              paddingBottom: "0vh",
               zIndex: finalBookButtonActive
                 ? "auto"
                 : location.pathname === "/"

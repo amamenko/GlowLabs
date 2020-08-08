@@ -120,6 +120,10 @@
     padding-left: 3rem;
     padding-right: 3rem;
   }
+
+  .notification_text_container h3 {
+    font-size: 1rem;
+  }
 }
 
 /* CSS for laptops and regular-sized desktops */

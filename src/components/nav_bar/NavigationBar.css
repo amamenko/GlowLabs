@@ -147,6 +147,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
   }
 
   .navbar_items li {
@@ -156,6 +157,7 @@
     margin-bottom: 1.5rem;
     font-weight: 500;
     color: rgb(239, 240, 243);
+    cursor: pointer;
   }
 
   .navbar_items li:active {
@@ -403,7 +405,7 @@
   .nav_menu {
     margin-top: 8vh;
     height: 100%;
-    width: 100%;
+    width: 105vw;
     position: fixed;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -520,6 +522,27 @@
 @media only screen and (min-width: 1200px) {
   .logo {
     margin-left: 3.1rem;
+  }
+
+  .nav_menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .navbar_items {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .navbar_items li {
+    font-size: 4rem;
+    margin-bottom: 7rem;
   }
 
   .nav_logo_container {
