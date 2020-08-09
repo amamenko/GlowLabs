@@ -13,7 +13,6 @@ import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
 import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
-import { isSafari } from "react-device-detect";
 import { useQuery } from "@apollo/react-hooks";
 import {
   getClientQuery,
@@ -54,11 +53,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
   );
 
   const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
-
-  const [
-    safariLandingPageNotRendered,
-    changeSafariLandingPageNotRendered,
-  ] = useState(false);
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
@@ -247,11 +241,173 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
     }
   };
 
-  const redirectToHome = () => {
-    if (safariLandingPageNotRendered) {
-      return <Redirect to="/" />;
+  useEffect(() => {
+    const burgerMenuIcon = document.getElementsByClassName("nav_burger_menu");
+    const burgerMenuIconPath = burgerMenuIcon[0].getElementsByTagName("path");
+
+    if (burgerMenuIconPath.length > 0) {
+      if (burgerMenuIcon.length > 0) {
+        if (navbarToggle) {
+          burgerMenuIcon[0].firstChild.classList.remove(
+            "navbar_cart_icon_dark"
+          );
+          burgerMenuIcon[0].firstChild.classList.add("navbar_cart_icon_light");
+
+          burgerMenuIconPath[0].classList.remove("navbar_cart_icon_path_dark");
+          burgerMenuIconPath[0].classList.add("navbar_cart_icon_path_light");
+        } else {
+          if (props.currentScreenSize === "") {
+            if (
+              props.initialScreenSize >= 768 &&
+              props.initialScreenSize > props.initialScreenHeight
+            ) {
+              if (props.scrollValue <= 5) {
+                if (
+                  cartIsActive ||
+                  location.pathname.includes("account") ||
+                  location.pathname.includes("admin")
+                ) {
+                  burgerMenuIcon[0].firstChild.classList.remove(
+                    "navbar_cart_icon_dark"
+                  );
+                  burgerMenuIcon[0].firstChild.classList.add(
+                    "navbar_cart_icon_light"
+                  );
+
+                  burgerMenuIconPath[0].classList.remove(
+                    "navbar_cart_icon_path_dark"
+                  );
+                  burgerMenuIconPath[0].classList.add(
+                    "navbar_cart_icon_path_light"
+                  );
+                } else {
+                  burgerMenuIcon[0].firstChild.classList.remove(
+                    "navbar_cart_icon_light"
+                  );
+                  burgerMenuIcon[0].firstChild.classList.add(
+                    "navbar_cart_icon_dark"
+                  );
+
+                  burgerMenuIconPath[0].classList.remove(
+                    "navbar_cart_icon_path_light"
+                  );
+                  burgerMenuIconPath[0].classList.add(
+                    "navbar_cart_icon_path_dark"
+                  );
+                }
+              } else {
+                burgerMenuIcon[0].firstChild.classList.remove(
+                  "navbar_cart_icon_dark"
+                );
+                burgerMenuIcon[0].firstChild.classList.add(
+                  "navbar_cart_icon_light"
+                );
+
+                burgerMenuIconPath[0].classList.remove(
+                  "navbar_cart_icon_path_dark"
+                );
+                burgerMenuIconPath[0].classList.add(
+                  "navbar_cart_icon_path_light"
+                );
+              }
+            } else {
+              burgerMenuIcon[0].firstChild.classList.remove(
+                "navbar_cart_icon_dark"
+              );
+              burgerMenuIcon[0].firstChild.classList.add(
+                "navbar_cart_icon_light"
+              );
+
+              burgerMenuIconPath[0].classList.remove(
+                "navbar_cart_icon_path_dark"
+              );
+              burgerMenuIconPath[0].classList.add(
+                "navbar_cart_icon_path_light"
+              );
+            }
+          } else {
+            if (
+              props.currentScreenSize >= 768 &&
+              props.currentScreenSize > props.currentScreenHeight
+            ) {
+              if (props.scrollValue <= 5) {
+                if (
+                  cartIsActive ||
+                  location.pathname.includes("account") ||
+                  location.pathname.includes("admin")
+                ) {
+                  burgerMenuIcon[0].firstChild.classList.remove(
+                    "navbar_cart_icon_dark"
+                  );
+                  burgerMenuIcon[0].firstChild.classList.add(
+                    "navbar_cart_icon_light"
+                  );
+
+                  burgerMenuIconPath[0].classList.remove(
+                    "navbar_cart_icon_path_dark"
+                  );
+                  burgerMenuIconPath[0].classList.add(
+                    "navbar_cart_icon_path_light"
+                  );
+                } else {
+                  burgerMenuIcon[0].firstChild.classList.remove(
+                    "navbar_cart_icon_path_light"
+                  );
+                  burgerMenuIcon[0].firstChild.classList.add(
+                    "navbar_cart_icon_dark"
+                  );
+
+                  burgerMenuIconPath[0].classList.remove(
+                    "navbar_cart_icon_path_light"
+                  );
+                  burgerMenuIconPath[0].classList.add(
+                    "navbar_cart_icon_path_dark"
+                  );
+                }
+              } else {
+                burgerMenuIcon[0].firstChild.classList.remove(
+                  "navbar_cart_icon_dark"
+                );
+                burgerMenuIcon[0].firstChild.classList.add(
+                  "navbar_cart_icon_light"
+                );
+
+                burgerMenuIconPath[0].classList.remove(
+                  "navbar_cart_icon_path_dark"
+                );
+                burgerMenuIconPath[0].classList.add(
+                  "navbar_cart_icon_path_light"
+                );
+              }
+            } else {
+              burgerMenuIcon[0].firstChild.classList.remove(
+                "navbar_cart_icon_dark"
+              );
+              burgerMenuIcon[0].firstChild.classList.add(
+                "navbar_cart_icon_light"
+              );
+
+              burgerMenuIconPath[0].classList.remove(
+                "navbar_cart_icon_path_dark"
+              );
+              burgerMenuIconPath[0].classList.add(
+                "navbar_cart_icon_path_light"
+              );
+            }
+          }
+        }
+      }
     }
-  };
+  }, [
+    cartIsActive,
+    location.pathname,
+    props.currentScreenSize,
+    props.initialScreenSize,
+    props.scrollValue,
+    navbarToggle,
+    props.currentScreenHeight,
+    props.initialScreenHeight,
+  ]);
 
   useEffect(() => {
     const cartIcon = document.getElementsByClassName("navbar_cart_icon");
@@ -264,9 +420,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         if (props.currentScreenSize === "") {
           if (
             props.initialScreenSize >= 768 &&
-            props.initialScreenSize >= props.initialScreenHeight
+            props.initialScreenSize > props.initialScreenHeight
           ) {
-            if (props.scrollValue <= 1) {
+            if (props.scrollValue <= 5) {
               if (
                 cartIsActive ||
                 location.pathname.includes("account") ||
@@ -293,9 +449,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         } else {
           if (
             props.currentScreenSize >= 768 &&
-            props.currentScreenSize >= props.currentScreenHeight
+            props.currentScreenSize > props.currentScreenHeight
           ) {
-            if (props.scrollValue <= 1) {
+            if (props.scrollValue <= 5) {
               if (
                 cartIsActive ||
                 location.pathname.includes("account") ||
@@ -354,7 +510,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         display: loginIsActive ? "none" : "flex",
       }}
     >
-      {redirectToHome()}
       <div className="left_nav">
         <div onClick={props.handleNavbarToggle} className="nav_burger_menu">
           <MorphReplaceResize

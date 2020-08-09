@@ -85,8 +85,18 @@
   stroke: #fff;
 }
 
+.navbar_cart_icon_path_light {
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+
 .navbar_cart_icon_light {
   stroke: #fff !important;
+}
+
+.navbar_cart_icon_path_dark {
+  stroke: rgb(44, 44, 52) !important;
+  fill: rgb(44, 44, 52) !important;
 }
 
 .navbar_cart_icon_dark {

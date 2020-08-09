@@ -22,7 +22,7 @@ const BurgerX = (props) => {
               : props.initialScreenSize >= 600
               ? props.initialScreenHeight >= props.initialScreenSize
                 ? "rgb(239, 240, 243)"
-                : props.scrollValue <= 5
+                : props.scrollValue <= 1
                 ? props.navbarToggle
                   ? "rgb(239, 240, 243)"
                   : "rgb(44, 44, 52)"
@@ -44,7 +44,7 @@ const BurgerX = (props) => {
             : props.currentScreenSize >= 600
             ? props.currentScreenHeight >= props.currentScreenSize
               ? "rgb(239, 240, 243)"
-              : props.scrollValue <= 5
+              : props.scrollValue <= 1
               ? props.navbarToggle
                 ? "rgb(239, 240, 243)"
                 : "rgb(44, 44, 52)"
@@ -69,7 +69,7 @@ const BurgerX = (props) => {
               : props.initialScreenSize >= 600
               ? props.initialScreenHeight >= props.initialScreenSize
                 ? "rgb(239, 240, 243)"
-                : props.scrollValue <= 5
+                : props.scrollValue <= 1
                 ? props.navbarToggle
                   ? "rgb(239, 240, 243)"
                   : "rgb(44, 44, 52)"
@@ -91,7 +91,7 @@ const BurgerX = (props) => {
             : props.currentScreenSize >= 600
             ? props.currentScreenHeight >= props.currentScreenSize
               ? "rgb(239, 240, 243)"
-              : props.scrollValue <= 5
+              : props.scrollValue <= 1
               ? props.navbarToggle
                 ? "rgb(239, 240, 243)"
                 : "rgb(44, 44, 52)"
