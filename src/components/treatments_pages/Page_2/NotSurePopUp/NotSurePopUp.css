@@ -127,7 +127,38 @@
 }
 
 /* CSS for laptops and regular-sized desktops */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .unsure_popup_not_sure_button,
+  .unsure_popup_dismiss_button {
+    font-size: 1.5rem;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
+  .notification_text_container {
+    width: 65%;
+  }
+
+  .notification_text_container h3 {
+    font-size: 1.9rem;
+  }
+
+  .notification_text_container p {
+    font-size: 1.5rem;
+  }
+
+  .unsure_popup_not_sure_button {
+    margin-right: 2rem;
+  }
+
+  .unsure_popup_buttons_container {
+    padding-top: 1.5rem;
+    justify-content: flex-start;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
   .unsure_popup_buttons_container {
     padding-top: 0.5rem;
   }

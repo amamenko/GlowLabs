@@ -555,7 +555,7 @@ const Quickie = (props) => {
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
         <div
-          className="quickie_wrapping"
+          className="card_container"
           ref={ref}
           style={{ display: props.quickieChemPeelRendered }}
         >

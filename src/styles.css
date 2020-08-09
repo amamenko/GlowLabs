@@ -184,7 +184,27 @@ body {
 }
 
 /* CSS for laptops and regular-sized desktops */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 100vw;
+    margin-left: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .Toastify__toast-container--bottom-center {
+    width: 100vw;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
   /* Prevent larger browser scrollbar view */
   html,
   body {

@@ -142,6 +142,7 @@ import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE"
 import PreventOrientation from "prevent-orientation";
 import { isAndroid } from "react-device-detect";
 import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
+import AllTreatments from "./components/AllTreatments";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -1401,7 +1402,20 @@ const App = () => {
                 scrollDirection={scrollDirection}
                 ref={ref}
               />
-              <TreatmentsPage1
+              <AllTreatments
+                currentScreenSize={currentScreenSize}
+                initialScreenSize={initialScreenSize}
+                Treatments1Ref={Treatments1Ref}
+                resetAllCartStates={resetAllCartStates}
+                treatmentsPageIsVisibleFunction={
+                  treatmentsPageIsVisibleFunction
+                }
+                treatmentsPageIsNotVisibleFunction={
+                  treatmentsPageIsNotVisibleFunction
+                }
+                treatmentsPageInView={treatmentsPageInView}
+              />
+              {/* <TreatmentsPage1
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
                 Treatments1Ref={Treatments1Ref}
@@ -1438,7 +1452,7 @@ const App = () => {
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 resetAllCartStates={resetAllCartStates}
-              />
+              /> */}
               <AddOnsPage1
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}

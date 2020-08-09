@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Spring,
@@ -39,10 +45,13 @@ import CalmRemovedNotification from "./CalmRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
+import Tooltip from "react-tooltip-lite";
 import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
 import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
 const Calm = (props) => {
+  const toolTipRef = useRef(null);
+
   // "Learn More" states
   const calmToggle = useSelector((state) => state.calmToggle.toggle);
   const clarifyToggle = useSelector((state) => state.clarifyToggle.toggle);
@@ -404,26 +413,6 @@ const Calm = (props) => {
     resetStates,
   ]);
 
-  const renderPopUp = () => {
-    return (
-      <Transition
-        items={userHasNotClicked}
-        from={{ opacity: 0 }}
-        enter={{ opacity: 1, delay: 1000 }}
-        leave={{ opacity: 0 }}
-      >
-        {(userHasNotClicked) =>
-          userHasNotClicked &&
-          ((props) => (
-            <animated.p style={props} className="book_now_pop_up">
-              Click here to book now
-            </animated.p>
-          ))
-        }
-      </Transition>
-    );
-  };
-
   const bookButtonBounce = () => {
     return (
       <SuitcaseBounce state="suitcaseBounce">
@@ -549,20 +538,29 @@ const Calm = (props) => {
 
   const smallScreenBottomWrapperRender = () => {
     return (
-      <div
-        className="card_bottom_wrapper"
-        style={{
-          color: calmToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
-          transition: "ease all 0.5s",
-        }}
+      <Tooltip
+        isOpen={userHasNotClicked}
+        forceDirection={true}
+        delay={1000}
+        direction="down-end"
+        content="Click here to book now"
+        useHover={false}
       >
-        <p className="card_toggler" onClick={handleToggle}>
-          {calmToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-        </p>
-        <span className="card_bottom_spacer" />
-        {bookButtonBounce()}
-        {renderPopUp()}
-      </div>
+        <div
+          className="card_bottom_wrapper"
+          style={{
+            color: calmToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
+            transition: "ease all 0.5s",
+          }}
+        >
+          <p className="card_toggler" onClick={handleToggle}>
+            {calmToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+          </p>
+          <span className="card_bottom_spacer" />
+
+          {bookButtonBounce()}
+        </div>
+      </Tooltip>
     );
   };
 
@@ -632,7 +630,7 @@ const Calm = (props) => {
     }
   }, [userHasScrolledDown, addToCart, userHasNotClicked]);
 
-  const handleCalmClicked = () => {
+  const handleCalmClicked = (e) => {
     if (!calmClicked) {
       changeCalmClicked(true);
     }
@@ -641,7 +639,7 @@ const Calm = (props) => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="calm_wrapping" ref={ref} onClick={handleCalmClicked}>
+        <div className="card_container" ref={ref} onClick={handleCalmClicked}>
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}

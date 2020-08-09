@@ -1,3 +1,16 @@
+.react-tooltip-lite {
+  background: rgb(44, 44, 52);
+  color: white;
+  border-radius: 50px;
+  text-align: center;
+  transition: 0.5s ease all;
+  max-width: 50% !important;
+}
+
+.react-tooltip-lite-arrow {
+  border-color: #333;
+}
+
 /* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
 @media only screen and (min-width: 300px) {
   .calm_wrapping {
@@ -13,146 +26,21 @@
     transform: scale(0.48);
   }
 
-  .book_now_pop_up {
-    background-color: rgb(101, 101, 101);
-    border-radius: 15px;
-    position: absolute;
-    padding-top: 0.2rem;
-    left: 2.4rem;
-    width: 8rem;
-    height: 1rem;
-    top: 1.5rem;
+  .react-tooltip-lite {
     font-size: 0.5rem;
-    color: rgb(255, 255, 255);
-    text-align: center;
-  }
-
-  .book_now_pop_up::before {
-    content: "";
-    position: absolute;
-    height: 0px;
-    width: 0px;
-    top: -1rem;
-    left: 6rem;
-    border-width: 10px;
-    border-color: transparent transparent rgb(101, 101, 101) transparent;
-    border-style: solid;
-  }
-
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .book_now_pop_up {
-        left: 2.4rem;
-      }
-    }
   }
 }
 
 /* CSS for Smaller Portrait Screens (e.g. Galaxy Note 9) */
 @media only screen and (min-width: 360px) {
-  .book_now_pop_up {
-    padding-top: 0.2rem;
-    left: 1.4rem;
-    width: 11rem;
-    height: 1.5rem;
-    top: 2.1rem;
+  .react-tooltip-lite {
     font-size: 0.8rem;
-  }
-
-  .book_now_pop_up::before {
-    top: -1.2rem;
-    left: 8.5rem;
-  }
-
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .book_now_pop_up {
-        left: 3.2rem;
-      }
-    }
-  }
-}
-
-/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
-@media only screen and (min-width: 375px) {
-  .book_now_pop_up {
-    padding-top: 0.2rem;
-    left: 1.9rem;
-    width: 11rem;
-    height: 1.5rem;
-    top: 2rem;
-    font-size: 0.8rem;
-  }
-
-  .book_now_pop_up::before {
-    top: -1.2rem;
-    left: 8.5rem;
-  }
-}
-
-/* CSS for Average Portrait Screens (e.g. iPhone 11) */
-@media only screen and (min-width: 410px) {
-  .book_now_pop_up {
-    left: 3.2rem;
-    top: 2rem;
-  }
-}
-
-/* Google Pixel 4XL */
-@media screen and (device-width: 480px) and (device-height: 1014px) {
-  @supports not (-webkit-overflow-scrolling: touch) {
-    /* CSS for other than iOS devices */
-    .book_now_pop_up {
-      left: 5.5rem;
-      top: 2.1rem;
-    }
-  }
-}
-
-/*CSS for Small Portrait Phones Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 650px) {
-  @supports not (-webkit-overflow-scrolling: touch) {
-    /* CSS for other than iOS devices */
-    .book_now_pop_up {
-      padding-top: 0.3rem;
-    }
-  }
-}
-
-/* CSS for Tablet / Mobile Landscape */
-@media only screen and (min-width: 600px) {
-  .book_now_pop_up {
-    left: 3.5rem;
-    top: 2.8rem;
-  }
-}
-
-/* CSS for Tablets in Portrait Mode */
-@media only screen and (min-width: 768px) and (max-width: 1199px) {
-  .calm_wrapping {
-    height: 20.8vh;
-  }
-
-  .book_now_pop_up {
-    left: 1.3rem;
-    top: 2.7rem;
   }
 }
 
 /* CSS for Larger Tablets in Portrait Mode */
 @media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
-  .book_now_pop_up {
-    padding-top: 0.4rem;
-    width: 12rem;
-    height: 2rem;
-    top: 2rem;
+  .react-tooltip-lite {
     font-size: 0.9rem;
-  }
-
-  .book_now_pop_up {
-    left: 5.8rem;
-    top: 3rem;
   }
 }

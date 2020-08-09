@@ -559,7 +559,7 @@ const Quench = (props) => {
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
         <div
-          className="quench_wrapping"
+          className="card_container"
           ref={ref}
           style={{ display: props.quenchRendered }}
         >

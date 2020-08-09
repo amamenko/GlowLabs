@@ -566,7 +566,7 @@ const Rejuvenate = (props) => {
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
         <div
-          className="rejuvenate_wrapping"
+          className="card_container"
           ref={ref}
           style={{ display: props.rejuvenateRendered }}
         >

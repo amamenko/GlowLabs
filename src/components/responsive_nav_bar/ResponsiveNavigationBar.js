@@ -822,48 +822,69 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             </p>
           </Link>
         </div>
-        <div className="nav_cart_container">
-          <div
-            className="nav_cart_number_circle_container"
-            style={{ display: counter < 1 ? "none" : "block" }}
-          >
-            <FaCircle className="navbar_cart_number_circle" />
-            <p
-              style={{
-                right: !props.currentScreenSize
-                  ? props.initialScreenSize >= 1200
+        <Link
+          to={
+            cartIsActive
+              ? location.pathname
+              : cartPageOpened === "Cart"
+              ? "/cart"
+              : cartPageOpened === "Availability"
+              ? "/availability"
+              : cartPageOpened === "TimePreference"
+              ? "/availability/timepreference"
+              : cartPageOpened === "GuestCheckout"
+              ? "/checkout"
+              : cartPageOpened === "PaymentInfo"
+              ? "/paymentinfo"
+              : cartPageOpened === "ConfirmationPage"
+              ? "/checkout/confirmation"
+              : "/cart"
+          }
+          onClick={handleShoppingCartClick}
+        >
+          <div className="nav_cart_container">
+            <div
+              className="nav_cart_number_circle_container"
+              style={{ display: counter < 1 ? "none" : "block" }}
+            >
+              <FaCircle className="navbar_cart_number_circle" />
+              <p
+                style={{
+                  right: !props.currentScreenSize
+                    ? props.initialScreenSize >= 1200
+                      ? counter > 9
+                        ? "-0.2vw"
+                        : counter > 6
+                        ? "-0.015vw"
+                        : "0.1vw"
+                      : counter > 9
+                      ? props.initialScreenSize >= 768
+                        ? "-0.3vw"
+                        : "-0.8vw"
+                      : counter > 6
+                      ? "-0.15vw"
+                      : "0.1vw"
+                    : props.currentScreenSize >= 1200
                     ? counter > 9
                       ? "-0.2vw"
                       : counter > 6
                       ? "-0.015vw"
                       : "0.1vw"
                     : counter > 9
-                    ? props.initialScreenSize >= 768
+                    ? props.currentScreenSize >= 768
                       ? "-0.3vw"
                       : "-0.8vw"
                     : counter > 6
                     ? "-0.15vw"
-                    : "0.1vw"
-                  : props.currentScreenSize >= 1200
-                  ? counter > 9
-                    ? "-0.2vw"
-                    : counter > 6
-                    ? "-0.015vw"
-                    : "0.1vw"
-                  : counter > 9
-                  ? props.currentScreenSize >= 768
-                    ? "-0.3vw"
-                    : "-0.8vw"
-                  : counter > 6
-                  ? "-0.15vw"
-                  : "0.1vw",
-              }}
-            >
-              {counter}
-            </p>
+                    : "0.1vw",
+                }}
+              >
+                {counter}
+              </p>
+            </div>
+            <GrCart className="navbar_cart_icon" />
           </div>
-          <GrCart className="navbar_cart_icon" />
-        </div>
+        </Link>
       </div>
     </nav>
   );
