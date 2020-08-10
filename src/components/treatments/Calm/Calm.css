@@ -3,8 +3,7 @@
   color: white;
   border-radius: 50px;
   text-align: center;
-  transition: 0.5s ease all;
-  max-width: 50% !important;
+  transition: background 1s ease;
 }
 
 .react-tooltip-lite-arrow {

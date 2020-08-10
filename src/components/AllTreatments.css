@@ -10,6 +10,41 @@
   height: 28.6666667vh;
 }
 
+.all_treatments_header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  width: 100%;
+  z-index: 0;
+  margin-bottom: 10vh;
+}
+
+.all_treatments_header h2 {
+  font-size: 3.5vh;
+  font-weight: 900;
+  color: rgb(44, 44, 52);
+  -webkit-text-fill-color: rgb(44, 44, 52);
+  line-height: 0.5rem;
+  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+}
+
+.all_treatments_header h3 {
+  font-size: 3vh;
+  font-weight: 400;
+  padding-bottom: 0.5rem;
+  color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+@media only screen and (min-width: 375px) {
+  .all_treatments_header h2 {
+    font-size: 3vh;
+  }
+}
+
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) {
   .all_treatments_container {
@@ -58,6 +93,10 @@
 
   .card_container {
     height: 28.6666667vh;
+  }
+
+  .all_treatments_header h2 {
+    font-size: 7vh;
   }
 }
 

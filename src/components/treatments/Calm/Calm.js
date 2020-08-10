@@ -50,8 +50,6 @@ import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/
 import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
 const Calm = (props) => {
-  const toolTipRef = useRef(null);
-
   // "Learn More" states
   const calmToggle = useSelector((state) => state.calmToggle.toggle);
   const clarifyToggle = useSelector((state) => state.clarifyToggle.toggle);
@@ -108,6 +106,7 @@ const Calm = (props) => {
   const [userHasNotClicked, changeUserHasNotClicked] = useState(true);
   const [userHasScrolledDown, changeUserHasScrolledDown] = useState(false);
   const [calmClicked, changeCalmClicked] = useState(false);
+  const [tooltipBackground, changeTooltipBackground] = useState("transparent");
 
   const dispatch = useDispatch();
 
@@ -536,31 +535,42 @@ const Calm = (props) => {
     );
   };
 
+  useEffect(() => {
+    const tooltipDelay = setTimeout(() => {
+      changeTooltipBackground("rgb(44, 44, 52)");
+    }, 5000);
+
+    return () => {
+      clearTimeout(tooltipDelay);
+    };
+  }, []);
+
   const smallScreenBottomWrapperRender = () => {
     return (
-      <Tooltip
-        isOpen={userHasNotClicked}
-        forceDirection={true}
-        delay={1000}
-        direction="down-end"
-        content="Click here to book now"
-        useHover={false}
+      <div
+        className="card_bottom_wrapper"
+        style={{
+          color: calmToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
+          transition: "ease all 0.5s",
+        }}
       >
-        <div
-          className="card_bottom_wrapper"
-          style={{
-            color: calmToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
-            transition: "ease all 0.5s",
-          }}
+        <p className="card_toggler" onClick={handleToggle}>
+          {calmToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
+        </p>
+        <span className="card_bottom_spacer" />
+        <Tooltip
+          isOpen={userHasNotClicked}
+          forceDirection={true}
+          direction="down-center"
+          content="Click here to book now"
+          useHover={false}
+          style={{ opacity: 0 }}
+          background={tooltipBackground}
+          zIndex={500}
         >
-          <p className="card_toggler" onClick={handleToggle}>
-            {calmToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
-          </p>
-          <span className="card_bottom_spacer" />
-
           {bookButtonBounce()}
-        </div>
-      </Tooltip>
+        </Tooltip>
+      </div>
     );
   };
 

@@ -188,6 +188,7 @@ const App = () => {
   );
   const [scrollValue, changeScrollValue] = useState(0);
   const [scrollDirection, changeScrollDirection] = useState("");
+  const [lastTenScrollPositions, changeLastTenScrollPositions] = useState([]);
 
   // Needed for large screen frozen position when cart is toggled due to Square form causing re-rendering
   const [
@@ -1194,6 +1195,36 @@ const App = () => {
       window.removeEventListener("scroll", handleScrollDirection);
     };
   }, [handleScrollDirection]);
+
+  useMemo(() => {
+    if (
+      lastTenScrollPositions.indexOf(scrollValue) < 0 &&
+      lastTenScrollPositions.length < 10
+    ) {
+      changeLastTenScrollPositions([scrollValue, ...lastTenScrollPositions]);
+    } else if (
+      lastTenScrollPositions.indexOf(scrollValue) < 0 &&
+      lastTenScrollPositions.length >= 10
+    ) {
+      const arrCopy = lastTenScrollPositions.slice();
+      arrCopy.splice(9, 1);
+
+      changeLastTenScrollPositions([scrollValue, ...arrCopy]);
+    } else {
+      return undefined;
+    }
+  }, [lastTenScrollPositions, scrollValue]);
+
+  useEffect(() => {
+    const firstMatch = lastTenScrollPositions.find((x) => x > 0);
+
+    if (!navbarToggle && window.scrollY === 0) {
+      console.log(firstMatch);
+      setTimeout(() => {
+        window.scrollTo(0, firstMatch);
+      }, 1);
+    }
+  }, [lastTenScrollPositions, navbarToggle, scrollValue]);
 
   return (
     <>
