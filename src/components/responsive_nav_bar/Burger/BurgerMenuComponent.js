@@ -99,8 +99,7 @@ const BurgerMenu = (props) => {
       }
       strokeWidth="0"
       viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
+      width="100%"
       style={{
         color:
           props.currentScreenSize === ""

@@ -1,17 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Spring,
-  animated,
-  Keyframes,
-  Transition,
-} from "react-spring/renderprops";
+import { Spring, animated, Keyframes } from "react-spring/renderprops";
 import { InView } from "react-intersection-observer";
 import ACTION_CALM_TOGGLE from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE";
 import ACTION_CALM_TOGGLE_RESET from "../../../actions/Treatments/Calm/ACTION_CALM_TOGGLE_RESET";
@@ -45,11 +34,13 @@ import CalmRemovedNotification from "./CalmRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
-import Tooltip from "react-tooltip-lite";
+import "react-popper-tooltip/dist/styles.css";
 import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
 import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
 const Calm = (props) => {
+  const BookNowButtonRef = useRef(null);
+
   // "Learn More" states
   const calmToggle = useSelector((state) => state.calmToggle.toggle);
   const clarifyToggle = useSelector((state) => state.clarifyToggle.toggle);
@@ -103,10 +94,8 @@ const Calm = (props) => {
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
 
   // Pop-Up States
-  const [userHasNotClicked, changeUserHasNotClicked] = useState(true);
-  const [userHasScrolledDown, changeUserHasScrolledDown] = useState(false);
+  const [userHasNotClicked, changeUserHasNotClicked] = useState(false);
   const [calmClicked, changeCalmClicked] = useState(false);
-  const [tooltipBackground, changeTooltipBackground] = useState("transparent");
 
   const dispatch = useDispatch();
 
@@ -535,16 +524,6 @@ const Calm = (props) => {
     );
   };
 
-  useEffect(() => {
-    const tooltipDelay = setTimeout(() => {
-      changeTooltipBackground("rgb(44, 44, 52)");
-    }, 5000);
-
-    return () => {
-      clearTimeout(tooltipDelay);
-    };
-  }, []);
-
   const smallScreenBottomWrapperRender = () => {
     return (
       <div
@@ -553,23 +532,14 @@ const Calm = (props) => {
           color: calmToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
           transition: "ease all 0.5s",
         }}
+        ref={BookNowButtonRef}
       >
         <p className="card_toggler" onClick={handleToggle}>
           {calmToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
         </p>
         <span className="card_bottom_spacer" />
-        <Tooltip
-          isOpen={userHasNotClicked}
-          forceDirection={true}
-          direction="down-center"
-          content="Click here to book now"
-          useHover={false}
-          style={{ opacity: 0 }}
-          background={tooltipBackground}
-          zIndex={500}
-        >
-          {bookButtonBounce()}
-        </Tooltip>
+
+        {bookButtonBounce()}
       </div>
     );
   };
@@ -611,41 +581,12 @@ const Calm = (props) => {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 600) {
-        changeUserHasScrolledDown(true);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (userHasScrolledDown) {
-      // Required for single click add to cart for Calm instead of double click with pop-up
-      const handleUserClicked = (e) => {
-        if (e.target.closest(".calm_suitcase_selector") && userHasNotClicked) {
-          addToCart();
-        }
-        changeUserHasNotClicked(false);
-      };
-
-      document.body.addEventListener("click", handleUserClicked);
-      return () => {
-        document.body.removeEventListener("click", handleUserClicked);
-      };
-    }
-  }, [userHasScrolledDown, addToCart, userHasNotClicked]);
-
   const handleCalmClicked = (e) => {
     if (!calmClicked) {
       changeCalmClicked(true);
     }
   };
-
+  console.log(userHasNotClicked);
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (

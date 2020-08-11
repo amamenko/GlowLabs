@@ -3,7 +3,6 @@
   height: 8vh;
   width: 100%;
   position: absolute;
-  overflow: hidden;
   top: 0;
   display: flex;
   flex-direction: row;
@@ -129,8 +128,17 @@
 }
 
 .nav_burger_menu {
-  padding-top: 0.3vh;
   cursor: pointer;
+  -webkit-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.nav_burger_menu_no_shadow {
+  cursor: pointer;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 .nav_sign_in_link_container {
@@ -166,6 +174,76 @@
   font-size: 0.9rem;
   flex-wrap: nowrap;
   white-space: nowrap;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: relative;
+  width: calc(1.2rem + 5vw);
+  height: 100%;
+  left: 0;
+  top: 0.2vh;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: rgb(219, 210, 213);
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: rgb(239, 240, 243);
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: rgb(44, 44, 52);
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: rgb(44, 44, 52);
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: rgb(239, 240, 243);
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  top: 0;
 }
 
 @media only screen and (min-width: 370px) {
@@ -219,6 +297,12 @@
 
   .letter_circle {
     top: 0.8vw;
+  }
+
+  /* Position and sizing of burger button */
+  .bm-burger-button {
+    position: relative;
+    width: calc(2rem + 2vw);
   }
 }
 

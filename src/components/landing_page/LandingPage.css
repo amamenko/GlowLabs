@@ -105,7 +105,6 @@
     justify-content: center;
     background: rgb(154, 154, 162);
     position: fixed;
-    overflow: hidden;
   }
 
   .main_content {

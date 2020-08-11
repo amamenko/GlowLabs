@@ -188,7 +188,6 @@ const App = () => {
   );
   const [scrollValue, changeScrollValue] = useState(0);
   const [scrollDirection, changeScrollDirection] = useState("");
-  const [lastTenScrollPositions, changeLastTenScrollPositions] = useState([]);
 
   // Needed for large screen frozen position when cart is toggled due to Square form causing re-rendering
   const [
@@ -1196,36 +1195,6 @@ const App = () => {
     };
   }, [handleScrollDirection]);
 
-  useMemo(() => {
-    if (
-      lastTenScrollPositions.indexOf(scrollValue) < 0 &&
-      lastTenScrollPositions.length < 10
-    ) {
-      changeLastTenScrollPositions([scrollValue, ...lastTenScrollPositions]);
-    } else if (
-      lastTenScrollPositions.indexOf(scrollValue) < 0 &&
-      lastTenScrollPositions.length >= 10
-    ) {
-      const arrCopy = lastTenScrollPositions.slice();
-      arrCopy.splice(9, 1);
-
-      changeLastTenScrollPositions([scrollValue, ...arrCopy]);
-    } else {
-      return undefined;
-    }
-  }, [lastTenScrollPositions, scrollValue]);
-
-  useEffect(() => {
-    const firstMatch = lastTenScrollPositions.find((x) => x > 0);
-
-    if (!navbarToggle && window.scrollY === 0) {
-      console.log(firstMatch);
-      setTimeout(() => {
-        window.scrollTo(0, firstMatch);
-      }, 1);
-    }
-  }, [lastTenScrollPositions, navbarToggle, scrollValue]);
-
   return (
     <>
       {redirectToHome()}
@@ -1394,28 +1363,18 @@ const App = () => {
         draggablePercent={20}
       />
 
-      <NavigationMenu
-        currentScreenSize={currentScreenSize}
-        initialScreenSize={initialScreenSize}
-        handleClickToScrollToHome={handleClickToScrollToHome}
-        handleRedirectClickToHome={handleRedirectClickToHome}
-        handleClickToScrollToTreatments={handleClickToScrollToTreatments}
-        handleClickToScrollToAddOns={handleClickToScrollToAddOns}
-        handleClickToScrollToInstagram={handleClickToScrollToInstagram}
-        handleClickToScrollToContact={handleClickToScrollToContact}
-        ref={ref}
-      />
-
       {renderSlideInShoppingCartContainer(largeScreenShoppingCartRender())}
 
       <Switch>
         <Route exact path="/">
           <KeepAlive saveScrollPosition="screen">
+            {redirectToCartRoutes()}
+
             <div
               className="main_container"
               onScroll={(e) => handleScrollDirection(e)}
+              style={{ height: "100%", overflow: "auto" }}
             >
-              {redirectToCartRoutes()}
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}

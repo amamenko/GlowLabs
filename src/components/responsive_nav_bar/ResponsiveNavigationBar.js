@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { GrCart } from "react-icons/gr";
 import { FaCircle, FaUser } from "react-icons/fa";
-import { MorphReplaceResize } from "react-svg-morph";
 import { toast } from "react-toastify";
 import "./ResponsiveNavigationBar.css";
 import BurgerMenu from "./Burger/BurgerMenuComponent";
-import BurgerX from "./Burger/BurgerMenuNavXComponent";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ACTION_LOG_OUT_CLICKED from "../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
@@ -13,14 +11,33 @@ import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
 import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
+import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
+import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useQuery } from "@apollo/react-hooks";
 import {
   getClientQuery,
   getEmployeeQuery,
 } from "../../graphql/queries/queries";
+import Menu from "react-burger-menu/lib/menus/slide";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from "body-scroll-lock";
 
 const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
-  const { LandingPageRef, Treatments1Ref, AddOnsRef, InstagramRef } = ref;
+  const {
+    LandingPageRef,
+    Treatments1Ref,
+    AddOnsRef,
+    InstagramRef,
+    ContactRef,
+  } = ref;
+
+  const Nav_Ref = useRef(null);
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -53,6 +70,8 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
   );
 
   const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
+
+  const [homeClicked, changeHomeClicked] = useState(false);
 
   const { data } = useQuery(getClientQuery, {
     fetchPolicy: "no-cache",
@@ -489,6 +508,98 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
     props.initialScreenHeight,
   ]);
 
+  const navbarItemSelect = () => {
+    dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+  };
+
+  useMemo(() => {
+    const NavRefTarget = Nav_Ref.current;
+    clearAllBodyScrollLocks();
+
+    if (navbarToggle) {
+      dispatch(ACTION_BODY_SCROLL_RESET());
+      const handleDisableScroll = (el) => {
+        disableBodyScroll({ targetElement: el });
+      };
+
+      handleDisableScroll(NavRefTarget);
+    } else {
+      dispatch(ACTION_BODY_SCROLL_ALLOW());
+      const handleEnableScroll = (el) => {
+        enableBodyScroll({ targetElement: el });
+      };
+
+      handleEnableScroll(NavRefTarget);
+    }
+  }, [navbarToggle, dispatch]);
+
+  useEffect(() => {
+    if (homeClicked) {
+      const clickedReset = setTimeout(() => {
+        changeHomeClicked(false);
+      }, 100);
+
+      return () => {
+        clearTimeout(clickedReset);
+      };
+    }
+  }, [homeClicked, location.pathname]);
+
+  const navMenuScrollToHome = () => {
+    navbarItemSelect();
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
+
+    setTimeout(() => {
+      props.handleClickToScrollToHome(LandingPageRef);
+    }, 300);
+
+    changeHomeClicked(true);
+
+    document.body.classList.remove("no_scroll");
+    document.body.style.setProperty("overflow", "scroll");
+  };
+
+  const navMenuScrollToTreatments = () => {
+    navbarItemSelect();
+    changeHomeClicked(true);
+
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    setTimeout(() => {
+      props.handleClickToScrollToTreatments(Treatments1Ref);
+    }, 300);
+  };
+
+  const navMenuScrollToAddOns = () => {
+    navbarItemSelect();
+    changeHomeClicked(true);
+
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    setTimeout(() => {
+      props.handleClickToScrollToAddOns(AddOnsRef);
+    }, 300);
+  };
+
+  const navMenuScrollToInstagram = () => {
+    navbarItemSelect();
+    changeHomeClicked(true);
+
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    setTimeout(() => {
+      props.handleClickToScrollToInstagram(InstagramRef);
+    }, 300);
+  };
+
+  const navMenuScrollToContact = () => {
+    navbarItemSelect();
+    changeHomeClicked(true);
+
+    dispatch(ACTION_CART_IS_NOT_ACTIVE());
+    setTimeout(() => {
+      props.handleClickToScrollToContact(ContactRef);
+    }, 300);
+  };
+
   return (
     <nav
       className="navbar"
@@ -511,54 +622,35 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
       }}
     >
       <div className="left_nav">
-        <div onClick={props.handleNavbarToggle} className="nav_burger_menu">
-          <MorphReplaceResize
-            height={
-              !props.currentScreenSize
-                ? props.initialScreenSize >= 370
-                  ? 40
-                  : 30
-                : props.currentScreenSize >= 370
-                ? 40
-                : 30
-            }
-            width={
-              !props.currentScreenSize
-                ? props.initialScreenSize >= 370
-                  ? 40
-                  : 30
-                : props.currentScreenSize >= 370
-                ? 40
-                : 30
-            }
-          >
-            {navbarToggle ? (
-              <BurgerX
-                key={"burger_x"}
-                scrollValue={props.scrollValue}
-                navbarToggle={navbarToggle}
-                cartIsActive={cartIsActive}
-                location={location}
-                initialScreenSize={props.initialScreenSize}
-                initialScreenHeight={props.initialScreenHeight}
-                currentScreenSize={props.currentScreenSize}
-                currentScreenHeight={props.currentScreenHeight}
-              />
-            ) : (
-              <BurgerMenu
-                key={"burger_menu"}
-                scrollValue={props.scrollValue}
-                navbarToggle={navbarToggle}
-                cartIsActive={cartIsActive}
-                location={location}
-                initialScreenSize={props.initialScreenSize}
-                initialScreenHeight={props.initialScreenHeight}
-                currentScreenSize={props.currentScreenSize}
-                currentScreenHeight={props.currentScreenHeight}
-              />
-            )}
-          </MorphReplaceResize>
-        </div>
+        <Menu
+          customBurgerIcon={<BurgerMenu />}
+          className={
+            navbarToggle
+              ? "nav_burger_menu"
+              : "nav_burger_menu nav_burger_menu_no_shadow"
+          }
+          disableAutoFocus
+          onOpen={props.handleNavbarToggle}
+          isOpen={navbarToggle}
+          onClose={props.handleNavbarToggle}
+        >
+          <ul className="navbar_items">
+            <li onClick={() => navMenuScrollToHome()}>Home</li>
+            <li onClick={() => navMenuScrollToTreatments()}>Facial</li>
+            <li onClick={() => navMenuScrollToAddOns()}>Add-Ons</li>
+            <li onClick={() => navMenuScrollToInstagram()}>Follow Us</li>
+            <li onClick={() => navMenuScrollToContact()}>Contact</li>
+            <li className="navbar_social_media_icons">
+              <a target="_self" href="https://instagram.com/glow.labs">
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+              <a target="_self" href="https://facebook.com/glowlabsLI/">
+                <FontAwesomeIcon icon={faFacebook} />
+              </a>
+            </li>
+          </ul>
+        </Menu>
+
         <div className="navbar_logo_container">
           <a href="/">
             <svg

@@ -20,17 +20,6 @@
     z-index: 99999;
   }
 
-  .navbar {
-    position: fixed;
-    max-width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    height: 8vh;
-    overflow: hidden;
-  }
-
   .nav_logo_container {
     position: fixed;
     left: 3rem;
@@ -379,27 +368,6 @@
 
   .nav_sign_in_button_small_screen {
     margin-right: 6rem;
-  }
-
-  .navbar {
-    border-top: 17vh
-      linear-gradient(
-        to right,
-        rgb(251, 251, 251) 0%,
-        rgb(251, 251, 251) 50%,
-        rgb(224, 224, 232) 50.05%,
-        rgb(224, 224, 232) 100%
-      )
-      solid;
-    border-bottom: 17vh
-      linear-gradient(
-        to right,
-        rgb(251, 251, 251) 0%,
-        rgb(251, 251, 251) 50%,
-        rgb(224, 224, 232) 50.05%,
-        rgb(224, 224, 232) 100%
-      )
-      solid;
   }
 
   .nav_menu {

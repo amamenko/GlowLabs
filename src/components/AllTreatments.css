@@ -4,6 +4,7 @@
   height: 100%;
   margin: 0 auto;
   grid-gap: 2rem;
+  background: rgb(255, 255, 255);
 }
 
 .card_container {

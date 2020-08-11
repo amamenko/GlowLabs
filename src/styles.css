@@ -14,13 +14,14 @@ body {
   -webkit-text-size-adjust: none;
 }
 
-body {
-  -webkit-text-size-adjust: none;
+html {
+  height: 100%;
 }
 
 body {
-  height: 100%;
+  -webkit-text-size-adjust: none;
   width: 100vw;
+  height: 100%;
 }
 
 .reset_scroll_behavior {
