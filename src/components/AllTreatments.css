@@ -1,10 +1,16 @@
 .all_treatments_container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  height: 100%;
   margin: 0 auto;
-  grid-gap: 2rem;
+  grid-gap: 2.5rem 0rem;
   background: rgb(255, 255, 255);
+  height: 100vh;
+  overflow: visible;
+  padding-top: 5vh;
+}
+
+.all_treatments_container header {
+  grid-column: 1 / -1;
 }
 
 .card_container {
@@ -16,10 +22,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 20vh;
   width: 100%;
   z-index: 0;
-  margin-bottom: 10vh;
 }
 
 .all_treatments_header h2 {
@@ -38,6 +42,7 @@
   padding-bottom: 0.5rem;
   color: rgba(0, 0, 0, 0.8);
   text-align: center;
+  padding-top: 2vh;
 }
 
 @media only screen and (min-width: 375px) {
@@ -47,13 +52,25 @@
 }
 
 /* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 600px) and (orientation: landscape) {
+  .all_treatments_header h3 > p > br {
+    display: none;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) {
   .all_treatments_container {
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     margin-left: 1.5rem;
     margin-right: 1.5rem;
     grid-gap: 1rem;
     grid-row-gap: 3rem;
+  }
+
+  .all_treatments_header h2 {
+    font-size: 4vh;
+    padding-bottom: 3vh;
   }
 
   .card_container {
@@ -64,7 +81,7 @@
 /* CSS for Large Screens with Smaller Browser Sizes */
 @media only screen and (min-width: 500px) and (min-device-height: 500px) {
   .card_container {
-    height: 30vh;
+    height: 20vh;
   }
 }
 
@@ -97,7 +114,7 @@
   }
 
   .all_treatments_header h2 {
-    font-size: 7vh;
+    font-size: 5vh;
   }
 }
 

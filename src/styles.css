@@ -16,11 +16,11 @@ body {
 
 html {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
   -webkit-text-size-adjust: none;
-  width: 100vw;
   height: 100%;
 }
 
@@ -43,6 +43,10 @@ body {
   overflow: scroll;
   overflow-x: hidden;
   position: static;
+}
+
+.main_container {
+  height: 100vh;
 }
 
 /* For temporarily locking in portrait mode on mobile */

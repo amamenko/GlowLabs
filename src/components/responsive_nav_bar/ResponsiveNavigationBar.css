@@ -8,6 +8,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  overflow-y: hidden;
 }
 
 .left_nav {
@@ -181,7 +182,7 @@
   position: relative;
   width: calc(1.2rem + 5vw);
   height: 100%;
-  left: 0;
+  left: -1vw;
   top: 0.2vh;
 }
 
@@ -242,6 +243,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Styling of overlay */
 .bm-overlay {
+  width: 150%;
   background: rgba(0, 0, 0, 0.8);
   top: 0;
 }
@@ -306,6 +308,15 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 }
 
+@media only screen and (min-width: 800px) and (orientation: landscape) {
+  .nav_burger_menu,
+  .nav_burger_menu.nav_burger_menu_no_shadow,
+  .nav_burger_menu,
+  .bm-burger-button {
+    display: none !important;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) and (orientation: portrait) {
   .nav_menu {
@@ -314,10 +325,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 @media only screen and (min-width: 1200px) and (orientation: landscape) {
-  .nav_burger_menu {
-    display: none;
-  }
-
   .right_nav {
     justify-content: space-between;
   }

@@ -149,7 +149,6 @@
   .treatments_title_underline {
     display: flex;
     align-self: center;
-    margin-right: 1.3rem;
     animation: none;
   }
 }
@@ -228,7 +227,6 @@
   .treatments_title_underline {
     display: flex;
     align-self: center;
-    margin-right: 1.3rem;
   }
 
   /* Safari 7.1+ */

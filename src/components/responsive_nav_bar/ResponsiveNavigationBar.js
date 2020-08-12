@@ -93,23 +93,21 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         props.initialScreenSize >= 600 &&
         props.initialScreenSize > props.initialScreenHeight
       ) {
-        if (props.initialScreenSize >= 600) {
-          if (
-            cartIsActive ||
-            location.pathname.includes("account") ||
-            location.pathname.includes("admin")
-          ) {
-            return "rgb(44,44,52)";
-          }
-        }
-
-        if (navbarToggle) {
+        if (
+          cartIsActive ||
+          location.pathname.includes("account") ||
+          location.pathname.includes("admin")
+        ) {
           return "rgb(44,44,52)";
         } else {
-          if (props.scroll) {
+          if (navbarToggle) {
             return "rgb(44,44,52)";
           } else {
-            return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(224, 224, 232) 50.05%, rgb(224, 224, 232) 100%)";
+            if (props.scrollValue > 5) {
+              return "rgb(44,44,52)";
+            } else {
+              return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(224, 224, 232) 50.05%, rgb(224, 224, 232) 100%)";
+            }
           }
         }
       } else {
@@ -120,23 +118,21 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         props.currentScreenSize >= 600 &&
         props.currentScreenSize > props.currentScreenHeight
       ) {
-        if (props.currentScreenSize >= 600) {
-          if (
-            cartIsActive ||
-            location.pathname.includes("account") ||
-            location.pathname.includes("admin")
-          ) {
-            return "rgb(44,44,52)";
-          }
-        }
-
-        if (navbarToggle) {
+        if (
+          cartIsActive ||
+          location.pathname.includes("account") ||
+          location.pathname.includes("admin")
+        ) {
           return "rgb(44,44,52)";
         } else {
-          if (props.scroll) {
+          if (navbarToggle) {
             return "rgb(44,44,52)";
           } else {
-            return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(224, 224, 232) 50.05%, rgb(224, 224, 232) 100%)";
+            if (props.scrollValue > 5) {
+              return "rgb(44,44,52)";
+            } else {
+              return "linear-gradient(to right, rgb(251, 251, 251) 0%, rgb(251, 251, 251) 50%, rgb(224, 224, 232) 50.05%, rgb(224, 224, 232) 100%)";
+            }
           }
         }
       } else {
@@ -633,6 +629,15 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
           onOpen={props.handleNavbarToggle}
           isOpen={navbarToggle}
           onClose={props.handleNavbarToggle}
+          width={
+            props.currentScreenSize === ""
+              ? props.initialScreenSize >= 768
+                ? "65%"
+                : "85%"
+              : props.currentScreenSize >= 768
+              ? "65%"
+              : "85%"
+          }
         >
           <ul className="navbar_items">
             <li onClick={() => navMenuScrollToHome()}>Home</li>
@@ -672,7 +677,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                       : props.initialScreenSize >= 600
                       ? props.initialScreenHeight >= props.initialScreenSize
                         ? "rgb(239, 240, 243)"
-                        : window.scrollY <= 5
+                        : props.scrollValue <= 5
                         ? navbarToggle
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
@@ -689,7 +694,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     : props.currentScreenSize >= 600
                     ? props.currentScreenHeight >= props.currentScreenSize
                       ? "rgb(239, 240, 243)"
-                      : window.scrollY <= 5
+                      : props.scrollValue <= 5
                       ? navbarToggle
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
@@ -709,7 +714,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             color:
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1200
-                  ? window.scrollY <= 1
+                  ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
                       location.pathname.includes("admin")
@@ -718,7 +723,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)"
                 : props.currentScreenSize >= 1200
-                ? window.scrollY <= 1
+                ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
@@ -735,7 +740,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             color:
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1200
-                  ? window.scrollY <= 1
+                  ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
                       location.pathname.includes("admin")
@@ -744,7 +749,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)"
                 : props.currentScreenSize >= 1200
-                ? window.scrollY <= 1
+                ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
@@ -761,7 +766,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             color:
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1200
-                  ? window.scrollY <= 1
+                  ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
                       location.pathname.includes("admin")
@@ -770,7 +775,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)"
                 : props.currentScreenSize >= 1200
-                ? window.scrollY <= 1
+                ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
@@ -787,7 +792,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             color:
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1200
-                  ? window.scrollY <= 1
+                  ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
                       location.pathname.includes("admin")
@@ -796,7 +801,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)"
                 : props.currentScreenSize >= 1200
-                ? window.scrollY <= 1
+                ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
@@ -817,7 +822,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 ? props.initialScreenSize <= 1000 &&
                   props.initialScreenSize >= 600
                   ? window.matchMedia("(orientation: landscape)").matches
-                    ? window.scrollY <= 5
+                    ? props.scrollValue <= 5
                       ? "0.6rem"
                       : "1rem"
                     : "auto"
@@ -825,7 +830,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 : props.currentScreenSize <= 1000 &&
                   props.currentScreenSize >= 600
                 ? window.matchMedia("(orientation: landscape)").matches
-                  ? window.scrollY <= 5
+                  ? props.scrollValue <= 5
                     ? "0.6rem"
                     : "1rem"
                   : "auto"
@@ -842,7 +847,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                       location.pathname.includes("account") ||
                       location.pathname.includes("admin")
                     ? "rgb(239, 240, 243)"
-                    : window.scrollY <= 5
+                    : props.scrollValue <= 5
                     ? "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
                   : "rgb(239, 240, 243)"
@@ -856,7 +861,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     location.pathname.includes("account") ||
                     location.pathname.includes("admin")
                   ? "rgb(239, 240, 243)"
-                  : window.scrollY <= 5
+                  : props.scrollValue <= 5
                   ? "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)",
@@ -895,7 +900,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                             location.pathname.includes("account") ||
                             location.pathname.includes("admin")
                           ? "rgb(44, 44, 52)"
-                          : window.scrollY <= 5
+                          : props.scrollValue <= 5
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)"
@@ -909,7 +914,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
                         ? "rgb(44, 44, 52)"
-                        : window.scrollY <= 5
+                        : props.scrollValue <= 5
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)",
@@ -929,7 +934,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                               location.pathname.includes("account") ||
                               location.pathname.includes("admin")
                             ? "rgb(239, 240, 243)"
-                            : window.scrollY <= 5
+                            : props.scrollValue <= 5
                             ? "rgb(44, 44, 52)"
                             : "rgb(239, 240, 243)"
                           : "rgb(239, 240, 243)"
@@ -943,7 +948,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                             location.pathname.includes("account") ||
                             location.pathname.includes("admin")
                           ? "rgb(239, 240, 243)"
-                          : window.scrollY <= 5
+                          : props.scrollValue <= 5
                           ? "rgb(44, 44, 52)"
                           : "rgb(239, 240, 243)"
                         : "rgb(239, 240, 243)",
@@ -968,7 +973,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                           : props.initialScreenSize >= 600
                           ? props.initialScreenHeight >= props.initialScreenSize
                             ? "rgb(44, 44, 52)"
-                            : window.scrollY <= 5
+                            : props.scrollValue <= 5
                             ? "rgb(239, 240, 243)"
                             : "rgb(44, 44, 52)"
                           : "rgb(44, 44, 52)"
@@ -978,7 +983,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                         : props.currentScreenSize >= 600
                         ? props.currentScreenHeight >= props.currentScreenSize
                           ? "rgb(44, 44, 52)"
-                          : window.scrollY <= 5
+                          : props.scrollValue <= 5
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)",
@@ -997,7 +1002,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                         : props.initialScreenSize >= 600
                         ? props.initialScreenHeight >= props.initialScreenSize
                           ? "rgb(44, 44, 52)"
-                          : window.scrollY <= 5
+                          : props.scrollValue <= 5
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)"
@@ -1007,7 +1012,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                       : props.currentScreenSize >= 600
                       ? props.currentScreenHeight >= props.currentScreenSize
                         ? "rgb(44, 44, 52)"
-                        : window.scrollY <= 5
+                        : props.scrollValue <= 5
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)",
@@ -1029,7 +1034,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                           location.pathname.includes("account") ||
                           location.pathname.includes("admin")
                         ? "rgb(44, 44, 52)"
-                        : window.scrollY <= 5
+                        : props.scrollValue <= 5
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)"
@@ -1043,7 +1048,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                         location.pathname.includes("account") ||
                         location.pathname.includes("admin")
                       ? "rgb(44, 44, 52)"
-                      : window.scrollY <= 5
+                      : props.scrollValue <= 5
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(44, 44, 52)",

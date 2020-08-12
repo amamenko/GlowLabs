@@ -320,7 +320,7 @@ const LandingPage = React.forwardRef((props, ref) => {
           ? "rgb(224, 224, 232)"
           : "rgb(245, 245, 245)",
         transition: "background 2s ease-out",
-        zIndex: finalBookingModal ? -1 : -1,
+        zIndex: finalBookingModal ? -1 : "auto",
       }}
     >
       <section className="main_content">

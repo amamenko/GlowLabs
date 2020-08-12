@@ -1,55 +1,18 @@
-.react-tooltip-lite {
-  background: rgb(44, 44, 52);
-  color: white;
-  border-radius: 50px;
-  text-align: center;
-  transition: background 1s ease;
-  position: absolute;
-  top: 0 !important;
-  bottom: 0 !important;
-  margin: 0 auto !important;
-  height: 10% !important;
+.tippy-popper {
+  z-index: 100 !important;
 }
 
-.react-tooltip-lite-arrow {
-  border-color: #333;
+.tippy-tooltip-content {
+  font-size: calc(0.1rem + 2vh);
 }
 
-.calm_tooltip_container {
-  width: 10%;
-  position: relative;
-}
-
-.calm_tooltip {
-  background: #333;
-  color: white;
-  font-weight: bold;
-  padding: 4px 8px;
-  font-size: 13px;
-  font-weight: 500;
-  display: inline-block;
-  border-radius: 4px;
-  top: 0;
-  position: absolute;
-  width: max-content;
-}
-
-.calm_tooltip_arrow,
-.calm_tooltip_arrow::before {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  z-index: -1;
-}
-
-.calm_tooltip_arrow::before {
-  content: "";
-  transform: rotate(45deg);
-  background: #333;
-}
-
-.calm_tooltip[data-popper-placement^="bottom"] > .calm_tooltip_arrow {
-  top: -4px;
+/* Safari Only */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .tippy-tooltip {
+      left: 10px;
+    }
+  }
 }
 
 /* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */

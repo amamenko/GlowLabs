@@ -175,6 +175,7 @@ const App = () => {
   const InstagramRef = useRef(null);
   const ContactRef = useRef(null);
   const shoppingCartRef = useRef(null);
+  const MainContainerRef = useRef(null);
   // Browser width on initial opening of app
   const [initialScreenSize] = useState(window.innerWidth);
   // Current browser width if different from initial browser width
@@ -674,7 +675,7 @@ const App = () => {
         !location.pathname.includes("admin")
       ) {
         const handleScroll = () => {
-          const currentScrollPosition = window.pageYOffset;
+          const currentScrollPosition = scrollValue;
 
           if (
             previousScrollPosition < currentScrollPosition &&
@@ -694,11 +695,16 @@ const App = () => {
           setPreviousScrollPosition(currentScrollPosition);
         };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        const refVar = MainContainerRef.current;
+
+        if (refVar) {
+          refVar.addEventListener("scroll", handleScroll);
+          return () => refVar.removeEventListener("scroll", handleScroll);
+        }
       }
     }
   }, [
+    scrollValue,
     previousScrollPosition,
     navbarVisible,
     navbarToggle,
@@ -1174,25 +1180,36 @@ const App = () => {
 
   const handleScrollDirection = useCallback(
     (e) => {
-      if (scrollValue > e.currentTarget.scrollY) {
-        changeScrollDirection("Up");
-        changeScrollValue(e.currentTarget.scrollY);
+      if (scrollValue > e.target.scrollTop) {
+        if (scrollDirection !== "Up") {
+          changeScrollDirection("Up");
+        }
+        changeScrollValue(e.target.scrollTop);
+      } else if (scrollValue < e.target.scrollTop) {
+        if (scrollDirection !== "Down") {
+          changeScrollDirection("Down");
+        }
+        changeScrollValue(e.target.scrollTop);
       } else {
-        changeScrollDirection("Down");
-        changeScrollValue(e.currentTarget.scrollY);
+        return null;
       }
     },
-    [scrollValue]
+    [scrollValue, scrollDirection]
   );
 
   useEffect(() => {
-    changeScrollValue(window.scrollY);
+    const refVar = MainContainerRef.current;
+    if (refVar) {
+      changeScrollValue(refVar.scrollTop);
+    }
 
-    window.addEventListener("scroll", handleScrollDirection);
+    if (refVar) {
+      refVar.addEventListener("scroll", handleScrollDirection);
 
-    return () => {
-      window.removeEventListener("scroll", handleScrollDirection);
-    };
+      return () => {
+        refVar.removeEventListener("scroll", handleScrollDirection);
+      };
+    }
   }, [handleScrollDirection]);
 
   return (
@@ -1368,13 +1385,13 @@ const App = () => {
       <Switch>
         <Route exact path="/">
           <KeepAlive saveScrollPosition="screen">
-            {redirectToCartRoutes()}
-
             <div
               className="main_container"
               onScroll={(e) => handleScrollDirection(e)}
-              style={{ height: "100%", overflow: "auto" }}
+              ref={MainContainerRef}
+              style={{ overflow: splashScreenComplete ? "auto" : "hidden" }}
             >
+              {redirectToCartRoutes()}
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}

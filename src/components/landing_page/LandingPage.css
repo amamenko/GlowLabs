@@ -1,9 +1,3 @@
-.main_content {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-
 .landing_page_drawing {
   position: absolute;
   top: 8vh;
