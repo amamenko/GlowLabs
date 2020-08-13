@@ -30,6 +30,7 @@
   margin: auto;
   top: 0;
   bottom: 0;
+  cursor: pointer;
 }
 
 .availability_forward_arrow {
@@ -40,6 +41,7 @@
   margin: auto;
   top: 0;
   bottom: 0;
+  cursor: pointer;
 }
 
 .select_a_date_header {

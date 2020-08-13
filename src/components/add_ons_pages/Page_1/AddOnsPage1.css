@@ -186,7 +186,6 @@
   .add_ons_title_underline {
     display: flex;
     align-self: center;
-    margin-right: 1.3rem;
     animation: none;
   }
 }
@@ -269,7 +268,6 @@
     animation: big_screen_add_ons_line 1s forwards;
     display: flex;
     align-self: center;
-    margin-right: 1.25rem;
   }
 }
 

@@ -47,6 +47,8 @@ body {
 
 .main_container {
   height: 100vh;
+  /* Important for Smooth Momentum Scrolling */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* For temporarily locking in portrait mode on mobile */
@@ -156,6 +158,14 @@ body {
   border: 2px solid rgb(44, 44, 52);
   color: rgb(44, 44, 52);
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1800px) and (orientation: portrait),
+  only screen and (max-width: 1200px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */

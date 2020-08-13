@@ -344,11 +344,18 @@
 
   .large_screen_shopping_cart_container {
     position: absolute;
-    width: 33.35%;
+    width: 50%;
     right: 0;
     height: 100%;
     overflow: scroll;
     background: rgb(255, 255, 255);
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1400px) {
+  .large_screen_shopping_cart_container {
+    width: 33.35%;
   }
 }
 

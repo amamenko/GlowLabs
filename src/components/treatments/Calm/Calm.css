@@ -6,6 +6,20 @@
   font-size: calc(0.1rem + 2vh);
 }
 
+.book_button_bounce_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip_shown {
+  opacity: 1;
+}
+
+.tooltip_not_shown {
+  opacity: 0;
+}
 /* Safari Only */
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {

@@ -1,20 +1,20 @@
 import React from "react";
-import Calm from "./treatments/Calm/Calm";
-import Clarify from "./treatments/Clarify/Clarify";
-import Bacial from "./treatments/Bacial/Bacial";
-import Glow from "./treatments/Glow/Glow";
-import Rejuvenate from "./treatments/Rejuvenate/Rejuvenate";
-import Quench from "./treatments/Quench/Quench";
-import SaltCave from "./treatments/SaltCave/SaltCave";
-import ChemicalPeel from "./treatments/ChemicalPeel/ChemicalPeel";
-import Dermaplaning from "./treatments/Dermaplaning/Dermaplaning";
-import CBD from "./treatments/CBD/CBD";
-import Microneedle from "./treatments/Microneedle/Microneedle";
-import JetHydroPeel from "./treatments/JetHydroPeel/JetHydroPeel";
-import "./AllTreatments.css";
+import Calm from "../treatments/Calm/Calm";
+import Clarify from "../treatments/Clarify/Clarify";
+import Bacial from "../treatments/Bacial/Bacial";
+import Glow from "../treatments/Glow/Glow";
+import Rejuvenate from "../treatments/Rejuvenate/Rejuvenate";
+import Quench from "../treatments/Quench/Quench";
+import SaltCave from "../treatments/SaltCave/SaltCave";
+import ChemicalPeel from "../treatments/ChemicalPeel/ChemicalPeel";
+import Dermaplaning from "../treatments/Dermaplaning/Dermaplaning";
+import CBD from "../treatments/CBD/CBD";
+import Microneedle from "../treatments/Microneedle/Microneedle";
+import JetHydroPeel from "../treatments/JetHydroPeel/JetHydroPeel";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
 import composeRefs from "@seznam/compose-react-refs";
+import "./AllTreatments.css";
 
 const AllTreatments = React.forwardRef((props, ref) => {
   const {
@@ -144,6 +144,7 @@ const AllTreatments = React.forwardRef((props, ref) => {
           initialScreenSize={initialScreenSize}
           currentScreenSize={currentScreenSize}
           resetAllCartStates={resetAllCartStates}
+          scrollValue={props.scrollValue}
         />
         <Clarify
           initialScreenSize={initialScreenSize}

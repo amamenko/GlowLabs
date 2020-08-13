@@ -34,8 +34,9 @@ import CalmRemovedNotification from "./CalmRemovedNotification";
 import FacialInCartErrorNotification from "../FacialInCartErrorNotification";
 import "./Calm.css";
 import "../../treatments/card_styling.css";
-import { Tooltip } from "react-tippy";
-import "react-tippy/dist/tippy.css";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import { sticky } from "tippy.js";
 import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/ACTION_SALT_CAVE_TOGGLE_RESET";
 import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 
@@ -95,8 +96,9 @@ const Calm = (props) => {
   const [bookNowButtonHovered, changeBookNowButtonHovered] = useState(false);
 
   // Pop-Up States
-  const [userHasNotClicked, changeUserHasNotClicked] = useState(true);
   const [calmClicked, changeCalmClicked] = useState(false);
+  const [scrollFreeze, changeScrollFreeze] = useState("");
+  const [tooltipShow, changeTooltipShow] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -429,47 +431,10 @@ const Calm = (props) => {
             }
             onClick={addToCart}
           >
-            <Tooltip
-              // options
-              title="Click here to book now"
-              position="bottom-end"
-              open={true}
-              sticky={true}
-              arrow={true}
-              stickyDuration={0}
-              hideOnClick={true}
-              animation="fade"
-              distance={30}
-              transitionFlip={false}
-              popperOptions={{
-                modifiers: {
-                  preventOverflow: {
-                    enabled: false,
-                  },
-                  hide: { enabled: false },
-                },
-              }}
-            >
-              <FontAwesomeIcon
-                color={
-                  calmToggle
-                    ? calmInCart
-                      ? "rgba(119, 221, 119, 0.6)"
-                      : bacialInCart |
-                          cbdInCart |
-                          chemicalPeelInCart |
-                          clarifyInCart |
-                          dermaplaningInCart |
-                          glowInCart |
-                          microneedleInCart |
-                          quenchInCart |
-                          quickieInCart |
-                          rejuvenateInCart ||
-                        unsureInCart ||
-                        saltCaveInCart
-                      ? "rgba(211, 211, 211, 0.8)"
-                      : "rgba(0, 129, 177, 0.4)"
-                    : calmInCart
+            <FontAwesomeIcon
+              color={
+                calmToggle
+                  ? calmInCart
                     ? "rgba(119, 221, 119, 0.6)"
                     : bacialInCart |
                         cbdInCart |
@@ -484,20 +449,35 @@ const Calm = (props) => {
                       unsureInCart ||
                       saltCaveInCart
                     ? "rgba(211, 211, 211, 0.8)"
-                    : "rgba(0, 129, 177, 0.3)"
-                }
-                transform={
-                  !props.currentScreenSize
-                    ? props.initialScreenSize >= 360
-                      ? "grow-20"
-                      : "grow-10"
-                    : props.currentScreenSize >= 360
+                    : "rgba(0, 129, 177, 0.4)"
+                  : calmInCart
+                  ? "rgba(119, 221, 119, 0.6)"
+                  : bacialInCart |
+                      cbdInCart |
+                      chemicalPeelInCart |
+                      clarifyInCart |
+                      dermaplaningInCart |
+                      glowInCart |
+                      microneedleInCart |
+                      quenchInCart |
+                      quickieInCart |
+                      rejuvenateInCart ||
+                    unsureInCart ||
+                    saltCaveInCart
+                  ? "rgba(211, 211, 211, 0.8)"
+                  : "rgba(0, 129, 177, 0.3)"
+              }
+              transform={
+                !props.currentScreenSize
+                  ? props.initialScreenSize >= 360
                     ? "grow-20"
                     : "grow-10"
-                }
-                icon={faSquare}
-              />
-            </Tooltip>
+                  : props.currentScreenSize >= 360
+                  ? "grow-20"
+                  : "grow-10"
+              }
+              icon={faSquare}
+            />
             {checkMark()}
             <FontAwesomeIcon
               className="small_screen_card_description_suitcase"
@@ -555,14 +535,61 @@ const Calm = (props) => {
           color: calmToggle ? "rgb(0, 104, 152)" : "rgb(0, 129, 177)",
           transition: "ease all 0.5s",
         }}
-        ref={BookNowButtonRef}
       >
         <p className="card_toggler" onClick={handleToggle}>
           {calmToggle ? "SEE DESCRIPTION" : "LEARN MORE"}
         </p>
         <span className="card_bottom_spacer" />
-
-        {bookButtonBounce()}
+        <div className="book_button_bounce_container" ref={BookNowButtonRef}>
+          {bookButtonBounce()}
+        </div>
+        <Tippy
+          // options
+          content="Click here to book now"
+          placement="bottom-end"
+          showOnCreate={true}
+          sticky={true}
+          animation="fade"
+          arrow={true}
+          trigger="manual"
+          className={tooltipShow ? "tooltip_shown" : "tooltip_not_shown"}
+          reference={BookNowButtonRef}
+          zIndex={100}
+          hideOnClick={true}
+          delay={2000}
+          plugins={[sticky]}
+          onAfterUpdate={() => {
+            if (scrollFreeze !== "") {
+              if (props.scrollValue !== scrollFreeze) {
+                changeTooltipShow(false);
+              }
+            }
+          }}
+          onShown={() => changeScrollFreeze(props.scrollValue)}
+          popperOptions={{
+            modifiers: [
+              {
+                name: "flip",
+                options: {
+                  fallbackPlacements: ["bottom"],
+                },
+              },
+              {
+                name: "preventOverflow",
+                options: {
+                  enabled: false,
+                  rootBoundary: "document",
+                },
+              },
+              {
+                name: "hide",
+                options: {
+                  enabled: false,
+                },
+              },
+            ],
+          }}
+        />
       </div>
     );
   };

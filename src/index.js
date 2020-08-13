@@ -142,7 +142,8 @@ import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE"
 import PreventOrientation from "prevent-orientation";
 import { isAndroid } from "react-device-detect";
 import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
-import AllTreatments from "./components/AllTreatments";
+import AllTreatments from "./components/all_treatments/AllTreatments";
+import AllAddOns from "./components/all_add_ons/AllAddOns";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -1389,7 +1390,7 @@ const App = () => {
               className="main_container"
               onScroll={(e) => handleScrollDirection(e)}
               ref={MainContainerRef}
-              style={{ overflow: splashScreenComplete ? "auto" : "hidden" }}
+              style={{ overflow: splashScreenComplete ? "scroll" : "hidden" }}
             >
               {redirectToCartRoutes()}
               <LandingPage
@@ -1421,46 +1422,17 @@ const App = () => {
                   treatmentsPageIsNotVisibleFunction
                 }
                 treatmentsPageInView={treatmentsPageInView}
+                scrollValue={scrollValue}
               />
-              {/* <TreatmentsPage1
+              <AllAddOns
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
-                Treatments1Ref={Treatments1Ref}
-                resetAllCartStates={resetAllCartStates}
-                treatmentsPageIsVisibleFunction={
-                  treatmentsPageIsVisibleFunction
+                AddOnsRef={AddOnsRef}
+                resetAllCartStatesExceptTreatments={
+                  resetAllCartStatesExceptTreatments
                 }
-                treatmentsPageIsNotVisibleFunction={
-                  treatmentsPageIsNotVisibleFunction
-                }
-                treatmentsPageInView={treatmentsPageInView}
               />
-              <TreatmentsPage2
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStates={resetAllCartStates}
-              />
-              <TreatmentsPage3
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStates={resetAllCartStates}
-              />
-              <TreatmentsPage4
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStates={resetAllCartStates}
-              />
-              <TreatmentsPage5
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStates={resetAllCartStates}
-              />
-              <TreatmentsPage6
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStates={resetAllCartStates}
-              /> */}
-              <AddOnsPage1
+              {/* <AddOnsPage1
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 AddOnsRef={AddOnsRef}
@@ -1495,7 +1467,7 @@ const App = () => {
                 resetAllCartStatesExceptTreatments={
                   resetAllCartStatesExceptTreatments
                 }
-              />
+              /> */}
               <Instagram
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}

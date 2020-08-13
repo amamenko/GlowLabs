@@ -511,7 +511,7 @@ const Microcurrent = (props) => {
   return (
     <InView threshold={0.2} triggerOnce={true}>
       {({ inView, ref }) => (
-        <div className="microcurrent_wrapping" ref={ref}>
+        <div className="card_container" ref={ref}>
           {inView ? (
             <Spring
               from={{ position: "relative", opacity: 0 }}
