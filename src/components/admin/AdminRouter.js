@@ -14,12 +14,13 @@ import AdminSchedule from "./AdminSchedule/AdminSchedule";
 import AdminSaltCaveSchedule from "./AdminSaltCaveSchedule/AdminSaltCaveSchedule";
 
 const AdminRouter = (props) => {
-  const { data: getClientsData, refetch: getClientsRefetch } = useQuery(
-    getClientsQuery,
-    {
-      fetchPolicy: "no-cache",
-    }
-  );
+  const {
+    data: getClientsData,
+    refetch: getClientsRefetch,
+    loading: getClientsLoading,
+  } = useQuery(getClientsQuery, {
+    fetchPolicy: "no-cache",
+  });
 
   const { data: getAllAppointmentsData } = useQuery(getAllAppointmentsQuery, {
     fetchPolicy: "no-cache",
@@ -46,6 +47,7 @@ const AdminRouter = (props) => {
         currentScreenSize={props.currentScreenSize}
         getEmployeeData={props.getEmployeeData ? props.getEmployeeData : null}
         employeeDataRefetch={props.employeeDataRefetch}
+        getClientsLoading={getClientsLoading}
       />
       <Switch>
         <Route
@@ -85,6 +87,7 @@ const AdminRouter = (props) => {
               currentScreenSize={props.currentScreenSize}
               getClientsData={getClientsData ? getClientsData : null}
               getClientsRefetch={getClientsRefetch}
+              getClientsLoading={getClientsLoading}
               randomColorArray={randomColorArray ? randomColorArray : null}
             />
           )}

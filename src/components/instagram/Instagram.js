@@ -19,7 +19,11 @@ const Instagram = React.forwardRef((props, ref) => {
     threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2,
   });
   return (
-    <div className="instagram_page_wrapping" ref={props.InstagramRef}>
+    <div
+      className="instagram_page_wrapping"
+      ref={props.InstagramRef}
+      id={props.name}
+    >
       <header className="instagram_page_header" ref={inViewRef}>
         {inView ? (
           <Spring

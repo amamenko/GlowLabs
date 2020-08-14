@@ -142,6 +142,14 @@
   }
 }
 
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .all_treatments_header h2 {
+    font-size: calc(1rem + 4.5vh);
+    padding-bottom: calc(1rem + 3.5vh);
+  }
+}
+
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2000px) {
   .all_treatments_container {

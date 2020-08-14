@@ -19,7 +19,11 @@ const AllAddOns = React.forwardRef((props, ref) => {
   });
 
   return (
-    <div className="all_add_ons_container" ref={props.AddOnsRef}>
+    <div
+      className="all_add_ons_container"
+      ref={props.AddOnsRef}
+      id={props.name}
+    >
       <header className="all_add_ons_header" ref={inViewRef}>
         {inView ? (
           <Spring

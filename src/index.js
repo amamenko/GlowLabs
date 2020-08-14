@@ -144,6 +144,14 @@ import { isAndroid } from "react-device-detect";
 import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
 import AllTreatments from "./components/all_treatments/AllTreatments";
 import AllAddOns from "./components/all_add_ons/AllAddOns";
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller,
+} from "react-scroll";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -190,6 +198,7 @@ const App = () => {
   );
   const [scrollValue, changeScrollValue] = useState(0);
   const [scrollDirection, changeScrollDirection] = useState("");
+  const [navMenuScrollClicked, changeNavMenuScrollClicked] = useState(false);
 
   // Needed for large screen frozen position when cart is toggled due to Square form causing re-rendering
   const [
@@ -238,6 +247,8 @@ const App = () => {
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [treatmentsPageInView, changeTreatmentsPageInView] = useState(false);
+
+  const [redirectActive, changeRedirectActive] = useState(false);
 
   // For large screen shopping cart slide-in
   const [cartSlideDelay, changeCartSlideDelay] = useState(false);
@@ -390,6 +401,12 @@ const App = () => {
     }
   };
 
+  const redirectToRoot = () => {
+    if (redirectActive) {
+      return <Redirect to="/" />;
+    }
+  };
+
   useEffect(() => {
     if (cartIsActive) {
       if (document.body.style.background !== "rgb(255, 255, 255") {
@@ -476,15 +493,34 @@ const App = () => {
   }, [dispatch, location.pathname, cartIsActive]);
 
   const handleNavbarToggle = () => {
-    if (navbarToggle) {
-      dispatch(ACTION_NAVBAR_TOGGLE_RESET());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      dispatch(ACTION_BODY_SCROLL_ALLOW());
+    if (!currentScreenSize) {
+      // If Portrait Mode
+      if (initialScreenHeight > initialScreenSize) {
+        if (navbarToggle) {
+          dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          dispatch(ACTION_BODY_SCROLL_ALLOW());
+        } else {
+          dispatch(ACTION_NAVBAR_TOGGLE());
+          dispatch(ACTION_BODY_SCROLL_RESET());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          toast.dismiss();
+        }
+      }
     } else {
-      dispatch(ACTION_NAVBAR_TOGGLE());
-      dispatch(ACTION_BODY_SCROLL_RESET());
-      dispatch(ACTION_NAVBAR_IS_VISIBLE());
-      toast.dismiss();
+      // If Portrait Mode
+      if (currentScreenHeight > currentScreenSize) {
+        if (navbarToggle) {
+          dispatch(ACTION_NAVBAR_TOGGLE_RESET());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          dispatch(ACTION_BODY_SCROLL_ALLOW());
+        } else {
+          dispatch(ACTION_NAVBAR_TOGGLE());
+          dispatch(ACTION_BODY_SCROLL_RESET());
+          dispatch(ACTION_NAVBAR_IS_VISIBLE());
+          toast.dismiss();
+        }
+      }
     }
   };
 
@@ -502,163 +538,107 @@ const App = () => {
     };
   }, [currentScreenSize, initialScreenSize, touchScaling]);
 
-  const handleClickToScrollToHome = async (ref) => {
-    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
-      await import("scroll-behavior-polyfill");
-    }
-    window.scrollTo({
-      top: LandingPageRef.current.offsetTop - 10,
-      behavior: "smooth",
+  const scrollFunction = (element) => {
+    scroller.scrollTo(element, {
+      duration: 500,
+      smooth: true,
+      isDynamic: true,
+      offset: -(!currentScreenHeight
+        ? initialScreenHeight * 0.07
+        : currentScreenHeight * 0.07),
+      containerId: "main_container_element",
     });
   };
 
-  const handleRedirectClickToHome = () => {
+  const handleNavMenuScrollClick = () => {
+    changeNavMenuScrollClicked(true);
+
+    setTimeout(() => {
+      changeNavMenuScrollClicked(false);
+    }, 1000);
+  };
+
+  const handleClickToScrollToHome = () => {
     if (location.pathname !== "/") {
-      window.scrollTo({
-        top: LandingPageRef.current.offsetTop - 10,
-        behavior: "auto",
-      });
+      changeRedirectActive(true);
+
+      setTimeout(() => {
+        changeRedirectActive(false);
+        scrollFunction("landing_page");
+      }, 1000);
     }
+
+    handleNavbarToggle();
+    handleNavMenuScrollClick();
+
+    scrollFunction("landing_page");
   };
 
-  const handleClickToScrollToTreatments = async (ref) => {
-    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
-      await import("scroll-behavior-polyfill");
+  const handleClickToScrollToTreatments = (source) => {
+    if (location.pathname !== "/") {
+      changeRedirectActive(true);
+
+      setTimeout(() => {
+        changeRedirectActive(false);
+        scrollFunction("treatments");
+      }, 500);
     }
 
-    window.scrollTo({
-      top:
-        currentScreenSize === ""
-          ? initialScreenSize >= 2200
-            ? Treatments1Ref.current.offsetTop - 105
-            : initialScreenSize >= 1200
-            ? Treatments1Ref.current.offsetTop - 50
-            : initialScreenSize >= 600
-            ? previousScrollPosition < 450
-              ? Treatments1Ref.current.offsetTop
-              : initialScreenSize >= 768
-              ? Treatments1Ref.current.offsetTop - 80
-              : Treatments1Ref.current.offsetTop - 40
-            : previousScrollPosition < 650
-            ? Treatments1Ref.current.offsetTop - 10
-            : Treatments1Ref.current.offsetTop - 80
-          : currentScreenSize >= 2200
-          ? Treatments1Ref.current.offsetTop - 105
-          : currentScreenSize >= 1200
-          ? Treatments1Ref.current.offsetTop - 50
-          : currentScreenSize >= 600
-          ? previousScrollPosition < 450
-            ? Treatments1Ref.current.offsetTop
-            : currentScreenSize >= 768
-            ? Treatments1Ref.current.offsetTop - 80
-            : Treatments1Ref.current.offsetTop - 40
-          : previousScrollPosition < 650
-          ? Treatments1Ref.current.offsetTop - 10
-          : Treatments1Ref.current.offsetTop - 80,
-      behavior: "smooth",
-    });
+    if (!source) {
+      handleNavbarToggle();
+    }
+
+    handleNavMenuScrollClick();
+
+    scrollFunction("treatments");
   };
 
-  const handleClickToScrollToAddOns = async (ref) => {
-    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
-      await import("scroll-behavior-polyfill");
+  const handleClickToScrollToAddOns = () => {
+    if (location.pathname !== "/") {
+      changeRedirectActive(true);
+
+      setTimeout(() => {
+        changeRedirectActive(false);
+        scrollFunction("add_ons");
+      }, 500);
     }
 
-    window.scrollTo({
-      top:
-        currentScreenSize === ""
-          ? initialScreenSize >= 2200
-            ? AddOnsRef.current.offsetTop - 105
-            : initialScreenSize >= 1200
-            ? AddOnsRef.current.offsetTop - 50
-            : initialScreenSize >= 600
-            ? previousScrollPosition < 2000
-              ? AddOnsRef.current.offsetTop
-              : AddOnsRef.current.offsetTop - 60
-            : previousScrollPosition < 3900
-            ? AddOnsRef.current.offsetTop - 5
-            : AddOnsRef.current.offsetTop - 70
-          : currentScreenSize >= 2200
-          ? AddOnsRef.current.offsetTop - 105
-          : currentScreenSize >= 1200
-          ? AddOnsRef.current.offsetTop - 50
-          : currentScreenSize >= 600
-          ? previousScrollPosition < 2000
-            ? AddOnsRef.current.offsetTop
-            : AddOnsRef.current.offsetTop - 60
-          : previousScrollPosition < 3900
-          ? AddOnsRef.current.offsetTop - 5
-          : AddOnsRef.current.offsetTop - 70,
-      behavior: "smooth",
-    });
+    handleNavbarToggle();
+    handleNavMenuScrollClick();
+
+    scrollFunction("add_ons");
   };
 
-  const handleClickToScrollToInstagram = async (ref) => {
-    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
-      await import("scroll-behavior-polyfill");
+  const handleClickToScrollToInstagram = () => {
+    if (location.pathname !== "/") {
+      changeRedirectActive(true);
+
+      setTimeout(() => {
+        changeRedirectActive(false);
+        scrollFunction("instagram");
+      }, 500);
     }
 
-    window.scrollTo({
-      top:
-        currentScreenSize === ""
-          ? initialScreenSize >= 2200
-            ? InstagramRef.current.offsetTop - 280
-            : initialScreenSize >= 1200
-            ? InstagramRef.current.offsetTop - 250
-            : initialScreenSize >= 600
-            ? previousScrollPosition < 3700
-              ? initialScreenSize >= 768
-                ? InstagramRef.current.offsetTop - 295
-                : InstagramRef.current.offsetTop - 150
-              : initialScreenSize >= 768
-              ? InstagramRef.current.offsetTop - 360
-              : InstagramRef.current.offsetTop - 220
-            : previousScrollPosition < 6400
-            ? InstagramRef.current.offsetTop - 290
-            : InstagramRef.current.offsetTop - 350
-          : currentScreenSize >= 2200
-          ? InstagramRef.current.offsetTop - 280
-          : currentScreenSize >= 1200
-          ? InstagramRef.current.offsetTop - 250
-          : currentScreenSize >= 600
-          ? previousScrollPosition < 3700
-            ? currentScreenSize >= 768
-              ? InstagramRef.current.offsetTop - 295
-              : InstagramRef.current.offsetTop - 150
-            : currentScreenSize >= 768
-            ? InstagramRef.current.offsetTop - 360
-            : InstagramRef.current.offsetTop - 220
-          : previousScrollPosition < 6400
-          ? InstagramRef.current.offsetTop - 290
-          : InstagramRef.current.offsetTop - 350,
-      behavior: "smooth",
-    });
+    handleNavbarToggle();
+    handleNavMenuScrollClick();
+
+    scrollFunction("instagram");
   };
 
-  const handleClickToScrollToContact = async (ref) => {
-    if (CSS.supports(`(-webkit-overflow-scrolling: touch)`)) {
-      await import("scroll-behavior-polyfill");
+  const handleClickToScrollToContact = () => {
+    if (location.pathname !== "/") {
+      changeRedirectActive(true);
+
+      setTimeout(() => {
+        changeRedirectActive(false);
+        scrollFunction("contact");
+      }, 500);
     }
 
-    window.scrollTo({
-      top:
-        currentScreenSize === ""
-          ? initialScreenSize >= 1800
-            ? ContactRef.current.offsetTop - 310
-            : initialScreenSize >= 1200
-            ? ContactRef.current.offsetTop - 210
-            : previousScrollPosition < 7200
-            ? ContactRef.current.offsetTop - 10
-            : ContactRef.current.offsetTop - 80
-          : currentScreenSize >= 1800
-          ? ContactRef.current.offsetTop - 310
-          : currentScreenSize >= 1200
-          ? ContactRef.current.offsetTop - 210
-          : previousScrollPosition < 7200
-          ? ContactRef.current.offsetTop - 10
-          : ContactRef.current.offsetTop - 80,
-      behavior: "smooth",
-    });
+    handleNavbarToggle();
+    handleNavMenuScrollClick();
+
+    scrollFunction("contact");
   };
 
   const ref = {
@@ -687,7 +667,9 @@ const App = () => {
               if (navbarToggle) {
                 dispatch(ACTION_NAVBAR_IS_VISIBLE());
               } else {
-                dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+                if (!navMenuScrollClicked) {
+                  dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+                }
               }
             }
           } else {
@@ -706,6 +688,7 @@ const App = () => {
     }
   }, [
     scrollValue,
+    navMenuScrollClicked,
     previousScrollPosition,
     navbarVisible,
     navbarToggle,
@@ -1216,6 +1199,7 @@ const App = () => {
   return (
     <>
       {redirectToHome()}
+      {redirectToRoot()}
       <Modal
         isOpen={logoutClicked}
         style={{
@@ -1391,6 +1375,7 @@ const App = () => {
               onScroll={(e) => handleScrollDirection(e)}
               ref={MainContainerRef}
               style={{ overflow: splashScreenComplete ? "scroll" : "hidden" }}
+              id="main_container_element"
             >
               {redirectToCartRoutes()}
               <LandingPage
@@ -1408,9 +1393,12 @@ const App = () => {
                 navbarVisible={navbarVisible}
                 treatmentsPageInView={treatmentsPageInView}
                 scrollDirection={scrollDirection}
+                scrollValue={scrollValue}
                 ref={ref}
+                name="landing_page"
               />
               <AllTreatments
+                name="treatments"
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
                 Treatments1Ref={Treatments1Ref}
@@ -1425,6 +1413,7 @@ const App = () => {
                 scrollValue={scrollValue}
               />
               <AllAddOns
+                name="add_ons"
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
                 AddOnsRef={AddOnsRef}
@@ -1469,11 +1458,13 @@ const App = () => {
                 }
               /> */}
               <Instagram
+                name="instagram"
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 InstagramRef={InstagramRef}
               />
               <Contact
+                name="contact"
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 ContactRef={ContactRef}

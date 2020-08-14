@@ -33,6 +33,7 @@
 
 .right_nav > h2 {
   display: none;
+  cursor: pointer;
 }
 
 .left_nav p,

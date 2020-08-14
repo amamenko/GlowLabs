@@ -19,6 +19,7 @@ import ACTION_TOUCH_SCALING_RESET from "../../actions/FingerTouchScaling/ACTION_
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import { useLocation } from "react-router-dom";
 import "./LandingPage.css";
+import { Element } from "react-scroll";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { Treatments1Ref, LandingPageRef } = ref;
@@ -114,11 +115,11 @@ const LandingPage = React.forwardRef((props, ref) => {
   const changeScroll = useCallback(() => {
     const userScroll = !props.currentScreenSize
       ? props.initialScreenSize >= 600
-        ? window.scrollY < 50
-        : window.scrollY < 345
+        ? props.scrollValue < 50
+        : props.scrollValue < 345
       : props.currentScreenSize >= 600
-      ? window.scrollY < 50
-      : window.scrollY < 345;
+      ? props.scrollValue < 50
+      : props.scrollValue < 345;
 
     if (!userScroll) {
       dispatch(ACTION_USER_SCROLLED());
@@ -262,9 +263,9 @@ const LandingPage = React.forwardRef((props, ref) => {
       ) {
         document.body.style.setProperty("background", "rgb(255, 255, 255)");
       } else {
-        if (window.scrollY <= 50) {
+        if (props.scrollValue <= 50) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
-        } else if (window.scrollY >= 8250) {
+        } else if (props.scrollValue >= 8250) {
           document.body.style.setProperty("background", "rgb(0, 129, 177)");
         } else {
           document.body.style.setProperty("background", "rgb(255, 255, 255)");
@@ -322,6 +323,7 @@ const LandingPage = React.forwardRef((props, ref) => {
         transition: "background 2s ease-out",
         zIndex: finalBookingModal ? -1 : "auto",
       }}
+      id={props.name}
     >
       <section className="main_content">
         <div
@@ -331,7 +333,7 @@ const LandingPage = React.forwardRef((props, ref) => {
               props.currentScreenSize === ""
                 ? props.initialScreenSize <= 1000 &&
                   props.initialScreenSize >= 600
-                  ? window.scrollY <= 1
+                  ? props.scrollValue <= 1
                     ? navbarToggle
                       ? "1"
                       : "500"
@@ -339,7 +341,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                   : "1"
                 : props.currentScreenSize <= 1000 &&
                   props.currentScreenSize >= 600
-                ? window.scrollY <= 1
+                ? props.scrollValue <= 1
                   ? navbarToggle
                     ? "1"
                     : "500"
@@ -418,7 +420,9 @@ const LandingPage = React.forwardRef((props, ref) => {
                     ? "100%"
                     : "65%"
                 }
-                style={{ opacity: `${propstyles.opacity}` }}
+                style={{
+                  opacity: splashScreenComplete ? 1 : `${propstyles.opacity}`,
+                }}
                 viewBox="0 0 56.356 56.356"
               >
                 {/* Bottom Shelf */}
@@ -869,7 +873,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                         props.currentScreenSize === ""
                           ? props.initialScreenSize <= 1000 &&
                             props.initialScreenSize >= 550
-                            ? window.scrollY <= 2
+                            ? props.scrollValue <= 2
                               ? navbarToggle
                                 ? "1"
                                 : "500"
@@ -877,7 +881,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                             : "1"
                           : props.currentScreenSize <= 1000 &&
                             props.currentScreenSize >= 550
-                          ? window.scrollY <= 2
+                          ? props.scrollValue <= 2
                             ? navbarToggle
                               ? "1"
                               : "500"
@@ -919,9 +923,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       >
                         <p
                           onClick={() =>
-                            props.handleClickToScrollToTreatments(
-                              Treatments1Ref
-                            )
+                            props.handleClickToScrollToTreatments("cta")
                           }
                         >
                           GET STARTED NOW
@@ -936,7 +938,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       }}
                       className="landing_page_cta"
                       onClick={() =>
-                        props.handleClickToScrollToTreatments(Treatments1Ref)
+                        props.handleClickToScrollToTreatments("cta")
                       }
                     >
                       <FontAwesomeIcon

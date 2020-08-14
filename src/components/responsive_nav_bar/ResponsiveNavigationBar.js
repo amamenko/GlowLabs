@@ -27,6 +27,7 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
+import * as Scroll from "react-scroll";
 
 const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
   const {
@@ -36,6 +37,8 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
     InstagramRef,
     ContactRef,
   } = ref;
+
+  let ScrollLink = Scroll.Link;
 
   const Nav_Ref = useRef(null);
 
@@ -710,6 +713,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
       </div>
       <div className="right_nav">
         <h2
+          onClick={props.handleClickToScrollToHome}
           style={{
             color:
               props.currentScreenSize === ""
@@ -736,6 +740,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
           HOME
         </h2>
         <h2
+          onClick={props.handleClickToScrollToTreatments}
           style={{
             color:
               props.currentScreenSize === ""
@@ -784,10 +789,12 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                   : "rgb(239, 240, 243)"
                 : "rgb(239, 240, 243)",
           }}
+          onClick={props.handleClickToScrollToAddOns}
         >
           ADD-ONS
         </h2>
         <h2
+          onClick={props.handleClickToScrollToInstagram}
           style={{
             color:
               props.currentScreenSize === ""

@@ -306,7 +306,8 @@ const LargeScreenSideMenu = (props) => {
             pdfLoading ||
             addProfilePhotoClicked ||
             loadingSpinnerActive ||
-            imageLoading
+            imageLoading ||
+            props.getClientsLoading
           ? "blur(5px) brightness(50%)"
           : "none",
         pointerEvents:
@@ -317,7 +318,8 @@ const LargeScreenSideMenu = (props) => {
           pdfLoading ||
           addProfilePhotoClicked ||
           loadingSpinnerActive ||
-          imageLoading
+          imageLoading ||
+          props.getClientsLoading
             ? "none"
             : "auto",
         display:

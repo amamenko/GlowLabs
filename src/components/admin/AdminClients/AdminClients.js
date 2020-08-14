@@ -652,14 +652,16 @@ const AdminClients = (props) => {
     <div className="admin_clients_container">
       {redirectToAdminLogInPage()}
       <Modal
-        isOpen={imageLoading || loadingSpinnerActive}
+        isOpen={imageLoading || loadingSpinnerActive || props.getClientsLoading}
         className="complete_registration_loading_modal"
       >
         <BounceLoader
           size={100}
           css={override}
           color={"rgb(44, 44, 52)"}
-          loading={imageLoading || loadingSpinnerActive}
+          loading={
+            imageLoading || loadingSpinnerActive || props.getClientsLoading
+          }
         />
       </Modal>
       <div
@@ -670,10 +672,14 @@ const AdminClients = (props) => {
             addProfilePhotoClicked ||
             loadingSpinnerActive ||
             imageLoading ||
-            cancelAppointmentClicked
+            cancelAppointmentClicked ||
+            props.getClientsLoading
               ? 0
               : 5,
-          filter: cancelAppointmentClicked ? "blur(5px)" : "none",
+          filter:
+            cancelAppointmentClicked || props.getClientsLoading
+              ? "blur(5px)"
+              : "none",
         }}
       >
         <Link to="/admin/menu">

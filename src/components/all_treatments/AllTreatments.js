@@ -47,6 +47,7 @@ const AllTreatments = React.forwardRef((props, ref) => {
     <>
       <div
         className="all_treatments_container"
+        id={props.name}
         ref={composeRefs(Treatments1Ref, multipleTriggerInViewRef)}
       >
         <header className="all_treatments_header" ref={inViewRef}>

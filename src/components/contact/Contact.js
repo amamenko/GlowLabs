@@ -27,7 +27,11 @@ const Contact = React.forwardRef((props, ref) => {
   };
 
   return (
-    <div className="contact_page_container" ref={props.ContactRef}>
+    <div
+      className="contact_page_container"
+      ref={props.ContactRef}
+      id={props.name}
+    >
       <div className="contact_ref_wrapper" ref={inViewRef}>
         {inView ? (
           <Spring

@@ -46,7 +46,8 @@ body {
 }
 
 .main_container {
-  height: 100vh;
+  /* Height is specific to block body background showing  */
+  height: 103vh;
   /* Important for Smooth Momentum Scrolling */
   -webkit-overflow-scrolling: touch;
 }
