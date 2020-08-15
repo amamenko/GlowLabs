@@ -134,6 +134,10 @@
   -webkit-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav_burger_menu_no_shadow {
@@ -141,6 +145,52 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+
+.nav_burger_menu_logo_container {
+  width: 100%;
+  height: 15%;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav_burger_menu_items {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+.nav_burger_menu_items li:not(:last-child) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  font-size: 3vh;
+  margin-bottom: 4vh;
+  font-weight: 500;
+  color: rgb(239, 240, 243);
+  cursor: pointer;
+}
+
+.nav_burger_menu_items li svg {
+  font-size: 4vh;
+  margin-right: 4vw;
+}
+
+/* .nav_burger_menu_items li:not(:last-child) svg {
+       margin-top: 0.1vh;
+   } */
+
+.navbar_social_media_icons {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .nav_sign_in_link_container {

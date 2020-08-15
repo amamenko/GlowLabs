@@ -15,6 +15,7 @@
 .landing_page_drawing svg {
   display: block;
   margin: 0 auto;
+  transition: opacity 0.5s ease;
 }
 
 .bottom_content {
@@ -28,11 +29,13 @@
 .landing_page_text_block h1 {
   grid-area: top-text;
   font-size: 6vw;
+  transition: opacity 0.5s ease;
 }
 
 .landing_page_description {
   grid-area: description;
   font-size: 3vw;
+  transition: opacity 0.5s ease;
 }
 
 @keyframes bounce {
@@ -56,6 +59,7 @@
   -moz-animation: bounce 2s infinite;
   -webkit-animation: bounce 2s infinite;
   animation: bounce 2s infinite;
+  transition: opacity 0.5s ease;
 }
 
 .landing_page_text_block {

@@ -263,7 +263,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       ) {
         document.body.style.setProperty("background", "rgb(255, 255, 255)");
       } else {
-        if (props.scrollValue <= 50) {
+        if (props.scrollValue < 0) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
         } else if (props.scrollValue >= 8250) {
           document.body.style.setProperty("background", "rgb(0, 129, 177)");

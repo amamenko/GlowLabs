@@ -168,6 +168,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    align-self: flex-start;
   }
 
   .navbar_social_media_icons a {
