@@ -13,21 +13,25 @@ import Beard from "../add_ons/Beard/Beard";
 import "./AllAddOns.css";
 
 const AllAddOns = React.forwardRef((props, ref) => {
-  const headlineRef = useRef(null);
+  const {
+    AddOnsRef,
+    name,
+    initialScreenSize,
+    currentScreenSize,
+    resetAllCartStatesExceptTreatments,
+  } = props;
+
+  const addOnsHeaderRef = useRef(null);
 
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2,
+    threshold: initialScreenSize >= 1200 ? 0.7 : 0.2,
   });
 
   const [pageRendered, changePageRendered] = useState(false);
 
   return (
-    <div
-      className="all_add_ons_container"
-      ref={props.AddOnsRef}
-      id={props.name}
-    >
+    <div className="all_add_ons_container" ref={AddOnsRef} id={name}>
       <header className="all_add_ons_header" ref={inViewRef}>
         {inView ? (
           <Spring
@@ -39,8 +43,8 @@ const AllAddOns = React.forwardRef((props, ref) => {
             to={{
               position: "relative",
               opacity: 1,
-              width: headlineRef.current
-                ? headlineRef.current.clientWidth + "px"
+              width: addOnsHeaderRef.current
+                ? addOnsHeaderRef.current.clientWidth + "px"
                 : "0px",
             }}
             immediate={pageRendered}
@@ -54,7 +58,7 @@ const AllAddOns = React.forwardRef((props, ref) => {
                     position: `${styles.position}`,
                     opacity: `${styles.opacity}`,
                   }}
-                  ref={headlineRef}
+                  ref={addOnsHeaderRef}
                 >
                   YOUR ADD-ONS
                 </h2>
@@ -86,67 +90,49 @@ const AllAddOns = React.forwardRef((props, ref) => {
         ) : null}
       </header>
       <ExtraExtractions
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <HydroJellyMask
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <LEDTherapy
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <Microcurrent
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <Microdermabrasion
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <Dermarolling
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <NanoNeedling
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <GuaSha
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
       <Beard
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        resetAllCartStatesExceptTreatments={
-          props.resetAllCartStatesExceptTreatments
-        }
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
       />
     </div>
   );

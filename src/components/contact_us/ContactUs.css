@@ -12,10 +12,10 @@
   height: 100%;
   width: 100%;
   content: "";
-  background: linear-gradient(
+  background-image: linear-gradient(
     to right,
-    rgba(2, 0, 36, 0) 45%,
-    rgba(255, 255, 255, 1) 50%
+    rgba(255, 255, 255, 0) 35%,
+    rgba(255, 255, 255, 1) 45%
   );
   background-repeat: no-repeat;
   background-position: fixed;
@@ -27,14 +27,132 @@
   grid-area: header;
 }
 
+.contact_us_header h1 {
+  font-size: 3.5vh;
+  font-weight: 900;
+  color: rgb(44, 44, 52);
+  -webkit-text-fill-color: rgb(44, 44, 52);
+  line-height: 0.5rem;
+  padding-bottom: 2.5vh;
+  padding-top: 0.5rem;
+  display: inline-block;
+}
+
+.contact_us_address_container {
+  grid-area: address;
+  font-size: 3vh;
+}
+
+.contact_us_contact_container {
+  grid-area: contact;
+  font-size: 3vh;
+}
+
+.contact_us_address_container > *,
+.contact_us_contact_container > * {
+  padding-bottom: 0.5vh;
+  padding-top: 0.5vh;
+}
+
+.contact_us_availability_container {
+  grid-area: hours;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 3vh;
+}
+
+.contact_us_availability_container p {
+  padding-bottom: 0.5vh;
+  padding-top: 0.5vh;
+}
+
+.contact_us_open_status {
+  grid-area: open;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact_us_open_status p {
+  font-size: 3vh;
+}
+
+.contact_us_days_container {
+  margin-right: 3vw;
+}
+
 .contact_us_page_container {
-  height: 100vh;
+  height: 100%;
   display: grid;
-  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-rows: 15% 20% 20% 20% 20%;
   grid-template-areas:
-    "map map header header"
-    "map map . ."
-    "map map . ."
-    "map map . .";
+    "map map map map map map header header header"
+    "map map map map map  map address contact contact"
+    "map map map map map map hours open open"
+    "map map map map map map hours open open"
+    "map map map map map map . . .";
   grid-gap: 1rem;
+  padding-top: 5vh;
+}
+
+.contact_us_underline {
+  border-bottom: 3px solid rgb(44, 44, 52);
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+@media only screen and (min-width: 375px) {
+  .contact_us_header h1 {
+    font-size: 3vh;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) {
+  .contact_us_header h1 {
+    font-size: 4vh;
+    padding-bottom: 3vh;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  .contact_us_header h1 {
+    font-size: 5vh;
+    padding-bottom: 4vh;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) {
+  .contact_us_header h1 {
+    font-size: 5vh;
+    padding-bottom: 4vh;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .contact_us_header h1 {
+    font-size: calc(0.5rem + 3vh);
+    padding-bottom: calc(0.5rem + 3vh);
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .contact_us_header h1 {
+    font-size: calc(1rem + 4.5vh);
+    padding-bottom: calc(1rem + 3.5vh);
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2000px) {
+  .contact_us_header h1 {
+    font-size: calc(1rem + 4.5vh);
+    padding-bottom: calc(1rem + 4.5vh);
+  }
 }

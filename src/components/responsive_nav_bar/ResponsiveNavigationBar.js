@@ -682,7 +682,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             </li>
             <li onClick={() => navMenuScrollToContact()}>
               <FcAbout />
-              Contact
+              Contact Us
             </li>
             <li className="navbar_social_media_icons">
               <FontAwesomeIcon

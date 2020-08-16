@@ -15,11 +15,12 @@ import NeonSign from "../../images/FollowUsImages/NeonSign.jpg";
 import Dermaplaning from "../../images/FollowUsImages/Dermaplaning.jpg";
 
 const FollowUs = React.forwardRef((props, ref) => {
-  const headlineRef = useRef(null);
+  const { InstagramRef, initialScreenSize, name } = props;
+  const followUsHeaderRef = useRef(null);
 
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
-    threshold: props.initialScreenSize >= 1200 ? 0.3 : 0.2,
+    threshold: initialScreenSize >= 1200 ? 0.3 : 0.2,
   });
 
   const [pageRendered, changePageRendered] = useState(false);
@@ -27,8 +28,8 @@ const FollowUs = React.forwardRef((props, ref) => {
   return (
     <div
       className="follow_us_container"
-      id={props.name}
-      ref={composeRefs(props.InstagramRef, inViewRef)}
+      id={name}
+      ref={composeRefs(InstagramRef, inViewRef)}
     >
       {inView ? (
         <>
@@ -40,8 +41,8 @@ const FollowUs = React.forwardRef((props, ref) => {
               }}
               to={{
                 opacity: 1,
-                width: headlineRef.current
-                  ? headlineRef.current.clientWidth + "px"
+                width: followUsHeaderRef.current
+                  ? followUsHeaderRef.current.clientWidth + "px"
                   : "0px",
               }}
               immediate={pageRendered}
@@ -54,7 +55,7 @@ const FollowUs = React.forwardRef((props, ref) => {
                     style={{
                       opacity: `${styles.opacity}`,
                     }}
-                    ref={headlineRef}
+                    ref={followUsHeaderRef}
                   >
                     FOLLOW US
                   </h1>
