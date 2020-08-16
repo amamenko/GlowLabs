@@ -1,6 +1,5 @@
 .navbar {
   background: rgb(44, 44, 52);
-  height: 8vh;
   width: 100%;
   position: absolute;
   top: 0;
@@ -9,6 +8,7 @@
   align-items: center;
   justify-content: space-between;
   overflow-y: hidden;
+  height: 100%;
 }
 
 .left_nav {
@@ -265,6 +265,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-menu-wrap {
   position: fixed;
   height: 100%;
+  bottom: 0;
   left: 0;
   top: 0;
 }
@@ -274,6 +275,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background: rgb(44, 44, 52);
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
+  width: 100%;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -294,9 +296,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Styling of overlay */
 .bm-overlay {
+  height: 100vh !important;
   width: 150%;
   background: rgba(0, 0, 0, 0.8);
   top: 0;
+  left: 0;
 }
 
 @media only screen and (min-width: 370px) {

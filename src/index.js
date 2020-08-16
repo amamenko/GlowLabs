@@ -144,14 +144,9 @@ import { isAndroid } from "react-device-detect";
 import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
 import AllTreatments from "./components/all_treatments/AllTreatments";
 import AllAddOns from "./components/all_add_ons/AllAddOns";
-import {
-  Link,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller,
-} from "react-scroll";
+import { scroller } from "react-scroll";
+import FollowUs from "./components/follow_us/FollowUs";
+import ContactUs from "./components/contact_us/ContactUs";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -1306,7 +1301,17 @@ const App = () => {
                   : "-200px"
                 : `${styles.marginTop}`,
               transition: "margin-top 0.5s ease",
-              height: "8vh",
+              height: !currentScreenSize
+                ? initialScreenSize < 1000
+                  ? initialScreenSize > initialScreenHeight
+                    ? "15vh"
+                    : "8vh"
+                  : "8vh"
+                : currentScreenSize < 1000
+                ? currentScreenSize > currentScreenHeight
+                  ? "15vh"
+                  : "8vh"
+                : "8vh",
               paddingTop: "0vh",
               paddingBottom: "0vh",
               zIndex: finalBookButtonActive
@@ -1421,49 +1426,13 @@ const App = () => {
                   resetAllCartStatesExceptTreatments
                 }
               />
-              {/* <AddOnsPage1
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                AddOnsRef={AddOnsRef}
-                resetAllCartStatesExceptTreatments={
-                  resetAllCartStatesExceptTreatments
-                }
-              />
-              <AddOnsPage2
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStatesExceptTreatments={
-                  resetAllCartStatesExceptTreatments
-                }
-              />
-              <AddOnsPage3
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStatesExceptTreatments={
-                  resetAllCartStatesExceptTreatments
-                }
-              />
-              <AddOnsPage4
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStatesExceptTreatments={
-                  resetAllCartStatesExceptTreatments
-                }
-              />
-              <AddOnsPage5
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                resetAllCartStatesExceptTreatments={
-                  resetAllCartStatesExceptTreatments
-                }
-              /> */}
-              <Instagram
+              <FollowUs
                 name="instagram"
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 InstagramRef={InstagramRef}
               />
-              <Contact
+              <ContactUs
                 name="contact"
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}

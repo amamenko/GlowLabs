@@ -19,10 +19,9 @@ import ACTION_TOUCH_SCALING_RESET from "../../actions/FingerTouchScaling/ACTION_
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import { useLocation } from "react-router-dom";
 import "./LandingPage.css";
-import { Element } from "react-scroll";
 
 const LandingPage = React.forwardRef((props, ref) => {
-  const { Treatments1Ref, LandingPageRef } = ref;
+  const { LandingPageRef } = ref;
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
   const [twoFingerTouch, changeTwoFingerTouch] = useState(false);
 
@@ -54,8 +53,6 @@ const LandingPage = React.forwardRef((props, ref) => {
   ] = useState(null);
 
   const dispatch = useDispatch();
-
-  const [isSafari, changeIsSafari] = useState(false);
 
   const handleSplashScreenHalfway = useCallback(
     (el) => {
@@ -104,14 +101,6 @@ const LandingPage = React.forwardRef((props, ref) => {
     dispatch,
   ]);
 
-  useEffect(() => {
-    if (navigator.vendor === "Apple Computer, Inc.") {
-      changeIsSafari(true);
-    } else {
-      changeIsSafari(false);
-    }
-  }, [changeIsSafari]);
-
   const changeScroll = useCallback(() => {
     const userScroll = !props.currentScreenSize
       ? props.initialScreenSize >= 600
@@ -137,6 +126,7 @@ const LandingPage = React.forwardRef((props, ref) => {
     props.treatmentsPageInView,
     props.currentScreenSize,
     props.initialScreenSize,
+    props.scrollValue,
   ]);
 
   useEffect(() => {
@@ -266,7 +256,25 @@ const LandingPage = React.forwardRef((props, ref) => {
         if (props.scrollValue < 0) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
         } else if (props.scrollValue >= 8250) {
-          document.body.style.setProperty("background", "rgb(0, 129, 177)");
+          if (!props.currentScreenSize) {
+            if (props.initialScreenSize < 768) {
+              document.body.style.setProperty("background", "rgb(0, 129, 177)");
+            } else {
+              document.body.style.setProperty(
+                "background",
+                "rgb(255, 255, 255)"
+              );
+            }
+          } else {
+            if (props.currentScreenSize < 768) {
+              document.body.style.setProperty("background", "rgb(0, 129, 177)");
+            } else {
+              document.body.style.setProperty(
+                "background",
+                "rgb(255, 255, 255)"
+              );
+            }
+          }
         } else {
           document.body.style.setProperty("background", "rgb(255, 255, 255)");
         }
@@ -912,13 +920,18 @@ const LandingPage = React.forwardRef((props, ref) => {
                       listen to that Peruvian pan flute music. <br />
                       We'll figure out the rest.
                     </p>
-                    <div className="call_to_action_buttons_container">
+                    <div
+                      className="call_to_action_buttons_container"
+                      style={{
+                        opacity: splashScreenComplete
+                          ? "1"
+                          : `${styleprops.opacity}`,
+                      }}
+                    >
                       <div
                         className="call_to_action_button"
                         style={{
-                          opacity: splashScreenComplete
-                            ? "1"
-                            : `${styleprops.opacity}`,
+                          opacity: `${styleprops.opacity}`,
                         }}
                       >
                         <p
@@ -954,7 +967,10 @@ const LandingPage = React.forwardRef((props, ref) => {
           )}
         </Spring>
         <div className="splash_screen">
-          <SplashScreen currentScreenSize={props.currentScreenSize} />
+          <SplashScreen
+            currentScreenHeight={props.currentScreenHeight}
+            initialScreenHeight={props.initialScreenHeight}
+          />
         </div>
       </section>
     </div>

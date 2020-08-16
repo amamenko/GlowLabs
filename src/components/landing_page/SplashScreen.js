@@ -3,7 +3,7 @@ import { animated, Keyframes } from "react-spring/renderprops";
 import { useSelector } from "react-redux";
 import "./LandingPage.css";
 
-const SplashScreen = () => {
+const SplashScreen = (props) => {
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -47,7 +47,29 @@ const SplashScreen = () => {
         <GlowChain state="glowAnimation">
           {(styles) => (
             <>
-              <g transform="translate(-2 -150.02)">
+              <g
+                transform={
+                  !props.currentScreenHeight
+                    ? props.initialScreenHeight >= 1350
+                      ? `translate(-2 -${props.initialScreenHeight / 19})`
+                      : props.initialScreenHeight >= 1300
+                      ? `translate(-2 -${props.initialScreenHeight / 15})`
+                      : props.initialScreenHeight >= 1000
+                      ? `translate(-2 -${props.initialScreenHeight / 12})`
+                      : props.initialScreenHeight >= 850
+                      ? `translate(-2 -${props.initialScreenHeight / 10})`
+                      : `translate(-2 -${props.initialScreenHeight / 5})`
+                    : props.currentScreenHeight >= 1350
+                    ? `translate(-2 -${props.initialScreenHeight / 19})`
+                    : props.currentScreenHeight >= 1300
+                    ? `translate(-2 -${props.initialScreenHeight / 15})`
+                    : props.currentScreenHeight >= 1000
+                    ? `translate(-2 -${props.currentScreenHeight / 12})`
+                    : props.currentScreenHeight >= 850
+                    ? `translate(-2 -${props.currentScreenHeight / 10})`
+                    : `translate(-2 -${props.currentScreenHeight / 5})`
+                }
+              >
                 <filter
                   id="svg_glow"
                   x="-20%"
@@ -74,15 +96,14 @@ const SplashScreen = () => {
         </GlowChain>
       );
     }
-  }, [splashScreenComplete]);
+  }, [
+    splashScreenComplete,
+    props.currentScreenHeight,
+    props.initialScreenHeight,
+  ]);
 
   return (
-    <svg
-      className="glow_labs_logo_animation"
-      width="100%"
-      height="100%"
-      viewBox="0 0 463.021 463.021"
-    >
+    <svg className="glow_labs_logo_animation" viewBox="0 0 463.021 463.021">
       {renderGlowLabsLogo}
     </svg>
   );

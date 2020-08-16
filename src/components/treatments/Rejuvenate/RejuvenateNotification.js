@@ -67,11 +67,15 @@ const RejuvenateNotification = (props) => {
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800
                   ? "1rem"
+                  : props.initialScreenSize >= 1200
+                  ? "1.1rem"
                   : props.initialScreenSize >= 375
                   ? "0.8rem"
                   : "0.6rem"
                 : props.currentScreenSize >= 1800
                 ? "1rem"
+                : props.currentScreenSize >= 1200
+                ? "1.1rem"
                 : props.currentScreenSize >= 375
                 ? "0.8rem"
                 : "0.6rem",
@@ -80,7 +84,7 @@ const RejuvenateNotification = (props) => {
           }}
         >
           <FontAwesomeIcon
-            style={{ color: "rgb(131, 131, 131)" }}
+            style={{ color: "rgb(131, 131, 131)", marginRight: "0.5rem" }}
             icon={faExclamationCircle}
           />{" "}
           Microcurrent add-on included in facial

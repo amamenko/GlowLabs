@@ -6,6 +6,8 @@
   background: rgb(255, 255, 255);
   height: max-content;
   padding-top: 5vh;
+  justify-items: center;
+  align-items: center;
 }
 
 .all_add_ons_container header {

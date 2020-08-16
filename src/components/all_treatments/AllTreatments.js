@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Calm from "../treatments/Calm/Calm";
 import Clarify from "../treatments/Clarify/Clarify";
 import Bacial from "../treatments/Bacial/Bacial";
@@ -20,35 +20,25 @@ const AllTreatments = React.forwardRef((props, ref) => {
   const {
     currentScreenSize,
     initialScreenSize,
-    treatmentsPageIsVisibleFunction,
-    treatmentsPageIsNotVisibleFunction,
-    treatmentsPageInView,
     Treatments1Ref,
     resetAllCartStates,
   } = props;
+
+  const headlineRef = useRef(null);
 
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
     threshold: initialScreenSize >= 1200 ? 0.7 : 0.2,
   });
 
-  const [multipleTriggerInViewRef, Treatments1InView] = useInView({
-    triggerOnce: false,
-    threshold: !currentScreenSize
-      ? initialScreenSize >= 1200
-        ? 0.7
-        : 0.4
-      : currentScreenSize >= 1200
-      ? 0.7
-      : 0.4,
-  });
+  const [pageRendered, changePageRendered] = useState(false);
 
   return (
     <>
       <div
         className="all_treatments_container"
         id={props.name}
-        ref={composeRefs(Treatments1Ref, multipleTriggerInViewRef)}
+        ref={Treatments1Ref}
       >
         <header className="all_treatments_header" ref={inViewRef}>
           {inView ? (
@@ -56,25 +46,17 @@ const AllTreatments = React.forwardRef((props, ref) => {
               from={{
                 position: "relative",
                 opacity: 0,
-                width_large_desktop: "0%",
-                width_desktop: "0%",
-                width_tablet: "0%",
-                width_landscape: "0%",
-                width_mobile: "0%",
-                width_mobile_small: "0%",
-                width_mobile_tiny: "0%",
+                width: "0px",
               }}
               to={{
                 position: "relative",
                 opacity: 1,
-                width_large_desktop: "25%",
-                width_desktop: "24%",
-                width_tablet: "40%",
-                width_landscape: "28%",
-                width_mobile: "45%",
-                width_mobile_small: "48%",
-                width_mobile_tiny: "48%",
+                width: headlineRef.current
+                  ? headlineRef.current.clientWidth + "px"
+                  : "0px",
               }}
+              immediate={pageRendered}
+              onRest={() => changePageRendered(true)}
               config={{ duration: 1000 }}
             >
               {(styles) => (
@@ -84,6 +66,7 @@ const AllTreatments = React.forwardRef((props, ref) => {
                       position: `${styles.position}`,
                       opacity: `${styles.opacity}`,
                     }}
+                    ref={headlineRef}
                   >
                     YOUR FACIAL
                   </h2>
@@ -91,34 +74,7 @@ const AllTreatments = React.forwardRef((props, ref) => {
                     style={{
                       position: `${styles.position}`,
                       opacity: `${styles.opacity}`,
-                      width:
-                        currentScreenSize === ""
-                          ? initialScreenSize >= 1800
-                            ? `${styles.width_large_desktop}`
-                            : initialScreenSize >= 1200
-                            ? `${styles.width_desktop}`
-                            : initialScreenSize >= 768
-                            ? `${styles.width_tablet}`
-                            : initialScreenSize >= 600
-                            ? `${styles.width_landscape}`
-                            : initialScreenSize >= 410
-                            ? `${styles.width_mobile}`
-                            : initialScreenSize >= 360
-                            ? `${styles.width_mobile_small}`
-                            : `${styles.width_mobile_tiny}`
-                          : currentScreenSize >= 1800
-                          ? `${styles.width_large_desktop}`
-                          : currentScreenSize >= 1200
-                          ? `${styles.width_desktop}`
-                          : currentScreenSize >= 768
-                          ? `${styles.width_tablet}`
-                          : currentScreenSize >= 600
-                          ? `${styles.width_landscape}`
-                          : currentScreenSize >= 410
-                          ? `${styles.width_mobile}`
-                          : currentScreenSize >= 360
-                          ? `${styles.width_mobile_small}`
-                          : `${styles.width_mobile_tiny}`,
+                      width: `${styles.width}`,
                     }}
                     className="treatments_title_underline"
                   />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
 import ExtraExtractions from "../add_ons/ExtraExtractions/ExraExtractions";
@@ -13,10 +13,14 @@ import Beard from "../add_ons/Beard/Beard";
 import "./AllAddOns.css";
 
 const AllAddOns = React.forwardRef((props, ref) => {
+  const headlineRef = useRef(null);
+
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
     threshold: props.initialScreenSize >= 1200 ? 0.7 : 0.2,
   });
+
+  const [pageRendered, changePageRendered] = useState(false);
 
   return (
     <div
@@ -30,21 +34,17 @@ const AllAddOns = React.forwardRef((props, ref) => {
             from={{
               position: "relative",
               opacity: 0,
-              width_desktop: "0%",
-              width_larger_tablet: "0%",
-              width_tablet: "0%",
-              width_landscape: "0%",
-              width_mobile: "0%",
+              width: "0px",
             }}
             to={{
               position: "relative",
               opacity: 1,
-              width_desktop: "28%",
-              width_larger_tablet: "46%",
-              width_tablet: "48%",
-              width_landscape: "32%",
-              width_mobile: "53%",
+              width: headlineRef.current
+                ? headlineRef.current.clientWidth + "px"
+                : "0px",
             }}
+            immediate={pageRendered}
+            onRest={() => changePageRendered(true)}
             config={{ duration: 1000 }}
           >
             {(styles) => (
@@ -54,6 +54,7 @@ const AllAddOns = React.forwardRef((props, ref) => {
                     position: `${styles.position}`,
                     opacity: `${styles.opacity}`,
                   }}
+                  ref={headlineRef}
                 >
                   YOUR ADD-ONS
                 </h2>
@@ -61,26 +62,7 @@ const AllAddOns = React.forwardRef((props, ref) => {
                   style={{
                     position: `${styles.position}`,
                     opacity: `${styles.opacity}`,
-                    width:
-                      props.currentScreenSize === ""
-                        ? props.initialScreenSize >= 1200
-                          ? `${styles.width_desktop}`
-                          : props.initialScreenSize >= 1024
-                          ? `${styles.width_larger_tablet}`
-                          : props.initialScreenSize >= 768
-                          ? `${styles.width_tablet}`
-                          : props.initialScreenSize >= 600
-                          ? `${styles.width_landscape}`
-                          : `${styles.width_mobile}`
-                        : props.currentScreenSize >= 1200
-                        ? `${styles.width_desktop}`
-                        : props.currentScreenSize >= 1024
-                        ? `${styles.width_larger_tablet}`
-                        : props.currentScreenSize >= 768
-                        ? `${styles.width_tablet}`
-                        : props.currentScreenSize >= 600
-                        ? `${styles.width_landscape}`
-                        : `${styles.width_mobile}`,
+                    width: `${styles.width}`,
                   }}
                   className="add_ons_title_underline"
                 />

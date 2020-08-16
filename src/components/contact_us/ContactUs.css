@@ -1,0 +1,40 @@
+.contact_us_map_container {
+  grid-area: map;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.contact_us_map_container div::after {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  content: "";
+  background: linear-gradient(
+    to right,
+    rgba(2, 0, 36, 0) 45%,
+    rgba(255, 255, 255, 1) 50%
+  );
+  background-repeat: no-repeat;
+  background-position: fixed;
+  width: 100vw;
+  pointer-events: none;
+}
+
+.contact_us_header {
+  grid-area: header;
+}
+
+.contact_us_page_container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-areas:
+    "map map header header"
+    "map map . ."
+    "map map . ."
+    "map map . .";
+  grid-gap: 1rem;
+}

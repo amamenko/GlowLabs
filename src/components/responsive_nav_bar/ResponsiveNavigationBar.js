@@ -621,6 +621,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             imageLoading
           ? "blur(5px) brightness(50%)"
           : "none",
+
         transition: "background 0.5s ease, filter 0.5s ease",
         display: loginIsActive ? "none" : "flex",
       }}

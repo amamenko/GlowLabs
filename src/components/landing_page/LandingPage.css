@@ -18,6 +18,32 @@
   transition: opacity 0.5s ease;
 }
 
+.splash_screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.glow_labs_logo_animation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.glow_labs_logo_animation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
 .bottom_content {
   display: flex;
   flex-direction: column;
@@ -117,22 +143,6 @@
     width: 100%;
   }
 
-  .splash_screen {
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    align-self: center;
-    width: 100%;
-    height: 100%;
-    margin-top: 4rem;
-    transform: translate(0vh, 3vh);
-  }
-
-  .splash_screen h1 {
-    display: flex;
-    font-size: 3rem;
-  }
-
   .bottom_content {
     grid-area: main;
     position: absolute;
@@ -214,12 +224,6 @@
     line-height: 1.5rem;
   }
 
-  .splash_screen {
-    margin-top: 0;
-    margin-bottom: 4rem;
-    transform: translate(0vh, 10vh);
-  }
-
   @supports (-webkit-overflow-scrolling: touch) {
     /* CSS specific to iOS devices */
     .landing_page_bottom_icon {
@@ -279,17 +283,8 @@
 
 /* CSS for Average Portrait Screens (e.g. iPhone 11) */
 @media only screen and (min-width: 410px) {
-  .splash_screen {
-    transform: translate(0vh, 0vh);
-  }
-
   .landing_page_description {
     line-height: 1.5rem;
-  }
-
-  .glow_labs_logo_animation {
-    position: absolute;
-    top: 5%;
   }
 
   .call_to_action_buttons_container {
@@ -311,16 +306,6 @@
   }
 }
 
-/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
-@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .splash_screen {
-      transform: translate(0vh, 7vh);
-    }
-  }
-}
-
 /* Google Pixel 4XL */
 @media screen and (device-width: 480px) and (device-height: 1014px) {
   @supports not (-webkit-overflow-scrolling: touch) {
@@ -333,10 +318,6 @@
 
 /* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 560px) {
-  .splash_screen {
-    transform: scale(2) translate(0vh, 17vh);
-  }
-
   .bottom_content {
     height: 100vh;
     background: rgb(251, 251, 251);
@@ -386,10 +367,6 @@
 
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
-  .splash_screen {
-    transform: scale(1) translate(0vh, 15vh);
-  }
-
   .landing_page_text_block {
     flex: 0;
     height: 40%;
@@ -663,12 +640,6 @@
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) and (orientation: portrait) {
-  .splash_screen {
-    font-size: 3em;
-    transform: scale(1) translate(0vh, 20vh);
-    -webkit-transform: scale(1) translate(0vh, 20vh);
-  }
-
   .call_to_action_button {
     font-size: 2.5rem;
     font-weight: 500;
@@ -696,12 +667,6 @@
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) and (orientation: landscape) {
-  .splash_screen {
-    font-size: 3em;
-    transform: scale(1.3) translate(0vh, 20vh);
-    -webkit-transform: scale(1.3) translate(0vh, 20vh);
-  }
-
   .landing_page_text_block {
     margin-left: 3.1rem;
     margin-right: 3.1rem;
@@ -818,25 +783,10 @@
   .landing_page_description {
     font-size: 1.5vw;
   }
-
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .splash_screen {
-        font-size: 2em;
-        transform: scale(1.3) translate(0vh, 20vh);
-        -webkit-transform: scale(1.3) translate(0vh, 20vh);
-      }
-    }
-  }
 }
 
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
-  .splash_screen {
-    transform: scale(1.3) translate(0vh, 10vh);
-  }
-
   .landing_page_text_block {
     margin-left: 3.1rem;
     margin-right: 3.1rem;
@@ -853,25 +803,10 @@
     padding-left: 3rem;
     padding-right: 3rem;
   }
-
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .splash_screen {
-        font-size: 2em;
-        transform: scale(0.6) translate(0vh, -60vh);
-      }
-    }
-  }
 }
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
-  .glow_labs_logo_animation {
-    position: absolute;
-    top: 15%;
-  }
-
   .landing_page_description {
     font-size: 1.7vw;
     line-height: 4rem;
@@ -883,20 +818,6 @@
 
   .call_to_action_button {
     font-size: 2rem;
-  }
-
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .splash_screen {
-        font-size: 2em;
-        transform: scale(2) translate(0vh, 13vh);
-      }
-
-      .call_to_action_button {
-        font-size: 2rem;
-      }
-    }
   }
 }
 
