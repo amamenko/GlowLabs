@@ -80,14 +80,14 @@ const MicroneedleNotification = (props) => {
                 ? props.initialScreenSize >= 1800
                   ? "1rem"
                   : props.initialScreenSize >= 1200
-                  ? "1.1rem"
+                  ? "0.8vw"
                   : props.initialScreenSize >= 375
                   ? "0.8rem"
                   : "0.6rem"
                 : props.currentScreenSize >= 1800
                 ? "1rem"
                 : props.currentScreenSize >= 1200
-                ? "1.1rem"
+                ? "0.8vw"
                 : props.currentScreenSize >= 375
                 ? "0.8rem"
                 : "0.6rem",

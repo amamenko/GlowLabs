@@ -197,6 +197,8 @@ const Microdermabrasion = (props) => {
                   ? "2rem"
                   : props.initialScreenSize >= 1600
                   ? "1rem"
+                  : props.initialScreenSize >= 1400
+                  ? "2.4rem"
                   : props.initialScreenSize >= 1200
                   ? "1rem"
                   : "100%"
@@ -204,6 +206,8 @@ const Microdermabrasion = (props) => {
                 ? "2rem"
                 : props.currentScreenSize >= 1600
                 ? "1rem"
+                : props.currentScreenSize >= 1400
+                ? "2.4rem"
                 : props.currentScreenSize >= 1200
                 ? "1rem"
                 : "100%"

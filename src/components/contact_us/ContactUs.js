@@ -6,7 +6,12 @@ import { Spring } from "react-spring/renderprops";
 import composeRefs from "@seznam/compose-react-refs";
 import ContactCustomMarker from "../contact/ContactCustomMarker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPhone,
+  faEnvelope,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import BottomFooter from "./footer/BottomFooter";
 
 const ContactUs = (props) => {
   const { ContactRef, initialScreenSize, currentScreenSize, name } = props;
@@ -86,7 +91,7 @@ const ContactUs = (props) => {
                     lat: 40.643635,
                     lng: -73.695618,
                   }}
-                  defaultZoom={16}
+                  defaultZoom={14}
                   style={{
                     position: `${propstyles.position}`,
                     opacity: `${propstyles.opacity}`,
@@ -123,12 +128,19 @@ const ContactUs = (props) => {
                 </>
               </header>
               <div className="contact_us_address_container">
-                <p>Glow Labs</p>
-                <p>1506 Broadway,</p>
-                <p>Hewlett, NY 11557</p>
+                <div className="contact_us_marker_icon">
+                  {" "}
+                  <FontAwesomeIcon
+                    className="contact_icon"
+                    icon={faMapMarkerAlt}
+                  />
+                </div>
+                <div className="contact_us_address">
+                  <p>1506 Broadway,</p>
+                  <p>Hewlett, NY 11557</p>
+                </div>
               </div>
               <div className="contact_us_contact_container">
-                <h3>By Appointment Only</h3>
                 <p>
                   <FontAwesomeIcon className="contact_icon" icon={faEnvelope} />{" "}
                   glowlabs@yahoo.com
@@ -138,27 +150,38 @@ const ContactUs = (props) => {
                   (516) 442-8122
                 </p>
               </div>
-              <div className="contact_us_availability_container">
-                <div className="contact_us_days_container">
-                  <p>Sun</p>
-                  <p>Mon</p>
-                  <p>Tue</p>
-                  <p>Wed</p>
-                  <p>Thu</p>
-                  <p>Fri</p>
-                  <p>Sat</p>
-                </div>
-                <div className="contact_us_hours_container">
-                  <p>10:00 AM - 8:00 PM</p>
-                  <p>10:00 AM - 8:00 PM</p>
-                  <p>10:00 AM - 8:00 PM</p>
-                  <p>10:00 AM - 8:00 PM</p>
-                  <p>10:00 AM - 8:00 PM</p>
-                  <p>10:00 AM - 4:00 PM</p>
-                  <p>Closed</p>
+              <div className="contact_us_times_section">
+                <h2>Business Hours</h2>
+                <div className="contact_us_availability_container">
+                  <div className="contact_us_days_container">
+                    <p>Sun</p>
+                    <p>Mon</p>
+                    <p>Tue</p>
+                    <p>Wed</p>
+                    <p>Thu</p>
+                    <p>Fri</p>
+                    <p>Sat</p>
+                  </div>
+                  <div className="contact_us_hours_container">
+                    <p>10:00 AM - 8:00 PM</p>
+                    <p>10:00 AM - 8:00 PM</p>
+                    <p>10:00 AM - 8:00 PM</p>
+                    <p>10:00 AM - 8:00 PM</p>
+                    <p>10:00 AM - 8:00 PM</p>
+                    <p>10:00 AM - 4:00 PM</p>
+                    <p>Closed</p>
+                  </div>
                 </div>
               </div>
-              <div className="contact_us_open_status">{hours_today()}</div>
+              <div className="contact_us_open_status">
+                {" "}
+                <h3>By Appointment Only</h3>
+                {hours_today()}
+              </div>
+              <BottomFooter
+                currentScreenSize={props.currentScreenSize}
+                initialScreenSize={props.initialScreenSize}
+              />
             </>
           )}
         </Spring>

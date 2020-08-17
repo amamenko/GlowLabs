@@ -255,26 +255,6 @@ const LandingPage = React.forwardRef((props, ref) => {
       } else {
         if (props.scrollValue < 0) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
-        } else if (props.scrollValue >= 8250) {
-          if (!props.currentScreenSize) {
-            if (props.initialScreenSize < 768) {
-              document.body.style.setProperty("background", "rgb(0, 129, 177)");
-            } else {
-              document.body.style.setProperty(
-                "background",
-                "rgb(255, 255, 255)"
-              );
-            }
-          } else {
-            if (props.currentScreenSize < 768) {
-              document.body.style.setProperty("background", "rgb(0, 129, 177)");
-            } else {
-              document.body.style.setProperty(
-                "background",
-                "rgb(255, 255, 255)"
-              );
-            }
-          }
         } else {
           document.body.style.setProperty("background", "rgb(255, 255, 255)");
         }

@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.add_ons_title_underline {
+  border-bottom: 3px solid rgb(44, 44, 52);
+}
+
 .all_add_ons_container header {
   grid-column: 1 / -1;
 }

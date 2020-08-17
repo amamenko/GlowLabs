@@ -708,6 +708,13 @@
 }
 
 /* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 500px) {
+  .facial_coming_soon_designation {
+    bottom: 3.5rem;
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
 @media only screen and (min-width: 600px) {
   .card_description_icon_wrapper_container {
     padding-top: 0.7rem;
@@ -874,7 +881,7 @@
 
   .facial_coming_soon_designation {
     font-size: 0.8rem;
-    bottom: 6rem;
+    bottom: 5rem;
   }
 
   .notification_removed_container,
@@ -989,7 +996,7 @@
   }
 
   .big_screen_book_now_wrapper {
-    width: 6.9em;
+    width: 10vw;
     display: flex;
     flex-direction: row;
     justify-items: center;

@@ -16,32 +16,25 @@
 
 .insta_photo_5 {
   grid-area: five;
-  background: yellow;
-  color: yellow;
 }
 
 .insta_photo_6 {
   grid-area: six;
-  background: orange;
-  color: orange;
 }
 
 .insta_photo_7 {
   grid-area: seven;
-  background: purple;
-  color: purple;
 }
 
 .insta_photo_8 {
   grid-area: eight;
-  background: black;
 }
 
 .follow_us_sub_container_left {
   grid-area: grid_sub_container_left;
   flex: 1;
   display: grid;
-  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-rows: repeat(4, 0.25fr);
   grid-template-areas:
     "one one two two"
     "one one two two"
@@ -156,6 +149,7 @@
   height: 100vh;
   padding-top: 5vh;
   background: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 .instagram_icon {
@@ -182,6 +176,10 @@
 @media only screen and (min-width: 768px) {
   .follow_us_sub_container_right {
     display: grid;
+  }
+
+  .follow_us_sub_container_left {
+    grid-template-rows: repeat(4, 25%);
   }
 
   .follow_us_sub_container_middle p > br {
@@ -229,7 +227,7 @@
   }
 
   .follow_us_sub_container_middle p {
-    font-size: 3vh;
+    font-size: 2.5vh;
   }
 
   .follow_us_container {
@@ -244,6 +242,12 @@
   .follow_us_sub_container_header h1 {
     font-size: calc(0.5rem + 3vh);
     padding-bottom: calc(0.5rem + 3vh);
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .follow_us_sub_container_middle p {
+    font-size: 3vh;
   }
 }
 

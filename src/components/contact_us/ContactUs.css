@@ -2,29 +2,18 @@
   grid-area: map;
   overflow: hidden;
   height: 100%;
-  width: 100%;
-  position: relative;
-}
-
-.contact_us_map_container div::after {
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  content: "";
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 1) 45%
-  );
-  background-repeat: no-repeat;
-  background-position: fixed;
   width: 100vw;
-  pointer-events: none;
+  position: relative;
 }
 
 .contact_us_header {
   grid-area: header;
+  position: relative;
+  height: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .contact_us_header h1 {
@@ -36,26 +25,54 @@
   padding-bottom: 2.5vh;
   padding-top: 0.5rem;
   display: inline-block;
+  white-space: nowrap;
 }
 
-.contact_us_address_container {
-  grid-area: address;
-  font-size: 3vh;
-}
-
-.contact_us_contact_container {
-  grid-area: contact;
-  font-size: 3vh;
-}
-
-.contact_us_address_container > *,
+.contact_us_marker_icon,
+.contact_us_address > *,
 .contact_us_contact_container > * {
   padding-bottom: 0.5vh;
   padding-top: 0.5vh;
 }
 
-.contact_us_availability_container {
+.contact_us_address_container {
+  grid-area: address;
+  font-size: 3vh;
+  display: flex;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  padding-top: 3vh;
+}
+
+.contact_us_marker_icon {
+  margin-right: 0.7rem;
+}
+
+.contact_us_contact_container {
+  grid-area: contact;
+  font-size: 3vh;
+  min-width: max-content;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.contact_us_times_section {
   grid-area: hours;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.contact_us_times_section h2 {
+  font-size: 3vh;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+.contact_us_availability_container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -68,16 +85,31 @@
   padding-top: 0.5vh;
 }
 
+.contact_us_hours_container {
+  min-width: max-content;
+}
+
 .contact_us_open_status {
   grid-area: open;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: max-content;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  padding-top: 3vh;
+}
+
+.contact_us_open_status h3 {
+  font-size: 3vh;
+  padding-bottom: 3vh;
+  font-weight: 600;
 }
 
 .contact_us_open_status p {
   font-size: 3vh;
+  font-weight: 400;
 }
 
 .contact_us_days_container {
@@ -87,22 +119,41 @@
 .contact_us_page_container {
   height: 100%;
   display: grid;
-  grid-template-rows: 15% 20% 20% 20% 20%;
+  grid-template-rows: 10% 35% 0.25fr 0.25fr 0.25fr 15% 1fr;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-areas:
-    "map map map map map map header header header"
-    "map map map map map  map address contact contact"
-    "map map map map map map hours open open"
-    "map map map map map map hours open open"
-    "map map map map map map . . .";
-  grid-gap: 1rem;
+    ". . header . ."
+    "map map map map map"
+    "address address address address address"
+    "contact contact contact contact contact"
+    "hours hours hours hours hours"
+    "open open open open open"
+    "footer footer footer footer footer";
+  grid-gap: 0rem;
   padding-top: 5vh;
+  background: rgb(255, 255, 255);
 }
 
 .contact_us_underline {
   border-bottom: 3px solid rgb(44, 44, 52);
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
   overflow: hidden;
+}
+
+.contact_us_times_section h2,
+.contact_us_availability_container,
+.contact_us_open_status h3,
+.contact_us_open_status p,
+.contact_us_times_section h2,
+.contact_us_availability_container,
+.contact_us_address_container,
+.contact_us_contact_container {
+  font-size: calc(0.5rem + 2vw);
 }
 
 @media only screen and (min-width: 375px) {
@@ -113,9 +164,55 @@
 
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) {
+  .contact_us_page_container {
+    grid-template-rows: 10% 10% 30% 20% 15% 5% 20%;
+    grid-template-columns: repeat(8, 12.5%);
+    grid-template-areas:
+      ". . header header header . . ."
+      ". address address address contact contact contact ."
+      ". hours hours hours open open open ."
+      "map map map map map map map map"
+      "map map map map map map map map"
+      ". . . . . . . ."
+      "footer footer footer footer footer footer footer footer";
+    grid-gap: 1rem;
+  }
+
+  .contact_us_open_status {
+    padding-top: 0vh;
+  }
+
+  .contact_us_address_container {
+    padding-top: 0vh;
+  }
+
+  .contact_us_times_section h2 {
+    padding-top: 0vh;
+    padding-bottom: 3vh;
+  }
+
   .contact_us_header h1 {
     font-size: 4vh;
     padding-bottom: 3vh;
+  }
+
+  .contact_us_times_section h2,
+  .contact_us_availability_container,
+  .contact_us_open_status h3,
+  .contact_us_open_status p,
+  .contact_us_times_section h2,
+  .contact_us_availability_container,
+  .contact_us_address_container,
+  .contact_us_contact_container {
+    font-size: 1.5vh;
+  }
+
+  .contact_us_open_status,
+  .contact_us_address_container,
+  .contact_us_contact_container,
+  .contact_us_times_section {
+    margin-left: 0rem;
+    margin-right: 0rem;
   }
 }
 
@@ -135,17 +232,87 @@
 }
 
 @media only screen and (min-width: 1200px) {
+  .contact_us_page_container {
+    grid-template-rows: 10% 15% 35% 20% 25% 5% 15%;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-areas:
+      ". . . header header . . ."
+      ". address address . . contact contact ."
+      ". hours hours . . open open ."
+      "map map map map map map map map"
+      "map map map map map map map map"
+      ". . . . . . . ."
+      "footer footer footer footer footer footer footer footer";
+  }
+
   .contact_us_header h1 {
     font-size: calc(0.5rem + 3vh);
     padding-bottom: calc(0.5rem + 3vh);
+  }
+
+  .contact_us_times_section h2,
+  .contact_us_availability_container,
+  .contact_us_open_status h3,
+  .contact_us_open_status p,
+  .contact_us_times_section h2,
+  .contact_us_availability_container,
+  .contact_us_address_container,
+  .contact_us_contact_container {
+    font-size: 2vh;
   }
 }
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
+  .contact_us_map_container {
+    width: 100%;
+    margin-left: 3.6rem;
+  }
+
+  .contact_us_page_container {
+    grid-template-rows: 15% 20% 20% 20% 10% 1fr;
+    grid-template-columns: none;
+    grid-template-areas:
+      "header header header header header header header header header"
+      "map map map map map  . address contact contact"
+      "map map map map map . hours open open"
+      "map map map map map . hours open open"
+      ". . . . . . . . ."
+      "footer footer footer footer footer footer footer footer footer";
+  }
+
+  .contact_us_header,
+  .contact_us_underline {
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .contact_us_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 10vh;
+  }
+
   .contact_us_header h1 {
     font-size: calc(1rem + 4.5vh);
     padding-bottom: calc(1rem + 3.5vh);
+  }
+
+  .contact_us_times_section h2,
+  .contact_us_availability_container,
+  .contact_us_open_status h3,
+  .contact_us_open_status p,
+  .contact_us_times_section h2,
+  .contact_us_availability_container,
+  .contact_us_address_container,
+  .contact_us_contact_container {
+    font-size: 3vh;
   }
 }
 

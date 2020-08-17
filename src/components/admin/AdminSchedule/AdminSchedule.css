@@ -54,6 +54,10 @@
   font-size: 10px !important;
 }
 
+.rbc-event {
+  z-index: 1;
+}
+
 .rbc-toolbar button {
   font-size: 8px !important;
 }

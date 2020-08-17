@@ -28,7 +28,6 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
-import * as Scroll from "react-scroll";
 import {
   faMapMarkerAlt,
   faPhoneSquare,
@@ -42,8 +41,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
     InstagramRef,
     ContactRef,
   } = ref;
-
-  let ScrollLink = Scroll.Link;
 
   const Nav_Ref = useRef(null);
 
