@@ -875,24 +875,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
           className="nav_login_container"
           onClick={handleLogoutClicked}
           style={{
-            top:
-              props.currentScreenSize === ""
-                ? props.initialScreenSize <= 1000 &&
-                  props.initialScreenSize >= 600
-                  ? window.matchMedia("(orientation: landscape)").matches
-                    ? props.scrollValue <= 5
-                      ? "0.6rem"
-                      : "1rem"
-                    : "auto"
-                  : "auto"
-                : props.currentScreenSize <= 1000 &&
-                  props.currentScreenSize >= 600
-                ? window.matchMedia("(orientation: landscape)").matches
-                  ? props.scrollValue <= 5
-                    ? "0.6rem"
-                    : "1rem"
-                  : "auto"
-                : "auto",
             background:
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 768 &&

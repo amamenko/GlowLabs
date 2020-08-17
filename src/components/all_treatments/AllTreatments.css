@@ -108,6 +108,10 @@
     font-size: 5vh;
     padding-bottom: 4vh;
   }
+
+  .card_container {
+    min-height: 30vh;
+  }
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
@@ -147,6 +151,10 @@
   .all_treatments_header h2 {
     font-size: calc(1rem + 4.5vh);
     padding-bottom: calc(1rem + 3.5vh);
+  }
+
+  .card_container {
+    min-height: 35vh;
   }
 }
 

@@ -7,7 +7,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  overflow-y: hidden;
   height: 100%;
 }
 
@@ -179,10 +178,6 @@
   font-size: 4vh;
   margin-right: 4vw;
 }
-
-/* .nav_burger_menu_items li:not(:last-child) svg {
-       margin-top: 0.1vh;
-   } */
 
 .navbar_social_media_icons {
   width: 100%;

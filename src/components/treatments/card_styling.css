@@ -742,8 +742,8 @@
   }
 
   .card_description_paragraph {
-    font-size: 0.8rem;
-    line-height: 20px;
+    font-size: 0.7rem;
+    line-height: 2vh;
     padding-top: 0.7rem;
   }
 
@@ -1157,6 +1157,13 @@
 }
 
 /* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1500px) {
+  .facial_advanced_treatment_icon {
+    bottom: 15rem;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
   .card_description_inner_wrapper h2 {
     font-size: 1.8rem;
@@ -1198,8 +1205,8 @@
   }
 
   .facial_advanced_treatment_designation {
-    bottom: 5rem;
-    font-size: 1.2rem;
+    bottom: 4rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -1220,7 +1227,7 @@
 
   .card_description_paragraph {
     font-size: 1rem;
-    line-height: 1.8rem;
+    line-height: 3vh;
   }
 
   .card_toggler {
