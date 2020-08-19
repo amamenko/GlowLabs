@@ -21,6 +21,7 @@ html {
 
 body {
   -webkit-text-size-adjust: none;
+  overscroll-behavior-y: none;
   height: 100%;
 }
 

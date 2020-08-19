@@ -59,7 +59,8 @@
   padding: 0.5rem;
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
-  width: 22%;
+  min-width: 5.5rem;
+  max-width: 22%;
   display: flex;
   flex-direction: row;
   align-items: center;
