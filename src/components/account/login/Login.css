@@ -704,7 +704,7 @@
     background-image: url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
     background-repeat: no-repeat;
     background-position: 100%, 100%;
-    background-size: contain;
+    background-size: cover;
     position: absolute;
     display: block;
     z-index: -1;

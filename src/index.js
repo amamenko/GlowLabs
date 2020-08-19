@@ -135,6 +135,7 @@ import AllAddOns from "./components/all_add_ons/AllAddOns";
 import { scroller } from "react-scroll";
 import FollowUs from "./components/follow_us/FollowUs";
 import ContactUs from "./components/contact_us/ContactUs";
+import iNoBounce from "./inobounce";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -477,8 +478,10 @@ const App = () => {
 
   const handleNavbarToggle = () => {
     if (!currentScreenSize) {
-      // If Portrait Mode
-      if (initialScreenHeight > initialScreenSize) {
+      if (
+        (initialScreenSize >= 768 && initialScreenHeight > initialScreenSize) ||
+        (initialScreenSize < 900 && initialScreenSize > initialScreenHeight)
+      ) {
         if (navbarToggle) {
           dispatch(ACTION_NAVBAR_TOGGLE_RESET());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
@@ -491,8 +494,10 @@ const App = () => {
         }
       }
     } else {
-      // If Portrait Mode
-      if (currentScreenHeight > currentScreenSize) {
+      if (
+        (currentScreenSize >= 768 && currentScreenHeight > currentScreenSize) ||
+        (currentScreenSize < 900 && currentScreenSize > currentScreenHeight)
+      ) {
         if (navbarToggle) {
           dispatch(ACTION_NAVBAR_TOGGLE_RESET());
           dispatch(ACTION_NAVBAR_IS_VISIBLE());
@@ -1179,6 +1184,15 @@ const App = () => {
     }
   }, [handleScrollDirection]);
 
+  // Used to prevent rubber banding effect on mobile phones while allowing scroll on other pages
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      iNoBounce.disable();
+    } else {
+      iNoBounce.enable();
+    }
+  }, [location.pathname]);
+
   return (
     <>
       {redirectToHome()}
@@ -1367,7 +1381,7 @@ const App = () => {
               className="main_container"
               onScroll={(e) => handleScrollDirection(e)}
               ref={MainContainerRef}
-              style={{ overflow: splashScreenComplete ? "scroll" : "hidden" }}
+              style={{ overflow: splashScreenComplete ? "auto" : "hidden" }}
               id="main_container_element"
             >
               {redirectToCartRoutes()}

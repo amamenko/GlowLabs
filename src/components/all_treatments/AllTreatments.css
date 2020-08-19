@@ -96,6 +96,23 @@
   }
 }
 
+/* CSS for Phones in Landscape Mode */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .card_container {
+    height: 50vh;
+  }
+
+  .all_treatments_header h2 {
+    font-size: 8vh;
+    padding-bottom: 6vh;
+  }
+
+  .all_treatments_header h3 {
+    font-size: 5vh;
+    padding-bottom: 0rem;
+  }
+}
+
 /* CSS for Larger Tablets in Portrait Mode */
 @media only screen and (min-width: 1024px) {
   .all_treatments_container {
@@ -108,12 +125,16 @@
     font-size: 5vh;
     padding-bottom: 4vh;
   }
+
+  .card_container {
+    min-height: 30vh;
+  }
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .all_treatments_container {
-    grid-template-columns: repeat(auto-fit, minmax(31rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30.5rem, 1fr));
     grid-gap: 1rem;
     grid-row-gap: 3.5rem;
   }
@@ -147,6 +168,10 @@
   .all_treatments_header h2 {
     font-size: calc(1rem + 4.5vh);
     padding-bottom: calc(1rem + 3.5vh);
+  }
+
+  .card_container {
+    min-height: 35vh;
   }
 }
 

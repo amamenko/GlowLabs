@@ -18,10 +18,6 @@
   grid-column: 1 / -1;
 }
 
-.card_container {
-  height: 28.6666667vh;
-}
-
 .all_add_ons_header {
   display: flex;
   flex-direction: column;
@@ -64,7 +60,7 @@
 }
 
 /* CSS for Tablets in Portrait Mode */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) and (orientation: portait) {
   .all_add_ons_container {
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     margin-left: 1.5rem;
@@ -77,28 +73,30 @@
     font-size: 4vh;
     padding-bottom: 3vh;
   }
-
-  .card_container {
-    height: 23vh;
-  }
-}
-
-/* CSS for Large Screens with Smaller Browser Sizes */
-@media only screen and (min-width: 500px) and (min-device-height: 500px) {
-  .card_container {
-    height: 25vh;
-  }
 }
 
 /* CSS for Desktops at Half Screen */
 @media only screen and (min-width: 830px) {
   .all_add_ons_container {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(21.5rem, 1fr));
   }
 
   .all_add_ons_header h2 {
     font-size: 5vh;
     padding-bottom: 4vh;
+  }
+}
+
+/* CSS for Phones in Landscape Mode */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .all_add_ons_header h2 {
+    font-size: 8vh;
+    padding-bottom: 6vh;
+  }
+
+  .all_add_ons_header h3 {
+    font-size: 5vh;
+    padding-bottom: 0rem;
   }
 }
 
@@ -119,27 +117,9 @@
     grid-row-gap: 3.5rem;
   }
 
-  .card_container {
-    height: 28.6666667vh;
-  }
-
   .all_add_ons_header h2 {
     font-size: calc(0.5rem + 3vh);
     padding-bottom: calc(0.5rem + 3vh);
-  }
-}
-
-/* CSS for Regular Desktops/Small Laptops with Larger Heights */
-@media only screen and (min-width: 1200px) and (min-device-height: 1250px) {
-  .card_container {
-    height: 22vh;
-  }
-}
-
-/* CSS for Regular Desktops/Small Laptops with Larger Heights */
-@media only screen and (min-width: 1600px) and (min-device-height: 1250px) {
-  .card_container {
-    height: 33vh;
   }
 }
 
@@ -159,26 +139,8 @@
     grid-row-gap: 3.5rem;
   }
 
-  .card_container {
-    height: 36vh;
-  }
-
   .all_add_ons_header h2 {
     font-size: calc(1rem + 4.5vh);
     padding-bottom: calc(1rem + 4.5vh);
-  }
-}
-
-/* CSS for Huge Desktops */
-@media only screen and (min-width: 2200px) {
-  .card_container {
-    height: 40vh;
-  }
-}
-
-/* CSS for Huge Desktops */
-@media only screen and (min-width: 2400px) {
-  .card_container {
-    height: 36vh;
   }
 }

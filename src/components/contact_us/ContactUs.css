@@ -118,6 +118,7 @@
 
 .contact_us_page_container {
   height: 100%;
+  width: 100vw;
   display: grid;
   grid-template-rows: 10% 35% 0.25fr 0.25fr 0.25fr 15% 1fr;
   grid-template-columns: repeat(5, 1fr);
@@ -132,6 +133,7 @@
   grid-gap: 0rem;
   padding-top: 5vh;
   background: rgb(255, 255, 255);
+  position: relative;
 }
 
 .contact_us_underline {

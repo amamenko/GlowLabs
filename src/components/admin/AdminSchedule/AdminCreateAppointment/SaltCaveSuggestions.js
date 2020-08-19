@@ -15,7 +15,6 @@ const saltCaveSuggestions = (
   fortyFiveMinutesAfter,
   hourAfter
 ) => {
-  console.log(adminSelectedTreatments);
   return [
     !adminAppointmentTime || !adminAppointmentDate
       ? {
@@ -24,6 +23,18 @@ const saltCaveSuggestions = (
             {
               name:
                 "Pick a date/time first to see available salt cave times before appointment",
+            },
+          ],
+        }
+      : adminSelectedTreatments.some((x) =>
+          x.props.children[0].props.children.includes("Before")
+        )
+      ? {
+          sectionTitle: "Available Salt Cave Times Before Appointment",
+          suggestions: [
+            {
+              name:
+                "Salt Cave appointment time before appointment already selected",
             },
           ],
         }
@@ -265,7 +276,15 @@ const saltCaveSuggestions = (
               "Salt Cave Halotherapy (60 Minutes)"
         )
       ? {
-          suggestions: [],
+          sectionTitle: "Available Salt Cave Times At Appointment Time",
+          suggestions: [
+            {
+              name:
+                "Salt Cave appointment time at " +
+                adminAppointmentTime +
+                " already selected",
+            },
+          ],
         }
       : {
           sectionTitle: "Available Salt Cave Times At " + adminAppointmentTime,
@@ -500,6 +519,18 @@ const saltCaveSuggestions = (
             {
               name:
                 "Pick a treatment and date/time first to see available salt cave times after appointment",
+            },
+          ],
+        }
+      : adminSelectedTreatments.some((x) =>
+          x.props.children[0].props.children.includes("After")
+        )
+      ? {
+          sectionTitle: "Available Salt Cave Times After Appointment",
+          suggestions: [
+            {
+              name:
+                "Salt Cave appointment time after appointment already selected",
             },
           ],
         }

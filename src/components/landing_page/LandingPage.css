@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .landing_page_drawing svg {
@@ -90,12 +91,12 @@
 
 .landing_page_text_block {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 2fr;
   grid-template-areas:
     "top-text"
     "description"
     "cta";
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
   text-align: center;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -330,6 +331,7 @@
   .landing_page_text_block {
     flex: 0;
     height: 40%;
+    grid-template-rows: repeat(3, 1fr);
   }
 
   .landing_page_description {
@@ -635,6 +637,68 @@
     border-radius: 40px;
     cursor: pointer;
     margin: 0;
+  }
+}
+
+/* CSS for Tablets in Landscape Mode */
+@media only screen and (max-width: 1199px) and (orientation: landscape) {
+  .landing_page_description {
+    text-align: left;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    font-size: 1.3vw;
+    line-height: 2.5vw;
+  }
+
+  .bottom_content {
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .bottom_content h1 {
+    text-align: left;
+    font-size: 2.9vw;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .call_to_action_buttons_container {
+    margin-left: 1.5rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .call_to_action_button {
+    font-size: 1.5vw;
+    padding: 1.5vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 1.5rem;
+  }
+}
+
+/* CSS for Tablets in Landscape Mode */
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+  .landing_page_description {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+
+  .bottom_content h1 {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+
+  .call_to_action_buttons_container {
+    margin-left: 0rem;
+  }
+
+  .call_to_action_button {
+    margin-left: 0rem;
   }
 }
 

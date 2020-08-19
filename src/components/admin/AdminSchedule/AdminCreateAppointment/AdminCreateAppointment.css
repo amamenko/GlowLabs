@@ -324,6 +324,13 @@
   padding: 1.5rem;
 }
 
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .not_sure_booked_emoji_icon_path {
+    transform: scale(0.6);
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .admin_create_appointment_double_label {

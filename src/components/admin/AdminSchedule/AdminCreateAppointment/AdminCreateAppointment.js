@@ -40,6 +40,7 @@ import ACTION_TOTAL_DURATION from "../../../../actions/TotalDuration/ACTION_TOTA
 import ACTION_TOTAL_DURATION_RESET from "../../../../actions/TotalDuration/ACTION_TOTAL_DURATION_RESET";
 import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
 import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
+import moment from "moment";
 
 const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
@@ -507,6 +508,13 @@ const AdminCreateAppointment = (props) => {
             "style",
             "pointer-events: none; background: #fff;"
           );
+        } else if (
+          highlightedTreatment[0].textContent.includes("already selected")
+        ) {
+          highlightedTreatment[0].setAttribute(
+            "style",
+            "pointer-events: none; background: #fff;"
+          );
         } else {
           return null;
         }
@@ -566,40 +574,142 @@ const AdminCreateAppointment = (props) => {
   }, [dispatch, selectedAddOns, selectedTreatments]);
 
   const variablesModel = {
-    date: adminAppointmentDate,
-    startTime: adminAppointmentTime.split(" ")[0],
-    morningOrEvening: adminAppointmentTime.split(" ")[1],
-    // endTime: appointmentEndTime,
-    duration: totalDuration,
-    price: totalPrice,
-    esthetician: adminAppointmentStaffMember,
     firstName: adminClientFirstName,
     lastName: adminClientLastName,
     email: adminClientEmail,
     phoneNumber: adminClientPhoneNumber,
     // bookedWithCardSquareID: bookedWithCardID,
     notes: adminAppointmentNotes,
-    // squareCustomerId: userAuthenticated ? null : squareCustomerID,
+    // squareCustomerId: squareCustomerID,
   };
 
   const handleSubmitBooking = (e) => {
     e.preventDefault();
 
-    const treatmentsArray = () => {
-      return {
-        treatments: selectedTreatments,
-      };
-    };
+    const appDate = moment(adminAppointmentDate).format("MMMM D, YYYY");
 
-    const addOnsArray = () => {
-      return {
-        addOns: selectedAddOns,
-      };
-    };
+    const beforeSalt = selectedTreatments.filter((x) =>
+      x.name.includes("Before")
+    );
+    const duringSalt = selectedTreatments.filter((x) =>
+      x.name.includes("Minutes)")
+    );
+    const afterSalt = selectedTreatments.filter((x) =>
+      x.name.includes("After)")
+    );
+    const regularTreatments = selectedTreatments.filter(
+      (x) => !x.name.includes("Salt Cave")
+    );
 
-    addAppointment({
-      variables: { ...variablesModel, ...treatmentsArray(), ...addOnsArray() },
-    });
+    if (beforeSalt.length > 0) {
+      const beforeAppStartTime = moment(
+        appDate + " " + adminAppointmentTime,
+        "MMMM D, YYYY h:mm A"
+      )
+        .subtract(beforeSalt[0].duration, "minutes")
+        .format("h:mm A");
+      const beforeAppEndTime = moment(
+        appDate + " " + beforeAppStartTime,
+        "MMMM D, YYYY h:mm A"
+      )
+        .add(beforeSalt[0].duration, "minutes")
+        .format("h:mm");
+
+      addAppointment({
+        variables: {
+          ...variablesModel,
+          date: appDate,
+          startTime: beforeAppStartTime.split(" ")[0],
+          morningOrEvening: beforeAppStartTime.split(" ")[1],
+          endTime: beforeAppEndTime,
+          price: beforeSalt[0].price,
+          duration: beforeSalt[0].duration,
+          esthetician: "Salt Cave",
+          treatments: beforeSalt,
+          addOns: [],
+        },
+      });
+    }
+
+    if (duringSalt.length > 0) {
+      const duringEndTime = moment(
+        appDate + " " + adminAppointmentTime,
+        "MMMM D, YYYY h:mm A"
+      )
+        .add(duringSalt[0].duration, "minutes")
+        .format("h:mm");
+
+      addAppointment({
+        variables: {
+          ...variablesModel,
+          date: appDate,
+          startTime: adminAppointmentTime.split(" ")[0],
+          morningOrEvening: adminAppointmentTime.split(" ")[1],
+          endTime: duringEndTime,
+          price: duringSalt[0].price,
+          duration: duringSalt[0].duration,
+          esthetician: "Salt Cave",
+          treatments: duringSalt,
+          addOns: [],
+        },
+      });
+    }
+
+    const regularDuration = regularTreatments
+      .concat(selectedAddOns)
+      .map((x) => x.duration)
+      .reduce((a, b) => a + b, 0);
+
+    const regularEndTime = moment(
+      appDate + " " + adminAppointmentTime,
+      "MMMM D, YYYY h:mm A"
+    )
+      .add(regularDuration, "minutes")
+      .format("h:mm A");
+
+    if (afterSalt.length > 0) {
+      const afterSaltEndTime = moment(
+        appDate + " " + regularEndTime,
+        "MMMM D, YYYY h:mm A"
+      )
+        .add(afterSalt[0].duration, "minutes")
+        .format("h:mm");
+
+      addAppointment({
+        variables: {
+          ...variablesModel,
+          date: appDate,
+          startTime: regularEndTime.split(" ")[0],
+          morningOrEvening: regularEndTime.split(" ")[1],
+          endTime: afterSaltEndTime,
+          price: afterSalt[0].price,
+          duration: afterSalt[0].duration,
+          esthetician: "Salt Cave",
+          treatments: afterSalt,
+          addOns: [],
+        },
+      });
+    }
+
+    if (regularTreatments.length > 0) {
+      addAppointment({
+        variables: {
+          ...variablesModel,
+          date: appDate,
+          startTime: adminAppointmentTime.split(" ")[0],
+          morningOrEvening: adminAppointmentTime.split(" ")[1],
+          endTime: regularEndTime.split(" ")[0],
+          price: regularTreatments
+            .concat(selectedAddOns)
+            .map((x) => x.price)
+            .reduce((a, b) => a + b, 0),
+          duration: regularDuration,
+          esthetician: adminAppointmentStaffMember,
+          treatments: regularTreatments,
+          addOns: selectedAddOns,
+        },
+      });
+    }
   };
 
   useEffect(() => {

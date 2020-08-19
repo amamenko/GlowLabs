@@ -10,7 +10,7 @@ gql`
 
 gql`
   input TreatmentInput {
-    addOns: [TreatmentType]
+    treatments: [TreatmentType]
   }
 `;
 

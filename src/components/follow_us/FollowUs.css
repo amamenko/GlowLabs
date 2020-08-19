@@ -147,6 +147,7 @@
     "grid_sub_container_left grid_sub_container_left grid_sub_container_left";
   grid-gap: 1rem;
   height: 100vh;
+  width: 100vw;
   padding-top: 5vh;
   background: rgb(255, 255, 255);
   overflow: hidden;
@@ -164,6 +165,13 @@
   color: rgb(0, 69, 117);
   -webkit-text-fill-color: rgb(0, 69, 117);
   transition: all 0.5s ease;
+}
+
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .not_sure_emoji_icon_path {
+    transform: scale(0.4);
+  }
 }
 
 @media only screen and (min-width: 375px) {
@@ -206,6 +214,29 @@
   .follow_us_sub_container_header h1 {
     font-size: 5vh;
     padding-bottom: 4vh;
+  }
+}
+
+/* CSS for Phones in Landscape Mode */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .follow_us_container {
+    height: min-content;
+    grid-template-rows: 15% 20% 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .follow_us_sub_container_header h1 {
+    font-size: 8vh;
+    padding-bottom: 6vh;
+  }
+
+  .follow_us_sub_container_middle p {
+    font-size: 5vh;
+    padding-bottom: 0rem;
+  }
+
+  .follow_us_sub_container_middle {
+    margin-bottom: 0rem;
   }
 }
 

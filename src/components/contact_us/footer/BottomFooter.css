@@ -5,35 +5,72 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
-  height: 20vh;
+  justify-content: center;
+  height: 100%;
   padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2vh;
 }
 
-.bottom_footer_copyright_statement {
-  grid-area: copyright;
+.bottom_footer_all_icons_container > * {
+  padding-right: 1.5rem;
 }
 
-.bottom_footer_company_address {
-  grid-area: address;
+.bottom_footer_company_details {
+  grid-area: details;
+  text-align: center;
+  color: #fff;
+  padding-bottom: 2vh;
 }
 
 .bottom_footer_logo_container {
   grid-area: logo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 5rem;
+  max-width: 15rem;
+  width: 30vw;
+  margin: 0 auto;
+  height: 25%;
+  background-color: rgb(0, 129, 177);
 }
 
 .bottom_footer_container {
   grid-area: footer;
   width: 100%;
-  height: 20vh;
+  height: 40vh;
   display: grid;
-  grid-template-columns: repeat(3, 33.3%);
-  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 0.2fr);
   grid-template-areas:
     "icons icons icons"
-    "copyright copyright copyright"
-    "address address address"
+    "details details details"
     "logo logo logo";
   overflow: hidden;
+  grid-gap: 1rem;
+  background-color: rgb(0, 129, 177);
+}
+
+@media only screen and (min-width: 768px) {
+  .bottom_footer_all_icons_container > * {
+    padding-right: 0rem;
+  }
+
+  .bottom_footer_logo_container {
+    height: 5vh;
+  }
+
+  .bottom_footer_container {
+    height: 25vh;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .footer_icon {
+    font-size: 3vh;
+  }
+
+  .bottom_footer_logo_container {
+    height: 5vh;
+  }
 }

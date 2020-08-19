@@ -7,7 +7,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  overflow-y: hidden;
   height: 100%;
 }
 
@@ -179,10 +178,6 @@
   font-size: 4vh;
   margin-right: 4vw;
 }
-
-/* .nav_burger_menu_items li:not(:last-child) svg {
-       margin-top: 0.1vh;
-   } */
 
 .navbar_social_media_icons {
   width: 100%;
@@ -363,7 +358,28 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 }
 
-@media only screen and (min-width: 800px) and (orientation: landscape) {
+/* CSS for Phones in Landscape Mode */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .bm-menu-wrap {
+    height: 200% !important;
+  }
+
+  .nav_burger_menu_logo_container {
+    width: 60%;
+  }
+
+  .nav_burger_menu_items li:not(:last-child) {
+    font-size: 7vh;
+    margin-bottom: 5vh;
+  }
+
+  .nav_burger_menu_items li svg {
+    font-size: 8vh;
+    margin-right: 5vw;
+  }
+}
+
+@media only screen and (min-width: 901px) and (orientation: landscape) {
   .nav_burger_menu,
   .nav_burger_menu.nav_burger_menu_no_shadow,
   .nav_burger_menu,

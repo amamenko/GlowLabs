@@ -33,6 +33,7 @@
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     box-shadow: 0px -3px 3px 0px rgba(177, 177, 166, 0.1);
+    overflow: hidden;
   }
 
   .card_svg {
@@ -51,6 +52,7 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     box-shadow: 0px -3px 3px 0px rgba(177, 177, 166, 0.1);
+    overflow: hidden;
   }
 
   .card_border_right {
@@ -104,6 +106,7 @@
   .fa-layers {
     position: absolute;
     right: 0;
+    cursor: pointer;
   }
 
   .card_description_icon_wrapper_container {
@@ -183,6 +186,7 @@
   .small_screen_card_description_plus,
   .small_screen_card_description_suitcase {
     font-size: 0.75rem;
+    cursor: pointer;
   }
 
   .notification_container {
@@ -742,8 +746,8 @@
   }
 
   .card_description_paragraph {
-    font-size: 0.8rem;
-    line-height: 20px;
+    font-size: 0.7rem;
+    line-height: 2vh;
     padding-top: 0.7rem;
   }
 
@@ -824,7 +828,7 @@
   }
 
   .facial_coming_soon_designation {
-    bottom: 4.7rem;
+    bottom: 4.5rem;
   }
 }
 
@@ -1157,6 +1161,13 @@
 }
 
 /* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1500px) {
+  .facial_advanced_treatment_icon {
+    bottom: 15rem;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
   .card_description_inner_wrapper h2 {
     font-size: 1.8rem;
@@ -1198,8 +1209,8 @@
   }
 
   .facial_advanced_treatment_designation {
-    bottom: 5rem;
-    font-size: 1.2rem;
+    bottom: 4rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -1220,7 +1231,7 @@
 
   .card_description_paragraph {
     font-size: 1rem;
-    line-height: 1.8rem;
+    line-height: 3vh;
   }
 
   .card_toggler {
