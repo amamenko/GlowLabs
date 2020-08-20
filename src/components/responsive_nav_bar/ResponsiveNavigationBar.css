@@ -160,6 +160,7 @@
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  outline: none;
 }
 
 .nav_burger_menu_items li:not(:last-child) {
@@ -172,6 +173,10 @@
   font-weight: 500;
   color: rgb(239, 240, 243);
   cursor: pointer;
+}
+
+.nav_burger_menu_items li:not(:last-child):focus {
+  color: rgb(189, 190, 193);
 }
 
 .nav_burger_menu_items li svg {
@@ -314,8 +319,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   .nav_login_container {
     height: calc(2rem + 0.5vw);
-    padding-left: calc(1rem + 1vw);
-    padding-right: calc(1rem + 1vw);
+    padding-left: calc(1rem + 2vw);
+    padding-right: calc(1rem + 2vw);
     margin-right: 1vw;
   }
 

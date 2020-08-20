@@ -31,6 +31,7 @@ import ACTION_CART_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTI
 import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
 import ACTION_SELECTED_ESTHETICIAN from "../../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN";
 import ACTION_DAY_OF_THE_WEEK_RESET from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
+import { animateScroll } from "react-scroll";
 
 const Availability = (props) => {
   let location = useLocation();
@@ -172,7 +173,7 @@ const Availability = (props) => {
 
   useEffect(() => {
     if (location.pathname.includes("availability")) {
-      window.scrollTo(0, 0);
+      animateScroll.scrollToTop({ containerId: "date_page", offset: -500 });
     }
   }, [location.pathname]);
 
@@ -502,7 +503,7 @@ const Availability = (props) => {
   }, [dispatch]);
 
   return (
-    <div className="availability_container">
+    <div className="availability_container" id="date_page">
       {redirectToHome()}
       <div className="availability_container_header">
         {!props.currentScreenSize ? (

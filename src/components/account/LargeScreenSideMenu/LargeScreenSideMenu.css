@@ -14,7 +14,7 @@
     align-items: flex-start;
     justify-content: center;
     height: 100vh;
-    width: 20%;
+    width: 40%;
     padding-left: 3.1rem;
     padding-right: 3.1rem;
     background: rgb(244, 244, 244);
@@ -216,11 +216,24 @@
   }
 }
 
+@media only screen and (min-width: 1400px) {
+  .large_sceen_logged_in_side_menu {
+    width: 34%;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .large_sceen_logged_in_side_menu {
+    width: 30%;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .large_sceen_logged_in_side_menu {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    width: 20%;
   }
 
   .large_screen_side_menu_profile_client_avatar {
@@ -326,6 +339,7 @@
   .large_sceen_logged_in_side_menu {
     padding-left: 3.1rem;
     padding-right: 3.1rem;
+    width: 23%;
   }
 
   .large_screen_side_menu_profile_client_avatar {

@@ -90,6 +90,7 @@ const Calm = (props) => {
   );
   const unsureInCart = useSelector((state) => state.unsureInCart.in_cart);
   const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
+  const counter = useSelector((state) => state.counterReducer.counter);
 
   // Cart States
   const [cartClicked, changeCartClicked] = useState(false);
@@ -564,7 +565,11 @@ const Calm = (props) => {
           plugins={[sticky]}
           onAfterUpdate={() => {
             if (scrollFreeze !== "") {
-              if (props.scrollValue !== scrollFreeze) {
+              if (props.scrollValue !== scrollFreeze || counter > 0) {
+                changeTooltipShow(false);
+              }
+            } else {
+              if (counter > 0) {
                 changeTooltipShow(false);
               }
             }

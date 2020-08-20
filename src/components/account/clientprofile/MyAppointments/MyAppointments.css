@@ -246,10 +246,10 @@
   justify-content: flex-start;
   z-index: 1;
   padding-top: 1rem;
-  margin-left: 1.5rem;
   margin-right: 1.5rem;
   position: fixed;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .admin_side_my_individual_selected_appointment_container {

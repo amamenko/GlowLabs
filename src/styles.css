@@ -22,7 +22,14 @@ html {
 body {
   -webkit-text-size-adjust: none;
   overscroll-behavior-y: none;
+}
+
+.height_hundred_percent {
   height: 100%;
+}
+
+.height_remove_hundred_percent {
+  height: auto;
 }
 
 .reset_scroll_behavior {

@@ -911,7 +911,9 @@ const LandingPage = React.forwardRef((props, ref) => {
                       <div
                         className="call_to_action_button"
                         style={{
-                          opacity: `${styleprops.opacity}`,
+                          opacity: splashScreenComplete
+                            ? "1"
+                            : `${styleprops.opacity}`,
                         }}
                       >
                         <p

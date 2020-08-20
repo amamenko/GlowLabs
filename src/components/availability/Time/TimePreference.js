@@ -36,6 +36,7 @@ import {
 import { useQuery } from "@apollo/react-hooks";
 import { getAllAppointmentsQuery } from "../../../graphql/queries/queries";
 import "./TimePreference.css";
+import { animateScroll } from "react-scroll";
 
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../bootstrap.min.css";
@@ -117,7 +118,7 @@ const TimePreference = (props) => {
 
   useEffect(() => {
     if (location.pathname.includes("/availability/timepreference")) {
-      window.scrollTo(0, 0);
+      animateScroll.scrollToTop({ containerId: "time_page" });
     }
   }, [location.pathname]);
 
@@ -627,7 +628,7 @@ const TimePreference = (props) => {
   }, [selectedTime, totalDuration, dispatch]);
 
   return (
-    <div className="select_time_container">
+    <div className="select_time_container" id="time_page">
       {redirectToHome()}
       <div className="select_time_container_header">
         <Link

@@ -479,7 +479,7 @@ const App = () => {
   const handleNavbarToggle = () => {
     if (!currentScreenSize) {
       if (
-        (initialScreenSize >= 768 && initialScreenHeight > initialScreenSize) ||
+        initialScreenHeight > initialScreenSize ||
         (initialScreenSize < 900 && initialScreenSize > initialScreenHeight)
       ) {
         if (navbarToggle) {
@@ -495,7 +495,7 @@ const App = () => {
       }
     } else {
       if (
-        (currentScreenSize >= 768 && currentScreenHeight > currentScreenSize) ||
+        currentScreenHeight > currentScreenSize ||
         (currentScreenSize < 900 && currentScreenSize > currentScreenHeight)
       ) {
         if (navbarToggle) {
@@ -1111,6 +1111,21 @@ const App = () => {
   );
 
   useEffect(() => {
+    if (
+      location.pathname === "/admin" ||
+      location.pathname === "/account/login" ||
+      location.pathname === "/account/completeregistration" ||
+      location.pathname === "/account/signup"
+    ) {
+      document.body.classList.remove("height_hundred_percent");
+      document.body.classList.add("height_remove_hundred_percent");
+    } else {
+      document.body.classList.remove("height_remove_hundred_percent");
+      document.body.classList.add("height_hundred_percent");
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
     const root = document.getElementsByTagName("html")[0];
 
     if (!currentScreenSize) {
@@ -1173,9 +1188,7 @@ const App = () => {
     const refVar = MainContainerRef.current;
     if (refVar) {
       changeScrollValue(refVar.scrollTop);
-    }
 
-    if (refVar) {
       refVar.addEventListener("scroll", handleScrollDirection);
 
       return () => {

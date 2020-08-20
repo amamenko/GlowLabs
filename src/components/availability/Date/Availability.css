@@ -1,6 +1,7 @@
 .availability_container {
   padding-top: 8vh;
-  height: 100%;
+  height: 100vh;
+  overflow-y: auto;
   background: rgb(255, 255, 255);
   padding-bottom: 8vh;
 }

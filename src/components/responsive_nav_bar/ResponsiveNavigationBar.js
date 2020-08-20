@@ -197,8 +197,16 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
       !location.pathname.includes("/account/clientprofile") ||
       !location.pathname.includes("/admin")
     ) {
-      dispatch(ACTION_CART_IS_NOT_ACTIVE());
-      dispatch(ACTION_LOGIN_IS_ACTIVE());
+      if (cartIsActive) {
+        dispatch(ACTION_CART_IS_NOT_ACTIVE());
+      }
+
+      if (location.pathname === "/") {
+        dispatch(ACTION_LOGIN_IS_ACTIVE());
+      } else {
+        dispatch(ACTION_LOG_OUT_CLICKED());
+      }
+
       toast.dismiss();
     }
   };
@@ -671,23 +679,23 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             </svg>
           </div>
           <ul className="nav_burger_menu_items">
-            <li onClick={() => navMenuScrollToHome()}>
+            <li tabIndex={0} onClick={() => navMenuScrollToHome()}>
               <FcHome />
               Home
             </li>
-            <li onClick={() => navMenuScrollToTreatments()}>
+            <li tabIndex={0} onClick={() => navMenuScrollToTreatments()}>
               <FcPaid />
               Facial
             </li>
-            <li onClick={() => navMenuScrollToAddOns()}>
+            <li tabIndex={0} onClick={() => navMenuScrollToAddOns()}>
               <FcPlus />
               Add-Ons
             </li>
-            <li onClick={() => navMenuScrollToInstagram()}>
+            <li tabIndex={0} onClick={() => navMenuScrollToInstagram()}>
               <FcLike />
               Follow Us
             </li>
-            <li onClick={() => navMenuScrollToContact()}>
+            <li tabIndex={0} onClick={() => navMenuScrollToContact()}>
               <FcAbout />
               Contact Us
             </li>
@@ -939,7 +947,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 className="fa-layers fa-fw letter_circle"
                 style={{
                   background:
-                    props.currentScreenSize === ""
+                    dummyToken && dummyToken.picture
+                      ? "transparent"
+                      : props.currentScreenSize === ""
                       ? props.initialScreenSize >= 768 &&
                         props.initialScreenHeight >= props.initialScreenSize
                         ? "rgb(44, 44, 52)"

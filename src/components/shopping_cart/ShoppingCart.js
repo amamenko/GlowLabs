@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import "./ShoppingCart.css";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,10 +42,13 @@ import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician
 import { useMemo } from "react";
 import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import ACTION_CART_PAGE_RESET from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_RESET";
+import { animateScroll } from "react-scroll";
 
 const ShoppingCart = (props) => {
   const dispatch = useDispatch();
   let location = useLocation();
+
+  const shoppingCartRef = useRef(null);
 
   // In Cart states
   // Treatments
@@ -312,7 +315,7 @@ const ShoppingCart = (props) => {
 
   useEffect(() => {
     if (location.pathname.includes("cart")) {
-      window.scrollTo(0, 0);
+      animateScroll.scrollToTop({ containerId: "shopping_cart", offset: -500 });
     }
   }, [location.pathname]);
 
@@ -368,7 +371,11 @@ const ShoppingCart = (props) => {
   }, [dispatch]);
 
   return (
-    <div className="shopping_cart_container">
+    <div
+      className="shopping_cart_container"
+      id="shopping_cart"
+      ref={shoppingCartRef}
+    >
       {redirectToHome()}
       <div
         className="shopping_cart_header"
