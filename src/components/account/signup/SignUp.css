@@ -1,806 +1,150 @@
-/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
-@media only screen and (min-width: 300px) {
+.sign_up_logo_container {
+  min-width: 10rem;
+  max-width: 20rem;
+  grid-area: logo;
+  margin: 10vh auto;
+}
+
+.sign_up_page_descriptive_text {
+  display: none;
+}
+
+.sign_up_section_designator {
+  grid-area: section;
+  text-align: center;
+}
+
+.sign_up_form_container {
+  width: 100%;
+  grid-area: form;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.top_form_container {
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+.sign_up_form_container input {
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  font-size: 1.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  line-height: 0;
+}
+
+.sign_up_bottom_buttons_container {
+  grid-area: buttons;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sign_up_individual_form_field {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.sign_up_page_container {
+  height: 85vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: 20% 5% 40% 20% 25%;
+  grid-template-areas:
+    "logo logo logo"
+    "section section section"
+    "form form form"
+    "buttons buttons buttons"
+    ". . .";
+  position: relative;
+  background: white;
+}
+
+.sign_up_page_container:before {
+  content: "";
+  background-color: white;
+  position: absolute;
+  height: 15vh;
+  width: 25vw;
+  left: 0vw;
+  bottom: -15vh;
+  z-index: 50;
+}
+
+.sign_up_section_designator h2 {
+  font-weight: 700;
+  color: rgb(77, 77, 77);
+}
+
+.create_account_button {
+  background: rgb(44, 44, 52);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+.already_have_an_account_question {
+  font-weight: 500;
+}
+
+.login_redirect_button {
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+@media only screen and (max-width: 330px) {
+  .sign_up_section_designator h2 {
+    font-size: 6vw;
+  }
+}
+
+@media only screen and (max-width: 767px) and (max-device-height: 1000px) {
   .sign_up_page_container {
-    height: 135vh;
-    background: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin-top: -11vh;
-    padding-bottom: 12vh;
-  }
-
-  .sign_up_content_container {
-    height: 20%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    position: absolute;
-    bottom: 55vh;
-  }
-
-  .sign_up_logo_container {
-    position: absolute;
-    height: 60%;
-    width: 100%;
-    top: -21.5vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .sign_up_prompt {
-    font-weight: 500;
-    font-size: 1.3rem;
-    padding-top: 14rem;
-    padding-bottom: 2rem;
-    color: rgb(121, 121, 121);
-    position: absolute;
-    top: -50vh;
-    width: 90%;
-    text-align: center;
-  }
-
-  .complete_registration_prompt {
-    font-weight: 500;
-    font-size: 1.3rem;
-    padding-top: 14rem;
-    padding-bottom: 2rem;
-    color: rgb(121, 121, 121);
-    position: absolute;
-    top: -38vh;
-    width: 90%;
-    text-align: center;
-  }
-
-  .sign_up_page_form {
-    width: 90%;
-  }
-
-  .input_field_sign_up {
-    width: 100%;
-    font-size: 1.3rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.5rem;
-    margin-bottom: 0.5rem;
-    position: relative;
-    line-height: 0;
-  }
-
-  .input_field_sign_up::placeholder {
-    padding-top: 0.75rem;
-  }
-
-  .invalid-feedback {
-    margin-bottom: 0.5rem;
-  }
-
-  .signup_page_bottom_buttons_container {
-    width: 100%;
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 4vh;
-  }
-
-  .create_account_button {
-    width: 90%;
-    background: rgb(44, 44, 52);
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.8rem;
-    cursor: pointer;
-  }
-
-  .already_have_an_account_question {
-    font-weight: 500;
-    margin-top: 2vh;
-  }
-
-  .login_redirect_button {
-    width: 90%;
-    background: rgb(255, 255, 255);
-    border: 2px solid rgb(44, 44, 52);
-    color: rgb(44, 44, 52);
-    text-align: center;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.8rem;
-    cursor: pointer;
-    margin-top: 2vh;
-  }
-
-  .login_redirect_button p {
-    color: rgb(44, 44, 52);
-  }
-
-  .sign_up_page_descriptive_text {
-    display: none;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .sign_up_page_container {
-      height: 140vh;
-      margin-top: -2vh;
-    }
-
-    .signup_page_bottom_buttons_container {
-      height: 5vh;
-      padding-top: 20vh;
-      margin-top: 15vh;
-      padding-bottom: 5vh;
-    }
-
-    .sign_up_logo_container {
-      top: -31vh;
-    }
-
-    .sign_up_prompt {
-      padding-top: 10.5rem;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: -4rem;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -44vh;
-    }
-
-    .complete_registration_prompt {
-      padding-top: 15rem;
-      padding-bottom: 4rem;
-    }
+    height: min-content;
   }
 }
 
-/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) with Smaller Heights */
-@media only screen and (max-width: 359px) and (max-device-height: 600px) {
-  .sign_up_prompt {
-    top: -1vh;
-  }
-
-  .sign_up_content_container {
-    height: 95%;
-    justify-content: flex-end;
-    bottom: 15vh;
-  }
-
-  .complete_registration_prompt {
-    top: -58vh;
-  }
-
-  .sign_up_required_fields {
-    margin-right: -1rem;
-  }
-
-  .sign_up_page_form {
-    margin-bottom: 3rem;
-  }
-
-  .signup_page_bottom_buttons_container {
-    margin-top: -5vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 17vh;
-    margin-bottom: 0;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .complete_registration_prompt {
-      top: -86vh;
-    }
-
-    .complete_registration_bottom_buttons_container {
-      margin-top: 15vh;
-      margin-bottom: 0;
-    }
-
-    .sign_up_prompt {
-      top: 3vh;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: 1rem;
-    }
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (min-device-height: 701px) and (max-device-height: 799px) {
-  .sign_up_prompt {
-    padding-top: 14rem;
-    padding-bottom: 2rem;
-    top: 25vh;
-  }
-}
-
-/* CSS for Pixel 4, Galaxy Note 9 */
-@media only screen and (min-width: 360px) and (min-device-height: 740px) and (max-device-height: 799px) {
-  @supports not (-webkit-overflow-scrolling: touch) {
-    /* CSS for other than iOS devices */
-    .sign_up_page_container {
-      height: 135vh;
-      margin-top: -11vh;
-      padding-bottom: 12vh;
-    }
-
-    .sign_up_content_container {
-      height: 60%;
-      justify-content: flex-end;
-      bottom: 10vh;
-    }
-
-    .sign_up_prompt {
-      top: -45vh;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: 17rem;
-    }
-
-    .signup_page_bottom_buttons_container {
-      position: absolute;
-      padding-top: 20vh;
-      margin-top: -15vh;
-      padding-bottom: 5vh;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -30vh;
-    }
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 700px) {
-  .sign_up_content_container {
-    height: 85%;
-    justify-content: flex-end;
-    bottom: 30vh;
-  }
-
-  .sign_up_required_fields {
-    margin-right: -1rem;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 15vh;
-    margin-bottom: 0;
-  }
-
-  .signup_page_bottom_buttons_container {
-    padding-top: 0vh;
-    margin-top: 0vh;
-    padding-bottom: 15vh;
-  }
-
-  .sign_up_page_form {
-    margin-bottom: -1rem;
-  }
-
-  .complete_registration_prompt {
-    padding-top: 0;
-    top: -30vh;
-  }
-
-  @supports not (-webkit-overflow-scrolling: touch) {
-    /* CSS for other than iOS devices */
-    .sign_up_prompt {
-      top: -23vh;
-    }
-
-    .sign_up_content_container {
-      height: 75%;
-      justify-content: flex-end;
-      bottom: 10vh;
-    }
-
-    .signup_page_bottom_buttons_container {
-      padding-top: 20vh;
-      margin-top: 0vh;
-      padding-bottom: 15vh;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -40vh;
-    }
-  }
-}
-
-/* Additional CSS for Slightly Smaller Portrait Screens */
-@media only screen and (min-width: 375px) {
-  .sign_up_prompt {
-    padding-top: 14rem;
-    padding-bottom: 2rem;
-    top: 32vh;
-  }
-
-  .sign_up_content_container {
-    height: 95%;
-    justify-content: flex-end;
-    bottom: 35vh;
-  }
-
-  .complete_registration_prompt {
-    top: -45vh;
-  }
-}
-
-/* Additional CSS for Slightly Smaller Portrait Screens */
-@media only screen and (min-width: 375px) and (min-device-height: 600px) and (max-device-height: 700px) {
-  .sign_up_prompt {
-    padding-top: 14rem;
-    padding-bottom: 2rem;
-    top: 22vh;
-  }
-
-  .complete_registration_prompt {
-    top: -35vh;
-  }
-
-  .sign_up_content_container {
-    height: 100%;
-    justify-content: flex-end;
-    bottom: 25vh;
-  }
-
-  .sign_up_page_form {
-    margin-bottom: -3rem;
-  }
-
-  .sign_up_required_fields {
-    margin-right: -0.5rem;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .sign_up_prompt {
-      top: 18vh;
-    }
-
-    .sign_up_content_container {
-      bottom: 30vh;
-    }
-
-    .signup_page_bottom_buttons_container {
-      height: 5vh;
-      padding-top: 20vh;
-      margin-top: 15vh;
-      padding-bottom: 5vh;
-    }
-
-    .sign_up_logo_container {
-      top: -31vh;
-    }
-
-    .sign_up_prompt {
-      padding-top: 15rem;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: -8rem;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -35vh;
-    }
-  }
-}
-
-/* Additional CSS for Mobile Phones with Slightly Larger Heights */
-@media only screen and (min-width: 375px) and (min-device-height: 801px) and (max-device-height: 900px) {
-  .sign_up_prompt {
-    top: 31vh;
-  }
-
-  .sign_up_page_form {
-    margin-bottom: 1rem;
-  }
-
-  .sign_up_required_fields {
-    margin-right: -0.5rem;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    .sign_up_page_container {
-      height: 135vh;
-      margin-top: -2vh;
-    }
-
-    .sign_up_prompt {
-      top: 22vh;
-    }
-
-    .sign_up_logo_container {
-      top: -29.5vh;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: -7rem;
-    }
-
-    .signup_page_bottom_buttons_container {
-      height: 10vh;
-      padding-bottom: 0vh;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -33vh;
-    }
-
-    .complete_registration_prompt {
-      padding-top: 10rem;
-      padding-bottom: 4rem;
-      top: -41vh;
-    }
-  }
-}
-
-/* CSS for Average Portrait Screens (e.g. iPhone 11) */
-@media only screen and (min-width: 410px) {
-  .sign_up_content_container {
-    height: 45%;
-    bottom: 37vh;
-  }
-
-  .sign_up_prompt {
-    top: -34vh;
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 410px) and (max-device-height: 800px) {
-  .sign_up_content_container {
-    height: 95%;
-    bottom: 28vh;
-  }
-
-  .sign_up_prompt {
-    padding-top: 14rem;
-    padding-bottom: 2rem;
-    top: 25vh;
-  }
-
-  .sign_up_page_form {
-    margin-bottom: 4rem;
-  }
-
-  .sign_up_required_fields {
-    margin-right: -3rem;
-  }
-}
-
-/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
-@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
-  .complete_registration_prompt {
-    top: -50vh;
-  }
-
-  .sign_up_required_fields {
-    margin-right: -0.5rem;
-  }
-
-  .sign_up_page_form {
-    margin-bottom: 0rem;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    .sign_up_page_container {
-      height: 140vh;
-      margin-top: -2.1vh;
-      padding-bottom: 12vh;
-    }
-
-    .sign_up_prompt {
-      top: 22vh;
-    }
-
-    .sign_up_content_container {
-      bottom: 35vh;
-    }
-
-    .signup_page_bottom_buttons_container {
-      width: 100%;
-      height: 20vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 0vh;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: -2rem;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -35vh;
-    }
-
-    .complete_registration_prompt {
-      top: -58vh;
-    }
-  }
-}
-
-/* iPhone 11 */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
-  @supports (-webkit-overflow-scrolling: touch) {
-    .sign_up_page_container {
-      height: 120vh;
-      margin-top: -2.1vh;
-      padding-bottom: 12vh;
-    }
-
-    .sign_up_logo_container {
-      top: -25vh;
-    }
-
-    .sign_up_prompt {
-      top: -33vh;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: -7rem;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -32vh;
-    }
-
-    .complete_registration_prompt {
-      top: -45vh;
-    }
-
-    .signup_page_bottom_buttons_container {
-      width: 100%;
-      height: 5vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 5vh;
-    }
-  }
-}
-
-/* iPhone XS Max */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
-  @supports (-webkit-overflow-scrolling: touch) {
-    .sign_up_page_container {
-      height: 120vh;
-      margin-top: -2.1vh;
-      padding-bottom: 12vh;
-    }
-
-    .sign_up_logo_container {
-      top: -25vh;
-    }
-
-    .sign_up_prompt {
-      top: -33vh;
-    }
-
-    .sign_up_page_form {
-      margin-bottom: -7rem;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -25vh;
-    }
-
-    .signup_page_bottom_buttons_container {
-      width: 100%;
-      height: 5vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 5vh;
-    }
-
-    .complete_registration_prompt {
-      top: -45vh;
-    }
-  }
-}
-
-/* Google Pixel 4XL */
-@media screen and (device-width: 480px) and (device-height: 1014px) {
-  @supports not (-webkit-overflow-scrolling: touch) {
-    .sign_up_prompt {
-      top: -30vh;
-    }
-
-    .complete_registration_prompt {
-      padding-top: 0rem;
-      padding-bottom: 4rem;
-    }
-
-    .signup_page_bottom_buttons_container {
-      margin-top: -10vh;
-    }
-
-    .sign_up_password_form_container {
-      margin-top: -23vh;
-    }
-  }
-}
-
-/* CSS for Tablets in Portrait Mode */
-@media only screen and (min-width: 768px) and (max-width: 1199px) {
-  .sign_up_page_background {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
+@media only screen and (min-width: 300px) and (max-width: 1023px) and (orientation: landscape) {
   .sign_up_page_container {
-    width: 75%;
-  }
-
-  .input_field_sign_up {
-    font-size: 1.5rem;
-  }
-
-  .sign_up_prompt {
-    font-size: 2rem;
-    top: -29vh;
-  }
-
-  .complete_registration_prompt {
-    font-size: 2rem;
-  }
-
-  .login_redirect_button,
-  .create_account_button {
-    font-size: 1.5rem;
-  }
-
-  .already_have_an_account_question {
-    font-size: 1.5rem;
-  }
-
-  .sign_up_required_fields {
-    padding-right: 10rem;
-  }
-
-  .sign_up_password_form_container {
-    margin-bottom: 12vh;
+    height: 200vh;
   }
 }
 
-/* CSS for Regular Desktops/Small Laptops and Tablets */
-@media only screen and (min-width: 1200px) {
-  .sign_up_page_background {
-    width: 100%;
-    height: 100%;
-    /* Photo by Karolina Grabowska from Pexels */
-    background-image: url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
-    background-repeat: no-repeat;
-    background-position: 100%, 100%;
-    background-size: contain;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .sign_up_page_background_blurry {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(7px);
-    height: 100%;
-    width: 75%;
-    position: absolute;
-    right: 0;
-  }
-
+@media only screen and (min-width: 1024px) and (max-width: 1199px) and (orientation: landscape) {
   .sign_up_page_container {
     height: 100vh;
-    width: 33.333%;
-    margin-top: 0;
-    padding-bottom: 0;
-  }
-
-  .sign_up_logo_container {
-    height: 60%;
-    width: 100%;
-    top: -22vh;
-  }
-
-  .sign_up_content_container {
-    height: 95%;
-    width: 100%;
-    justify-content: flex-end;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    bottom: 12vh;
-  }
-
-  .sign_up_prompt {
-    font-size: 2rem;
-    padding-top: 0em;
-    padding-bottom: 0rem;
-    top: 27vh;
-  }
-
-  .complete_registration_prompt {
-    font-size: 2rem;
-    padding-top: 2em;
-    padding-bottom: 3rem;
-    top: 42vh;
-  }
-
-  .sign_up_page_form {
-    padding-top: 35vh;
-    padding-bottom: 1vh;
-  }
-
-  .signup_page_bottom_buttons_container {
-    padding-bottom: 0vh;
-    margin-top: 0vh;
-  }
-
-  .sign_up_individual_form_field {
-    margin-bottom: 1rem;
-  }
-
-  .login_redirect_button,
-  .create_account_button {
-    font-size: 1rem;
-    padding: 0.8rem;
-    margin-top: auto;
-  }
-
-  .input_field_login {
-    font-size: 1.5rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .input_field_sign_up {
-    font-size: 1.3rem;
-  }
-
-  .create_account_button {
-    margin-bottom: 1vh;
-  }
-
-  .already_have_an_account_question {
-    font-size: 1rem;
-    margin-bottom: 2vh;
   }
 }
 
-/* CSS for Medium Laptops like Microsoft Surface Pro */
-@media only screen and (min-width: 1400px) {
-  .sign_up_required_fields {
-    padding-right: 2rem;
-  }
-
-  .sign_up_prompt {
-    top: 25vh;
-  }
-
-  .sign_up_password_form_container {
-    margin-bottom: 12vh;
-  }
-
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
   .sign_up_page_descriptive_text {
     display: block;
     position: absolute;
@@ -824,163 +168,70 @@
     line-height: 5rem;
     color: rgb(255, 255, 255);
   }
-}
 
-/* CSS for Medium Laptops */
-@media only screen and (min-width: 1400px) and (max-width: 1440px) and (max-device-height: 900px) {
-  .sign_up_required_fields {
-    padding-right: 3rem;
+  .sign_up_page_background {
+    width: 100%;
+    height: 100%;
+    /* Photo by Karolina Grabowska from Pexels */
+    background-image: url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
+    background-repeat: no-repeat;
+    background-position: 100%, 100%;
+    background-size: cover;
+    position: absolute;
+    display: block;
+    z-index: -1;
   }
 
-  .signup_page_bottom_buttons_container {
-    padding-top: 10vh;
-    margin-top: -5vh;
+  .sign_up_page_background_blurry {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    height: 100%;
+    width: 75%;
+    position: absolute;
+    right: 0;
   }
-}
 
-/* CSS for Regular-Sized Desktops */
-@media only screen and (min-width: 1600px) {
   .sign_up_page_container {
     width: 25%;
+    height: 100vh;
+    grid-template-rows: 20% 5% 40% 20% 25%;
   }
 
-  .sign_up_content_container {
-    height: 65%;
+  .sign_up_section_designator h2 {
+    font-size: 1.3em;
   }
 
-  .sign_up_prompt {
-    font-size: 2rem;
-    padding-top: 2em;
-    padding-bottom: 3rem;
-    top: -6vh;
-  }
-
-  .login_redirect_button,
-  .create_account_button {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-
-  .already_have_an_account_question {
-    font-size: 1rem;
-    margin-bottom: -2vh;
-  }
-
-  .sign_up_required_fields {
-    padding-right: 11rem;
-  }
-
-  .sign_up_page_descriptive_text {
-    display: block;
-    position: absolute;
-    top: 23%;
-    left: 30%;
-  }
-
-  .sign_up_page_descriptive_text h2 {
-    font-size: 5rem;
-    color: rgb(255, 255, 255);
-    font-weight: 700;
-  }
-
-  .sign_up_page_descriptive_text ul {
-    padding-top: 1rem;
-    padding-left: 3rem;
-  }
-
-  .sign_up_page_descriptive_text ul li {
-    font-size: 1.5rem;
-    line-height: 5rem;
-    color: rgb(255, 255, 255);
+  .top_form_container,
+  .sign_up_form_container input,
+  .create_account_button,
+  .login_redirect_button {
+    min-width: 15rem;
+    width: 50vw;
+    max-width: 17rem;
   }
 }
 
-/* CSS for Big Desktops */
-@media only screen and (min-width: 1800px) {
-  .sign_up_password_form_container {
-    margin-top: -30vh;
+@media only screen and (min-width: 1400px) {
+  .top_form_container,
+  .sign_up_form_container input,
+  .login_or_container,
+  .create_account_button,
+  .login_redirect_button {
+    max-width: 19rem;
   }
 
-  .sign_up_page_form {
-    margin-bottom: -1rem;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 5vh;
-    margin-bottom: 0;
-  }
-
-  .sign_up_required_fields {
-    padding-right: 10rem;
-  }
-
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .sign_up_page_form {
-        margin-bottom: 10rem;
-      }
-
-      .sign_up_password_form_container {
-        margin-top: -5vh;
-      }
-
-      .already_have_an_account_question {
-        margin-bottom: 0vh;
-      }
-
-      .login_redirect_button {
-        margin-top: 2vh;
-      }
-    }
+  .sign_up_section_designator h2 {
+    font-size: 1.5em;
   }
 }
 
-/* CSS for Huge Desktops */
-@media only screen and (min-width: 2200px) {
-  .sign_up_content_container {
-    height: 70%;
-  }
-
-  .sign_up_prompt {
-    top: 7.5vh;
-  }
-
-  .login_redirect_button,
-  .create_account_button {
-    font-size: 1.5rem;
-  }
-
-  .already_have_an_account_question {
-    font-size: 1.5rem;
-    margin-bottom: -4vh;
-  }
-
-  .sign_up_required_fields {
-    padding-right: 13rem;
-  }
-
-  .sign_up_page_form {
-    margin-top: 0;
-    padding-top: 0vh;
-    padding-bottom: 3vh;
-  }
-
-  .sign_up_content_container {
-    height: 70%;
-    margin-bottom: 10vh;
-  }
-
-  .sign_up_password_form_container {
-    margin-bottom: 5vh;
-  }
-
-  .sign_up_required_fields {
-    padding-right: 13rem;
-  }
-
-  .already_have_an_account_question {
-    margin-bottom: -4vh;
+@media only screen and (min-width: 2000px) {
+  .top_form_container,
+  .sign_up_form_container input,
+  .login_or_container,
+  .create_account_button,
+  .login_redirect_button {
+    max-width: 30rem;
   }
 
   .sign_up_page_descriptive_text {
@@ -994,21 +245,10 @@
   .sign_up_page_descriptive_text ul li {
     font-size: 2rem;
   }
+}
 
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .sign_up_prompt {
-        top: 5vh;
-      }
-
-      .sign_up_page_form {
-        margin-top: 25vh;
-      }
-
-      .sign_up_password_form_container {
-        margin-bottom: -25vh;
-      }
-    }
+@media only screen and (min-width: 2400px) {
+  .sign_up_page_container {
+    height: 85vh;
   }
 }

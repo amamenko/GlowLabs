@@ -1,800 +1,190 @@
-/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
-@media only screen and (min-width: 300px) {
-  .login_page_container {
+.login_logo_container {
+  min-width: 10rem;
+  max-width: 20rem;
+  grid-area: logo;
+  margin: 10vh auto;
+}
+
+.login_page_descriptive_text {
+  display: none;
+}
+
+.login_section_designator {
+  grid-area: section;
+  text-align: center;
+}
+
+.login_form_container {
+  width: 100%;
+  grid-area: form;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.login_form_container > .form-group {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.login_form_container input {
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  font-size: 1.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  line-height: 0;
+}
+
+.bottom_buttons_container {
+  grid-area: buttons;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login_facebook_container {
+  grid-area: facebook;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.continue_with_facebook_button {
+  display: block;
+  background: rgb(59, 89, 152);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.continue_with_facebook_button p {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+.login_or_container {
+  grid-area: or;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  color: rgb(121, 121, 121);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.login_container {
+  height: 85vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: 20% 5% 15% 5% 25% 20% 10%;
+  grid-template-areas:
+    "logo logo logo"
+    "section section section"
+    "facebook facebook facebook"
+    "or or or"
+    "form form form"
+    "buttons buttons buttons"
+    ". . .";
+  position: relative;
+  background: white;
+}
+
+.login_container:before {
+  content: "";
+  background-color: white;
+  position: absolute;
+  height: 15vh;
+  width: 25vw;
+  left: 0vw;
+  bottom: -15vh;
+  z-index: 50;
+}
+
+.login_section_designator h2 {
+  font-weight: 700;
+  color: rgb(77, 77, 77);
+}
+
+.log_in_button {
+  background: rgb(44, 44, 52);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+.dont_have_an_account_question {
+  font-weight: 500;
+}
+
+.create_account_redirect_button {
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+@media only screen and (max-width: 330px) {
+  .login_section_designator h2 {
+    font-size: 6vw;
+  }
+}
+
+@media only screen and (max-width: 767px) and (max-device-height: 1000px) {
+  .login_container {
+    height: min-content;
+  }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 1023px) and (orientation: landscape) {
+  .login_container {
+    height: 200vh;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1199px) and (orientation: landscape) {
+  .login_container {
     height: 100vh;
-    background: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .login_content_container {
-    height: 65%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  .sign_in_prompt {
-    font-weight: 500;
-    font-size: 1.3rem;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-    color: rgb(121, 121, 121);
-  }
-
-  .login_logo_container {
-    position: absolute;
-    height: 60%;
-    width: 100%;
-    top: -22vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .sign_in_facebook_callback_link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 0;
-    width: 100%;
-  }
-
-  .continue_with_facebook_button {
-    background: rgb(59, 89, 152);
-    color: rgb(255, 255, 255);
-    text-align: center;
-    width: 90%;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.8rem;
-    position: relative;
-    z-index: 0;
-    cursor: pointer;
-  }
-
-  .continue_with_facebook_button p {
-    display: inline-block;
-    margin-left: 0.5rem;
-    font-weight: 500;
-  }
-
-  .login_or_container {
-    width: 90%;
-    color: rgb(121, 121, 121);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  .login_or_container p {
-    display: inline-block;
-    font-weight: 600;
-  }
-
-  .login_page_form {
-    width: 90%;
-  }
-
-  .input_field_login {
-    width: 100%;
-    font-size: 1.3rem;
-    padding-top: 1.2rem;
-    padding-bottom: 1.2rem;
-    padding-left: 0.5rem;
-  }
-
-  .forgot_password_question_container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    cursor: pointer;
-  }
-
-  .forgot_password_question_container p {
-    font-size: 1rem;
-    font-weight: 600;
-    color: rgb(0, 129, 177);
-  }
-
-  .login_page_bottom_buttons_container {
-    width: 100%;
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 3vh;
-  }
-
-  .log_in_button {
-    background: rgb(44, 44, 52);
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.8rem;
-    cursor: pointer;
-  }
-
-  .dont_have_an_account_question {
-    font-weight: 500;
-    margin-top: 2vh;
-  }
-
-  .create_account_redirect_button {
-    width: 90%;
-    background: rgb(255, 255, 255);
-    border: 2px solid rgb(44, 44, 52);
-    color: rgb(44, 44, 52);
-    text-align: center;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.8rem;
-    cursor: pointer;
-  }
-
-  .create_account_redirect_button p {
-    color: rgb(44, 44, 52);
-  }
-
-  .complete_registration_page_container {
-    height: 100vh;
-    background: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding-top: -10vh;
-  }
-
-  .complete_registration_logo_container {
-    position: absolute;
-    height: 60%;
-    width: 100%;
-    top: -15vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .complete_registration_content_container {
-    height: 35%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    position: absolute;
-    bottom: 28vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    width: 100%;
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 2vh;
-  }
-
-  .complete_registration_button {
-    width: 90%;
-    display: block;
-    background: rgb(44, 44, 52);
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.8rem;
-  }
-
-  .complete_registration_loading_modal {
-    height: 100vh;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 10%;
-  }
-
-  .login_page_descriptive_text {
-    display: none;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .complete_registration_page_container,
-    .login_page_container {
-      height: 103vh;
-      background: rgb(255, 255, 255);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .complete_registration_prompt,
-    .sign_in_prompt {
-      padding-top: 15rem;
-      padding-bottom: 4rem;
-    }
-
-    .login_or_container {
-      padding-top: 4rem;
-      padding-bottom: 2.5rem;
-    }
-
-    .complete_registration_bottom_buttons_container,
-    .login_page_bottom_buttons_container {
-      padding-top: 15vh;
-      padding-bottom: 30vh;
-    }
   }
 }
 
-/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) with Smaller Heights */
-@media only screen and (max-width: 359px) and (max-device-height: 600px) {
-  .login_content_container {
-    height: 100%;
-    margin-top: 45vh;
-  }
-
-  .complete_registration_content_container {
-    height: 30%;
-    margin-top: -5vh;
-  }
-
-  .complete_registration_logo_container {
-    top: -21vh;
-  }
-
-  .login_page_bottom_buttons_container {
-    margin-top: 6vh;
-    margin-bottom: 20vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 8vh;
-  }
-
-  .dont_have_an_account_question {
-    margin-bottom: 2vh;
-  }
-
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 3rem;
-  }
-
-  .sign_up_page_form.facebook_phone_number_form {
-    margin-bottom: -10vh;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    .complete_registration_content_container {
-      height: 10%;
-      margin-top: -5vh;
-    }
-
-    .login_redirect_button.facebook_back_to_log_in_button {
-      margin-top: 1rem;
-    }
-
-    .sign_up_page_form.facebook_phone_number_form {
-      margin-bottom: -12vh;
-    }
-  }
-}
-
-/* Additional CSS for Mobile Phones with Even Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 700px) {
-  .complete_registration_content_container,
-  .login_content_container {
-    height: 100%;
-    margin-top: 18vh;
-  }
-
-  .dont_have_an_account_question {
-    margin-bottom: 2vh;
-  }
-
-  .sign_up_page_form.facebook_phone_number_form {
-    margin-bottom: 5vh;
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (min-device-height: 701px) and (max-device-height: 799px) {
-  .complete_registration_content_container,
-  .login_content_container {
-    height: 80%;
-    margin-top: 15vh;
-  }
-}
-
-/* CSS for Pixel 4, Galaxy Note 9 */
-@media only screen and (min-width: 360px) and (min-device-height: 740px) and (max-device-height: 799px) {
-  @supports not (-webkit-overflow-scrolling: touch) {
-    /* CSS for other than iOS devices */
-    .complete_registration_content_container,
-    .login_content_container {
-      height: 60%;
-      margin-top: -5vh;
-    }
-
-    .complete_registration_bottom_buttons_container,
-    .login_page_bottom_buttons_container {
-      margin-top: 15vh;
-      margin-bottom: -30vh;
-      padding-bottom: 20vh;
-    }
-
-    .dont_have_an_account_question {
-      margin-bottom: 2vh;
-    }
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 360px) and (max-device-height: 700px) {
-  .complete_registration_content_container {
-    height: 20%;
-    margin-top: -5vh;
-  }
-
-  .complete_registration_logo_container {
-    top: -23.8vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 10vh;
-    margin-bottom: 0;
-  }
-
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 3rem;
-  }
-
-  @supports not (-webkit-overflow-scrolling: touch) {
-    /* CSS for other than iOS devices */
-    .complete_registration_bottom_buttons_container,
-    .login_page_bottom_buttons_container {
-      margin-top: 20vh;
-      margin-bottom: -30vh;
-      padding-bottom: 20vh;
-    }
-  }
-}
-
-/* CSS for Medium Mobile Phones */
-@media only screen and (min-width: 375px) {
-  .complete_registration_logo_container {
-    top: -22vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 7vh;
-  }
-}
-
-/* Additional CSS for Mobile Phones with Smaller Heights */
-@media only screen and (min-width: 375px) and (min-device-height: 600px) and (max-device-height: 699px) {
-  .complete_registration_content_container {
-    height: 15%;
-    margin-top: 5vh;
-  }
-
-  .login_content_container {
-    height: 45%;
-    margin-top: -5vh;
-  }
-
-  .login_page_bottom_buttons_container {
-    margin-top: 15vh;
-    margin-bottom: -30vh;
-    padding-bottom: 20vh;
-  }
-
-  .sign_in_prompt {
-    padding-top: 0rem;
-    padding-bottom: 2rem;
-  }
-
-  .complete_registration_logo_container {
-    top: -22vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 15vh;
-  }
-
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 3rem;
-  }
-
-  .sign_up_page_form.facebook_phone_number_form {
-    margin-bottom: 5vh;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    .login_content_container {
-      height: 35%;
-      margin-top: 10vh;
-    }
-
-    .login_page_bottom_buttons_container {
-      margin-top: 0vh;
-    }
-
-    .sign_in_prompt {
-      padding-bottom: 10vh;
-    }
-
-    .sign_up_page_form.facebook_phone_number_form {
-      margin-bottom: -13vh;
-    }
-
-    .login_redirect_button.facebook_back_to_log_in_button {
-      margin-top: 2rem;
-    }
-  }
-}
-
-/* Additional CSS for Mobile Phones with Slightly Larger Heights */
-@media only screen and (min-width: 375px) and (min-device-height: 801px) and (max-device-height: 900px) {
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 3rem;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    .login_content_container {
-      margin-top: 15vh;
-    }
-
-    .complete_registration_prompt,
-    .sign_in_prompt {
-      padding-top: 10rem;
-      padding-bottom: 4rem;
-    }
-
-    .dont_have_an_account_question {
-      margin-bottom: 2vh;
-    }
-
-    .sign_up_page_form.facebook_phone_number_form {
-      margin-bottom: -10vh;
-    }
-
-    .login_redirect_button.facebook_back_to_log_in_button {
-      margin-top: 1rem;
-    }
-  }
-}
-
-/* CSS for Average Portrait Screens (e.g. iPhone 11) with Larger Heights */
-@media only screen and (min-width: 410px) and (max-device-height: 799px) {
-  .login_content_container {
-    height: 75%;
-    margin-top: 15vh;
-  }
-
-  .complete_registration_content_container {
-    height: 30%;
-    margin-top: -5vh;
-  }
-
-  .dont_have_an_account_question {
-    margin-bottom: 1vh;
-  }
-
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 3rem;
-  }
-
-  .sign_up_page_form.facebook_phone_number_form {
-    margin-bottom: 0vh;
-  }
-
-  @supports (-webkit-overflow-scrolling: touch) {
-    .sign_up_page_form.facebook_phone_number_form {
-      margin-bottom: -10vh;
-    }
-
-    .login_redirect_button.facebook_back_to_log_in_button {
-      margin-top: 1rem;
-    }
-  }
-}
-
-/* CSS for Average Portrait Screens (e.g. iPhone 11) with Larger Heights */
-@media only screen and (min-width: 410px) and (min-device-height: 800px) and (max-device-height: 900px) {
-  .login_content_container {
-    height: 60%;
-    margin-top: -5vh;
-  }
-
-  .complete_registration_content_container {
-    height: 30%;
-    margin-top: -5vh;
-  }
-
-  .dont_have_an_account_question {
-    margin-bottom: 2vh;
-  }
-
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 3rem;
-  }
-}
-
-/* iPhone 11 */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
-  @supports (-webkit-overflow-scrolling: touch) {
-    .complete_registration_content_container,
-    .login_content_container {
-      height: 60%;
-      margin-top: 20vh;
-    }
-
-    .complete_registration_bottom_buttons_container,
-    .login_page_bottom_buttons_container {
-      margin-top: 2vh;
-      margin-bottom: 10vh;
-    }
-  }
-}
-
-/* iPhone XS Max */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
-  @supports (-webkit-overflow-scrolling: touch) {
-    .complete_registration_content_container,
-    .login_content_container {
-      height: 60%;
-      margin-top: 20vh;
-    }
-
-    .complete_registration_bottom_buttons_container,
-    .login_page_bottom_buttons_container {
-      margin-top: 2vh;
-      margin-bottom: 10vh;
-    }
-
-    .sign_up_page_form.facebook_phone_number_form {
-      margin-bottom: -11vh;
-    }
-  }
-}
-
-/* Larger Mobile Phones */
-@media only screen and (device-width: 414px) {
-  .complete_registration_content_container {
-    height: 30%;
-    margin-top: 20vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 9vh;
-  }
-
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 3rem;
-  }
-}
-
-/* iPhone XS Max */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
-  @supports (-webkit-overflow-scrolling: touch) {
-    .login_redirect_button.facebook_back_to_log_in_button {
-      margin-top: 2rem;
-    }
-  }
-}
-
-/* Google Pixel 4XL */
-@media screen and (device-width: 480px) and (device-height: 1014px) {
-  @supports not (-webkit-overflow-scrolling: touch) {
-    .complete_registration_prompt,
-    .sign_in_prompt {
-      padding-top: 0rem;
-      padding-bottom: 4rem;
-    }
-
-    .complete_registration_content_container,
-    .login_content_container {
-      height: 100%;
-      margin-top: 20vh;
-    }
-
-    .complete_registration_bottom_buttons_container,
-    .login_page_bottom_buttons_container {
-      margin-top: 10vh;
-      margin-bottom: 10vh;
-    }
-  }
-}
-
-/* CSS for Tablets in Portrait Mode */
-@media only screen and (min-width: 768px) and (max-width: 1199px) {
-  .login_page_background {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .complete_registration_page_container,
-  .login_page_container {
-    width: 75%;
-  }
-
-  .complete_registration_content_container {
-    height: 25%;
-  }
-
-  .complete_registration_prompt,
-  .sign_in_prompt {
-    font-size: 2rem;
-  }
-
-  .continue_with_facebook_button,
-  .complete_registration_button,
-  .login_redirect_button,
-  .create_account_redirect_button,
-  .log_in_button {
-    font-size: 1.5rem;
-    padding: 0.8rem;
-  }
-
-  .input_field_login {
-    font-size: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .login_or_container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    font-size: 1.5rem;
-  }
-
-  .dont_have_an_account_question {
-    font-size: 1.5rem;
-    margin-bottom: 1vh;
-  }
-
-  .forgot_password_question_container p {
-    font-size: 1.2rem;
-  }
-}
-
-/* CSS for Regular Desktops/Small Laptops and Tablets */
-@media only screen and (min-width: 1200px) {
-  .login_page_background {
-    width: 100%;
-    height: 100%;
-    /* Photo by Karolina Grabowska from Pexels */
-    background-image: url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
-    background-repeat: no-repeat;
-    background-position: 100%, 100%;
-    background-size: cover;
-    position: absolute;
-    display: block;
-    z-index: -1;
-  }
-
-  .login_page_background_blurry {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(7px);
-    height: 100%;
-    width: 75%;
-    position: absolute;
-    right: 0;
-  }
-
-  .complete_registration_page_container,
-  .login_page_container {
-    width: 33.333%;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .complete_registration_content_container,
-  .login_content_container {
-    height: 75%;
-    width: 100%;
-    justify-content: flex-end;
-    position: relative;
-    z-index: 999999;
-    margin-top: 0vh;
-  }
-
-  .complete_registration_prompt,
-  .sign_in_prompt {
-    font-size: 2rem;
-    padding-top: 2em;
-    padding-bottom: 3rem;
-  }
-
-  .complete_registration_button,
-  .login_redirect_button,
-  .create_account_redirect_button,
-  .log_in_button {
-    font-size: 1rem;
-    padding: 0.8rem;
-  }
-
-  .login_redirect_button.facebook_back_to_log_in_button {
-    margin-top: 1rem;
-  }
-
-  .login_or_container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    font-size: 1rem;
-  }
-
-  .continue_with_facebook_button {
-    font-size: 1rem;
-    padding: 0.8rem;
-  }
-
-  .input_field_login {
-    font-size: 1.5rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .dont_have_an_account_question {
-    font-size: 1rem;
-    margin-bottom: 1vh;
-  }
-
-  .forgot_password_question_container p {
-    font-size: 1rem;
-  }
-}
-
-/* CSS for Medium Laptops like Microsoft Surface Pro */
-@media only screen and (min-width: 1400px) {
-  .complete_registration_content_container {
-    height: 100%;
-  }
-
-  .sign_up_page_form.facebook_phone_number_form {
-    margin-bottom: -6vh;
-  }
-
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
   .login_page_descriptive_text {
     display: block;
     position: absolute;
@@ -818,126 +208,71 @@
     line-height: 5rem;
     color: rgb(255, 255, 255);
   }
-}
 
-/* CSS for Regular-Sized Desktops */
-@media only screen and (min-width: 1600px) {
-  .complete_registration_page_container,
-  .login_page_container {
-    width: 25%;
-  }
-
-  .complete_registration_content_container,
-  .login_content_container {
-    height: 65%;
-  }
-
-  .complete_registration_button,
-  .login_redirect_button,
-  .create_account_redirect_button,
-  .log_in_button {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-
-  .login_or_container {
-    font-size: 1rem;
-  }
-
-  .continue_with_facebook_button {
-    padding: 1rem;
-    font-size: 1rem;
-  }
-
-  .dont_have_an_account_question {
-    font-size: 1rem;
-    margin-bottom: 1vh;
-  }
-
-  .login_page_descriptive_text {
-    display: block;
-    position: absolute;
-    top: 23%;
-    left: 30%;
-  }
-
-  .login_page_descriptive_text h2 {
-    font-size: 5rem;
-    color: rgb(255, 255, 255);
-    font-weight: 700;
-  }
-
-  .login_page_descriptive_text ul {
-    padding-top: 1rem;
-    padding-left: 3rem;
-  }
-
-  .login_page_descriptive_text ul li {
-    font-size: 1.5rem;
-    line-height: 5rem;
-    color: rgb(255, 255, 255);
-  }
-}
-
-/* CSS for Big Desktops */
-@media only screen and (min-width: 1800px) {
-  .complete_registration_content_container {
+  .login_page_background {
+    width: 100%;
     height: 100%;
+    /* Photo by Karolina Grabowska from Pexels */
+    background-image: url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
+    background-repeat: no-repeat;
+    background-position: 100%, 100%;
+    background-size: cover;
+    position: absolute;
+    display: block;
+    z-index: -1;
   }
 
-  .sign_up_page_form.facebook_phone_number_form {
-    margin-bottom: -2vh;
+  .login_page_background_blurry {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    height: 100%;
+    width: 75%;
+    position: absolute;
+    right: 0;
   }
 
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .sign_up_page_form.facebook_phone_number_form {
-        margin-bottom: -2vh;
-      }
+  .login_container {
+    width: 25%;
+    height: 100vh;
+    grid-template-rows: 20% 5% 10% 5% 20% 20% 10%;
+  }
 
-      .login_redirect_button.facebook_back_to_log_in_button {
-        margin-top: -2rem;
-      }
-    }
+  .login_section_designator h2 {
+    font-size: 1.3em;
+  }
+
+  .login_form_container input,
+  .login_or_container,
+  .log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    min-width: 15rem;
+    width: 50vw;
+    max-width: 17rem;
   }
 }
 
-/* CSS for Huge Desktops */
-@media only screen and (min-width: 2200px) {
-  .login_content_container {
-    height: 35%;
-  }
-
-  .complete_registration_content_container {
-    height: 96%;
-  }
-
-  .complete_registration_logo_container {
-    top: -22vh;
-  }
-
-  .complete_registration_bottom_buttons_container {
-    margin-top: 5vh;
-  }
-
-  .complete_registration_button,
-  .login_redirect_button,
+@media only screen and (min-width: 1400px) {
+  .login_form_container input,
+  .login_or_container,
+  .log_in_button,
   .create_account_redirect_button,
-  .log_in_button {
-    font-size: 1.5rem;
-  }
-
-  .login_or_container {
-    font-size: 1.5rem;
-  }
-
   .continue_with_facebook_button {
-    font-size: 1.5rem;
+    max-width: 19rem;
   }
 
-  .dont_have_an_account_question {
-    font-size: 1.5rem;
+  .login_section_designator h2 {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .login_form_container input,
+  .login_or_container,
+  .log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 30rem;
   }
 
   .login_page_descriptive_text {
@@ -951,14 +286,10 @@
   .login_page_descriptive_text ul li {
     font-size: 2rem;
   }
+}
 
-  /* Safari Only */
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .login_content_container {
-        height: 65%;
-        margin-top: -25vh;
-      }
-    }
+@media only screen and (min-width: 2400px) {
+  .login_container {
+    height: 85vh;
   }
 }
