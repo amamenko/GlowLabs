@@ -218,17 +218,16 @@ const Login = (props) => {
           <p className="or_capital_letters">OR</p>
           <p className="or_dash">——————</p>
         </div>
-        <div className="login_form_container">
+        <Form className="login_form_container">
           <LoginEmail />
           <LoginPassword />
-        </div>
+        </Form>
         <div className="bottom_buttons_container">
           <Link
             className="log_in_button"
             to="/account/login"
             style={{
               display: "block",
-              width: "90%",
               pointerEvents: loginEmail && loginPassword ? "auto" : "none",
               background:
                 loginEmail && loginPassword ? "rgb(44, 44, 52)" : "#f0f0f0",

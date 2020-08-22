@@ -6,8 +6,6 @@
   background: rgb(255, 255, 255);
   height: max-content;
   padding-top: 5vh;
-  justify-items: center;
-  align-items: center;
 }
 
 .add_ons_title_underline {
@@ -115,11 +113,19 @@
     grid-template-columns: repeat(auto-fit, minmax(31rem, 1fr));
     grid-gap: 1rem;
     grid-row-gap: 3.5rem;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
   }
 
   .all_add_ons_header h2 {
     font-size: calc(0.5rem + 3vh);
     padding-bottom: calc(0.5rem + 3vh);
+  }
+}
+
+@media only screen and (min-width: 1400px) and (orientation: landscape) {
+  .all_add_ons_container {
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
   }
 }
 

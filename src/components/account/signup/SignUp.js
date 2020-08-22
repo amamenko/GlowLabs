@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, FormGroup, Label, Input, Modal } from "reactstrap";
+import { Form, FormGroup, Label, Input } from "reactstrap";
+import Modal from "react-modal";
 import CreateAccountEmail from "./CreateAccountEmail/CreateAccountEmail";
 import CreateAccountPhoneNumber from "./CreateAccountPhoneNumber/CreateAccountPhoneNumber";
 import CreateAccountPassword from "./CreateAccountPassword/CreateAccountPassword";
@@ -159,7 +160,28 @@ const SignUp = (props) => {
     <div className="sign_up_page_background">
       <Modal
         isOpen={registerClientLoading}
-        className="complete_registration_loading_modal"
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: "10000",
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
       >
         <BounceLoader
           size={100}
@@ -316,11 +338,9 @@ const SignUp = (props) => {
               <p className="already_have_an_account_question">
                 Already have an account?
               </p>
-              <div className="login_redirect_button">
-                <Link to="/account/login">
-                  <p>Log In</p>
-                </Link>
-              </div>
+              <Link to="/account/login" className="login_redirect_button">
+                <p>Log In</p>
+              </Link>
             </>
           )}
         </div>

@@ -58,7 +58,7 @@
 }
 
 /* CSS for Tablets in Portrait Mode */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) and (orientation: portait) {
   .all_treatments_container {
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     margin-left: 1.5rem;
@@ -137,6 +137,8 @@
     grid-template-columns: repeat(auto-fit, minmax(30.5rem, 1fr));
     grid-gap: 1rem;
     grid-row-gap: 3.5rem;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
   }
 
   .card_container {
@@ -153,6 +155,12 @@
 @media only screen and (min-width: 1200px) and (min-device-height: 1250px) {
   .card_container {
     height: 22vh;
+  }
+}
+
+@media only screen and (min-width: 1400px) and (orientation: landscape) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
   }
 }
 
