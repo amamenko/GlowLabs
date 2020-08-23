@@ -22,7 +22,10 @@ const AdminRouter = (props) => {
     fetchPolicy: "no-cache",
   });
 
-  const { data: getAllAppointmentsData } = useQuery(getAllAppointmentsQuery, {
+  const {
+    data: getAllAppointmentsData,
+    refetch: getAllAppointmentsRefetch,
+  } = useQuery(getAllAppointmentsQuery, {
     fetchPolicy: "no-cache",
   });
 
@@ -100,6 +103,7 @@ const AdminRouter = (props) => {
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
               getAllAppointmentsData={getAllAppointmentsData}
+              getAllAppointmentsRefetch={getAllAppointmentsRefetch}
               getEmployeeData={
                 props.getEmployeeData ? props.getEmployeeData : null
               }
@@ -107,6 +111,7 @@ const AdminRouter = (props) => {
                 props.getEmployeesData ? props.getEmployeesData : null
               }
               getClientsData={getClientsData ? getClientsData : null}
+              getClientsRefetch={getClientsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
             />
           )}

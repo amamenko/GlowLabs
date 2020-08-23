@@ -305,7 +305,7 @@ const treatmentSuggestions = () => {
           price: 150,
         },
         {
-          name: "Dermaplaning Facial",
+          name: "Dermaplaning",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="19.5" fill="rgb(241, 241, 241)" />
@@ -347,7 +347,7 @@ const treatmentSuggestions = () => {
           price: 150,
         },
         {
-          name: "Organic CBD Facial",
+          name: "Organic CBD",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="19.5" fill="rgb(241, 241, 241)" />
@@ -370,7 +370,7 @@ const treatmentSuggestions = () => {
         },
 
         {
-          name: "Microneedling Infusion Facial",
+          name: "Microneedling Infusion",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 132.292 132.292">
               <circle

@@ -44,6 +44,9 @@ const AdminCalendarComponent = (props) => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
+  const loadingSpinnerActive = useSelector(
+    (state) => state.loadingSpinnerActive.loading_spinner
+  );
 
   const localizer = momentLocalizer(moment);
 
@@ -303,7 +306,7 @@ const AdminCalendarComponent = (props) => {
   return (
     <div
       className="admin_schedule_calendar_main_container"
-      style={{ zIndex: logoutClicked ? -1 : "auto" }}
+      style={{ zIndex: logoutClicked || loadingSpinnerActive ? -1 : "auto" }}
     >
       <Calendar
         events={events()}

@@ -648,12 +648,41 @@ const AdminClients = (props) => {
     }
   };
 
+  useEffect(() => {
+    if (props.getClientsLoading) {
+      dispatch(ACTION_LOADING_SPINNER_ACTIVE());
+    } else {
+      dispatch(ACTION_LOADING_SPINNER_RESET());
+    }
+  }, [dispatch, props.getClientsLoading]);
+
   return (
     <div className="admin_clients_container">
       {redirectToAdminLogInPage()}
       <Modal
         isOpen={imageLoading || loadingSpinnerActive || props.getClientsLoading}
-        className="complete_registration_loading_modal"
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: "10000",
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
       >
         <BounceLoader
           size={100}

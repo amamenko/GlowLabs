@@ -27,6 +27,8 @@ import ACTION_ADMIN_APPOINTMENT_NOTES_RESET from "../../../../actions/Admin/Admi
 import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentStaffMember/ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET";
 import ACTION_ADMIN_APPOINTMENT_TIME_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentTime/ACTION_ADMIN_APPOINTMENT_TIME_RESET";
 import ACTION_ADMIN_APPOINTMENT_DURATION from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDuration/ACTION_ADMIN_APPOINTMENT_DURATION";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ClientAutosuggest from "./Autosuggest/ClientAutosuggest";
 import TreatmentAutosuggest from "./Autosuggest/TreatmentAutosuggest";
 import SaltCaveAutosuggest from "./Autosuggest/SaltCaveAutosuggest";
@@ -36,14 +38,26 @@ import { Collapse } from "reactstrap";
 import "../../../../bootstrap.min.css";
 import { addAppointmentMutation } from "../../../../graphql/queries/queries";
 import { useMutation } from "@apollo/react-hooks";
-import ACTION_TOTAL_DURATION from "../../../../actions/TotalDuration/ACTION_TOTAL_DURATION";
-import ACTION_TOTAL_DURATION_RESET from "../../../../actions/TotalDuration/ACTION_TOTAL_DURATION_RESET";
 import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
 import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import moment from "moment";
+import Modal from "react-modal";
+import { css } from "emotion";
+import { BounceLoader } from "react-spinners";
 
 const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
+
+  const {
+    getEmployeesData,
+    getEmployeeData,
+    createAppointmentClicked,
+    getClientsData,
+    getClientsRefetch,
+    randomColorArray,
+    changeCreateAppointmentClicked,
+    getAllAppointmentsRefetch,
+  } = props;
 
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
   const [addCardCollapseOpen, changeAddCardCollapseOpen] = useState(false);
@@ -80,20 +94,27 @@ const AdminCreateAppointment = (props) => {
     (state) => state.adminAppointmentTime.admin_appointment_time
   );
   const totalPrice = useSelector((state) => state.totalPrice.totalPrice);
-  const totalDuration = useSelector(
-    (state) => state.totalDuration.totalDuration
-  );
-
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
+  );
+  const loadingSpinnerActive = useSelector(
+    (state) => state.loadingSpinnerActive.loading_spinner
   );
 
   const [selectedTreatments, changeSelectedTreatments] = useState([]);
   const [selectedAddOns, changeSelectedAddOns] = useState([]);
 
-  const [addAppointment, { loading: appLoading }] = useMutation(
-    addAppointmentMutation
-  );
+  const [
+    addAppointment,
+    { loading: addAppointmentLoading, data: addAppointmentData },
+  ] = useMutation(addAppointmentMutation);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   const timeOptions = () => {
     const minutesArr = ["00", "15", "30", "45"];
@@ -115,10 +136,10 @@ const AdminCreateAppointment = (props) => {
   };
 
   const employeeOptions = useCallback(() => {
-    if (props.getEmployeesData) {
-      if (props.getEmployeesData.employees) {
-        const estheticians = props.getEmployeesData.employees.filter(
-          (employee) => employee.employeeRole.includes("Esthetician")
+    if (getEmployeesData) {
+      if (getEmployeesData.employees) {
+        const estheticians = getEmployeesData.employees.filter((employee) =>
+          employee.employeeRole.includes("Esthetician")
         );
 
         return estheticians.map(
@@ -131,15 +152,13 @@ const AdminCreateAppointment = (props) => {
         );
       }
     }
-  }, [props.getEmployeesData]);
+  }, [getEmployeesData]);
 
   useEffect(() => {
-    if (props.getEmployeeData) {
-      if (props.getEmployeeData.employee) {
-        if (
-          props.getEmployeeData.employee.employeeRole.includes("Esthetician")
-        ) {
-          const currentEmployee = props.getEmployeeData.employee;
+    if (getEmployeeData) {
+      if (getEmployeeData.employee) {
+        if (getEmployeeData.employee.employeeRole.includes("Esthetician")) {
+          const currentEmployee = getEmployeeData.employee;
 
           if (!adminAppointmentStaffMember) {
             dispatch(
@@ -157,12 +176,7 @@ const AdminCreateAppointment = (props) => {
         }
       }
     }
-  }, [
-    dispatch,
-    props.getEmployeeData,
-    employeeOptions,
-    adminAppointmentStaffMember,
-  ]);
+  }, [dispatch, getEmployeeData, employeeOptions, adminAppointmentStaffMember]);
 
   const phoneNumberKeyTyping = (e) => {
     if (
@@ -557,31 +571,36 @@ const AdminCreateAppointment = (props) => {
     }
   }, [adminSelectedTreatments]);
 
-  useEffect(() => {
-    if (selectedTreatments.length > 0 || selectedAddOns.length > 0) {
-      const filteredTreatments = selectedTreatments.filter(
-        (item) => !item.name.includes("Salt Cave")
-      );
-
-      const allTreatments = filteredTreatments.concat(selectedAddOns);
-
-      const durationsArr = allTreatments.map((treatment) => treatment.duration);
-
-      dispatch(ACTION_TOTAL_DURATION(durationsArr.reduce((a, b) => a + b, 0)));
-    } else {
-      dispatch(ACTION_TOTAL_DURATION_RESET());
-    }
-  }, [dispatch, selectedAddOns, selectedTreatments]);
-
   const variablesModel = {
     firstName: adminClientFirstName,
     lastName: adminClientLastName,
     email: adminClientEmail,
     phoneNumber: adminClientPhoneNumber,
-    // bookedWithCardSquareID: bookedWithCardID,
+    bookedWithCardSquareID: "",
     notes: adminAppointmentNotes,
-    // squareCustomerId: squareCustomerID,
+    squareCustomerId: "",
   };
+
+  const handleBackToSchedule = useCallback(() => {
+    changeCreateAppointmentClicked(false);
+
+    dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_LAST_NAME_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_EMAIL_RESET());
+    dispatch(ACTION_ADMIN_SELECTED_TREATMENTS_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_DATE_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
+
+    changeAddCardCollapseOpen(false);
+    changeClickOutsideDayPicker(false);
+
+    if (loadingSpinnerActive) {
+      dispatch(ACTION_LOADING_SPINNER_RESET());
+    }
+  }, [dispatch, changeCreateAppointmentClicked, loadingSpinnerActive]);
 
   const handleSubmitBooking = (e) => {
     e.preventDefault();
@@ -601,6 +620,26 @@ const AdminCreateAppointment = (props) => {
       (x) => !x.name.includes("Salt Cave")
     );
 
+    const twilioStaggerArr = [
+      beforeSalt.length > 0,
+      regularTreatments.length > 0,
+      duringSalt.length > 0,
+      afterSalt.length > 0,
+    ];
+
+    const twilioDelayArr = [];
+
+    let highestDelay = 0;
+
+    for (let i = 0; i < twilioStaggerArr.length; i++) {
+      if (twilioStaggerArr[i]) {
+        twilioDelayArr.push(highestDelay);
+        highestDelay += 5000;
+      } else {
+        twilioDelayArr.push(0);
+      }
+    }
+
     if (beforeSalt.length > 0) {
       const beforeAppStartTime = moment(
         appDate + " " + adminAppointmentTime,
@@ -615,20 +654,22 @@ const AdminCreateAppointment = (props) => {
         .add(beforeSalt[0].duration, "minutes")
         .format("h:mm");
 
-      addAppointment({
-        variables: {
-          ...variablesModel,
-          date: appDate,
-          startTime: beforeAppStartTime.split(" ")[0],
-          morningOrEvening: beforeAppStartTime.split(" ")[1],
-          endTime: beforeAppEndTime,
-          price: beforeSalt[0].price,
-          duration: beforeSalt[0].duration,
-          esthetician: "Salt Cave",
-          treatments: beforeSalt,
-          addOns: [],
-        },
-      });
+      setTimeout(() => {
+        addAppointment({
+          variables: {
+            ...variablesModel,
+            date: appDate,
+            startTime: beforeAppStartTime.split(" ")[0],
+            morningOrEvening: beforeAppStartTime.split(" ")[1],
+            endTime: beforeAppEndTime,
+            price: beforeSalt[0].price,
+            duration: beforeSalt[0].duration,
+            esthetician: "Salt Cave",
+            treatments: beforeSalt,
+            addOns: [],
+          },
+        });
+      }, twilioDelayArr[0]);
     }
 
     if (duringSalt.length > 0) {
@@ -639,20 +680,22 @@ const AdminCreateAppointment = (props) => {
         .add(duringSalt[0].duration, "minutes")
         .format("h:mm");
 
-      addAppointment({
-        variables: {
-          ...variablesModel,
-          date: appDate,
-          startTime: adminAppointmentTime.split(" ")[0],
-          morningOrEvening: adminAppointmentTime.split(" ")[1],
-          endTime: duringEndTime,
-          price: duringSalt[0].price,
-          duration: duringSalt[0].duration,
-          esthetician: "Salt Cave",
-          treatments: duringSalt,
-          addOns: [],
-        },
-      });
+      setTimeout(() => {
+        addAppointment({
+          variables: {
+            ...variablesModel,
+            date: appDate,
+            startTime: adminAppointmentTime.split(" ")[0],
+            morningOrEvening: adminAppointmentTime.split(" ")[1],
+            endTime: duringEndTime,
+            price: duringSalt[0].price,
+            duration: duringSalt[0].duration,
+            esthetician: "Salt Cave",
+            treatments: duringSalt,
+            addOns: [],
+          },
+        });
+      }, twilioDelayArr[2]);
     }
 
     const regularDuration = regularTreatments
@@ -675,40 +718,56 @@ const AdminCreateAppointment = (props) => {
         .add(afterSalt[0].duration, "minutes")
         .format("h:mm");
 
-      addAppointment({
-        variables: {
-          ...variablesModel,
-          date: appDate,
-          startTime: regularEndTime.split(" ")[0],
-          morningOrEvening: regularEndTime.split(" ")[1],
-          endTime: afterSaltEndTime,
-          price: afterSalt[0].price,
-          duration: afterSalt[0].duration,
-          esthetician: "Salt Cave",
-          treatments: afterSalt,
-          addOns: [],
-        },
-      });
+      setTimeout(() => {
+        addAppointment({
+          variables: {
+            ...variablesModel,
+            date: appDate,
+            startTime: regularEndTime.split(" ")[0],
+            morningOrEvening: regularEndTime.split(" ")[1],
+            endTime: afterSaltEndTime,
+            price: afterSalt[0].price,
+            duration: afterSalt[0].duration,
+            esthetician: "Salt Cave",
+            treatments: afterSalt,
+            addOns: [],
+          },
+        });
+      }, twilioDelayArr[3]);
     }
 
     if (regularTreatments.length > 0) {
-      addAppointment({
-        variables: {
-          ...variablesModel,
-          date: appDate,
-          startTime: adminAppointmentTime.split(" ")[0],
-          morningOrEvening: adminAppointmentTime.split(" ")[1],
-          endTime: regularEndTime.split(" ")[0],
-          price: regularTreatments
-            .concat(selectedAddOns)
-            .map((x) => x.price)
-            .reduce((a, b) => a + b, 0),
-          duration: regularDuration,
-          esthetician: adminAppointmentStaffMember,
-          treatments: regularTreatments,
-          addOns: selectedAddOns,
-        },
-      });
+      setTimeout(() => {
+        addAppointment({
+          variables: {
+            ...variablesModel,
+            date: appDate,
+            startTime: adminAppointmentTime.split(" ")[0],
+            morningOrEvening: adminAppointmentTime.split(" ")[1],
+            endTime: regularEndTime.split(" ")[0],
+            price: regularTreatments
+              .concat(selectedAddOns)
+              .map((x) => x.price)
+              .reduce((a, b) => a + b, 0),
+            duration: regularDuration,
+            esthetician: adminAppointmentStaffMember,
+            treatments: regularTreatments,
+            addOns: selectedAddOns,
+          },
+        });
+      }, twilioDelayArr[1]);
+    }
+
+    if (highestDelay === 0) {
+      if (addAppointmentData) {
+        handleBackToSchedule();
+        getAllAppointmentsRefetch();
+      }
+    } else {
+      setTimeout(() => {
+        handleBackToSchedule();
+        getAllAppointmentsRefetch();
+      }, highestDelay);
     }
   };
 
@@ -746,9 +805,15 @@ const AdminCreateAppointment = (props) => {
     }
   }, [adminSelectedTreatments, dispatch]);
 
+  useEffect(() => {
+    if (addAppointmentLoading) {
+      dispatch(ACTION_LOADING_SPINNER_ACTIVE());
+    }
+  }, [addAppointmentLoading, dispatch]);
+
   return (
     <Transition
-      items={props.createAppointmentClicked}
+      items={createAppointmentClicked}
       from={{ transform: "translateX(-100%)" }}
       enter={{ transform: "translateX(0%)" }}
       leave={{ transform: "translateX(-100%)" }}
@@ -759,26 +824,46 @@ const AdminCreateAppointment = (props) => {
         ((styleprops) => (
           <div
             className="admin_create_appointment_container"
-            style={{ ...styleprops, zIndex: logoutClicked ? 0 : 5 }}
+            style={{
+              ...styleprops,
+              zIndex: logoutClicked || loadingSpinnerActive ? 0 : 5,
+            }}
           >
+            <Modal
+              isOpen={loadingSpinnerActive}
+              style={{
+                content: {
+                  position: "fixed",
+                  zIndex: "10000",
+                  height: "100%",
+                  backdropFilter: "blur(5px)",
+                  WebkitBackdropFilter: "blur(5px)",
+                  paddingBottom: "10%",
+                  borderRadius: "none",
+                  width: "100vw",
+                  top: "0",
+                  left: "0",
+                  right: "0",
+                  bottom: "0",
+                  border: "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "rgba(0, 0, 0, 0.5)",
+                },
+              }}
+            >
+              <BounceLoader
+                size={100}
+                css={override}
+                color={"rgb(44, 44, 52)"}
+                loading={loadingSpinnerActive}
+              />
+            </Modal>
             <div
               className="admin_individual_selected_client_back_container"
-              onClick={() => {
-                props.changeCreateAppointmentClicked(false);
-
-                dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME_RESET());
-                dispatch(ACTION_ADMIN_CLIENT_LAST_NAME_RESET());
-                dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET());
-                dispatch(ACTION_ADMIN_CLIENT_EMAIL_RESET());
-                dispatch(ACTION_ADMIN_SELECTED_TREATMENTS_RESET());
-                dispatch(ACTION_ADMIN_APPOINTMENT_DATE_RESET());
-                dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
-                dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
-                dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
-
-                changeAddCardCollapseOpen(false);
-                changeClickOutsideDayPicker(false);
-              }}
+              onClick={handleBackToSchedule}
             >
               <FontAwesomeIcon
                 icon={faLongArrowAltLeft}
@@ -794,8 +879,8 @@ const AdminCreateAppointment = (props) => {
                 First Name
               </div>
               <ClientAutosuggest
-                getClientsData={props.getClientsData}
-                randomColorArray={props.randomColorArray}
+                getClientsData={getClientsData}
+                randomColorArray={randomColorArray}
               />
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
                 Last Name
@@ -1048,12 +1133,19 @@ const AdminCreateAppointment = (props) => {
               </div>
             </div>
             <Collapse isOpen={addCardCollapseOpen}>
-              <AdminPaymentInfo getClientsData={props.getClientsData} />
+              <AdminPaymentInfo
+                getClientsData={getClientsData}
+                getClientsRefetch={getClientsRefetch}
+                handleBackToSchedule={handleBackToSchedule}
+                handleSubmitBooking={handleSubmitBooking}
+              />
             </Collapse>
             <Collapse isOpen={bookWithoutCardCollapseOpen}>
               <div className="admin_square_payment_form_container">
                 <div className="sq-payment-form">
-                  <div className="sq-creditcard">Book Appointment</div>
+                  <div className="sq-creditcard" onClick={handleSubmitBooking}>
+                    Book Appointment
+                  </div>
                 </div>
               </div>
             </Collapse>

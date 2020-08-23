@@ -18,6 +18,9 @@ const AdminSchedule = (props) => {
   const adminAuthenticated = useSelector(
     (state) => state.adminAuthenticated.admin_authenticated
   );
+  const loadingSpinnerActive = useSelector(
+    (state) => state.loadingSpinnerActive.loading_spinner
+  );
   const [createAppointmentClicked, changeCreateAppointmentClicked] = useState(
     false
   );
@@ -39,7 +42,7 @@ const AdminSchedule = (props) => {
       {redirectToAdminLogInPage()}
       <div
         className="admin_schedule_header"
-        style={{ zIndex: logoutClicked ? 0 : 5 }}
+        style={{ zIndex: logoutClicked || loadingSpinnerActive ? 0 : 5 }}
       >
         <Link to="/admin/menu">
           <FontAwesomeIcon
@@ -64,10 +67,12 @@ const AdminSchedule = (props) => {
         createAppointmentClicked={createAppointmentClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         getClientsData={props.getClientsData}
+        getClientsRefetch={props.getClientsRefetch}
         getAllAppointmentsData={props.getAllAppointmentsData}
         getEmployeeData={props.getEmployeeData}
         getEmployeesData={props.getEmployeesData}
         randomColorArray={props.randomColorArray}
+        getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
       />
       <AdminCalendarComponent
         getAllAppointmentsData={props.getAllAppointmentsData}

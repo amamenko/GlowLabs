@@ -26,10 +26,7 @@ import CanvasDraw from "react-canvas-draw";
 import LZString from "lz-string";
 import moment from "moment";
 import "./LargeScreenSideMenu.css";
-import { css } from "emotion";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { BounceLoader } from "react-spinners";
-import Modal from "react-modal";
 import ConsentFormPDF from "../clientprofile/ConsentForm/ConsentFormPDF";
 import ACTION_LOG_OUT_CLICKED from "../../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
 import ACTION_CART_IS_NOT_ACTIVE from "../../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
@@ -74,13 +71,6 @@ const LargeScreenSideMenu = (props) => {
     (state) => state.loadingSpinnerActive.loading_spinner
   );
   const imageLoading = useSelector((state) => state.imageLoading.image_loading);
-
-  const override = css`
-    display: block;
-    position: absolute;
-    left: 25%;
-    right: 25%;
-  `;
 
   useEffect(() => {
     return () => {
@@ -337,17 +327,6 @@ const LargeScreenSideMenu = (props) => {
             : "none",
       }}
     >
-      <Modal
-        isOpen={loadingSpinnerActive}
-        className="complete_registration_loading_modal"
-      >
-        <BounceLoader
-          size={100}
-          css={override}
-          color={"rgb(44, 44, 52)"}
-          loading={loadingSpinnerActive}
-        />
-      </Modal>
       <CanvasDraw
         className="consent_form_signature"
         saveData={

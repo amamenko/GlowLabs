@@ -608,7 +608,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
       props.handleClickToScrollToContact(ContactRef);
     }, 300);
   };
-
+  console.log(loadingSpinnerActive);
   return (
     <nav
       className="navbar"

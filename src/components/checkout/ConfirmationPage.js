@@ -106,9 +106,9 @@ const ConfirmationPage = (props) => {
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
-  const consentFormAnythingChanged = useSelector(
-    (state) => state.consentFormAnythingChanged.consent_form_anything_changed
-  );
+  // const consentFormAnythingChanged = useSelector(
+  //   (state) => state.consentFormAnythingChanged.consent_form_anything_changed
+  // );
   const saltCaveInCart = useSelector((state) => state.saltCaveInCart.in_cart);
   const firstName = useSelector((state) => state.firstName.first_name);
   const lastName = useSelector((state) => state.lastName.last_name);

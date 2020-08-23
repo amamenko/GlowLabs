@@ -7,7 +7,7 @@ import ACTION_ADMIN_REGISTERED_EMPLOYEE_FOUND_RESET from "../../../actions/Admin
 import ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID from "../../../actions/Admin/AdminLogin/AdminPassword/Invalid/ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID";
 import "./AdminLoginPage.css";
 
-const AdminLoginEmail = () => {
+const AdminLoginEmail = (props) => {
   const dispatch = useDispatch();
 
   // Admin Email States
@@ -38,6 +38,11 @@ const AdminLoginEmail = () => {
         placeholder="Email address"
         className="input_field_sign_up"
         onChange={adminEmailTyping}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13) {
+            props.handleAdminLoginClick();
+          }
+        }}
         invalid={
           adminLoginEmail === "" ? false : adminLoginEmailInvalid ? true : false
         }

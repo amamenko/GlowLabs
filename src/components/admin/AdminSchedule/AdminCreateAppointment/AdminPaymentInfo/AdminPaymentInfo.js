@@ -12,8 +12,17 @@ import Dropdown from "react-dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import ACTION_BOOKED_WITH_CARD_ID_RESET from "../../../../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID_RESET";
+import ACTION_SQUARE_CUSTOMER_ID from "../../../../../actions/PaymentInfo/SquareCustomerID/ACTION_SQUARE_CUSTOMER_ID";
+import ACTION_BOOKED_WITH_CARD_ID from "../../../../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID";
+import { useMutation } from "@apollo/react-hooks";
+import {
+  updateUnsavedSquareCardIDsMutation,
+  updateClientSquareIDMutation,
+} from "../../../../../graphql/queries/queries";
 
 const AdminPaymentInfo = (props) => {
+  const { getClientsData, getClientsRefetch, handleSubmitBooking } = props;
+
   const dispatch = useDispatch();
 
   const [errorMessages, changeErrorMessage] = useState([]);
@@ -28,6 +37,7 @@ const AdminPaymentInfo = (props) => {
     selectedCreditCardFullData,
     changeSelectedCreditCardFullData,
   ] = useState("");
+  const [successfulCardNonce, changeSuccessfulCardNonce] = useState(false);
   const [selectedClient, changeSelectedClient] = useState("");
 
   const adminClientFirstName = useSelector(
@@ -45,6 +55,12 @@ const AdminPaymentInfo = (props) => {
   const bookedWithCardID = useSelector(
     (state) => state.bookedWithCardID.booked_with_card_id
   );
+
+  const [updateUnsavedSquareCardIDs] = useMutation(
+    updateUnsavedSquareCardIDsMutation
+  );
+
+  const [updateClientSquareID] = useMutation(updateClientSquareIDMutation);
 
   useEffect(() => {
     if (selectedClient.length < 1) {
@@ -139,10 +155,10 @@ const AdminPaymentInfo = (props) => {
   }, [selectedCreditCardFullData]);
 
   useEffect(() => {
-    if (props.getClientsData) {
-      if (props.getClientsData.clients) {
+    if (getClientsData) {
+      if (getClientsData.clients) {
         changeSelectedClient(
-          props.getClientsData.clients.filter((x, i) => {
+          getClientsData.clients.filter((x, i) => {
             return (
               x.firstName.toLowerCase() ===
                 adminClientFirstName.toLowerCase() &&
@@ -156,13 +172,12 @@ const AdminPaymentInfo = (props) => {
       }
     }
   }, [
-    props.getClientData,
     adminClientLastName,
     adminClientFirstName,
     adminClientEmail,
     adminClientPhoneNumber,
-    props.getClientsData,
-    props.getClientsData.clients,
+    getClientsData,
+    getClientsData.clients,
   ]);
 
   const retrieveSquareCustomerFunction = useCallback(async () => {
@@ -285,8 +300,247 @@ const AdminPaymentInfo = (props) => {
       return changeErrorMessage(
         errors.map((error) => (error ? error.message : null))
       );
+    } else {
+      changeErrorMessage([]);
+
+      let matchedClient;
+
+      if (getClientsData) {
+        for (let i = 0; i < getClientsData.clients.length; i++) {
+          if (getClientsData.clients[i].email === adminClientEmail) {
+            matchedClient = getClientsData.clients[i];
+          }
+        }
+      }
+
+      const squareCustomerData = {
+        family_name: adminClientFirstName,
+        given_name: adminClientLastName,
+        email_address: adminClientEmail,
+        phone_number: adminClientPhoneNumber,
+      };
+
+      const squarePostRequestFunction = () => {
+        axios
+          .post("http://localhost:4000/customers", squareCustomerData, {
+            headers: {
+              Authorization:
+                "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+            },
+          })
+          .then((res) => {
+            const squareData = {
+              card_nonce: nonce,
+              billing_address: { postal_code: cardData.billing_postal_code },
+              cardholder_name:
+                (cardHolderFirstName
+                  ? cardHolderFirstName
+                  : adminClientFirstName
+                ).trim() +
+                " " +
+                (cardHolderLastName
+                  ? cardHolderLastName
+                  : adminClientLastName
+                ).trim(),
+              verification_token: buyerVerificationToken,
+              customerId: JSON.parse(res.request.response).customer.id,
+            };
+
+            if (matchedClient) {
+              if (!matchedClient.squareCustomerId) {
+                updateClientSquareID({
+                  variables: {
+                    squareCustomerId: JSON.parse(res.request.response).customer
+                      .id,
+                    firstName: adminClientFirstName,
+                    lastName: adminClientLastName,
+                    email: adminClientEmail,
+                  },
+                });
+
+                getClientsRefetch();
+              }
+            } else {
+              dispatch(
+                ACTION_SQUARE_CUSTOMER_ID(
+                  JSON.parse(res.request.response).customer.id
+                )
+              );
+            }
+
+            changeSuccessfulCardNonce(true);
+
+            updateUnsavedSquareCardIDs({
+              variables: {
+                unsavedSquareCardID: cardData.id,
+                firstName: adminClientFirstName,
+                lastName: adminClientLastName,
+                email: adminClientEmail,
+              },
+            });
+
+            getClientsRefetch();
+
+            return axios.post(
+              "http://localhost:4000/customers/card",
+              squareData,
+              {
+                headers: {
+                  Authorization:
+                    "Bearer " +
+                    process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+                },
+              }
+            );
+          })
+          .then(async (res) => {
+            if (squareStoredCreditCards.data) {
+              if (
+                squareStoredCreditCards.data.some(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )
+              ) {
+                const matchedDuplicateCard = squareStoredCreditCards.data.filter(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )[0];
+
+                dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
+              }
+            }
+
+            dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
+
+            updateUnsavedSquareCardIDs({
+              variables: {
+                unsavedSquareCardID: res.data.card.id,
+                firstName: adminClientFirstName,
+                lastName: adminClientLastName,
+                email: adminClientEmail,
+              },
+            });
+
+            getClientsRefetch();
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      };
+
+      const returningClientSquarePostRequestFunction = async () => {
+        const squareData = {
+          card_nonce: nonce,
+          billing_address: { postal_code: cardData.billing_postal_code },
+          cardholder_name:
+            (cardHolderFirstName
+              ? cardHolderFirstName
+              : adminClientFirstName
+            ).trim() +
+            " " +
+            (cardHolderLastName
+              ? cardHolderLastName
+              : adminClientLastName
+            ).trim(),
+          verification_token: buyerVerificationToken,
+          customerId: matchedClient.squareCustomerId,
+        };
+
+        changeSuccessfulCardNonce(true);
+
+        return await axios
+          .post("http://localhost:4000/customers/card", squareData, {
+            headers: {
+              Authorization:
+                "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+            },
+          })
+          .then(async (res) => {
+            if (squareStoredCreditCards.data) {
+              if (
+                squareStoredCreditCards.data.some(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )
+              ) {
+                const matchedDuplicateCard = squareStoredCreditCards.data.filter(
+                  (x) =>
+                    x.billing_address.postal_code ===
+                      res.data.card.billing_address.postal_code &&
+                    x.card_brand === res.data.card.card_brand &&
+                    x.cardholder_name === res.data.card.cardholder_name &&
+                    x.exp_month === res.data.card.exp_month &&
+                    x.exp_year === res.data.card.exp_year &&
+                    x.last_4 === res.data.card.last_4
+                )[0];
+
+                dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
+              }
+            }
+
+            dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
+
+            updateUnsavedSquareCardIDs({
+              variables: {
+                unsavedSquareCardID: res.data.card.id,
+                firstName: matchedClient.firstName,
+                lastName: matchedClient.lastName,
+                email: matchedClient.email,
+              },
+            });
+
+            getClientsRefetch();
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      };
+
+      matchedClient
+        ? matchedClient.squareCustomerId
+          ? returningClientSquarePostRequestFunction()
+          : squarePostRequestFunction()
+        : squarePostRequestFunction();
     }
   };
+
+  const createVerificationDetails = () => {
+    return {
+      amount: "",
+      currencyCode: "",
+      intent: "STORE",
+      billingContact: {
+        familyName: adminClientLastName,
+        givenName: adminClientFirstName,
+        email: adminClientEmail,
+        phone: adminClientPhoneNumber,
+      },
+    };
+  };
+
+  useEffect(() => {
+    if (successfulCardNonce) {
+      handleSubmitBooking();
+    }
+  }, [successfulCardNonce, handleSubmitBooking]);
 
   return (
     <div className="admin_square_payment_form_container">
@@ -295,7 +549,7 @@ const AdminPaymentInfo = (props) => {
         applicationId={process.env.REACT_APP_SQUARE_SANDBOX_APPLICATION_ID}
         locationId={process.env.REACT_APP_SQUARE_SANDBOX_LOCATION_ID}
         cardNonceResponseReceived={cardNonceResponseReceived}
-        createVerificationDetails={() => console.log("OK")}
+        createVerificationDetails={createVerificationDetails}
         inputStyles={[
           {
             fontSize: "24px",

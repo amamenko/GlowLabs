@@ -24,7 +24,7 @@
   position: relative;
 }
 
-.top_form_container {
+.sign_up_individual_form_field > label > .top_form_container {
   min-width: 15rem;
   width: 80vw;
   max-width: 35rem;
@@ -212,7 +212,7 @@
   }
 
   .invalid_message_container,
-  .top_form_container,
+  .sign_up_individual_form_field > label > .top_form_container,
   .sign_up_form_container input,
   .create_account_button,
   .login_redirect_button {
@@ -224,7 +224,7 @@
 
 @media only screen and (min-width: 1400px) {
   .invalid_message_container,
-  .top_form_container,
+  .sign_up_individual_form_field > label > .top_form_container,
   .sign_up_form_container input,
   .login_or_container,
   .create_account_button,
@@ -239,7 +239,7 @@
 
 @media only screen and (min-width: 1800px) {
   .invalid_message_container,
-  .top_form_container,
+  .sign_up_individual_form_field > label > .top_form_container,
   .sign_up_form_container input,
   .login_or_container,
   .create_account_button,
@@ -260,7 +260,7 @@
   }
 
   .invalid_message_container,
-  .top_form_container,
+  .sign_up_individual_form_field > label > .top_form_container,
   .sign_up_form_container input,
   .login_or_container,
   .create_account_button,

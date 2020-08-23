@@ -302,13 +302,19 @@ const AdminLoginPage = (props) => {
         <Form className="admin_login_form_container">
           {adminTemporaryDummyToken ? (
             <>
-              <AdminNewPassword />
-              <AdminConfirmNewPassword />
+              <AdminNewPassword
+                handleAdminChangePasswordClick={handleAdminChangePasswordClick}
+              />
+              <AdminConfirmNewPassword
+                handleAdminChangePasswordClick={handleAdminChangePasswordClick}
+              />
             </>
           ) : (
             <>
-              <AdminLoginEmail />
-              <AdminLoginPassword />
+              <AdminLoginEmail handleAdminLoginClick={handleAdminLoginClick} />
+              <AdminLoginPassword
+                handleAdminLoginClick={handleAdminLoginClick}
+              />
             </>
           )}
         </Form>

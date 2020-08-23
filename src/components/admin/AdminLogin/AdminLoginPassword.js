@@ -6,7 +6,7 @@ import ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID from "../../../actions/Admin/AdminLo
 import ACTION_ADMIN_LOGIN_PASSWORD from "../../../actions/Admin/AdminLogin/AdminPassword/ACTION_ADMIN_LOGIN_PASSWORD";
 import "./AdminLoginPage.css";
 
-const AdminLoginPassword = () => {
+const AdminLoginPassword = (props) => {
   const dispatch = useDispatch();
 
   // Admin Password States
@@ -36,6 +36,11 @@ const AdminLoginPassword = () => {
         placeholder="Password"
         className="input_field_sign_up"
         onChange={adminPasswordTyping}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13) {
+            props.handleAdminLoginClick();
+          }
+        }}
         invalid={
           adminLoginPassword === ""
             ? false
