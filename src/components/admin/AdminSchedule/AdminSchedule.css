@@ -294,6 +294,7 @@
     padding-right: 15px !important;
   }
 
+  .admin_personal_event_container,
   .admin_create_appointment_container {
     height: 100vh;
     width: 66%;

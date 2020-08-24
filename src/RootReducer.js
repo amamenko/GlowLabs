@@ -256,6 +256,14 @@ import adminClientLastNameReducer from "./reducers/Admin/AdminCreateAppointment/
 import adminClientPhoneNumberReducer from "./reducers/Admin/AdminCreateAppointment/AdminClientPhoneNumber/adminClientPhoneNumberReducer";
 import adminSelectedTreatmentsReducer from "./reducers/Admin/AdminCreateAppointment/AdminSelectedTreatments/adminSelectedTreatmentsReducer";
 import adminAppointmentDurationReducer from "./reducers/Admin/AdminCreateAppointment/AdminAppointmentDuration/adminAppointmentDurationReducer";
+import adminPersonalEventTitleReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventTitle/adminPersonalEventTitleReducer";
+import adminPersonalEventStaffReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventStaff/adminPersonalEventStaffReducer";
+import adminPersonalEventAllDayReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventAllDay/adminPersonalEventAllDayReducer";
+import adminPersonalEventBlockTimeReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventBlockTime/adminPersonalEventBlockTimeReducer";
+import adminPersonalEventDateReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventDate/adminPersonalEventDateReducer";
+import adminPersonalEventStartTimeReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventStartTime/adminPersonalEventStartTimeReducer";
+import adminPersonalEventEndTimeReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventEndTime/adminPersonalEventEndTimeReducer";
+import adminPersonalEventNotesReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventNotes/adminPersonalEventNotesReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -395,7 +403,7 @@ const RootReducer = combineReducers({
   addProfilePhotoClicked: addProfilePhotoClickedReducer,
   imageLoading: imageLoadingReducer,
 
-  // Admin Create Appointment Reducers,
+  // Admin Create Appointment Reducers
   adminAppointmentDate: adminAppointmentDateReducer,
   adminAppointmentNotes: adminAppointmentNotesReducer,
   adminAppointmentStaffMember: adminAppointmentStaffMemberReducer,
@@ -406,6 +414,16 @@ const RootReducer = combineReducers({
   adminClientLastName: adminClientLastNameReducer,
   adminClientPhoneNumber: adminClientPhoneNumberReducer,
   adminSelectedTreatments: adminSelectedTreatmentsReducer,
+
+  // Admin Create Personal Event Reducers
+  adminPersonalEventTitle: adminPersonalEventTitleReducer,
+  adminPersonalEventStaff: adminPersonalEventStaffReducer,
+  adminPersonalEventAllDay: adminPersonalEventAllDayReducer,
+  adminPersonalEventBlockTime: adminPersonalEventBlockTimeReducer,
+  adminPersonalEventDate: adminPersonalEventDateReducer,
+  adminPersonalEventStartTime: adminPersonalEventStartTimeReducer,
+  adminPersonalEventEndTime: adminPersonalEventEndTimeReducer,
+  adminPersonalEventNotes: adminPersonalEventNotesReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

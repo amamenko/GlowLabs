@@ -1,6 +1,6 @@
 .all_add_ons_container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
   margin: 0 auto;
   grid-gap: 2.5rem 0rem;
   background: rgb(255, 255, 255);
@@ -131,6 +131,10 @@
 
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
+  .all_add_ons_container {
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  }
+
   .all_add_ons_header h2 {
     font-size: calc(1rem + 4.5vh);
     padding-bottom: calc(1rem + 3.5vh);

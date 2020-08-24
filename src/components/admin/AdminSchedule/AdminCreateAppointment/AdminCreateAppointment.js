@@ -29,6 +29,8 @@ import ACTION_ADMIN_APPOINTMENT_TIME_RESET from "../../../../actions/Admin/Admin
 import ACTION_ADMIN_APPOINTMENT_DURATION from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDuration/ACTION_ADMIN_APPOINTMENT_DURATION";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
+import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
+import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import ClientAutosuggest from "./Autosuggest/ClientAutosuggest";
 import TreatmentAutosuggest from "./Autosuggest/TreatmentAutosuggest";
 import SaltCaveAutosuggest from "./Autosuggest/SaltCaveAutosuggest";
@@ -38,8 +40,6 @@ import { Collapse } from "reactstrap";
 import "../../../../bootstrap.min.css";
 import { addAppointmentMutation } from "../../../../graphql/queries/queries";
 import { useMutation } from "@apollo/react-hooks";
-import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
-import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import moment from "moment";
 import Modal from "react-modal";
 import { css } from "emotion";
@@ -49,14 +49,14 @@ const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
 
   const {
-    getEmployeesData,
-    getEmployeeData,
     createAppointmentClicked,
     getClientsData,
     getClientsRefetch,
     randomColorArray,
     changeCreateAppointmentClicked,
+    changePersonalEventClicked,
     getAllAppointmentsRefetch,
+    employeeOptions,
   } = props;
 
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
@@ -115,68 +115,6 @@ const AdminCreateAppointment = (props) => {
     left: 25%;
     right: 25%;
   `;
-
-  const timeOptions = () => {
-    const minutesArr = ["00", "15", "30", "45"];
-    const allTimeArr = [];
-
-    for (let i = 0; i < 24; i++) {
-      for (let j = 0; j < minutesArr.length; j++) {
-        allTimeArr.push(
-          (i > 12 ? i - 12 : i === 0 ? "12" : i) +
-            ":" +
-            minutesArr[j] +
-            " " +
-            (i > 11 ? "PM" : "AM")
-        );
-      }
-    }
-
-    return allTimeArr;
-  };
-
-  const employeeOptions = useCallback(() => {
-    if (getEmployeesData) {
-      if (getEmployeesData.employees) {
-        const estheticians = getEmployeesData.employees.filter((employee) =>
-          employee.employeeRole.includes("Esthetician")
-        );
-
-        return estheticians.map(
-          (esthetician) =>
-            esthetician.firstName[0].toUpperCase() +
-            esthetician.firstName.slice(1).toLowerCase() +
-            " " +
-            esthetician.lastName[0].toUpperCase() +
-            esthetician.lastName.slice(1).toLowerCase()
-        );
-      }
-    }
-  }, [getEmployeesData]);
-
-  useEffect(() => {
-    if (getEmployeeData) {
-      if (getEmployeeData.employee) {
-        if (getEmployeeData.employee.employeeRole.includes("Esthetician")) {
-          const currentEmployee = getEmployeeData.employee;
-
-          if (!adminAppointmentStaffMember) {
-            dispatch(
-              ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(
-                currentEmployee.firstName[0].toUpperCase() +
-                  currentEmployee.firstName.slice(1).toLowerCase() +
-                  " " +
-                  currentEmployee.lastName[0].toUpperCase() +
-                  currentEmployee.lastName.slice(1).toLowerCase()
-              )
-            );
-          }
-        } else {
-          dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(employeeOptions()[0]));
-        }
-      }
-    }
-  }, [dispatch, getEmployeeData, employeeOptions, adminAppointmentStaffMember]);
 
   const phoneNumberKeyTyping = (e) => {
     if (
@@ -581,27 +519,6 @@ const AdminCreateAppointment = (props) => {
     squareCustomerId: "",
   };
 
-  const handleBackToSchedule = useCallback(() => {
-    changeCreateAppointmentClicked(false);
-
-    dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME_RESET());
-    dispatch(ACTION_ADMIN_CLIENT_LAST_NAME_RESET());
-    dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET());
-    dispatch(ACTION_ADMIN_CLIENT_EMAIL_RESET());
-    dispatch(ACTION_ADMIN_SELECTED_TREATMENTS_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_DATE_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
-
-    changeAddCardCollapseOpen(false);
-    changeClickOutsideDayPicker(false);
-
-    if (loadingSpinnerActive) {
-      dispatch(ACTION_LOADING_SPINNER_RESET());
-    }
-  }, [dispatch, changeCreateAppointmentClicked, loadingSpinnerActive]);
-
   const handleSubmitBooking = (e) => {
     e.preventDefault();
 
@@ -811,6 +728,27 @@ const AdminCreateAppointment = (props) => {
     }
   }, [addAppointmentLoading, dispatch]);
 
+  const handleBackToSchedule = useCallback(() => {
+    changeCreateAppointmentClicked(false);
+
+    dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_LAST_NAME_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_EMAIL_RESET());
+    dispatch(ACTION_ADMIN_SELECTED_TREATMENTS_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_DATE_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
+
+    changeAddCardCollapseOpen(false);
+    changeClickOutsideDayPicker(false);
+
+    if (loadingSpinnerActive) {
+      dispatch(ACTION_LOADING_SPINNER_RESET());
+    }
+  }, [dispatch, changeCreateAppointmentClicked, loadingSpinnerActive]);
+
   return (
     <Transition
       items={createAppointmentClicked}
@@ -861,15 +799,27 @@ const AdminCreateAppointment = (props) => {
                 loading={loadingSpinnerActive}
               />
             </Modal>
-            <div
-              className="admin_individual_selected_client_back_container"
-              onClick={handleBackToSchedule}
-            >
+            <div className="admin_individual_selected_client_back_container">
               <FontAwesomeIcon
                 icon={faLongArrowAltLeft}
                 className="admin_individual_selected_client_back_arrow_icon"
+                onClick={handleBackToSchedule}
               />
-              <p>Back to schedule</p>
+              <p onClick={handleBackToSchedule}>Back to schedule</p>
+              <div className="admin_individual_selected_client_top_page_options">
+                <p
+                  onClick={() => {
+                    changePersonalEventClicked(true);
+                    changeCreateAppointmentClicked(false);
+                  }}
+                >
+                  Create Personal Event
+                </p>
+                <p>/</p>
+                <p className="admin_individual_selected_client_chosen_create_page">
+                  Create Appointment
+                </p>
+              </div>
             </div>
             <div className="admin_create_appointment_section_header">
               <h2>Client Information</h2>
@@ -993,7 +943,7 @@ const AdminCreateAppointment = (props) => {
                 Time
               </div>
               <Dropdown
-                options={timeOptions()}
+                options={props.timeOptions()}
                 onChange={(choice) =>
                   dispatch(ACTION_ADMIN_APPOINTMENT_TIME(choice.value))
                 }

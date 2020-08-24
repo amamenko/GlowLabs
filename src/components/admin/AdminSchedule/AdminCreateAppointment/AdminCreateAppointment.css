@@ -324,6 +324,22 @@
   padding: 1.5rem;
 }
 
+.admin_individual_selected_client_top_page_options {
+  position: absolute;
+  right: 0;
+}
+
+.admin_individual_selected_client_top_page_options p {
+  display: inline-block;
+  color: #000;
+  font-weight: 400;
+}
+
+.admin_individual_selected_client_chosen_create_page {
+  color: #4a90e2 !important;
+  font-weight: 600 !important;
+}
+
 /* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
 @media only screen and (min-width: 300px) {
   .not_sure_booked_emoji_icon_path {
