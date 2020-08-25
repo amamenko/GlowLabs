@@ -49,9 +49,11 @@ const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();
 
   const {
+    stopTransition,
     createAppointmentClicked,
     getClientsData,
     getClientsRefetch,
+    changeStopTransition,
     randomColorArray,
     changeCreateAppointmentClicked,
     changePersonalEventClicked,
@@ -756,6 +758,7 @@ const AdminCreateAppointment = (props) => {
       enter={{ transform: "translateX(0%)" }}
       leave={{ transform: "translateX(-100%)" }}
       config={{ duration: 200 }}
+      immediate={stopTransition}
     >
       {(createAppointmentClicked) =>
         createAppointmentClicked &&
@@ -811,6 +814,10 @@ const AdminCreateAppointment = (props) => {
                   onClick={() => {
                     changePersonalEventClicked(true);
                     changeCreateAppointmentClicked(false);
+                    changeStopTransition(true);
+                    setTimeout(() => {
+                      changeStopTransition(false);
+                    }, 1000);
                   }}
                 >
                   Create Personal Event

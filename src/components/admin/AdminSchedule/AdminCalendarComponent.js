@@ -365,6 +365,7 @@ const AdminCalendarComponent = (props) => {
         onSelectSlot={(time) =>
           props.handleCreateAppointmentToggled(
             moment(time.start).format("LT"),
+            moment(time.end).format("LT"),
             moment(time.start).format("L")
           )
         }

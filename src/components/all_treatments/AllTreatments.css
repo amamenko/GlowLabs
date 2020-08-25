@@ -125,7 +125,17 @@
     font-size: 5vh;
     padding-bottom: 4vh;
   }
+}
 
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (orientation: portrait) {
+  .card_container {
+    min-height: 15vh;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (orientation: landscape) {
   .card_container {
     min-height: 30vh;
   }
@@ -142,6 +152,7 @@
   }
 
   .card_container {
+    min-height: 10vh;
     height: 28.6666667vh;
   }
 

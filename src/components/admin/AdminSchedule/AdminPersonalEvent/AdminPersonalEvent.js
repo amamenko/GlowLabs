@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Transition } from "react-spring/renderprops";
+import { Transition, Spring } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLongArrowAltLeft,
+  faSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import ACTION_ADMIN_PERSONAL_EVENT_TITLE from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventTitle/ACTION_ADMIN_PERSONAL_EVENT_TITLE";
 import ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY_RESET from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventAllDay/ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY_RESET";
@@ -22,10 +25,18 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import "../AdminCreateAppointment/AdminCreateAppointment.css";
 import "./AdminPersonalEvent.css";
 import Dropdown from "react-dropdown";
+import ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventAllDay/ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY";
+import ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventBlockTime/ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME";
+import { useMutation } from "@apollo/react-hooks";
+import { addPersonalEventMutation } from "../../../../graphql/queries/queries";
 
 const AdminPersonalEvent = (props) => {
   const {
+    initialScreenSize,
+    currentScreenSize,
+    stopTransition,
     personalEventClicked,
+    changeStopTransition,
     changePersonalEventClicked,
     changeCreateAppointmentClicked,
     timeOptions,
@@ -40,8 +51,17 @@ const AdminPersonalEvent = (props) => {
   const adminPersonalEventNotes = useSelector(
     (state) => state.adminPersonalEventNotes.notes
   );
+  const adminPersonalEventAllDay = useSelector(
+    (state) => state.adminPersonalEventAllDay.all_day
+  );
+  const adminPersonalEventBlockTime = useSelector(
+    (state) => state.adminPersonalEventBlockTime.block_time
+  );
   const adminPersonalEventDate = useSelector(
     (state) => state.adminPersonalEventDate.date
+  );
+  const adminAppointmentDate = useSelector(
+    (state) => state.adminAppointmentDate.admin_appointment_date
   );
   const adminPersonalEventStartTime = useSelector(
     (state) => state.adminPersonalEventStartTime.start_time
@@ -52,6 +72,9 @@ const AdminPersonalEvent = (props) => {
   const adminPersonalEventStaff = useSelector(
     (state) => state.adminPersonalEventStaff.staff
   );
+  const adminAppointmentStaffMember = useSelector(
+    (state) => state.adminAppointmentStaffMember.admin_appointment_staff_member
+  );
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
@@ -60,6 +83,19 @@ const AdminPersonalEvent = (props) => {
   );
 
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
+  const [pageOpened, changePageOpened] = useState(false);
+
+  const [addPersonalEvent] = useMutation(addPersonalEventMutation);
+
+  useEffect(() => {
+    changePageOpened(true);
+    const pageNowOpen = setTimeout(() => {
+      changePageOpened(false);
+    }, 500);
+    return () => {
+      clearTimeout(pageNowOpen);
+    };
+  }, []);
 
   const handleBackToSchedule = () => {
     changePersonalEventClicked(false);
@@ -123,6 +159,87 @@ const AdminPersonalEvent = (props) => {
     };
   }, [clickOutsideDayPicker]);
 
+  const handleAllDayToggle = () => {
+    if (adminPersonalEventAllDay) {
+      dispatch(ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY_RESET());
+    } else {
+      dispatch(ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY());
+    }
+  };
+
+  const handleBlockTimeToggle = () => {
+    if (adminPersonalEventBlockTime) {
+      dispatch(ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME_RESET());
+    } else {
+      dispatch(ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME());
+    }
+  };
+
+  const checkMark = () => {
+    return (
+      <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
+        {(styles) => (
+          <svg
+            width="100%"
+            style={{
+              marginTop:
+                currentScreenSize === ""
+                  ? initialScreenSize >= 1800
+                    ? "-0.2rem"
+                    : initialScreenSize >= 1600
+                    ? "-0.2rem"
+                    : initialScreenSize >= 1200
+                    ? "-0.5rem"
+                    : initialScreenSize >= 360
+                    ? "-0.5rem"
+                    : "0rem"
+                  : currentScreenSize >= 1800
+                  ? "-0.2rem"
+                  : currentScreenSize >= 1600
+                  ? "-0.2rem"
+                  : currentScreenSize >= 1200
+                  ? "-0.5rem"
+                  : currentScreenSize >= 360
+                  ? "-0.5rem"
+                  : "0rem",
+              display: "block",
+            }}
+            viewBox="0 0 13.229 13.229"
+          >
+            <path
+              d="M2.851 7.56l2.45 2.482 5.36-6.958"
+              fill="none"
+              stroke="#000"
+              strokeDasharray="100"
+              strokeDashoffset={pageOpened ? 0 : `${styles.x}`}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
+            />
+          </svg>
+        )}
+      </Spring>
+    );
+  };
+
+  const handleSavePersonalEvent = () => {
+    addPersonalEvent({
+      variables: {
+        title: adminPersonalEventTitle,
+        date: adminPersonalEventDate,
+        startTime: adminPersonalEventStartTime,
+        endTime: adminPersonalEventEndTime,
+        staff:
+          adminAppointmentStaffMember && !adminPersonalEventStaff
+            ? adminAppointmentStaffMember
+            : adminPersonalEventStaff,
+        notes: adminPersonalEventNotes,
+        allDay: adminPersonalEventAllDay,
+        blockTime: adminPersonalEventBlockTime,
+      },
+    });
+  };
+
   return (
     <Transition
       items={personalEventClicked}
@@ -130,6 +247,7 @@ const AdminPersonalEvent = (props) => {
       enter={{ transform: "translateX(0%)" }}
       leave={{ transform: "translateX(-100%)" }}
       config={{ duration: 200 }}
+      immediate={stopTransition}
     >
       {(personalEventClicked) =>
         personalEventClicked &&
@@ -141,15 +259,13 @@ const AdminPersonalEvent = (props) => {
               zIndex: logoutClicked || loadingSpinnerActive ? 0 : 5,
             }}
           >
-            <div
-              className="admin_individual_selected_client_back_container"
-              onClick={handleBackToSchedule}
-            >
+            <div className="admin_individual_selected_client_back_container">
               <FontAwesomeIcon
                 icon={faLongArrowAltLeft}
                 className="admin_individual_selected_client_back_arrow_icon"
+                onClick={handleBackToSchedule}
               />
-              <p>Back to schedule</p>
+              <p onClick={handleBackToSchedule}>Back to schedule</p>
               <div className="admin_individual_selected_client_top_page_options">
                 <p className="admin_individual_selected_client_chosen_create_page">
                   Create Personal Event
@@ -157,8 +273,12 @@ const AdminPersonalEvent = (props) => {
                 <p>/</p>
                 <p
                   onClick={() => {
-                    changeCreateAppointmentClicked(true);
                     changePersonalEventClicked(false);
+                    changeCreateAppointmentClicked(true);
+                    changeStopTransition(true);
+                    setTimeout(() => {
+                      changeStopTransition(false);
+                    }, 1000);
                   }}
                 >
                   Create Appointment
@@ -225,16 +345,24 @@ const AdminPersonalEvent = (props) => {
                 onChange={(choice) =>
                   dispatch(ACTION_ADMIN_PERSONAL_EVENT_STAFF(choice))
                 }
-                value={adminPersonalEventStaff}
+                value={
+                  adminAppointmentStaffMember && !adminPersonalEventStaff
+                    ? adminAppointmentStaffMember
+                    : adminPersonalEventStaff
+                }
                 controlClassName="react-autosuggest__input"
                 className="react-autosuggest__container"
                 placeholder={
-                  adminPersonalEventStaff
+                  adminAppointmentStaffMember && !adminPersonalEventStaff
+                    ? adminAppointmentStaffMember
+                    : adminPersonalEventStaff
                     ? adminPersonalEventStaff
                     : "Enter staff member with which to associate this personal event"
                 }
                 placeholderClassName={
-                  adminPersonalEventStaff
+                  adminAppointmentStaffMember && !adminPersonalEventStaff
+                    ? "admin_create_appointent_dropdown_placeholder_time"
+                    : adminPersonalEventStaff
                     ? "admin_create_appointent_dropdown_placeholder_time"
                     : "admin_create_appointent_dropdown_placeholder_no_time"
                 }
@@ -242,6 +370,33 @@ const AdminPersonalEvent = (props) => {
             </div>
             <div className="admin_create_appointment_section_header">
               <h2>Personal Event Time</h2>
+
+              <div className="admin_personal_event_checkbox_container">
+                <p>All day?</p>
+                <span
+                  className="fa-layers fa-fw client_consent_form_checkbox"
+                  onClick={handleAllDayToggle}
+                >
+                  <FontAwesomeIcon
+                    color="rgba(155, 155, 155, 0.4)"
+                    transform="grow-10"
+                    icon={faSquare}
+                  />
+                  {adminPersonalEventAllDay ? checkMark() : null}
+                </span>
+                <p>Block time?</p>
+                <span
+                  className="fa-layers fa-fw client_consent_form_checkbox"
+                  onClick={handleBlockTimeToggle}
+                >
+                  <FontAwesomeIcon
+                    color="rgba(155, 155, 155, 0.4)"
+                    transform="grow-10"
+                    icon={faSquare}
+                  />
+                  {adminPersonalEventBlockTime ? checkMark() : null}
+                </span>
+              </div>
             </div>
             <div className="admin_create_appointment_input_information_container">
               <div className="admin_create_appointment_label">Date</div>
@@ -266,7 +421,11 @@ const AdminPersonalEvent = (props) => {
                   dispatch(ACTION_ADMIN_PERSONAL_EVENT_DATE(day))
                 }
                 format="L"
-                value={adminPersonalEventDate}
+                value={
+                  adminAppointmentDate && !adminPersonalEventDate
+                    ? adminAppointmentDate
+                    : adminPersonalEventDate
+                }
                 placeholder="Enter your event date here"
               />
             </div>
@@ -318,7 +477,12 @@ const AdminPersonalEvent = (props) => {
             </div>
             <div className="admin_square_payment_form_container">
               <div className="sq-payment-form">
-                <div className="sq-creditcard">Save Personal Event</div>
+                <div
+                  className="sq-creditcard"
+                  onClick={handleSavePersonalEvent}
+                >
+                  Save Personal Event
+                </div>
               </div>
             </div>
           </div>

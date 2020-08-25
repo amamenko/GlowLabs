@@ -11,6 +11,9 @@ import ACTION_ADMIN_APPOINTMENT_DATE from "../../../actions/Admin/AdminCreateApp
 import AdminPersonalEvent from "./AdminPersonalEvent/AdminPersonalEvent";
 import ACTION_ADMIN_PERSONAL_EVENT_STAFF from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventStaff/ACTION_ADMIN_PERSONAL_EVENT_STAFF";
 import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER from "../../../actions/Admin/AdminCreateAppointment/AdminAppointmentStaffMember/ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER";
+import ACTION_ADMIN_PERSONAL_EVENT_DATE from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventDate/ACTION_ADMIN_PERSONAL_EVENT_DATE";
+import ACTION_ADMIN_PERSONAL_EVENT_START_TIME from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventStartTime/ACTION_ADMIN_PERSONAL_EVENT_START_TIME";
+import ACTION_ADMIN_PERSONAL_EVENT_END_TIME from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventEndTime/ACTION_ADMIN_PERSONAL_EVENT_END_TIME";
 
 const AdminSchedule = (props) => {
   const dispatch = useDispatch();
@@ -31,6 +34,7 @@ const AdminSchedule = (props) => {
     false
   );
   const [personalEventClicked, changePersonalEventClicked] = useState(false);
+  const [stopTransition, changeStopTransition] = useState(false);
 
   const redirectToAdminLogInPage = () => {
     if (!adminAuthenticated) {
@@ -38,10 +42,14 @@ const AdminSchedule = (props) => {
     }
   };
 
-  const handleCreateAppointmentToggled = (time, date) => {
+  const handleCreateAppointmentToggled = (startTime, endTime, date) => {
     changeCreateAppointmentClicked(true);
-    dispatch(ACTION_ADMIN_APPOINTMENT_TIME(time));
+    dispatch(ACTION_ADMIN_APPOINTMENT_TIME(startTime));
     dispatch(ACTION_ADMIN_APPOINTMENT_DATE(date));
+
+    dispatch(ACTION_ADMIN_PERSONAL_EVENT_START_TIME(startTime));
+    dispatch(ACTION_ADMIN_PERSONAL_EVENT_END_TIME(endTime));
+    dispatch(ACTION_ADMIN_PERSONAL_EVENT_DATE(date));
   };
 
   const timeOptions = () => {
@@ -153,6 +161,7 @@ const AdminSchedule = (props) => {
         </div>
       </div>
       <AdminCreateAppointment
+        personalEventClicked={personalEventClicked}
         createAppointmentClicked={createAppointmentClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         changePersonalEventClicked={changePersonalEventClicked}
@@ -163,13 +172,20 @@ const AdminSchedule = (props) => {
         getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
         timeOptions={timeOptions}
         employeeOptions={employeeOptions}
+        changeStopTransition={changeStopTransition}
+        stopTransition={stopTransition}
       />
       <AdminPersonalEvent
         personalEventClicked={personalEventClicked}
+        createAppointmentClicked={createAppointmentClicked}
         changePersonalEventClicked={changePersonalEventClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         timeOptions={timeOptions}
         employeeOptions={employeeOptions}
+        changeStopTransition={changeStopTransition}
+        stopTransition={stopTransition}
+        initialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
       />
       <AdminCalendarComponent
         getAllAppointmentsData={props.getAllAppointmentsData}

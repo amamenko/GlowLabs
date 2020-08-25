@@ -3,7 +3,7 @@ const ADMIN_PERSONAL_EVENT_BLOCK_TIME_RESET =
   "ADMIN_PERSONAL_EVENT_BLOCK_TIME_RESET";
 
 const adminPersonalEventBlockTimeReducer = (
-  state = { block_time: false },
+  state = { block_time: true },
   action
 ) => {
   switch (action.type) {

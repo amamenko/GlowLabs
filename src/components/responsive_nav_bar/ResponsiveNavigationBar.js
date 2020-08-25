@@ -192,36 +192,19 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
     }
   };
 
-  const handleLoginClick = () => {
+  const handleLogoutClicked = () => {
+    toast.dismiss();
+
     if (
-      !location.pathname.includes("/account/clientprofile") ||
+      !location.pathname.includes("/account/clientprofile") &&
       !location.pathname.includes("/admin")
     ) {
+      dispatch(ACTION_LOGIN_IS_ACTIVE());
       if (cartIsActive) {
         dispatch(ACTION_CART_IS_NOT_ACTIVE());
       }
-
-      if (location.pathname === "/") {
-        dispatch(ACTION_LOGIN_IS_ACTIVE());
-      } else {
-        dispatch(ACTION_LOG_OUT_CLICKED());
-      }
-
-      toast.dismiss();
-    }
-  };
-
-  const handleLogoutClicked = () => {
-    if (
-      location.pathname.includes("/account/clientprofile") ||
-      location.pathname.includes("/admin/")
-    ) {
-      if (userAuthenticated || props.adminDummyToken) {
-        if (cartIsActive) {
-          dispatch(ACTION_CART_IS_NOT_ACTIVE());
-        }
-        dispatch(ACTION_LOG_OUT_CLICKED());
-      }
+    } else {
+      dispatch(ACTION_LOG_OUT_CLICKED());
     }
   };
 
@@ -608,7 +591,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
       props.handleClickToScrollToContact(ContactRef);
     }, 300);
   };
-  console.log(loadingSpinnerActive);
+
   return (
     <nav
       className="navbar"
@@ -936,7 +919,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 ? "/admin/menu"
                 : "/account/login"
             }
-            onClick={handleLoginClick}
             style={{
               pointerEvents:
                 logoutClicked || cancelAppointmentClicked ? "none" : "auto",

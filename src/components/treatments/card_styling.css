@@ -930,6 +930,19 @@
     padding-bottom: 0vh;
   }
 
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .notification_text_container p {
+    color: rgb(0, 0, 0);
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
   .card_description_microneedle_toggle {
     max-height: none;
   }
@@ -943,8 +956,8 @@
   }
 
   .card_description_paragraph {
-    font-size: 0.75em;
-    line-height: 16px;
+    font-size: 1rem;
+    line-height: 25px;
     padding-top: 0rem;
   }
 
@@ -1000,7 +1013,7 @@
   }
 
   .big_screen_book_now_wrapper {
-    width: 10vw;
+    width: 9vw;
     display: flex;
     flex-direction: row;
     justify-items: center;

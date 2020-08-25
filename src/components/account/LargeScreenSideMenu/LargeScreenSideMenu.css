@@ -14,7 +14,7 @@
     align-items: flex-start;
     justify-content: center;
     height: 100vh;
-    width: 40%;
+    width: 30%;
     padding-left: 3.1rem;
     padding-right: 3.1rem;
     background: rgb(244, 244, 244);
@@ -175,24 +175,20 @@
   .large_screen_account_nav_logo_container {
     position: fixed;
     height: 100%;
+    left: 2vw;
     top: 0;
     padding-bottom: 0rem;
   }
 
   .large_screen_account_nav_logo {
+    width: 100%;
     display: flex;
     flex: 1;
     padding: 0;
     text-decoration: none;
-    height: 100%;
+    height: 17.5%;
     overflow: hidden;
-  }
-
-  .large_screen_account_nav_logo_svg {
-    transform: scale(2);
-    position: absolute;
-    top: 7vh;
-    left: 3.4rem;
+    position: relative;
   }
 
   .large_screen_side_menu_underline_separator {
@@ -310,13 +306,6 @@
     left: 2rem;
   }
 
-  .large_screen_account_nav_logo_svg {
-    transform: scale(2);
-    position: absolute;
-    top: 7vh;
-    left: 3.4rem;
-  }
-
   .large_screen_side_menu_underline_separator {
     width: 100%;
     border-top: 2px solid rgb(211, 211, 211);
@@ -402,13 +391,6 @@
   .large_screen_side_menu_item h2,
   .large_screen_side_menu_item_container h2 {
     padding-left: 1.5rem;
-  }
-
-  .large_screen_account_nav_logo_svg {
-    transform: scale(2);
-    position: absolute;
-    top: 7vh;
-    left: 3.4rem;
   }
 
   .large_screen_side_menu_underline_separator {

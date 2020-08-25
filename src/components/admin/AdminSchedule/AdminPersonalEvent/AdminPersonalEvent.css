@@ -1,0 +1,31 @@
+.admin_create_appointment_section_header {
+  position: relative;
+}
+
+.admin_create_appointment_section_header > * {
+  display: inline-block;
+}
+
+.admin_create_appointment_section_header
+  > .admin_personal_event_checkbox_container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.admin_personal_event_checkbox_container p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-right: 0.5rem;
+  padding-left: 1rem;
+}
+
+.admin_personal_event_checkbox_container > .client_consent_form_checkbox {
+  margin-right: 0.4rem;
+}

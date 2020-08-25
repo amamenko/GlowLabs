@@ -135,6 +135,22 @@ const getAllAppointmentsQuery = gql`
   }
 `;
 
+const getAllPersonalEventsQuery = gql`
+  {
+    all_personal_events {
+      id
+      title
+      notes
+      staff
+      date
+      startTime
+      endTime
+      allDay
+      blockTime
+    }
+  }
+`;
+
 const getOwnAppointmentsQuery = gql`
   query($_id: ID, $email: String) {
     own_appointments(_id: $_id, email: $email) {
@@ -802,6 +818,48 @@ const deleteMyRoutineItemMutation = gql`
   }
 `;
 
+const addPersonalEventMutation = gql`
+  mutation(
+    $title: String!
+    $notes: String
+    $staff: String!
+    $date: String!
+    $startTime: String!
+    $endTime: String!
+    $allDay: Boolean
+    $blockTime: Boolean
+  ) {
+    addPersonalEvent(
+      title: $title
+      notes: $notes
+      staff: $staff
+      date: $date
+      startTime: $startTime
+      endTime: $endTime
+      allDay: $allDay
+      blockTime: $blockTime
+
+      title: $title
+      notes: $notes
+      staff: $staff
+      date: $date
+      startTime: $startTime
+      endTime: $endTime
+      allDay: $allDay
+      blockTime: $blockTime
+    ) {
+      title
+      notes
+      staff
+      date
+      startTime
+      endTime
+      allDay
+      blockTime
+    }
+  }
+`;
+
 const addClientMutation = gql`
   mutation(
     $firstName: String!
@@ -1270,6 +1328,8 @@ export {
   addAppointmentMutation,
   confirmAppointmentMutation,
   deleteAppointmentMutation,
+  addPersonalEventMutation,
+  getAllPersonalEventsQuery,
   deleteMyRoutineItemMutation,
   addClientMutation,
   updateClientProfilePictureMutation,
