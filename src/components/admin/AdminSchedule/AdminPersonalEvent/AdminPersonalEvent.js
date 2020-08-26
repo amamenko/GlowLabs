@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Transition, Spring } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,6 +29,10 @@ import ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY from "../../../../actions/Admin/Admin
 import ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventBlockTime/ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME";
 import { useMutation } from "@apollo/react-hooks";
 import { addPersonalEventMutation } from "../../../../graphql/queries/queries";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import Modal from "react-modal";
+import { BounceLoader } from "react-spinners";
+import { css } from "emotion";
 
 const AdminPersonalEvent = (props) => {
   const {
@@ -41,6 +45,7 @@ const AdminPersonalEvent = (props) => {
     changeCreateAppointmentClicked,
     timeOptions,
     employeeOptions,
+    getAllPersonalEventsRefetch,
   } = props;
 
   const dispatch = useDispatch();
@@ -85,7 +90,24 @@ const AdminPersonalEvent = (props) => {
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
   const [pageOpened, changePageOpened] = useState(false);
 
-  const [addPersonalEvent] = useMutation(addPersonalEventMutation);
+  // Errors
+  const [titleError, changeTitleError] = useState(false);
+  const [dateError, changeDateError] = useState(false);
+  const [startTimeError, changeStartTimeError] = useState(false);
+  const [endTimeError, changeEndTimeError] = useState(false);
+  const [staffError, changeStaffError] = useState(false);
+
+  const [
+    addPersonalEvent,
+    { loading: personalEventLoading, data: personalEventData },
+  ] = useMutation(addPersonalEventMutation);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   useEffect(() => {
     changePageOpened(true);
@@ -97,7 +119,29 @@ const AdminPersonalEvent = (props) => {
     };
   }, []);
 
-  const handleBackToSchedule = () => {
+  const resetErrorStates = useCallback(() => {
+    if (titleError) {
+      changeTitleError(false);
+    }
+
+    if (dateError) {
+      changeDateError(false);
+    }
+
+    if (staffError) {
+      changeStaffError(false);
+    }
+
+    if (startTimeError) {
+      changeStartTimeError(false);
+    }
+
+    if (endTimeError) {
+      changeEndTimeError(false);
+    }
+  }, [dateError, endTimeError, staffError, startTimeError, titleError]);
+
+  const handleBackToSchedule = useCallback(() => {
     changePersonalEventClicked(false);
 
     dispatch(ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY_RESET());
@@ -110,7 +154,9 @@ const AdminPersonalEvent = (props) => {
     dispatch(ACTION_ADMIN_PERSONAL_EVENT_END_TIME_RESET());
 
     changeClickOutsideDayPicker(false);
-  };
+
+    resetErrorStates();
+  }, [changePersonalEventClicked, dispatch, resetErrorStates]);
 
   useEffect(() => {
     const dayPickerClickFunction = (e) => {
@@ -223,22 +269,67 @@ const AdminPersonalEvent = (props) => {
   };
 
   const handleSavePersonalEvent = () => {
-    addPersonalEvent({
-      variables: {
-        title: adminPersonalEventTitle,
-        date: adminPersonalEventDate,
-        startTime: adminPersonalEventStartTime,
-        endTime: adminPersonalEventEndTime,
-        staff:
-          adminAppointmentStaffMember && !adminPersonalEventStaff
-            ? adminAppointmentStaffMember
-            : adminPersonalEventStaff,
-        notes: adminPersonalEventNotes,
-        allDay: adminPersonalEventAllDay,
-        blockTime: adminPersonalEventBlockTime,
-      },
-    });
+    if (
+      adminPersonalEventTitle &&
+      (adminPersonalEventDate || adminAppointmentDate) &&
+      adminPersonalEventStartTime &&
+      adminPersonalEventEndTime &&
+      (adminAppointmentStaffMember || adminPersonalEventStaff)
+    ) {
+      addPersonalEvent({
+        variables: {
+          title: adminPersonalEventTitle,
+          date:
+            adminAppointmentDate && !adminPersonalEventDate
+              ? adminAppointmentDate
+              : adminPersonalEventDate,
+          startTime: adminPersonalEventStartTime,
+          endTime: adminPersonalEventEndTime,
+          staff:
+            adminAppointmentStaffMember && !adminPersonalEventStaff
+              ? adminAppointmentStaffMember
+              : adminPersonalEventStaff,
+          notes: adminPersonalEventNotes,
+          allDay: adminPersonalEventAllDay,
+          blockTime: adminPersonalEventBlockTime,
+        },
+      });
+    } else {
+      if (!adminPersonalEventTitle) {
+        changeTitleError(true);
+      }
+      if (!(adminPersonalEventDate || adminAppointmentDate)) {
+        changeDateError(true);
+      }
+      if (!adminPersonalEventStartTime) {
+        changeStartTimeError(true);
+      }
+      if (!adminPersonalEventEndTime) {
+        changeEndTimeError(true);
+      }
+      if (!(adminAppointmentStaffMember || adminPersonalEventStaff)) {
+        changeStaffError(true);
+      }
+    }
   };
+
+  useEffect(() => {
+    if (personalEventData && !loadingSpinnerActive) {
+      handleBackToSchedule();
+      getAllPersonalEventsRefetch();
+    }
+  }, [
+    handleBackToSchedule,
+    personalEventData,
+    loadingSpinnerActive,
+    getAllPersonalEventsRefetch,
+  ]);
+
+  useEffect(() => {
+    if (personalEventLoading) {
+      dispatch(ACTION_LOADING_SPINNER_ACTIVE());
+    }
+  }, [personalEventLoading, dispatch]);
 
   return (
     <Transition
@@ -259,6 +350,38 @@ const AdminPersonalEvent = (props) => {
               zIndex: logoutClicked || loadingSpinnerActive ? 0 : 5,
             }}
           >
+            <Modal
+              isOpen={loadingSpinnerActive}
+              style={{
+                content: {
+                  position: "fixed",
+                  zIndex: "10000",
+                  height: "100%",
+                  backdropFilter: "blur(5px)",
+                  WebkitBackdropFilter: "blur(5px)",
+                  paddingBottom: "10%",
+                  borderRadius: "none",
+                  width: "100vw",
+                  top: "0",
+                  left: "0",
+                  right: "0",
+                  bottom: "0",
+                  border: "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "rgba(0, 0, 0, 0.5)",
+                },
+              }}
+            >
+              <BounceLoader
+                size={100}
+                css={override}
+                color={"rgb(44, 44, 52)"}
+                loading={loadingSpinnerActive}
+              />
+            </Modal>
             <div className="admin_individual_selected_client_back_container">
               <FontAwesomeIcon
                 icon={faLongArrowAltLeft}
@@ -279,6 +402,7 @@ const AdminPersonalEvent = (props) => {
                     setTimeout(() => {
                       changeStopTransition(false);
                     }, 1000);
+                    resetErrorStates();
                   }}
                 >
                   Create Appointment
@@ -297,6 +421,10 @@ const AdminPersonalEvent = (props) => {
                 aria-controls="react-autowhatever-1"
                 aria-expanded="false"
                 className="react-autosuggest__container"
+                style={{
+                  outline: titleError ? "3px solid red" : "none",
+                  zIndex: titleError ? 99999 : "auto",
+                }}
               >
                 <input
                   type="text"
@@ -307,9 +435,10 @@ const AdminPersonalEvent = (props) => {
                   placeholder={"Create a title for your event"}
                   value={adminPersonalEventTitle}
                   maxLength={200}
-                  onChange={(e) =>
-                    dispatch(ACTION_ADMIN_PERSONAL_EVENT_TITLE(e.target.value))
-                  }
+                  onChange={(e) => {
+                    resetErrorStates();
+                    dispatch(ACTION_ADMIN_PERSONAL_EVENT_TITLE(e.target.value));
+                  }}
                 />
               </div>
             </div>
@@ -342,15 +471,20 @@ const AdminPersonalEvent = (props) => {
               <div className="admin_create_appointment_label">Staff</div>
               <Dropdown
                 options={employeeOptions()}
-                onChange={(choice) =>
-                  dispatch(ACTION_ADMIN_PERSONAL_EVENT_STAFF(choice))
-                }
+                onChange={(choice) => {
+                  resetErrorStates();
+                  dispatch(ACTION_ADMIN_PERSONAL_EVENT_STAFF(choice));
+                }}
                 value={
                   adminAppointmentStaffMember && !adminPersonalEventStaff
                     ? adminAppointmentStaffMember
                     : adminPersonalEventStaff
                 }
-                controlClassName="react-autosuggest__input"
+                controlClassName={
+                  staffError
+                    ? "react-autosuggest__input personal_event_error"
+                    : "react-autosuggest__input"
+                }
                 className="react-autosuggest__container"
                 placeholder={
                   adminAppointmentStaffMember && !adminPersonalEventStaff
@@ -366,6 +500,10 @@ const AdminPersonalEvent = (props) => {
                     ? "admin_create_appointent_dropdown_placeholder_time"
                     : "admin_create_appointent_dropdown_placeholder_no_time"
                 }
+                style={{
+                  outline: staffError ? "3px solid red" : "none",
+                  zIndex: staffError ? 99999 : "auto",
+                }}
               />
             </div>
             <div className="admin_create_appointment_section_header">
@@ -398,7 +536,10 @@ const AdminPersonalEvent = (props) => {
                 </span>
               </div>
             </div>
-            <div className="admin_create_appointment_input_information_container">
+            <div
+              className="admin_create_appointment_input_information_container"
+              onClick={() => resetErrorStates()}
+            >
               <div className="admin_create_appointment_label">Date</div>
               <DayPickerInput
                 classNames={{
@@ -410,16 +551,19 @@ const AdminPersonalEvent = (props) => {
                 }}
                 dayPickerProps={{ disabledDays: { before: new Date() } }}
                 inputProps={{
-                  className: "react-autosuggest__input",
+                  className: dateError
+                    ? "react-autosuggest__input personal_event_error"
+                    : "react-autosuggest__input",
                   style: {
                     color: "rgb(74, 144, 226)",
                   },
                 }}
                 formatDate={formatDate}
                 parseDate={parseDate}
-                onDayChange={(day) =>
-                  dispatch(ACTION_ADMIN_PERSONAL_EVENT_DATE(day))
-                }
+                onDayChange={(day) => {
+                  resetErrorStates();
+                  dispatch(ACTION_ADMIN_PERSONAL_EVENT_DATE(day));
+                }}
                 format="L"
                 value={
                   adminAppointmentDate && !adminPersonalEventDate
@@ -429,17 +573,27 @@ const AdminPersonalEvent = (props) => {
                 placeholder="Enter your event date here"
               />
             </div>
-            <div className="admin_create_appointment_input_information_container">
+            <div
+              className="admin_create_appointment_input_information_container"
+              onClick={() => resetErrorStates()}
+            >
               <div className="admin_create_appointment_label admin_create_appointment_double_label">
                 Start Time
               </div>
               <Dropdown
                 options={timeOptions()}
-                onChange={(choice) =>
-                  dispatch(ACTION_ADMIN_PERSONAL_EVENT_START_TIME(choice.value))
-                }
+                onChange={(choice) => {
+                  resetErrorStates();
+                  dispatch(
+                    ACTION_ADMIN_PERSONAL_EVENT_START_TIME(choice.value)
+                  );
+                }}
                 value={adminPersonalEventStartTime}
-                controlClassName="react-autosuggest__input"
+                controlClassName={
+                  startTimeError
+                    ? "react-autosuggest__input personal_event_error"
+                    : "react-autosuggest__input"
+                }
                 className="react-autosuggest__container"
                 placeholder={
                   adminPersonalEventStartTime
@@ -457,11 +611,16 @@ const AdminPersonalEvent = (props) => {
               </div>
               <Dropdown
                 options={timeOptions()}
-                onChange={(choice) =>
-                  dispatch(ACTION_ADMIN_PERSONAL_EVENT_END_TIME(choice.value))
-                }
+                onChange={(choice) => {
+                  resetErrorStates();
+                  dispatch(ACTION_ADMIN_PERSONAL_EVENT_END_TIME(choice.value));
+                }}
                 value={adminPersonalEventEndTime}
-                controlClassName="react-autosuggest__input"
+                controlClassName={
+                  endTimeError
+                    ? "react-autosuggest__input personal_event_error"
+                    : "react-autosuggest__input"
+                }
                 className="react-autosuggest__container"
                 placeholder={
                   adminPersonalEventEndTime
@@ -473,6 +632,10 @@ const AdminPersonalEvent = (props) => {
                     ? "admin_create_appointent_dropdown_placeholder_time"
                     : "admin_create_appointent_dropdown_placeholder_no_time"
                 }
+                style={{
+                  outline: endTimeError ? "3px solid red" : "none",
+                  zIndex: endTimeError ? 99999 : "auto",
+                }}
               />
             </div>
             <div className="admin_square_payment_form_container">

@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/react-hooks";
 import {
   getClientsQuery,
   getAllAppointmentsQuery,
+  getAllPersonalEventsQuery,
 } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
@@ -26,6 +27,13 @@ const AdminRouter = (props) => {
     data: getAllAppointmentsData,
     refetch: getAllAppointmentsRefetch,
   } = useQuery(getAllAppointmentsQuery, {
+    fetchPolicy: "no-cache",
+  });
+
+  const {
+    data: getAllPersonalEventsData,
+    refetch: getAllPersonalEventsRefetch,
+  } = useQuery(getAllPersonalEventsQuery, {
     fetchPolicy: "no-cache",
   });
 
@@ -112,6 +120,8 @@ const AdminRouter = (props) => {
               }
               getClientsData={getClientsData ? getClientsData : null}
               getClientsRefetch={getClientsRefetch}
+              getAllPersonalEventsData={getAllPersonalEventsData}
+              getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
             />
           )}

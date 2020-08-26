@@ -176,6 +176,7 @@ const AdminSchedule = (props) => {
         stopTransition={stopTransition}
       />
       <AdminPersonalEvent
+        getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
         personalEventClicked={personalEventClicked}
         createAppointmentClicked={createAppointmentClicked}
         changePersonalEventClicked={changePersonalEventClicked}
@@ -190,6 +191,7 @@ const AdminSchedule = (props) => {
       <AdminCalendarComponent
         getAllAppointmentsData={props.getAllAppointmentsData}
         getEmployeeData={props.getEmployeeData}
+        getAllPersonalEventsData={props.getAllPersonalEventsData}
         handleCreateAppointmentToggled={handleCreateAppointmentToggled}
       />
     </div>

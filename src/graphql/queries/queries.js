@@ -838,15 +838,6 @@ const addPersonalEventMutation = gql`
       endTime: $endTime
       allDay: $allDay
       blockTime: $blockTime
-
-      title: $title
-      notes: $notes
-      staff: $staff
-      date: $date
-      startTime: $startTime
-      endTime: $endTime
-      allDay: $allDay
-      blockTime: $blockTime
     ) {
       title
       notes

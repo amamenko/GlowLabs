@@ -29,3 +29,13 @@
 .admin_personal_event_checkbox_container > .client_consent_form_checkbox {
   margin-right: 0.4rem;
 }
+
+.admin_create_appointment_label {
+  z-index: -1;
+}
+
+.personal_event_error {
+  outline: 3px solid red;
+  z-index: 999999;
+  transition: none;
+}

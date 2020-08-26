@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLongArrowAltLeft,
   faCheckCircle,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import "./AdminSchedule.css";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
@@ -41,6 +42,7 @@ const AdminCalendarComponent = (props) => {
   const [currentToggledAppointment, changeCurrentToggledAppointment] = useState(
     ""
   );
+  const [allPersonalEvents, changeAllPersonalEvents] = useState([]);
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
@@ -209,6 +211,48 @@ const AdminCalendarComponent = (props) => {
     changeAllAdminAppointments(currentAdminAppointments());
   }, [props.getAllAppointmentsData, props.getEmployeeData]);
 
+  useEffect(() => {
+    const currentAdminPersonalEvents = () => {
+      const filteredApps = props.getAllPersonalEventsData
+        ? props.getAllPersonalEventsData.all_personal_events.filter((x) => {
+            if (x.staff) {
+              if (props.getEmployeeData) {
+                if (props.getEmployeeData.employee.firstName) {
+                  if (props.getEmployeeData.employee.lastName) {
+                    const firstName = x.staff.split(" ")[0];
+                    const lastInitial = x.staff.split(" ")[1][0];
+
+                    if (
+                      props.getEmployeeData.employee.firstName.toUpperCase() ===
+                        firstName.toUpperCase() &&
+                      props.getEmployeeData.employee.lastName[0].toUpperCase() ===
+                        lastInitial.toUpperCase()
+                    ) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  } else {
+                    return false;
+                  }
+                } else {
+                  return false;
+                }
+              } else {
+                return false;
+              }
+            } else {
+              return false;
+            }
+          })
+        : null;
+
+      return filteredApps;
+    };
+
+    changeAllPersonalEvents(currentAdminPersonalEvents());
+  }, [props.getAllPersonalEventsData, props.getEmployeeData]);
+
   const events = () => {
     if (allAdminAppointments) {
       if (allAdminAppointments.length > 0) {
@@ -280,6 +324,40 @@ const AdminCalendarComponent = (props) => {
     }
   };
 
+  const personalEvents = () => {
+    if (allPersonalEvents) {
+      if (allPersonalEvents.length > 0) {
+        return allPersonalEvents.map((x) => {
+          return {
+            id: x.id,
+            title: (
+              <div className="personal_event_cell_title">
+                {x.title}
+                <FontAwesomeIcon
+                  icon={faTimesCircle}
+                  className="admin_appointment_confirmed_checkmark"
+                />
+              </div>
+            ),
+            text: x.notes,
+            start: moment(
+              x.date + " " + x.startTime,
+              "M/DD/YYYY h:mm A"
+            ).toDate(),
+            end: moment(x.date + " " + x.endTime, "M/DD/YYYY h:mm A").toDate(),
+            backgroundColor: "rgb(200, 200, 200)",
+            color: "#265985",
+            allDay: x.allDay,
+          };
+        });
+      } else {
+        return [];
+      }
+    } else {
+      return [];
+    }
+  };
+
   // Function for back arrow click to reset selected toggled appointment
 
   const handleAppointmentUntoggled = (e) => {
@@ -303,15 +381,32 @@ const AdminCalendarComponent = (props) => {
     timeGutterFormat: "h A",
   };
 
+  const eventStyleGetter = (event) => {
+    if (event) {
+      if (event.backgroundColor && event.color) {
+        const style = {
+          backgroundColor: event.backgroundColor,
+          color: event.color,
+          border: "none",
+          fontWeight: 600,
+        };
+        return {
+          style: style,
+        };
+      }
+    }
+  };
+
   return (
     <div
       className="admin_schedule_calendar_main_container"
       style={{ zIndex: logoutClicked || loadingSpinnerActive ? -1 : "auto" }}
     >
       <Calendar
-        events={events()}
+        events={events().concat(personalEvents())}
         startAccessor="start"
         endAccessor="end"
+        eventPropGetter={eventStyleGetter}
         tooltipAccessor={(x) => x.text}
         defaultDate={moment().toDate()}
         localizer={localizer}

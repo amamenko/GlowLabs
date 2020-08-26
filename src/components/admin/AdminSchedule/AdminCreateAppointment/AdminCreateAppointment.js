@@ -28,7 +28,6 @@ import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET from "../../../../actions/Adm
 import ACTION_ADMIN_APPOINTMENT_TIME_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentTime/ACTION_ADMIN_APPOINTMENT_TIME_RESET";
 import ACTION_ADMIN_APPOINTMENT_DURATION from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDuration/ACTION_ADMIN_APPOINTMENT_DURATION";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
-import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
 import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import ClientAutosuggest from "./Autosuggest/ClientAutosuggest";
@@ -679,12 +678,10 @@ const AdminCreateAppointment = (props) => {
 
     if (highestDelay === 0) {
       if (addAppointmentData) {
-        handleBackToSchedule();
         getAllAppointmentsRefetch();
       }
     } else {
       setTimeout(() => {
-        handleBackToSchedule();
         getAllAppointmentsRefetch();
       }, highestDelay);
     }
@@ -724,12 +721,6 @@ const AdminCreateAppointment = (props) => {
     }
   }, [adminSelectedTreatments, dispatch]);
 
-  useEffect(() => {
-    if (addAppointmentLoading) {
-      dispatch(ACTION_LOADING_SPINNER_ACTIVE());
-    }
-  }, [addAppointmentLoading, dispatch]);
-
   const handleBackToSchedule = useCallback(() => {
     changeCreateAppointmentClicked(false);
 
@@ -745,11 +736,19 @@ const AdminCreateAppointment = (props) => {
 
     changeAddCardCollapseOpen(false);
     changeClickOutsideDayPicker(false);
+  }, [dispatch, changeCreateAppointmentClicked]);
 
-    if (loadingSpinnerActive) {
-      dispatch(ACTION_LOADING_SPINNER_RESET());
+  useEffect(() => {
+    if (addAppointmentData && !loadingSpinnerActive) {
+      handleBackToSchedule();
     }
-  }, [dispatch, changeCreateAppointmentClicked, loadingSpinnerActive]);
+  }, [handleBackToSchedule, addAppointmentData, loadingSpinnerActive]);
+
+  useEffect(() => {
+    if (addAppointmentLoading) {
+      dispatch(ACTION_LOADING_SPINNER_ACTIVE());
+    }
+  }, [addAppointmentLoading, dispatch]);
 
   return (
     <Transition
