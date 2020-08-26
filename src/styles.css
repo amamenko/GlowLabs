@@ -246,6 +246,14 @@ body {
     width: 28.5vw;
     margin-left: -5rem;
   }
+
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .input_field_sign_up::placeholder {
+        padding-top: 1vh;
+      }
+    }
+  }
 }
 
 /* CSS for Medium Laptops */

@@ -210,6 +210,16 @@
   }
 }
 
+@media only screen and (min-width: 1800px) {
+  .admin_login_form_container input,
+  .admin_login_or_container,
+  .admin_log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 25rem !important;
+  }
+}
+
 @media only screen and (min-width: 2000px) {
   .admin_login_page_container {
     width: 25%;

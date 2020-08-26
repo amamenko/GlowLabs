@@ -186,7 +186,7 @@
     flex: 1;
     padding: 0;
     text-decoration: none;
-    height: 17.5%;
+    height: 19.5%;
     overflow: hidden;
     position: relative;
   }
@@ -329,6 +329,10 @@
     padding-left: 3.1rem;
     padding-right: 3.1rem;
     width: 23%;
+  }
+
+  .large_screen_account_nav_logo {
+    height: 17.5%;
   }
 
   .large_screen_side_menu_profile_client_avatar {

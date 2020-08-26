@@ -345,7 +345,7 @@ const AdminCalendarComponent = (props) => {
               "M/DD/YYYY h:mm A"
             ).toDate(),
             end: moment(x.date + " " + x.endTime, "M/DD/YYYY h:mm A").toDate(),
-            backgroundColor: "rgb(200, 200, 200)",
+            backgroundColor: "rgb(211, 211, 211)",
             color: "#265985",
             allDay: x.allDay,
           };
