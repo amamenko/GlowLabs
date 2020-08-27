@@ -22,17 +22,14 @@ import DermarollingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/De
 import NanoNeedlingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
-import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLongArrowAltLeft,
-  faCheckCircle,
-  faTimesCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import "./AdminSchedule.css";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useSelector } from "react-redux";
+import AdminSelectedAppointment from "./AdminCreateAppointment/AdminSelectedAppointment";
+import AdminSelectedPersonalEvent from "./AdminPersonalEvent/AdminSelectedPersonalEvent";
 
 const AdminCalendarComponent = (props) => {
   const selectedAppointmentBackRef = useRef(null);
@@ -48,6 +45,9 @@ const AdminCalendarComponent = (props) => {
   );
   const loadingSpinnerActive = useSelector(
     (state) => state.loadingSpinnerActive.loading_spinner
+  );
+  const cancelAppointmentClicked = useSelector(
+    (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
 
   const localizer = momentLocalizer(moment);
@@ -330,15 +330,7 @@ const AdminCalendarComponent = (props) => {
         return allPersonalEvents.map((x) => {
           return {
             id: x.id,
-            title: (
-              <div className="personal_event_cell_title">
-                {x.title}
-                <FontAwesomeIcon
-                  icon={faTimesCircle}
-                  className="admin_appointment_confirmed_checkmark"
-                />
-              </div>
-            ),
+            title: x.title,
             text: x.notes,
             start: moment(
               x.date + " " + x.startTime,
@@ -400,7 +392,12 @@ const AdminCalendarComponent = (props) => {
   return (
     <div
       className="admin_schedule_calendar_main_container"
-      style={{ zIndex: logoutClicked || loadingSpinnerActive ? -1 : "auto" }}
+      style={{
+        zIndex:
+          logoutClicked || loadingSpinnerActive || cancelAppointmentClicked
+            ? -1
+            : "auto",
+      }}
     >
       <Calendar
         events={events().concat(personalEvents())}
@@ -465,263 +462,33 @@ const AdminCalendarComponent = (props) => {
           )
         }
       />
-      <Transition
-        items={currentToggledAppointment}
-        from={{ transform: "translateX(-100%)" }}
-        enter={{ transform: "translateX(0%)" }}
-        leave={{ transform: "translateX(-100%)" }}
-        config={{ duration: 200 }}
-      >
-        {(currentToggledAppointment) =>
-          currentToggledAppointment ===
-            (allAdminAppointments.find(
-              (x) => x.id === currentToggledAppointment
-            )
-              ? allAdminAppointments.find(
-                  (x) => x.id === currentToggledAppointment
-                ).id
-              : null) &&
-          ((styleprops) => (
-            <div
-              className="admin_side_schedule_calendar_individual_selected_appointment_container"
-              style={styleprops}
-            >
-              <div className="my_individual_selected_appointment_contents_container">
-                <div
-                  className="my_individual_selected_appointment_back_container"
-                  ref={selectedAppointmentBackRef}
-                  onClick={(e) => handleAppointmentUntoggled(e)}
-                >
-                  <FontAwesomeIcon
-                    icon={faLongArrowAltLeft}
-                    className="my_individual_selected_appointment_back_arrow_icon"
-                  />
-                  <p>Back to My Schedule</p>
-                </div>
-                <div className="selected_appointment_date_and_time_header">
-                  <p>Client Name</p>
-                </div>
-                <div className="selected_appointment_date_and_time_content_container">
-                  <div className="selected_appointment_date_and_time_content">
-                    <p>
-                      {allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0]
-                        ? allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .client.firstName[0].toUpperCase() +
-                          allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .client.firstName.slice(1)
-                            .toLowerCase() +
-                          " " +
-                          allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .client.lastName[0].toUpperCase() +
-                          allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .client.lastName.slice(1)
-                            .toLowerCase()
-                        : null}
-                    </p>
-                  </div>
-                </div>
-                <div className="selected_appointment_date_and_time_header">
-                  <p>Appointment Date &amp; Time</p>
-                </div>
-                <div className="selected_appointment_date_and_time_content_container">
-                  <div className="selected_appointment_date_and_time_content">
-                    <p>
-                      {moment(
-                        allAdminAppointments.filter(
-                          (x) => x.id === currentToggledAppointment
-                        )[0].date,
-                        "LL"
-                      )
-                        .format("LLLL")
-                        .split(" ")
-                        .slice(
-                          0,
-                          moment(
-                            allAdminAppointments.filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0].date,
-                            "LL"
-                          )
-                            .format("LLLL")
-                            .split(" ").length - 2
-                        )
-                        .join(" ")}
-                    </p>
-                    <p>
-                      {allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].startTime +
-                        " " +
-                        (Number(
-                          allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .startTime.split(":")[0]
-                        ) >= 12 ||
-                        Number(
-                          allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .startTime.split(":")[0]
-                        ) < 9
-                          ? "PM"
-                          : "AM")}{" "}
-                      -{" "}
-                      {allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].endTime +
-                        " " +
-                        (Number(
-                          allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .endTime.split(":")[0]
-                        ) >= 12 ||
-                        Number(
-                          allAdminAppointments
-                            .filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0]
-                            .endTime.split(":")[0]
-                        ) < 9
-                          ? "PM"
-                          : "AM")}{" "}
-                    </p>
-                    <p>
-                      (
-                      {allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].duration >= 60
-                        ? Math.floor(
-                            allAdminAppointments.filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0].duration / 60
-                          )
-                        : allAdminAppointments.filter(
-                            (x) => x.id === currentToggledAppointment
-                          )[0].duration}{" "}
-                      {allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].duration >= 60
-                        ? Math.floor(
-                            allAdminAppointments.filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0].duration / 60
-                          ) === 1
-                          ? "hour"
-                          : "hours"
-                        : null}
-                      {Number.isInteger(
-                        allAdminAppointments.filter(
-                          (x) => x.id === currentToggledAppointment
-                        )[0].duration / 60
-                      )
-                        ? null
-                        : " "}
-                      {allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].duration >= 60
-                        ? Number.isInteger(
-                            allAdminAppointments.filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0].duration / 60
-                          )
-                          ? null
-                          : allAdminAppointments.filter(
-                              (x) => x.id === currentToggledAppointment
-                            )[0].duration -
-                            Math.floor(
-                              allAdminAppointments.filter(
-                                (x) => x.id === currentToggledAppointment
-                              )[0].duration / 60
-                            ) *
-                              60 +
-                            " minutes"
-                        : "minutes"}
-                      )
-                    </p>
-                  </div>
-                </div>
-                <div className="selected_appointment_treatments_header">
-                  <p>Treatment</p>
-                </div>
-                {renderSummaryCardTreatments()}
-                {allAdminAppointments.filter(
-                  (x) => x.id === currentToggledAppointment
-                )[0].addOns.length === 0 ? null : (
-                  <>
-                    <div className="selected_appointment_add_ons_header">
-                      <p>
-                        Add On
-                        {allAdminAppointments.filter(
-                          (x) => x.id === currentToggledAppointment
-                        )[0].addOns.length > 1
-                          ? "s"
-                          : null}
-                      </p>
-                    </div>
-                    {renderSummaryCardAddOns()}
-                  </>
-                )}
-                <div className="selected_appointment_total_header admin_side_total_header">
-                  <p>Total</p>
-                  <p>
-                    $
-                    {
-                      allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].price
-                    }
-                  </p>
-                </div>
-                <div className="selected_appointment_date_and_time_header">
-                  <p>Notes</p>
-                </div>
-                <div className="selected_appointment_date_and_time_content_container">
-                  <div className="selected_appointment_date_and_time_content">
-                    <p>
-                      {" "}
-                      {allAdminAppointments.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].notes
-                        ? allAdminAppointments.filter(
-                            (x) => x.id === currentToggledAppointment
-                          )[0].notes
-                        : "No notes provided"}
-                    </p>
-                  </div>
-                </div>
-                <div className="selected_past_appointments_bottom_buttons_container">
-                  <div
-                    className="back_to_all_appointments_button"
-                    ref={backToAppointmentsRef}
-                    onClick={(e) => handleAppointmentUntoggled(e)}
-                  >
-                    <p>Back to Appointments</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </Transition>
+      <AdminSelectedAppointment
+        allAdminAppointments={allAdminAppointments}
+        getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
+        currentToggledAppointment={currentToggledAppointment}
+        changeCurrentToggledAppointment={changeCurrentToggledAppointment}
+        ref={{
+          selectedAppointmentBackRef: selectedAppointmentBackRef,
+          backToAppointmentsRef: backToAppointmentsRef,
+        }}
+        handleAppointmentUntoggled={handleAppointmentUntoggled}
+        renderSummaryCardAddOns={renderSummaryCardAddOns}
+        renderSummaryCardTreatments={renderSummaryCardTreatments}
+      />
+      <AdminSelectedPersonalEvent
+        currentToggledAppointment={currentToggledAppointment}
+        changeCurrentToggledAppointment={changeCurrentToggledAppointment}
+        ref={{
+          selectedAppointmentBackRef: selectedAppointmentBackRef,
+          backToAppointmentsRef: backToAppointmentsRef,
+        }}
+        handleAppointmentUntoggled={handleAppointmentUntoggled}
+        getAllPersonalEventsData={props.getAllPersonalEventsData}
+        intialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+        employeeOptions={props.employeeOptions}
+        timeOptions={props.timeOptions}
+      />
     </div>
   );
 };

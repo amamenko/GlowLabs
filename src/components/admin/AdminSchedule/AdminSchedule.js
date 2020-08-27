@@ -30,6 +30,9 @@ const AdminSchedule = (props) => {
   const adminAppointmentStaffMember = useSelector(
     (state) => state.adminAppointmentStaffMember.admin_appointment_staff_member
   );
+  const cancelAppointmentClicked = useSelector(
+    (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
+  );
   const [createAppointmentClicked, changeCreateAppointmentClicked] = useState(
     false
   );
@@ -136,7 +139,12 @@ const AdminSchedule = (props) => {
       {redirectToAdminLogInPage()}
       <div
         className="admin_schedule_header"
-        style={{ zIndex: logoutClicked || loadingSpinnerActive ? 0 : 5 }}
+        style={{
+          zIndex:
+            logoutClicked || loadingSpinnerActive || cancelAppointmentClicked
+              ? 0
+              : 5,
+        }}
       >
         <Link to="/admin/menu">
           <FontAwesomeIcon
@@ -193,6 +201,11 @@ const AdminSchedule = (props) => {
         getEmployeeData={props.getEmployeeData}
         getAllPersonalEventsData={props.getAllPersonalEventsData}
         handleCreateAppointmentToggled={handleCreateAppointmentToggled}
+        getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
+        intialScreenSize={props.initialScreenSize}
+        currentScreenSize={props.currentScreenSize}
+        employeeOptions={employeeOptions}
+        timeOptions={timeOptions}
       />
     </div>
   );

@@ -103,26 +103,6 @@
   margin-right: 0px !important;
 }
 
-.personal_event_cell_title {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.personal_event_cell_title svg {
-  position: absolute;
-  color: #c1373d;
-  font-size: 1.5vh;
-  top: 0;
-  right: 0;
-}
-
-.personal_event_cell_title svg:hover {
-  color: red;
-  transition: color 0.5s ease;
-}
-
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .admin_schedule_container {

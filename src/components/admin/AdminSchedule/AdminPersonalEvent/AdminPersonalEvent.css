@@ -1,5 +1,6 @@
 .admin_create_appointment_section_header {
   position: relative;
+  width: 100%;
 }
 
 .admin_create_appointment_section_header > * {
