@@ -35,6 +35,13 @@
   z-index: -1;
 }
 
+.back_to_schedule_designator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .personal_event_error {
   outline: 3px solid red;
   z-index: 999999;

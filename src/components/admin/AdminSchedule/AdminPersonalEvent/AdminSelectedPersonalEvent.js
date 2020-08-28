@@ -252,384 +252,388 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
   }, [currentToggledAppointment, getAllPersonalEventsData]);
 
   return (
-    <Transition
-      items={currentToggledAppointment}
-      from={{ transform: "translateX(-100%)" }}
-      enter={{ transform: "translateX(0%)" }}
-      leave={{ transform: "translateX(-100%)" }}
-      config={{ duration: 200 }}
-    >
-      {(currentToggledAppointment) =>
-        currentToggledAppointment ===
-          (getAllPersonalEventsData
-            ? getAllPersonalEventsData.all_personal_events.find(
+    <>
+      <Modal
+        isOpen={
+          (cancelAppointmentClicked &&
+            currentToggledAppointment ===
+              (getAllPersonalEventsData.all_personal_events.filter(
                 (x) => x._id === currentToggledAppointment
-              )
+              )[0]
+                ? getAllPersonalEventsData.all_personal_events.filter(
+                    (x) => x._id === currentToggledAppointment
+                  )[0]._id
+                : null)) ||
+          loadingSpinnerActive
+        }
+        className="cancel_appointment_modal"
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: 10000,
+            opacity: 0.99,
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={loadingSpinnerActive}
+        />
+        <Transition
+          items={cancelAppointmentClicked && !loadingSpinnerActive}
+          from={{ transform: "translate3d(0, -65%, 0)" }}
+          enter={{ transform: "translate3d(0, 0, 0)" }}
+          leave={{ display: "none" }}
+        >
+          {(cancelAppointmentClicked) =>
+            cancelAppointmentClicked &&
+            ((styleprops) => (
+              <div
+                className="cancel_appointment_modal_content_container"
+                style={styleprops}
+              >
+                <div className="log_out_modal_contents admin_cancel_appointment">
+                  <FontAwesomeIcon
+                    className="modal_x"
+                    icon={faTimes}
+                    onClick={() =>
+                      dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET())
+                    }
+                  />
+                  <h2>Are you sure you want to cancel this personal event?</h2>
+                  <span className="logout_buttons_container">
+                    <div
+                      className="logout_button yes_cancel_appointment_button"
+                      onClick={() =>
+                        handleCancelPersonalEvent(currentToggledAppointment)
+                      }
+                    >
+                      <p>YES, CANCEL</p>
+                    </div>
+                    <div
+                      className="cancel_logout_button no_dont_cancel_appointment_button"
+                      onClick={() =>
+                        dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET())
+                      }
+                    >
+                      <p>NO, GO BACK</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            ))
+          }
+        </Transition>
+      </Modal>
+      <Transition
+        items={currentToggledAppointment}
+        from={{ transform: "translateX(-100%)" }}
+        enter={{ transform: "translateX(0%)" }}
+        leave={{ transform: "translateX(-100%)" }}
+        config={{ duration: 200 }}
+      >
+        {(currentToggledAppointment) =>
+          currentToggledAppointment ===
+            (getAllPersonalEventsData
               ? getAllPersonalEventsData.all_personal_events.find(
                   (x) => x._id === currentToggledAppointment
-                )._id
-              : null
-            : null) &&
-        ((styleprops) => (
-          <div
-            className="admin_side_schedule_calendar_individual_selected_appointment_container"
-            style={styleprops}
-          >
-            <Modal
-              isOpen={
-                cancelAppointmentClicked &&
-                currentToggledAppointment ===
-                  (getAllPersonalEventsData.all_personal_events.filter(
+                )
+                ? getAllPersonalEventsData.all_personal_events.find(
                     (x) => x._id === currentToggledAppointment
-                  )[0]
-                    ? getAllPersonalEventsData.all_personal_events.filter(
-                        (x) => x._id === currentToggledAppointment
-                      )[0]._id
-                    : null)
-              }
-              className="cancel_appointment_modal"
-              style={{
-                content: {
-                  position: "fixed",
-                  zIndex: 10000,
-                  opacity: 0.99,
-                  height: "100%",
-                  backdropFilter: "blur(5px)",
-                  WebkitBackdropFilter: "blur(5px)",
-                  paddingBottom: "10%",
-                  borderRadius: "none",
-                  width: "100vw",
-                  top: "0",
-                  left: "0",
-                  right: "0",
-                  bottom: "0",
-                  border: "none",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "rgba(0, 0, 0, 0.5)",
-                },
-              }}
-            >
-              <BounceLoader
-                size={100}
-                css={override}
-                color={"rgb(44, 44, 52)"}
-                deleteLoading={loadingSpinnerActive}
-              />
-              <Transition
-                items={cancelAppointmentClicked && !loadingSpinnerActive}
-                from={{ transform: "translate3d(0, -65%, 0)" }}
-                enter={{ transform: "translate3d(0, 0, 0)" }}
-                leave={{ display: "none" }}
-              >
-                {(cancelAppointmentClicked) =>
-                  cancelAppointmentClicked &&
-                  ((styleprops) => (
-                    <div
-                      className="cancel_appointment_modal_content_container"
-                      style={styleprops}
-                    >
-                      <div className="log_out_modal_contents admin_cancel_appointment">
-                        <FontAwesomeIcon
-                          className="modal_x"
-                          icon={faTimes}
-                          onClick={() =>
-                            dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET())
-                          }
-                        />
-                        <h2>
-                          Are you sure you want to cancel this personal event?
-                        </h2>
-                        <span className="logout_buttons_container">
-                          <div
-                            className="logout_button yes_cancel_appointment_button"
-                            onClick={() =>
-                              handleCancelPersonalEvent(
-                                currentToggledAppointment
-                              )
-                            }
-                          >
-                            <p>YES, CANCEL</p>
-                          </div>
-                          <div
-                            className="cancel_logout_button no_dont_cancel_appointment_button"
-                            onClick={() =>
-                              dispatch(
-                                ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
-                              )
-                            }
-                          >
-                            <p>NO, GO BACK</p>
-                          </div>
-                        </span>
-                      </div>
-                    </div>
-                  ))
-                }
-              </Transition>
-            </Modal>
+                  )._id
+                : null
+              : null) &&
+          ((styleprops) => (
             <div
-              className="my_individual_selected_appointment_back_container"
-              ref={selectedAppointmentBackRef}
-              onClick={(e) => handleAppointmentUntoggled(e)}
+              className="admin_side_schedule_calendar_individual_selected_appointment_container"
+              style={styleprops}
             >
-              <FontAwesomeIcon
-                icon={faLongArrowAltLeft}
-                className="my_individual_selected_appointment_back_arrow_icon"
-              />
-              <p>Back to schedule</p>
-              <div className="admin_individual_selected_client_top_page_options">
-                <div className="admin_square_payment_form_container">
-                  <div className="sq-payment-form">
-                    <div
-                      className="sq-creditcard"
-                      onClick={handleUpdatePersonalEvent}
-                    >
-                      Save Personal Event
+              <div className="my_individual_selected_appointment_back_container">
+                <div
+                  className="back_to_schedule_designator"
+                  ref={selectedAppointmentBackRef}
+                  onClick={(e) => handleAppointmentUntoggled(e)}
+                >
+                  <FontAwesomeIcon
+                    icon={faLongArrowAltLeft}
+                    className="my_individual_selected_appointment_back_arrow_icon"
+                  />
+
+                  <p>Back to schedule</p>
+                </div>
+                <div className="admin_individual_selected_client_top_page_options">
+                  <div className="admin_square_payment_form_container">
+                    <div className="sq-payment-form">
+                      <div
+                        className="sq-creditcard"
+                        onClick={handleUpdatePersonalEvent}
+                      >
+                        Save Personal Event
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="admin_create_appointment_section_header">
-              <h2>Personal Event Information</h2>
-            </div>
-            <div className="admin_create_appointment_input_information_container">
-              <div className="admin_create_appointment_label">Title</div>
-              <div
-                role="combobox"
-                aria-haspopup="listbox"
-                aria-owns="react-autowhatever-1"
-                aria-controls="react-autowhatever-1"
-                aria-expanded="false"
-                className="react-autosuggest__container"
-                style={{
-                  outline: titleError ? "3px solid red" : "none",
-                  zIndex: titleError ? 99999 : "auto",
-                }}
-              >
-                <input
-                  type="text"
-                  autoComplete="off"
-                  aria-autocomplete="list"
+              <div className="admin_create_appointment_section_header">
+                <h2>Personal Event Information</h2>
+              </div>
+              <div className="admin_create_appointment_input_information_container">
+                <div className="admin_create_appointment_label">Title</div>
+                <div
+                  role="combobox"
+                  aria-haspopup="listbox"
+                  aria-owns="react-autowhatever-1"
                   aria-controls="react-autowhatever-1"
-                  className="react-autosuggest__input"
-                  placeholder={"Create a title for your event"}
-                  value={personalEventTitle}
-                  maxLength={200}
-                  onChange={(e) => {
+                  aria-expanded="false"
+                  className="react-autosuggest__container"
+                  style={{
+                    outline: titleError ? "3px solid red" : "none",
+                    zIndex: titleError ? 99999 : "auto",
+                  }}
+                >
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    aria-autocomplete="list"
+                    aria-controls="react-autowhatever-1"
+                    className="react-autosuggest__input"
+                    placeholder={"Create a title for your event"}
+                    value={personalEventTitle}
+                    maxLength={200}
+                    onChange={(e) => {
+                      if (titleError) {
+                        changeTitleError(false);
+                      }
+                      changePersonalEventTitle(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="admin_create_appointment_input_information_container">
+                <div className="admin_create_appointment_label">Notes</div>
+                <div
+                  role="combobox"
+                  aria-haspopup="listbox"
+                  aria-owns="react-autowhatever-1"
+                  aria-controls="react-autowhatever-1"
+                  aria-expanded="false"
+                  className="react-autosuggest__container"
+                >
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    aria-autocomplete="list"
+                    aria-controls="react-autowhatever-1"
+                    className="react-autosuggest__input"
+                    placeholder={"Enter optional notes here"}
+                    value={personalEventNotes}
+                    maxLength={200}
+                    onChange={(e) => changePersonalEventNotes(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="admin_create_appointment_input_information_container">
+                <div className="admin_create_appointment_label">Staff</div>
+                <Dropdown
+                  options={employeeOptions()}
+                  onChange={(choice) => {
                     if (titleError) {
                       changeTitleError(false);
                     }
-                    changePersonalEventTitle(e.target.value);
+                    changePersonalEventStaff(choice);
                   }}
+                  value={personalEventStaff}
+                  controlClassName={"react-autosuggest__input"}
+                  className="react-autosuggest__container"
+                  placeholder={
+                    personalEventStaff
+                      ? personalEventStaff
+                      : "Enter staff member with which to associate this personal event"
+                  }
+                  placeholderClassName={
+                    personalEventStaff
+                      ? "admin_create_appointent_dropdown_placeholder_time"
+                      : "admin_create_appointent_dropdown_placeholder_no_time"
+                  }
                 />
               </div>
-            </div>
-            <div className="admin_create_appointment_input_information_container">
-              <div className="admin_create_appointment_label">Notes</div>
-              <div
-                role="combobox"
-                aria-haspopup="listbox"
-                aria-owns="react-autowhatever-1"
-                aria-controls="react-autowhatever-1"
-                aria-expanded="false"
-                className="react-autosuggest__container"
-              >
-                <input
-                  type="text"
-                  autoComplete="off"
-                  aria-autocomplete="list"
-                  aria-controls="react-autowhatever-1"
-                  className="react-autosuggest__input"
-                  placeholder={"Enter optional notes here"}
-                  value={personalEventNotes}
-                  maxLength={200}
-                  onChange={(e) => changePersonalEventNotes(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="admin_create_appointment_input_information_container">
-              <div className="admin_create_appointment_label">Staff</div>
-              <Dropdown
-                options={employeeOptions()}
-                onChange={(choice) => {
-                  if (titleError) {
-                    changeTitleError(false);
-                  }
-                  changePersonalEventStaff(choice);
-                }}
-                value={personalEventStaff}
-                controlClassName={"react-autosuggest__input"}
-                className="react-autosuggest__container"
-                placeholder={
-                  personalEventStaff
-                    ? personalEventStaff
-                    : "Enter staff member with which to associate this personal event"
-                }
-                placeholderClassName={
-                  personalEventStaff
-                    ? "admin_create_appointent_dropdown_placeholder_time"
-                    : "admin_create_appointent_dropdown_placeholder_no_time"
-                }
-              />
-            </div>
-            <div className="admin_create_appointment_section_header">
-              <h2>Personal Event Time</h2>
+              <div className="admin_create_appointment_section_header">
+                <h2>Personal Event Time</h2>
 
-              <div className="admin_personal_event_checkbox_container">
-                <p>All day?</p>
-                <span
-                  className="fa-layers fa-fw client_consent_form_checkbox"
-                  onClick={() =>
-                    changePersonalEventAllDay(!personalEventAllDay)
-                  }
-                >
-                  <FontAwesomeIcon
-                    color="rgba(155, 155, 155, 0.4)"
-                    transform="grow-10"
-                    icon={faSquare}
-                  />
-                  {personalEventAllDay ? checkMark() : null}
-                </span>
-                <p>Block time?</p>
-                <span
-                  className="fa-layers fa-fw client_consent_form_checkbox"
-                  onClick={() =>
-                    changePersonalEventBlockTime(!personalEventBlockTime)
-                  }
-                >
-                  <FontAwesomeIcon
-                    color="rgba(155, 155, 155, 0.4)"
-                    transform="grow-10"
-                    icon={faSquare}
-                  />
-                  {personalEventBlockTime ? checkMark() : null}
-                </span>
-              </div>
-            </div>
-            <div
-              className="admin_create_appointment_input_information_container"
-              onClick={() => {
-                if (titleError) {
-                  changeTitleError(false);
-                }
-              }}
-            >
-              <div className="admin_create_appointment_label">Date</div>
-              <DayPickerInput
-                classNames={{
-                  container: "react-autosuggest__container",
-                  overlay: "",
-                  overlayWrapper: clickOutsideDayPicker
-                    ? "react-autosuggest__input_hide"
-                    : "",
-                }}
-                dayPickerProps={{ disabledDays: { before: new Date() } }}
-                inputProps={{
-                  className: "react-autosuggest__input",
-                  style: {
-                    color: "rgb(74, 144, 226)",
-                  },
-                }}
-                formatDate={formatDate}
-                parseDate={parseDate}
-                onDayChange={(day) => {
-                  if (titleError) {
-                    changeTitleError(false);
-                  }
-                  changePersonalEventDate(day);
-                }}
-                format="L"
-                value={personalEventDate}
-                placeholder="Enter your event date here"
-              />
-            </div>
-            <div
-              className="admin_create_appointment_input_information_container"
-              onClick={() => {
-                if (titleError) {
-                  changeTitleError(false);
-                }
-              }}
-            >
-              <div className="admin_create_appointment_label admin_create_appointment_double_label">
-                Start Time
-              </div>
-              <Dropdown
-                options={timeOptions()}
-                onChange={(choice) => {
-                  if (titleError) {
-                    changeTitleError(false);
-                  }
-                  changePersonalEventStartTime(choice.value);
-                }}
-                value={personalEventStartTime}
-                controlClassName={"react-autosuggest__input"}
-                className="react-autosuggest__container"
-                placeholder={
-                  personalEventStartTime ? personalEventStartTime : "Start Time"
-                }
-                placeholderClassName={
-                  personalEventStartTime
-                    ? "admin_create_appointent_dropdown_placeholder_time"
-                    : "admin_create_appointent_dropdown_placeholder_no_time"
-                }
-              />
-              <div className="admin_create_appointment_label admin_create_appointment_double_label">
-                End Time
-              </div>
-              <Dropdown
-                options={timeOptions()}
-                onChange={(choice) => {
-                  if (titleError) {
-                    changeTitleError(false);
-                  }
-                  changePersonalEventEndTime(choice.value);
-                }}
-                value={personalEventEndTime}
-                controlClassName={"react-autosuggest__input"}
-                className="react-autosuggest__container"
-                placeholder={
-                  personalEventEndTime ? personalEventEndTime : "End Time"
-                }
-                placeholderClassName={
-                  personalEventEndTime
-                    ? "admin_create_appointent_dropdown_placeholder_time"
-                    : "admin_create_appointent_dropdown_placeholder_no_time"
-                }
-              />
-            </div>
-
-            <div className="selected_appointments_bottom_buttons_container">
-              {moment(
-                getAllPersonalEventsData.all_personal_events.filter(
-                  (x) => x._id === currentToggledAppointment
-                )[0].date,
-                "MMMM D, YYYY"
-              ).format("MMMM D, YYYY") >= moment().format("MMMM D, YYYY") ? (
-                <div
-                  className="cancel_appointment_button"
-                  onClick={() => dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED())}
-                >
-                  <p>Cancel Personal Event</p>
+                <div className="admin_personal_event_checkbox_container">
+                  <p>All day?</p>
+                  <span
+                    className="fa-layers fa-fw client_consent_form_checkbox"
+                    onClick={() =>
+                      changePersonalEventAllDay(!personalEventAllDay)
+                    }
+                  >
+                    <FontAwesomeIcon
+                      color="rgba(155, 155, 155, 0.4)"
+                      transform="grow-10"
+                      icon={faSquare}
+                    />
+                    {personalEventAllDay ? checkMark() : null}
+                  </span>
+                  <p>Block time?</p>
+                  <span
+                    className="fa-layers fa-fw client_consent_form_checkbox"
+                    onClick={() =>
+                      changePersonalEventBlockTime(!personalEventBlockTime)
+                    }
+                  >
+                    <FontAwesomeIcon
+                      color="rgba(155, 155, 155, 0.4)"
+                      transform="grow-10"
+                      icon={faSquare}
+                    />
+                    {personalEventBlockTime ? checkMark() : null}
+                  </span>
                 </div>
-              ) : null}
+              </div>
               <div
-                className="back_to_all_appointments_button"
-                ref={backToAppointmentsRef}
-                onClick={(e) => handleAppointmentUntoggled(e)}
+                className="admin_create_appointment_input_information_container"
+                onClick={() => {
+                  if (titleError) {
+                    changeTitleError(false);
+                  }
+                }}
               >
-                <p>Back to Appointments</p>
+                <div className="admin_create_appointment_label">Date</div>
+                <DayPickerInput
+                  classNames={{
+                    container: "react-autosuggest__container",
+                    overlay: "",
+                    overlayWrapper: clickOutsideDayPicker
+                      ? "react-autosuggest__input_hide"
+                      : "",
+                  }}
+                  dayPickerProps={{ disabledDays: { before: new Date() } }}
+                  inputProps={{
+                    className: "react-autosuggest__input",
+                    style: {
+                      color: "rgb(74, 144, 226)",
+                    },
+                  }}
+                  formatDate={formatDate}
+                  parseDate={parseDate}
+                  onDayChange={(day) => {
+                    if (titleError) {
+                      changeTitleError(false);
+                    }
+                    changePersonalEventDate(day);
+                  }}
+                  format="L"
+                  value={personalEventDate}
+                  placeholder="Enter your event date here"
+                />
+              </div>
+              <div
+                className="admin_create_appointment_input_information_container"
+                onClick={() => {
+                  if (titleError) {
+                    changeTitleError(false);
+                  }
+                }}
+              >
+                <div className="admin_create_appointment_label admin_create_appointment_double_label">
+                  Start Time
+                </div>
+                <Dropdown
+                  options={timeOptions()}
+                  onChange={(choice) => {
+                    if (titleError) {
+                      changeTitleError(false);
+                    }
+                    changePersonalEventStartTime(choice.value);
+                  }}
+                  value={personalEventStartTime}
+                  controlClassName={"react-autosuggest__input"}
+                  className="react-autosuggest__container"
+                  placeholder={
+                    personalEventStartTime
+                      ? personalEventStartTime
+                      : "Start Time"
+                  }
+                  placeholderClassName={
+                    personalEventStartTime
+                      ? "admin_create_appointent_dropdown_placeholder_time"
+                      : "admin_create_appointent_dropdown_placeholder_no_time"
+                  }
+                />
+                <div className="admin_create_appointment_label admin_create_appointment_double_label">
+                  End Time
+                </div>
+                <Dropdown
+                  options={timeOptions()}
+                  onChange={(choice) => {
+                    if (titleError) {
+                      changeTitleError(false);
+                    }
+                    changePersonalEventEndTime(choice.value);
+                  }}
+                  value={personalEventEndTime}
+                  controlClassName={"react-autosuggest__input"}
+                  className="react-autosuggest__container"
+                  placeholder={
+                    personalEventEndTime ? personalEventEndTime : "End Time"
+                  }
+                  placeholderClassName={
+                    personalEventEndTime
+                      ? "admin_create_appointent_dropdown_placeholder_time"
+                      : "admin_create_appointent_dropdown_placeholder_no_time"
+                  }
+                />
+              </div>
+
+              <div className="selected_appointments_bottom_buttons_container">
+                {moment(
+                  getAllPersonalEventsData.all_personal_events.filter(
+                    (x) => x._id === currentToggledAppointment
+                  )[0].date,
+                  "MMMM D, YYYY"
+                ).format("MMMM D, YYYY") >= moment().format("MMMM D, YYYY") ? (
+                  <div
+                    className="cancel_appointment_button"
+                    onClick={() =>
+                      dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED())
+                    }
+                  >
+                    <p>Cancel Personal Event</p>
+                  </div>
+                ) : null}
+                <div
+                  className="back_to_all_appointments_button"
+                  ref={backToAppointmentsRef}
+                  onClick={(e) => handleAppointmentUntoggled(e)}
+                >
+                  <p>Back to Appointments</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))
-      }
-    </Transition>
+          ))
+        }
+      </Transition>
+    </>
   );
 });
 

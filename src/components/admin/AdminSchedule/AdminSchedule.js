@@ -134,6 +134,28 @@ const AdminSchedule = (props) => {
     adminAppointmentStaffMember,
   ]);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     const events = [...document.getElementsByClassName("rbc-event")];
+
+  //     if (events.length > 0) {
+  //       events.forEach((x) => {
+  //         console.log(x.parentNode);
+  //         x.addEventListener("click", (e) => {
+  //           e.stopPropogation();
+  //         });
+
+  //         x.addEventListener("mousedown", () => {
+  //           x.parentNode.setAttribute("draggable", false);
+  //         });
+  //         // x.addEventListener("mouseup", () => {
+  //         //   x.parentNode.setAttribute("draggable", true);
+  //         // });
+  //       });
+  //     }
+  //   }, 500);
+  // }, []);
+
   return (
     <div className="admin_schedule_container">
       {redirectToAdminLogInPage()}
@@ -207,6 +229,8 @@ const AdminSchedule = (props) => {
         currentScreenSize={props.currentScreenSize}
         employeeOptions={employeeOptions}
         timeOptions={timeOptions}
+        createAppointmentClicked={createAppointmentClicked}
+        personalEventClicked={personalEventClicked}
       />
     </div>
   );

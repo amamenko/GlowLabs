@@ -83,6 +83,9 @@ const AdminPersonalEvent = (props) => {
   const loadingSpinnerActive = useSelector(
     (state) => state.loadingSpinnerActive.loading_spinner
   );
+  const logoutClicked = useSelector(
+    (state) => state.logoutClicked.log_out_clicked
+  );
 
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
   const [pageOpened, changePageOpened] = useState(false);
@@ -311,9 +314,14 @@ const AdminPersonalEvent = (props) => {
   };
 
   useEffect(() => {
-    if (personalEventData && !loadingSpinnerActive) {
-      handleBackToSchedule();
-      getAllPersonalEventsRefetch();
+    if (personalEventData) {
+      const loadingFunction = setTimeout(() => {
+        handleBackToSchedule();
+        getAllPersonalEventsRefetch();
+      }, 2000);
+      return () => {
+        clearTimeout(loadingFunction);
+      };
     }
   }, [
     handleBackToSchedule,
@@ -340,13 +348,21 @@ const AdminPersonalEvent = (props) => {
       {(personalEventClicked) =>
         personalEventClicked &&
         ((styleprops) => (
-          <div className="admin_personal_event_container" style={styleprops}>
+          <div
+            className="admin_personal_event_container"
+            style={{
+              ...styleprops,
+              zIndex: logoutClicked || loadingSpinnerActive ? "auto" : 5,
+            }}
+          >
             <Modal
               isOpen={loadingSpinnerActive}
+              className="cancel_appointment_modal"
               style={{
                 content: {
                   position: "fixed",
-                  zIndex: "10000",
+                  zIndex: 10000,
+                  opacity: 0.99,
                   height: "100%",
                   backdropFilter: "blur(5px)",
                   WebkitBackdropFilter: "blur(5px)",

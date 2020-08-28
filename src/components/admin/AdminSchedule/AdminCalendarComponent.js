@@ -40,6 +40,8 @@ const AdminCalendarComponent = (props) => {
     ""
   );
   const [allPersonalEvents, changeAllPersonalEvents] = useState([]);
+  const [draggable, changeDraggable] = useState(true);
+
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
@@ -389,14 +391,28 @@ const AdminCalendarComponent = (props) => {
     }
   };
 
+  document.body.addEventListener("mousedown", (e) => {
+    if (
+      e.target.className === "rbc-event-content" ||
+      e.target.className === "rbc-event-label"
+    ) {
+      changeDraggable(false);
+      setTimeout(() => {
+        changeDraggable(true);
+      }, 1000);
+    }
+  });
+
   return (
     <div
       className="admin_schedule_calendar_main_container"
       style={{
         zIndex:
-          logoutClicked || loadingSpinnerActive || cancelAppointmentClicked
+          props.createAppointmentClicked || props.personalEventClicked
+            ? -1
+            : logoutClicked || loadingSpinnerActive || cancelAppointmentClicked
             ? 0
-            : "auto",
+            : 1,
       }}
     >
       <Calendar
@@ -461,6 +477,7 @@ const AdminCalendarComponent = (props) => {
             };
           }
         }}
+        onSelecting={(slot) => draggable}
         selectable={true}
         onSelectSlot={(time) =>
           props.handleCreateAppointmentToggled(
