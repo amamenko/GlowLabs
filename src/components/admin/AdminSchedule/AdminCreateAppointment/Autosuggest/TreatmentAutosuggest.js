@@ -27,16 +27,16 @@ const TreatmentAutosuggest = (props) => {
   const renderTreatmentSuggestion = (suggestion) => {
     return (
       <div className="admin_individual_client_treatment_suggestion_container">
-        {suggestion.props.children[3].props.children ? (
+        {suggestion.props.children[4].props.children ? (
           <div className="admin_individual_client_treatment_suggestion_picture">
-            {suggestion.props.children[3].props.children}
+            {suggestion.props.children[4].props.children}
           </div>
         ) : null}
 
         <p>{suggestion.props.children[0].props.children}</p>
         <p>
-          {suggestion.props.children[2].props.children
-            ? "$" + suggestion.props.children[2].props.children + ".00"
+          {suggestion.props.children[3].props.children
+            ? "$" + suggestion.props.children[3].props.children + ".00"
             : null}
         </p>
       </div>
@@ -57,6 +57,7 @@ const TreatmentAutosuggest = (props) => {
         return (
           <>
             <span key={i}>{x.name}</span>
+            <span key={i}>{x.componentName}</span>
             <span key={i}>{x.duration}</span>
             <span key={i}>{x.price}</span>
             <span key={i}>{x.picture}</span>
@@ -84,7 +85,7 @@ const TreatmentAutosuggest = (props) => {
   const getTreatmentSuggestionValue = (suggestion) => {
     dispatch(
       ACTION_ADMIN_APPOINTMENT_DURATION(
-        adminAppointmentDuration + suggestion.props.children[1].props.children
+        adminAppointmentDuration + suggestion.props.children[2].props.children
       )
     );
     dispatch(

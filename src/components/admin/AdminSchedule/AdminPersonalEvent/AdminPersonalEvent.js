@@ -80,9 +80,6 @@ const AdminPersonalEvent = (props) => {
   const adminAppointmentStaffMember = useSelector(
     (state) => state.adminAppointmentStaffMember.admin_appointment_staff_member
   );
-  const logoutClicked = useSelector(
-    (state) => state.logoutClicked.log_out_clicked
-  );
   const loadingSpinnerActive = useSelector(
     (state) => state.loadingSpinnerActive.loading_spinner
   );
@@ -343,13 +340,7 @@ const AdminPersonalEvent = (props) => {
       {(personalEventClicked) =>
         personalEventClicked &&
         ((styleprops) => (
-          <div
-            className="admin_personal_event_container"
-            style={{
-              ...styleprops,
-              zIndex: logoutClicked || loadingSpinnerActive ? 0 : 5,
-            }}
-          >
+          <div className="admin_personal_event_container" style={styleprops}>
             <Modal
               isOpen={loadingSpinnerActive}
               style={{

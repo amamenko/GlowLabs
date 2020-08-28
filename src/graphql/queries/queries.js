@@ -138,7 +138,7 @@ const getAllAppointmentsQuery = gql`
 const getAllPersonalEventsQuery = gql`
   {
     all_personal_events {
-      id
+      _id
       title
       notes
       staff
@@ -633,6 +633,14 @@ const confirmAppointmentMutation = gql`
 const deleteAppointmentMutation = gql`
   mutation($_id: ID) {
     deleteAppointment(_id: $_id) {
+      _id
+    }
+  }
+`;
+
+const deletePersonalEventMutation = gql`
+  mutation($_id: ID) {
+    deletePersonalEvent(_id: $_id) {
       _id
     }
   }
@@ -1226,6 +1234,42 @@ const updateClientInformationMutation = gql`
   }
 `;
 
+const updatePersonalEventMutation = gql`
+  mutation(
+    $_id: ID
+    $title: String
+    $notes: String
+    $date: String
+    $staff: String
+    $startTime: String
+    $endTime: String
+    $allDay: Boolean
+    $blockTime: Boolean
+  ) {
+    updatePersonalEvent(
+      _id: $_id
+      title: $title
+      notes: $notes
+      date: $date
+      staff: $staff
+      startTime: $startTime
+      endTime: $endTime
+      allDay: $allDay
+      blockTime: $blockTime
+    ) {
+      _id
+      title
+      notes
+      date
+      staff
+      startTime
+      endTime
+      allDay
+      blockTime
+    }
+  }
+`;
+
 const updateAdminPasswordMutation = gql`
   mutation($password: String) {
     updateAdminPassword(password: $password) {
@@ -1319,6 +1363,7 @@ export {
   addAppointmentMutation,
   confirmAppointmentMutation,
   deleteAppointmentMutation,
+  deletePersonalEventMutation,
   addPersonalEventMutation,
   getAllPersonalEventsQuery,
   deleteMyRoutineItemMutation,
@@ -1326,6 +1371,7 @@ export {
   updateClientProfilePictureMutation,
   updateClientInformationMutation,
   updateClientSquareIDMutation,
+  updatePersonalEventMutation,
   updateAdminPasswordMutation,
   updateUnsavedSquareCardIDsMutation,
   removeOneUnsavedSquareCardIDsMutation,

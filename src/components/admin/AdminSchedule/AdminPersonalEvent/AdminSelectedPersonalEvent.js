@@ -14,7 +14,10 @@ import { BounceLoader } from "react-spinners";
 import { css } from "emotion";
 import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 import { useMutation } from "@apollo/react-hooks";
-import { deleteAppointmentMutation } from "../../../../graphql/queries/queries";
+import {
+  deletePersonalEventMutation,
+  updatePersonalEventMutation,
+} from "../../../../graphql/queries/queries";
 import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import Dropdown from "react-dropdown";
@@ -27,7 +30,7 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
     currentToggledAppointment,
     handleAppointmentUntoggled,
     changeCurrentToggledAppointment,
-    getAllAppointmentsRefetch,
+    getAllPersonalEventsRefetch,
     currentScreenSize,
     initialScreenSize,
     employeeOptions,
@@ -35,9 +38,15 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
   } = props;
   const { selectedAppointmentBackRef, backToAppointmentsRef } = ref;
 
-  const [deleteAppointment, { loading, data }] = useMutation(
-    deleteAppointmentMutation
-  );
+  const [
+    deletePersonalEvent,
+    { loading: deleteLoading, data: deleteData },
+  ] = useMutation(deletePersonalEventMutation);
+
+  const [
+    updatePersonalEvent,
+    { loading: updateLoading, data: updateData },
+  ] = useMutation(updatePersonalEventMutation);
 
   const dispatch = useDispatch();
 
@@ -71,18 +80,34 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
     right: 25%;
   `;
 
-  const handleCancelAppointment = (item) => {
-    deleteAppointment({
-      variables: { _id: item.id },
+  const handleCancelPersonalEvent = (item) => {
+    deletePersonalEvent({
+      variables: { _id: item },
+    });
+  };
+
+  const handleUpdatePersonalEvent = () => {
+    updatePersonalEvent({
+      variables: {
+        _id: currentToggledAppointment,
+        title: personalEventTitle,
+        notes: personalEventNotes,
+        staff: personalEventStaff,
+        date: personalEventDate,
+        startTime: personalEventStartTime,
+        endTime: personalEventEndTime,
+        allDay: personalEventAllDay,
+        blockTime: personalEventBlockTime,
+      },
     });
   };
 
   const resetStatesAfterLoading = useCallback(() => {
-    getAllAppointmentsRefetch();
+    getAllPersonalEventsRefetch();
     dispatch(ACTION_LOADING_SPINNER_RESET());
     dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET());
     changeCurrentToggledAppointment(false);
-  }, [dispatch, changeCurrentToggledAppointment, getAllAppointmentsRefetch]);
+  }, [dispatch, changeCurrentToggledAppointment, getAllPersonalEventsRefetch]);
 
   useEffect(() => {
     changePageOpened(true);
@@ -95,19 +120,19 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
   }, []);
 
   useEffect(() => {
-    if (data) {
+    if (deleteData || updateData) {
       const loadingFunction = setTimeout(() => resetStatesAfterLoading(), 2000);
       return () => {
         clearTimeout(loadingFunction);
       };
     }
-  }, [data, resetStatesAfterLoading]);
+  }, [deleteData, resetStatesAfterLoading, updateData]);
 
   useEffect(() => {
-    if (loading) {
+    if (deleteLoading || updateLoading) {
       dispatch(ACTION_LOADING_SPINNER_ACTIVE());
     }
-  }, [loading, data, dispatch]);
+  }, [deleteLoading, deleteData, dispatch, updateLoading]);
 
   useEffect(() => {
     const dayPickerClickFunction = (e) => {
@@ -203,6 +228,29 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
     );
   };
 
+  useEffect(() => {
+    if (getAllPersonalEventsData) {
+      if (
+        getAllPersonalEventsData.all_personal_events.find(
+          (x) => x._id === currentToggledAppointment
+        )
+      ) {
+        const personalEventObj = getAllPersonalEventsData.all_personal_events.find(
+          (x) => x._id === currentToggledAppointment
+        );
+
+        changePersonalEventNotes(personalEventObj.notes);
+        changePersonalEventStaff(personalEventObj.staff);
+        changePersonalEventDate(personalEventObj.date);
+        changePersonalEventStartTime(personalEventObj.startTime);
+        changePersonalEventEndTime(personalEventObj.endTime);
+        changePersonalEventBlockTime(personalEventObj.blockTime);
+        changePersonalEventAllDay(personalEventObj.allDay);
+        changePersonalEventTitle(personalEventObj.title);
+      }
+    }
+  }, [currentToggledAppointment, getAllPersonalEventsData]);
+
   return (
     <Transition
       items={currentToggledAppointment}
@@ -213,12 +261,14 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
     >
       {(currentToggledAppointment) =>
         currentToggledAppointment ===
-          (getAllPersonalEventsData.all_personal_events.find(
-            (x) => x.id === currentToggledAppointment
-          )
+          (getAllPersonalEventsData
             ? getAllPersonalEventsData.all_personal_events.find(
-                (x) => x.id === currentToggledAppointment
-              ).id
+                (x) => x._id === currentToggledAppointment
+              )
+              ? getAllPersonalEventsData.all_personal_events.find(
+                  (x) => x._id === currentToggledAppointment
+                )._id
+              : null
             : null) &&
         ((styleprops) => (
           <div
@@ -230,11 +280,11 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
                 cancelAppointmentClicked &&
                 currentToggledAppointment ===
                   (getAllPersonalEventsData.all_personal_events.filter(
-                    (x) => x.id === currentToggledAppointment
+                    (x) => x._id === currentToggledAppointment
                   )[0]
                     ? getAllPersonalEventsData.all_personal_events.filter(
-                        (x) => x.id === currentToggledAppointment
-                      )[0].id
+                        (x) => x._id === currentToggledAppointment
+                      )[0]._id
                     : null)
               }
               className="cancel_appointment_modal"
@@ -266,7 +316,7 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
                 size={100}
                 css={override}
                 color={"rgb(44, 44, 52)"}
-                loading={loadingSpinnerActive}
+                deleteLoading={loadingSpinnerActive}
               />
               <Transition
                 items={cancelAppointmentClicked && !loadingSpinnerActive}
@@ -296,7 +346,9 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
                           <div
                             className="logout_button yes_cancel_appointment_button"
                             onClick={() =>
-                              handleCancelAppointment(currentToggledAppointment)
+                              handleCancelPersonalEvent(
+                                currentToggledAppointment
+                              )
                             }
                           >
                             <p>YES, CANCEL</p>
@@ -327,13 +379,13 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
                 icon={faLongArrowAltLeft}
                 className="my_individual_selected_appointment_back_arrow_icon"
               />
-              <p>Back to My Schedule</p>
+              <p>Back to schedule</p>
               <div className="admin_individual_selected_client_top_page_options">
                 <div className="admin_square_payment_form_container">
                   <div className="sq-payment-form">
                     <div
                       className="sq-creditcard"
-                      // onClick={handleSavePersonalEvent}
+                      onClick={handleUpdatePersonalEvent}
                     >
                       Save Personal Event
                     </div>
@@ -555,7 +607,7 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
             <div className="selected_appointments_bottom_buttons_container">
               {moment(
                 getAllPersonalEventsData.all_personal_events.filter(
-                  (x) => x.id === currentToggledAppointment
+                  (x) => x._id === currentToggledAppointment
                 )[0].date,
                 "MMMM D, YYYY"
               ).format("MMMM D, YYYY") >= moment().format("MMMM D, YYYY") ? (

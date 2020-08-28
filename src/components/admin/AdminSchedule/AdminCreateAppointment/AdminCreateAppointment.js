@@ -333,10 +333,10 @@ const AdminCreateAppointment = (props) => {
                     ? ""
                     : item.props
                     ? item.props.children
-                      ? item.props.children[1]
-                        ? item.props.children[1].props
-                          ? item.props.children[1].props.children
-                            ? item.props.children[1].props.children + " minutes"
+                      ? item.props.children[2]
+                        ? item.props.children[2].props
+                          ? item.props.children[2].props.children
+                            ? item.props.children[2].props.children + " minutes"
                             : ""
                           : ""
                         : ""
@@ -371,11 +371,11 @@ const AdminCreateAppointment = (props) => {
                     ? ""
                     : item.props
                     ? item.props.children
-                      ? item.props.children[2]
-                        ? item.props.children[2].props
-                          ? item.props.children[2].props.children
+                      ? item.props.children[3]
+                        ? item.props.children[3].props
+                          ? item.props.children[3].props.children
                             ? "$" +
-                              item.props.children[2].props.children +
+                              item.props.children[3].props.children +
                               ".00"
                             : ""
                           : ""
@@ -420,7 +420,7 @@ const AdminCreateAppointment = (props) => {
                 dispatch(
                   ACTION_ADMIN_APPOINTMENT_DURATION(
                     treatmentsArr
-                      .map((x) => x.props.children[1].props.children)
+                      .map((x) => x.props.children[3].props.children)
                       .reduce((a, b) => a + b, 0)
                   )
                 );
@@ -491,9 +491,9 @@ const AdminCreateAppointment = (props) => {
       changeSelectedTreatments(
         treatments.map((item) => {
           return {
-            name: item.props.children[0].props.children,
-            duration: item.props.children[1].props.children,
-            price: item.props.children[2].props.children,
+            name: item.props.children[1].props.children,
+            duration: item.props.children[2].props.children,
+            price: item.props.children[3].props.children,
           };
         })
       );
@@ -501,9 +501,9 @@ const AdminCreateAppointment = (props) => {
       changeSelectedAddOns(
         addOns.map((item) => {
           return {
-            name: item.props.children[0].props.children,
-            duration: item.props.children[1].props.children,
-            price: item.props.children[2].props.children,
+            name: item.props.children[1].props.children,
+            duration: item.props.children[2].props.children,
+            price: item.props.children[3].props.children,
           };
         })
       );
@@ -695,10 +695,10 @@ const AdminCreateAppointment = (props) => {
         .map((x) => {
           if (x.props) {
             if (x.props.children) {
-              if (x.props.children[2]) {
-                if (x.props.children[2].props) {
-                  if (x.props.children[2].props.children) {
-                    return x.props.children[2].props.children;
+              if (x.props.children[3]) {
+                if (x.props.children[3].props) {
+                  if (x.props.children[3].props.children) {
+                    return x.props.children[3].props.children;
                   } else {
                     return null;
                   }

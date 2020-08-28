@@ -200,6 +200,7 @@ const AdminSchedule = (props) => {
         getAllAppointmentsData={props.getAllAppointmentsData}
         getEmployeeData={props.getEmployeeData}
         getAllPersonalEventsData={props.getAllPersonalEventsData}
+        getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
         handleCreateAppointmentToggled={handleCreateAppointmentToggled}
         getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
         intialScreenSize={props.initialScreenSize}

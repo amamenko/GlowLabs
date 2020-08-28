@@ -329,7 +329,7 @@ const AdminCalendarComponent = (props) => {
       if (allPersonalEvents.length > 0) {
         return allPersonalEvents.map((x) => {
           return {
-            id: x.id,
+            id: x._id,
             title: x.title,
             text: x.notes,
             start: moment(
@@ -395,7 +395,7 @@ const AdminCalendarComponent = (props) => {
       style={{
         zIndex:
           logoutClicked || loadingSpinnerActive || cancelAppointmentClicked
-            ? -1
+            ? 0
             : "auto",
       }}
     >
@@ -414,7 +414,15 @@ const AdminCalendarComponent = (props) => {
         scrollToTime={moment()
           .set({ h: 10, m: 0 })
           .toDate()}
-        onSelectEvent={(e) => changeCurrentToggledAppointment(e.id)}
+        onSelectEvent={(e) => {
+          if (e.id) {
+            changeCurrentToggledAppointment(e.id);
+          } else if (e._id) {
+            changeCurrentToggledAppointment(e._id);
+          } else {
+            return null;
+          }
+        }}
         slotPropGetter={(date) => {
           if (
             moment(date).format("dddd") === "Saturday" ||
@@ -484,6 +492,7 @@ const AdminCalendarComponent = (props) => {
         }}
         handleAppointmentUntoggled={handleAppointmentUntoggled}
         getAllPersonalEventsData={props.getAllPersonalEventsData}
+        getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
         intialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
         employeeOptions={props.employeeOptions}

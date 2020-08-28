@@ -40,3 +40,17 @@
   z-index: 999999;
   transition: none;
 }
+
+.admin_individual_selected_client_top_page_options
+  > .admin_square_payment_form_container {
+  padding-top: 0vh;
+  padding-bottom: 0vh;
+}
+
+@media only screen and (min-width: 1800px) {
+  .admin_individual_selected_client_top_page_options
+    > .admin_square_payment_form_container {
+    padding-top: 0vh;
+    padding-bottom: 4vh;
+  }
+}

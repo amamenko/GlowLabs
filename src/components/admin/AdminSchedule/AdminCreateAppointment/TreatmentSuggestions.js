@@ -7,6 +7,7 @@ const treatmentSuggestions = () => {
       suggestions: [
         {
           name: "Not Sure",
+          componentName: "Not Sure",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="20" fill="rgb(241, 241, 241)" />
@@ -75,6 +76,7 @@ const treatmentSuggestions = () => {
 
         {
           name: "Calm",
+          componentName: "Calm",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22" fill="rgb(241, 241, 241)" />
@@ -109,6 +111,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Clarify",
+          componentName: "Clarify",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle
@@ -138,6 +141,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Bacial",
+          componentName: "Bacial",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56 56">
               <circle cx="28" cy="28" r="22" fill="rgb(241, 241, 241)" />
@@ -168,6 +172,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Glow",
+          componentName: "Glow",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="20" fill="rgb(241, 241, 241)" />
@@ -194,6 +199,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Rejuvenate",
+          componentName: "Rejuvenate",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="20" fill="rgb(241, 241, 241)" />
@@ -213,6 +219,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Quench",
+          componentName: "Quench",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="20" fill="rgb(241, 241, 241)" />
@@ -233,6 +240,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Quickie",
+          componentName: "Quickie",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="20" fill="rgb(241, 241, 241)" />
@@ -270,6 +278,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Chemical Peel",
+          componentName: "Chemical Peel",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 66.146 66.146">
               <circle
@@ -306,6 +315,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Dermaplaning",
+          componentName: "Dermaplaning",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="19.5" fill="rgb(241, 241, 241)" />
@@ -348,6 +358,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Organic CBD",
+          componentName: "Organic CBD",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="25" cy="25" r="19.5" fill="rgb(241, 241, 241)" />
@@ -371,6 +382,7 @@ const treatmentSuggestions = () => {
 
         {
           name: "Microneedling Infusion",
+          componentName: "Microneedling Infusion",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 132.292 132.292">
               <circle
@@ -410,6 +422,7 @@ const treatmentSuggestions = () => {
       suggestions: [
         {
           name: "Beard Deep Cleanse Add On",
+          componentName: "Beard",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -431,6 +444,7 @@ const treatmentSuggestions = () => {
 
         {
           name: "Dermarolling Add On",
+          componentName: "Dermarolling",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -450,6 +464,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Extra Extractions Add On",
+          componentName: "ExtraExtractions",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -469,6 +484,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Extra Massage Time Add On",
+          componentName: "ExtraMassage",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -488,6 +504,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Gua Sha Add On",
+          componentName: "GuaSha",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -507,6 +524,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Hydrodermabrasion Add On",
+          componentName: "Hydrodermabrasion",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 50.006 50.006">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -533,6 +551,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Hydro-Jelly Mask Add On",
+          componentName: "HydroJelly",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -552,6 +571,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "LED Therapy Add On",
+          componentName: "LED",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -571,6 +591,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Microcurrent Add On",
+          componentName: "Microcurrent",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -590,6 +611,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Microdermabrasion Add On",
+          componentName: "Microdermabrasion",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
@@ -609,6 +631,7 @@ const treatmentSuggestions = () => {
         },
         {
           name: "Nanoneedling Infusion Add On",
+          componentName: "NanoNeedling",
           picture: (
             <svg width="100%" height="100%" viewBox="0 0 56.356 56.356">
               <circle cx="28" cy="28" r="22.25" fill="rgb(241, 241, 241)" />
