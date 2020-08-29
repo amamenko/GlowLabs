@@ -18,7 +18,6 @@ import {
   faUsers,
   faBriefcase,
   faCalendarWeek,
-  faIgloo,
 } from "@fortawesome/free-solid-svg-icons";
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -549,7 +548,13 @@ const LargeScreenSideMenu = (props) => {
           )}{" "}
           {props.getEmployeeData ? (
             <div className="large_screen_side_menu_item_container">
-              <Link className="large_screen_side_menu_item" to="/admin/clients">
+              <Link className="large_screen_side_menu_item" to="/admin/staff">
+                <div
+                  className="large_screen_side_menu_item_selected_border"
+                  style={{
+                    opacity: location.pathname.includes("staff") ? 1 : 0,
+                  }}
+                />
                 <FontAwesomeIcon
                   icon={faBriefcase}
                   className="large_screen_side_menu_item_icon"
@@ -622,30 +627,6 @@ const LargeScreenSideMenu = (props) => {
               </Link>
             </div>
           )}
-          {props.getEmployeeData ? (
-            <div className="large_screen_side_menu_item_container">
-              <Link
-                className="large_screen_side_menu_item"
-                to="/admin/saltcaveschedule"
-              >
-                <div
-                  className="large_screen_side_menu_item_selected_border"
-                  style={{
-                    opacity:
-                      location.pathname.includes("schedule") &&
-                      location.pathname.includes("saltcave")
-                        ? 1
-                        : 0,
-                  }}
-                />
-                <FontAwesomeIcon
-                  icon={faIgloo}
-                  className="large_screen_side_menu_item_icon"
-                />
-                <h2>Salt Cave Schedule</h2>
-              </Link>
-            </div>
-          ) : null}
           {renderDownloadConsentFormButton()}
           {props.getEmployeeData ? null : (
             <>

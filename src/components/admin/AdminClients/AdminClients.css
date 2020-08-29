@@ -1,8 +1,9 @@
 .admin_clients_container {
-  height: 100%;
+  height: 100vh;
   padding-top: 8vh;
   background: rgb(255, 255, 255);
   overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
   padding-bottom: 20vh;
 }

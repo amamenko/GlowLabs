@@ -1,0 +1,30 @@
+.add_staff_member_button_container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  width: 75%;
+}
+
+.add_staff_member_button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 56px;
+  margin-top: 10px;
+  background: rgb(122, 172, 1);
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-align: center;
+  transition: background 0.2s ease-in-out;
+  border: 0;
+  cursor: pointer;
+}

@@ -169,6 +169,14 @@ body {
   cursor: pointer;
 }
 
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .input_field_sign_up::placeholder {
+      padding-top: 1.5vh;
+    }
+  }
+}
+
 @media only screen and (max-width: 1800px) and (orientation: portrait),
   only screen and (max-width: 1200px) {
   ::-webkit-scrollbar {

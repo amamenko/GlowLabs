@@ -262,7 +262,11 @@ const App = () => {
     }
   );
 
-  const { data: getEmployeesData } = useQuery(getEmployeesQuery, {
+  const {
+    data: getEmployeesData,
+    loading: getEmployeesLoading,
+    refetch: getEmployeesRefetch,
+  } = useQuery(getEmployeesQuery, {
     fetchPolicy: "no-cache",
   });
 
@@ -1507,6 +1511,8 @@ const App = () => {
                 currentScreenSize={currentScreenSize}
                 getEmployeeData={getEmployeeData ? getEmployeeData : null}
                 getEmployeesData={getEmployeesData ? getEmployeesData : null}
+                getEmployeesRefetch={getEmployeesRefetch}
+                getEmployeesLoading={getEmployeesLoading}
               />
             ) : cartPageOpened === "PaymentInfo" ? (
               <PaymentInfo
