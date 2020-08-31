@@ -264,6 +264,11 @@ import adminPersonalEventDateReducer from "./reducers/Admin/AdminPersonalEvent/A
 import adminPersonalEventStartTimeReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventStartTime/adminPersonalEventStartTimeReducer";
 import adminPersonalEventEndTimeReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventEndTime/adminPersonalEventEndTimeReducer";
 import adminPersonalEventNotesReducer from "./reducers/Admin/AdminPersonalEvent/AdminPersonalEventNotes/adminPersonalEventNotesReducer";
+import adminStaffMemberFirstNameReducer from "./reducers/Admin/AdminAddStaffMember/AdminStaffMemberFirstName/adminStaffMemberFirstNameReducer";
+import adminStaffMemberLastNameReducer from "./reducers/Admin/AdminAddStaffMember/AdminStaffMemberLastName/adminStaffMemberLastNameReducer";
+import adminStaffMemberEmailReducer from "./reducers/Admin/AdminAddStaffMember/AdminStaffMemberEmail/adminStaffMemberEmailReducer";
+import adminStaffMemberPhoneNumberReducer from "./reducers/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/adminStaffMemberPhoneNumberReducer";
+import adminStaffMemberRolesReducer from "./reducers/Admin/AdminAddStaffMember/AdminStaffMemberRoles/adminStaffMemberRolesReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -424,6 +429,13 @@ const RootReducer = combineReducers({
   adminPersonalEventStartTime: adminPersonalEventStartTimeReducer,
   adminPersonalEventEndTime: adminPersonalEventEndTimeReducer,
   adminPersonalEventNotes: adminPersonalEventNotesReducer,
+
+  // Admin Add Staff Member Reducers
+  adminStaffMemberFirstName: adminStaffMemberFirstNameReducer,
+  adminStaffMemberLastName: adminStaffMemberLastNameReducer,
+  adminStaffMemberEmail: adminStaffMemberEmailReducer,
+  adminStaffMemberPhoneNumber: adminStaffMemberPhoneNumberReducer,
+  adminStaffMemberRoles: adminStaffMemberRolesReducer,
 
   // Consent Form Reducers
   surgeryLast3MonthsNo: surgeryLast3MonthsNoReducer,

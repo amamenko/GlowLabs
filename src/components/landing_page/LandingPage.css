@@ -123,7 +123,6 @@
   .header {
     grid-area: header;
     height: 8vh;
-    width: 100%;
     display: flex;
     flex: 1;
     align-items: center;

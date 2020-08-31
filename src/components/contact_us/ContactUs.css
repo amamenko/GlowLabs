@@ -118,7 +118,7 @@
 
 .contact_us_page_container {
   height: 100%;
-  width: 100vw;
+  max-width: 100vw;
   display: grid;
   grid-template-rows: 10% 35% 0.25fr 0.25fr 0.25fr 15% 1fr;
   grid-template-columns: repeat(5, 1fr);

@@ -183,6 +183,7 @@ const App = () => {
   const [scrollValue, changeScrollValue] = useState(0);
   const [scrollDirection, changeScrollDirection] = useState("");
   const [navMenuScrollClicked, changeNavMenuScrollClicked] = useState(false);
+  const [headerOffset, changeHeaderOffset] = useState(0);
 
   // Needed for large screen frozen position when cart is toggled due to Square form causing re-rendering
   const [
@@ -1201,6 +1202,60 @@ const App = () => {
     }
   }, [handleScrollDirection]);
 
+  // Used to place navbar in relation to vertical scrollbar
+  useEffect(() => {
+    const headerOffsetInterval = setInterval(() => {
+      if (MainContainerRef) {
+        if (MainContainerRef.current) {
+          const currentRef = MainContainerRef.current;
+
+          if (
+            headerOffset !==
+            Math.abs(currentRef.offsetWidth - currentRef.clientWidth)
+          ) {
+            changeHeaderOffset(
+              Math.abs(currentRef.offsetWidth - currentRef.clientWidth)
+            );
+          }
+        }
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(headerOffsetInterval);
+    };
+  }, [headerOffset]);
+
+  // Also used to place navbar in relation to vertical scrollbar
+  useEffect(() => {
+    if (
+      location.pathname.includes("account") ||
+      location.pathname.includes("admin") ||
+      cartIsActive
+    ) {
+      if (
+        document.styleSheets[0].cssRules[0].cssText ===
+        "::-webkit-scrollbar { width: 0px; }"
+      ) {
+        return;
+      } else {
+        document.styleSheets[0].insertRule(
+          "::-webkit-scrollbar { width: 0; }",
+          0
+        );
+      }
+    } else {
+      if (
+        document.styleSheets[0].cssRules[0].cssText ===
+        "::-webkit-scrollbar { width: 0px; }"
+      ) {
+        document.styleSheets[0].deleteRule(0);
+      } else {
+        return;
+      }
+    }
+  }, [location, headerOffset, cartIsActive]);
+
   // Used to prevent rubber banding effect on mobile phones while allowing scroll on other pages
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -1342,6 +1397,7 @@ const App = () => {
                 ? 500
                 : 999,
               display: loginIsActive ? "none" : "flex",
+              width: "calc(100% - " + headerOffset + "px)",
             }}
           >
             <ResponsiveNavigationBar

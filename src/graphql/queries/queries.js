@@ -880,6 +880,30 @@ const addClientMutation = gql`
   }
 `;
 
+const addEmployeeMutation = gql`
+  mutation(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $phoneNumber: String!
+    $roles: [String]
+  ) {
+    addEmployee(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      phoneNumber: $phoneNumber
+      roles: $roles
+    ) {
+      firstName
+      lastName
+      email
+      phoneNumber
+      roles
+    }
+  }
+`;
+
 const updateClientInvalidateTokensMutation = gql`
   mutation {
     updateClientInvalidateTokens {
@@ -1368,6 +1392,7 @@ export {
   getAllPersonalEventsQuery,
   deleteMyRoutineItemMutation,
   addClientMutation,
+  addEmployeeMutation,
   updateClientProfilePictureMutation,
   updateClientInformationMutation,
   updateClientSquareIDMutation,

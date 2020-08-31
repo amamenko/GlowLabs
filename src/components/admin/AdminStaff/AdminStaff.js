@@ -39,6 +39,7 @@ import ACTION_IMAGE_LOADING from "../../../actions/Admin/ImageLoading/ACTION_IMA
 import ACTION_IMAGE_LOADING_RESET from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING_RESET";
 import AdminStaffIndividualProfile from "./AdminStaffIndividualProfile";
 import "./AdminStaff.css";
+import AdminAddStaffMember from "./AdminAddStaffMember";
 
 const AdminStaff = (props) => {
   const dispatch = useDispatch();
@@ -82,6 +83,7 @@ const AdminStaff = (props) => {
   const [filteredAllEmployees, changeFilteredAllEmployees] = useState([]);
   const [employeeFilter, changeEmployeeFilter] = useState("");
   const [employeeToggled, changeEmployeeToggled] = useState("");
+  const [addStaffMemberClicked, changeAddStaffMemberClicked] = useState(false);
 
   const [takeAPhotoSelected, changeTakeAPhotoSelected] = useState(false);
   const [webcamURI, changeWebcamURI] = useState("");
@@ -123,14 +125,6 @@ const AdminStaff = (props) => {
       return <Redirect to="/admin" />;
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (pdfLoading) {
-        changePDFLoading(false);
-      }
-    };
-  }, [pdfLoading]);
 
   const handleChangeEmployeeFilter = (e) => {
     changeEmployeeFilter(e.currentTarget.value);
@@ -523,7 +517,7 @@ const AdminStaff = (props) => {
         <div className="admin_clients_searchbar_container">
           <Input
             className="admin_clients_searchbar_input_field"
-            placeholder="Filter by staff member's name, email, or phone #"
+            placeholder="Filter by staff member's name or phone"
             onChange={handleChangeEmployeeFilter}
             maxLength={128}
             onKeyDown={preventKeys}
@@ -544,7 +538,13 @@ const AdminStaff = (props) => {
                     <div
                       className="admin_individual_client_container"
                       key={i}
-                      onClick={(e) => handleEmployeeToggled(e, item)}
+                      onClick={(e) => {
+                        if (addStaffMemberClicked) {
+                          return null;
+                        } else {
+                          handleEmployeeToggled(e, item);
+                        }
+                      }}
                       ref={individualEmployeeRef}
                     >
                       <Modal
@@ -786,6 +786,19 @@ const AdminStaff = (props) => {
                         icon={faEllipsisH}
                         className="admin_individual_client_expand_icon"
                       />
+                      {addStaffMemberClicked ? (
+                        <AdminAddStaffMember
+                          handleProfilePictureRender={
+                            handleProfilePictureRender
+                          }
+                          renderBarInContactInfo={renderBarInContactInfo}
+                          getClientsData={props.getClientsData}
+                          addStaffMemberClicked={addStaffMemberClicked}
+                          changeAddStaffMemberClicked={
+                            changeAddStaffMemberClicked
+                          }
+                        />
+                      ) : null}
                       <Transition
                         items={employeeToggled}
                         from={{ transform: "translateX(-100%)" }}
@@ -904,8 +917,16 @@ const AdminStaff = (props) => {
             : null
           : null}
 
-        <div className="add_staff_member_button_container">
-          <div className="add_staff_member_button">Add Staff Member</div>
+        <div
+          className="add_staff_member_button_container"
+          style={{ zIndex: logoutClicked && addStaffMemberClicked ? -1 : 0 }}
+        >
+          <div
+            className="add_staff_member_button"
+            onClick={() => changeAddStaffMemberClicked(true)}
+          >
+            Add Staff Member
+          </div>
         </div>
       </div>
     </div>

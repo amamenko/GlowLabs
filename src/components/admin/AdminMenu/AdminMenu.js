@@ -93,7 +93,7 @@ const AdminMenu = (props) => {
         <div className="admin_men_box_container">
           <Link
             className="admin_menu_box_container_link"
-            to="/"
+            to="/admin/staff"
             onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
           >
             <FontAwesomeIcon
@@ -114,16 +114,6 @@ const AdminMenu = (props) => {
               className="admin_menu_box_icon"
             />
             <h2>MY SCHEDULE</h2>
-          </Link>
-        </div>
-        <div className="admin_menu_box_container">
-          <Link
-            className="admin_menu_box_container_link"
-            to="/admin/saltcaveschedule"
-            onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
-          >
-            <FontAwesomeIcon icon={faIgloo} className="admin_menu_box_icon" />
-            <h2>SALT CAVE</h2>
           </Link>
         </div>
       </div>

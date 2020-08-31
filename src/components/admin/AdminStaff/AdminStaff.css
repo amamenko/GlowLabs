@@ -1,11 +1,11 @@
 .add_staff_member_button_container {
   position: absolute;
-  bottom: 0;
+  bottom: 15vh;
   left: 0;
   right: 0;
   margin: 0 auto;
   text-align: center;
-  width: 75%;
+  width: 85%;
 }
 
 .add_staff_member_button {
@@ -19,7 +19,8 @@
   background: rgb(122, 172, 1);
   border-radius: 4px;
   color: #ffffff;
-  font-size: 16px;
+  font: 400 13.3333px Arial;
+  font-size: 2vh;
   line-height: 24px;
   font-weight: 700;
   letter-spacing: 0;
@@ -27,4 +28,22 @@
   transition: background 0.2s ease-in-out;
   border: 0;
   cursor: pointer;
+}
+
+.admin_individual_selected_employee_contents {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0 !important;
+}
+
+@media only screen and (min-width: 1200px) {
+  .add_staff_member_button {
+    font-size: 1.5vh;
+  }
+
+  .add_staff_member_button_container {
+    width: 75%;
+  }
 }

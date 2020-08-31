@@ -200,7 +200,7 @@
   .sign_up_page_container {
     width: 35%;
     height: 85vh;
-    grid-template-rows: 20% 10% 50% 20% 25%;
+    grid-template-rows: 23% 5% 50% 20% 25%;
   }
 
   .sign_up_page_container:before {
