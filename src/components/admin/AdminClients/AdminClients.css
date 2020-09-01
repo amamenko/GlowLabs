@@ -522,6 +522,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    overflow: visible;
   }
 
   .admin_individual_selected_client_contents_container {

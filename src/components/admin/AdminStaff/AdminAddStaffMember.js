@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Transition } from "react-spring/renderprops";
-import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import { faLongArrowAltLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-dropdown/style.css";
 import "react-day-picker/lib/style.css";
@@ -10,14 +10,26 @@ import Modal from "react-modal";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
 import ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER";
+import ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER_RESET";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_ADMIN_STAFF_MEMBER_EMAIL from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberEmail/ACTION_ADMIN_STAFF_MEMBER_EMAIL";
+import ACTION_ADMIN_STAFF_MEMBER_EMAIL_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberEmail/ACTION_ADMIN_STAFF_MEMBER_EMAIL_RESET";
 import ACTION_ADMIN_STAFF_MEMBER_LAST_NAME from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberLastName/ACTION_ADMIN_STAFF_MEMBER_LAST_NAME";
-import { addEmployeeMutation } from "../../../graphql/queries/queries";
+import ACTION_ADMIN_STAFF_MEMBER_LAST_NAME_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberLastName/ACTION_ADMIN_STAFF_MEMBER_LAST_NAME_RESET";
 import ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberFirstName/ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME";
+import ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberFirstName/ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME_RESET";
+import ACTION_ADMIN_STAFF_MEMBER_ROLES from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberRoles/ACTION_ADMIN_STAFF_MEMBER_ROLES";
+import ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberRoles/ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET";
+import phone from "phone";
+import isEmail from "validator/lib/isEmail";
+import isMobilePhone from "validator/lib/isMobilePhone";
+import { addEmployeeMutation } from "../../../graphql/queries/queries";
+import Dropdown from "react-dropdown";
 
 const AdminAddStaffMember = (props) => {
   const dispatch = useDispatch();
+
+  const otherRoleRef = useRef(null);
 
   const { addStaffMemberClicked, changeAddStaffMemberClicked } = props;
 
@@ -44,6 +56,16 @@ const AdminAddStaffMember = (props) => {
     (state) => state.loadingSpinnerActive.loading_spinner
   );
 
+  const [otherRoles, changeOtherRoles] = useState([]);
+  const [firstFocus, changeFirstFocus] = useState(false);
+
+  // Errors
+  const [firstNameError, changeFirstNameError] = useState(false);
+  const [lastNameError, changeLastNameError] = useState(false);
+  const [emailError, changeEmailError] = useState(false);
+  const [phoneNumberError, changePhoneNumberError] = useState(false);
+  const [roleError, changeRoleError] = useState(false);
+
   const [
     addEmployee,
     { loading: addEmployeeLoading, data: addEmployeeData },
@@ -69,8 +91,32 @@ const AdminAddStaffMember = (props) => {
     }
   };
 
+  const resetAllErrorStates = () => {
+    if (firstNameError) {
+      changeFirstNameError(false);
+    }
+
+    if (lastNameError) {
+      changeLastNameError(false);
+    }
+
+    if (emailError) {
+      changeEmailError(false);
+    }
+
+    if (phoneNumberError) {
+      changePhoneNumberError(false);
+    }
+
+    if (roleError) {
+      changeRoleError(false);
+    }
+  };
+
   const phoneNumberTyping = (e) => {
     let currentTyping = e.currentTarget.value;
+
+    resetAllErrorStates();
 
     // Formatting for US Phone Numbers
     if (currentTyping.length === 3) {
@@ -154,12 +200,16 @@ const AdminAddStaffMember = (props) => {
     dispatch(ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER(currentTyping));
   };
 
+  const otherRolesValuesArr = otherRoles.map((role) => role.value);
+
+  const otherRolesValuesFiltered = otherRolesValuesArr.filter((role) => role);
+
   const variablesModel = {
     firstName: adminStaffMemberFirstName,
     lastName: adminStaffMemberLastName,
     email: adminStaffMemberEmail,
     phoneNumber: adminStaffMemberPhoneNumber,
-    roles: adminStaffMemberRoles,
+    roles: adminStaffMemberRoles.concat(otherRolesValuesFiltered),
   };
 
   useEffect(() => {
@@ -173,6 +223,67 @@ const AdminAddStaffMember = (props) => {
       dispatch(ACTION_LOADING_SPINNER_ACTIVE());
     }
   }, [addEmployeeLoading, dispatch]);
+
+  useEffect(() => {
+    const refInterval = setInterval(() => {
+      if (otherRoleRef) {
+        if (otherRoleRef.current && firstFocus) {
+          const currentRef = otherRoleRef.current;
+
+          changeFirstFocus(false);
+          currentRef.focus();
+        }
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(refInterval);
+    };
+  }, [firstFocus]);
+
+  const handleBackToAllStaff = () => {
+    changeAddStaffMemberClicked(false);
+    changeOtherRoles([]);
+    dispatch(ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME_RESET());
+    dispatch(ACTION_ADMIN_STAFF_MEMBER_LAST_NAME_RESET());
+    dispatch(ACTION_ADMIN_STAFF_MEMBER_EMAIL_RESET());
+    dispatch(ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER_RESET());
+    dispatch(ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET());
+  };
+
+  const handleSubmit = () => {
+    if (!adminStaffMemberFirstName) {
+      changeFirstNameError(true);
+    }
+
+    if (!adminStaffMemberLastName) {
+      changeLastNameError(true);
+    }
+
+    if (!adminStaffMemberPhoneNumber) {
+      changePhoneNumberError(true);
+    } else {
+      if (phone(adminStaffMemberPhoneNumber)[0]) {
+        if (!isMobilePhone(phone(adminStaffMemberPhoneNumber)[0])) {
+          changePhoneNumberError(true);
+        }
+      } else {
+        changePhoneNumberError(true);
+      }
+    }
+
+    if (!adminStaffMemberEmail) {
+      changeEmailError(true);
+    } else {
+      if (!isEmail(adminStaffMemberEmail)) {
+        changeEmailError(true);
+      }
+    }
+
+    if (adminStaffMemberRoles.concat(otherRolesValuesFiltered).length < 1) {
+      changeRoleError(true);
+    }
+  };
 
   return (
     <Transition
@@ -229,11 +340,9 @@ const AdminAddStaffMember = (props) => {
                 <FontAwesomeIcon
                   icon={faLongArrowAltLeft}
                   className="admin_individual_selected_client_back_arrow_icon"
-                  onClick={() => changeAddStaffMemberClicked(false)}
+                  onClick={handleBackToAllStaff}
                 />
-                <p onClick={() => changeAddStaffMemberClicked(false)}>
-                  Back to all staff
-                </p>
+                <p onClick={handleBackToAllStaff}>Back to all staff</p>
               </div>
               <div className="admin_create_appointment_section_header">
                 <h2>New Staff Member Information</h2>
@@ -249,6 +358,10 @@ const AdminAddStaffMember = (props) => {
                   aria-controls="react-autowhatever-1"
                   aria-expanded="false"
                   className="react-autosuggest__container"
+                  style={{
+                    outline: firstNameError ? "3px solid red" : "none",
+                    zIndex: firstNameError ? 99999 : "auto",
+                  }}
                 >
                   <input
                     type="text"
@@ -257,11 +370,12 @@ const AdminAddStaffMember = (props) => {
                     aria-controls="react-autowhatever-1"
                     className="react-autosuggest__input"
                     value={adminStaffMemberFirstName}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      resetAllErrorStates();
                       dispatch(
                         ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME(e.target.value)
-                      )
-                    }
+                      );
+                    }}
                     placeholder="Staff member first name"
                   />
                 </div>
@@ -275,6 +389,10 @@ const AdminAddStaffMember = (props) => {
                   aria-controls="react-autowhatever-1"
                   aria-expanded="false"
                   className="react-autosuggest__container"
+                  style={{
+                    outline: lastNameError ? "3px solid red" : "none",
+                    zIndex: lastNameError ? 99999 : "auto",
+                  }}
                 >
                   <input
                     type="text"
@@ -283,11 +401,12 @@ const AdminAddStaffMember = (props) => {
                     aria-controls="react-autowhatever-1"
                     className="react-autosuggest__input"
                     value={adminStaffMemberLastName}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      resetAllErrorStates();
                       dispatch(
                         ACTION_ADMIN_STAFF_MEMBER_LAST_NAME(e.target.value)
-                      )
-                    }
+                      );
+                    }}
                     placeholder="Staff member last name"
                   />
                 </div>
@@ -303,6 +422,10 @@ const AdminAddStaffMember = (props) => {
                   aria-controls="react-autowhatever-1"
                   aria-expanded="false"
                   className="react-autosuggest__container"
+                  style={{
+                    outline: emailError ? "3px solid red" : "none",
+                    zIndex: emailError ? 99999 : "auto",
+                  }}
                 >
                   <input
                     type="text"
@@ -313,9 +436,10 @@ const AdminAddStaffMember = (props) => {
                     placeholder="Email address"
                     value={adminStaffMemberEmail}
                     maxLength={100}
-                    onChange={(e) =>
-                      dispatch(ACTION_ADMIN_STAFF_MEMBER_EMAIL(e.target.value))
-                    }
+                    onChange={(e) => {
+                      resetAllErrorStates();
+                      dispatch(ACTION_ADMIN_STAFF_MEMBER_EMAIL(e.target.value));
+                    }}
                   />
                 </div>
                 <div className="admin_create_appointment_label admin_create_appointment_double_label">
@@ -328,6 +452,10 @@ const AdminAddStaffMember = (props) => {
                   aria-controls="react-autowhatever-1"
                   aria-expanded="false"
                   className="react-autosuggest__container"
+                  style={{
+                    outline: phoneNumberError ? "3px solid red" : "none",
+                    zIndex: phoneNumberError ? 99999 : "auto",
+                  }}
                 >
                   <input
                     type="text"
@@ -344,9 +472,152 @@ const AdminAddStaffMember = (props) => {
                 </div>
               </div>
 
+              {adminStaffMemberRoles.length > 0
+                ? adminStaffMemberRoles.map((role, index) => (
+                    <div
+                      className="admin_create_appointment_input_information_container"
+                      key={index}
+                    >
+                      <div className="admin_create_appointment_label">
+                        Role ({index + 1})
+                      </div>
+                      <div
+                        role="combobox"
+                        aria-haspopup="listbox"
+                        aria-owns="react-autowhatever-1"
+                        aria-controls="react-autowhatever-1"
+                        aria-expanded="false"
+                        className="react-autosuggest__container"
+                        style={{
+                          outline: roleError ? "3px solid red" : "none",
+                          zIndex: roleError ? 99999 : "auto",
+                        }}
+                      >
+                        <input
+                          type="text"
+                          autoComplete="off"
+                          aria-autocomplete="list"
+                          aria-controls="react-autowhatever-1"
+                          className="react-autosuggest__input admin_create_appointent_dropdown_placeholder_time"
+                          value={role}
+                          maxLength={100}
+                          disabled
+                        />
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faTimes}
+                        className="admin_create_appointment_treatment_delete_button"
+                        onClick={() => {
+                          let newArr = [...adminStaffMemberRoles];
+                          newArr.splice(index, 1);
+
+                          if (newArr.length < 1) {
+                            dispatch(ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET());
+                          } else {
+                            dispatch(ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET());
+                            newArr.forEach((item) => {
+                              dispatch(ACTION_ADMIN_STAFF_MEMBER_ROLES(item));
+                            });
+                          }
+                        }}
+                      />
+                    </div>
+                  ))
+                : null}
+              {otherRoles.length > 0
+                ? otherRoles.map((role, index) => (
+                    <div
+                      className="admin_create_appointment_input_information_container"
+                      key={index}
+                    >
+                      <div className="admin_create_appointment_label">
+                        Role ({adminStaffMemberRoles.length + index + 1})
+                      </div>
+                      <div
+                        role="combobox"
+                        aria-haspopup="listbox"
+                        aria-owns="react-autowhatever-1"
+                        aria-controls="react-autowhatever-1"
+                        aria-expanded="false"
+                        className="react-autosuggest__container"
+                        style={{
+                          outline: roleError ? "3px solid red" : "none",
+                          zIndex: roleError ? 99999 : "auto",
+                        }}
+                      >
+                        <input
+                          ref={otherRoleRef}
+                          type="text"
+                          autoComplete="off"
+                          aria-autocomplete="list"
+                          aria-controls="react-autowhatever-1"
+                          className="react-autosuggest__input"
+                          placeholder="Type in staff member role"
+                          value={role.value}
+                          maxLength={100}
+                          onChange={(e) => {
+                            resetAllErrorStates();
+
+                            let newArr = [...otherRoles];
+                            newArr[index].value = e.target.value;
+
+                            changeOtherRoles(newArr);
+                          }}
+                        />
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faTimes}
+                        onClick={() => {
+                          let newArr = [...otherRoles];
+                          newArr.splice(index, 1);
+
+                          changeOtherRoles(newArr);
+                        }}
+                        className="admin_create_appointment_treatment_delete_button"
+                      />
+                    </div>
+                  ))
+                : null}
+              {adminStaffMemberRoles.concat(otherRolesValuesArr).length < 3 ? (
+                <div className="admin_create_appointment_input_information_container">
+                  <div className="admin_create_appointment_label">Role(s)</div>
+                  <Dropdown
+                    options={[
+                      "Admin",
+                      "Esthetician",
+                      "Massage Therapist",
+                      "Wax Specialist",
+                      "Other",
+                    ].filter((x) => !adminStaffMemberRoles.includes(x))}
+                    onChange={(choice) => {
+                      resetAllErrorStates();
+
+                      if (choice.value === "Other") {
+                        changeOtherRoles([...otherRoles, { value: "" }]);
+                        changeFirstFocus(true);
+                      } else {
+                        dispatch(ACTION_ADMIN_STAFF_MEMBER_ROLES(choice.value));
+                      }
+                    }}
+                    className="react-autosuggest__container"
+                    controlClassName={
+                      roleError
+                        ? "react-autosuggest__input personal_event_error"
+                        : "react-autosuggest__input"
+                    }
+                    placeholder={"Staff member assigned roles"}
+                    placeholderClassName={
+                      "admin_create_appointent_dropdown_placeholder_no_time"
+                    }
+                  />
+                </div>
+              ) : null}
+
               <div className="admin_square_payment_form_container">
                 <div className="sq-payment-form">
-                  <div className="sq-creditcard">Add Staff Member</div>
+                  <div className="sq-creditcard" onClick={handleSubmit}>
+                    Add Staff Member
+                  </div>
                 </div>
               </div>
             </div>

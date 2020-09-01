@@ -30,6 +30,7 @@
     "lz-string": "^1.4.4",
     "moment": "^2.24.0",
     "node-darwin-x64": "^14.0.0",
+    "phone": "^2.4.15",
     "prevent-orientation": "^0.2.0",
     "randomcolor": "^0.5.4",
     "react": "16.8.6",
@@ -64,7 +65,8 @@
     "redux-thunk": "^2.3.0",
     "scroll-behavior-polyfill": "^2.0.13",
     "scroll-snap": "^2.0.10",
-    "smoothscroll-polyfill": "^0.4.4"
+    "smoothscroll-polyfill": "^0.4.4",
+    "validator": "^13.1.1"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.1.0",

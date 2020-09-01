@@ -874,7 +874,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         </h2>
         <div
           className="nav_login_container"
-          onClick={handleLogoutClicked}
           style={{
             background:
               props.currentScreenSize === ""
@@ -909,6 +908,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
           }}
         >
           <Link
+            onClick={handleLogoutClicked}
             className="nav_sign_in_link_container"
             to={
               location.pathname.includes("/account/clientprofile")

@@ -39,6 +39,7 @@
   .card_svg {
     position: absolute;
     width: 100%;
+    max-width: 7rem;
     height: 100%;
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
   }
@@ -916,6 +917,7 @@
     top: 0;
     bottom: auto;
     width: 100%;
+    max-width: 10rem;
     height: 75%;
   }
 
@@ -1231,6 +1233,7 @@
 @media only screen and (min-width: 1800px) {
   .card_svg {
     height: 65%;
+    max-width: 14rem;
   }
 
   .card_description_inner_wrapper h2 {

@@ -10,7 +10,7 @@ const adminStaffMemberLastNameReducer = (
     case ADMIN_STAFF_MEMBER_LAST_NAME:
       return {
         ...state,
-        admin_staff_member_last_name: action.admin_staff_member_first_name,
+        admin_staff_member_last_name: action.admin_staff_member_last_name,
       };
     case ADMIN_STAFF_MEMBER_LAST_NAME_RESET:
       return { ...state, admin_staff_member_last_name: "" };

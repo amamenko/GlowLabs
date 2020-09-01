@@ -9,7 +9,10 @@ const adminStaffMemberRolesReducer = (
     case ADMIN_STAFF_MEMBER_ROLES:
       return {
         ...state,
-        admin_staff_member_roles: action.admin_staff_member_roles,
+        admin_staff_member_roles: [
+          ...state.admin_staff_member_roles,
+          action.admin_staff_member_roles,
+        ],
       };
     case ADMIN_STAFF_MEMBER_ROLES_RESET:
       return { ...state, admin_staff_member_roles: [] };
