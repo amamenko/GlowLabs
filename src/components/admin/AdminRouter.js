@@ -12,7 +12,6 @@ import {
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
-import AdminSaltCaveSchedule from "./AdminSaltCaveSchedule/AdminSaltCaveSchedule";
 import AdminStaff from "./AdminStaff/AdminStaff";
 
 const AdminRouter = (props) => {

@@ -103,7 +103,7 @@ const AdminStaff = (props) => {
     right: 25%;
   `;
 
-  const [getOwnAppointments, ,] = useLazyQuery(getOwnAppointmentsQuery, {
+  const [getOwnAppointments] = useLazyQuery(getOwnAppointmentsQuery, {
     fetchPolicy: "no-cache",
   });
 
@@ -528,7 +528,10 @@ const AdminStaff = (props) => {
           />
         </div>
       </FormGroup>
-      <div className="admin_clients_content_container">
+      <div
+        className="admin_clients_content_container"
+        style={{ height: "55vh", overflow: "scroll", marginTop: "2vh" }}
+      >
         {props.getEmployeesData
           ? props.getEmployeesData.employees.length > 0
             ? filteredAllEmployees
@@ -774,14 +777,31 @@ const AdminStaff = (props) => {
                         </p>
                         <p>{item.phoneNumber ? item.phoneNumber : null}</p>
                       </div>
+                      <span className="admin_individual_client_spacer" />
                       <FontAwesomeIcon
                         style={{
-                          zIndex: logoutClicked || employeeToggled ? 0 : 1,
-                          transitionDelay: logoutClicked
-                            ? "initial"
-                            : !employeeToggled
-                            ? "0.5s"
-                            : "initial",
+                          zIndex: employeeToggled
+                            ? logoutClicked ||
+                              addProfilePhotoClicked ||
+                              loadingSpinnerActive ||
+                              imageLoading ||
+                              cancelAppointmentClicked
+                              ? -1
+                              : 0
+                            : loadingSpinnerActive
+                            ? -1
+                            : logoutClicked ||
+                              addProfilePhotoClicked ||
+                              imageLoading ||
+                              cancelAppointmentClicked
+                            ? 0
+                            : 5,
+                          transitionDelay:
+                            logoutClicked || loadingSpinnerActive
+                              ? "initial"
+                              : !employeeToggled
+                              ? "0.5s"
+                              : "initial",
                         }}
                         icon={faEllipsisH}
                         className="admin_individual_client_expand_icon"
@@ -793,6 +813,7 @@ const AdminStaff = (props) => {
                           }
                           renderBarInContactInfo={renderBarInContactInfo}
                           getClientsData={props.getClientsData}
+                          getEmployeesRefetch={props.getEmployeesRefetch}
                           addStaffMemberClicked={addStaffMemberClicked}
                           changeAddStaffMemberClicked={
                             changeAddStaffMemberClicked
@@ -919,7 +940,28 @@ const AdminStaff = (props) => {
 
         <div
           className="add_staff_member_button_container"
-          style={{ zIndex: logoutClicked && addStaffMemberClicked ? -1 : 0 }}
+          style={{
+            zIndex: employeeToggled
+              ? logoutClicked ||
+                addProfilePhotoClicked ||
+                loadingSpinnerActive ||
+                imageLoading ||
+                cancelAppointmentClicked ||
+                addStaffMemberClicked ||
+                employeeToggled
+                ? -1
+                : 0
+              : addStaffMemberClicked
+              ? -1
+              : logoutClicked ||
+                addProfilePhotoClicked ||
+                loadingSpinnerActive ||
+                imageLoading ||
+                cancelAppointmentClicked ||
+                addStaffMemberClicked
+              ? 0
+              : 5,
+          }}
         >
           <div
             className="add_staff_member_button"

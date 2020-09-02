@@ -1230,7 +1230,10 @@ const App = () => {
   useEffect(() => {
     if (
       location.pathname.includes("account") ||
-      location.pathname.includes("admin") ||
+      (location.pathname.includes("admin") &&
+        !location.pathname.includes("staff") &&
+        !location.pathname.includes("clients") &&
+        !location.pathname.includes("schedule")) ||
       cartIsActive
     ) {
       if (

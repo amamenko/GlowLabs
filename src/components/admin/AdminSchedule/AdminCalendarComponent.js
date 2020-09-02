@@ -40,6 +40,7 @@ const AdminCalendarComponent = (props) => {
     ""
   );
   const [allPersonalEvents, changeAllPersonalEvents] = useState([]);
+  const [headerOffset, changeHeaderOffset] = useState(0);
 
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
@@ -389,6 +390,48 @@ const AdminCalendarComponent = (props) => {
       }
     }
   };
+
+  // Used to place top calendar header in relation to vertical scrollbar
+  useEffect(() => {
+    const headerOffsetInterval = setInterval(() => {
+      const calendarContent = document.getElementsByClassName(
+        "rbc-time-content"
+      );
+
+      if (calendarContent[0]) {
+        const currentRef = calendarContent[0];
+
+        if (
+          headerOffset !==
+          Math.abs(currentRef.offsetWidth - currentRef.clientWidth)
+        ) {
+          changeHeaderOffset(
+            Math.abs(currentRef.offsetWidth - currentRef.clientWidth)
+          );
+        }
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(headerOffsetInterval);
+    };
+  }, [headerOffset]);
+
+  useEffect(() => {
+    const timeHeader = document.getElementsByClassName(
+      "rbc-time-header rbc-overflowing"
+    );
+
+    if (timeHeader[0]) {
+      const timeHeaderElement = timeHeader[0];
+
+      if (headerOffset !== 0) {
+        timeHeaderElement.style.marginRight = headerOffset + "px !important";
+      } else {
+        timeHeaderElement.style.marginRight = "0px !important";
+      }
+    }
+  }, [headerOffset]);
 
   return (
     <div

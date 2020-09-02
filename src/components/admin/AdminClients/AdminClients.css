@@ -117,9 +117,15 @@
   margin-right: 1.5rem;
 }
 
+.admin_individual_client_spacer {
+  align-self: flex-end;
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
 .admin_individual_client_expand_icon {
-  position: absolute;
-  right: 1.5rem;
+  position: relative;
 }
 
 .admin_individual_selected_client_container {
@@ -499,7 +505,6 @@
   }
 
   .admin_individual_client_expand_icon {
-    right: 11vw;
     font-size: 1.5rem;
     cursor: pointer;
   }

@@ -31,7 +31,11 @@ const AdminAddStaffMember = (props) => {
 
   const otherRoleRef = useRef(null);
 
-  const { addStaffMemberClicked, changeAddStaffMemberClicked } = props;
+  const {
+    addStaffMemberClicked,
+    changeAddStaffMemberClicked,
+    getEmployeesRefetch,
+  } = props;
 
   const adminStaffMemberFirstName = useSelector(
     (state) => state.adminStaffMemberFirstName.admin_staff_member_first_name
@@ -200,23 +204,17 @@ const AdminAddStaffMember = (props) => {
     dispatch(ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER(currentTyping));
   };
 
-  const otherRolesValuesArr = otherRoles.map((role) => role.value);
-
-  const otherRolesValuesFiltered = otherRolesValuesArr.filter((role) => role);
-
-  const variablesModel = {
-    firstName: adminStaffMemberFirstName,
-    lastName: adminStaffMemberLastName,
-    email: adminStaffMemberEmail,
-    phoneNumber: adminStaffMemberPhoneNumber,
-    roles: adminStaffMemberRoles.concat(otherRolesValuesFiltered),
-  };
-
   useEffect(() => {
     if (addEmployeeData && !loadingSpinnerActive) {
-      changeAddStaffMemberClicked(false)();
+      changeAddStaffMemberClicked(false);
+      getEmployeesRefetch();
     }
-  }, [addEmployeeData, loadingSpinnerActive, changeAddStaffMemberClicked]);
+  }, [
+    addEmployeeData,
+    loadingSpinnerActive,
+    changeAddStaffMemberClicked,
+    getEmployeesRefetch,
+  ]);
 
   useEffect(() => {
     if (addEmployeeLoading) {
@@ -251,37 +249,63 @@ const AdminAddStaffMember = (props) => {
     dispatch(ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET());
   };
 
+  const otherRolesValuesArr = otherRoles.map((role) => role.value);
+
+  const otherRolesValuesFiltered = otherRolesValuesArr.filter((role) => role);
+
+  const variablesModel = {
+    firstName: adminStaffMemberFirstName,
+    lastName: adminStaffMemberLastName,
+    email: adminStaffMemberEmail,
+    phoneNumber: adminStaffMemberPhoneNumber,
+    employeeRole: adminStaffMemberRoles.concat(otherRolesValuesFiltered),
+  };
+
   const handleSubmit = () => {
-    if (!adminStaffMemberFirstName) {
-      changeFirstNameError(true);
-    }
-
-    if (!adminStaffMemberLastName) {
-      changeLastNameError(true);
-    }
-
-    if (!adminStaffMemberPhoneNumber) {
-      changePhoneNumberError(true);
+    if (
+      adminStaffMemberFirstName &&
+      adminStaffMemberLastName &&
+      adminStaffMemberPhoneNumber &&
+      adminStaffMemberEmail &&
+      adminStaffMemberRoles.concat(otherRolesValuesFiltered).length > 0
+    ) {
+      addEmployee({
+        variables: {
+          ...variablesModel,
+        },
+      });
     } else {
-      if (phone(adminStaffMemberPhoneNumber)[0]) {
-        if (!isMobilePhone(phone(adminStaffMemberPhoneNumber)[0])) {
+      if (!adminStaffMemberFirstName) {
+        changeFirstNameError(true);
+      }
+
+      if (!adminStaffMemberLastName) {
+        changeLastNameError(true);
+      }
+
+      if (!adminStaffMemberPhoneNumber) {
+        changePhoneNumberError(true);
+      } else {
+        if (phone(adminStaffMemberPhoneNumber)[0]) {
+          if (!isMobilePhone(phone(adminStaffMemberPhoneNumber)[0])) {
+            changePhoneNumberError(true);
+          }
+        } else {
           changePhoneNumberError(true);
         }
-      } else {
-        changePhoneNumberError(true);
       }
-    }
 
-    if (!adminStaffMemberEmail) {
-      changeEmailError(true);
-    } else {
-      if (!isEmail(adminStaffMemberEmail)) {
+      if (!adminStaffMemberEmail) {
         changeEmailError(true);
+      } else {
+        if (!isEmail(adminStaffMemberEmail)) {
+          changeEmailError(true);
+        }
       }
-    }
 
-    if (adminStaffMemberRoles.concat(otherRolesValuesFiltered).length < 1) {
-      changeRoleError(true);
+      if (adminStaffMemberRoles.concat(otherRolesValuesFiltered).length < 1) {
+        changeRoleError(true);
+      }
     }
   };
 
@@ -605,7 +629,7 @@ const AdminAddStaffMember = (props) => {
                         ? "react-autosuggest__input personal_event_error"
                         : "react-autosuggest__input"
                     }
-                    placeholder={"Staff member assigned roles"}
+                    placeholder={"Staff member assigned role"}
                     placeholderClassName={
                       "admin_create_appointent_dropdown_placeholder_no_time"
                     }

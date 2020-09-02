@@ -433,7 +433,9 @@ const AdminClients = (props) => {
     if (loadingSpinnerActive) {
       const loadingSpinnerDuration = setTimeout(() => {
         if (pdfDownloadRef) {
-          pdfDownloadRef.current.click();
+          if (pdfDownloadRef.current) {
+            pdfDownloadRef.current.click();
+          }
         }
         dispatch(ACTION_LOADING_SPINNER_RESET());
         changePDFLoading(false);
@@ -970,6 +972,7 @@ const AdminClients = (props) => {
                         <p>{item.email ? item.email : null}</p>
                         <p>{item.phoneNumber ? item.phoneNumber : null}</p>
                       </div>
+                      <span className="admin_individual_client_spacer" />
                       <FontAwesomeIcon
                         style={{
                           zIndex: logoutClicked || clientToggled ? 0 : 1,

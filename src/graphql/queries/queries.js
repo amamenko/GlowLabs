@@ -886,20 +886,20 @@ const addEmployeeMutation = gql`
     $lastName: String!
     $email: String!
     $phoneNumber: String!
-    $roles: [String]
+    $employeeRole: [String]
   ) {
     addEmployee(
       firstName: $firstName
       lastName: $lastName
       email: $email
       phoneNumber: $phoneNumber
-      roles: $roles
+      employeeRole: $employeeRole
     ) {
       firstName
       lastName
       email
       phoneNumber
-      roles
+      employeeRole
     }
   }
 `;
