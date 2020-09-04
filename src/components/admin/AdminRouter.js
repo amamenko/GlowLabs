@@ -115,6 +115,8 @@ const AdminRouter = (props) => {
               getClientsLoading={getClientsLoading}
               getEmployeesData={props.getEmployeesData}
               getEmployeesRefetch={props.getEmployeesRefetch}
+              getAllAppointmentsData={getAllAppointmentsData}
+              getAllAppointmentsRefetch={getAllAppointmentsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
             />
           )}

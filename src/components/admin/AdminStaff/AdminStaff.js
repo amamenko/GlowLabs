@@ -19,19 +19,12 @@ import { Transition } from "react-spring/renderprops";
 import imageCompression from "browser-image-compression";
 import ImageUploader from "react-images-upload";
 import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
-import { useMutation, useLazyQuery } from "@apollo/react-hooks";
-import {
-  updateClientProfilePictureMutation,
-  getOwnAppointmentsQuery,
-  getOwnPastAppointmentsQuery,
-} from "../../../graphql/queries/queries";
+import { useMutation } from "@apollo/react-hooks";
+import { updateClientProfilePictureMutation } from "../../../graphql/queries/queries";
 import LZString from "lz-string";
 import "react-html5-camera-photo/build/css/index.css";
 import { css } from "emotion";
 import { BounceLoader } from "react-spinners";
-// import AdminClientIndividualProfile from "./AdminClientIndividualProfile";
-// import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
-// import AdminRenderPastAppointments from "./AdminRenderPastAppointments";
 import ACTION_ADD_PROFILE_PHOTO_CLICKED_RESET from "../../../actions/Admin/AddProfilePhotoClicked/ACTION_ADD_PROFILE_CLICKED_RESET";
 import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
@@ -40,6 +33,9 @@ import ACTION_IMAGE_LOADING_RESET from "../../../actions/Admin/ImageLoading/ACTI
 import AdminStaffIndividualProfile from "./AdminStaffIndividualProfile";
 import "./AdminStaff.css";
 import AdminAddStaffMember from "./AdminAddStaffMember";
+import AdminRenderUpcomingAppointments from "../AdminClients/AdminRenderUpcomingAppointments";
+import AdminRenderPastAppointments from "../AdminClients/AdminRenderPastAppointments";
+import moment from "moment";
 
 const AdminStaff = (props) => {
   const dispatch = useDispatch();
@@ -83,7 +79,16 @@ const AdminStaff = (props) => {
   const [filteredAllEmployees, changeFilteredAllEmployees] = useState([]);
   const [employeeFilter, changeEmployeeFilter] = useState("");
   const [employeeToggled, changeEmployeeToggled] = useState("");
+  const [employeeNameToggled, changeEmployeeNameToggled] = useState("");
   const [addStaffMemberClicked, changeAddStaffMemberClicked] = useState(false);
+  const [
+    selectedEmployeeAppointments,
+    changeSelectedEmployeeAppointments,
+  ] = useState([]);
+  const [
+    selectedEmployeePastAppointments,
+    changeSelectedEmployeePastAppointments,
+  ] = useState([]);
 
   const [takeAPhotoSelected, changeTakeAPhotoSelected] = useState(false);
   const [webcamURI, changeWebcamURI] = useState("");
@@ -103,14 +108,6 @@ const AdminStaff = (props) => {
     right: 25%;
   `;
 
-  const [getOwnAppointments] = useLazyQuery(getOwnAppointmentsQuery, {
-    fetchPolicy: "no-cache",
-  });
-
-  const [getOwnPastAppointments] = useLazyQuery(getOwnPastAppointmentsQuery, {
-    fetchPolicy: "no-cache",
-  });
-
   useEffect(() => {
     if (!splashScreenComplete) {
       dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
@@ -129,6 +126,58 @@ const AdminStaff = (props) => {
   const handleChangeEmployeeFilter = (e) => {
     changeEmployeeFilter(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    if (employeeToggled) {
+      if (props.getEmployeesData) {
+        if (props.getEmployeesData.employees.length > 0) {
+          const selectedEmployee = props.getEmployeesData.employees.filter(
+            (x) => x._id === employeeToggled
+          )[0];
+
+          if (!employeeNameToggled) {
+            changeEmployeeNameToggled(
+              selectedEmployee.firstName +
+                " " +
+                selectedEmployee.lastName[0] +
+                "."
+            );
+          }
+        }
+      }
+    } else {
+      if (employeeNameToggled) {
+        changeEmployeeNameToggled("");
+      }
+    }
+  }, [employeeToggled, employeeNameToggled, props.getEmployeesData]);
+
+  useEffect(() => {
+    if (employeeNameToggled) {
+      changeSelectedEmployeeAppointments({
+        own_appointments: props.getAllAppointmentsData.all_appointments.filter(
+          (x) =>
+            x.esthetician === employeeNameToggled &&
+            moment(
+              x.date + " " + x.startTime + " " + x.morningOrEvening,
+              "MMMM D, YYYY h:mm A"
+            ).format() >= moment().format()
+        ),
+      });
+
+      changeSelectedEmployeePastAppointments({
+        own_past_appointments: props.getAllAppointmentsData.all_appointments.filter(
+          (x) =>
+            moment(
+              x.date + " " + x.startTime + " " + x.morningOrEvening,
+              "MMMM D, YYYY h:mm A"
+            ).format() < moment().format()
+        ),
+      });
+    } else {
+      changeSelectedEmployeeAppointments([]);
+    }
+  }, [employeeNameToggled, props.getAllAppointmentsData]);
 
   const handleDeletedPreviewImage = () => {
     const deleteImageClass = document.getElementsByClassName("deleteImage");
@@ -230,27 +279,6 @@ const AdminStaff = (props) => {
       }
     }
   }, [employeeFilter, props.getEmployeesData]);
-
-  useMemo(() => {
-    if (employeeToggled) {
-      const clientEmail = [...props.getEmployeesData.employees].filter(
-        (x) => x._id === employeeToggled
-      )[0].email;
-
-      getOwnAppointments({
-        variables: { _id: employeeToggled, email: clientEmail },
-      });
-
-      getOwnPastAppointments({
-        variables: { _id: employeeToggled, email: clientEmail },
-      });
-    }
-  }, [
-    employeeToggled,
-    getOwnAppointments,
-    getOwnPastAppointments,
-    props.getEmployeesData,
-  ]);
 
   // Allows click only if selected employee modal is not active
 
@@ -391,7 +419,7 @@ const AdminStaff = (props) => {
       );
     }
   };
-
+  console.log(selectedEmployeePastAppointments);
   useEffect(() => {
     if (imageLoading) {
       if (updateClientProfilePictureData) {
@@ -874,7 +902,6 @@ const AdminStaff = (props) => {
                                         "'s Profile"}
                                   </p>
                                 </div>
-
                                 {adminClientSectionSelected === "" ? (
                                   <AdminStaffIndividualProfile
                                     item={item}
@@ -888,45 +915,42 @@ const AdminStaff = (props) => {
                                     getEmployeesData={props.getEmployeesData}
                                   />
                                 ) : null}
-
-                                {
-                                  // adminClientSectionSelected ===
-                                  //   "UpcomingAppointments" ? (
-                                  //   <div className="admin_side_my_appointments_content_container">
-                                  //     <AdminRenderUpcomingAppointments
-                                  //       data={getOwnAppointmentsData}
-                                  //       getOwnAppointmentsRefetch={
-                                  //         getOwnAppointmentsRefetch
-                                  //       }
-                                  //       item={item}
-                                  //       override={override}
-                                  //       loadingSpinnerActive={
-                                  //         loadingSpinnerActive
-                                  //       }
-                                  //       currentScreenSize={
-                                  //         props.currentScreenSize
-                                  //       }
-                                  //       initialScreenSize={
-                                  //         props.initialScreenSize
-                                  //       }
-                                  //     />
-                                  //   </div>
-                                  // ) : adminClientSectionSelected ===
-                                  //   "PastAppointments" ? (
-                                  //   <div className="admin_side_my_appointments_content_container">
-                                  //     <AdminRenderPastAppointments
-                                  //       data={getOwnPastAppointmentsData}
-                                  //       item={item}
-                                  //       currentScreenSize={
-                                  //         props.currentScreenSize
-                                  //       }
-                                  //       initialScreenSize={
-                                  //         props.initialScreenSize
-                                  //       }
-                                  //     />
-                                  //   </div>
-                                  // ) : null}
-                                }
+                                {adminClientSectionSelected ===
+                                "UpcomingAppointments" ? (
+                                  <div className="admin_side_my_appointments_content_container">
+                                    <AdminRenderUpcomingAppointments
+                                      data={selectedEmployeeAppointments}
+                                      getAllAppointmentsRefetch={
+                                        props.getAllAppointmentsRefetch
+                                      }
+                                      item={item}
+                                      override={override}
+                                      loadingSpinnerActive={
+                                        loadingSpinnerActive
+                                      }
+                                      currentScreenSize={
+                                        props.currentScreenSize
+                                      }
+                                      initialScreenSize={
+                                        props.initialScreenSize
+                                      }
+                                    />
+                                  </div>
+                                ) : adminClientSectionSelected ===
+                                  "PastAppointments" ? (
+                                  <div className="admin_side_my_appointments_content_container">
+                                    <AdminRenderPastAppointments
+                                      data={selectedEmployeePastAppointments}
+                                      item={item}
+                                      currentScreenSize={
+                                        props.currentScreenSize
+                                      }
+                                      initialScreenSize={
+                                        props.initialScreenSize
+                                      }
+                                    />
+                                  </div>
+                                ) : null}
                               </div>
                             </div>
                           ))

@@ -169,6 +169,16 @@ body {
   cursor: pointer;
 }
 
+::-webkit-scrollbar {
+  height: 0px; /* height of horizontal scrollbar ← You're missing this */
+  border: 1px solid #d5d5d5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(44, 44, 52);
+  border-radius: 10px;
+}
+
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {
     .input_field_sign_up::placeholder {

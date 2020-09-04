@@ -611,6 +611,7 @@ const AdminAddStaffMember = (props) => {
                       "Esthetician",
                       "Massage Therapist",
                       "Wax Specialist",
+                      "Service Provider",
                       "Other",
                     ].filter((x) => !adminStaffMemberRoles.includes(x))}
                     onChange={(choice) => {
