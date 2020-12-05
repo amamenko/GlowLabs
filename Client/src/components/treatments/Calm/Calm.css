@@ -1,0 +1,64 @@
+.tippy-popper {
+  z-index: 100 !important;
+}
+
+.tippy-tooltip-content {
+  font-size: calc(0.1rem + 2vh);
+}
+
+.book_button_bounce_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip_shown {
+  opacity: 1;
+}
+
+.tooltip_not_shown {
+  opacity: 0;
+}
+/* Safari Only */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .tippy-tooltip {
+      left: 10px;
+    }
+  }
+}
+
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .calm_wrapping {
+    display: grid;
+    grid-area: calm_card;
+    height: 28.6666667vh;
+    border-radius: 10px;
+    position: relative;
+    z-index: 4;
+  }
+
+  .calm_icon_path {
+    transform: scale(0.48);
+  }
+
+  .react-tooltip-lite {
+    font-size: 0.5rem;
+  }
+}
+
+/* CSS for Smaller Portrait Screens (e.g. Galaxy Note 9) */
+@media only screen and (min-width: 360px) {
+  .react-tooltip-lite {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .react-tooltip-lite {
+    font-size: 0.9rem;
+  }
+}

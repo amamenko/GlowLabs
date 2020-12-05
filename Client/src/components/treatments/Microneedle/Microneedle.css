@@ -1,0 +1,39 @@
+.microneedle_wrapping {
+  display: grid;
+  grid-area: microneedle_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.microneedle_icon_path {
+  transform: scale(0.45);
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .microneedle_wrapping {
+    height: 67%;
+    width: 100%;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .microneedle_wrapping {
+    height: 20.8vh;
+  }
+
+  .card_description_paragraph_value.microneedle_paragraph_value {
+    padding-bottom: 0.37rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .microneedle_wrapping {
+    height: 28.6666667vh;
+    width: auto;
+  }
+}

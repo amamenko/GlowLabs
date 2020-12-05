@@ -1,0 +1,10 @@
+const ADMIN_PERSONAL_EVENT_TITLE = "ADMIN_PERSONAL_EVENT_TITLE";
+
+const ACTION_ADMIN_PERSONAL_EVENT_TITLE = (title) => {
+  return {
+    type: ADMIN_PERSONAL_EVENT_TITLE,
+    title,
+  };
+};
+
+export default ACTION_ADMIN_PERSONAL_EVENT_TITLE;

@@ -1,0 +1,267 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,900&display=swap");
+
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .salt_cave_wrapping {
+    display: grid;
+    grid-area: salt_cave_card;
+    height: 28.6666667vh;
+    border-radius: 10px;
+    position: relative;
+    z-index: 4;
+  }
+
+  .salt_cave_icon_path {
+    transform: scale(0.5);
+  }
+
+  .salt_cave_time_formgroup_dropdown_input_field {
+    position: relative;
+    margin-left: 0.8rem;
+  }
+
+  .salt_cave_time_formgroup_dropdown_icon {
+    position: absolute;
+    font-size: 0.6rem;
+    right: 0.5rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .salt_cave_time_formgroup_input {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.6rem;
+    padding-right: 1.5rem;
+    color: rgb(0, 0, 0);
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-weight: 500;
+    padding-left: 0.2rem;
+    cursor: pointer;
+  }
+
+  .salt_cave_card_new_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .salt_cave_card_new {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .salt_cave_time_formgroup_input {
+      font-size: 0.5rem;
+      padding-right: 1.5rem;
+      padding-top: 0.2rem;
+      padding-bottom: 0.2rem;
+      margin-bottom: 0.2rem;
+      margin-top: 0.2rem;
+    }
+
+    .salt_cave_time_formgroup_dropdown_icon {
+      font-size: 0.5rem;
+    }
+
+    .salt_cave_ios_price {
+      margin-top: 0.8rem;
+    }
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 0.7rem;
+    padding-right: 2rem;
+    padding-left: 0.5rem;
+  }
+
+  .salt_cave_time_formgroup_dropdown_icon {
+    font-size: 0.8rem;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .salt_cave_ios_price {
+      margin-top: 0.2rem;
+    }
+  }
+}
+
+/*CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 650px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .salt_cave_time_formgroup_input {
+      font-size: 0.6rem;
+    }
+
+    .salt_cave_ios_price {
+      margin-top: -0.2rem;
+    }
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Average Portrait Screens with Larger Heights */
+@media only screen and (min-width: 410px) and (min-device-height: 800px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 1rem;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .salt_cave_time_formgroup_input {
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem;
+      margin-top: 0.1rem;
+    }
+
+    .salt_cave_ios_price {
+      margin-top: -0.1rem;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .salt_cave_time_formgroup_input {
+      margin-left: 0.4rem;
+    }
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 600px) {
+  .salt_cave_wrapping {
+    height: 64%;
+  }
+
+  .salt_cave_time_formgroup_input {
+    font-size: 0.9rem;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .salt_cave_wrapping {
+    height: 20.8vh;
+  }
+
+  .salt_cave_time_formgroup_input {
+    font-size: 0.7rem;
+  }
+
+  .salt_cave_ios_price {
+    margin-top: -0.35rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 1rem;
+  }
+
+  .salt_cave_time_formgroup_dropdown_input_field {
+    margin-left: 1.5rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .salt_cave_wrapping {
+    height: auto;
+  }
+
+  .salt_cave_time_formgroup_dropdown_input_field {
+    margin-left: 0.8rem;
+  }
+
+  .salt_cave_time_formgroup_dropdown_icon {
+    font-size: 0.7rem;
+    right: 0.7rem;
+  }
+
+  .salt_cave_time_formgroup_input {
+    font-size: 0.7rem;
+    padding-right: 1.5rem;
+    color: rgb(0, 129, 177);
+    font-weight: 600;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 0.7rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .salt_cave_wrapping {
+    height: 28.6666667vh;
+  }
+}
+
+/* CSS for Medium Desktops */
+@media only screen and (min-width: 1400px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 0.7rem;
+    padding-right: 2rem;
+    color: rgb(0, 129, 177);
+    font-weight: 600;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .salt_cave_time_formgroup_dropdown_icon {
+    font-size: 1rem;
+    right: 1rem;
+  }
+
+  .salt_cave_time_formgroup_input {
+    font-size: 1.2rem;
+    padding-right: 3rem;
+    color: rgb(0, 129, 177);
+    font-weight: 600;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .salt_cave_time_formgroup_input {
+    font-size: 2rem;
+    padding-right: 3rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+  }
+}

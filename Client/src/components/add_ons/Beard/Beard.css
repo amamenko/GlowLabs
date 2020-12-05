@@ -1,0 +1,35 @@
+.beard_wrapping {
+  display: grid;
+  grid-area: beard_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.beard_icon_path {
+  transform: scale(2.5);
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .beard_wrapping {
+    height: 64%;
+    width: 50%;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .beard_wrapping {
+    height: 20.8vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .beard_wrapping {
+    height: 28.6666667vh;
+    width: auto;
+  }
+}

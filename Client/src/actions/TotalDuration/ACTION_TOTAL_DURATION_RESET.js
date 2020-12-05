@@ -1,0 +1,9 @@
+const TOTAL_DURATION_RESET = "TOTAL_DURATION_RESET";
+
+const ACTION_TOTAL_DURATION_RESET = () => {
+  return {
+    type: TOTAL_DURATION_RESET
+  };
+};
+
+export default ACTION_TOTAL_DURATION_RESET;

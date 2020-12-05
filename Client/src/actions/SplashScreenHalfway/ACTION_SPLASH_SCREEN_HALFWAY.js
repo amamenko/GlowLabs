@@ -1,0 +1,9 @@
+const SPLASH_SCREEN_HALFWAY = "SPLASH_SCREEN_HALFWAY";
+
+const ACTION_SPLASH_SCREEN_HALFWAY = () => {
+  return {
+    type: SPLASH_SCREEN_HALFWAY
+  };
+};
+
+export default ACTION_SPLASH_SCREEN_HALFWAY;

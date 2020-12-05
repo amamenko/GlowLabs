@@ -1,0 +1,9 @@
+const AVAILABILITY_RESET = "AVAILABILITY_RESET";
+
+const ACTION_AVAILABILITY_RESET = () => {
+  return {
+    type: AVAILABILITY_RESET
+  };
+};
+
+export default ACTION_AVAILABILITY_RESET;

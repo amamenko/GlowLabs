@@ -1,0 +1,9 @@
+const ALL_COLLAPSE_RESET = "ALL_COLLAPSE_RESET";
+
+const ACTION_ALL_COLLAPSE_RESET = () => {
+  return {
+    type: ALL_COLLAPSE_RESET
+  };
+};
+
+export default ACTION_ALL_COLLAPSE_RESET;

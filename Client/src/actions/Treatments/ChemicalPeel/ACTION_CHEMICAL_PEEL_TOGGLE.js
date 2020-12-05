@@ -1,0 +1,9 @@
+const CHEMICAL_PEEL_TOGGLE = "CHEMICAL_PEEL_TOGGLE";
+
+const ACTION_CHEMICAL_PEEL_TOGGLE = () => {
+  return {
+    type: CHEMICAL_PEEL_TOGGLE
+  };
+};
+
+export default ACTION_CHEMICAL_PEEL_TOGGLE;

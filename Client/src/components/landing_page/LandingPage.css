@@ -1,0 +1,892 @@
+.landing_page_drawing {
+  position: absolute;
+  top: 8vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 42%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.landing_page_drawing svg {
+  display: block;
+  margin: 0 auto;
+  transition: opacity 0.5s ease;
+}
+
+.splash_screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.glow_labs_logo_animation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.glow_labs_logo_animation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.bottom_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 1rem;
+}
+
+.landing_page_text_block h1 {
+  grid-area: top-text;
+  font-size: 6vw;
+  transition: opacity 0.5s ease;
+}
+
+.landing_page_description {
+  grid-area: description;
+  font-size: 3vw;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.landing_page_cta {
+  grid-area: cta;
+  -moz-animation: bounce 2s infinite;
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
+  transition: opacity 0.5s ease;
+}
+
+.landing_page_text_block {
+  display: grid;
+  grid-template-rows: 1fr 1fr 2fr;
+  grid-template-areas:
+    "top-text"
+    "description"
+    "cta";
+  grid-gap: 0.5rem;
+  text-align: center;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  height: 75%;
+}
+
+.call_to_action_buttons_container {
+  display: none;
+}
+
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .landing_page_container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: auto 1fr;
+    grid-template-areas:
+      "header header header header"
+      "main main main main";
+    position: relative;
+  }
+
+  .header {
+    grid-area: header;
+    height: 8vh;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background: rgb(154, 154, 162);
+    position: fixed;
+  }
+
+  .main_content {
+    display: flex;
+    position: relative;
+    flex: 1;
+    flex-direction: column;
+    grid-area: main;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8vh;
+    width: 100%;
+  }
+
+  .bottom_content {
+    grid-area: main;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+  }
+
+  .bottom_content h1 {
+    color: rgb(44, 44, 52);
+    font-weight: 700;
+  }
+
+  .landing_page_description {
+    color: rgba(107, 107, 96, 0.89);
+    font-weight: 500;
+  }
+
+  .landing_page_cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    cursor: pointer;
+  }
+
+  .call_to_action_button {
+    display: none;
+  }
+
+  .landing_page_bottom_icon {
+    color: rgb(44, 44, 52);
+    font-size: 2rem;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+    transition: margin-top 0.07s ease-in-out, opacity 0.5s ease;
+  }
+
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .landing_page_cta {
+      height: 100%;
+      width: 100%;
+      position: sticky;
+      transition: all 0.5s ease;
+    }
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .landing_page_cta {
+      min-height: 100%;
+      min-width: 100%;
+      position: -webkit-sticky;
+    }
+
+    .bottom_content h1 {
+      color: rgb(44, 44, 52);
+      font-weight: 700;
+    }
+
+    .landing_page_description {
+      line-height: 1rem;
+    }
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .landing_page_description {
+    line-height: 1.5rem;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .landing_page_bottom_icon {
+      margin-top: 1.5rem;
+    }
+  }
+
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .landing_page_bottom_icon {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+/* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 670px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .landing_page_description {
+      line-height: 1.3rem;
+    }
+  }
+}
+
+/* Additional CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 650px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .landing_page_description {
+      font-size: 12px;
+      line-height: 1.2rem;
+    }
+  }
+}
+
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .landing_page_description {
+      line-height: 1.3rem;
+    }
+  }
+}
+
+/* Additional CSS for iPhones 11 Pro, X, Xs */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) and (max-device-height: 815px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+
+    .landing_page_description {
+      line-height: 1.2rem;
+    }
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .landing_page_description {
+    line-height: 1.5rem;
+  }
+
+  .call_to_action_buttons_container {
+    padding-top: 0;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 830px) {
+  .call_to_action_buttons_container {
+    padding-top: 1rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .call_to_action_buttons_container {
+    padding-top: 0rem;
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .cta_line {
+      margin-top: -3rem;
+    }
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 560px) {
+  .bottom_content {
+    height: 100vh;
+    background: rgb(251, 251, 251);
+  }
+
+  .bottom_content h1 {
+    font-size: 5vw;
+  }
+
+  .landing_page_text_block {
+    flex: 0;
+    height: 40%;
+    grid-template-rows: repeat(3, 1fr);
+  }
+
+  .landing_page_description {
+    font-size: 2.8vw;
+    line-height: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .call_to_action_button {
+    display: inline-block;
+    background: rgb(0, 129, 177);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 3.1rem;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 40px;
+    cursor: pointer;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .landing_page_text_block {
+    flex: 0;
+    height: 40%;
+  }
+
+  .landing_page_text_block h1 {
+    font-size: 4vw;
+  }
+
+  .bottom_content {
+    background: rgb(251, 251, 251);
+  }
+
+  .landing_page_description {
+    font-size: 2vw;
+    line-height: 2rem;
+    text-align: center;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .call_to_action_buttons_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .call_to_action_button {
+    display: inline-block;
+    background: rgb(0, 129, 177);
+    color: white;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-left: 0;
+    padding: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    border-radius: 40px;
+    cursor: pointer;
+  }
+
+  .header {
+    position: fixed;
+    z-index: 99999999999;
+  }
+}
+
+@media only screen and (min-width: 550px) and (orientation: portrait) {
+  .call_to_action_button {
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .bottom_content h1 {
+    font-size: 3vh;
+  }
+
+  .landing_page_description {
+    font-size: 1.5vh;
+    line-height: 3vh;
+  }
+
+  .landing_page_text_block {
+    grid-gap: 5vh;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-device-height: 930px) {
+  .bottom_content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    font-size: 3.5vw;
+    text-align: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.75vw;
+    line-height: 2.5rem;
+    text-align: left;
+    margin: 0;
+  }
+
+  .landing_page_text_block {
+    flex: 0;
+    grid-gap: 2rem;
+    height: 40%;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 1018px) {
+  .bottom_content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    font-size: 3.5vw;
+    text-align: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.75vw;
+    line-height: 2.5rem;
+    text-align: left;
+    margin: 0;
+  }
+
+  .landing_page_text_block {
+    flex: 0;
+    grid-gap: 2rem;
+    height: 40%;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .call_to_action_button {
+    display: inline-block;
+    color: white;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .call_to_action_button:hover {
+    background: rgb(0, 79, 127);
+    transition: all 0.5s ease;
+  }
+}
+
+/* CSS for Half Screen Desktops */
+@media only screen and (min-width: 951px) and (orientation: landscape) {
+  .landing_page_text_block {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 0vh;
+    grid-gap: 2rem;
+    height: 40%;
+  }
+
+  .landing_page_text_block h1 {
+    font-size: 3vw;
+    text-align: center;
+  }
+
+  .header {
+    height: 8vh;
+    position: fixed;
+  }
+
+  .bottom_content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    text-align: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.6vw;
+    line-height: 3rem;
+    text-align: left;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+/* CSS for Half Screen Desktops */
+@media only screen and (min-width: 951px) and (orientation: portrait) {
+  .landing_page_text_block h1 {
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .landing_page_description {
+    font-size: 2vw;
+    line-height: 2.7rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    text-align: center;
+  }
+
+  .bottom_content {
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    text-align: center;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .landing_page_description {
+    line-height: 3rem;
+  }
+
+  .landing_page_text_block {
+    margin-bottom: 5vh;
+    grid-gap: 2rem;
+  }
+
+  .call_to_action_button {
+    font-size: 2.5rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+}
+
+/* CSS for Tablets in Landscape Mode */
+@media only screen and (max-width: 1199px) and (orientation: landscape) {
+  .landing_page_description {
+    text-align: left;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    font-size: 1.3vw;
+    line-height: 2.5vw;
+  }
+
+  .bottom_content {
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .bottom_content h1 {
+    text-align: left;
+    font-size: 2.9vw;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .call_to_action_buttons_container {
+    margin-left: 1.5rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .call_to_action_button {
+    font-size: 1.5vw;
+    padding: 1.5vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 1.5rem;
+  }
+}
+
+/* CSS for Tablets in Landscape Mode */
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+  .landing_page_description {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+
+  .bottom_content h1 {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+
+  .call_to_action_buttons_container {
+    margin-left: 0rem;
+  }
+
+  .call_to_action_button {
+    margin-left: 0rem;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .call_to_action_button {
+    font-size: 2.5rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .bottom_content h1 {
+    font-size: 5vh;
+  }
+
+  .landing_page_description {
+    font-size: 1.5vh;
+    line-height: 3vh;
+  }
+
+  .landing_page_text_block {
+    grid-gap: 5vh;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
+  .landing_page_text_block {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    margin-bottom: 0vh;
+    grid-gap: 2rem;
+    height: 40%;
+  }
+
+  .landing_page_text_block h1 {
+    font-size: 3vw;
+    text-align: center;
+  }
+
+  .header {
+    height: 8vh;
+    position: fixed;
+  }
+
+  .bottom_content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bottom_content h1 {
+    text-align: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.6vw;
+    line-height: 3rem;
+    text-align: left;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .call_to_action_button {
+    display: inline-block;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .call_to_action_button:hover {
+    background: rgb(0, 79, 127);
+    transition: all 0.5s ease;
+  }
+}
+
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1220px) and (max-device-height: 1200px) {
+  .landing_page_text_block h1 {
+    text-align: left;
+  }
+
+  .bottom_content {
+    padding-top: 2vh;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .landing_page_description {
+    text-align: left;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: left;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1362px) {
+  .bottom_content h1 {
+    text-align: left;
+  }
+
+  .bottom_content {
+    padding-top: 2vh;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .landing_page_description {
+    text-align: left;
+  }
+
+  .call_to_action_buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: left;
+  }
+
+  .landing_page_description {
+    font-size: 1.5vw;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .landing_page_text_block {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .landing_page_description {
+    font-size: 1.6vw;
+    line-height: 3.5rem;
+  }
+
+  .call_to_action_button {
+    font-size: 1.5rem;
+    padding: 1.2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .landing_page_description {
+    font-size: 1.7vw;
+    line-height: 4rem;
+  }
+
+  .landing_page_cta {
+    display: none;
+  }
+
+  .call_to_action_button {
+    font-size: 2rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .landing_page_description {
+    line-height: 5rem;
+  }
+}

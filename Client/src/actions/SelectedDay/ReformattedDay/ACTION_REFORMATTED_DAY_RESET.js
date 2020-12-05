@@ -1,0 +1,9 @@
+const REFORMATTED_DAY_RESET = "REFORMATTED_DAY_RESET";
+
+const ACTION_REFORMATTED_DAY_RESET = () => {
+  return {
+    type: REFORMATTED_DAY_RESET
+  };
+};
+
+export default ACTION_REFORMATTED_DAY_RESET;

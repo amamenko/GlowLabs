@@ -1,0 +1,461 @@
+.footer_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgb(0, 129, 177);
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  overflow: hidden;
+  height: 20vh;
+  padding-bottom: 40vh;
+}
+
+.footer_all_icons_container {
+  width: 100%;
+  background-color: rgb(0, 129, 177);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 20vh;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.footer_insta_wrapping,
+.footer_facebook_wrapping,
+.footer_phone_wrapping,
+.footer_email_wrapping,
+.footer_insta_svg_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer_icon {
+  position: relative;
+  color: #fff;
+  font-size: 2rem;
+  z-index: 1;
+  transition: color 0.5s ease;
+}
+
+.footer_copyright_statement {
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 600;
+  color: #fff;
+}
+
+.footer_company_address {
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 300;
+  color: #fff;
+  padding-bottom: 1rem;
+}
+
+.footer_logo_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer_logo_path_container {
+  transform: translate(0%, 10%);
+  -webkit-transform: translate(0%, 10%);
+}
+
+.footer_logo_svg {
+  height: auto;
+  width: auto;
+  position: absolute;
+  bottom: 8vh;
+  margin: 0 auto;
+  transform: scale(1);
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  /* CSS specific to iOS devices */
+  .footer_all_icons_container {
+    height: 20vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer_logo_path_container {
+    transform: translate(0%, 10%);
+    -webkit-transform: translate(0%, 10%);
+  }
+
+  .footer_logo_svg {
+    position: absolute;
+    top: -9vh;
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .footer_copyright_statement {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .footer_company_address {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 300;
+    color: #fff;
+    padding-bottom: 1rem;
+  }
+
+  .footer_logo_path_container {
+    transform: translate(0%, -30%);
+  }
+}
+
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .footer_logo_svg {
+    bottom: 2vh;
+    transform: scale(1);
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .footer_logo_svg {
+    bottom: 8vh;
+    transform: scale(1);
+  }
+}
+
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .footer_logo_svg {
+      bottom: 6vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .footer_logo_svg {
+      bottom: -2vh;
+    }
+  }
+}
+
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .footer_logo_svg {
+      position: absolute;
+      top: 2vh;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .footer_logo_svg {
+      position: absolute;
+      top: 2vh;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .footer_container {
+      height: 30vh;
+      padding-bottom: 15vh;
+    }
+
+    .footer_logo_svg {
+      bottom: -24vh;
+      transform: scale(0.5);
+    }
+
+    .footer_all_icons_container {
+      height: 20vh;
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .footer_container {
+    height: 20vh;
+    padding-bottom: 35vh;
+  }
+  .footer_logo_svg {
+    bottom: 0;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .footer_logo_svg {
+      position: absolute;
+      top: 2vh;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .footer_logo_svg {
+      position: absolute;
+      top: 2vh;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .footer_logo_svg {
+      top: 15vh;
+    }
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .footer_container {
+    height: 40vh;
+    padding-bottom: 50vh;
+  }
+
+  .footer_all_icons_container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer_icon {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .footer_logo_svg {
+    transform: scale(0.2);
+    top: -55vh;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .footer_container {
+    height: 20vh;
+    padding-bottom: 25vh;
+  }
+
+  .footer_logo_svg {
+    transform: scale(1.5);
+    top: 15vh;
+  }
+
+  .footer_icon {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .footer_container {
+    height: 25vh;
+    padding-bottom: 0vh;
+  }
+
+  .footer_icon {
+    font-size: 3rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .footer_icon:hover {
+    color: black;
+  }
+
+  .footer_logo_svg {
+    transform: scale(1);
+    bottom: -8vh;
+    top: auto;
+  }
+}
+
+/* CSS for Slightly Wider Medium Laptops */
+@media only screen and (min-width: 1440px) and (min-device-height: 901px) {
+  .footer_icon {
+    font-size: 1.8rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .footer_icon {
+    font-size: 2rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .footer_logo_svg {
+        transform: scale(0.1);
+        -webkit-transform: scale(0.1);
+        bottom: -83vh;
+        top: auto;
+      }
+    }
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .footer_icon {
+    font-size: 2rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .footer_container {
+    height: 10vh;
+    padding-bottom: 25vh;
+  }
+
+  .footer_all_icons_container {
+    padding-top: 2rem;
+  }
+
+  .footer_icon {
+    font-size: 2.5rem;
+  }
+
+  .footer_copyright_statement {
+    font-size: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .footer_company_address {
+    font-size: 1rem;
+    padding-bottom: 3.1rem;
+  }
+
+  .footer_logo_path_container {
+    transform: translate(0%, 15%);
+  }
+
+  .footer_logo_svg {
+    transform: scale(1.5);
+    bottom: 0;
+  }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_logo_path_container {
+    transform: translate(0%, 0%);
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_all_icons_container {
+    padding-top: 3rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_copyright_statement {
+    padding-top: 1.8rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_logo_svg {
+    transform: scale(0.1);
+    bottom: -88vh;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .footer_icon {
+    font-size: 3rem;
+  }
+
+  .footer_all_icons_container {
+    padding-top: 3.1rem;
+  }
+
+  .footer_copyright_statement {
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 0;
+  }
+
+  .footer_company_address {
+    font-size: 1.5rem;
+    padding-bottom: 3.1rem;
+  }
+
+  .footer_logo_path_container {
+    transform: translate(0%, -5%);
+  }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_all_icons_container {
+    padding-top: 4rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_copyright_statement {
+    padding-top: 3rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .footer_logo_svg {
+    transform: scale(0.1);
+    bottom: -87h;
+  }
+}

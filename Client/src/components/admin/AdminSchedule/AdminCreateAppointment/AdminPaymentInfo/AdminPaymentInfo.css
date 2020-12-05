@@ -1,0 +1,407 @@
+.admin_square_input {
+  height: 56px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  border: 1px solid #e0e2e3;
+  background-color: white;
+  border-radius: 6px;
+  display: inline-block;
+  -webkit-transition: border-color 0.2s ease-in-out;
+  -moz-transition: border-color 0.2s ease-in-out;
+  -ms-transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.sq-payment-form-hidden {
+  display: none !important;
+}
+
+.sq-input:disabled {
+  background: rgba(240, 240, 240, 0.6);
+  background-color: none;
+}
+
+.sq-input:hover {
+  cursor: text !important;
+}
+
+.admin_square_payment_form_container {
+  padding-bottom: 10vh;
+  padding-top: 4vh;
+}
+
+.admin_square_payment_form_container > .sq-payment-form {
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
+  background: rgb(122, 172, 1);
+  padding: 2rem;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div:nth-of-type(4) {
+  display: flex;
+  flex: 0 1 100%;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div > .sq-label {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: rgb(235, 235, 235);
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  border-left: 1px solid rgb(211, 211, 211);
+  border-right: 1px solid transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1.5rem;
+  text-transform: capitalize;
+  height: 45%;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div::nth-of-type(4)
+  > .sq-label {
+  flex: 0 1 26%;
+  height: 79%;
+  border-right: 1px solid transparent;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div::nth-of-type(4)
+  > .sq-input {
+  border-left: 1px solid transparent;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div > .sq-input {
+  width: 100%;
+  height: 100%;
+  padding: 0 0.6rem;
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  border-right: none;
+  border-left: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div
+  > .sq-input::nth-of-type(4) {
+  border-right: none;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div::nth-of-type(4)
+  > .sq-input {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:last-of-type
+  > .sq-input,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:last-of-type
+  > .sq-label {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(7)
+  > .sq-input,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(7)
+  > .sq-label {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(5)
+  > iframe,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(5)
+  > .sq-input {
+  border-left: 1px solid rgb(211, 211, 211);
+}
+
+.admin_create_appointment_cardholder_container {
+  display: flex;
+  flex-direction: row;
+  flex: 0 1 50%;
+  width: 100%;
+  margin-bottom: 2rem;
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:not(:nth-child(2)):not(:nth-child(3))
+  > .sq-label {
+  width: 100%;
+  flex: 0 1 23%;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(4)
+  > iframe,
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(4)
+  > .sq-input {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+
+.admin_create_appointment_cardholder_container > .sq-label {
+  flex: 0 1 60%;
+  height: 5vh !important;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:nth-child(2):nth-child(3) {
+  flex: 0 1 50%;
+}
+
+/* All divs after credit card number */
+.admin_square_payment_form_container > .sq-payment-form div:nth-child(4) ~ div {
+  flex: 0 1 33.333333%;
+}
+
+.admin_create_appointment_cardholder_container > .sq-input {
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  text-indent: 0.6rem;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:first-child
+  > .Dropdown-placeholder {
+  font-size: 1.5rem;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  div:first-child
+  > .is-selected {
+  height: 100%;
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: #000;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
+  margin-top: -0.3rem;
+  padding-top: 0.5rem;
+}
+
+.admin_square_payment_form_container > .sq-payment-form div > .Dropdown-option {
+  text-align: left;
+  margin: 0;
+  padding-top: 0rem;
+  font-size: 1.5rem;
+  line-height: 1.1em;
+  text-indent: -0.3rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.sq-input:focus {
+  outline: none;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  > .admin_create_appointment_input_information_container
+  > .sq-creditcard
+  > .sq-input
+  > .Dropdown-placeholder {
+  color: rgb(122, 122, 122);
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  > .admin_create_appointment_input_information_container
+  > .sq-creditcard
+  > .Dropdown-control {
+  cursor: pointer !important;
+}
+
+.admin_square_payment_form_container
+  > .sq-payment-form
+  > .admin_create_appointment_input_information_container
+  > .sq-creditcard {
+  height: 5vh !important;
+  margin-top: 0;
+  background: none;
+  font-weight: 400;
+  font-family: "Montserrat";
+  text-indent: 0.6rem;
+  cursor: pointer;
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .admin_create_appointment_cardholder_container > .sq-label {
+    flex: 0 1 79%;
+    height: 6vh !important;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input,
+  .admin_create_appointment_cardholder_container > .sq-input {
+    font-size: 1.5rem;
+    line-height: 25px;
+    text-indent: 0.8rem;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
+    margin-top: -0.3rem;
+    padding-top: 0.5rem;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    > .admin_create_appointment_input_information_container
+    > .sq-creditcard {
+    height: 7vh !important;
+  }
+
+  .admin_create_appointment_cardholder_container {
+    margin-top: 1.7rem;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:not(:nth-child(2)):not(:nth-child(3))
+    > .sq-label {
+    flex: 0 1 28%;
+    height: 6vh;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:nth-of-type(4)
+    > .sq-label {
+    height: 79%;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input {
+    height: 6vh !important;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
+    margin-top: 1.8rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    > .admin_create_appointment_input_information_container
+    > .sq-creditcard {
+    height: 5vh !important;
+    margin-top: 0;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input,
+  .admin_create_appointment_cardholder_container > .sq-input {
+    font-size: 1.5rem;
+    line-height: 0px;
+    text-indent: 0.8rem;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:first-child
+    > .is-selected {
+    font-size: 1.5rem;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .Dropdown-menu {
+    margin-top: 0rem;
+    padding-top: 0.5rem;
+  }
+
+  .admin_create_appointment_cardholder_container > .sq-label {
+    height: 5vh !important;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-label {
+    height: 52%;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:nth-of-type(4)
+    > .sq-label {
+    height: 81%;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-input {
+    padding-top: 0.5rem;
+    height: 5vh !important;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form > .sq-creditcard {
+    margin-top: 2.5rem;
+  }
+
+  .admin_square_payment_form_container > .sq-payment-form div > .sq-label {
+    height: 5vh !important;
+  }
+
+  .admin_create_appointment_cardholder_container {
+    margin-top: 2rem;
+  }
+
+  .admin_create_appointment_cardholder_container > .sq-label {
+    flex: 0 1 74.5%;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div:not(:nth-child(2)):not(:nth-child(3))
+    > .sq-label {
+    flex: 0 1 26.9%;
+  }
+
+  .admin_square_payment_form_container
+    > .sq-payment-form
+    div.sq-selected-credit-card-details {
+    margin-bottom: 2rem;
+  }
+}

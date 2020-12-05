@@ -1,31 +1,58 @@
 {
-  "name": "gl",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
-  },
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "apify": "^0.21.9",
+    "apollo-server": "^2.19.0",
+    "apollo-server-express": "^2.19.0",
+    "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0-rc.3",
+    "cookie-parser": "^1.4.5",
+    "core-js": "^3.8.0",
+    "cors": "^2.8.5",
+    "cors-anywhere": "^0.4.3",
+    "datebook": "^6.0.2",
+    "dotenv": "^8.2.0",
+    "email-templates": "^8.0.2",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "generate-password": "^1.5.1",
+    "get-image-urls": "^1.0.5",
+    "graphql": "^15.4.0",
+    "graphql-playground-middleware-express": "^1.7.22",
+    "http-proxy-middleware": "^1.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mjml": "^4.7.1",
+    "mjml-utils": "^2.2.1",
+    "modern-random-ua": "^1.0.3",
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.3",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.16",
+    "parseurl": "^1.3.3",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "phantomjs": "^2.1.7",
+    "phone": "^2.4.17",
+    "pug": "^3.0.0",
+    "puppeteer": "^5.5.0",
+    "puppeteer-extra": "^3.1.15",
+    "puppeteer-extra-plugin-stealth": "^2.6.5",
+    "square-connect": "^5.20201118.0",
+    "twilio": "^3.53.0",
+    "underscore": "^1.12.0",
+    "uuid": "^8.3.1",
+    "website-scraper-existing-directory": "^0.1.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "devDependencies": {}
 }

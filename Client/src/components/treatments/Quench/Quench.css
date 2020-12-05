@@ -1,0 +1,35 @@
+.quench_wrapping {
+  display: grid;
+  grid-area: quench_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 4;
+}
+
+.quench_icon_path {
+  transform: scale(1);
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 600px) {
+  .quench_wrapping {
+    margin-top: 0rem;
+    height: 64%;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .quench_wrapping {
+    height: 20.8vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .quench_wrapping {
+    height: 28.6666667vh;
+  }
+}

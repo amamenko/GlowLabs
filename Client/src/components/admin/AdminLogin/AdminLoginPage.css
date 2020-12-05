@@ -1,0 +1,255 @@
+.admin_login_logo_container {
+  min-width: 10rem;
+  max-width: 20rem;
+  grid-area: logo;
+  margin: 10vh auto;
+}
+
+.admin_login_page_descriptive_text {
+  display: none;
+}
+
+.admin_section_designator_container {
+  grid-area: section;
+  text-align: center;
+}
+
+.admin_sign_in_prompt {
+  grid-area: header;
+  text-align: center;
+  font-weight: 500;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+.admin_login_form_container {
+  width: 100%;
+  grid-area: form;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.admin_login_form_container > .form-group {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.admin_login_form_container input {
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  font-size: 1.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  line-height: 0;
+}
+
+.admin_login_page_bottom_button_container {
+  grid-area: buttons;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.admin_login_page_container {
+  height: 85vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: 25% 10% 15% 15% 25% 10%;
+  grid-template-areas:
+    "logo logo logo"
+    "section section section"
+    "header header header"
+    "form form form"
+    "buttons buttons buttons"
+    ". . .";
+  position: relative;
+  background: white;
+}
+
+.admin_login_page_container:before {
+  content: "";
+  background-color: white;
+  position: absolute;
+  height: 15vh;
+  width: 25vw;
+  left: 0vw;
+  bottom: -15vh;
+  z-index: 50;
+}
+
+.admin_section_designator_container h2 {
+  font-weight: 700;
+  color: rgb(77, 77, 77);
+}
+
+.admin_log_in_button {
+  background: rgb(44, 44, 52);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+@media only screen and (max-width: 330px) {
+  .admin_section_designator_container h2 {
+    font-size: 6vw;
+  }
+}
+
+@media only screen and (max-width: 767px) and (max-device-height: 1000px) {
+  .admin_login_page_container {
+    height: min-content;
+  }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 1023px) and (max-device-height: 800px) and (orientation: landscape) {
+  .admin_login_page_container {
+    height: 200vh;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+  .admin_login_page_container {
+    height: 100vh;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
+  .admin_login_page_descriptive_text {
+    display: block;
+    position: absolute;
+    top: 23%;
+    left: 39%;
+  }
+
+  .admin_login_page_descriptive_text h2 {
+    font-size: 5rem;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+  }
+
+  .admin_login_page_descriptive_text ul {
+    padding-top: 1rem;
+    padding-left: 3rem;
+  }
+
+  .admin_login_page_descriptive_text ul li {
+    font-size: 1.5rem;
+    line-height: 5rem;
+    color: rgb(255, 255, 255);
+  }
+
+  .admin_login_page_background {
+    width: 100%;
+    height: 100%;
+    /* Photo by Kari Shea on Unsplash */
+    background-image: url("../../../images/GlowLabsAdminSectionBackgroundCompressed.jpg");
+    background-repeat: no-repeat;
+    background-position: 100%, 100%;
+    background-size: cover;
+    position: absolute;
+    display: block;
+    z-index: -1;
+  }
+
+  .admin_login_page_background_blurry {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    height: 100%;
+    width: 75%;
+    position: absolute;
+    right: 0;
+  }
+
+  .admin_login_page_container {
+    width: 35%;
+    height: 100vh;
+    grid-template-rows: 20% 10% 10% 15% 25% 10%;
+  }
+
+  .admin_section_designator_container h2 {
+    font-size: 1.3em;
+  }
+
+  .admin_login_form_container input,
+  .admin_login_or_container,
+  .admin_log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    min-width: 15rem;
+    width: 50vw;
+    max-width: 17rem;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .admin_login_form_container input,
+  .admin_login_or_container,
+  .admin_log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 19rem;
+  }
+
+  .admin_section_designator_container h2 {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .admin_login_form_container input,
+  .admin_login_or_container,
+  .admin_log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 25rem !important;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .admin_login_page_container {
+    width: 25%;
+    grid-template-rows: 20% 5% 15% 5% 25% 10%;
+  }
+
+  .admin_login_form_container input,
+  .admin_login_or_container,
+  .admin_log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 30rem;
+  }
+
+  .admin_login_page_descriptive_text {
+    top: 25%;
+    left: 30%;
+  }
+
+  .admin_login_page_descriptive_text h2 {
+    font-size: 7rem;
+  }
+
+  .admin_login_page_descriptive_text ul li {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (min-width: 2400px) {
+  .admin_login_page_container {
+    height: 85vh;
+  }
+}

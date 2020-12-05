@@ -1,0 +1,9 @@
+const PREGNANT_OR_NURSING_YES = "PREGNANT_OR_NURSING_YES";
+
+const ACTION_PREGNANT_OR_NURSING_YES = () => {
+  return {
+    type: PREGNANT_OR_NURSING_YES,
+  };
+};
+
+export default ACTION_PREGNANT_OR_NURSING_YES;

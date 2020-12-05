@@ -1,0 +1,930 @@
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .instagram_page_wrapping {
+    height: 67vh;
+    margin-top: 52vh;
+    background: rgb(255, 255, 255);
+  }
+
+  .instagram_images_wrapping {
+    padding-top: 2vh;
+    height: 43vh;
+    width: 100%;
+  }
+
+  .instagram_images_top_wrapping,
+  .instagram_images_bottom_wrapping {
+    overflow: hidden;
+    height: 25vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .instagram_images_bottom_wrapping {
+    margin-top: 1.5rem;
+  }
+
+  .instagram_top_page_wrapping {
+    height: 48vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .instagram_image {
+    display: block;
+    height: auto;
+    width: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .instagram_image.left {
+    margin-right: 1.5rem;
+  }
+
+  .instagram_page_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 2vh;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: rgb(44, 44, 52);
+    -webkit-text-fill-color: rgb(44, 44, 52);
+    line-height: 0.5rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    position: relative;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .insta_handle_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .real_clients_instagram_icon {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 3rem;
+    color: rgb(0, 129, 177);
+    -webkit-text-fill-color: rgb(0, 129, 177);
+    cursor: pointer;
+  }
+
+  .real_clients_title_underline {
+    border-bottom: 3px solid rgb(44, 44, 52);
+    position: relative;
+  }
+
+  .instagram_page_header h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .large_screen {
+    display: none;
+  }
+
+  .large_screen_follow_prompt {
+    display: none;
+  }
+
+  .small_screen_follow_prompt {
+    position: relative;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .instagram_page_wrapping {
+      margin-top: 55vh;
+      background: rgb(255, 255, 255);
+    }
+
+    .instagram_images_wrapping {
+      padding-top: 30vh;
+      height: 43vh;
+      width: 100%;
+    }
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .instagram_page_wrapping {
+    height: 67vh;
+    margin-top: 35vh;
+    background: rgb(255, 255, 255);
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: rgb(44, 44, 52);
+    -webkit-text-fill-color: rgb(44, 44, 52);
+    line-height: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    position: relative;
+  }
+
+  .real_clients_instagram_icon {
+    font-size: 5rem;
+  }
+
+  .instagram_page_header {
+    height: 4vh;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .instagram_top_page_wrapping {
+        margin-top: 20vh;
+      }
+
+      .instagram_images_wrapping {
+        margin-top: 20vh;
+      }
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 800px) {
+  .instagram_page_wrapping {
+    margin-top: 55vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 600px) and (max-device-height: 700px) {
+  .instagram_page_wrapping {
+    height: 56vh;
+    margin-top: 50vh;
+    background: rgb(255, 255, 255);
+  }
+
+  .instagram_top_page_wrapping {
+    margin-top: -5vh;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: 0vh;
+  }
+
+  .instagram_page_header {
+    height: 6vh;
+  }
+}
+
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .instagram_page_wrapping {
+      height: 60vh;
+    }
+
+    .instagram_page_header {
+      height: 10vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .instagram_page_wrapping {
+      height: 70vh;
+      margin-top: 52vh;
+    }
+
+    .instagram_page_header {
+      height: 22vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: 5vh;
+    }
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .instagram_page_wrapping {
+    height: 56vh;
+    margin-top: 48vh;
+    background: rgb(255, 255, 255);
+  }
+
+  .instagram_page_header {
+    height: 10vh;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .instagram_page_wrapping {
+      height: 60vh;
+      margin-top: 48vh;
+      background: rgb(255, 255, 255);
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) {
+  .instagram_page_wrapping {
+    height: 65vh;
+    margin-top: 42vh;
+    background: rgb(255, 255, 255);
+  }
+
+  .instagram_page_header {
+    height: 10vh;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_page_wrapping {
+      height: 75vh;
+      margin-top: 39vh;
+      margin-bottom: 2vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -5vh;
+    }
+  }
+}
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .instagram_page_wrapping {
+    margin-bottom: -26vh;
+    margin-top: 37vh;
+  }
+
+  .instagram_page_header {
+    height: 15vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .instagram_page_wrapping {
+    margin-top: 40vh;
+    margin-bottom: 2vh;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_page_wrapping {
+      height: 70vh;
+      margin-top: 42vh;
+      margin-bottom: 2vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -5vh;
+    }
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_page_wrapping {
+      margin-top: 38vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -8vh;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .instagram_page_wrapping {
+      height: 45vh;
+      margin-top: 35vh;
+      margin-bottom: 2vh;
+    }
+
+    .instagram_page_header {
+      height: 0vh;
+    }
+
+    .instagram_images_wrapping {
+      margin-top: -8vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .instagram_top_page_wrapping h2 {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .instagram_page_wrapping {
+    height: 85vh;
+    margin-top: 10vh;
+    margin-bottom: 0;
+  }
+
+  .instagram_images_wrapping {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-top: 10vh;
+    margin-top: 20vh;
+    height: 50vh;
+    width: 100%;
+  }
+
+  .instagram_images_top_wrapping {
+    width: 50%;
+    margin-right: 12.5vw;
+    height: 50vh;
+  }
+
+  .instagram_images_bottom_wrapping {
+    margin-top: 0rem;
+    margin-left: 12.5vw;
+    width: 50%;
+    height: 50vh;
+  }
+
+  .insta_handle_wrapper {
+    font-size: 1rem;
+    position: absolute;
+    top: 35vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .real_clients_instagram_icon {
+    font-size: 4rem;
+  }
+
+  .large_screen {
+    display: none;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    display: flex;
+    align-self: center;
+    font-size: 2rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 0.8rem;
+    margin-bottom: 0rem;
+    font-size: 1.5rem;
+  }
+
+  .instagram_top_page_wrapping h3 p br {
+    display: none;
+  }
+
+  .real_clients_title_underline {
+    display: flex;
+    align-self: center;
+    padding-top: 7vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops and tablets */
+@media only screen and (min-width: 768px) {
+  .instagram_top_page_wrapping {
+    height: 10vh;
+    padding-top: 5vh;
+    padding-bottom: 0vh;
+    margin-bottom: 0vh;
+  }
+
+  .instagram_images_top_wrapping,
+  .instagram_images_bottom_wrapping {
+    overflow: hidden;
+    height: 40vh;
+  }
+
+  .instagram_images_top_wrapping {
+    width: 100%;
+    margin-right: 0vw;
+  }
+
+  .instagram_images_bottom_wrapping {
+    margin-top: 1.5rem;
+    margin-left: 0vw;
+    width: 100%;
+  }
+
+  .instagram_page_wrapping {
+    display: block;
+    height: 100vh;
+    padding-top: 0vh;
+    margin-top: 35vh;
+    background: rgb(255, 255, 255);
+  }
+
+  .all_instagram_images_container {
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .instagram_images_wrapping {
+    display: block;
+    padding-top: 2vh;
+    margin-top: -14vh;
+    height: 43vh;
+    width: 45%;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 2.5rem;
+    line-height: 3rem;
+    text-align: left;
+    margin-right: 1.5rem;
+    padding-top: 0vh;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 0.1rem;
+  }
+
+  .real_clients_title_underline {
+    margin-right: 1.3rem;
+    padding-top: 0vh;
+  }
+
+  .real_clients_instagram_icon {
+    font-size: 2em;
+  }
+
+  .real_clients_instagram_icon:hover {
+    color: rgb(0, 69, 117);
+    -webkit-text-fill-color: rgb(0, 69, 117);
+    transition: all 0.5s ease;
+  }
+
+  .large_screen {
+    display: block;
+  }
+
+  .large_screen_follow_prompt {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 6em;
+    padding-right: 6em;
+    margin-top: -50vh;
+    position: relative;
+  }
+
+  .large_screen_follow_prompt p {
+    font-size: 2em;
+    font-weight: 500;
+    margin-bottom: 1em;
+    margin-top: 70vh;
+    position: relative;
+  }
+
+  .insta_handle_wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: 500;
+    margin: 0;
+    top: 0;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .instagram_top_page_wrapping {
+        margin-top: -60vh;
+      }
+
+      .instagram_top_page_wrapping h2 {
+        padding-top: 78vh;
+        margin-bottom: 1.5em;
+      }
+
+      .instagram_images_wrapping {
+        margin-top: 60vh;
+      }
+
+      .large_screen_follow_prompt {
+        margin-top: 25vh;
+      }
+    }
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .instagram_page_wrapping {
+    display: block;
+    height: 88vh;
+    padding-top: 0vh;
+    margin-top: 0vh;
+  }
+
+  .instagram_top_page_wrapping {
+    height: 10vh;
+    padding-top: 30vh;
+    padding-bottom: 0vh;
+    margin-bottom: 0vh;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    margin-top: 0rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    padding-bottom: 0rem;
+  }
+
+  .instagram_images_bottom_wrapping {
+    margin-top: -10.5rem;
+  }
+
+  .instagram_images_wrapping.left_side {
+    margin-right: 1.5rem;
+  }
+
+  .large_screen_follow_prompt {
+    display: none;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: 10vh;
+  }
+
+  .insta_handle_wrapper {
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .instagram_page_wrapping {
+    display: block;
+    height: 95vh;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 3.2rem;
+    line-height: 3rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+  }
+
+  .insta_handle_wrapper {
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+
+/* CSS for Smaller Laptops */
+@media only screen and (min-width: 1200px) {
+  .small_screen_follow_prompt {
+    display: none;
+  }
+
+  .large_screen_follow_prompt {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 30vh;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .instagram_page_wrapping {
+    display: block;
+    height: 115vh;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 3rem;
+  }
+
+  .instagram_top_page_wrapping {
+    padding-top: 20vh;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: 0vh;
+  }
+
+  .large_screen_follow_prompt p {
+    margin-top: 0vh;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .instagram_page_wrapping {
+    display: block;
+    height: 110vh;
+  }
+
+  .instagram_top_page_wrapping {
+    padding-top: 20vh;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .instagram_top_page_wrapping {
+        padding-top: 10vh;
+      }
+    }
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .instagram_top_page_wrapping {
+    height: 48vh;
+    padding-top: 0vh;
+  }
+
+  .instagram_page_wrapping {
+    margin-top: 25vh;
+    height: 110vh;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: -26vh;
+  }
+
+  .large_screen_follow_prompt {
+    padding-left: 7em;
+    padding-right: 7em;
+  }
+
+  .large_screen_follow_prompt p {
+    font-size: 3em;
+    font-weight: 500;
+    margin-bottom: 1em;
+    margin-top: 70vh;
+  }
+
+  .real_clients_instagram_icon {
+    font-size: 2em;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 3rem;
+    line-height: 3rem;
+    margin-top: 2rem;
+  }
+
+  .instagram_image {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+  }
+
+  .instagram_image img {
+    visibility: hidden;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  .real_clients_instagram_icon {
+    font-size: 3em;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .instagram_top_page_wrapping {
+    height: 48vh;
+    padding-top: 0vh;
+    margin-top: 12vh;
+  }
+
+  .instagram_page_wrapping {
+    height: 90vh;
+    padding-top: 0vh;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: -10vh;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 4rem;
+    line-height: 4rem;
+    margin-top: 20vh;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+  }
+
+  .large_screen_follow_prompt p {
+    font-size: 3em;
+    font-weight: 500;
+    margin-bottom: 1em;
+    margin-top: -10vh;
+  }
+
+  .instagram_image {
+    background-color: transparent;
+  }
+
+  .instagram_image img {
+    visibility: visible;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .instagram_top_page_wrapping h2 {
+        font-size: 4rem;
+        line-height: 0rem;
+        margin-top: -120vh;
+        padding-bottom: 0rem;
+        margin-bottom: 3rem;
+      }
+
+      .instagram_page_wrapping {
+        height: 90vh;
+      }
+
+      .instagram_top_page_wrapping {
+        height: 0vh;
+        padding-top: 2vh;
+        margin-top: 12vh;
+      }
+
+      .instagram_images_wrapping {
+        margin-top: 20vh;
+      }
+
+      .large_screen_follow_prompt p {
+        font-size: 3em;
+        font-weight: 500;
+        margin-bottom: 1em;
+        margin-top: 15vh;
+      }
+    }
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .instagram_page_wrapping {
+    height: 100vh;
+    margin-top: 25vh;
+    padding-top: 5vh;
+  }
+
+  .instagram_top_page_wrapping {
+    height: 48vh;
+    padding-top: 20vh;
+    margin-top: 0vh;
+  }
+
+  .instagram_images_wrapping {
+    margin-top: -2vh;
+  }
+
+  .instagram_top_page_wrapping h2 {
+    font-size: 5rem;
+    line-height: 8rem;
+    margin-top: 2rem;
+  }
+
+  .instagram_top_page_wrapping h3 p {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: 4rem;
+  }
+
+  .large_screen_follow_prompt p {
+    margin-bottom: 1em;
+    margin-top: -10vh;
+  }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_page_wrapping {
+    height: 100vh;
+    margin-top: 23vh;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_top_page_wrapping {
+    height: 48vh;
+    padding-top: 5vh;
+    margin-top: -60vh;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_top_page_wrapping h2 {
+    margin-bottom: 1.5em;
+    padding-bottom: 1rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .instagram_images_wrapping {
+    margin-top: 70vh;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .large_screen_follow_prompt {
+    margin-top: 100vh;
+    padding-top: 20vh;
+  }
+  _::-webkit-full-page-media,
+  _:future,
+  .large_screen_follow_prompt p {
+    margin-top: 0vh;
+  }
+}

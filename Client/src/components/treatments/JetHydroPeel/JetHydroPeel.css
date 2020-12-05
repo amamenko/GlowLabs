@@ -1,0 +1,50 @@
+.jet_hydro_peel_wrapping {
+  display: grid;
+  grid-area: jet_hydro_peel_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.jet_hydro_peel_icon_path {
+  transform: scale(0.45);
+}
+
+.jet_hydro_peel_coming_soon_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+
+.jet_hydro_peel_coming_soon_container p {
+  display: inline-block;
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .jet_hydro_peel_wrapping {
+    height: 67%;
+    width: 100%;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .jet_hydro_peel_wrapping {
+    height: 20.8vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .jet_hydro_peel_wrapping {
+    height: 28.6666667vh;
+    width: auto;
+  }
+}

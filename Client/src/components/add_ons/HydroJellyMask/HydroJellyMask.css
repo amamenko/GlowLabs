@@ -1,0 +1,19 @@
+.hydro_jelly_mask_wrapping {
+  display: grid;
+  grid-area: hydro_jelly_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.hydro_jelly_mask_icon_path {
+  transform: scale(0.7);
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .hydro_jelly_mask_wrapping {
+    height: 20.8vh;
+  }
+}

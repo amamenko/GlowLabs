@@ -1,0 +1,412 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,900&display=swap");
+
+.admin_create_appointment_input_information_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5%;
+  position: relative;
+}
+
+.admin_create_appointment_treatment_delete_button {
+  position: absolute;
+  right: -2%;
+  font-size: 1.5rem;
+  color: rgb(211, 211, 211);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.admin_create_appointment_treatment_delete_button:hover {
+  color: red;
+}
+
+.admin_create_appointment_service_label_container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 5%;
+}
+
+.admin_create_appointment_service_label_container
+  .admin_create_appointment_total_label {
+  font-size: 1.5rem;
+  background: rgb(255, 255, 255);
+}
+
+.admin_create_appointment_service_label_container div {
+  flex: 1;
+}
+
+.admin_create_appointent_dropdown_placeholder_no_time {
+  color: rgb(122, 122, 122);
+}
+
+.admin_create_appointent_dropdown_placeholder_time {
+  color: rgb(74, 144, 226);
+}
+
+.DayPicker-NavBar {
+  position: relative;
+  z-index: 3;
+  background: rgb(255, 255, 255);
+}
+
+.DayPicker-Months {
+  position: relative;
+  z-index: 2;
+  background: rgb(255, 255, 255);
+}
+
+.Dropdown-option {
+  padding: 8px 1.5rem;
+}
+
+.admin_create_appointment_label {
+  width: 25%;
+  height: 100%;
+  padding: 0 1.5rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+  background: rgb(235, 235, 235);
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  border-left: 1px solid rgb(211, 211, 211);
+  border-right: 1px solid transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.admin_create_appointment_double_label {
+  width: 46%;
+}
+
+.react-autosuggest__container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.admin_create_appointment_section_header {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.admin_create_appointment_section_header h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.react-autosuggest__input {
+  width: 100%;
+  height: 100%;
+  padding: 0 1.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  border-right: 1px solid rgb(211, 211, 211);
+  border-left: 1px solid transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.react-autosuggest__input:disabled {
+  background-color: rgb(255, 255, 255);
+}
+
+.react-autosuggest__input_hide {
+  display: none;
+}
+
+.Dropdown-arrow {
+  top: 50%;
+  right: 1.5rem;
+}
+
+.react-autosuggest__input:focus {
+  outline: none;
+}
+
+.react-autosuggest__input--focused {
+  outline: none;
+}
+
+.react-autosuggest__input--open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.autosuggest_client_profile_picture {
+  object-fit: cover;
+  width: 25%;
+  height: 5vh;
+}
+
+.admin_individual_client_suggestion_contact_information_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 1rem;
+}
+
+.admin_individual_client_suggestion_contact_information_container
+  p:first-child {
+  font-weight: 500;
+}
+
+.admin_individual_client_suggestion_contact_information_container p {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.autosuggest_client_initials_square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  height: 5vh;
+}
+
+.autosuggest_client_initials_square p {
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: rgb(255, 255, 255);
+}
+
+.admin_individual_client_suggestion_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.admin_individual_client_treatment_suggestion_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  cursor: default;
+  pointer-events: none;
+}
+
+.admin_individual_client_treatment_suggestion_container p {
+  font-weight: 500;
+}
+
+.admin_individual_client_suggestion_container:hover {
+  background: #ddd;
+}
+
+.react-autosuggest__suggestions-container {
+  display: none;
+}
+
+.react-autosuggest__suggestions-container--open {
+  display: block;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+}
+
+.react-autosuggest__suggestions-list {
+  max-height: 40vh;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin-bottom: 1rem;
+  margin-top: 0rem;
+  padding-top: 1rem;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #ddd;
+}
+
+.admin_individual_client_treatment_suggestion_picture {
+  display: flex;
+  height: 10%;
+  width: 10%;
+}
+
+.admin_individual_client_treatment_suggestion_picture svg {
+  transform: scale(1);
+}
+
+.quickie_icon_path {
+  transform: scale(0.5);
+}
+
+.hydrodermabrasion_icon_path {
+  transform: scale(0.7);
+}
+
+.react_autosuggest_section_title_header {
+  display: block;
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: rgb(111, 111, 111);
+  width: 100%;
+  background: rgb(235, 235, 235);
+}
+
+.admin_payment_info_buttons_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.admin_add_credit_card_button {
+  width: 33.333%;
+  background: blue;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #4a90e2;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 24px;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out;
+  border: 0;
+  padding: 1.5rem;
+}
+
+.admin_book_without_card_button {
+  width: 33.333%;
+  background: #fff;
+  color: #4a90e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  line-height: 24px;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out;
+  border: 2px solid #4a90e2;
+  padding: 1.5rem;
+}
+
+.admin_individual_selected_client_top_page_options {
+  position: absolute;
+  right: 0;
+}
+
+.admin_individual_selected_client_top_page_options p {
+  display: inline-block;
+  color: #000;
+  font-weight: 400;
+}
+
+.admin_individual_selected_client_chosen_create_page {
+  color: #4a90e2 !important;
+  font-weight: 600 !important;
+}
+
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .not_sure_booked_emoji_icon_path {
+    transform: scale(0.6);
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .admin_create_appointment_double_label {
+    width: 61%;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    width: 100%;
+  }
+
+  .autosuggest_client_profile_picture {
+    width: 20%;
+    height: 6vh;
+  }
+
+  .autosuggest_client_initials_square {
+    width: 20%;
+    height: 6vh;
+  }
+
+  .react_autosuggest_section_title_header {
+    font-size: 0.9rem;
+    padding: 1.2rem;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    font-size: 12px;
+  }
+
+  .react-autosuggest__input {
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .admin_create_appointment_double_label {
+    width: 62.2%;
+  }
+
+  .autosuggest_client_profile_picture {
+    width: 15%;
+    height: 5vh;
+  }
+
+  .autosuggest_client_initials_square {
+    width: 15%;
+    height: 5vh;
+  }
+
+  .react_autosuggest_section_title_header {
+    font-size: 1.3rem;
+    padding: 1.5rem;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    font-size: 16px;
+  }
+
+  .react-autosuggest__input {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,9 @@
+const JET_HYDRO_PEEL_TOGGLE = "JET_HYDRO_PEEL_TOGGLE";
+
+const ACTION_JET_HYDRO_PEEL_TOGGLE = () => {
+  return {
+    type: JET_HYDRO_PEEL_TOGGLE,
+  };
+};
+
+export default ACTION_JET_HYDRO_PEEL_TOGGLE;

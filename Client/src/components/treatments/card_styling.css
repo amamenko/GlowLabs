@@ -1,0 +1,1401 @@
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .card {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: auto 1fr;
+    grid-template-areas:
+      "hero hero description description description description"
+      "hero hero description description description description"
+      "hero hero description description description description";
+    box-shadow: 1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+      -1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+      0px -1px 1px 0px rgba(177, 177, 166, 0.7),
+      0px 2px 1px 0px rgba(177, 177, 166, 0.6);
+
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    border-radius: 10px;
+    position: relative;
+    z-index: 4;
+  }
+
+  .card_image {
+    grid-area: hero;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0px -3px 3px 0px rgba(177, 177, 166, 0.1);
+    overflow: hidden;
+  }
+
+  .card_svg {
+    position: absolute;
+    width: 100%;
+    max-width: 7rem;
+    height: 100%;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
+  }
+
+  .card_description {
+    grid-area: description;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px -3px 3px 0px rgba(177, 177, 166, 0.1);
+    overflow: hidden;
+  }
+
+  .card_border_right {
+    display: flex;
+    align-self: flex-end;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+
+  .card_description_inner_wrapper {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    width: 85%;
+  }
+
+  .card_description_inner_wrapper h2 {
+    font-size: 0.9rem;
+  }
+
+  .card_description_subheader {
+    display: flex;
+    font-weight: 300;
+    font-size: 0.75rem;
+  }
+
+  .card_description_paragraph {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6rem;
+    line-height: 12px;
+  }
+
+  .card_description_microneedle_toggle,
+  .card_description_add_on_paragraph_toggle,
+  .card_description_paragraph_toggle {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    position: relative;
+  }
+
+  .fa-layers {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+  }
+
+  .card_description_icon_wrapper_container {
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    position: relative;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.65rem;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-left: 0.9rem;
+    padding-bottom: 0.1rem;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    padding-top: 0.1rem;
+  }
+
+  .card_description_paragraph_title {
+    display: flex;
+    font-size: 0.55rem;
+    color: rgba(0, 48, 76, 0.7);
+    padding-left: 0.3rem;
+    font-weight: 500;
+    position: absolute;
+    left: 0.5rem;
+  }
+
+  .card_description_icon {
+    display: flex;
+    font-size: 0.55rem;
+    color: rgba(0, 48, 76, 0.7);
+    position: absolute;
+    left: 0;
+    margin: 0 auto;
+  }
+
+  .card_bottom_wrapper {
+    font-weight: 500;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .card_toggler {
+    font-size: 0.75rem;
+    display: flex;
+    align-self: flex-end;
+    z-index: 5;
+    cursor: pointer;
+  }
+
+  .card_bottom_spacer {
+    flex-grow: 1;
+  }
+
+  .small_screen_card_description_plus,
+  .small_screen_card_description_suitcase {
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+
+  .notification_container {
+    width: 100%;
+    background-color: rgb(214, 236, 252);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .notification_removed_container {
+    width: 100%;
+    background-color: rgb(199, 221, 237);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .notification_text_container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .notification_text_container p {
+    color: rgb(0, 0, 0);
+    margin-top: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 400;
+  }
+
+  .big_screen_book_now_wrapper {
+    display: none;
+  }
+
+  .facial_advanced_treatment_icon {
+    position: absolute;
+    top: 1rem;
+    font-size: 1rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: color 0.5s ease;
+  }
+
+  .facial_advanced_treatment_designation {
+    position: absolute;
+    bottom: 0.6rem;
+    font-size: 0.6rem;
+    left: 0;
+    right: 0;
+    margin: 0;
+    text-align: center;
+    font-weight: 600;
+    transition: color 0.5s ease;
+  }
+
+  .facial_coming_soon_designation {
+    position: absolute;
+    font-size: 0.5rem;
+    font-weight: 700;
+    bottom: 3.4rem;
+    color: rgb(155, 155, 155);
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .card_description_subheader {
+      font-size: 0.7rem;
+    }
+
+    .facial_advanced_treatment_icon {
+      top: 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      bottom: 0.5rem;
+      font-size: 0.6rem;
+      line-height: 0.7rem;
+    }
+
+    .card_description_paragraph {
+      font-size: 0.6rem;
+      line-height: 11px;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 3rem;
+    }
+
+    .card_description_paragraph_value {
+      font-size: 0.6rem;
+      padding-bottom: 0.1rem;
+    }
+
+    .card_description_paragraph_title {
+      font-size: 0.6rem;
+    }
+  }
+}
+
+/* CSS for Smaller Portrait Screens (e.g. Galaxy Note 9) */
+@media only screen and (min-width: 360px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1rem;
+  }
+
+  .card_description_subheader {
+    font-size: 0.8rem;
+  }
+
+  .card_description_icon_wrapper_container {
+    height: auto;
+    position: static;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .card_description_icon {
+    font-size: 0.8rem;
+    margin: auto;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 1.2rem;
+  }
+
+  .card_description_paragraph_title {
+    position: static;
+    font-size: 1rem;
+    margin-left: 0.8rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.7rem;
+    line-height: 15px;
+  }
+
+  .card_toggler {
+    font-size: 0.9rem;
+  }
+
+  .small_screen_card_description_plus,
+  .small_screen_card_description_suitcase {
+    font-size: 1rem;
+  }
+
+  .notification_text_container h3 {
+    font-size: 1rem;
+  }
+
+  .notification_text_container p {
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    top: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 1rem;
+    font-size: 0.7rem;
+  }
+
+  .facial_coming_soon_designation {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 700;
+    bottom: 4.7rem;
+    color: rgb(155, 155, 155);
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-height: 800px) {
+  .card_description_icon {
+    font-size: 0.6rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.7rem;
+    padding-left: 0.9rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.7rem;
+    margin-left: 0.6rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .facial_advanced_treatment_icon {
+    top: 1rem;
+    font-size: 1rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 3.7rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .facial_advanced_treatment_icon {
+    top: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 1rem;
+    font-size: 0.7rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 4.7rem;
+  }
+}
+
+/* CSS for Pixel 4 */
+@media only screen and (min-width: 360px) and (device-height: 760px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+
+    .facial_coming_soon_designation {
+      bottom: 4.2rem;
+    }
+  }
+}
+
+/*CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 650px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+
+    .card_description_paragraph {
+      font-size: 0.6rem;
+      line-height: 13px;
+    }
+
+    .facial_advanced_treatment_icon {
+      top: 0.6rem;
+      font-size: 1rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      bottom: 0.5rem;
+      font-size: 0.7rem;
+      line-height: 0.7rem;
+    }
+
+    .card_description_paragraph_value {
+      font-size: 0.6rem;
+      padding-left: 1rem;
+    }
+
+    .card_description_paragraph_title {
+      position: static;
+      font-size: 0.6rem;
+      margin-left: 0.7rem;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 3.1rem;
+    }
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.3rem;
+  }
+
+  .card_description_subheader {
+    font-size: 0.9rem;
+  }
+
+  .card_toggler {
+    font-size: 1rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+  }
+
+  .card_description_paragraph_title {
+    position: static;
+    font-size: 0.9rem;
+    margin-left: 0.7rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 5.3rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+  }
+}
+
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  .facial_coming_soon_designation {
+    bottom: 3.8rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.7rem;
+    padding-left: 1.1rem;
+  }
+
+  .card_description_paragraph_title {
+    position: static;
+    font-size: 0.7rem;
+    margin-left: 0.8rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .facial_coming_soon_designation {
+      bottom: 3.5rem;
+    }
+
+    .card_description_inner_wrapper h2 {
+      font-size: 1.1rem;
+    }
+
+    .card_description_subheader {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Slightly Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 801px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .card_description_inner_wrapper h2 {
+      font-size: 1.2rem;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 4.6rem;
+    }
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .card_description_subheader {
+    font-size: 1rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.8rem;
+    line-height: 20px;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 1.1rem;
+    padding-bottom: 0.3rem;
+    padding-left: 1rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.9rem;
+  }
+
+  .card_description_icon {
+    font-size: 0.9rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    font-size: 0.8rem;
+    line-height: 15px;
+  }
+
+  .facial_advanced_treatment_icon {
+    font-size: 1.5rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-height: 800px) {
+  .card_description_icon {
+    font-size: 0.8rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.8rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.8rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    top: 0.8rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 4.2rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Larger Heights */
+@media only screen and (min-width: 410px) and (min-device-height: 801px) {
+  .facial_coming_soon_designation {
+    bottom: 5rem;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .card_description_paragraph {
+      line-height: 16px;
+    }
+
+    .facial_coming_soon_designation {
+      bottom: 4rem;
+    }
+
+    .facial_advanced_treatment_icon {
+      font-size: 1.2rem;
+      top: 0.8rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      bottom: 0.6rem;
+      font-size: 0.8rem;
+      line-height: 0.9rem;
+    }
+
+    .card_description_icon {
+      font-size: 0.75rem;
+    }
+
+    .card_description_paragraph_title {
+      font-size: 0.75rem;
+    }
+
+    .card_description_paragraph_value {
+      font-size: 0.75rem;
+      padding-bottom: 0rem;
+      padding-top: 0rem;
+    }
+
+    .card_description_paragraph_icon_wrapper {
+      padding-top: 0.1rem;
+      padding-bottom: 0.1rem;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .card_description_paragraph_icon_wrapper {
+      padding-left: 0.5rem;
+    }
+
+    .card_description_paragraph_value {
+      padding-left: 1.5rem;
+    }
+
+    .facial_advanced_treatment_designation {
+      font-size: 1rem;
+      line-height: 1.3rem;
+    }
+
+    .facial_coming_soon_designation {
+      font-size: 0.8rem;
+      bottom: 5.7rem;
+    }
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 500px) {
+  .facial_coming_soon_designation {
+    bottom: 3.5rem;
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .card_description_icon_wrapper_container {
+    padding-top: 0.7rem;
+  }
+
+  .card_description_paragraph_toggle {
+    display: block;
+    width: 45vw;
+    height: 27vh;
+    overflow: hidden;
+  }
+
+  .card_description_microneedle_toggle {
+    display: block;
+    width: 45vw;
+    max-height: 27vh;
+    overflow: hidden;
+  }
+
+  .card_description_add_on_paragraph_toggle {
+    display: block;
+    width: 45vw;
+    max-height: 35vh;
+    overflow: hidden;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.7rem;
+    line-height: 2vh;
+    padding-top: 0.7rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 1rem;
+    padding-left: 1.2rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.8rem;
+  }
+
+  .card_description_icon {
+    font-size: 0.8rem;
+  }
+
+  .card_bottom_wrapper {
+    padding-top: 0.7rem;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.05rem;
+  }
+
+  .card_description_subheader {
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.755rem;
+    line-height: 17px;
+    padding-top: 0.7rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 0.7rem;
+    padding-bottom: 0.21rem;
+    padding-left: 1rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 0.7rem;
+  }
+
+  .card_description_icon {
+    font-size: 0.7rem;
+  }
+
+  .card_toggler {
+    font-size: 0.9rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    font-size: 1.2rem;
+    top: 1.2rem;
+  }
+
+  .notification_removed_container,
+  .notification_container {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .notification_removed_container svg,
+  .notification_container svg {
+    transform: scale(1.3);
+  }
+
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .facial_coming_soon_designation {
+    bottom: 4.5rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.4rem;
+  }
+
+  .card_description_subheader {
+    font-size: 1.1rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 1rem;
+    line-height: 25px;
+    padding-top: 0rem;
+  }
+
+  .card_description_icon {
+    font-size: 1rem;
+  }
+
+  .card_toggler {
+    font-size: 1.3rem;
+  }
+
+  .card_description_paragraph_value {
+    font-size: 1rem;
+    padding-bottom: 0.21rem;
+    padding-left: 1.8rem;
+  }
+
+  .card_description_paragraph_title {
+    font-size: 1rem;
+    margin-left: 1.5rem;
+  }
+
+  .card_description_paragraph_icon_wrapper {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    font-size: 1.5rem;
+    top: 1.5rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 1.1rem;
+    font-size: 1rem;
+    line-height: 1.3rem;
+  }
+
+  .facial_coming_soon_designation {
+    font-size: 0.8rem;
+    bottom: 5rem;
+  }
+
+  .notification_removed_container,
+  .notification_container {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .notification_removed_container svg,
+  .notification_container svg {
+    transform: scale(1.5);
+  }
+
+  .notification_text_container h3 {
+    font-size: 2rem;
+  }
+
+  .notification_text_container p {
+    margin-top: 0.3rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .card_svg {
+    position: absolute;
+    top: 0;
+    bottom: auto;
+    width: 100%;
+    max-width: 10rem;
+    height: 75%;
+  }
+
+  .notification_removed_container svg,
+  .notification_container svg {
+    transform: scale(1);
+  }
+
+  .notification_removed_container,
+  .notification_container {
+    padding-top: 0vh;
+    padding-bottom: 0vh;
+  }
+
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .notification_text_container p {
+    color: rgb(0, 0, 0);
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .card_description_microneedle_toggle {
+    max-height: none;
+  }
+
+  .card_description_inner_wrapper h2 {
+    font-size: 1.4rem;
+  }
+
+  .card_description_subheader {
+    font-size: 1.1rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 1rem;
+    line-height: 25px;
+    padding-top: 0rem;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgb(0, 129, 177);
+  }
+
+  .big_screen_entire_bottom_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    font-size: 1rem;
+    margin-right: 0.7rem;
+  }
+
+  .big_screen_card_description_icon {
+    color: rgb(0, 129, 177);
+  }
+
+  .big_screen_card_add_on_button,
+  .big_screen_card_description_suitcase {
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    flex: 1;
+  }
+
+  .big_screen_duration_wrapper,
+  .big_screen_price_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .big_screen_price_wrapper .big_screen_card_description_icon,
+  .big_screen_duration_wrapper .big_screen_card_description_icon {
+    margin-right: 0.5rem;
+  }
+
+  .big_screen_bottom_side_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .big_screen_book_now_wrapper {
+    width: 9vw;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-content: center;
+    position: absolute;
+    z-index: 5;
+    top: auto;
+    bottom: 0;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+    border: 1px solid rgb(0, 129, 177);
+    border-radius: 20px;
+    cursor: pointer;
+    color: rgb(0, 129, 177);
+  }
+
+  .big_screen_book_now_wrapper:hover {
+    color: #fff;
+    border: 1px solid transparent;
+    transition: all 0.5s ease;
+  }
+
+  .big_screen_book_now_wrapper p {
+    display: flex;
+    align-self: center;
+    font-size: 0.5rem;
+    font-weight: 600;
+    flex: 2;
+  }
+
+  .big_screen_in_cart {
+    padding-left: 20%;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 0.5rem;
+    flex: 3;
+  }
+
+  .facial_advanced_treatment_icon {
+    top: auto;
+    bottom: 12.5rem;
+    left: 0;
+    font-size: 1rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 3.5rem;
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+  }
+
+  .facial_coming_soon_designation {
+    display: none;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .notification_removed_container svg,
+  .notification_container svg {
+    transform: scale(1.5);
+  }
+
+  .notification_removed_container,
+  .notification_container {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+  }
+}
+
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1439px) and (max-device-height: 800px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.2rem;
+  }
+
+  .card_description_subheader {
+    font-size: 0.8rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 2.8rem;
+    font-size: 0.6rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    top: auto;
+    bottom: 10.2rem;
+    left: 0;
+    font-size: 1rem;
+  }
+
+  .card_svg {
+    position: absolute;
+    top: 2vh;
+    height: 65%;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1440px) {
+  .big_screen_book_now_wrapper {
+    width: 8em;
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+    padding: 0.4rem;
+  }
+
+  .big_screen_book_now_wrapper p {
+    display: flex;
+    align-self: center;
+    font-size: 0.6rem;
+    font-weight: 600;
+    flex: 3;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    flex: 3;
+  }
+
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    flex: 1;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgb(0, 129, 177);
+  }
+
+  .facial_advanced_treatment_icon {
+    top: auto;
+    bottom: 14rem;
+    left: 0;
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1440px) and (max-device-height: 900px) {
+  .facial_advanced_treatment_icon {
+    bottom: 13rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .facial_advanced_treatment_icon {
+        bottom: 13.5rem;
+      }
+    }
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1500px) {
+  .facial_advanced_treatment_icon {
+    bottom: 15rem;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .card_description_inner_wrapper h2 {
+    font-size: 1.8rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 0.85rem;
+    line-height: 22px;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 1.3rem;
+  }
+
+  .big_screen_in_cart {
+    padding-left: 15%;
+  }
+
+  .big_screen_card_description_suitcase {
+    margin-bottom: 0.1rem;
+  }
+
+  .big_screen_book_now_wrapper {
+    width: 9em;
+  }
+
+  .big_screen_book_now_wrapper p {
+    font-size: 0.8rem;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 0.6rem;
+  }
+
+  .facial_advanced_treatment_icon {
+    bottom: 7rem;
+    font-size: 2rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 4rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .card_svg {
+    height: 65%;
+    max-width: 14rem;
+  }
+
+  .card_description_inner_wrapper h2 {
+    font-size: 2rem;
+  }
+
+  .card_description_subheader {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .card_description_paragraph {
+    font-size: 1rem;
+    line-height: 3vh;
+  }
+
+  .card_toggler {
+    font-size: 4rem;
+  }
+
+  .card_suitcase_icon {
+    font-size: 4rem;
+  }
+
+  .big_screen_in_cart {
+    padding-left: 10%;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 1.8rem;
+  }
+
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    flex: 1;
+
+    font-size: 1.2rem;
+    margin-right: 0rem;
+  }
+
+  .big_screen_book_now_wrapper {
+    width: 10em;
+  }
+
+  .big_screen_book_now_wrapper p {
+    font-size: 0.7rem;
+    flex: 2;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 0.7rem;
+    flex: 3;
+  }
+
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .notification_text_container p {
+    color: rgb(0, 0, 0);
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .facial_advanced_treatment_icon {
+    bottom: 5.5rem;
+    font-size: 1rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 4rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .card_svg {
+    height: 65%;
+  }
+
+  .card_description_inner_wrapper h2 {
+    font-size: 3rem;
+  }
+
+  .card_description_subheader {
+    font-size: 2rem;
+  }
+
+  .card_description_paragraph {
+    font-size: 1.5rem;
+    line-height: 40px;
+  }
+
+  .card_toggler {
+    font-size: 2rem;
+  }
+
+  .card_suitcase_icon {
+    font-size: 2rem;
+  }
+
+  .big_screen_in_cart {
+    padding-left: 10%;
+  }
+
+  .big_screen_price,
+  .big_screen_duration {
+    font-size: 2.3rem;
+  }
+
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  .big_screen_card_description_icon,
+  .big_screen_card_description_suitcase {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    flex: auto;
+  }
+
+  .big_screen_book_now_wrapper {
+    width: 14em;
+  }
+
+  .big_screen_book_now_wrapper p {
+    font-size: 1.5rem;
+    flex: auto;
+  }
+
+  .big_screen_book_now_wrapper p.big_screen_card_add_on_button {
+    font-size: 1.2rem;
+    flex: auto;
+  }
+
+  .notification_text_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .notification_text_container p {
+    color: rgb(0, 0, 0);
+    margin-top: 0.3rem;
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+
+  .facial_advanced_treatment_icon {
+    bottom: 7rem;
+    font-size: 2rem;
+  }
+
+  .facial_advanced_treatment_designation {
+    bottom: 5rem;
+    font-size: 1.2rem;
+  }
+}

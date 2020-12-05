@@ -1,0 +1,235 @@
+.all_treatments_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  margin: 0 auto;
+  grid-gap: 2.5rem 0rem;
+  background: rgb(255, 255, 255);
+  height: max-content;
+  padding-top: 5vh;
+}
+
+.all_treatments_container header {
+  grid-column: 1 / -1;
+}
+
+.treatments_title_underline {
+  transition: width 1s ease;
+}
+
+.card_container {
+  height: 28.6666667vh;
+}
+
+.all_treatments_header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 0;
+}
+
+.all_treatments_header h2 {
+  font-size: 3.5vh;
+  font-weight: 900;
+  color: rgb(44, 44, 52);
+  -webkit-text-fill-color: rgb(44, 44, 52);
+  line-height: 0.5rem;
+  padding-bottom: 2.5vh;
+  padding-top: 0.5rem;
+}
+
+.all_treatments_header h3 {
+  font-size: 3vh;
+  font-weight: 400;
+  padding-bottom: 0.5rem;
+  color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  padding-top: 2vh;
+}
+
+@media only screen and (min-width: 375px) {
+  .all_treatments_header h2 {
+    font-size: 3vh;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 600px) and (orientation: landscape) {
+  .all_treatments_header h3 > p > br {
+    display: none;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (orientation: portait) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    grid-gap: 1rem;
+    grid-row-gap: 3rem;
+  }
+
+  .all_treatments_header h2 {
+    font-size: 4vh;
+    padding-bottom: 3vh;
+  }
+
+  .card_container {
+    height: 23vh;
+  }
+}
+
+/* CSS for Large Screens with Smaller Browser Sizes */
+@media only screen and (min-width: 500px) and (min-device-height: 500px) {
+  .card_container {
+    height: 25vh;
+  }
+}
+
+/* CSS for Desktops at Half Screen */
+@media only screen and (min-width: 830px) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(21.5rem, 1fr));
+  }
+
+  .all_treatments_header h2 {
+    font-size: 5vh;
+    padding-bottom: 4vh;
+  }
+}
+
+/* CSS for Phones in Landscape Mode */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .card_container {
+    height: 50vh;
+  }
+
+  .all_treatments_header h2 {
+    font-size: 8vh;
+    padding-bottom: 6vh;
+  }
+
+  .all_treatments_header h3 {
+    font-size: 5vh;
+    padding-bottom: 0rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-gap: 1rem;
+    grid-row-gap: 3.5rem;
+  }
+
+  .all_treatments_header h2 {
+    font-size: 5vh;
+    padding-bottom: 4vh;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (orientation: portrait) {
+  .card_container {
+    min-height: 15vh;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (orientation: landscape) {
+  .card_container {
+    min-height: 30vh;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(30.5rem, 1fr));
+    grid-gap: 1rem;
+    grid-row-gap: 3.5rem;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+  }
+
+  .card_container {
+    min-height: 10vh;
+    height: 28.6666667vh;
+  }
+
+  .all_treatments_header h2 {
+    font-size: calc(0.5rem + 3vh);
+    padding-bottom: calc(0.5rem + 3vh);
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops with Larger Heights */
+@media only screen and (min-width: 1200px) and (min-device-height: 1250px) {
+  .card_container {
+    height: 22vh;
+  }
+}
+
+@media only screen and (min-width: 1400px) and (orientation: landscape) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops with Larger Heights */
+@media only screen and (min-width: 1600px) and (min-device-height: 1250px) {
+  .card_container {
+    height: 33vh;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  }
+
+  .all_treatments_header h2 {
+    font-size: calc(1rem + 4.5vh);
+    padding-bottom: calc(1rem + 3.5vh);
+  }
+
+  .card_container {
+    min-height: 35vh;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2000px) {
+  .all_treatments_container {
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+    grid-gap: 1rem;
+    grid-row-gap: 3.5rem;
+  }
+
+  .card_container {
+    height: 36vh;
+  }
+
+  .all_treatments_header h2 {
+    font-size: calc(1rem + 4.5vh);
+    padding-bottom: calc(1rem + 4.5vh);
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .card_container {
+    height: 40vh;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2400px) {
+  .card_container {
+    height: 36vh;
+  }
+}

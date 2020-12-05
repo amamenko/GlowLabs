@@ -1,0 +1,53 @@
+<mjml>
+  <mj-body background-color="#fff">
+    <mj-section>
+      <mj-column>
+
+        <mj-image padding-bottom="10px" width="300px" src="https://i.ibb.co/zVVByxB/Glow-Labs-Cropped-Logo.jpg"></mj-image>
+
+        <mj-text padding-bottom="20px" align="center" font-size="25px" color="rgb(50, 50, 50)" font-family="helvetica" font-weight="500">Facial Bar</mj-text>
+
+        <mj-divider border-width="1px" padding="0 25px" border-color="rgb(211, 211, 211)" padding="0px"></mj-divider>
+
+      </mj-column>
+    </mj-section>
+    <mj-section padding-top="20px">
+      <mj-column>
+        <mj-text padding-top="0px" padding-bottom="40px" align="center" font-size="30px" line-height="40px" color="rgb(50, 50, 50)" font-family="helvetica" font-weight="800">{firstName}, your appointment has been confirmed!</mj-text>
+        <mj-text padding-top="10px" align="center" font-size="20px" color="rgb(50, 50, 50)" font-family="helvetica" font-weight="600">{startTime} on {day}, {date}</mj-text>
+        <mj-text padding-top="10px" padding-bottom="40px" font-size="20px" align="center" font-size="15px" color="rgb(111, 111, 111)" font-family="helvetica" font-weight="normal">{treatment}</mj-text>
+        <mj-button background-color="transparent" font-size="20px" color="rgb(100, 100, 100)" border="1px solid rgb(100, 100, 100)" font-size="15px" font-weight="500" width="100%" href={consentFormLink}>
+          Fill Out Consent Form
+        </mj-button>
+        <mj-button background-color="rgb(0, 129, 177)" color="#fff" font-size="20px" font-weight="400" width="100%" padding-bottom="40px" href={eventCalendarLink}>
+          Add to Calendar
+        </mj-button>
+        <mj-divider padding="0 25px" border-width="1px" border-color="rgb(211, 211, 211)"></mj-divider>
+
+      </mj-column>
+    </mj-section>
+    <mj-section padding-top="10px">
+      <mj-column>
+        <mj-text padding-top="0px" padding-bottom="0px" align="center" font-size="20px" color="rgb(50, 50, 50)" font-family="helvetica" font-weight="800">Cancellation Policy</mj-text>
+        <mj-text padding-top="10px" align="center" font-size="20px" line-height="30px" color="rgb(55, 55, 55)" font-family="helvetica" font-weight="300">We ask that you please reschedule or cancel at least 24 hours before the beginning of your appointment</mj-text>
+        <mj-image src="https://i.ibb.co/Ky7pFLM/Glow-Labs-Map-Image-For-Emails-Compressed.jpg"></mj-image>
+
+      </mj-column>
+    </mj-section>
+    <mj-section padding-top="0px">
+      <mj-column>
+        <mj-text padding-top="0px" padding-bottom="10px" align="center" font-size="20px" color="rgb(50, 50, 50)" font-family="helvetica" font-weight="800">Glow Labs</mj-text>
+        <mj-text padding-top="1px" align="center" font-size="15px" color="rgb(55, 55, 55)" font-family="helvetica" font-weight="400" color="rgb(111, 111, 111)">1506 Broadway Hewlett, NY 11557</mj-text>
+        <mj-text padding-top="0px" align="center" font-size="15px" color="rgb(55, 55, 55)" font-family="helvetica" font-weight="400" color="rgb(111, 111, 111)">glowlabs@yahoo.com</mj-text>
+        <mj-text padding-bottom="20px" padding-top="0px" align="center" font-size="15px" color="rgb(55, 55, 55)" font-family="helvetica" font-weight="400" color="rgb(111, 111, 111)">(516) 442-8122</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section padding-top="30px" background-color="rgb(235, 235, 235)">
+      <mj-column>
+        <mj-social icon-size="40px" mode="horizontal">
+          <mj-social-element background-color="rgb(0, 129, 177)" name="facebook" href="https://www.facebook.com/glowlabsLI/" padding="0px 30px" />
+          <mj-social-element background-color="rgb(0, 129, 177)" name="instagram" href="https://www.instagram.com/glow.labs/?hl=en" padding="0px 30px" />
+        </mj-social>
+    </mj-section>
+  </mj-body>
+</mjml>

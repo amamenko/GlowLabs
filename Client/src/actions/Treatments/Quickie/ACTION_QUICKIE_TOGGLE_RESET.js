@@ -1,0 +1,9 @@
+const QUICKIE_TOGGLE_RESET = "QUICKIE_TOGGLE_RESET";
+
+const ACTION_QUICKIE_TOGGLE_RESET = () => {
+  return {
+    type: QUICKIE_TOGGLE_RESET
+  };
+};
+
+export default ACTION_QUICKIE_TOGGLE_RESET;

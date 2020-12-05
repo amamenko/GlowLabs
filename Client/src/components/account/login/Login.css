@@ -1,0 +1,365 @@
+.complete_registration_logo_container,
+.login_logo_container {
+  min-width: 10rem;
+  max-width: 20rem;
+  grid-area: logo;
+  margin: 10vh auto;
+}
+
+.login_page_descriptive_text {
+  display: none;
+}
+
+.complete_registration_prompt,
+.login_section_designator {
+  grid-area: section;
+  text-align: center;
+}
+
+.complete_registration_prompt {
+  text-align: center;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  font-weight: 700;
+  color: rgb(77, 77, 77);
+}
+
+.sign_up_page_form,
+.login_form_container {
+  width: 100%;
+  grid-area: form;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.sign_up_page_form > .form-group,
+.login_form_container > .form-group {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.sign_up_page_form input,
+.login_form_container input {
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  font-size: 1.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  line-height: 0;
+}
+
+.complete_registration_bottom_buttons_container,
+.bottom_buttons_container {
+  grid-area: buttons;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login_facebook_container {
+  grid-area: facebook;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.continue_with_facebook_button {
+  display: block;
+  background: rgb(59, 89, 152);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.continue_with_facebook_button p {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+.login_or_container {
+  grid-area: or;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+  color: rgb(121, 121, 121);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.complete_registration_page_container {
+  height: 85vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: 25% 10% 25% 30% 15%;
+  grid-template-areas:
+    "logo logo logo"
+    "section section section"
+    "form form form"
+    "buttons buttons buttons"
+    ". . .";
+  position: relative;
+  background: white;
+}
+
+.login_container {
+  height: 85vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: 20% 5% 15% 5% 25% 20% 10%;
+  grid-template-areas:
+    "logo logo logo"
+    "section section section"
+    "facebook facebook facebook"
+    "or or or"
+    "form form form"
+    "buttons buttons buttons"
+    ". . .";
+  position: relative;
+  background: white;
+}
+
+.complete_registration_page_container:before,
+.login_container:before {
+  content: "";
+  background-color: white;
+  position: absolute;
+  height: 15vh;
+  width: 25vw;
+  left: 0vw;
+  bottom: -15vh;
+  z-index: 50;
+}
+
+.login_section_designator h2 {
+  font-weight: 700;
+  color: rgb(77, 77, 77);
+}
+
+.complete_registration_button,
+.log_in_button {
+  background: rgb(44, 44, 52);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+.dont_have_an_account_question {
+  font-weight: 500;
+}
+
+.create_account_redirect_button {
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  min-width: 15rem;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+@media only screen and (max-width: 330px) {
+  .login_section_designator h2 {
+    font-size: 6vw;
+  }
+}
+
+@media only screen and (max-width: 767px) and (max-device-height: 1000px) {
+  .complete_registration_page_container,
+  .login_container {
+    height: min-content;
+  }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 1023px) and (max-device-height: 800px) and (orientation: landscape) {
+  .complete_registration_page_container,
+  .login_container {
+    height: 200vh;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+  .complete_registration_page_container,
+  .login_container {
+    height: 100vh;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
+  .login_page_descriptive_text {
+    display: block;
+    position: absolute;
+    top: 23%;
+    left: 39%;
+  }
+
+  .login_page_descriptive_text h2 {
+    font-size: 5rem;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+  }
+
+  .login_page_descriptive_text ul {
+    padding-top: 1rem;
+    padding-left: 3rem;
+  }
+
+  .login_page_descriptive_text ul li {
+    font-size: 1.5rem;
+    line-height: 5rem;
+    color: rgb(255, 255, 255);
+  }
+
+  .login_page_background {
+    width: 100%;
+    height: 100%;
+    /* Photo by Karolina Grabowska from Pexels */
+    background-image: url("../../../images/GlowLabsSignInBackgroundCompressed.jpg");
+    background-repeat: no-repeat;
+    background-position: 100%, 100%;
+    background-size: cover;
+    position: absolute;
+    display: block;
+    z-index: -1;
+  }
+
+  .login_page_background_blurry {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    height: 100%;
+    width: 75%;
+    position: absolute;
+    right: 0;
+  }
+
+  .complete_registration_page_container {
+    width: 35%;
+    height: 100vh;
+    grid-template-rows: 20% 5% 30% 20% 25%;
+  }
+
+  .login_container {
+    width: 35%;
+    height: 100vh;
+    grid-template-rows: 20% 5% 10% 10% 25% 20% 10%;
+  }
+
+  .login_section_designator h2 {
+    font-size: 1.3em;
+  }
+
+  .sign_up_page_form input,
+  .login_form_container input,
+  .login_or_container,
+  .complete_registration_button,
+  .log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    min-width: 15rem;
+    width: 50vw;
+    max-width: 17rem;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .sign_up_page_form input,
+  .login_form_container input,
+  .login_or_container,
+  .complete_registration_button,
+  .log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 19rem;
+  }
+
+  .login_section_designator h2 {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .sign_up_page_form input,
+  .login_form_container input,
+  .login_or_container,
+  .complete_registration_button,
+  .log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 25rem !important;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .complete_registration_page_container {
+    width: 25%;
+    grid-template-rows: 25% 10% 25% 20% 15%;
+  }
+
+  .login_container {
+    width: 25%;
+    grid-template-rows: 20% 5% 10% 5% 20% 20% 10%;
+  }
+
+  .sign_up_page_form input,
+  .login_form_container input,
+  .login_or_container,
+  .complete_registration_button,
+  .log_in_button,
+  .create_account_redirect_button,
+  .continue_with_facebook_button {
+    max-width: 28rem;
+  }
+
+  .login_page_descriptive_text {
+    top: 25%;
+    left: 30%;
+  }
+
+  .login_page_descriptive_text h2 {
+    font-size: 7rem;
+  }
+
+  .login_page_descriptive_text ul li {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (min-width: 2400px) {
+  .complete_registration_page_container,
+  .login_container {
+    height: 85vh;
+  }
+}

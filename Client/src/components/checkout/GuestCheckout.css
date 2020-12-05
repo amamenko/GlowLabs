@@ -1,0 +1,538 @@
+.checkout_container {
+  padding-top: 8vh;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  padding-bottom: 35vh;
+}
+
+.checkout_container h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.checkout_container_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+}
+
+.checkout_forward_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.checkout_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.checkout_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.checkout_header h2 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+  margin-left: 1.5rem;
+}
+
+.top_form_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 87vw;
+}
+
+.required_fields_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 0.6rem;
+}
+
+.required_label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.required_label.red_asterisk {
+  margin-left: 0.2rem;
+}
+
+.red_asterisk {
+  color: red;
+  margin-right: 0.2rem;
+}
+
+.required_fields_statement {
+  font-weight: 500;
+}
+
+.guest_checkout_form_container {
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.input_field {
+  font-size: 1.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  line-height: 0;
+}
+
+.form_appointment_notes {
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 3rem;
+}
+
+.form_appointment_notes.form_notes_container {
+  margin-top: 0rem;
+}
+
+.notes_character_limit {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form_appointment_notes_caption {
+  color: rgb(211, 211, 211);
+}
+
+.guest_checkout_bottom_buttons_container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 6vh;
+  padding-bottom: 4vh;
+  padding-top: 2vh;
+}
+
+.confirm_details_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  background: rgb(44, 44, 52);
+  border-radius: 30px;
+  color: white;
+  margin-top: 1.5rem;
+}
+
+.change_time_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  border-radius: 30px;
+  color: rgb(44, 44, 52);
+  margin-top: 1.5rem;
+}
+
+/* Prevent autofill of form elements */
+:-webkit-autofill {
+  transition: none;
+}
+
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .checkout_container h1,
+  .checkout_back_arrow,
+  .checkout_back_arrow {
+    font-size: 1.2rem;
+  }
+
+  .checkout_header {
+    height: 6vh;
+  }
+
+  .checkout_header h2 {
+    font-size: 0.9rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+
+  .input_field {
+    font-size: 1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.4rem;
+    padding-left: 0.4rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 0.9rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    padding-top: 0.4rem;
+    padding-bottom: 3rem;
+  }
+
+  .top_form_container {
+    width: 84vw;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .checkout_container h1 {
+    font-size: 2rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 3.1rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .input_field {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1.5rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .checkout_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 3.1rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .top_form_container {
+    width: 29vw;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .guest_checkout_form_container > form > .form-group {
+    margin-top: 1rem;
+  }
+
+  .input_field {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1.5rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Medium Desktops/Laptops (e.g. Microsoft Surface Pro) */
+@media only screen and (min-width: 1400px) {
+  .checkout_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 1.5rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 1.5rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1rem;
+    margin-left: 1.5rem;
+  }
+
+  .top_form_container {
+    width: 30vw;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .input_field {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .checkout_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 3.1rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .top_form_container {
+    width: 29vw;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .input_field {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1rem;
+    line-height: 1.8rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+    margin-right: 1rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .checkout_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .checkout_forward_arrow,
+  .checkout_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .checkout_back_arrow {
+    left: 3.1rem;
+  }
+
+  .checkout_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .checkout_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .top_form_container {
+    width: 29vw;
+  }
+
+  .guest_checkout_form_container {
+    margin-top: 2rem;
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .input_field {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    line-height: 0;
+  }
+
+  .form_appointment_notes {
+    font-size: 1.5rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .form_appointment_notes_caption p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+
+  .required_fields_container {
+    font-size: 0.8rem;
+    margin-right: 0rem;
+  }
+}

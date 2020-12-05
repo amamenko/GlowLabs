@@ -1,0 +1,9 @@
+const ANY_FILLERS_OR_BOTOX_NO = "ANY_FILLERS_OR_BOTOX_NO";
+
+const ACTION_ANY_FILLERS_OR_BOTOX_NO = () => {
+  return {
+    type: ANY_FILLERS_OR_BOTOX_NO
+  };
+};
+
+export default ACTION_ANY_FILLERS_OR_BOTOX_NO;

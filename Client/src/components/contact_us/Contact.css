@@ -1,0 +1,783 @@
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .contact_page_container {
+    height: 165vh;
+    position: relative;
+    background: rgb(255, 255, 255);
+    overflow: hidden;
+    padding-top: 0vh;
+  }
+
+  .contacts_title_underline {
+    border-bottom: 3px solid rgb(44, 44, 52);
+    margin-bottom: 0.5rem;
+  }
+
+  .contacts_content_flex_wrapper,
+  .contacts_page_wrapping {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: rgb(44, 44, 52);
+    -webkit-text-fill-color: rgb(44, 44, 52);
+    line-height: 0.5rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    position: relative;
+  }
+
+  .contacts_map_container {
+    width: 100vw;
+    height: 30vh;
+    overflow-x: hidden;
+  }
+
+  .contact_custom_marker {
+    position: absolute;
+    transform: translate(-50%, -100%);
+  }
+
+  .contact_custom_marker_logo_path {
+    transform: scale(0.014);
+  }
+
+  .contact_written_content_flex_container {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contacts_text_container {
+    display: flex;
+    align-self: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contacts_text_container h3 {
+    color: rgb(44, 44, 52);
+    margin-bottom: 1.5rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+  }
+
+  .contact_icon {
+    margin-right: 0.7rem;
+  }
+
+  .open_status_flex_container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 3rem;
+  }
+
+  .open_status_flex_container h3 {
+    display: none;
+    color: rgb(0, 129, 177);
+    -webkit-text-fill-color: rgb(0, 129, 177);
+  }
+
+  .day_and_time_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-start;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .days_container,
+  .hours_container {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .days_container {
+    margin-right: 1.5rem;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+
+  .days_container p {
+    font-weight: 600;
+  }
+
+  .open_status {
+    display: flex;
+    font-weight: 600;
+    align-self: flex-start;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .contact_page_container {
+      height: 172vh;
+    }
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .contact_page_container {
+    height: 140vh;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: rgb(44, 44, 52);
+    -webkit-text-fill-color: rgb(44, 44, 52);
+    line-height: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .contact_page_container {
+    height: 155vh;
+    margin-top: 5vh;
+    padding-top: 2vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) {
+  .contact_page_container {
+    height: 145vh;
+    margin-top: 5vh;
+    padding-top: 2vh;
+  }
+}
+
+/* CSS for Pixel 4, Galaxy Note 9 */
+@media only screen and (min-width: 360px) and (min-device-height: 740px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .contact_page_container {
+      height: 152vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .contact_page_container {
+      height: 169vh;
+    }
+  }
+}
+
+/* Additional CSS for Slightly Smaller Portrait Screens */
+@media only screen and (min-width: 375px) {
+  .contact_page_container {
+    height: 137vh;
+    margin-top: 0vh;
+    padding-top: 0vh;
+  }
+}
+
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  .contact_page_container {
+    height: 155vh;
+    margin-top: 6vh;
+    padding-top: 2vh;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .contact_page_container {
+      height: 160vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .contact_page_container {
+      height: 143vh;
+    }
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .contact_page_container {
+    margin-top: 22vh;
+    padding-top: 2vh;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+    .contact_page_container {
+      height: 130vh;
+      margin-top: 25vh;
+    }
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .contact_page_container {
+    height: 140vh;
+  }
+
+  .contact_page_container {
+    margin-top: 10vh;
+    padding-top: 0vh;
+  }
+}
+
+/* Additional CSS for iPhones 6+, 6s+, 7+, 8+ */
+@media only screen and (min-width: 410px) and (min-device-height: 700px) and (max-device-height: 800px) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .contact_page_container {
+      height: 145vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .contact_page_container {
+      height: 130vh;
+    }
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .contact_page_container {
+    overflow-x: hidden;
+    height: 150vh;
+    margin-top: -20vh;
+  }
+
+  .contacts_text_container {
+    width: 15vw;
+  }
+
+  .contacts_text_container p {
+    font-size: 0.65rem;
+    line-height: 1.5rem;
+  }
+
+  .contact_icon {
+    margin-right: 0.1rem;
+  }
+
+  .contacts_map_container {
+    width: 40vw;
+    height: 60vh;
+    margin-left: 15rem;
+  }
+
+  .contacts_content_flex_wrapper {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7vh;
+  }
+
+  .contact_written_content_flex_container {
+    align-self: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 2rem;
+    line-height: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .contacts_text_container h3 {
+    display: none;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+
+  .open_status_flex_container {
+    width: 50vw;
+    margin-right: 1.5rem;
+    margin-left: 2rem;
+  }
+
+  .open_status_flex_container h3 {
+    display: block;
+    padding-bottom: 1rem;
+  }
+
+  .open_status {
+    font-size: 0.8rem;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .contact_page_container {
+    height: 110vh;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    margin-top: 0rem;
+  }
+
+  .contacts_map_container {
+    width: 100vw;
+    height: 30vh;
+    overflow-x: hidden;
+    margin-left: 0rem;
+  }
+
+  .contacts_content_flex_wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0vh;
+  }
+
+  .contact_written_content_flex_container {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contacts_text_container {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contacts_text_container h3 {
+    color: rgb(44, 44, 52);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact_written_content_flex_container {
+    width: 100%;
+    margin-left: 5vw;
+    margin-top: 2vh;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contacts_text_container {
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 1.5rem;
+    line-height: 3.4rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .day_and_time_container {
+    margin-top: 0vh;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .open_status_flex_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 0vw;
+    margin-right: 3.1rem;
+    margin-top: 1rem;
+  }
+
+  .open_status_flex_container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2vh;
+    align-self: flex-start;
+    color: rgb(0, 129, 177);
+    -webkit-text-fill-color: rgb(0, 129, 177);
+    padding-bottom: 0;
+  }
+
+  .open_status {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .contacts_page_wrapping h2 {
+    font-size: 3.2rem;
+    line-height: 3rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .contact_page_container {
+    height: 100vh;
+    margin-top: 0vh;
+    background: rgb(255, 255, 255);
+    overflow: visible;
+  }
+
+  .contacts_content_flex_wrapper {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0vh;
+  }
+
+  .contacts_page_wrapping h2 {
+    display: flex;
+    align-self: center;
+    font-size: 2.5rem;
+    line-height: 5rem;
+    margin-top: -30vh;
+    text-align: left;
+    padding-bottom: 0rem;
+    padding-top: 0rem;
+  }
+
+  .contacts_map_container {
+    width: 100vw;
+    height: 40vh;
+    margin-left: 0rem;
+    margin-top: 1vh;
+  }
+
+  .contact_written_content_flex_container {
+    width: 100%;
+    margin-left: 5vw;
+    margin-top: 2vh;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contacts_text_container {
+    margin-top: 3rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 0.9rem;
+    line-height: 2rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .day_and_time_container {
+    margin-top: 0vh;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .open_status_flex_container {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 15vw;
+    margin-right: 0vw;
+    margin-top: 1rem;
+  }
+
+  .open_status_flex_container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2vh;
+    align-self: flex-start;
+    color: rgb(0, 129, 177);
+    -webkit-text-fill-color: rgb(0, 129, 177);
+    padding-bottom: 0;
+  }
+
+  .open_status {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .contacts_page_wrapping h2 {
+    font-size: 3rem;
+  }
+  .contacts_text_container p {
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .contact_page_container {
+    height: 85vh;
+    overflow: hidden;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 3rem;
+    line-height: 5rem;
+    margin-top: -17vh;
+  }
+
+  .contacts_map_container {
+    margin-top: 0vh;
+  }
+
+  .contact_written_content_flex_container {
+    margin-top: 0vh;
+  }
+
+  .contacts_text_container {
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 3rem;
+    padding-bottom: 0.2rem;
+    margin-top: 1rem;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .open_status_flex_container {
+    margin-top: 0rem;
+  }
+
+  .open_status_flex_container h3 {
+    font-size: 1rem;
+    margin-bottom: 2vh;
+  }
+
+  .open_status {
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .contact_page_container {
+    height: 120vh;
+    position: relative;
+    background: rgb(255, 255, 255);
+    padding-top: 3vh;
+  }
+
+  .contacts_text_container {
+    width: 14vw;
+    position: absolute;
+    top: 14rem;
+    right: 10.5rem;
+    z-index: 5;
+    border: 1px solid transparent;
+    padding: 3rem;
+    background: rgb(255, 255, 255);
+    border-radius: 30px;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 4rem;
+    margin-top: -11vh;
+    padding-bottom: 0.5rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 0.8rem;
+    line-height: 1.4rem;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 2rem;
+    line-height: 4rem;
+  }
+
+  .contacts_map_container {
+    margin-top: 5vh;
+    width: 50vw;
+    height: 65vh;
+    margin-left: 45vw;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contacts_page_wrapping {
+    margin-top: 8vh;
+  }
+
+  .open_status_flex_container {
+    margin-top: -65vh;
+    margin-left: -50vw;
+    width: 50vw;
+  }
+
+  .open_status_flex_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 3rem;
+    padding-bottom: 1rem;
+  }
+
+  .open_status {
+    font-size: 2rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .contact_page_container {
+    height: 120vh;
+    position: relative;
+    background: rgb(255, 255, 255);
+    padding-top: 3vh;
+  }
+
+  .contacts_text_container {
+    width: 16vw;
+    position: absolute;
+    top: 16rem;
+    right: 10.5rem;
+    z-index: 5;
+    border: 1px solid transparent;
+    padding: 3rem;
+    background: rgb(255, 255, 255);
+    border-radius: 30px;
+  }
+
+  .contacts_page_wrapping h2 {
+    font-size: 5rem;
+    margin-top: -11vh;
+    padding-bottom: 2.5rem;
+  }
+
+  .contacts_text_container h4 {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    margin-top: 0rem;
+  }
+
+  .contacts_text_container p {
+    font-size: 1.5rem;
+    line-height: 2.3rem;
+  }
+
+  .days_container p,
+  .hours_container p {
+    font-size: 3rem;
+    line-height: 5rem;
+  }
+
+  .contacts_map_container {
+    margin-top: 5vh;
+    width: 50vw;
+    height: 65vh;
+    margin-left: 45vw;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contacts_page_wrapping {
+    margin-top: 8vh;
+  }
+
+  .open_status_flex_container {
+    margin-top: -65vh;
+    margin-left: -50vw;
+    width: 50vw;
+  }
+
+  .open_status_flex_container h3 {
+    color: rgb(0, 0, 0);
+    font-size: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .open_status {
+    font-size: 3rem;
+  }
+}

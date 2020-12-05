@@ -1,0 +1,413 @@
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .large_sceen_logged_in_side_menu {
+    display: none;
+  }
+
+  .large_screen_side_menu_extras_section div:not(:first-child) {
+    display: none;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .large_sceen_logged_in_side_menu {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100vh;
+    width: 30%;
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+    background: rgb(244, 244, 244);
+    z-index: 500;
+  }
+
+  .large_screen_side_menu_profile_container {
+    position: absolute;
+    height: 24vh;
+    top: 2vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .large_screen_side_menu_profile_client_avatar_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    object-fit: cover;
+  }
+
+  .large_screen_side_menu_profile_client_avatar {
+    font-size: 6rem;
+    color: rgb(94, 94, 102);
+  }
+
+  .large_screen_side_menu_profile_client_photo_avatar {
+    object-fit: cover;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .large_screen_side_menu_profile_membership_type_container {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding-top: 0.2rem;
+    color: rgb(94, 94, 102);
+  }
+
+  .large_screen_side_menu_profile_contact_information_container {
+    text-align: center;
+  }
+
+  .large_screen_side_menu_profile_name_container {
+    font-weight: 700;
+    padding-top: 1rem;
+    color: rgb(0, 0, 0);
+  }
+
+  .large_screen_side_menu_profile_email_and_phone_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    width: 80%;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .large_screen_side_menu_profile_email_and_phone_container h2,
+  .large_screen_side_menu_profile_email_and_phone_container p {
+    font-size: 0.8rem;
+  }
+
+  .large_screen_side_menu_profile_email_container,
+  .large_screen_side_menu_profile_phone_number_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .large_screen_side_menu_profile_email_container p,
+  .large_screen_side_menu_profile_phone_number_container p {
+    padding-top: 0.2rem;
+    font-weight: 600;
+    color: rgb(111, 111, 111);
+  }
+
+  .large_screen_side_menu_all_items_container {
+    position: absolute;
+    top: 26vh;
+    width: 80%;
+  }
+
+  .large_screen_side_menu_item_container {
+    cursor: pointer;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+  }
+
+  .large_screen_side_menu_item_selected_border {
+    position: absolute;
+    left: -1.5rem;
+    border-left: 5px solid rgb(41, 137, 201);
+    width: 100%;
+    height: 1.5vh;
+    transition: opacity 0.5s ease;
+  }
+
+  .large_screen_side_menu_pdf_container p,
+  .large_screen_side_menu_item p {
+    position: absolute;
+    font-size: 0.8rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 0.2rem;
+  }
+
+  .large_screen_side_menu_item_icon {
+    color: rgb(94, 94, 102);
+  }
+
+  .large_screen_side_menu_pdf_container h2,
+  .large_screen_side_menu_item_icon,
+  .large_screen_side_menu_item h2 {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .large_screen_side_menu_item h2:hover {
+    color: rgb(155, 155, 155);
+    transition: color 0.5s ease;
+  }
+
+  .large_screen_side_menu_pdf_container h2:hover {
+    color: rgb(155, 155, 155);
+    transition: color 0.5s ease;
+  }
+
+  .large_screen_side_menu_pdf_container h2,
+  .large_screen_side_menu_item h2 {
+    padding-left: 1.5rem;
+    color: rgb(44, 44, 52);
+  }
+
+  .large_screen_account_nav_logo_container {
+    position: fixed;
+    height: 100%;
+    left: 2vw;
+    top: 0;
+    padding-bottom: 0rem;
+  }
+
+  .large_screen_account_nav_logo {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    padding: 0;
+    text-decoration: none;
+    height: 19.5%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .large_screen_side_menu_underline_separator {
+    width: 100%;
+    border-top: 2px solid rgb(211, 211, 211);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .large_screen_side_menu_log_out {
+    position: absolute;
+    bottom: 10vh;
+  }
+
+  .large_screen_side_menu_copyright {
+    position: absolute;
+    bottom: 3.1rem;
+    font-weight: 500;
+    color: rgb(188, 188, 188);
+    margin-right: 3.1rem;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .large_sceen_logged_in_side_menu {
+    width: 34%;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .large_sceen_logged_in_side_menu {
+    width: 30%;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .large_sceen_logged_in_side_menu {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    width: 20%;
+  }
+
+  .large_screen_side_menu_profile_client_avatar {
+    font-size: 5rem;
+  }
+
+  .large_screen_side_menu_profile_client_photo_avatar {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .large_screen_side_menu_profile_membership_type_container {
+    font-size: 0.6rem;
+    padding-top: 0.2rem;
+  }
+
+  .large_screen_side_menu_profile_name_container {
+    padding-top: 0.8rem;
+  }
+
+  .large_screen_side_menu_profile_email_and_phone_container {
+    font-size: 0.7rem;
+    width: 87%;
+  }
+
+  .large_screen_side_menu_profile_email_and_phone_container h2,
+  .large_screen_side_menu_profile_email_and_phone_container p {
+    font-size: 0.7rem;
+  }
+
+  .large_screen_side_menu_profile_email_container p,
+  .large_screen_side_menu_profile_phone_number_container p {
+    padding-top: 0.2rem;
+  }
+
+  .large_screen_side_menu_all_items_container {
+    top: 26vh;
+    width: 87%;
+  }
+
+  .large_screen_side_menu_item_container {
+    cursor: pointer;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    position: relative;
+  }
+
+  .large_screen_side_menu_item_selected_border {
+    left: -1.5rem;
+    height: 1.5vh;
+  }
+
+  .large_screen_side_menu_pdf_container p,
+  .large_screen_side_menu_item p {
+    font-size: 0.8rem;
+    padding-top: 0.2rem;
+  }
+
+  .large_screen_side_menu_pdf_container h2,
+  .large_screen_side_menu_item_icon,
+  .large_screen_side_menu_item h2 {
+    font-size: 0.95rem;
+  }
+
+  .large_screen_side_menu_pdf_container h2,
+  .large_screen_side_menu_item h2 {
+    padding-left: 0;
+  }
+
+  .large_screen_side_menu_item_container h2,
+  .large_screen_side_menu_item h2 {
+    font-size: 1rem;
+    position: absolute;
+    left: 2rem;
+  }
+
+  .large_screen_side_menu_underline_separator {
+    width: 100%;
+    border-top: 2px solid rgb(211, 211, 211);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .large_screen_side_menu_log_out {
+    bottom: -31vh;
+    width: 100%;
+  }
+
+  .large_screen_side_menu_copyright {
+    bottom: 3.1rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .large_sceen_logged_in_side_menu {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+    width: 23%;
+  }
+
+  .large_screen_account_nav_logo {
+    height: 17.5%;
+  }
+
+  .large_screen_side_menu_profile_client_avatar {
+    font-size: 6rem;
+  }
+
+  .large_screen_side_menu_profile_client_photo_avatar {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .large_screen_side_menu_profile_membership_type_container {
+    font-size: 0.8rem;
+    padding-top: 0.2rem;
+  }
+
+  .large_screen_side_menu_profile_name_container {
+    padding-top: 1rem;
+  }
+
+  .large_screen_side_menu_profile_email_and_phone_container {
+    font-size: 0.8rem;
+    width: 80%;
+  }
+
+  .large_screen_side_menu_profile_email_and_phone_container h2,
+  .large_screen_side_menu_profile_email_and_phone_container p {
+    font-size: 0.8rem;
+  }
+
+  .large_screen_side_menu_all_items_container {
+    top: 26vh;
+    width: 80%;
+  }
+
+  .large_screen_side_menu_item_container {
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+
+  .large_screen_side_menu_item_selected_border {
+    left: -1.5rem;
+    height: 1.5vh;
+  }
+
+  .large_screen_side_menu_pdf_container p,
+  .large_screen_side_menu_item p {
+    font-size: 0.8rem;
+  }
+
+  .large_screen_side_menu_pdf_container h2,
+  .large_screen_side_menu_item_icon,
+  .large_screen_side_menu_item h2,
+  .large_screen_side_menu_item_container h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .large_screen_side_menu_pdf_container h2,
+  .large_screen_side_menu_item h2,
+  .large_screen_side_menu_item_container h2 {
+    padding-left: 1.5rem;
+  }
+
+  .large_screen_side_menu_underline_separator {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .large_screen_side_menu_log_out {
+    position: absolute;
+    bottom: 15vh;
+  }
+}

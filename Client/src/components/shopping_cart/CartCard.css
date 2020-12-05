@@ -1,0 +1,201 @@
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .shopping_cart_card_wrapping {
+    width: 100%;
+    height: 23vh;
+    background: rgb(255, 255, 255);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: auto 1fr;
+    grid-template-areas:
+      "image_circle image_circle description description description description"
+      "image_circle image_circle description description description description"
+      "image_circle image_circle description description description description";
+    border-top: 2px solid rgb(211, 211, 211);
+    border-bottom: 2px solid rgb(211, 211, 211);
+    margin-top: -2px;
+  }
+
+  .shopping_cart_card_image_circle {
+    grid-area: image_circle;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shopping_cart_card_description {
+    grid-area: description;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin-right: 1.5rem;
+  }
+
+  .book_a_facial_statement {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgb(161, 161, 161);
+    padding-right: 1.5rem;
+  }
+
+  .no_facial_selected {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    color: rgb(161, 161, 161);
+  }
+
+  .shopping_cart_card_description h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .cart_card_top_container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .cart_card_bottom_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .shopping_cart_duration {
+    font-size: 1rem;
+    color: rgb(151, 151, 151);
+    font-weight: 600;
+  }
+
+  .shopping_cart_price {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .shopping_cart_remove_button {
+    display: flex;
+    width: 40%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    background: rgb(222, 222, 222);
+    border-radius: 30px;
+    margin-right: 1.5rem;
+    cursor: pointer;
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+}
+
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .shopping_cart_card_description h3 {
+    font-size: 1rem;
+  }
+
+  .shopping_cart_duration {
+    font-size: 0.8rem;
+  }
+
+  .shopping_cart_price {
+    font-size: 1.2rem;
+  }
+
+  .shopping_cart_remove_button {
+    font-size: 0.8rem;
+  }
+
+  .book_a_facial_statement {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgb(161, 161, 161);
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .shopping_cart_price {
+    font-size: 2rem;
+  }
+
+  .shopping_cart_remove_button {
+    font-size: 1.5rem;
+    margin-right: 3.1rem;
+  }
+
+  .book_a_facial_statement {
+    font-size: 1.2rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .shopping_cart_remove_button {
+    font-size: 1rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    margin-right: 1.5rem;
+    cursor: pointer;
+  }
+
+  .shopping_cart_card_description h3 {
+    font-size: 1.5rem;
+  }
+
+  .shopping_cart_duration {
+    font-size: 1rem;
+  }
+
+  .shopping_cart_price {
+    font-size: 2rem;
+  }
+
+  .book_a_facial_statement {
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .shopping_cart_card_description h3 {
+    font-size: 2rem;
+  }
+
+  .shopping_cart_duration {
+    font-size: 1.25rem;
+  }
+
+  .shopping_cart_price {
+    font-size: 2.5rem;
+  }
+
+  .shopping_cart_remove_button {
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-right: 3.1rem;
+  }
+
+  .book_a_facial_statement {
+    font-size: 1.5rem;
+  }
+}

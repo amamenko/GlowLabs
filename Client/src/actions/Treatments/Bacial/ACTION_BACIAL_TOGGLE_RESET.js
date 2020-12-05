@@ -1,0 +1,9 @@
+const BACIAL_TOGGLE_RESET = "BACIAL_TOGGLE_RESET";
+
+const ACTION_BACIAL_TOGGLE_RESET = () => {
+  return {
+    type: BACIAL_TOGGLE_RESET
+  };
+};
+
+export default ACTION_BACIAL_TOGGLE_RESET;

@@ -1,0 +1,33 @@
+.quickie_wrapping {
+  display: grid;
+  grid-area: quickie_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.quickie_icon_path {
+  transform: scale(0.5);
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 600px) {
+  .quickie_wrapping {
+    height: 64%;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .quickie_wrapping {
+    height: 20.8vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .quickie_wrapping {
+    height: auto;
+  }
+}

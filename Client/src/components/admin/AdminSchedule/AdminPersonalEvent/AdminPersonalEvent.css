@@ -1,0 +1,63 @@
+.admin_create_appointment_section_header {
+  position: relative;
+  width: 100%;
+}
+
+.admin_create_appointment_section_header > * {
+  display: inline-block;
+}
+
+.admin_create_appointment_section_header
+  > .admin_personal_event_checkbox_container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.admin_personal_event_checkbox_container p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-right: 0.5rem;
+  padding-left: 1rem;
+}
+
+.admin_personal_event_checkbox_container > .client_consent_form_checkbox {
+  margin-right: 0.4rem;
+}
+
+.admin_create_appointment_label {
+  z-index: -1;
+}
+
+.back_to_schedule_designator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.personal_event_error {
+  outline: 3px solid red;
+  z-index: 999999;
+  transition: none;
+}
+
+.admin_individual_selected_client_top_page_options
+  > .admin_square_payment_form_container {
+  padding-top: 0vh;
+  padding-bottom: 0vh;
+}
+
+@media only screen and (min-width: 1800px) {
+  .admin_individual_selected_client_top_page_options
+    > .admin_square_payment_form_container {
+    padding-top: 0vh;
+    padding-bottom: 4vh;
+  }
+}

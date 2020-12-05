@@ -1,0 +1,431 @@
+.availability_container {
+  padding-top: 8vh;
+  height: 100vh;
+  overflow-y: auto;
+  background: rgb(255, 255, 255);
+  padding-bottom: 8vh;
+}
+
+.availability_container h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.availability_container_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+}
+
+.availability_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.availability_forward_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.select_a_date_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.select_a_date_header h2 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+  margin-left: 1.5rem;
+}
+
+.availability_statement {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.calendar_tiles {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.react-calendar {
+  width: 100%;
+  border: 1px solid transparent;
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  padding-top: 1vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+.react-calendar__navigation {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-calendar__navigation button {
+  background: none;
+}
+
+.react-calendar__month-view__weekdays {
+  color: black;
+}
+
+.react-calendar__navigation__prev-button {
+  font-size: 1.2rem;
+  padding-left: 1.5rem;
+}
+
+.react-calendar__navigation__next-button {
+  font-size: 1.2rem;
+  padding-right: 1.5rem;
+}
+
+.react-calendar__navigation button[disabled] {
+  background-color: transparent;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: transparent;
+}
+
+.react-calendar__navigation__label {
+  font-size: 1rem;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+button:disabled {
+  color: rgb(201, 201, 201);
+}
+
+.react-calendar__tile:enabled:hover {
+  background: transparent;
+}
+
+.react-calendar__tile--active {
+  border-radius: 50%;
+  height: 10%;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: rgb(0, 0, 0);
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: rgb(44, 44, 52);
+  color: rgb(255, 255, 255);
+}
+
+/* Hide react-calendar's week numbers - Strictly using week numbers per month for margin calculations */
+.react-calendar__month-view__weekNumbers {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+.select_time_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 30px;
+}
+
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .availability_container h1,
+  .availability_back_arrow,
+  .availability_forward_arrow {
+    font-size: 1.2rem;
+  }
+
+  .availability_statement {
+    font-size: 1rem;
+  }
+
+  .select_a_date_header {
+    height: 6vh;
+  }
+
+  .select_a_date_header h2 {
+    font-size: 0.9rem;
+  }
+
+  .select_time_button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+
+  .calendar_tiles {
+    font-size: 1rem;
+  }
+
+  .react-calendar {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .availability_container h1 {
+    font-size: 2rem;
+  }
+
+  .availability_forward_arrow,
+  .availability_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .availability_back_arrow {
+    left: 3.1rem;
+  }
+
+  .availability_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .select_a_date_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .availability_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+  }
+
+  .select_time_button {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+
+  .calendar_tiles {
+    font-size: 1.8rem;
+  }
+
+  .react-calendar__navigation__prev-button {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+  }
+
+  .react-calendar__navigation__next-button {
+    font-size: 1.5rem;
+    padding-right: 3.1rem;
+  }
+
+  .react-calendar__navigation__label {
+    font-size: 1.5rem;
+  }
+
+  .react-calendar {
+    padding-top: 1vh;
+    margin-top: 4vh;
+    margin-bottom: 6vh;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .availability_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .react-calendar__tile:enabled:hover {
+    background: rgb(231, 231, 231);
+  }
+
+  .availability_forward_arrow,
+  .availability_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .availability_back_arrow {
+    left: 3.1rem;
+  }
+
+  .availability_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .select_a_date_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .availability_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+  }
+
+  .calendar_tiles {
+    font-size: 1.6rem;
+  }
+
+  .react-calendar {
+    width: 100%;
+    border: 2px solid transparent;
+    border-top: 2px solid rgb(211, 211, 211);
+    border-bottom: 2px solid rgb(211, 211, 211);
+    padding-top: 1vh;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .react-calendar__navigation__prev-button {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+  }
+
+  .react-calendar__navigation__next-button {
+    font-size: 1.5rem;
+    padding-right: 3.1rem;
+  }
+
+  .react-calendar__navigation__label {
+    font-size: 1rem;
+  }
+
+  .react-calendar__tile--active {
+    border-radius: 50%;
+    padding-right: 0.05rem;
+    padding-left: 0.05rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.6rem;
+  }
+
+  .select_time_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .availability_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .availability_forward_arrow,
+  .availability_back_arrow {
+    font-size: 2rem;
+  }
+
+  .select_a_date_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .availability_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .calendar_tiles {
+    font-size: 2rem;
+  }
+
+  .react-calendar {
+    width: 100%;
+    border: 2px solid transparent;
+    border-top: 2px solid rgb(211, 211, 211);
+    border-bottom: 2px solid rgb(211, 211, 211);
+    padding-top: 1vh;
+    margin-top: 7vh;
+    margin-bottom: 7vh;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .react-calendar__navigation__prev-button {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+  }
+
+  .react-calendar__navigation__next-button {
+    font-size: 1.5rem;
+    padding-right: 3.1rem;
+  }
+
+  .react-calendar__navigation__label {
+    font-size: 1.5rem;
+  }
+
+  .react-calendar__tile--active {
+    border-radius: 50%;
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .select_time_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+}

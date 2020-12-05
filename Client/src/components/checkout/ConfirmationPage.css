@@ -1,0 +1,775 @@
+.confirmation_page_container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: -1;
+}
+
+.confirmation_page_container h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.confirmation_page_container_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+}
+
+.confirmation_page_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.confirmation_page_statement {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.confirmation_page_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1.5rem;
+}
+
+.confirmation_page_header h2 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  margin-left: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+}
+
+.confirmation_page_header h3 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.summary_client_contact_info_text_container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  line-height: 1.5rem;
+  height: 100%;
+  margin-top: -0.2rem;
+  margin-right: 1.5rem;
+}
+
+.summary_client_contact_info_container,
+.summary_selected_date_container,
+.summary_selected_time_container {
+  display: flex;
+  margin-left: 1.5rem;
+  margin-bottom: 2vh;
+}
+
+.summary_client_contact_info_container p,
+.summary_selected_date_container p,
+.summary_selected_time_container p {
+  font-weight: 500;
+}
+
+.summary_calendar_icon,
+.summary_clock_icon {
+  margin-right: 0.5rem;
+}
+
+.summary_facial_container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.summary_add_ons_container {
+  display: flex;
+  flex-direction: column;
+  margin-top: -1px;
+}
+
+.summary_facial_container_title,
+.summary_add_ons_container_title {
+  background: rgba(211, 211, 211, 0.3);
+  font-size: 1rem;
+  font-weight: 700;
+  padding-left: 1.5rem;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.summary_card_subtotal_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-top: 1px solid rgb(211, 211, 211);
+  padding-top: 4vh;
+  margin-top: -1px;
+}
+
+.summary_card_subtotal_container p {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.book_appointment_button {
+  display: flex;
+  margin: 0 auto;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  background: rgb(44, 44, 52);
+  border-radius: 30px;
+  color: white;
+  margin-top: 6vh;
+  margin-bottom: 12vh;
+}
+
+.final_booking_modal {
+  -webkit-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  -moz-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  position: fixed;
+  z-index: 5;
+  height: 70%;
+  margin-top: -10%;
+  border-radius: 10px;
+  width: 80vw;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(244, 239, 243);
+}
+
+.modal_x {
+  position: absolute;
+  top: 3%;
+  right: 7%;
+  color: rgb(0, 129, 177);
+  font-size: 2rem;
+}
+
+.modal_calendar_icon {
+  position: absolute;
+  bottom: -15%;
+}
+
+.modal_calendar_icon_container {
+  position: relative;
+  width: 100%;
+  height: 5%;
+  padding-bottom: 24%;
+  background: -webkit-linear-gradient(
+    to left,
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
+    transparent 50%
+  );
+  background: -moz-linear-gradient(
+    to left,
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
+    transparent 50%
+  );
+  background: -ms-linear-gradient(
+    to left,
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
+    transparent 50%
+  );
+  background: linear-gradient(
+    to left,
+    transparent 35%,
+    rgba(165, 138, 127, 0.3) 35%,
+    rgba(165, 138, 127, 0.3) 65%,
+    transparent 50%
+  );
+}
+
+.modal_checkmark {
+  display: block;
+  height: 3rem;
+  position: absolute;
+  top: 5%;
+  bottom: 0;
+}
+
+.final_booking_modal_contents {
+  height: 100%;
+  padding-top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-right: 10%;
+  margin-left: 10%;
+  line-height: 1.3rem;
+}
+
+.modal_confirmation_statement {
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+.modal_appointment_time,
+.modal_appointment_provider,
+.modal_appointment_spacer {
+  font-weight: 600;
+  font-size: 1.3rem;
+  display: inline-block;
+}
+
+.modal_appointment_spacer {
+  color: rgb(203, 193, 191);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-weight: 500;
+}
+
+.modal_bold_details_container {
+  display: inline-block;
+}
+
+.modal_bottom_info_container {
+  width: 100%;
+}
+
+.modal_date_time_container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.modal_full_date_info {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgb(121, 121, 121);
+  text-align: center;
+}
+
+.modal_address_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.modal_address_container p {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgb(121, 121, 121);
+}
+
+.dismiss_modal_button {
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.8rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background: rgb(44, 44, 52);
+  border-radius: 30px;
+  color: white;
+  margin-bottom: 50%;
+}
+
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .confirmation_page_container h1,
+  .confirmation_page_back_arrow {
+    font-size: 1.2rem;
+  }
+
+  .confirmation_page_header {
+    height: 6vh;
+  }
+
+  .confirmation_page_statement {
+    font-size: 0.9rem;
+  }
+
+  .confirmation_page_header h2,
+  .confirmation_page_header h3 {
+    font-size: 0.9rem;
+  }
+
+  .summary_client_contact_info_container p,
+  .summary_selected_date_container p,
+  .summary_selected_time_container p {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+
+  .summary_card_subtotal_container p {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
+    font-size: 0.8rem;
+  }
+
+  .dismiss_modal_button {
+    font-size: 0.7rem;
+    padding: 0.4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-top: 10%;
+    margin-bottom: 25%;
+  }
+
+  .modal_appointment_time,
+  .modal_appointment_provider,
+  .modal_appointment_spacer {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-block;
+  }
+
+  .modal_address_container p,
+  .modal_full_date_info {
+    font-size: 0.6rem;
+  }
+
+  .modal_calendar_icon_container {
+    position: relative;
+    width: 120%;
+    height: 18%;
+    padding-bottom: 28%;
+  }
+
+  .final_booking_modal {
+    margin-top: 0%;
+  }
+
+  .final_booking_modal_contents {
+    padding-top: 30%;
+  }
+
+  .modal_confirmation_statement {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+
+  .modal_bottom_info_container {
+    padding-top: 0.4rem;
+  }
+}
+
+/* CSS for Smaller Portrait Screens (e.g. Galaxy S5) */
+@media only screen and (min-width: 360px) and (max-width: 374px) {
+  .final_booking_modal {
+    height: 65%;
+  }
+
+  .modal_calendar_icon_container {
+    position: relative;
+    width: 113%;
+    height: 12%;
+    padding-bottom: 25%;
+  }
+}
+
+/* CSS for Slightly Smaller Portrait Screens (e.g. iPhones 6/7/8) */
+@media only screen and (min-width: 375px) and (max-width: 409px) {
+  .final_booking_modal {
+    height: 80%;
+    margin-top: 5%;
+  }
+}
+
+/* CSS for Slightly Smaller Portrait Screens with Longer Screens (e.g. iPhone X) */
+@media only screen and (min-width: 375px) and (max-width: 409px) and (min-height: 800px) {
+  .final_booking_modal {
+    height: 65%;
+    margin-top: 0%;
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .final_booking_modal {
+    height: 80%;
+    margin-top: 2%;
+  }
+
+  .modal_calendar_icon_container {
+    height: 5%;
+    padding-bottom: 21%;
+    background: -webkit-linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
+    background: -moz-linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
+    background: -ms-linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
+    background: linear-gradient(
+      to left,
+      transparent 36%,
+      rgba(165, 138, 127, 0.3) 0%,
+      rgba(165, 138, 127, 0.3) 64%,
+      transparent 50%
+    );
+  }
+
+  .modal_checkmark {
+    top: 6%;
+  }
+}
+
+/* CSS for Larger Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) and (min-device-height: 800px) and (max-device-height: 900px) {
+  .final_booking_modal {
+    height: 65%;
+    margin-top: 2%;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .confirmation_page_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .confirmation_page_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+    left: 3.1rem;
+  }
+
+  .confirmation_page_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .confirmation_page_header h3 {
+    font-size: 1.5rem;
+    margin-right: 3.1rem;
+  }
+
+  .confirmation_page_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+  }
+
+  .summary_client_contact_info_container,
+  .summary_selected_date_container,
+  .summary_selected_time_container {
+    margin-left: 3.1rem;
+    margin-bottom: 2vh;
+  }
+
+  .summary_calendar_icon,
+  .summary_clock_icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+
+  .summary_client_contact_info_container p,
+  .summary_selected_date_container p,
+  .summary_selected_time_container p {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .book_appointment_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .summary_card_subtotal_container {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .summary_card_subtotal_container p {
+    font-size: 3rem;
+  }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
+    padding-left: 0;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .confirmation_page_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .confirmation_page_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+    left: 3.1rem;
+  }
+
+  .confirmation_page_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .confirmation_page_header h3 {
+    font-size: 1rem;
+    margin-right: 1.5rem;
+  }
+
+  .confirmation_page_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary_client_contact_info_container,
+  .summary_selected_date_container,
+  .summary_selected_time_container {
+    margin-left: 3.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary_calendar_icon,
+  .summary_clock_icon {
+    font-size: 1.3rem;
+    margin-right: 1rem;
+  }
+
+  .summary_client_contact_info_container p,
+  .summary_selected_date_container p,
+  .summary_selected_time_container p {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
+    font-size: 1.2rem;
+    padding-left: 3.1rem;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .book_appointment_button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .summary_card_subtotal_container {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .summary_card_subtotal_container p {
+    font-size: 2rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .confirmation_page_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .confirmation_page_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+    left: 3.1rem;
+  }
+
+  .confirmation_page_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .confirmation_page_header h3 {
+    font-size: 1.5rem;
+    margin-right: 3.1rem;
+  }
+
+  .confirmation_page_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-bottom: 0rem;
+  }
+
+  .summary_client_contact_info_container,
+  .summary_selected_date_container,
+  .summary_selected_time_container {
+    margin-left: 3.1rem;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+  }
+
+  .summary_calendar_icon,
+  .summary_clock_icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+
+  .summary_client_contact_info_container p,
+  .summary_selected_date_container p,
+  .summary_selected_time_container p {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .confirmation_page_header h3 {
+    margin-right: 1.5rem;
+  }
+
+  .summary_facial_container_title,
+  .summary_add_ons_container_title {
+    font-size: 1.5rem;
+    padding-left: 3.1rem;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .book_appointment_button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .summary_card_subtotal_container {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .summary_card_subtotal_container p {
+    font-size: 3rem;
+  }
+
+  .summary_card_image_circle {
+    margin-left: -3rem;
+  }
+
+  .final_booking_modal {
+    z-index: 5;
+  }
+
+  .modal_calendar_icon {
+    transform: scale(2);
+    position: absolute;
+    bottom: 28%;
+  }
+
+  .modal_calendar_icon_container {
+    height: 5%;
+    padding-bottom: 21%;
+  }
+
+  .modal_checkmark {
+    transform: scale(2);
+    top: 25%;
+  }
+
+  .modal_confirmation_statement {
+    padding-top: 0rem;
+    padding-bottom: 1rem;
+    margin-bottom: -3rem;
+  }
+
+  .modal_appointment_time,
+  .modal_appointment_provider,
+  .modal_appointment_spacer {
+    font-size: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .modal_address_container {
+    justify-content: center;
+  }
+
+  .modal_address_container p {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .modal_address_container p,
+  .modal_full_date_info {
+    font-size: 1rem;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+  }
+
+  .dismiss_modal_button {
+    margin-bottom: 20%;
+  }
+}

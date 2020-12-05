@@ -1,0 +1,81 @@
+.admin_salt_cave_schedule_container {
+  height: 100%;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 20vh;
+}
+
+.admin_salt_cave_schedule_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  border-bottom: solid 1px rgb(44, 44, 52);
+  position: fixed;
+  background: rgb(255, 255, 255);
+  z-index: 5;
+}
+
+.admin_salt_cave_schedule_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.admin_salt_cave_schedule_back_arrow {
+  color: rgb(44, 44, 52);
+  z-index: 9999;
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .admin_salt_cave_schedule_container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .admin_salt_cave_schedule_header {
+    position: absolute;
+    top: 8vh;
+    left: 10%;
+    height: 8vh;
+    font-weight: 600;
+    width: 100%;
+  }
+
+  .admin_salt_cave_schedule_header h1 {
+    font-size: 2rem;
+  }
+
+  .admin_salt_cave_schedule_back_arrow {
+    display: none;
+  }
+
+  .admin_salt_cave_schedule_calendar_main_container {
+    position: absolute;
+    height: 65vh;
+    width: 65%;
+    top: 12vh;
+    bottom: 0;
+    left: 15vw;
+    right: 15vw;
+    margin: 0 auto;
+  }
+}

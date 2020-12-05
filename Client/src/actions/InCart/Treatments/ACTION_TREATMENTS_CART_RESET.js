@@ -1,0 +1,9 @@
+const TREATMENTS_CART_RESET = "TREATMENTS_CART_RESET";
+
+const ACTION_TREATMENTS_CART_RESET = () => {
+  return {
+    type: TREATMENTS_CART_RESET
+  };
+};
+
+export default ACTION_TREATMENTS_CART_RESET;

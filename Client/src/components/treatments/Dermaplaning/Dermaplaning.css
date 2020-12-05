@@ -1,0 +1,41 @@
+.dermaplaning_wrapping {
+  display: grid;
+  grid-area: dermaplaning_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 4;
+}
+
+.dermaplaning_icon_path {
+  transform: scale(0.8);
+}
+
+@media only screen and (min-width: 600px) {
+  .dermaplaning_wrapping {
+    margin-top: 0rem;
+    height: 64%;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .dermaplaning_wrapping {
+    height: 20.8vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .dermaplaning_wrapping {
+    height: auto;
+  }
+}
+
+/* CSS for Slightly Smaller Medium Laptops (e.g. Chromebook) */
+@media only screen and (min-width: 1360px) and (max-width: 1399px) and (max-device-height: 800px) {
+  .dermaplaning_wrapping {
+    height: 28.6666667vh;
+  }
+}

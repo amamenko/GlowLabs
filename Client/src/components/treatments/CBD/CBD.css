@@ -1,0 +1,50 @@
+.cbd_wrapping {
+  display: grid;
+  grid-area: cbd_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.cbd_icon_path {
+  transform: scale(0.45);
+}
+
+.cbd_card_new_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.cbd_card_new {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  left: auto;
+  right: 0;
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .cbd_wrapping {
+    height: 64%;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .cbd_wrapping {
+    height: 20.8vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .cbd_wrapping {
+    height: auto;
+  }
+}

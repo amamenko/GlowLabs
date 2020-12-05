@@ -1,0 +1,663 @@
+.payment_info_container {
+  /* position: fixed; */
+  padding-top: 8vh;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  padding-bottom: 10vh;
+}
+
+.payment_info_container h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.payment_info_container_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+}
+
+.payment_info_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.payment_info_forward_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.payment_info_header {
+  width: 100%;
+  height: 5vh;
+  background: rgb(211, 211, 211);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.payment_info_header h2 {
+  color: rgb(101, 101, 101);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-self: center;
+  margin-left: 1.5rem;
+}
+
+.payment_info_statement {
+  margin-top: 2vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.sq-payment-form {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  position: relative;
+}
+
+.sq-label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.5;
+  text-transform: uppercase;
+}
+
+.sq-fieldset {
+  position: relative;
+  z-index: 1;
+  opacity: 0.99;
+  margin-top: 1rem;
+}
+
+.sq-input {
+  color: #373f4a;
+  background-color: transparent;
+  line-height: 0px;
+  margin-bottom: 1rem;
+  position: relative;
+  border: 1px solid rgb(177, 177, 177);
+  outline-offset: -2px;
+  display: inline-block;
+  transition: background 0.2s ease-in-out;
+}
+
+.sq-cardholder-input {
+  width: 100%;
+  font-family: Helvetica Neue;
+  font: 400 16px system-ui;
+  font-weight: 500;
+  padding: 19px;
+  -webkit-font-smoothing: antialiased;
+  color: #373f4a;
+  background-color: transparent;
+  line-height: 0px;
+  margin-bottom: 1rem;
+  position: relative;
+  border: 1px solid rgb(177, 177, 177);
+  outline-offset: -2px;
+  display: inline-block;
+  transition: background 0.2s ease-in-out;
+}
+
+select {
+  border-radius: 0px;
+}
+
+.sq-cardholder-input:focus {
+  outline: none;
+}
+
+.sq-cardholder-input:disabled {
+  background: rgba(204, 204, 204, 0.6);
+  background-color: none;
+}
+
+.sq-cardholder-input::placeholder {
+  opacity: 0.4;
+  font-weight: 400;
+}
+
+.sq-payment-form-hidden {
+  display: none;
+}
+
+#sq-payment-form-sq-expiration-date,
+#sq-payment-form-sq-postal-code,
+#sq-payment-form-sq-cvv,
+#sq-payment-form-sq-card-number {
+  height: 7vh;
+}
+
+.choose_a_credit_card_formgroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.choose_a_credit_card_dropdown_icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  right: 1rem;
+  top: 0.5rem;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+.sq_third_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sq-form-third_credit_card,
+.sq-form-third_postal,
+.sq-form-third_cvv {
+  width: 30%;
+}
+
+.sq-creditcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font: 400 13.3333px Arial;
+  width: 100%;
+  height: 56px;
+  margin-top: 10px;
+  background: #4a90e2;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-align: center;
+  transition: background 0.2s ease-in-out;
+  border: 0;
+  cursor: pointer;
+}
+
+.sq-error-message {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-top: 16px;
+  font-size: 14px;
+  color: red;
+  font-weight: 500;
+  text-align: left;
+  opacity: 0.8;
+  word-wrap: break-word;
+}
+
+.sq-input--error {
+  border: 1px solid #e02f2f;
+  background-color: rgba(244, 47, 47, 0.02);
+}
+
+.sq_save_card_information_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  padding-left: 0.2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.sq_save_card_information_container p {
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
+/* CSS for Smaller Phones */
+@media only screen and (max-width: 360px) {
+  .payment_info_container h1,
+  .payment_info_back_arrow,
+  .payment_info_forward_arrow {
+    font-size: 1.2rem;
+  }
+
+  .payment_info_header {
+    height: 6vh;
+  }
+
+  .payment_info_header h2 {
+    font-size: 0.9rem;
+  }
+
+  .confirm_details_button,
+  .change_time_button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 9vh;
+  }
+
+  .sq_save_card_information_container {
+    padding-left: 0.3rem;
+  }
+
+  .payment_info_statement {
+    font-size: 0.9rem;
+    line-height: 1.1rem;
+  }
+}
+
+/* CSS for Smaller Phones */
+@media only screen and (min-width: 361px) and (max-width: 400px) {
+  .sq_save_card_information_container {
+    padding-left: 0.5rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .payment_info_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .payment_info_forward_arrow,
+  .payment_info_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .payment_info_back_arrow {
+    left: 3.1rem;
+  }
+
+  .payment_info_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .payment_info_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .payment_info_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .sq-payment-form {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .sq-label {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+  }
+
+  .choose_a_credit_card_dropdown_icon {
+    top: 1rem;
+    font-size: 1rem;
+  }
+
+  .sq-error-message {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .sq-creditcard {
+    font-size: 1.5rem;
+  }
+
+  .sq-input {
+    line-height: 0px;
+    margin: 0;
+    outline-offset: -2px;
+    padding: 0;
+  }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 4vh;
+    margin-bottom: 1rem;
+  }
+
+  .sq_save_card_information_container {
+    justify-content: flex-start;
+    padding-top: 3.1rem;
+    padding-bottom: 3.1rem;
+  }
+
+  .sq_save_card_information_container p {
+    padding-left: 1rem;
+    font-size: 1.5rem;
+  }
+
+  /* Safari 7.1+ */
+
+  _::-webkit-full-page-media,
+  _:future,
+  .sq-cardholder-input::placeholder {
+    padding-top: 0.6rem;
+  }
+
+  _::-webkit-full-page-media,
+  _:future,
+  .client_consent_form_checkbox {
+    margin-left: 0.5rem;
+    margin-right: 1.5rem;
+  }
+}
+
+/* CSS for Medium Desktops/Laptops (e.g. Microsoft Surface Pro) */
+@media only screen and (min-width: 1400px) {
+  .payment_info_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .payment_info_forward_arrow,
+  .payment_info_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .payment_info_back_arrow {
+    left: 1.5rem;
+  }
+
+  .payment_info_forward_arrow {
+    right: 1.5rem;
+  }
+
+  .payment_info_header h2 {
+    font-size: 1rem;
+    margin-left: 1.5rem;
+  }
+
+  .payment_info_statement {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    line-height: 1.2rem;
+  }
+
+  .sq-payment-form {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .sq-label {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+
+  .choose_a_credit_card_dropdown_icon {
+    top: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .sq-error-message {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+  }
+
+  .sq-creditcard {
+    font-size: 1rem;
+  }
+
+  .sq-input {
+    line-height: 0px;
+    margin: 0;
+    outline-offset: -2px;
+    padding: 0;
+  }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 4vh;
+    margin-bottom: 1rem;
+  }
+
+  .sq_save_card_information_container {
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .sq_save_card_information_container p {
+    padding-left: 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .payment_info_container h1 {
+    font-size: 1.5rem;
+  }
+
+  .payment_info_forward_arrow,
+  .payment_info_back_arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .payment_info_back_arrow {
+    left: 3.1rem;
+  }
+
+  .payment_info_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .payment_info_header h2 {
+    font-size: 1rem;
+    margin-left: 3.1rem;
+  }
+
+  .payment_info_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+  }
+
+  .sq-payment-form {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .sq-label {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+
+  .choose_a_credit_card_dropdown_icon {
+    top: 0.7rem;
+    font-size: 1rem;
+  }
+
+  .sq-error-message {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+    margin-top: 2.5rem;
+    font-size: 1rem;
+  }
+
+  .sq-creditcard {
+    font-size: 1rem;
+  }
+
+  .sq-input {
+    line-height: 0px;
+    margin: 0;
+    outline-offset: -2px;
+    padding: 0;
+  }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 6vh;
+    margin-bottom: 1rem;
+  }
+
+  .sq_save_card_information_container {
+    justify-content: flex-start;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .sq_save_card_information_container p {
+    padding-left: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .client_consent_form_checkbox svg {
+    margin-left: -0.1rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .payment_info_container h1 {
+    font-size: 2.5rem;
+  }
+
+  .payment_info_forward_arrow,
+  .payment_info_back_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .payment_info_back_arrow {
+    left: 3.1rem;
+  }
+
+  .payment_info_forward_arrow {
+    right: 3.1rem;
+  }
+
+  .payment_info_header h2 {
+    font-size: 1.5rem;
+    margin-left: 3.1rem;
+  }
+
+  .payment_info_statement {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .sq-payment-form {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+  }
+
+  .sq-label {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+  }
+
+  .choose_a_credit_card_dropdown_icon {
+    top: 1rem;
+    font-size: 1rem;
+  }
+
+  .sq-error-message {
+    padding-left: 3.1rem;
+    padding-right: 3.1rem;
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .sq-creditcard {
+    font-size: 1.5rem;
+  }
+
+  .sq-input {
+    line-height: 0px;
+    margin: 0;
+    outline-offset: -2px;
+    padding: 0;
+  }
+
+  #sq-payment-form-sq-expiration-date,
+  #sq-payment-form-sq-postal-code,
+  #sq-payment-form-sq-cvv,
+  #sq-payment-form-sq-card-number {
+    height: 4vh;
+    margin-bottom: 1rem;
+  }
+
+  .sq_save_card_information_container {
+    justify-content: flex-start;
+    padding-top: 3.1rem;
+    padding-bottom: 3.1rem;
+  }
+
+  .sq_save_card_information_container p {
+    padding-left: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .client_consent_form_checkbox {
+    margin-left: 0.8rem;
+    margin-right: 1.5rem;
+  }
+
+  .client_consent_form_checkbox svg {
+    margin-left: 0;
+  }
+}

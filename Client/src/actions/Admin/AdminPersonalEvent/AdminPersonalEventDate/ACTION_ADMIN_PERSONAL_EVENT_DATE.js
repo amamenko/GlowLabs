@@ -1,0 +1,10 @@
+const ADMIN_PERSONAL_EVENT_DATE = "ADMIN_PERSONAL_EVENT_DATE";
+
+const ACTION_ADMIN_PERSONAL_EVENT_DATE = (date) => {
+  return {
+    type: ADMIN_PERSONAL_EVENT_DATE,
+    date,
+  };
+};
+
+export default ACTION_ADMIN_PERSONAL_EVENT_DATE;

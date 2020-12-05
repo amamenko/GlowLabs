@@ -1,0 +1,10 @@
+const ADMIN_PERSONAL_EVENT_END_TIME = "ADMIN_PERSONAL_EVENT_END_TIME";
+
+const ACTION_ADMIN_PERSONAL_EVENT_END_TIME = (end_time) => {
+  return {
+    type: ADMIN_PERSONAL_EVENT_END_TIME,
+    end_time,
+  };
+};
+
+export default ACTION_ADMIN_PERSONAL_EVENT_END_TIME;

@@ -1,0 +1,9 @@
+const INCREMENT_COUNTER = "INCREMENT_COUNTER";
+
+const ACTION_INCREMENT_COUNTER = () => {
+  return {
+    type: INCREMENT_COUNTER
+  };
+};
+
+export default ACTION_INCREMENT_COUNTER;

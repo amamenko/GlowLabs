@@ -1,0 +1,549 @@
+.skin_care_routine_container {
+  height: 100%;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 20vh;
+}
+
+.skin_care_routine_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  border-bottom: solid 1px rgb(44, 44, 52);
+  position: fixed;
+  background: rgb(255, 255, 255);
+}
+
+.skin_care_routine_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.skin_care_routine_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.skin_care_routine_sub_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  padding-top: 8vh;
+  width: 100%;
+  background: rgb(255, 255, 255);
+}
+
+.skin_care_routine_sub_header_container_link {
+  width: 50%;
+}
+
+.skin_care_routine_my_routine_container_active,
+.skin_care_routine_recommended_container_active {
+  border-bottom: 2px solid black;
+  width: 50%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_recommended_container_not_active,
+.skin_care_routine_my_routine_container_not_active {
+  border-bottom: 2px solid rgb(181, 181, 181);
+  width: 100%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_my_routine_container_active h2,
+.skin_care_routine_recommended_container_active h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.skin_care_routine_recommended_container_not_active h2,
+.skin_care_routine_my_routine_container_not_active h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(181, 181, 181);
+}
+
+.skin_care_routine_morning_content_container,
+.skin_care_routine_evening_content_container {
+  padding-top: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_evening_header,
+.skin_care_routine_morning_header {
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.skin_care_routine_top_caption {
+  margin-top: 1rem;
+  padding-top: 14vh;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.skin_care_routine_evening_items_container,
+.skin_care_routine_morning_items_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin_care_routine_evening_individual_item_container,
+.skin_care_routine_morning_individual_item_container {
+  height: 15vh;
+  width: 26%;
+  margin: 0.5rem;
+  background: rgba(211, 211, 211, 0.5);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.skin_care_routine_evening_my_routine_individual_item_container,
+.skin_care_routine_morning_my_routine_individual_item_container {
+  height: 15vh;
+  width: 26%;
+  margin: 0.5rem;
+  background: rgba(211, 211, 211, 0.3);
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.skin_care_routine_evening_my_routine_individual_item_container h2,
+.skin_care_routine_morning_my_routine_individual_item_container h2,
+.skin_care_routine_evening_individual_item_container h2,
+.skin_care_routine_morning_individual_item_container h2 {
+  padding: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.skin_care_routine_user_add_icon {
+  font-size: 1rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: rgba(108, 237, 255, 0.8);
+  background: black;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.my_individual_selected_item_container {
+  width: 100%;
+  top: -1.2rem;
+  left: 0;
+  bottom: 0;
+  background: white;
+  margin-top: 24vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 1;
+  padding-top: 1rem;
+  margin-right: 1.5rem;
+  position: fixed;
+  overflow: auto;
+}
+
+.my_individual_selected_item_contents_container {
+  height: 7%;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+.my_individual_selected_item_contents_container p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.my_individual_selected_item_back_container {
+  width: 10%;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.my_individual_selected_item_back_arrow_icon {
+  position: relative;
+  font-size: 2rem;
+  z-index: 99999;
+  opacity: 0.99;
+  color: rgb(0, 129, 177);
+}
+
+.my_individual_selected_item_top_container {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid rgb(44, 44, 52);
+  background: rgb(255, 255, 255);
+  padding-bottom: 0.5rem;
+}
+
+.my_individual_selected_item_header {
+  width: 70%;
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.my_individual_selected_item_header p {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.my_individual_selected_item_empty_state_container {
+  background: rgb(255, 255, 255);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding-bottom: 20vh;
+  top: 12vh;
+}
+
+.my_individual_selected_item_empty_state_icon_container {
+  position: relative;
+  display: flex;
+  background: rgba(211, 211, 211, 0.4);
+  border-radius: 50%;
+  width: 45vw;
+  height: 25vh;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.my_individual_selected_item_empty_state_icon {
+  stroke: rgb(155, 155, 155);
+  stroke-width: 1px;
+  fill: rgb(155, 155, 155);
+}
+
+.my_individual_selected_item_empty_state_text_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.my_individual_selected_item_empty_state_text_container h2 {
+  font-size: 1.5rem;
+  color: rgb(155, 155, 155);
+  margin-bottom: 1rem;
+}
+
+.my_individual_selected_item_bottom_buttons_container {
+  width: 85%;
+  display: flex;
+  height: 20vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my_individual_selected_item_add_product_button {
+  display: block;
+  width: 65%;
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  color: rgb(255, 255, 255);
+  background: rgb(44, 44, 52);
+}
+
+.my_individual_selected_item_back_to_routine_button {
+  width: 65%;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.input_field_product {
+  width: 100%;
+  font-size: 1.3rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  padding-left: 0.5rem;
+  position: relative;
+}
+
+.product_usage_notes {
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 4rem;
+}
+
+.add_product_form {
+  position: relative;
+  margin-top: -2vh;
+}
+
+.my_individual_selected_item_add_product_container {
+  background: rgb(255, 255, 255);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding-bottom: 10vh;
+  top: 12vh;
+}
+
+.my_routine_added_product_page_container {
+  height: 100%;
+  width: 100%;
+}
+
+.my_routine_added_product_container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-top: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(211, 211, 211);
+  margin-top: 12vh;
+}
+
+.my_routine_added_products_number_header {
+  width: 100%;
+  margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  position: absolute;
+}
+
+.my_routine_added_products_number_header h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(155, 155, 155);
+}
+
+.my_routine_added_product_individual_details_container {
+  position: absolute;
+}
+
+.my_routine_added_product_external_link_icon {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  color: rgb(100, 100, 100);
+}
+
+.my_routine_added_product_text_details_container {
+  position: absolute;
+  height: 100%;
+  width: 58%;
+  top: 1rem;
+  bottom: 1rem;
+  left: 35%;
+  margin-left: 2rem;
+}
+
+.react_tinylink_card {
+  width: 33%;
+  margin-left: 1.5rem;
+  display: flex;
+  height: 100% !important;
+  box-shadow: none !important;
+}
+
+.react_tinylink_card_media {
+  height: 15vh !important;
+  background-size: contain !important;
+}
+
+.my_routine_added_product_text_details_container h2 {
+  font-size: 1rem;
+  text-align: left;
+  color: black;
+  font-weight: 500;
+  margin-right: 1.5rem;
+}
+
+.my_routine_added_product_bottom_buttons_container {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 2rem;
+}
+
+.my_routine_added_product_see_more_button {
+  color: rgb(0, 129, 177);
+  font-weight: 600;
+}
+
+.my_routine_added_product_remove_button {
+  color: rgb(133, 133, 133);
+  font-weight: 500;
+  margin-right: 3rem;
+}
+
+.my_routine_added_product_expanded_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 0.5rem;
+  padding-bottom: 3rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.my_routine_added_product_expanded_item_field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 1rem;
+}
+
+.my_routine_added_product_expanded_item_field h2 {
+  padding: 0;
+  margin: 0;
+  padding-bottom: 0.2rem;
+}
+
+.my_routine_added_product_back_to_routine_button_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3rem;
+  padding-bottom: 20vh;
+}
+
+.my_routine_added_product_back_to_routine_button {
+  width: 55%;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.add_product_url_http_caption {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgb(155, 155, 155);
+  margin-top: 0.3rem;
+}
+
+.added_product_small_hero_image_link_container {
+  width: 35vw;
+  height: 14.5vh;
+  margin-left: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.added_product_small_hero_image_link_container a {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.added_product_small_hero_image_link_container a img {
+  height: 75%;
+  width: 75%;
+  margin: auto;
+  display: block;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  object-fit: contain;
+}

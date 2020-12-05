@@ -1,0 +1,9 @@
+const NAVBAR_TOGGLE_RESET = "NAVBAR_TOGGLE_RESET";
+
+const ACTION_NAVBAR_TOGGLE_RESET = () => {
+  return {
+    type: NAVBAR_TOGGLE_RESET
+  };
+};
+
+export default ACTION_NAVBAR_TOGGLE_RESET;

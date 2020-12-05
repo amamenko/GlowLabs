@@ -1,0 +1,9 @@
+const LOADING_SPINNER_RESET = "LOADING_SPINNER_RESET";
+
+const ACTION_LOADING_SPINNER_RESET = () => {
+  return {
+    type: LOADING_SPINNER_RESET
+  };
+};
+
+export default ACTION_LOADING_SPINNER_RESET;

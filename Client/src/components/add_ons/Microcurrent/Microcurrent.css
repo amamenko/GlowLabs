@@ -1,0 +1,33 @@
+.microcurrent_wrapping {
+  display: grid;
+  grid-area: microcurrent_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.microcurrent_icon_path {
+  transform: scale(0.6);
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 600px) {
+  .microcurrent_wrapping {
+    height: 55.5vh;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .microcurrent_wrapping {
+    height: 20.8vh;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .microcurrent_wrapping {
+    height: 28.6666667vh;
+  }
+}

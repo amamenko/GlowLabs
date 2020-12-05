@@ -1,0 +1,9 @@
+const ADMIN_AUTHENTICATED = "ADMIN_AUTHENTICATED";
+
+const ACTION_ADMIN_AUTHENTICATED = () => {
+  return {
+    type: ADMIN_AUTHENTICATED,
+  };
+};
+
+export default ACTION_ADMIN_AUTHENTICATED;

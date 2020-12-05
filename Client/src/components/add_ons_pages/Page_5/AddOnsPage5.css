@@ -1,0 +1,42 @@
+.add_ons_page_5_container {
+  display: none;
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .add_ons_page_5_container {
+    display: grid;
+    height: 85vh;
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+    grid-template-areas:
+      ". beard_card ."
+      ". beard_card .";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: -4.9rem;
+    justify-items: center;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .add_ons_page_5_container {
+    height: 50vh;
+    grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+    margin-top: -16.2rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .add_ons_page_5_container {
+    margin-top: -22rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .add_ons_page_5_container {
+    display: none;
+  }
+}

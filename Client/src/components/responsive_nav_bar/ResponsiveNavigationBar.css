@@ -1,0 +1,465 @@
+.navbar {
+  background: rgb(44, 44, 52);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.left_nav {
+  height: 100%;
+  width: 50%;
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.right_nav {
+  width: 50%;
+  height: 100%;
+  margin-right: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.right_nav > h2 {
+  display: none;
+  cursor: pointer;
+}
+
+.left_nav p,
+.right_nav p {
+  color: white;
+}
+
+.navbar_logo_container {
+  width: 50%;
+}
+
+.navbar_logo_container svg {
+  padding-top: 0.4rem;
+  min-width: 6rem;
+  max-width: 8rem;
+}
+
+.nav_cart_container {
+  position: relative;
+  cursor: pointer;
+}
+
+.navbar_cart_icon {
+  font-size: calc(1.2rem + 0.5vw);
+}
+
+.navbar_cart_number_circle {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.3rem;
+  font-size: calc(1rem + 0.25vw);
+  color: #fff;
+  fill: #fff;
+  stroke: #fff;
+}
+
+.nav_cart_number_circle_container p {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  top: -0.4vw;
+  right: 0.1vw;
+  font-size: calc(0.7rem + 0.25vw);
+  font-weight: 700;
+}
+
+.navbar_cart_number_circle path,
+.navbar_cart_number_circle g,
+.navbar_cart_icon path,
+.navbar_cart_icon g {
+  stroke: #fff;
+}
+
+.navbar_cart_icon_path_light {
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+
+.navbar_cart_icon_light {
+  stroke: #fff !important;
+}
+
+.navbar_cart_icon_path_dark {
+  stroke: rgb(44, 44, 52) !important;
+  fill: rgb(44, 44, 52) !important;
+}
+
+.navbar_cart_icon_dark {
+  stroke: rgb(44, 44, 52) !important;
+}
+
+.nav_login_container {
+  height: calc(1.4rem + 0.5vw);
+  padding-left: calc(0.8rem + 1vw);
+  padding-right: calc(0.8rem + 1vw);
+  margin-right: 1vw;
+  background: #fff;
+  border-radius: 25px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.nav_login_container h2 {
+  color: rgb(44, 44, 52) !important;
+  margin: 0;
+  font-size: calc(0.6rem + 0.5vw);
+  height: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.nav_burger_menu {
+  cursor: pointer;
+  -webkit-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav_burger_menu_no_shadow {
+  cursor: pointer;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.nav_burger_menu_logo_container {
+  width: 100%;
+  height: 15%;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav_burger_menu_items {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  outline: none;
+}
+
+.nav_burger_menu_items li:not(:last-child) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  font-size: 3vh;
+  margin-bottom: 4vh;
+  font-weight: 500;
+  color: rgb(239, 240, 243);
+  cursor: pointer;
+}
+
+.nav_burger_menu_items li:not(:last-child):focus {
+  color: rgb(189, 190, 193);
+}
+
+.nav_burger_menu_items li svg {
+  font-size: 4vh;
+  margin-right: 4vw;
+}
+
+.navbar_social_media_icons {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.nav_sign_in_link_container {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  align-self: center;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter_circle {
+  position: absolute;
+  bottom: 0;
+  top: 1vw;
+  left: 0;
+  right: auto !important;
+  display: flex;
+  padding: 0.6rem;
+  border-radius: 30px;
+  margin: 0 auto;
+}
+
+.fa-layers.fa-fw.letter_circle p {
+  font-size: 0.5rem;
+}
+
+.nav_sign_in_link_container p {
+  font-size: 0.9rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: relative;
+  width: calc(1.2rem + 5vw);
+  height: 100%;
+  left: -1vw;
+  top: 0.2vh;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: rgb(219, 210, 213);
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: rgb(239, 240, 243);
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  top: 0;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: rgb(44, 44, 52);
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+  width: 100%;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: rgb(44, 44, 52);
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: rgb(239, 240, 243);
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  height: 100vh !important;
+  width: 150%;
+  background: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+}
+
+@media only screen and (min-width: 370px) {
+  .nav_burger_menu {
+    margin-right: 0.5vw;
+  }
+
+  .navbar_logo_container svg {
+    padding-top: 0.4rem;
+    min-width: 8rem;
+  }
+
+  .navbar_cart_icon {
+    font-size: calc(2rem + 0.5vw);
+  }
+
+  .nav_login_container {
+    height: calc(2rem + 0.5vw);
+    padding-left: calc(1rem + 2vw);
+    padding-right: calc(1rem + 2vw);
+    margin-right: 1vw;
+  }
+
+  .nav_login_container h2 {
+    font-size: calc(1rem + 0.5vw);
+  }
+
+  .letter_circle {
+    top: 1.7vw;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .letter_circle {
+    top: 1.2vw;
+  }
+}
+
+@media only screen and (min-width: 748px) {
+  .nav_cart_number_circle_container p {
+    top: -0.14vw;
+  }
+
+  .left_nav {
+    margin-left: 3.1rem;
+  }
+
+  .right_nav {
+    margin-right: 3.1rem;
+  }
+
+  .letter_circle {
+    top: 0.8vw;
+  }
+
+  /* Position and sizing of burger button */
+  .bm-burger-button {
+    position: relative;
+    width: calc(2rem + 2vw);
+  }
+}
+
+/* CSS for Phones in Landscape Mode */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .bm-menu-wrap {
+    height: 200% !important;
+  }
+
+  .nav_burger_menu_logo_container {
+    width: 60%;
+  }
+
+  .nav_burger_menu_items li:not(:last-child) {
+    font-size: 7vh;
+    margin-bottom: 5vh;
+  }
+
+  .nav_burger_menu_items li svg {
+    font-size: 8vh;
+    margin-right: 5vw;
+  }
+}
+
+@media only screen and (min-width: 901px) and (orientation: landscape) {
+  .nav_burger_menu,
+  .nav_burger_menu.nav_burger_menu_no_shadow,
+  .nav_burger_menu,
+  .bm-burger-button {
+    display: none !important;
+  }
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .nav_menu {
+    display: flex;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
+  .right_nav {
+    justify-content: space-between;
+  }
+
+  .right_nav h2 {
+    display: block;
+    color: #fff;
+    font-weight: 500;
+    font-size: calc(0.6rem + 0.5vw);
+  }
+
+  .nav_login_container h2 {
+    height: auto;
+    display: flex;
+  }
+
+  .nav_login_container {
+    display: flex;
+    margin-right: 0;
+  }
+
+  .nav_cart_number_circle_container p {
+    top: -0.15vw;
+    right: 0.1vw;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .right_nav {
+    margin-right: 3.1rem;
+    margin-left: 6.1rem;
+  }
+
+  .left_nav {
+    margin-left: 3.1rem;
+  }
+
+  .navbar_cart_icon {
+    font-size: calc(1.2rem + 0.5vw);
+  }
+
+  .letter_circle {
+    top: 0.65vw;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .nav_cart_number_circle_container p {
+    top: -0.1vw;
+    right: -0.02vw;
+  }
+
+  .letter_circle {
+    top: 0.55vw;
+  }
+}
+
+@media only screen and (min-width: 2200px) {
+  .letter_circle {
+    top: 0.45vw;
+  }
+}

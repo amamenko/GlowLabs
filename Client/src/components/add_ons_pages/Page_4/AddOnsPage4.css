@@ -1,0 +1,140 @@
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .add_ons_page_4_container {
+    height: 28.6666667vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: auto;
+    grid-template-areas: "beard_card beard_card beard_card";
+    margin-top: 3vh;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .add_ons_page_4_container {
+    row-gap: 3.5vh;
+    margin-top: 4.5vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .add_ons_page_4_container {
+    row-gap: 4.5vh;
+    margin-top: 7.5vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) and (max-device-height: 800px) {
+  .add_ons_page_4_container {
+    row-gap: 5vh;
+    margin-top: 9vh;
+    margin-bottom: -11vh;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .add_ons_page_4_container {
+    margin-top: 9vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Larger Heights */
+@media only screen and (min-width: 375px) and (min-device-height: 800px) {
+  .add_ons_page_4_container {
+    row-gap: 4vh;
+    margin-top: 5vh;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    .add_ons_page_4_container {
+      margin-top: 4.5vh;
+    }
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .add_ons_page_4_container {
+    margin-top: 3vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .add_ons_page_4_container {
+    margin-top: 6vh;
+    margin-bottom: 0vh;
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .add_ons_page_4_container {
+      row-gap: 3vh;
+      margin-top: 3vh;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .add_ons_page_4_container {
+      margin-top: 2.8vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .add_ons_page_4_container {
+      row-gap: 4vh;
+      margin-top: 5.8vh;
+    }
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .add_ons_page_4_container {
+    display: grid;
+    height: 85vh;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    grid-template-areas:
+      "nanoneedling_card nanoneedling_card nanoneedling_card guasha_card guasha_card guasha_card"
+      "nanoneedling_card nanoneedling_card nanoneedling_card guasha_card guasha_card guasha_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: -5rem;
+    margin-bottom: 0vh;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .add_ons_page_4_container {
+    height: 50vh;
+    grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+    margin-top: -16.2rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .add_ons_page_4_container {
+    margin-top: -22rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .add_ons_page_4_container {
+    display: none;
+  }
+}

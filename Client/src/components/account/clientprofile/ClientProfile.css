@@ -1,0 +1,138 @@
+.client_profile_page_container {
+  height: 100vh;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+}
+
+.client_profile_page_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+  border-bottom: solid 1px rgb(44, 44, 52);
+}
+
+.client_profile_page_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.client_profile_page_content_container {
+  height: 66%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.client_profile_page_content_container div {
+  width: 85%;
+  height: 12vh;
+  box-shadow: 1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+    -1px 0px 1px 0px rgba(177, 177, 166, 0.7),
+    0px -1px 1px 0px rgba(177, 177, 166, 0.7),
+    0px 2px 1px 0px rgba(177, 177, 166, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3vh;
+  background: rgba(0, 129, 177, 0.1);
+}
+
+.client_profile_page_content_container div h2 {
+  font-size: 1.3rem;
+  margin-top: 0.3rem;
+  padding-left: 1rem;
+  font-weight: 600;
+  color: rgb(44, 44, 52);
+}
+
+.profile_box_icon {
+  width: 100%;
+  font-size: 2rem;
+  display: flex;
+  color: rgb(44, 44, 52);
+}
+
+.profile_consent_form_box_container {
+  position: relative;
+}
+
+.profile_box_container_link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.consent_form_download_pdf_container {
+  width: 35%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  top: 43%;
+  bottom: 60%;
+  right: 0;
+  left: 0;
+  font-size: 0.6rem;
+  color: rgba(0, 129, 177, 0.8);
+  padding: 0.6rem;
+  border: 1px dotted rgb(0, 129, 177);
+}
+
+.consent_form_download_pdf_container p {
+  display: inline-block;
+  font-size: 0.5rem;
+  font-weight: 600;
+  margin-left: 0.3rem;
+  color: rgba(0, 129, 177, 0.8);
+}
+
+.consent_form_last_updated_on_container {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  padding-top: 1.3rem;
+}
+
+.consent_form_last_updated_on_container p {
+  display: flex;
+  margin-left: 0.3rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  color: rgb(131, 131, 131);
+  font-size: 0.2rem;
+  font-weight: 500;
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .client_profile_page_container {
+    display: none;
+  }
+}

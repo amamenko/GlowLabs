@@ -1,0 +1,931 @@
+.my_appointments_container {
+  height: 100%;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 20vh;
+}
+
+.my_upcoming_appointments_empty_container {
+  height: 55vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.my_appointments_back_to_client_container {
+  position: absolute;
+  top: 17.3vh;
+  left: 9%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  color: rgb(0, 129, 177);
+}
+
+.my_appointments_back_to_client_back_arrow_icon {
+  font-size: 2rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.my_appointments_back_to_client_container p {
+  font-weight: 600;
+  color: rgba(0, 129, 177, 0.7);
+  cursor: pointer;
+}
+
+.my_upcoming_appointments_empty_container h2 {
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: rgb(155, 155, 155);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.my_upcoming_appointments_empty_container p {
+  width: 85%;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgb(155, 155, 155);
+  margin-top: 2rem;
+  text-align: center;
+  color: black;
+}
+
+.my_upcoming_appointments_empty_calendar_icon {
+  font-size: 10rem;
+  color: rgb(211, 211, 211);
+}
+
+.my_appointments_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  border-bottom: solid 1px rgb(44, 44, 52);
+  position: fixed;
+  background: rgb(255, 255, 255);
+}
+
+.my_appointments_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.my_appointments_header_back_arrow {
+  color: rgb(44, 44, 52);
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.my_appointments_sub_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  padding-top: 8vh;
+  width: 100%;
+  background: rgb(255, 255, 255);
+}
+
+.sub_header_container_link {
+  width: 50%;
+}
+
+.past_appointments_past_title_container,
+.upcoming_appointments_upcoming_title_container {
+  border-bottom: 2px solid black;
+  width: 50%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.past_appointments_past_title_container h2,
+.upcoming_appointments_upcoming_title_container h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.past_appointments_upcoming_title_container,
+.upcoming_appointments_past_title_container {
+  border-bottom: 2px solid rgb(181, 181, 181);
+  width: 100%;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.past_appointments_upcoming_title_container h2,
+.upcoming_appointments_past_title_container h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(181, 181, 181);
+}
+
+.my_appointments_content_container {
+  padding-top: 14vh;
+}
+
+.my_individual_appointment_container {
+  border-bottom: 2px solid rgb(181, 181, 181);
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.admin_side_my_individual_appointment_container {
+  border-bottom: 2px solid rgb(181, 181, 181);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.my_appointment_date_square {
+  padding: 0.5rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: rgba(0, 129, 177, 0.7);
+}
+
+.my_past_appointment_date_square {
+  padding: 0.5rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: rgba(188, 188, 188, 0.7);
+}
+
+.my_past_appointment_date_square p {
+  font-weight: 600;
+  color: rgb(144, 144, 144);
+}
+
+.my_appointment_date_square p {
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+}
+
+.my_appointment_information_container {
+  margin-left: 1rem;
+  margin-right: 1.5rem;
+  line-height: 1.1rem;
+}
+
+.my_appointment_date_time {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.my_appointment_details {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgb(151, 151, 151);
+}
+
+.my_individual_appointment_expand_icon {
+  position: absolute;
+  right: 1.5rem;
+}
+
+.admin_side_my_individual_appointment_expand_icon {
+  position: absolute;
+  right: 1.7rem;
+}
+
+.my_individual_selected_appointment_container {
+  width: 100%;
+  top: -1.1rem;
+  left: 0;
+  bottom: 0;
+  background: white;
+  margin-top: 24vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 1;
+  padding-top: 1rem;
+  margin-right: 1.5rem;
+  position: fixed;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.admin_side_my_individual_selected_appointment_container {
+  width: 100%;
+  top: -1.1rem;
+  left: 0;
+  bottom: 0;
+  background: white;
+  margin-top: 0.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 999999;
+  padding-top: 1rem;
+
+  position: fixed;
+  overflow-x: hidden;
+}
+
+.admin_side_schedule_calendar_individual_selected_appointment_container {
+  width: 100%;
+  top: 16vh;
+  left: 0;
+  bottom: 0;
+  background: white;
+  margin-top: 0.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 999999;
+  padding-top: 1rem;
+  position: fixed;
+  overflow-x: hidden;
+}
+
+.my_individual_selected_appointment_contents_container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding-bottom: 20vh;
+  overflow-x: hidden;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.my_individual_selected_appointment_contents_container p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.selected_appointment_date_and_time_header {
+  color: rgb(151, 151, 151);
+  padding-top: 1rem;
+  border-bottom: 1px solid rgb(151, 151, 151);
+  padding-bottom: 0.5rem;
+  width: 85%;
+}
+
+.selected_appointment_date_and_time_header p {
+  font-weight: 700;
+}
+
+.my_individual_selected_appointment_back_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+}
+
+.my_individual_selected_appointment_back_container p {
+  display: inline-block;
+  color: rgba(0, 129, 177, 0.7);
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+  cursor: pointer;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.my_individual_selected_appointment_back_arrow_icon {
+  position: relative;
+  font-size: 2rem;
+  z-index: 99999;
+  opacity: 0.99;
+  color: rgb(0, 129, 177);
+}
+
+.selected_appointment_date_and_time_content_container {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.selected_appointment_date_and_time_content_container p {
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.2rem;
+}
+
+.my_selected_appointment_treatment_container {
+  width: 85%;
+  margin-left: -1rem;
+}
+
+.my_selected_appointment_treatment_container p {
+  font-size: 0.9rem;
+}
+
+.my_selected_appointment_treatment_container h2 {
+  font-size: 0.9rem;
+}
+
+.selected_appointment_total_header,
+.selected_appointment_add_ons_header,
+.selected_appointment_treatments_header {
+  padding-top: 1rem;
+  border-bottom: 1px solid rgb(151, 151, 151);
+  padding-bottom: 0.5rem;
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10%;
+}
+
+.selected_appointment_add_ons_header p,
+.selected_appointment_treatments_header p {
+  color: rgb(151, 151, 151);
+  font-weight: 700;
+  display: inline-block;
+}
+
+.selected_appointment_total_header p {
+  color: rgb(151, 151, 151);
+  font-weight: 700;
+  display: inline-block;
+}
+
+.add_to_calendar_button_container {
+  width: 50%;
+  position: absolute;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add_to_calendar_button {
+  width: 60%;
+  font-size: 0.5rem;
+  font-weight: 600;
+  position: absolute;
+}
+
+.react-add-to-calendar {
+  transition: all 0.5s ease;
+}
+
+.react-add-to-calendar__button {
+  font-size: 0.7rem;
+  border: 1px solid #a8a8a8 !important;
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.react-add-to-calendar__button span {
+  font-weight: 600;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.react-add-to-calendar__dropdown {
+  min-width: 100%;
+  animation: 0.1s ease-in 0s 1 slideInFromTop;
+}
+
+.react-add-to-calendar__dropdown ul li {
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.react-add-to-calendar__dropdown ul li:not(:first-child) {
+  padding-top: 0.4rem;
+}
+
+.selected_appointments_bottom_buttons_container {
+  width: 85%;
+  display: flex;
+  height: 20vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3vh;
+}
+
+.selected_past_appointments_bottom_buttons_container {
+  width: 85%;
+  display: flex;
+  height: 10vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3vh;
+}
+
+.cancel_appointment_button {
+  width: 65%;
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  color: rgb(255, 255, 255);
+  background: rgb(44, 44, 52);
+}
+
+.back_to_all_appointments_button {
+  width: 65%;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+.cancel_appointment_modal {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  background: rgb(111, 111, 111, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10%;
+}
+
+.cancel_appointment_modal_content_container {
+  -webkit-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  -moz-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  position: fixed;
+  z-index: 5;
+  height: 45%;
+  left: 0;
+  right: 0;
+  top: -12%;
+  bottom: 0;
+  margin: auto;
+  border-radius: 10px;
+  width: 80vw;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(244, 239, 243);
+}
+
+.log_out_modal_contents.admin_cancel_appointment h2 {
+  font-size: 1rem;
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .my_appointments_container {
+    position: absolute;
+    width: 80%;
+    padding-top: 8vh;
+    right: 0;
+  }
+
+  .my_appointments_header {
+    height: 8vh;
+    font-weight: 600;
+    width: 80%;
+  }
+
+  .my_appointments_header h1 {
+    font-size: 2rem;
+  }
+
+  .my_appointments_header_back_arrow {
+    display: none;
+  }
+
+  .my_appointments_content_container {
+    padding-top: 9vh;
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+
+  .admin_side_my_appointments_content_container {
+    padding-top: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .my_individual_selected_appointment_container {
+    width: 68%;
+    top: -8rem;
+    left: 30%;
+    overflow-x: hidden;
+  }
+
+  .my_past_appointment_date_square,
+  .my_appointment_date_square {
+    width: 8%;
+    cursor: pointer;
+  }
+
+  .my_past_appointment_date_square p,
+  .my_appointment_date_square p {
+    font-size: 2rem;
+  }
+
+  .my_appointments_sub_header {
+    display: none;
+  }
+
+  .my_appointment_information_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .my_appointment_date_time {
+    width: 22%;
+    line-height: 1.5rem;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .my_appointment_information_container p {
+    font-size: 1.2rem;
+    width: 22%;
+    line-height: 1.5rem;
+    cursor: pointer;
+  }
+
+  .my_individual_appointment_expand_icon {
+    position: absolute;
+    right: 11vw;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .admin_side_my_individual_appointment_expand_icon {
+    position: absolute;
+    right: 1.8rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .my_individual_selected_appointment_back_arrow_icon {
+    font-size: 4rem;
+    cursor: pointer;
+  }
+
+  .admin_side_total_header {
+    padding-right: 3%;
+  }
+
+  .selected_appointment_total_header p,
+  .selected_appointment_treatments_header p,
+  .selected_appointment_add_ons_header p,
+  .selected_appointment_date_and_time_header p {
+    font-size: 2rem;
+    padding-top: 2rem;
+  }
+
+  .selected_appointment_date_and_time_content p {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+  }
+
+  .react-add-to-calendar__button {
+    font-size: 1.5rem;
+  }
+
+  .react-add-to-calendar__dropdown ul li {
+    font-size: 1.5rem;
+  }
+
+  .react-add-to-calendar__dropdown ul li:not(:first-child) {
+    padding-top: 1.5rem;
+  }
+
+  .my_selected_appointment_treatment_container {
+    width: 87%;
+    margin-left: -10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_treatment_container {
+    width: 94.5%;
+    margin-left: -9rem;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_calendar_schedule_treatment_container {
+    width: 95%;
+    margin-left: -11.5rem;
+  }
+
+  .my_selected_appointment_treatment_container svg {
+    transform: scale(2);
+  }
+
+  .my_selected_appointment_treatment_container h2,
+  .my_selected_appointment_treatment_container p {
+    font-size: 2rem;
+  }
+
+  .cancel_appointment_button {
+    width: 33.35%;
+    font-size: 1.5rem;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  .cancel_appointment_button p,
+  .back_to_all_appointments_button p {
+    font-size: 1.5rem;
+  }
+
+  .back_to_all_appointments_button {
+    width: 33.35%;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  .modal_x {
+    cursor: pointer;
+  }
+
+  .yes_cancel_appointment_button p,
+  .no_dont_cancel_appointment_button p {
+    font-size: 1.5rem;
+  }
+
+  .yes_cancel_appointment_button,
+  .no_dont_cancel_appointment_button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  .cancel_appointment_modal_content_container div h2 {
+    font-size: 2rem;
+    width: 80%;
+  }
+
+  .cancel_appointment_modal_content_container {
+    height: 45%;
+    top: -12%;
+    width: 25vw;
+  }
+
+  .my_upcoming_appointments_empty_container {
+    height: 60vh;
+  }
+
+  .my_upcoming_appointments_empty_container h2 {
+    font-size: 3rem;
+    margin-top: 4rem;
+  }
+
+  .my_upcoming_appointments_empty_container p {
+    width: 40%;
+    line-height: 3rem;
+    font-size: 2rem;
+    margin-top: 4rem;
+  }
+
+  .my_upcoming_appointments_empty_calendar_icon {
+    font-size: 15rem;
+  }
+
+  .my_appointments_back_to_client_back_arrow_icon {
+    font-size: 3rem;
+  }
+
+  .my_appointments_back_to_client_container p {
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .my_appointments_back_to_client_container {
+    left: 13.7%;
+  }
+
+  .my_individual_selected_appointment_back_container {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .my_individual_selected_appointment_back_container p {
+    display: inline-block;
+    color: rgba(0, 129, 177, 0.7);
+    font-weight: 600;
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    cursor: pointer;
+  }
+
+  .log_out_modal_contents.admin_cancel_appointment h2 {
+    font-size: 1.6rem;
+  }
+
+  .admin_side_schedule_calendar_individual_selected_appointment_container {
+    width: 70%;
+    top: 16vh;
+    left: 27%;
+    bottom: 0;
+    background: white;
+    margin-top: 0.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    z-index: 499;
+    padding-top: 1rem;
+    position: fixed;
+    overflow-x: hidden;
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .my_appointment_date_square {
+    padding: 3.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_past_appointment_date_square {
+    padding: 3.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_appointment_information_container p {
+    font-size: 1rem;
+    width: 27%;
+  }
+
+  .my_individual_selected_appointment_back_container {
+    padding-top: 4vh;
+    padding-bottom: 2vh;
+  }
+
+  .my_selected_appointment_treatment_container {
+    width: 90%;
+    margin-left: -9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .my_selected_appointment_treatment_container svg {
+    transform: scale(1.5);
+  }
+
+  .my_selected_appointment_treatment_container h2,
+  .my_selected_appointment_treatment_container p {
+    font-size: 2rem;
+  }
+
+  .my_upcoming_appointments_empty_container {
+    height: 75vh;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_treatment_container {
+    width: 98%;
+    margin-left: -8.5rem;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_calendar_schedule_treatment_container {
+    width: 98%;
+    margin-left: -10.5rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .my_appointment_date_square {
+    padding: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_past_appointment_date_square {
+    padding: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .my_appointment_information_container p {
+    font-size: 1.2rem;
+    width: 22%;
+  }
+
+  .my_individual_selected_appointment_back_container {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .my_selected_appointment_treatment_container {
+    width: 87%;
+    margin-left: -10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .my_selected_appointment_treatment_container svg {
+    transform: scale(2);
+  }
+
+  .my_selected_appointment_treatment_container h2,
+  .my_selected_appointment_treatment_container p {
+    font-size: 2rem;
+  }
+
+  .my_upcoming_appointments_empty_container {
+    height: 60vh;
+  }
+
+  .log_out_modal_contents.admin_cancel_appointment h2 {
+    font-size: 2rem;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_treatment_container {
+    width: 94.5%;
+    margin-left: -9rem;
+  }
+
+  .my_selected_appointment_treatment_container.admin_side_client_calendar_schedule_treatment_container {
+    width: 95%;
+    margin-left: -11.5rem;
+  }
+}

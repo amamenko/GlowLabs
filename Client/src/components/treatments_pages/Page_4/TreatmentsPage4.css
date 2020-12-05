@@ -1,0 +1,179 @@
+/* CSS for Tiny Portrait Screens (e.g. iPhone 5, Galaxy Note 3) */
+@media only screen and (min-width: 300px) {
+  .treatments_page_4_container {
+    display: grid;
+    row-gap: 3vh;
+    height: 92vh;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: auto;
+    grid-template-areas:
+      "dermaplaning_card dermaplaning_card dermaplaning_card"
+      "cbd_card cbd_card cbd_card"
+      "microneedle_card microneedle_card microneedle_card";
+    margin-top: 1rem;
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 360px) {
+  .treatments_page_4_container {
+    row-gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Even Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 700px) {
+  .treatments_page_4_container {
+    row-gap: 4.5vh;
+    margin-top: 7.5vh;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (min-device-height: 701px) and (max-device-height: 800px) {
+  .treatments_page_4_container {
+    row-gap: 5vh;
+    margin-top: 9vh;
+  }
+}
+
+/*CSS for Small Portrait Phones Phones with Smaller Heights */
+@media only screen and (min-width: 360px) and (max-device-height: 650px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    /* CSS for other than iOS devices */
+    .treatments_page_4_container {
+      row-gap: 5vh;
+      margin-top: 8vh;
+    }
+  }
+}
+
+/* CSS for Small Portrait Screens (e.g. iPhone 6/7/8, iPhone X) */
+@media only screen and (min-width: 375px) {
+  .treatments_page_4_container {
+    row-gap: 3.5vh;
+    margin-top: 4.3vh;
+  }
+}
+
+/* Additional CSS for Small Portrait Screens with Smaller Heights */
+@media only screen and (min-width: 375px) and (max-device-height: 700px) {
+  .treatments_page_4_container {
+    row-gap: 5vh;
+    margin-top: 9vh;
+  }
+}
+
+/* CSS for Average Portrait Screens (e.g. iPhone 11) */
+@media only screen and (min-width: 410px) {
+  .treatments_page_4_container {
+    row-gap: 1.5rem;
+    margin-top: 1.4rem;
+  }
+}
+
+/* Additional CSS for Mobile Phones with Smaller Heights */
+@media only screen and (min-width: 410px) and (max-device-height: 800px) {
+  .treatments_page_4_container {
+    row-gap: 4vh;
+    margin-top: 2.8rem;
+  }
+}
+
+/* iPhone 11 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_4_container {
+      row-gap: 3vh;
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+/* iPhone XS Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  @supports (-webkit-overflow-scrolling: touch) {
+    .treatments_page_4_container {
+      row-gap: 2.5vh;
+      margin-top: 1.5vh;
+    }
+  }
+}
+
+/* Google Pixel 4XL */
+@media screen and (device-width: 480px) and (device-height: 1014px) {
+  @supports not (-webkit-overflow-scrolling: touch) {
+    .treatments_page_4_container {
+      row-gap: 4vh;
+      margin-top: 3.5rem;
+    }
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .treatments_page_4_container {
+    height: 85vh;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    grid-template-areas:
+      "salt_cave_card salt_cave_card salt_cave_card chemical_peel_card chemical_peel_card chemical_peel_card"
+      "salt_cave_card salt_cave_card salt_cave_card chemical_peel_card chemical_peel_card chemical_peel_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: -5.3rem;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .treatments_page_4_container {
+    height: 50vh;
+    grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+    margin-top: -16.2rem;
+  }
+}
+
+/* CSS for Larger Tablets in Portrait Mode */
+@media only screen and (min-width: 1024px) and (max-device-height: 1400px) {
+  .treatments_page_4_container {
+    margin-top: -22rem;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) {
+  .treatments_page_4_container {
+    height: 28.6666667vh;
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    grid-template-areas:
+      "cbd_card cbd_card microneedle_card microneedle_card jet_hydro_peel_card jet_hydro_peel_card"
+      "cbd_card cbd_card microneedle_card microneedle_card jet_hydro_peel_card jet_hydro_peel_card";
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    margin-top: 2.7rem;
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) and (max-device-height: 900px) {
+  .treatments_page_4_container {
+    grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .treatments_page_4_container {
+    margin-top: 3rem;
+  }
+
+  /* Safari Only */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .treatments_page_4_container {
+        grid-template-columns: repeat(auto-fit, minmax(33.35%, 1fr));
+      }
+    }
+  }
+}

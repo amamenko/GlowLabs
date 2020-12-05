@@ -1,0 +1,9 @@
+const BOOKED_WITH_CARD_ID_RESET = "BOOKED_WITH_CARD_ID_RESET";
+
+const ACTION_BOOKED_WITH_CARD_ID_RESET = () => {
+  return {
+    type: BOOKED_WITH_CARD_ID_RESET,
+  };
+};
+
+export default ACTION_BOOKED_WITH_CARD_ID_RESET;

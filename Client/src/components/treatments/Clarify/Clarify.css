@@ -1,0 +1,19 @@
+.clarify_wrapping {
+  display: grid;
+  grid-area: clarify_card;
+  height: 28.6666667vh;
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+.clarify_icon_path {
+  transform: scale(0.5);
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .clarify_wrapping {
+    height: 20.8vh;
+  }
+}

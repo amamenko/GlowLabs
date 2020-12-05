@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: none;
+}
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  -webkit-text-size-adjust: none;
+  overscroll-behavior-y: none;
+}
+
+.height_hundred_percent {
+  height: 100%;
+}
+
+.height_remove_hundred_percent {
+  height: auto;
+}
+
+.reset_scroll_behavior {
+  scroll-behavior: auto;
+}
+
+.no_scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+.no_scroll_no_fixed {
+  overflow: hidden;
+  width: 100%;
+}
+
+.scroll_reset {
+  overflow: scroll;
+  overflow-x: hidden;
+  position: static;
+}
+
+.main_container {
+  /* Height is specific to block body background showing  */
+  height: 103vh;
+  /* Important for Smooth Momentum Scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* For temporarily locking in portrait mode on mobile */
+.wrapper-prevent-orientation {
+  height: 200vh !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper-prevent-orientation p {
+  top: 18% !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    --scroll-behavior: auto;
+    scroll-behavior: auto;
+  }
+}
+
+.unsure_toast_container,
+.toast_container {
+  background-color: rgb(214, 236, 252);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 2rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.toast_removed_container {
+  background-color: rgb(199, 221, 237);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 2rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.toast_error_container {
+  background-color: rgb(225, 225, 225);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 2rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.log_out_modal {
+  -webkit-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  -moz-box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  box-shadow: -1px 2px 20px 4px rgba(99, 99, 99, 1);
+  position: fixed;
+  z-index: 5;
+  height: 45%;
+  margin-top: -10%;
+  border-radius: 10px;
+  width: 80vw;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(244, 239, 243);
+}
+
+.log_out_modal_contents {
+  display: flex;
+  height: 70%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-align: center;
+}
+
+.log_out_modal_contents h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.logout_buttons_container {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.cancel_logout_button,
+.logout_button {
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  border-radius: 30px;
+  color: white;
+}
+
+.logout_button {
+  background: rgb(44, 44, 52);
+  cursor: pointer;
+}
+
+.cancel_logout_button {
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  cursor: pointer;
+}
+
+.ReactModalPortal {
+  position: fixed;
+  z-index: 999999999 !important;
+}
+
+::-webkit-scrollbar {
+  height: 0px; /* height of horizontal scrollbar ← You're missing this */
+  border: 1px solid #d5d5d5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(44, 44, 52);
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 1800px) and (orientation: portrait),
+  only screen and (max-width: 1200px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+}
+
+/* CSS for Tablet Portrait / Mobile Landscape */
+@media only screen and (min-width: 600px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 42vw;
+    margin-left: -5.8rem;
+  }
+}
+
+/* CSS for Tablets in Portrait Mode */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 100vw;
+    margin-left: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .Toastify__toast-container--bottom-center {
+    width: 100vw;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) and (orientation: portrait) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 100vw;
+    margin-left: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .Toastify__toast-container--bottom-center {
+    width: 100vw;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
+
+/* CSS for laptops and regular-sized desktops */
+@media only screen and (min-width: 1200px) and (orientation: landscape) {
+  /* Prevent larger browser scrollbar view */
+  html,
+  body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+
+  body::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
+
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 28.5vw;
+    margin-left: -5rem;
+  }
+
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      .input_field_sign_up::placeholder {
+        padding-top: 1vh;
+      }
+    }
+  }
+}
+
+/* CSS for Medium Laptops */
+@media only screen and (min-width: 1400px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 29vw;
+    margin-left: -8.3rem;
+  }
+}
+
+/* CSS for Regular-Sized Desktops */
+@media only screen and (min-width: 1600px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 29.4vw;
+    margin-left: -11.75rem;
+    border: 1px solid rgb(211, 211, 211);
+  }
+}
+
+/* CSS for Big Desktops */
+@media only screen and (min-width: 1800px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 30vw;
+    margin-left: -18.4rem;
+    border: 1px solid rgb(211, 211, 211);
+  }
+
+  .log_out_modal {
+    height: 45%;
+    margin-top: 0%;
+    width: 25vw;
+  }
+
+  .log_out_modal_contents h2 {
+    font-size: 2rem;
+    width: 70%;
+  }
+
+  .cancel_logout_button,
+  .logout_button {
+    font-size: 1.5rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+/* CSS for Huge Desktops */
+@media only screen and (min-width: 2200px) {
+  .toast_error_container,
+  .toast_container,
+  .toast_removed_container {
+    width: 30.8vw;
+    margin-left: -31.6rem;
+    border: 1px solid rgb(211, 211, 211);
+  }
+
+  .log_out_modal {
+    height: 45%;
+    margin-top: 0%;
+    width: 25vw;
+  }
+
+  .log_out_modal_contents h2 {
+    font-size: 2rem;
+    width: 60%;
+  }
+
+  .cancel_logout_button,
+  .logout_button {
+    font-size: 1.5rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
