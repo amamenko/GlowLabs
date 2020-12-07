@@ -94,6 +94,7 @@ const getEmployeesQuery = gql`
       password
       permanentPasswordSet
       employeeRole
+      profilePicture
     }
   }
 `;
@@ -503,6 +504,7 @@ const getEmployeeQuery = gql`
       password
       tokenCount
       createdAt
+      profilePicture
     }
   }
 `;
@@ -627,6 +629,22 @@ const confirmAppointmentMutation = gql`
       bookedWithCardSquareID
       notes
       confirmed
+    }
+  }
+`;
+
+const deleteEmployeeMutation = gql`
+  mutation($_id: ID) {
+    deleteEmployee(_id: $_id) {
+      _id
+    }
+  }
+`;
+
+const deleteClientMutation = gql`
+  mutation($_id: ID) {
+    deleteClient(_id: $_id) {
+      _id
     }
   }
 `;
@@ -1238,6 +1256,19 @@ const updateClientProfilePictureMutation = gql`
   }
 `;
 
+const updateAdminProfilePictureMutation = gql`
+  mutation($id: ID, $profilePicture: String) {
+    updateAdminProfilePicture(id: $id, profilePicture: $profilePicture) {
+      _id
+      firstName
+      lastName
+      email
+      phoneNumber
+      profilePicture
+    }
+  }
+`;
+
 const updateClientInformationMutation = gql`
   mutation(
     $firstName: String
@@ -1394,6 +1425,8 @@ export {
   addAppointmentMutation,
   confirmAppointmentMutation,
   deleteAppointmentMutation,
+  deleteEmployeeMutation,
+  deleteClientMutation,
   deletePersonalEventMutation,
   addPersonalEventMutation,
   getAllPersonalEventsQuery,
@@ -1405,6 +1438,7 @@ export {
   updateClientSquareIDMutation,
   updatePersonalEventMutation,
   updateAdminPasswordMutation,
+  updateAdminProfilePictureMutation,
   updateUnsavedSquareCardIDsMutation,
   removeOneUnsavedSquareCardIDsMutation,
   updateMyRoutineMutation,

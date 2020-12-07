@@ -385,7 +385,13 @@ const TimePreference = (props) => {
         changeCheckedForBlockedTimes(true);
       }
     }
-  }, [checkedForBlockedTimes, appointmentsLoading, personalEventsLoading]);
+  }, [
+    checkedForBlockedTimes,
+    appointmentsLoading,
+    personalEventsLoading,
+    alreadyBookedTimes,
+    blockPersonalEventTimes,
+  ]);
 
   const redirectToHome = () => {
     if (!splashScreenComplete) {
@@ -652,7 +658,7 @@ const TimePreference = (props) => {
     if (totalDuration !== totalDurationValue) {
       dispatch(ACTION_TOTAL_DURATION(totalDurationValue));
     }
-  }, [addOnsArr, dispatch, treatmentsArr]);
+  }, [addOnsArr, dispatch, treatmentsArr, totalDuration]);
 
   useEffect(() => {
     if (selectedTime) {
@@ -844,7 +850,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "#f0f0f0"
                         : individualItemHovered.arr === "morningTimesArr" &&
                           individualItemHovered.index === i
@@ -870,7 +879,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)"
                       : "rgb(0, 0, 0)",
@@ -893,7 +905,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "rgb(201, 201, 201)"
                         : individualItemHovered.arr === "morningTimesArr" &&
                           individualItemHovered.index === i
@@ -917,7 +932,10 @@ const TimePreference = (props) => {
                         )
                           .utc()
                           .subtract(12, "hours")
-                          .valueOf() <= moment().utc().valueOf()
+                          .valueOf() <=
+                          moment()
+                            .utc()
+                            .valueOf()
                         ? "none"
                         : "auto"
                       : "auto",
@@ -990,7 +1008,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "#f0f0f0"
                         : individualItemHovered.arr === "afternoonTimesArr" &&
                           individualItemHovered.index === i
@@ -1016,7 +1037,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)"
                       : "rgb(0, 0, 0)",
@@ -1039,7 +1063,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "rgb(201, 201, 201)"
                         : individualItemHovered.arr === "afternoonTimesArr" &&
                           individualItemHovered.index === i
@@ -1063,7 +1090,10 @@ const TimePreference = (props) => {
                         )
                           .utc()
                           .subtract(12, "hours")
-                          .valueOf() <= moment().utc().valueOf()
+                          .valueOf() <=
+                          moment()
+                            .utc()
+                            .valueOf()
                         ? "none"
                         : "auto"
                       : "auto",
@@ -1143,7 +1173,10 @@ const TimePreference = (props) => {
                             )
                               .utc()
                               .subtract(12, "hours")
-                              .valueOf() <= moment().utc().valueOf()
+                              .valueOf() <=
+                              moment()
+                                .utc()
+                                .valueOf()
                           ? "none"
                           : "auto"
                         : bookedTimes.includes(item) ||
@@ -1162,7 +1195,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "none"
                         : "auto"
                       : "auto",
@@ -1185,7 +1221,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "#f0f0f0"
                         : individualItemHovered.arr ===
                             "lateAfternoonTimesArr" &&
@@ -1212,7 +1251,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "rgb(201, 201, 201)"
                         : "rgb(0, 0, 0)"
                       : "rgb(0, 0, 0)",
@@ -1235,7 +1277,10 @@ const TimePreference = (props) => {
                           )
                             .utc()
                             .subtract(12, "hours")
-                            .valueOf() <= moment().utc().valueOf()
+                            .valueOf() <=
+                            moment()
+                              .utc()
+                              .valueOf()
                         ? "rgb(201, 201, 201)"
                         : individualItemHovered.arr ===
                             "lateAfternoonTimesArr" &&
@@ -1320,7 +1365,10 @@ const TimePreference = (props) => {
                               )
                                 .utc()
                                 .subtract(12, "hours")
-                                .valueOf() <= moment().utc().valueOf()
+                                .valueOf() <=
+                                moment()
+                                  .utc()
+                                  .valueOf()
                             ? "none"
                             : "auto"
                           : bookedTimes.includes(item) ||
@@ -1339,7 +1387,10 @@ const TimePreference = (props) => {
                             )
                               .utc()
                               .subtract(12, "hours")
-                              .valueOf() <= moment().utc().valueOf()
+                              .valueOf() <=
+                              moment()
+                                .utc()
+                                .valueOf()
                           ? "none"
                           : "auto"
                         : "auto",
@@ -1362,7 +1413,10 @@ const TimePreference = (props) => {
                             )
                               .utc()
                               .subtract(12, "hours")
-                              .valueOf() <= moment().utc().valueOf()
+                              .valueOf() <=
+                              moment()
+                                .utc()
+                                .valueOf()
                           ? "#f0f0f0"
                           : individualItemHovered.arr === "eveningTimesArr" &&
                             individualItemHovered.index === i
@@ -1388,7 +1442,10 @@ const TimePreference = (props) => {
                             )
                               .utc()
                               .subtract(12, "hours")
-                              .valueOf() <= moment().utc().valueOf()
+                              .valueOf() <=
+                              moment()
+                                .utc()
+                                .valueOf()
                           ? "rgb(201, 201, 201)"
                           : "rgb(0, 0, 0)"
                         : "rgb(0, 0, 0)",
@@ -1411,7 +1468,10 @@ const TimePreference = (props) => {
                             )
                               .utc()
                               .subtract(12, "hours")
-                              .valueOf() <= moment().utc().valueOf()
+                              .valueOf() <=
+                              moment()
+                                .utc()
+                                .valueOf()
                           ? "rgb(201, 201, 201)"
                           : individualItemHovered.arr === "eveningTimesArr" &&
                             individualItemHovered.index === i

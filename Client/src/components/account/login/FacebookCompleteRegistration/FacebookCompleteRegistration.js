@@ -75,11 +75,11 @@ const FacebookCompleteRegistration = (props) => {
     }
   };
 
-  // const redirectToClientProfile = () => {
-  //   if (userAuthenticated) {
-  //     return <Redirect to="/account/clientprofile" />;
-  //   }
-  // };
+  const redirectToClientProfile = () => {
+    if (userAuthenticated) {
+      return <Redirect to="/account/clientprofile" />;
+    }
+  };
 
   useEffect(() => {
     if (data) {
@@ -113,11 +113,11 @@ const FacebookCompleteRegistration = (props) => {
     dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET());
   };
 
-  // const redirectToLogin = () => {
-  //   if (!facebookCompleteRegistration) {
-  //     return <Redirect to="/account/login" />;
-  //   }
-  // };
+  const redirectToLogin = () => {
+    if (!facebookCompleteRegistration) {
+      return <Redirect to="/account/login" />;
+    }
+  };
 
   // When account screen unmounts, allow navbar
   useEffect(() => {
@@ -131,9 +131,9 @@ const FacebookCompleteRegistration = (props) => {
     <div className="login_page_background">
       <div className="login_page_background_blurry" />
       <div className="complete_registration_page_container">
-        {/* {redirectToHome()}
-      {redirectToLogin()}
-      {redirectToClientProfile()} */}
+        {redirectToHome()}
+        {redirectToLogin()}
+        {redirectToClientProfile()}
         <header className="complete_registration_logo_container">
           <svg
             width="100%"

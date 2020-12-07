@@ -62,7 +62,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
   const imageLoading = useSelector((state) => state.imageLoading.image_loading);
-  const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
   const cartPageOpened = useSelector(
@@ -613,7 +612,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
           ? "drop-shadow(0 0 3px rgba(0, 0, 0, 0.4)"
           : cancelAppointmentClicked ||
             logoutClicked ||
-            pdfLoading ||
             addProfilePhotoClicked ||
             loadingSpinnerActive ||
             imageLoading

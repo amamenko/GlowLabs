@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Calm from "../treatments/Calm/Calm";
 import Clarify from "../treatments/Clarify/Clarify";
 import Bacial from "../treatments/Bacial/Bacial";

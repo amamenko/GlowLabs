@@ -57,6 +57,16 @@
   color: rgb(111, 111, 111);
 }
 
+.profile_client_image_profile {
+  object-fit: cover;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
 .profile_contact_information_container {
   height: 25vh;
   display: flex;

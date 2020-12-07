@@ -98,6 +98,9 @@ const AdminRouter = React.forwardRef((props, ref) => {
             <AdminClients
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
+              getEmployeeData={
+                props.getEmployeeData ? props.getEmployeeData : null
+              }
               getClientsData={getClientsData ? getClientsData : null}
               getClientsRefetch={getClientsRefetch}
               getClientsLoading={getClientsLoading}
@@ -113,8 +116,11 @@ const AdminRouter = React.forwardRef((props, ref) => {
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
               getClientsData={getClientsData ? getClientsData : null}
-              getClientsRefetch={getClientsRefetch}
               getClientsLoading={getClientsLoading}
+              getEmployeeData={
+                props.getEmployeeData ? props.getEmployeeData : null
+              }
+              employeeDataRefetch={props.employeeDataRefetch}
               getEmployeesData={props.getEmployeesData}
               getEmployeesRefetch={props.getEmployeesRefetch}
               getAllAppointmentsData={getAllAppointmentsData}

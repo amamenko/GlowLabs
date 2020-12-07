@@ -190,291 +190,300 @@ const AdminRenderUpcomingAppointments = (props) => {
     }
   };
 
+  const renderNoPastAppointments = () => {
+    return (
+      <div className="my_upcoming_appointments_empty_container">
+        <FontAwesomeIcon
+          icon={faHistory}
+          className="my_upcoming_appointments_empty_calendar_icon"
+        />
+        <h2>No past appointments</h2>
+        <p>
+          {props.item.firstName[0].toUpperCase() +
+            props.item.firstName.slice(1).toLowerCase() +
+            " " +
+            props.item.lastName[0].toUpperCase() +
+            props.item.lastName.slice(1).toLowerCase() +
+            " does not have any past appointments."}
+        </p>
+      </div>
+    );
+  };
+
   return (
     <>
-      {props.data ? (
-        props.data.own_past_appointments.length > 0 ? (
-          props.data.own_past_appointments.map((item, i) => (
-            <div
-              key={i}
-              className="admin_side_my_individual_appointment_container"
-              onClick={(e) => handleAppointmentToggled(e, item)}
-              ref={individualAppointmentRef}
-            >
-              <div className="my_past_appointment_date_square">
-                <p>
-                  {item.date
-                    .split(" ")[1]
-                    .slice(0, item.date.split(" ")[1].indexOf(","))}
-                </p>
-                <p>
-                  {item.date
-                    .split(" ")[0]
-                    .slice(0, 3)
-                    .toUpperCase()}
-                </p>
-              </div>
-              <div className="my_appointment_information_container">
-                <p className="my_appointment_date_time">
-                  {moment(item.date, "LL")
-                    .format("LLLL")
-                    .split(" ")
-                    .slice(
-                      0,
-                      moment(item.date, "LL")
+      {props.data
+        ? props.data.own_past_appointments
+          ? props.data.own_past_appointments.length > 0
+            ? props.data.own_past_appointments.map((item, i) => (
+                <div
+                  key={i}
+                  className="admin_side_my_individual_appointment_container"
+                  onClick={(e) => handleAppointmentToggled(e, item)}
+                  ref={individualAppointmentRef}
+                >
+                  <div className="my_past_appointment_date_square">
+                    <p>
+                      {item.date
+                        .split(" ")[1]
+                        .slice(0, item.date.split(" ")[1].indexOf(","))}
+                    </p>
+                    <p>
+                      {item.date
+                        .split(" ")[0]
+                        .slice(0, 3)
+                        .toUpperCase()}
+                    </p>
+                  </div>
+                  <div className="my_appointment_information_container">
+                    <p className="my_appointment_date_time">
+                      {moment(item.date, "LL")
                         .format("LLLL")
-                        .split(" ").length - 2
-                    )
-                    .join(" ") + ", "}
-                  {!props.currentScreenSize ? (
-                    props.initialScreenSize >= 1200 ? (
-                      <br />
-                    ) : null
-                  ) : props.currentScreenSize >= 1200 ? (
-                    <br />
-                  ) : null}
-                  {item.startTime +
-                    " " +
-                    (Number(item.startTime.split(":")[0]) >= 12 ||
-                    Number(item.startTime.split(":")[0]) < 9
-                      ? "PM"
-                      : "AM")}
-                </p>
-                <p className="my_appointment_details">
-                  {item.treatments[0].name
-                    ? item.treatments[0].name === "ChemicalPeel"
-                      ? "Chemical Peel Facial"
-                      : item.treatments[0].name === "Salt Cave"
-                      ? "Salt Cave"
-                      : item.treatments[0].name + " Facial"
-                    : null}{" "}
-                  {item.addOns[0]
-                    ? ", " +
-                      (item.addOns[0].name
-                        ? item.addOns[0].name === "ExtraExtractions"
-                          ? "Extra Extractions"
-                          : item.addOns[0].name
-                        : null) +
-                      " Add On"
-                    : null}{" "}
-                  {item.addOns.length > 1
-                    ? "+ " + (item.addOns.length - 1).toString() + " more"
-                    : null}
-                </p>
-                <p className="my_appointment_details">
-                  {item.duration >= 60
-                    ? Math.floor(item.duration / 60)
-                    : item.duration}{" "}
-                  {item.duration >= 60
-                    ? Math.floor(item.duration / 60) === 1
-                      ? "hour"
-                      : "hours"
-                    : null}{" "}
-                  {item.duration >= 60
-                    ? Number.isInteger(item.duration / 60)
-                      ? null
-                      : item.duration -
-                        Math.floor(item.duration / 60) * 60 +
-                        " minutes"
-                    : "minutes"}
-                </p>
-              </div>
-              <FontAwesomeIcon
-                style={{
-                  zIndex: logoutClicked || appointmentToggled ? 0 : 1,
-                  transitionDelay: logoutClicked
-                    ? "initial"
-                    : !appointmentToggled
-                    ? "0.5s"
-                    : "initial",
-                }}
-                icon={faEllipsisH}
-                className="admin_side_my_individual_appointment_expand_icon"
-              />
-              <Transition
-                items={appointmentToggled}
-                from={{ transform: "translateX(-100%)" }}
-                enter={{ transform: "translateX(0%)" }}
-                leave={{ transform: "translateX(-100%)" }}
-                config={{ duration: 200 }}
-              >
-                {(appointmentToggled) =>
-                  appointmentToggled === item.id &&
-                  ((styleprops) => (
-                    <div
-                      className="admin_side_my_individual_selected_appointment_container"
-                      style={styleprops}
-                    >
-                      <div className="my_individual_selected_appointment_contents_container">
+                        .split(" ")
+                        .slice(
+                          0,
+                          moment(item.date, "LL")
+                            .format("LLLL")
+                            .split(" ").length - 2
+                        )
+                        .join(" ") + ", "}
+                      {!props.currentScreenSize ? (
+                        props.initialScreenSize >= 1200 ? (
+                          <br />
+                        ) : null
+                      ) : props.currentScreenSize >= 1200 ? (
+                        <br />
+                      ) : null}
+                      {item.startTime +
+                        " " +
+                        (Number(item.startTime.split(":")[0]) >= 12 ||
+                        Number(item.startTime.split(":")[0]) < 9
+                          ? "PM"
+                          : "AM")}
+                    </p>
+                    <p className="my_appointment_details">
+                      {item.treatments[0].name
+                        ? item.treatments[0].name === "ChemicalPeel"
+                          ? "Chemical Peel Facial"
+                          : item.treatments[0].name === "Salt Cave"
+                          ? "Salt Cave"
+                          : item.treatments[0].name + " Facial"
+                        : null}
+                      {item.addOns[0]
+                        ? ", " +
+                          (item.addOns[0].name
+                            ? item.addOns[0].name === "ExtraExtractions"
+                              ? "Extra Extractions"
+                              : item.addOns[0].name
+                            : null) +
+                          " Add On"
+                        : null}{" "}
+                      {item.addOns.length > 1
+                        ? "+ " + (item.addOns.length - 1).toString() + " more"
+                        : null}
+                    </p>
+                    <p className="my_appointment_details">
+                      {item.duration >= 60
+                        ? Math.floor(item.duration / 60)
+                        : item.duration}{" "}
+                      {item.duration >= 60
+                        ? Math.floor(item.duration / 60) === 1
+                          ? "hour"
+                          : "hours"
+                        : null}{" "}
+                      {item.duration >= 60
+                        ? Number.isInteger(item.duration / 60)
+                          ? null
+                          : item.duration -
+                            Math.floor(item.duration / 60) * 60 +
+                            " minutes"
+                        : "minutes"}
+                    </p>
+                  </div>
+                  <FontAwesomeIcon
+                    style={{
+                      zIndex: logoutClicked || appointmentToggled ? 0 : 1,
+                      transitionDelay: logoutClicked
+                        ? "initial"
+                        : !appointmentToggled
+                        ? "0.5s"
+                        : "initial",
+                    }}
+                    icon={faEllipsisH}
+                    className="admin_side_my_individual_appointment_expand_icon"
+                  />
+                  <Transition
+                    items={appointmentToggled}
+                    from={{ transform: "translateX(-100%)" }}
+                    enter={{ transform: "translateX(0%)" }}
+                    leave={{ transform: "translateX(-100%)" }}
+                    config={{ duration: 200 }}
+                  >
+                    {(appointmentToggled) =>
+                      appointmentToggled === item.id &&
+                      ((styleprops) => (
                         <div
-                          className="my_individual_selected_appointment_back_container"
-                          ref={selectedAppointmentBackRef}
-                          onClick={(e) => handleAppointmentUntoggled(e)}
+                          className="admin_side_my_individual_selected_appointment_container"
+                          style={styleprops}
                         >
-                          <FontAwesomeIcon
-                            icon={faLongArrowAltLeft}
-                            className="my_individual_selected_appointment_back_arrow_icon"
-                          />
-                          <p>Back to Past Appointments</p>
-                        </div>
-                        <div className="selected_appointment_date_and_time_header">
-                          <p>Appointment Date &amp; Time</p>
-                        </div>
-                        <div className="selected_appointment_date_and_time_content_container">
-                          <div className="selected_appointment_date_and_time_content">
-                            <p>
-                              {moment(item.date, "LL")
-                                .format("LLLL")
-                                .split(" ")
-                                .slice(
-                                  0,
-                                  moment(item.date, "LL")
+                          <div className="my_individual_selected_appointment_contents_container">
+                            <div
+                              className="my_individual_selected_appointment_back_container"
+                              ref={selectedAppointmentBackRef}
+                              onClick={(e) => handleAppointmentUntoggled(e)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faLongArrowAltLeft}
+                                className="my_individual_selected_appointment_back_arrow_icon"
+                              />
+                              <p>Back to Past Appointments</p>
+                            </div>
+                            <div className="selected_appointment_date_and_time_header">
+                              <p>Client Information</p>
+                            </div>
+                            <div className="selected_appointment_date_and_time_content_container">
+                              <div className="selected_appointment_date_and_time_content">
+                                <p>
+                                  {item.client.firstName[0].toUpperCase() +
+                                    item.client.firstName
+                                      .slice(1)
+                                      .toLowerCase() +
+                                    " " +
+                                    item.client.lastName[0].toUpperCase() +
+                                    item.client.lastName.slice(1).toLowerCase()}
+                                </p>
+                                <p>{item.client.phoneNumber}</p>
+                                <p>{item.client.email}</p>
+                              </div>
+                            </div>
+                            <div className="selected_appointment_date_and_time_header">
+                              <p>Appointment Date &amp; Time</p>
+                            </div>
+                            <div className="selected_appointment_date_and_time_content_container">
+                              <div className="selected_appointment_date_and_time_content">
+                                <p>
+                                  {moment(item.date, "LL")
                                     .format("LLLL")
-                                    .split(" ").length - 2
-                                )
-                                .join(" ")}
-                            </p>
-                            <p>
-                              {item.startTime +
-                                " " +
-                                (Number(item.startTime.split(":")[0]) >= 12 ||
-                                Number(item.startTime.split(":")[0]) < 9
-                                  ? "PM"
-                                  : "AM")}{" "}
-                              -{" "}
-                              {item.endTime +
-                                " " +
-                                (Number(item.endTime.split(":")[0]) >= 12 ||
-                                Number(item.endTime.split(":")[0]) < 9
-                                  ? "PM"
-                                  : "AM")}{" "}
-                            </p>
-                            <p>
-                              (
-                              {item.duration >= 60
-                                ? Math.floor(item.duration / 60)
-                                : item.duration}{" "}
-                              {item.duration >= 60
-                                ? Math.floor(item.duration / 60) === 1
-                                  ? "hour"
-                                  : "hours"
-                                : null}
-                              {Number.isInteger(item.duration / 60)
-                                ? null
-                                : " "}
-                              {item.duration >= 60
-                                ? Number.isInteger(item.duration / 60)
+                                    .split(" ")
+                                    .slice(
+                                      0,
+                                      moment(item.date, "LL")
+                                        .format("LLLL")
+                                        .split(" ").length - 2
+                                    )
+                                    .join(" ")}
+                                </p>
+                                <p>
+                                  {item.startTime +
+                                    " " +
+                                    (Number(item.startTime.split(":")[0]) >=
+                                      12 ||
+                                    Number(item.startTime.split(":")[0]) < 9
+                                      ? "PM"
+                                      : "AM")}{" "}
+                                  -{" "}
+                                  {item.endTime +
+                                    " " +
+                                    (Number(item.endTime.split(":")[0]) >= 12 ||
+                                    Number(item.endTime.split(":")[0]) < 9
+                                      ? "PM"
+                                      : "AM")}{" "}
+                                </p>
+                                <p>
+                                  (
+                                  {item.duration >= 60
+                                    ? Math.floor(item.duration / 60)
+                                    : item.duration}{" "}
+                                  {item.duration >= 60
+                                    ? Math.floor(item.duration / 60) === 1
+                                      ? "hour"
+                                      : "hours"
+                                    : null}
+                                  {Number.isInteger(item.duration / 60)
+                                    ? null
+                                    : " "}
+                                  {item.duration >= 60
+                                    ? Number.isInteger(item.duration / 60)
+                                      ? null
+                                      : item.duration -
+                                        Math.floor(item.duration / 60) * 60 +
+                                        " minutes"
+                                    : "minutes"}
+                                  )
+                                </p>
+                              </div>
+                            </div>
+                            <div className="selected_appointment_treatments_header">
+                              <p>
+                                Treatment{" "}
+                                {item.treatments[0].name === "Salt Cave"
                                   ? null
-                                  : item.duration -
-                                    Math.floor(item.duration / 60) * 60 +
-                                    " minutes"
-                                : "minutes"}
-                              )
-                            </p>
+                                  : item.esthetician
+                                  ? "(with " + item.esthetician + ")"
+                                  : null}
+                              </p>
+                            </div>
+                            {renderSummaryCardTreatments(i)}
+                            {props.data ? (
+                              props.data.own_past_appointments ? (
+                                props.data.own_past_appointments[i].addOns
+                                  .length === 0 ? null : (
+                                  <>
+                                    <div className="selected_appointment_add_ons_header">
+                                      <p>
+                                        Add On
+                                        {props.data
+                                          ? props.data.own_past_appointments[i]
+                                              .addOns.length > 1
+                                            ? "s"
+                                            : null
+                                          : null}
+                                      </p>
+                                    </div>
+                                    {renderSummaryCardAddOns(i)}
+                                  </>
+                                )
+                              ) : null
+                            ) : null}
+                            <div className="selected_appointment_total_header admin_side_total_header">
+                              <p>Total</p>
+                              <p>${item.price}</p>
+                            </div>
+                            <div className="selected_appointment_date_and_time_header">
+                              <p>Notes</p>
+                            </div>
+                            <div className="selected_appointment_date_and_time_content_container">
+                              <div className="selected_appointment_date_and_time_content">
+                                <p>
+                                  {props.data
+                                    ? props.data.own_appointments
+                                      ? props.data.own_appointments[i].notes
+                                        ? props.data.own_appointments[i].notes
+                                        : "No notes provided"
+                                      : "No notes provided"
+                                    : "No notes provided"}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="selected_past_appointments_bottom_buttons_container">
+                              <div
+                                className="back_to_all_appointments_button"
+                                ref={backToAppointmentsRef}
+                                onClick={(e) => handleAppointmentUntoggled(e)}
+                              >
+                                <p>Back to Appointments</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div className="selected_appointment_treatments_header">
-                          <p>
-                            Treatment{" "}
-                            {item.treatments[0].name === "Salt Cave"
-                              ? null
-                              : item.esthetician
-                              ? "(with " + item.esthetician + ")"
-                              : null}
-                          </p>
-                        </div>
-                        {renderSummaryCardTreatments(i)}
-                        {props.data ? (
-                          props.data.own_past_appointments ? (
-                            props.data.own_past_appointments[i].addOns
-                              .length === 0 ? null : (
-                              <>
-                                <div className="selected_appointment_add_ons_header">
-                                  <p>
-                                    Add On
-                                    {props.data
-                                      ? props.data.own_past_appointments[i]
-                                          .addOns.length > 1
-                                        ? "s"
-                                        : null
-                                      : null}
-                                  </p>
-                                </div>
-                                {renderSummaryCardAddOns(i)}
-                              </>
-                            )
-                          ) : null
-                        ) : null}
-                        <div className="selected_appointment_total_header admin_side_total_header">
-                          <p>Total</p>
-                          <p>${item.price}</p>
-                        </div>
-                        <div className="selected_appointment_date_and_time_header">
-                          <p>Notes</p>
-                        </div>
-                        <div className="selected_appointment_date_and_time_content_container">
-                          <div className="selected_appointment_date_and_time_content">
-                            <p>
-                              {props.data
-                                ? props.data.own_appointments
-                                  ? props.data.own_appointments[i].notes
-                                    ? props.data.own_appointments[i].notes
-                                    : "No notes provided"
-                                  : "No notes provided"
-                                : "No notes provided"}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="selected_past_appointments_bottom_buttons_container">
-                          <div
-                            className="back_to_all_appointments_button"
-                            ref={backToAppointmentsRef}
-                            onClick={(e) => handleAppointmentUntoggled(e)}
-                          >
-                            <p>Back to Appointments</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                }
-              </Transition>
-            </div>
-          ))
-        ) : (
-          <div className="my_upcoming_appointments_empty_container">
-            <FontAwesomeIcon
-              icon={faHistory}
-              className="my_upcoming_appointments_empty_calendar_icon"
-            />
-            <h2>No past appointments</h2>
-            <p>
-              {props.item.firstName[0].toUpperCase() +
-                props.item.firstName.slice(1).toLowerCase() +
-                " " +
-                props.item.lastName[0].toUpperCase() +
-                props.item.lastName.slice(1).toLowerCase() +
-                " does not have any past appointments."}
-            </p>
-          </div>
-        )
-      ) : (
-        <div className="my_upcoming_appointments_empty_container">
-          <FontAwesomeIcon
-            icon={faHistory}
-            className="my_upcoming_appointments_empty_calendar_icon"
-          />
-          <h2>No past appointments</h2>
-          <p>
-            {props.item.firstName[0].toUpperCase() +
-              props.item.firstName.slice(1).toLowerCase() +
-              " " +
-              props.item.lastName[0].toUpperCase() +
-              props.item.lastName.slice(1).toLowerCase() +
-              " does not have any past appointments."}
-          </p>
-        </div>
-      )}
+                      ))
+                    }
+                  </Transition>
+                </div>
+              ))
+            : renderNoPastAppointments()
+          : renderNoPastAppointments()
+        : renderNoPastAppointments()}
     </>
   );
 };

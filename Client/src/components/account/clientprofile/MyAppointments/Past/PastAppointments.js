@@ -289,6 +289,7 @@ const PastAppointments = (props) => {
       <div className="my_appointments_content_container">
         <ClientRenderPastAppointments
           data={props.data}
+          loadingPastAppointments={props.loadingPastAppointments}
           handleAppointmentToggled={handleAppointmentToggled}
           handleAppointmentUntoggled={handleAppointmentUntoggled}
           individualAppointmentRef={individualAppointmentRef}

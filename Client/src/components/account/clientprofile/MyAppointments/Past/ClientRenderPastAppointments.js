@@ -7,6 +7,8 @@ import {
   faLongArrowAltLeft,
   faHistory,
 } from "@fortawesome/free-solid-svg-icons";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/css";
 
 const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
   const {
@@ -14,6 +16,13 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
     selectedAppointmentBackRef,
     backToAppointmentsRef,
   } = ref;
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   return (
     <>
@@ -32,12 +41,7 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
                     .split(" ")[1]
                     .slice(0, item.date.split(" ")[1].indexOf(","))}
                 </p>
-                <p>
-                  {item.date
-                    .split(" ")[0]
-                    .slice(0, 3)
-                    .toUpperCase()}
-                </p>
+                <p>{item.date.split(" ")[0].slice(0, 3).toUpperCase()}</p>
               </div>
               <div className="my_appointment_information_container">
                 <p className="my_appointment_date_time">
@@ -46,9 +50,8 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
                     .split(" ")
                     .slice(
                       0,
-                      moment(item.date, "LL")
-                        .format("LLLL")
-                        .split(" ").length - 2
+                      moment(item.date, "LL").format("LLLL").split(" ").length -
+                        2
                     )
                     .join(" ") + ", "}
                   {!props.currentScreenSize ? (
@@ -261,6 +264,15 @@ const ClientRenderPastAppointments = React.forwardRef((props, ref) => {
             <p>Any previous appointment information will be available here</p>
           </div>
         )
+      ) : props.loadingPastAppointments ? (
+        <div className="my_upcoming_appointments_empty_container">
+          <ClipLoader
+            size={100}
+            css={override}
+            color={"rgb(44, 44, 52)"}
+            loading={props.loadingPastAppointments}
+          />
+        </div>
       ) : (
         <div className="my_upcoming_appointments_empty_container">
           <FontAwesomeIcon

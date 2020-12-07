@@ -30,6 +30,19 @@
   cursor: pointer;
 }
 
+.admin_create_appointent_dropdown_placeholder_no_time::before {
+  background: #fff;
+  position: absolute;
+  color: #fff;
+  content: "*****************************************";
+}
+
+.admin_create_appointent_dropdown_placeholder_no_time::after {
+  position: absolute;
+  left: 1.5rem;
+  content: "Staff member assigned role";
+}
+
 .admin_individual_selected_employee_contents {
   height: 100%;
   width: 100%;

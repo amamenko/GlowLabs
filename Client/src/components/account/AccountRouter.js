@@ -25,16 +25,20 @@ import LargeScreenSideMenu from "./LargeScreenSideMenu/LargeScreenSideMenu";
 import "./LargeScreenSideMenu/LargeScreenSideMenu.css";
 
 const AccountRouter = React.forwardRef((props, ref) => {
-  const [getOwnAppointments, { data, called, refetch }] = useLazyQuery(
-    getOwnAppointmentsQuery,
-    {
-      fetchPolicy: "no-cache",
-    }
-  );
+  const [
+    getOwnAppointments,
+    { data, called, refetch, loading: loadingAppointments },
+  ] = useLazyQuery(getOwnAppointmentsQuery, {
+    fetchPolicy: "no-cache",
+  });
 
   const [
     getOwnPastAppointments,
-    { data: pastAppointmentsData, called: pastAppointmentsCalled },
+    {
+      data: pastAppointmentsData,
+      called: pastAppointmentsCalled,
+      loading: loadingPastAppointments,
+    },
   ] = useLazyQuery(getOwnPastAppointmentsQuery, {
     fetchPolicy: "no-cache",
   });
@@ -104,6 +108,7 @@ const AccountRouter = React.forwardRef((props, ref) => {
             <UpcomingAppointments
               data={data ? data : null}
               refetch={refetch ? refetch : null}
+              loadingAppointments={loadingAppointments}
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
             />
@@ -115,6 +120,7 @@ const AccountRouter = React.forwardRef((props, ref) => {
           render={() => (
             <PastAppointments
               data={pastAppointmentsData ? pastAppointmentsData : null}
+              loadingPastAppointments={loadingPastAppointments}
               initialScreenSize={props.initialScreenSize}
               currentScreenSize={props.currentScreenSize}
             />

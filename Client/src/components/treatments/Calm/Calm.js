@@ -41,6 +41,7 @@ import ACTION_SALT_CAVE_TOGGLE_RESET from "../../../actions/Treatments/SaltCave/
 import ACTION_JET_HYDRO_PEEL_TOGGLE_RESET from "../../../actions/Treatments/JetHydroPeel/ACTION_JET_HYDRO_PEEL_TOGGLE_RESET";
 import NotSurePopUp from "../../treatments_pages/Page_2/NotSurePopUp/NotSurePopUp";
 import ACTION_UNSURE_POP_UP_TRIGGERED from "../../../actions/UnsurePopUp/ACTION_UNSURE_POP_UP_TRIGGERED";
+import { useLocation } from "react-router-dom";
 
 const Calm = (props) => {
   const BookNowButtonRef = useRef(null);
@@ -109,6 +110,7 @@ const Calm = (props) => {
   const [tooltipShow, changeTooltipShow] = useState(true);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleToggle = () => {
     if (!calmToggle) {
@@ -654,45 +656,49 @@ const Calm = (props) => {
   };
 
   useEffect(() => {
-    if (unsurePopUpTriggered === 1) {
-      if (
-        !calmInCart &&
-        !bacialInCart &&
-        !cbdInCart &&
-        !chemicalPeelInCart &&
-        !clarifyInCart &&
-        !dermaplaningInCart &&
-        !glowInCart &&
-        !microneedleInCart &&
-        !quenchInCart &&
-        !quickieInCart &&
-        !rejuvenateInCart &&
-        !unsureInCart &&
-        !saltCaveInCart &&
-        !cartIsActive &&
-        location.pathname === "/"
-      ) {
-        toast.dismiss();
-        const unsureToastDeployDelay = setTimeout(() => {
-          toast(
-            <NotSurePopUp
-              currentScreenSize={props.currentScreenSize}
-              initialScreenSize={props.initialScreenSize}
-            />,
-            {
-              className: "toast_container",
-              autoClose: false,
-              closeButton: false,
-            }
-          );
-        }, 3000);
+    if (location.pathname === "/") {
+      if (unsurePopUpTriggered === 1) {
+        if (
+          !calmInCart &&
+          !bacialInCart &&
+          !cbdInCart &&
+          !chemicalPeelInCart &&
+          !clarifyInCart &&
+          !dermaplaningInCart &&
+          !glowInCart &&
+          !microneedleInCart &&
+          !quenchInCart &&
+          !quickieInCart &&
+          !rejuvenateInCart &&
+          !unsureInCart &&
+          !saltCaveInCart &&
+          !cartIsActive &&
+          location.pathname === "/"
+        ) {
+          toast.dismiss();
+          const unsureToastDeployDelay = setTimeout(() => {
+            toast(
+              <NotSurePopUp
+                currentScreenSize={props.currentScreenSize}
+                initialScreenSize={props.initialScreenSize}
+              />,
+              {
+                className: "toast_container",
+                autoClose: false,
+                closeButton: false,
+              }
+            );
+          }, 3000);
 
-        return () => {
-          clearTimeout(unsureToastDeployDelay);
-        };
-      } else {
-        dispatch(ACTION_UNSURE_POP_UP_TRIGGERED());
+          return () => {
+            clearTimeout(unsureToastDeployDelay);
+          };
+        } else {
+          dispatch(ACTION_UNSURE_POP_UP_TRIGGERED());
+        }
       }
+    } else {
+      toast.dismiss();
     }
   }, [
     bacialInCart,

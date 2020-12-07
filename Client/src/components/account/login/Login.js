@@ -289,10 +289,14 @@ const Login = (props) => {
         <h2>Your skin care.</h2>
         <h2>Your way.</h2>
         <ul>
+          <li>Keep track of upcoming appointments</li>
+          <li>Review past appointments</li>
+          <li>Manage consent form information</li>
+          {/* 
           <li>Keep track of appointments</li>
           <li>Get skincare product recommendations</li>
           <li>Track skin progress with before/after photos</li>
-          <li>Build your skin profile</li>
+          <li>Build your skin profile</li> */}
         </ul>
       </div>
     </div>

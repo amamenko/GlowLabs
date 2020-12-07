@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useLocation } from "react-router-dom";
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import {
   faHome,
@@ -16,6 +16,7 @@ import "./AdminMenu.css";
 
 const AdminMenu = (props) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const splashScreenHalfway = useSelector(
     (state) => state.splashScreenHalfway.splashScreenHalfway
   );
@@ -50,6 +51,14 @@ const AdminMenu = (props) => {
       return <Redirect to="/admin" />;
     }
   };
+
+  useEffect(() => {
+    if (location.state) {
+      if (location.state.changedAdminPassword) {
+        window.location.reload();
+      }
+    }
+  }, [location.state]);
 
   const redirectToClientsPage = () => {
     if (!props.currentScreenSize) {

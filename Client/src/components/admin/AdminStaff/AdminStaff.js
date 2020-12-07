@@ -8,6 +8,23 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect, Link, useLocation } from "react-router-dom";
+import { FormGroup, Input } from "reactstrap";
+import Modal from "react-modal";
+import { Transition } from "react-spring/renderprops";
+import imageCompression from "browser-image-compression";
+import ImageUploader from "react-images-upload";
+import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
+import { useMutation } from "@apollo/react-hooks";
+import { updateAdminProfilePictureMutation } from "../../../graphql/queries/queries";
+import LZString from "lz-string";
+import { css } from "@emotion/css";
+import { BounceLoader } from "react-spinners";
+import AdminStaffIndividualProfile from "./AdminStaffIndividualProfile";
+import AdminAddStaffMember from "./AdminAddStaffMember";
+import AdminRenderUpcomingAppointments from "../AdminClients/AdminRenderUpcomingAppointments";
+import AdminRenderPastAppointments from "../AdminClients/AdminRenderPastAppointments";
+import moment from "moment";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
@@ -17,31 +34,26 @@ import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_IMAGE_LOADING from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING";
 import ACTION_IMAGE_LOADING_RESET from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING_RESET";
-import { Redirect, Link, useLocation } from "react-router-dom";
-import { FormGroup, Input } from "reactstrap";
-import Modal from "react-modal";
-import { Transition } from "react-spring/renderprops";
-import imageCompression from "browser-image-compression";
-import ImageUploader from "react-images-upload";
-import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
-import { useMutation } from "@apollo/react-hooks";
-import { updateClientProfilePictureMutation } from "../../../graphql/queries/queries";
-import LZString from "lz-string";
-import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
-import AdminStaffIndividualProfile from "./AdminStaffIndividualProfile";
-import AdminAddStaffMember from "./AdminAddStaffMember";
-import AdminRenderUpcomingAppointments from "../AdminClients/AdminRenderUpcomingAppointments";
-import AdminRenderPastAppointments from "../AdminClients/AdminRenderPastAppointments";
-import moment from "moment";
 import "./AdminStaff.css";
 import "react-html5-camera-photo/build/css/index.css";
 
 const AdminStaff = (props) => {
+  const {
+    getEmployeeData,
+    getEmployeesRefetch,
+    getEmployeesData,
+    getAllAppointmentsData,
+    currentScreenSize,
+    initialScreenSize,
+    getClientsData,
+    getClientsLoading,
+    getAllAppointmentsRefetch,
+    employeeDataRefetch,
+    randomColorArray,
+  } = props;
+
   const dispatch = useDispatch();
   const location = useLocation();
-
-  let pdfDownloadRef = useRef(null);
 
   const selectedEmployeeBackRef = useRef(null);
   const backToClientsRef = useRef(null);
@@ -97,9 +109,9 @@ const AdminStaff = (props) => {
   const [pdfLoading, changePDFLoading] = useState(false);
 
   const [
-    updateClientProfilePicture,
-    { data: updateClientProfilePictureData },
-  ] = useMutation(updateClientProfilePictureMutation);
+    updateAdminProfilePicture,
+    { data: updateAdminProfilePictureData },
+  ] = useMutation(updateAdminProfilePictureMutation);
 
   const override = css`
     display: block;
@@ -129,9 +141,9 @@ const AdminStaff = (props) => {
 
   useEffect(() => {
     if (employeeToggled) {
-      if (props.getEmployeesData) {
-        if (props.getEmployeesData.employees.length > 0) {
-          const selectedEmployee = props.getEmployeesData.employees.filter(
+      if (getEmployeesData) {
+        if (getEmployeesData.employees.length > 0) {
+          const selectedEmployee = getEmployeesData.employees.filter(
             (x) => x._id === employeeToggled
           )[0];
 
@@ -150,34 +162,35 @@ const AdminStaff = (props) => {
         changeEmployeeNameToggled("");
       }
     }
-  }, [employeeToggled, employeeNameToggled, props.getEmployeesData]);
+  }, [employeeToggled, employeeNameToggled, getEmployeesData]);
 
   useEffect(() => {
     if (employeeNameToggled) {
       changeSelectedEmployeeAppointments({
-        own_appointments: props.getAllAppointmentsData.all_appointments.filter(
+        own_appointments: getAllAppointmentsData.all_appointments.filter(
           (x) =>
             x.esthetician === employeeNameToggled &&
             moment(
               x.date + " " + x.startTime + " " + x.morningOrEvening,
               "MMMM D, YYYY h:mm A"
-            ).format() >= moment().format()
+            ).isAfter(moment())
         ),
       });
 
       changeSelectedEmployeePastAppointments({
-        own_past_appointments: props.getAllAppointmentsData.all_appointments.filter(
+        own_past_appointments: getAllAppointmentsData.all_appointments.filter(
           (x) =>
+            x.esthetician === employeeNameToggled &&
             moment(
               x.date + " " + x.startTime + " " + x.morningOrEvening,
               "MMMM D, YYYY h:mm A"
-            ).format() < moment().format()
+            ).isBefore(moment())
         ),
       });
     } else {
       changeSelectedEmployeeAppointments([]);
     }
-  }, [employeeNameToggled, props.getAllAppointmentsData]);
+  }, [employeeNameToggled, getAllAppointmentsData]);
 
   const handleDeletedPreviewImage = () => {
     const deleteImageClass = document.getElementsByClassName("deleteImage");
@@ -258,11 +271,11 @@ const AdminStaff = (props) => {
   };
 
   useMemo(() => {
-    if (props.getEmployeesData) {
-      if (props.getEmployeesData.employees.length > 0) {
+    if (getEmployeesData) {
+      if (getEmployeesData.employees.length > 0) {
         if (changeEmployeeFilter) {
           changeFilteredAllEmployees(
-            [...props.getEmployeesData.employees].filter((x) => {
+            [...getEmployeesData.employees].filter((x) => {
               return (
                 new RegExp(employeeFilter, "gi").test(
                   x.firstName + " " + x.lastName
@@ -278,7 +291,7 @@ const AdminStaff = (props) => {
         }
       }
     }
-  }, [employeeFilter, props.getEmployeesData]);
+  }, [employeeFilter, getEmployeesData]);
 
   // Allows click only if selected employee modal is not active
 
@@ -360,7 +373,7 @@ const AdminStaff = (props) => {
   }, [dispatch, loginIsActive]);
 
   const handleConfirmPhotoSubmit = () => {
-    updateClientProfilePicture({
+    updateAdminProfilePicture({
       variables: {
         id: employeeToggled,
         profilePicture: imageUploaded,
@@ -374,12 +387,6 @@ const AdminStaff = (props) => {
     changeTakeAPhotoSelected(false);
     changeWebcamURI("");
   };
-
-  useMemo(() => {
-    if (updateClientProfilePictureData) {
-      props.getClientsRefetch();
-    }
-  }, [props, updateClientProfilePictureData]);
 
   const handleProfilePictureRender = (item) => {
     if (item.profilePicture) {
@@ -403,8 +410,8 @@ const AdminStaff = (props) => {
           className="admin_individual_client_initials_profile_avatar"
           style={{
             background:
-              props.randomColorArray[
-                props.getEmployeesData.employees
+              randomColorArray[
+                getEmployeesData.employees
                   .sort((a, b) => a.firstName.localeCompare(b.firstName))
                   .map((x) => x.email)
                   .indexOf(item.email)
@@ -420,48 +427,35 @@ const AdminStaff = (props) => {
   };
 
   useEffect(() => {
-    if (imageLoading) {
-      if (updateClientProfilePictureData) {
-        const imageDataReceived = setTimeout(() => {
+    if (updateAdminProfilePictureData) {
+      const imageDataReceived = setTimeout(() => {
+        if (imageLoading) {
           dispatch(ACTION_IMAGE_LOADING_RESET());
-        }, 500);
-        return () => {
-          clearTimeout(imageDataReceived);
-        };
-      }
-    }
-  }, [imageLoading, updateClientProfilePictureData, dispatch]);
-
-  useEffect(() => {
-    if (loadingSpinnerActive) {
-      const loadingSpinnerDuration = setTimeout(() => {
-        if (pdfDownloadRef) {
-          pdfDownloadRef.current.click();
         }
-        dispatch(ACTION_LOADING_SPINNER_RESET());
-        changePDFLoading(false);
-      }, 3000);
+      }, 500);
+      getEmployeesRefetch();
+      employeeDataRefetch();
       return () => {
-        clearTimeout(loadingSpinnerDuration);
+        clearTimeout(imageDataReceived);
       };
-    } else {
-      if (pdfDownloadRef) {
-        if (pdfDownloadRef.current) {
-          pdfDownloadRef.current.click();
-        }
-      }
     }
-  }, [loadingSpinnerActive, dispatch]);
+  }, [
+    imageLoading,
+    updateAdminProfilePictureData,
+    dispatch,
+    getEmployeesRefetch,
+    employeeDataRefetch,
+  ]);
 
   const renderBarInContactInfo = () => {
-    if (!props.currentScreenSize) {
-      if (props.initialScreenSize >= 1200) {
+    if (!currentScreenSize) {
+      if (initialScreenSize >= 1200) {
         return null;
       } else {
         return <p style={{ color: "rgb(200, 200, 200)" }}>|</p>;
       }
     } else {
-      if (props.currentScreenSize >= 1200) {
+      if (currentScreenSize >= 1200) {
         return null;
       } else {
         return <p style={{ color: "rgb(200, 200, 200)" }}>|</p>;
@@ -470,18 +464,18 @@ const AdminStaff = (props) => {
   };
 
   useEffect(() => {
-    if (props.getClientsLoading) {
+    if (getClientsLoading) {
       dispatch(ACTION_LOADING_SPINNER_ACTIVE());
     } else {
       dispatch(ACTION_LOADING_SPINNER_RESET());
     }
-  }, [dispatch, props.getClientsLoading]);
+  }, [dispatch, getClientsLoading]);
 
   return (
     <div className="admin_clients_container">
       {redirectToAdminLogInPage()}
       <Modal
-        isOpen={imageLoading || loadingSpinnerActive || props.getClientsLoading}
+        isOpen={imageLoading || loadingSpinnerActive || getClientsLoading}
         style={{
           content: {
             position: "fixed",
@@ -509,9 +503,7 @@ const AdminStaff = (props) => {
           size={100}
           css={override}
           color={"rgb(44, 44, 52)"}
-          loading={
-            imageLoading || loadingSpinnerActive || props.getClientsLoading
-          }
+          loading={imageLoading || loadingSpinnerActive || getClientsLoading}
         />
       </Modal>
       <div
@@ -523,11 +515,11 @@ const AdminStaff = (props) => {
             loadingSpinnerActive ||
             imageLoading ||
             cancelAppointmentClicked ||
-            props.getClientsLoading
+            getClientsLoading
               ? 0
               : 5,
           filter:
-            cancelAppointmentClicked || props.getClientsLoading
+            cancelAppointmentClicked || getClientsLoading
               ? "blur(5px)"
               : "none",
         }}
@@ -559,8 +551,8 @@ const AdminStaff = (props) => {
         className="admin_clients_content_container"
         style={{ height: "55vh", overflow: "scroll", marginTop: "2vh" }}
       >
-        {props.getEmployeesData
-          ? props.getEmployeesData.employees.length > 0
+        {getEmployeesData
+          ? getEmployeesData.employees.length > 0
             ? filteredAllEmployees
                 .sort((a, b) => a.firstName.localeCompare(b.firstName))
                 .map((item, i) => {
@@ -730,22 +722,20 @@ const AdminStaff = (props) => {
                                           <p>Confirm photo</p>
                                         </div>
                                       ) : null}
-                                      {(props.initialScreenSize >= 1200 &&
+                                      {(initialScreenSize >= 1200 &&
                                         !imageUploaded &&
                                         !imagePreviewAvailable) ||
-                                      (props.currentScreenSize >= 1200 &&
+                                      (currentScreenSize >= 1200 &&
                                         !imageUploaded &&
                                         !imagePreviewAvailable) ? (
                                         <>
                                           <p
                                             style={{
-                                              display: !props.currentScreenSize
-                                                ? props.initialScreenSize >=
-                                                  1200
+                                              display: !currentScreenSize
+                                                ? initialScreenSize >= 1200
                                                   ? "block"
                                                   : "none"
-                                                : props.currentScreenSize >=
-                                                  1200
+                                                : currentScreenSize >= 1200
                                                 ? "block"
                                                 : "none",
                                             }}
@@ -774,8 +764,8 @@ const AdminStaff = (props) => {
                         className="admin_individual_client_initials_square"
                         style={{
                           background:
-                            props.randomColorArray[
-                              props.getEmployeesData.employees
+                            randomColorArray[
+                              getEmployeesData.employees
                                 .sort((a, b) =>
                                   a.firstName.localeCompare(b.firstName)
                                 )
@@ -839,8 +829,8 @@ const AdminStaff = (props) => {
                             handleProfilePictureRender
                           }
                           renderBarInContactInfo={renderBarInContactInfo}
-                          getClientsData={props.getClientsData}
-                          getEmployeesRefetch={props.getEmployeesRefetch}
+                          getClientsData={getClientsData}
+                          getEmployeesRefetch={getEmployeesRefetch}
                           addStaffMemberClicked={addStaffMemberClicked}
                           changeAddStaffMemberClicked={
                             changeAddStaffMemberClicked
@@ -905,13 +895,18 @@ const AdminStaff = (props) => {
                                   <AdminStaffIndividualProfile
                                     item={item}
                                     employeeToggled={employeeToggled}
+                                    changeEmployeeToggled={
+                                      changeEmployeeToggled
+                                    }
                                     handleProfilePictureRender={
                                       handleProfilePictureRender
                                     }
                                     renderBarInContactInfo={
                                       renderBarInContactInfo
                                     }
-                                    getEmployeesData={props.getEmployeesData}
+                                    getEmployeesData={getEmployeesData}
+                                    getEmployeesRefetch={getEmployeesRefetch}
+                                    getEmployeeData={getEmployeeData}
                                   />
                                 ) : null}
                                 {adminClientSectionSelected ===
@@ -920,19 +915,15 @@ const AdminStaff = (props) => {
                                     <AdminRenderUpcomingAppointments
                                       data={selectedEmployeeAppointments}
                                       getAllAppointmentsRefetch={
-                                        props.getAllAppointmentsRefetch
+                                        getAllAppointmentsRefetch
                                       }
                                       item={item}
                                       override={override}
                                       loadingSpinnerActive={
                                         loadingSpinnerActive
                                       }
-                                      currentScreenSize={
-                                        props.currentScreenSize
-                                      }
-                                      initialScreenSize={
-                                        props.initialScreenSize
-                                      }
+                                      currentScreenSize={currentScreenSize}
+                                      initialScreenSize={initialScreenSize}
                                     />
                                   </div>
                                 ) : adminClientSectionSelected ===
@@ -941,12 +932,8 @@ const AdminStaff = (props) => {
                                     <AdminRenderPastAppointments
                                       data={selectedEmployeePastAppointments}
                                       item={item}
-                                      currentScreenSize={
-                                        props.currentScreenSize
-                                      }
-                                      initialScreenSize={
-                                        props.initialScreenSize
-                                      }
+                                      currentScreenSize={currentScreenSize}
+                                      initialScreenSize={initialScreenSize}
                                     />
                                   </div>
                                 ) : null}
@@ -960,39 +947,44 @@ const AdminStaff = (props) => {
                 })
             : null
           : null}
-
-        <div
-          className="add_staff_member_button_container"
-          style={{
-            zIndex: employeeToggled
-              ? logoutClicked ||
-                addProfilePhotoClicked ||
-                loadingSpinnerActive ||
-                imageLoading ||
-                cancelAppointmentClicked ||
-                addStaffMemberClicked ||
-                employeeToggled
-                ? -1
-                : 0
-              : addStaffMemberClicked
-              ? -1
-              : logoutClicked ||
-                addProfilePhotoClicked ||
-                loadingSpinnerActive ||
-                imageLoading ||
-                cancelAppointmentClicked ||
-                addStaffMemberClicked
-              ? 0
-              : 5,
-          }}
-        >
-          <div
-            className="add_staff_member_button"
-            onClick={() => changeAddStaffMemberClicked(true)}
-          >
-            Add Staff Member
-          </div>
-        </div>
+        {getEmployeeData ? (
+          getEmployeeData.employee ? (
+            getEmployeeData.employee.employeeRole.includes("Admin") ? (
+              <div
+                className="add_staff_member_button_container"
+                style={{
+                  zIndex: employeeToggled
+                    ? logoutClicked ||
+                      addProfilePhotoClicked ||
+                      loadingSpinnerActive ||
+                      imageLoading ||
+                      cancelAppointmentClicked ||
+                      addStaffMemberClicked ||
+                      employeeToggled
+                      ? -1
+                      : 0
+                    : addStaffMemberClicked
+                    ? -1
+                    : logoutClicked ||
+                      addProfilePhotoClicked ||
+                      loadingSpinnerActive ||
+                      imageLoading ||
+                      cancelAppointmentClicked ||
+                      addStaffMemberClicked
+                    ? 0
+                    : 5,
+                }}
+              >
+                <div
+                  className="add_staff_member_button"
+                  onClick={() => changeAddStaffMemberClicked(true)}
+                >
+                  Add Staff Member
+                </div>
+              </div>
+            ) : null
+          ) : null
+        ) : null}
       </div>
     </div>
   );

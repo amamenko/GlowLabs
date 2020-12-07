@@ -9,6 +9,7 @@ const EmployeeSchema = new Schema({
   lastName: String,
   email: String,
   phoneNumber: String,
+  profilePicture: String,
   employeeRole: { type: Array, default: [] },
   permanentPasswordSet: { type: Boolean, default: false },
   password: String,

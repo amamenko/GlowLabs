@@ -11,10 +11,11 @@ import {
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
-import { BounceLoader } from "react-spinners";
+import { BounceLoader, ClipLoader } from "react-spinners";
 import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
 import { useDispatch } from "react-redux";
+import { css } from "@emotion/css";
 
 const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();
@@ -23,6 +24,13 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
     selectedAppointmentBackRef,
     backToAppointmentsRef,
   } = ref;
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
 
   return (
     <>
@@ -443,6 +451,15 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
             </p>
           </div>
         )
+      ) : props.loadingAppointments ? (
+        <div className="my_upcoming_appointments_empty_container">
+          <ClipLoader
+            size={100}
+            css={override}
+            color={"rgb(44, 44, 52)"}
+            loading={props.loadingAppointments}
+          />
+        </div>
       ) : (
         <div className="my_upcoming_appointments_empty_container">
           <FontAwesomeIcon

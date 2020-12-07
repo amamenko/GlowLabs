@@ -14,19 +14,6 @@ import { Spring, Transition } from "react-spring/renderprops";
 import Modal from "react-modal";
 import { createStore, applyMiddleware } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
-import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
-import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
-import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
-import ACTION_BODY_SCROLL_ALLOW from "./actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
-import ACTION_BODY_SCROLL_RESET from "./actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
-import ACTION_USER_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_AUTHENTICATED";
-import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_NOT_AUTHENTICATED";
-import ACTION_LOG_OUT_CLICKED_RESET from "./actions/LogOut/ACTION_LOG_OUT_CLICKED_RESET";
-import ACTION_FACEBOOK_COMPLETE_REGISTRATION from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION";
-import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
-import ACTION_DUMMY_TOKEN from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN";
-import ACTION_DUMMY_TOKEN_RESET from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN_RESET";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
@@ -62,17 +49,38 @@ import { css } from "@emotion/css";
 import { BounceLoader } from "react-spinners";
 import { Font } from "@react-pdf/renderer";
 import AdminRouter from "./components/admin/AdminRouter";
+import { isAndroid } from "react-device-detect";
+import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
+import AllTreatments from "./components/all_treatments/AllTreatments";
+import AllAddOns from "./components/all_add_ons/AllAddOns";
+import { scroller } from "react-scroll";
+import FollowUs from "./components/follow_us/FollowUs";
+import ContactUs from "./components/contact_us/ContactUs";
+import iNoBounce from "./inobounce";
+import Availability from "./components/availability/Date/Availability";
+import TimePreference from "./components/availability/Time/TimePreference";
+import GuestCheckout from "./components/checkout/GuestCheckout";
+import ConfirmationPage from "./components/checkout/ConfirmationPage";
+import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
+import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_NAVBAR_TOGGLE_RESET from "./actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
+import ACTION_NAVBAR_TOGGLE from "./actions/Nav/ACTION_NAVBAR_TOGGLE";
+import ACTION_BODY_SCROLL_ALLOW from "./actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_BODY_SCROLL_RESET from "./actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import ACTION_USER_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_AUTHENTICATED";
+import ACTION_USER_NOT_AUTHENTICATED from "./actions/Authenticated/ACTION_USER_NOT_AUTHENTICATED";
+import ACTION_LOG_OUT_CLICKED_RESET from "./actions/LogOut/ACTION_LOG_OUT_CLICKED_RESET";
+import ACTION_FACEBOOK_COMPLETE_REGISTRATION from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION";
+import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "./actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
+import ACTION_DUMMY_TOKEN from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN";
+import ACTION_DUMMY_TOKEN_RESET from "./actions/Login/DummyToken/ACTION_DUMMY_TOKEN_RESET";
 import ACTION_ADMIN_DUMMY_TOKEN from "./actions/Admin/AdminLogin/AdminDummyToken/ACTION_ADMIN_DUMMY_TOKEN";
 import ACTION_ADMIN_DUMMY_TOKEN_RESET from "./actions/Admin/AdminLogin/AdminDummyToken/ACTION_ADMIN_DUMMY_TOKEN_RESET";
 import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN from "./actions/Admin/AdminLogin/AdminTemporaryDummyToken/ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN";
 import ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET from "./actions/Admin/AdminLogin/AdminTemporaryDummyToken/ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET";
 import ACTION_ADMIN_AUTHENTICATED from "./actions/Admin/AdminLogin/AdminAuthenticated/ACTION_ADMIN_AUTHENTICATED";
 import ACTION_ADMIN_NOT_AUTHENTICATED from "./actions/Admin/AdminLogin/AdminAuthenticated/ACTION_NOT_AUTHENTICATED";
-import Availability from "./components/availability/Date/Availability";
-import TimePreference from "./components/availability/Time/TimePreference";
-import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
-import GuestCheckout from "./components/checkout/GuestCheckout";
-import ConfirmationPage from "./components/checkout/ConfirmationPage";
 import ACTION_APPOINTMENT_NOTES_RESET from "./actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_RESET";
 import ACTION_PHONE_NOT_INVALID from "./actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
 import ACTION_PHONE_NOT_VALID from "./actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
@@ -124,14 +132,6 @@ import ACTION_NANONEEDLING_TOGGLE_RESET from "./actions/AddOns/Nanoneedling/ACTI
 import ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN from "./actions/ConsentForm/GuestConsentFormAccessToken/ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN";
 import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE";
-import { isAndroid } from "react-device-detect";
-import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
-import AllTreatments from "./components/all_treatments/AllTreatments";
-import AllAddOns from "./components/all_add_ons/AllAddOns";
-import { scroller } from "react-scroll";
-import FollowUs from "./components/follow_us/FollowUs";
-import ContactUs from "./components/contact_us/ContactUs";
-import iNoBounce from "./inobounce";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -209,9 +209,15 @@ const App = () => {
     (state) => state.logoutClicked.log_out_clicked
   );
 
+  const userAuthenticated = useSelector(
+    (state) => state.userAuthenticated.user_authenticated
+  );
   const dummyToken = useSelector((state) => state.dummyToken.dummy_token);
   const adminDummyToken = useSelector(
     (state) => state.adminDummyToken.admin_dummy_token
+  );
+  const adminAuthenticated = useSelector(
+    (state) => state.adminAuthenticated.admin_authenticated
   );
   const adminTemporaryDummyToken = useSelector(
     (state) => state.adminTemporaryDummyToken.admin_temporary_dummy_token
@@ -228,19 +234,21 @@ const App = () => {
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [treatmentsPageInView, changeTreatmentsPageInView] = useState(false);
+  const [loggingOut, changeLoggingOut] = useState(false);
 
   const [redirectActive, changeRedirectActive] = useState(false);
 
   // For large screen shopping cart slide-in
   const [cartSlideDelay, changeCartSlideDelay] = useState(false);
 
-  const [updateClientInvalidateTokens, { loading: appLoading }] = useMutation(
-    updateClientInvalidateTokensMutation
-  );
+  const [
+    updateClientInvalidateTokens,
+    { loading: appLoading, data: clientLogoutData },
+  ] = useMutation(updateClientInvalidateTokensMutation);
 
   const [
     updateEmployeeInvalidateTokens,
-    { loading: adminLogoutAppLoading },
+    { loading: adminLogoutAppLoading, data: employeeLogoutData },
   ] = useMutation(updateEmployeeInvalidateTokensMutation);
 
   const dispatch = useDispatch();
@@ -646,15 +654,51 @@ const App = () => {
   const handleLogout = () => {
     if (adminDummyToken) {
       updateEmployeeInvalidateTokens();
-      dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
-      dispatch(ACTION_USER_NOT_AUTHENTICATED());
-      dispatch(ACTION_ADMIN_DUMMY_TOKEN_RESET());
+      changeLoggingOut(true);
     } else {
       updateClientInvalidateTokens();
-      dispatch(ACTION_USER_NOT_AUTHENTICATED());
-      dispatch(ACTION_DUMMY_TOKEN_RESET());
+      changeLoggingOut(true);
     }
   };
+
+  useEffect(() => {
+    if (employeeLogoutData) {
+      if (loggingOut) {
+        if (adminAuthenticated) {
+          dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
+        }
+        if (userAuthenticated) {
+          dispatch(ACTION_USER_NOT_AUTHENTICATED());
+        }
+        if (adminDummyToken) {
+          dispatch(ACTION_ADMIN_DUMMY_TOKEN_RESET());
+        }
+        if (dummyToken) {
+          dispatch(ACTION_DUMMY_TOKEN_RESET());
+        }
+        changeLoggingOut(false);
+      }
+    }
+  }, [
+    adminAuthenticated,
+    adminDummyToken,
+    dispatch,
+    dummyToken,
+    employeeLogoutData,
+    userAuthenticated,
+    loggingOut,
+  ]);
+
+  useEffect(() => {
+    if (clientLogoutData) {
+      if (loggingOut) {
+        if (userAuthenticated) {
+          dispatch(ACTION_USER_NOT_AUTHENTICATED());
+        }
+        changeLoggingOut(false);
+      }
+    }
+  }, [clientLogoutData, dispatch, userAuthenticated, loggingOut]);
 
   useEffect(() => {
     if (appLoading || adminLogoutAppLoading) {
@@ -1511,6 +1555,7 @@ const App = () => {
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 getEmployeeData={getEmployeeData ? getEmployeeData : null}
+                employeeDataRefetch={employeeDataRefetch}
                 getEmployeesData={getEmployeesData ? getEmployeesData : null}
                 getEmployeesRefetch={getEmployeesRefetch}
                 getEmployeesLoading={getEmployeesLoading}

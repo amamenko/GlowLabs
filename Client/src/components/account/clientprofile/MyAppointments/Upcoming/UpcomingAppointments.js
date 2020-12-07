@@ -4,7 +4,6 @@ import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-
 import CalmSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
 import ClarifySummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/ClarifySummaryCard";
@@ -80,9 +79,11 @@ const UpcomingAppointments = (props) => {
     right: 25%;
   `;
 
-  const handleCancelAppointment = (item) => {
-    deleteAppointment({
+  const handleCancelAppointment = async (item) => {
+    await deleteAppointment({
       variables: { _id: item.id },
+    }).then(() => {
+      setTimeout(() => props.refetch(), 1000);
     });
   };
 
@@ -344,6 +345,7 @@ const UpcomingAppointments = (props) => {
       <div className="my_appointments_content_container">
         <ClientRenderUpcomingAppointments
           data={props.data}
+          loadingAppointments={props.loadingAppointments}
           handleAppointmentToggled={handleAppointmentToggled}
           handleAppointmentUntoggled={handleAppointmentUntoggled}
           handleCancelAppointment={handleCancelAppointment}

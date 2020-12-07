@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import "./ContactUs.css";
 import "./Contact.css";
 import GoogleMapReact from "google-map-react";

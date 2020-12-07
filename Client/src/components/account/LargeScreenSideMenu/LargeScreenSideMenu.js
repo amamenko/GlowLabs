@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -19,21 +19,28 @@ import {
   faBriefcase,
   faCalendarWeek,
 } from "@fortawesome/free-solid-svg-icons";
-import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CanvasDraw from "react-canvas-draw";
 import LZString from "lz-string";
 import moment from "moment";
-import "./LargeScreenSideMenu.css";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../clientprofile/ConsentForm/ConsentFormPDF";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/css";
 import ACTION_LOG_OUT_CLICKED from "../../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
 import ACTION_CART_IS_NOT_ACTIVE from "../../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_PDF_LOADING_RESET from "../../../actions/PDFLoading/ACTION_PDF_LOADING_RESET";
 import ACTION_PDF_LOADING from "../../../actions/PDFLoading/ACTION_PDF_LOADING";
-import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
-import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_NAVBAR_TOGGLE_RESET from "../../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
+import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import "./LargeScreenSideMenu.css";
+
+const override = css`
+  display: block;
+  position: absolute;
+  left: 25%;
+  right: 25%;
+`;
 
 const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   const { LandingPageRef } = ref;
@@ -69,10 +76,9 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   const addProfilePhotoClicked = useSelector(
     (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
   );
-  const loadingSpinnerActive = useSelector(
-    (state) => state.loadingSpinnerActive.loading_spinner
-  );
   const imageLoading = useSelector((state) => state.imageLoading.image_loading);
+
+  const [pdfSpinnerActive, changePDFSpinnerActive] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -83,7 +89,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   }, [pdfLoading, dispatch]);
 
   const loadingCompleted = useCallback(() => {
-    dispatch(ACTION_LOADING_SPINNER_ACTIVE());
+    changePDFSpinnerActive(true);
     if (!pdfLoading) {
       dispatch(ACTION_PDF_LOADING());
     } else {
@@ -92,9 +98,9 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   }, [pdfLoading, dispatch]);
 
   const handlePDFDownloadClick = useEffect(() => {
-    if (loadingSpinnerActive) {
+    if (pdfSpinnerActive) {
       const loadingSpinnerDuration = setTimeout(() => {
-        dispatch(ACTION_LOADING_SPINNER_RESET());
+        changePDFSpinnerActive(false);
         if (pdfDownloadRef) {
           if (pdfDownloadRef.current) {
             pdfDownloadRef.current.click();
@@ -106,7 +112,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
         clearTimeout(loadingSpinnerDuration);
       };
     }
-  }, [loadingSpinnerActive, dispatch]);
+  }, [pdfSpinnerActive, dispatch]);
 
   const consentFormOnFile = (item) => {
     return (
@@ -209,54 +215,20 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                   >
                     <div
                       className="large_screen_side_menu_item_container"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "1rem",
+                      }}
                       ref={pdfDownloadRef}
                     >
-                      <FontAwesomeIcon
-                        className="large_screen_side_menu_item_icon"
-                        icon={
-                          props.getClientData.client.consentForm
-                            ? props.getClientData.client.consentForm.date
-                              ? faFileDownload
-                              : faFilePdf
-                            : faFilePdf
-                        }
-                        style={{
-                          color: props.getClientData.client.consentForm
-                            ? props.getClientData.client.consentForm.date
-                              ? "rgba(0, 129, 177, 0.9)"
-                              : "rgba(177, 48, 0, 0.9)"
-                            : "rgba(177, 48, 0, 0.9)",
-                        }}
+                      <ClipLoader
+                        size={32}
+                        css={override}
+                        color={"rgb(44, 44, 52)"}
+                        loading={pdfLoading}
                       />
-                      <h2
-                        style={{
-                          color: props.getClientData.client.consentForm
-                            ? props.getClientData.client.consentForm.date
-                              ? "rgba(0, 129, 177, 0.9)"
-                              : "rgba(177, 48, 0, 0.9)"
-                            : "rgba(177, 48, 0, 0.9)",
-                        }}
-                      >
-                        {props.getClientData.client.consentForm
-                          ? props.getClientData.client.consentForm.date
-                            ? "Download Latest Consent Form"
-                            : "No Consent Form on File"
-                          : "No Consent Form on File"}
-                      </h2>
-                      {props.getClientData.client.consentForm ? (
-                        props.getClientData.client.consentForm.date ? (
-                          <p style={{ display: pdfLoading ? "none" : "block" }}>
-                            {"(" +
-                              moment
-                                .unix(
-                                  props.getClientData.client.consentForm
-                                    .createdAt / 1000
-                                )
-                                .format("l") +
-                              ")"}
-                          </p>
-                        ) : null
-                      ) : null}
                     </div>
                   </PDFDownloadLink>
                 ) : (
@@ -308,9 +280,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           : logoutClicked ||
             finalBookButtonActive ||
             cancelAppointmentClicked ||
-            pdfLoading ||
             addProfilePhotoClicked ||
-            loadingSpinnerActive ||
             imageLoading ||
             props.getClientsLoading
           ? "blur(5px) brightness(50%)"
@@ -320,9 +290,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           logoutClicked ||
           finalBookButtonActive ||
           cancelAppointmentClicked ||
-          pdfLoading ||
           addProfilePhotoClicked ||
-          loadingSpinnerActive ||
           imageLoading ||
           props.getClientsLoading
             ? "none"
@@ -422,6 +390,39 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                 icon={faUserCircle}
               />
             )
+          ) : props.getEmployeeData ? (
+            props.getEmployeeData.employee ? (
+              props.getEmployeeData.employee.profilePicture ? (
+                <img
+                  className="large_screen_side_menu_profile_client_photo_avatar"
+                  src={LZString.decompressFromEncodedURIComponent(
+                    props.getEmployeeData.employee.profilePicture
+                  )}
+                  alt={
+                    props.getEmployeeData.employee.firstName[0].toUpperCase() +
+                    props.getEmployeeData.employee.firstName
+                      .slice(1)
+                      .toLowerCase() +
+                    " " +
+                    props.getEmployeeData.employee.lastName[0].toUpperCase() +
+                    props.getEmployeeData.employee.lastName
+                      .slice(1)
+                      .toLowerCase() +
+                    " Profile Picture"
+                  }
+                />
+              ) : (
+                <FontAwesomeIcon
+                  className="large_screen_side_menu_profile_client_avatar"
+                  icon={faUserCircle}
+                />
+              )
+            ) : (
+              <FontAwesomeIcon
+                className="large_screen_side_menu_profile_client_avatar"
+                icon={faUserCircle}
+              />
+            )
           ) : (
             <FontAwesomeIcon
               className="large_screen_side_menu_profile_client_avatar"
@@ -468,8 +469,14 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
               {props.getClientData
                 ? "Default"
                 : props.getEmployeeData
-                ? "Admin"
-                : null}
+                ? props.getEmployeeData.employee
+                  ? props.getEmployeeData.employee.employeeRole.includes(
+                      "Admin"
+                    )
+                    ? "Admin"
+                    : "Staff"
+                  : "Staff"
+                : "Staff"}
             </p>
           </div>
         </div>

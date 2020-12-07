@@ -5,21 +5,7 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faSearch,
-  faEllipsisH,
-  faLongArrowAltLeft,
-  faTimes,
-  faFilePdf,
-  faFileDownload,
-} from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
-import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
-import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
-import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PROFILE_SELECTED.js";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FormGroup, Input } from "reactstrap";
 import Modal from "react-modal";
@@ -35,13 +21,21 @@ import {
 } from "../../../graphql/queries/queries";
 import moment from "moment";
 import LZString from "lz-string";
-import "react-html5-camera-photo/build/css/index.css";
-import "./AdminClients.css";
 import { css } from "@emotion/css";
 import { BounceLoader } from "react-spinners";
 import CanvasDraw from "react-canvas-draw";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../../account/clientprofile/ConsentForm/ConsentFormPDF";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faSearch,
+  faEllipsisH,
+  faLongArrowAltLeft,
+  faTimes,
+  faFilePdf,
+  faFileDownload,
+} from "@fortawesome/free-solid-svg-icons";
 import AdminClientIndividualProfile from "./AdminClientIndividualProfile";
 import AdminRenderUpcomingAppointments from "./AdminRenderUpcomingAppointments";
 import AdminRenderPastAppointments from "./AdminRenderPastAppointments";
@@ -50,6 +44,12 @@ import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_IMAGE_LOADING from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING";
 import ACTION_IMAGE_LOADING_RESET from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING_RESET";
+import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
+import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
+import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PROFILE_SELECTED.js";
+import "react-html5-camera-photo/build/css/index.css";
+import "./AdminClients.css";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();
@@ -430,6 +430,14 @@ const AdminClients = (props) => {
   }, [imageLoading, updateClientProfilePictureData, dispatch]);
 
   useEffect(() => {
+    if (location.state) {
+      if (location.state.changedAdminPassword) {
+        window.location.reload();
+      }
+    }
+  }, [location.state]);
+
+  useEffect(() => {
     if (loadingSpinnerActive) {
       const loadingSpinnerDuration = setTimeout(() => {
         if (pdfDownloadRef) {
@@ -443,12 +451,6 @@ const AdminClients = (props) => {
       return () => {
         clearTimeout(loadingSpinnerDuration);
       };
-    } else {
-      if (pdfDownloadRef) {
-        if (pdfDownloadRef.current) {
-          pdfDownloadRef.current.click();
-        }
-      }
     }
   }, [loadingSpinnerActive, dispatch]);
 
@@ -1064,6 +1066,7 @@ const AdminClients = (props) => {
                                   <AdminClientIndividualProfile
                                     item={item}
                                     clientToggled={clientToggled}
+                                    changeClientToggled={changeClientToggled}
                                     handleProfilePictureRender={
                                       handleProfilePictureRender
                                     }
@@ -1074,6 +1077,12 @@ const AdminClients = (props) => {
                                       renderDownloadConsentFormButton
                                     }
                                     getClientsData={props.getClientsData}
+                                    getClientsRefetch={props.getClientsRefetch}
+                                    getEmployeeData={
+                                      props.getEmployeeData
+                                        ? props.getEmployeeData
+                                        : null
+                                    }
                                   />
                                 ) : adminClientSectionSelected ===
                                   "UpcomingAppointments" ? (

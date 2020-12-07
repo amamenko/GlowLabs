@@ -2,13 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import { Transition } from "react-spring/renderprops";
 import { faLongArrowAltLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "react-dropdown/style.css";
-import "react-day-picker/lib/style.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
 import Modal from "react-modal";
 import { css } from "@emotion/css";
 import { BounceLoader } from "react-spinners";
+import phone from "phone";
+import isEmail from "validator/lib/isEmail";
+import isMobilePhone from "validator/lib/isMobilePhone";
+import { addEmployeeMutation } from "../../../graphql/queries/queries";
+import Dropdown from "react-dropdown";
 import ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER";
 import ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER_RESET";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
@@ -20,11 +23,9 @@ import ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME from "../../../actions/Admin/AdminAd
 import ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberFirstName/ACTION_ADMIN_STAFF_MEMBER_FIRST_NAME_RESET";
 import ACTION_ADMIN_STAFF_MEMBER_ROLES from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberRoles/ACTION_ADMIN_STAFF_MEMBER_ROLES";
 import ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberRoles/ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET";
-import phone from "phone";
-import isEmail from "validator/lib/isEmail";
-import isMobilePhone from "validator/lib/isMobilePhone";
-import { addEmployeeMutation } from "../../../graphql/queries/queries";
-import Dropdown from "react-dropdown";
+import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
+import "react-dropdown/style.css";
+import "react-day-picker/lib/style.css";
 
 const AdminAddStaffMember = (props) => {
   const dispatch = useDispatch();
@@ -221,6 +222,14 @@ const AdminAddStaffMember = (props) => {
       dispatch(ACTION_LOADING_SPINNER_ACTIVE());
     }
   }, [addEmployeeLoading, dispatch]);
+
+  useEffect(() => {
+    if (addEmployeeData) {
+      if (loadingSpinnerActive) {
+        dispatch(ACTION_LOADING_SPINNER_RESET());
+      }
+    }
+  }, [addEmployeeData, loadingSpinnerActive, dispatch]);
 
   useEffect(() => {
     const refInterval = setInterval(() => {
@@ -630,10 +639,8 @@ const AdminAddStaffMember = (props) => {
                         ? "react-autosuggest__input personal_event_error"
                         : "react-autosuggest__input"
                     }
-                    placeholder={"Staff member assigned role"}
-                    placeholderClassName={
-                      "admin_create_appointent_dropdown_placeholder_no_time"
-                    }
+                    placeholder="Staff member assigned role"
+                    placeholderClassName="admin_create_appointent_dropdown_placeholder_no_time"
                   />
                 </div>
               ) : null}

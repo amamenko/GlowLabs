@@ -116,6 +116,7 @@ const EmployeeType = new GraphQLObjectType({
     lastName: { type: GraphQLString },
     email: { type: GraphQLString },
     phoneNumber: { type: GraphQLString },
+    profilePicture: { type: GraphQLString },
     employeeRole: { type: new GraphQLList(GraphQLString) },
     permanentPasswordSet: { type: GraphQLBoolean },
     password: { type: GraphQLString },
@@ -929,7 +930,6 @@ const Mutation = new GraphQLObjectType({
 
         let transporter = nodemailer.createTransport({
           host: "smtp.mail.yahoo.com",
-          port: 465,
           service: "yahoo",
           secure: false,
           auth: {
@@ -1222,6 +1222,8 @@ const Mutation = new GraphQLObjectType({
         }
         appt_res = await appointment.save();
 
+        console.log("THIS ONE");
+
         const iCalEvent = new ICalendar(createEventObject(appt_res));
         const yahooCalendarEvent = new YahooCalendar(
           createEventObject(appt_res)
@@ -1418,6 +1420,27 @@ const Mutation = new GraphQLObjectType({
         return client.save();
       },
     },
+    deleteClient: {
+      type: ClientType,
+      args: {
+        _id: { type: GraphQLID },
+      },
+      async resolve(parent, args, context) {
+        const adminAccessToken = context.cookies["admin-access-token"];
+
+        if (!adminAccessToken) {
+          throw new UserInputError("Admin is not authenticated.");
+        } else {
+          await Client.findByIdAndDelete({
+            _id: args._id,
+          });
+
+          return {
+            _id: args._id,
+          };
+        }
+      },
+    },
     addEmployee: {
       type: EmployeeType,
       args: {
@@ -1439,7 +1462,6 @@ const Mutation = new GraphQLObjectType({
 
         let transporter = nodemailer.createTransport({
           host: "smtp.mail.yahoo.com",
-          port: 465,
           service: "yahoo",
           secure: false,
           auth: {
@@ -1478,6 +1500,27 @@ const Mutation = new GraphQLObjectType({
           });
 
         return employee.save();
+      },
+    },
+    deleteEmployee: {
+      type: EmployeeType,
+      args: {
+        _id: { type: GraphQLID },
+      },
+      async resolve(parent, args, context) {
+        const adminAccessToken = context.cookies["admin-access-token"];
+
+        if (!adminAccessToken) {
+          throw new UserInputError("Admin is not authenticated.");
+        } else {
+          await Employee.findByIdAndDelete({
+            _id: args._id,
+          });
+
+          return {
+            _id: args._id,
+          };
+        }
       },
     },
     updateConsentForm: {
@@ -1842,11 +1885,11 @@ const Mutation = new GraphQLObjectType({
     updateEmployeeInvalidateTokens: {
       type: EmployeeType,
       async resolve(parent, args, context) {
-        if (!context.adminAuth) {
+        const token = context.cookies["admin-access-token"];
+
+        if (!token) {
           throw new UserInputError("User is not authenticated.");
         } else {
-          const token = context.cookies["admin-access-token"];
-
           const employee = await Employee.findOne({
             _id: jwt.decode(token).id.toString(),
           });
@@ -1895,8 +1938,9 @@ const Mutation = new GraphQLObjectType({
       },
       async resolve(parent, args, context) {
         const accessToken = context.cookies["access-token"];
+        const adminAccessToken = context.cookies["admin-access-token"];
 
-        if (!context.isAuth) {
+        if (!context.isAuth && !adminAccessToken) {
           throw new UserInputError("User is not authenticated.");
         } else {
           if (accessToken) {
@@ -1919,6 +1963,18 @@ const Mutation = new GraphQLObjectType({
               return {
                 _id: args._id,
               };
+            }
+          } else {
+            if (adminAccessToken) {
+              deletedAppointment = await Appointment.findByIdAndDelete({
+                _id: args._id,
+              });
+
+              return {
+                _id: args._id,
+              };
+            } else {
+              return null;
             }
           }
         }
@@ -2327,7 +2383,9 @@ const Mutation = new GraphQLObjectType({
         profilePicture: { type: GraphQLString },
       },
       async resolve(parent, args, context) {
-        if (!context.adminAuth) {
+        const adminAccessToken = context.cookies["admin-access-token"];
+
+        if (!adminAccessToken) {
           throw new UserInputError("Admin is not authenticated.");
         } else {
           const client = await Client.findOneAndUpdate(
@@ -2350,6 +2408,42 @@ const Mutation = new GraphQLObjectType({
             email: client.email,
             phoneNumber: client.phoneNumber,
             profilePicture: client.profilePicture,
+          };
+        }
+      },
+    },
+    updateAdminProfilePicture: {
+      type: EmployeeType,
+      args: {
+        id: { type: GraphQLID },
+        profilePicture: { type: GraphQLString },
+      },
+      async resolve(parent, args, context) {
+        const adminAccessToken = context.cookies["admin-access-token"];
+
+        if (!adminAccessToken) {
+          throw new UserInputError("Admin is not authenticated.");
+        } else {
+          const employee = await Employee.findOneAndUpdate(
+            {
+              _id: args.id,
+            },
+            { profilePicture: args.profilePicture },
+            {
+              new: true,
+            }
+          );
+
+          const res = await employee.save();
+
+          return {
+            ...res,
+            _id: employee._id,
+            firstName: employee.firstName,
+            lastName: employee.lastName,
+            email: employee.email,
+            phoneNumber: employee.phoneNumber,
+            profilePicture: employee.profilePicture,
           };
         }
       },

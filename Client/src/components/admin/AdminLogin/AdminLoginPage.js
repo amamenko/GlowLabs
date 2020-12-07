@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, Link, Redirect } from "react-router-dom";
+import { useLocation, Redirect } from "react-router-dom";
 import "./AdminLoginPage.css";
 import AdminLoginEmail from "./AdminLoginEmail";
 import AdminLoginPassword from "./AdminLoginPassword";
@@ -122,23 +122,11 @@ const AdminLoginPage = (props) => {
     }
   }, [location.pathname]);
 
-  const redirectAdminUpdatePassword = () => {
+  useEffect(() => {
     if (updateAdminPasswordData) {
-      if (!props.currentScreenSize) {
-        if (props.initialScreenSize >= 1200) {
-          return <Redirect to="/admin/clients" />;
-        } else {
-          return <Redirect to="/admin/menu" />;
-        }
-      } else {
-        if (props.currentScreenSize >= 1200) {
-          return <Redirect to="/admin/clients" />;
-        } else {
-          return <Redirect to="/admin/menu" />;
-        }
-      }
+      window.location.reload();
     }
-  };
+  }, [updateAdminPasswordData]);
 
   useEffect(() => {
     if (signInLoading) {
@@ -187,7 +175,9 @@ const AdminLoginPage = (props) => {
   };
 
   const handleAdminChangePasswordClick = () => {
-    updateAdminPassword({ variables: { password: adminConfirmNewPassword } });
+    updateAdminPassword({
+      variables: { password: adminConfirmNewPassword },
+    });
 
     changeSignInLoading(true);
   };
@@ -277,7 +267,6 @@ const AdminLoginPage = (props) => {
       <div className="admin_login_page_background_blurry" />
       <div className="admin_login_page_container">
         {redirectToAdminMenu()}
-        {redirectAdminUpdatePassword()}
         <header className="admin_login_logo_container">
           <svg
             width="100%"
@@ -319,8 +308,7 @@ const AdminLoginPage = (props) => {
           )}
         </Form>
         <div className="admin_login_page_bottom_button_container">
-          <Link
-            to="/admin"
+          <div
             style={{
               display: "block",
               pointerEvents: adminTemporaryDummyToken
@@ -354,7 +342,7 @@ const AdminLoginPage = (props) => {
             }
           >
             <p>{adminTemporaryDummyToken ? "Change Password" : "Log In"}</p>
-          </Link>
+          </div>
         </div>
       </div>
     </div>
