@@ -246,10 +246,10 @@
 
   .rbc-time-header-content {
     border-left: 1px solid rgb(255, 255, 255) !important;
-    flex: 1 !important;
+    /* flex: 0.99 !important; */
   }
 
-  .rbc-time-header.rbc-overflowing {
+  .rbc-toda .rbc-time-header.rbc-overflowing {
     border-right: 1px solid rgb(255, 255, 255) !important;
   }
 

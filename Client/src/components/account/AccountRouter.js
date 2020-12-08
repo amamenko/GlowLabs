@@ -129,44 +129,62 @@ const AccountRouter = React.forwardRef((props, ref) => {
         <Route
           exact
           path={props.path + "/clientprofile/consentform/page1"}
-          component={ConsentFormPage1}
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
+          render={() => (
+            <ConsentFormPage1
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
         />
         <Route
           exact
           path={props.path + "/clientprofile/consentform/page2"}
-          component={ConsentFormPage2}
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
+          render={() => (
+            <ConsentFormPage2
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
         />
         <Route
           exact
           path={props.path + "/clientprofile/consentform/page3"}
-          component={ConsentFormPage3}
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
+          render={() => (
+            <ConsentFormPage3
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
         />
         <Route
           exact
           path={props.path + "/clientprofile/consentform/page4"}
-          component={ConsentFormPage4}
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
+          render={() => (
+            <ConsentFormPage4
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
         />
         <Route
           exact
           path={props.path + "/clientprofile/consentform/page5"}
-          component={ConsentFormPage5}
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
+          render={() => (
+            <ConsentFormPage5
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
         />
         <Route
           exact
           path={props.path + "/clientprofile/consentform/page6"}
-          component={ConsentFormPage6}
-          initialScreenSize={props.initialScreenSize}
-          currentScreenSize={props.currentScreenSize}
+          render={() => (
+            <ConsentFormPage6
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+            />
+          )}
         />
         <Route
           exact

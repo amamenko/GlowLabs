@@ -13,6 +13,7 @@ import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
 import AdminStaff from "./AdminStaff/AdminStaff";
+import AdminNotifications from "./AdminNotifications/AdminNotifications";
 
 const AdminRouter = React.forwardRef((props, ref) => {
   const {
@@ -88,6 +89,19 @@ const AdminRouter = React.forwardRef((props, ref) => {
                 props.getEmployeeData ? props.getEmployeeData : null
               }
               employeeDataRefetch={props.employeeDataRefetch}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={props.path + "/notifications"}
+          render={() => (
+            <AdminNotifications
+              initialScreenSize={props.initialScreenSize}
+              currentScreenSize={props.currentScreenSize}
+              getEmployeeData={
+                props.getEmployeeData ? props.getEmployeeData : null
+              }
             />
           )}
         />

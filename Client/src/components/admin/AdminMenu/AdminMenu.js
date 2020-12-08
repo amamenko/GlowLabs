@@ -10,6 +10,7 @@ import {
   faBriefcase,
   faUsers,
   faCalendarWeek,
+  faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./AdminMenu.css";
@@ -91,6 +92,16 @@ const AdminMenu = (props) => {
         <div className="admin_menu_box_container">
           <Link
             className="admin_menu_box_container_link"
+            to="/admin/notifications"
+            onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+          >
+            <FontAwesomeIcon icon={faBell} className="admin_menu_box_icon" />
+            <h2>NOTIFICATIONS</h2>
+          </Link>
+        </div>
+        <div className="admin_menu_box_container">
+          <Link
+            className="admin_menu_box_container_link"
             to="/admin/clients"
             onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
           >
@@ -121,7 +132,7 @@ const AdminMenu = (props) => {
               icon={faCalendarWeek}
               className="admin_menu_box_icon"
             />
-            <h2>MY SCHEDULE</h2>
+            <h2>SCHEDULE</h2>
           </Link>
         </div>
       </div>

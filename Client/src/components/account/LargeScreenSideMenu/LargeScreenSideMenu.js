@@ -18,6 +18,7 @@ import {
   faUsers,
   faBriefcase,
   faCalendarWeek,
+  faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CanvasDraw from "react-canvas-draw";
@@ -530,6 +531,28 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           </div>
           {props.getEmployeeData ? (
             <div className="large_screen_side_menu_item_container">
+              <Link
+                className="large_screen_side_menu_item"
+                to="/admin/notifications"
+              >
+                <div
+                  className="large_screen_side_menu_item_selected_border"
+                  style={{
+                    opacity: location.pathname.includes("notifications")
+                      ? 1
+                      : 0,
+                  }}
+                />
+                <FontAwesomeIcon
+                  icon={faBell}
+                  className="large_screen_side_menu_item_icon"
+                />
+                <h2>Notifications</h2>
+              </Link>
+            </div>
+          ) : null}
+          {props.getEmployeeData ? (
+            <div className="large_screen_side_menu_item_container">
               <Link className="large_screen_side_menu_item" to="/admin/clients">
                 <div
                   className="large_screen_side_menu_item_selected_border"
@@ -627,7 +650,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                     icon={faCalendarWeek}
                     className="large_screen_side_menu_item_icon"
                   />
-                  <h2>My Schedule</h2>
+                  <h2>Schedule</h2>
                 </Link>
               </div>
               <div className="large_screen_side_menu_underline_separator" />

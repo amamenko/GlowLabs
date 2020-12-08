@@ -39,6 +39,8 @@ const AdminSchedule = (props) => {
   const [personalEventClicked, changePersonalEventClicked] = useState(false);
   const [stopTransition, changeStopTransition] = useState(false);
 
+  const timeHeader = document.getElementsByClassName("rbc-time-header-content");
+
   const redirectToAdminLogInPage = () => {
     if (!adminAuthenticated) {
       return <Redirect to="/admin" />;
@@ -134,27 +136,25 @@ const AdminSchedule = (props) => {
     adminAppointmentStaffMember,
   ]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const events = [...document.getElementsByClassName("rbc-event")];
+  // Styles react-big-calendar top header on select days
+  useEffect(() => {
+    const dayToday = new Date().getDay();
 
-  //     if (events.length > 0) {
-  //       events.forEach((x) => {
-  //         console.log(x.parentNode);
-  //         x.addEventListener("click", (e) => {
-  //           e.stopPropogation();
-  //         });
-
-  //         x.addEventListener("mousedown", () => {
-  //           x.parentNode.setAttribute("draggable", false);
-  //         });
-  //         // x.addEventListener("mouseup", () => {
-  //         //   x.parentNode.setAttribute("draggable", true);
-  //         // });
-  //       });
-  //     }
-  //   }, 500);
-  // }, []);
+    // If Monday, Wednesday, or Friday, adjust header flex attributew
+    if (dayToday === 1 || dayToday === 3 || dayToday === 5) {
+      if (timeHeader) {
+        if (timeHeader[0]) {
+          timeHeader[0].style.flex = 1;
+        }
+      }
+    } else {
+      if (timeHeader) {
+        if (timeHeader[0]) {
+          timeHeader[0].style.flex = 0.99;
+        }
+      }
+    }
+  }, [timeHeader]);
 
   return (
     <div className="admin_schedule_container">
@@ -174,7 +174,7 @@ const AdminSchedule = (props) => {
             icon={faChevronLeft}
           />
         </Link>
-        <h1>MY SCHEDULE</h1>
+        <h1>SCHEDULE</h1>
       </div>
       <div className="admin_calendar_top_buttons_container">
         <div

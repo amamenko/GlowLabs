@@ -1,0 +1,137 @@
+.admin_notifications_container {
+  height: 100vh;
+  padding-top: 8vh;
+  background: rgb(255, 255, 255);
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  padding-bottom: 20vh;
+}
+
+.admin_notifications_header {
+  color: rgb(44, 44, 52);
+  height: 8vh;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  border-bottom: solid 1px rgb(44, 44, 52);
+  position: fixed;
+  background: rgb(255, 255, 255);
+  z-index: 5;
+}
+
+.admin_notifications_header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.admin_notifications_back_arrow {
+  color: rgb(44, 44, 52);
+  z-index: 9999;
+  position: absolute;
+  left: 1.5rem;
+  font-size: 1.5rem;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.admin_notifications_content_container {
+  padding-top: 8vh;
+}
+
+.admin_individual_notification_container {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgb(211, 211, 211);
+  font-size: 0.8rem;
+  display: flex;
+  /* background: rgba(211, 211, 211, 0.3); */
+}
+
+.admin_notification_main_icon_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(102, 153, 102);
+  background: rgba(102, 153, 102, 0.3);
+  border-radius: 100px;
+  font-size: 2rem;
+  padding: 0.5rem;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  max-height: 3rem;
+}
+
+.admin_notification_time_ago {
+  color: rgb(120, 120, 120);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.admin_individual_notification_message_info {
+  margin-right: 1.5rem;
+}
+
+.admin_individual_notification_message_info strong {
+  font-weight: 600;
+}
+
+.admin_notification_time_ago svg {
+  margin-right: 0.5rem;
+}
+
+.admin_notification_time_ago path {
+  stroke: rgb(150, 150, 150);
+}
+
+/* CSS for Regular Desktops/Small Laptops and Tablets */
+@media only screen and (min-width: 1200px) {
+  .admin_notifications_container {
+    position: absolute;
+    width: 80%;
+    padding-top: 8vh;
+    right: 0;
+  }
+
+  .admin_notifications_content_container {
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+
+  .admin_notifications_header {
+    height: 8vh;
+    font-weight: 600;
+    width: 80%;
+  }
+
+  .admin_notifications_header h1 {
+    font-size: 2rem;
+  }
+
+  .admin_notifications_back_arrow {
+    display: none;
+  }
+
+  .admin_notification_main_icon_container {
+    display: flex;
+    justify-content: center;
+    max-height: auto;
+  }
+
+  .admin_individual_notification_container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .admin_notification_time_ago {
+    padding-top: 1.5rem;
+  }
+}
