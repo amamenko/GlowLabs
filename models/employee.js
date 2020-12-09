@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const NotificationSchema = require("./notification");
 
 const currentDate = new Date().toISOString();
 
@@ -14,7 +13,7 @@ const EmployeeSchema = new Schema({
   employeeRole: { type: Array, default: [] },
   permanentPasswordSet: { type: Boolean, default: false },
   password: String,
-  notifications: [NotificationSchema.schema.obj],
+  notifications: { type: Array, default: [] },
   tokenCount: { type: Number, default: 0 },
   createdAt: { type: Date, default: currentDate },
 });

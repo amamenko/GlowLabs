@@ -1,0 +1,137 @@
+const graphql = require("graphql");
+const AuthType = require("../types/AuthType");
+const Employee = require("../../models/employee");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const createAdminTokens = require("../../createAdminTokens");
+const { UserInputError } = require("apollo-server");
+
+// Hide usernames and passwords
+require("dotenv").config();
+
+const { GraphQLString } = graphql;
+
+const adminLoginQuery = {
+  type: AuthType,
+  args: {
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+  },
+  async resolve(parent, args, context) {
+    const employee = await Employee.findOne({ email: args.email });
+
+    if (!employee) {
+      throw new UserInputError(
+        "There is no registered employee associated with that email."
+      );
+    } else {
+      if (!employee.permanentPasswordSet) {
+        // Entered password is identical to temporary password
+        if (args.password === employee.password) {
+          context.res.clearCookie("dummy-token");
+          context.res.clearCookie("access-token");
+          context.res.clearCookie("refresh-token");
+          context.res.clearCookie("temporary-facebook-dummy-token");
+
+          const generateAdminDummyToken = (employee) => {
+            const token = jwt.sign(
+              {
+                id: employee._id,
+                employeeRole: employee.employeeRole,
+                auth: true,
+              },
+              process.env.JWT_SECRET_KEY_DUMMY,
+              { expiresIn: "15m" }
+            );
+            return token;
+          };
+
+          const generateAdminAccessToken = (employee) => {
+            const token = jwt.sign(
+              {
+                id: employee._id,
+                employeeRole: employee.employeeRole,
+                email: employee.email,
+                phoneNumber: employee.phoneNumber,
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                tokenCount: employee.tokenCount,
+              },
+              process.env.JWT_SECRET_KEY_ACCESS,
+              { expiresIn: "15m" }
+            );
+            return token;
+          };
+
+          const accessToken = generateAdminAccessToken(employee);
+          const dummyToken = generateAdminDummyToken(employee);
+
+          context.res.cookie("temporary-admin-access-token", accessToken, {
+            maxAge: 1000 * 60 * 15,
+            httpOnly: true,
+          });
+
+          context.res.cookie("temporary-admin-dummy-token", dummyToken, {
+            maxAge: 1000 * 60 * 15,
+            httpOnly: false,
+          });
+        } else {
+          throw new UserInputError("Incorrect password.");
+        }
+      } else {
+        const passwordsAreIdentical = await bcrypt
+          .compare(args.password, employee.password)
+          .catch((err) => {
+            throw err;
+          });
+
+        if (!passwordsAreIdentical) {
+          throw new UserInputError("Incorrect password.");
+        }
+
+        const generateAdminDummyToken = (employee) => {
+          const token = jwt.sign(
+            {
+              id: employee._id,
+              employeeRole: employee.employeeRole,
+              auth: true,
+            },
+            process.env.JWT_SECRET_KEY_DUMMY,
+            { expiresIn: "7d" }
+          );
+          return token;
+        };
+
+        const dummyToken = generateAdminDummyToken(employee);
+        context.res.cookie("admin-dummy-token", dummyToken, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+        });
+
+        const { accessToken, refreshToken } = createAdminTokens(employee);
+
+        context.res.cookie("admin-access-token", accessToken, {
+          maxAge: 1000 * 60 * 15,
+          httpOnly: true,
+        });
+
+        context.res.cookie("admin-refresh-token", refreshToken, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+        });
+
+        context.res.clearCookie("dummy-token");
+        context.res.clearCookie("access-token");
+        context.res.clearCookie("refresh-token");
+        context.res.clearCookie("temporary-facebook-dummy-token");
+
+        return {
+          _id: employee._id,
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        };
+      }
+    }
+  },
+};
+
+module.exports = adminLoginQuery;
