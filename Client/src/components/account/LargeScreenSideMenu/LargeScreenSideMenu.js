@@ -19,6 +19,7 @@ import {
   faBriefcase,
   faCalendarWeek,
   faBell,
+  faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CanvasDraw from "react-canvas-draw";
@@ -533,21 +534,44 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
             <div className="large_screen_side_menu_item_container">
               <Link
                 className="large_screen_side_menu_item"
-                to="/admin/notifications"
+                to="/admin/activity"
               >
                 <div
                   className="large_screen_side_menu_item_selected_border"
                   style={{
-                    opacity: location.pathname.includes("notifications")
-                      ? 1
-                      : 0,
+                    opacity: location.pathname.includes("activity") ? 1 : 0,
                   }}
                 />
                 <FontAwesomeIcon
                   icon={faBell}
                   className="large_screen_side_menu_item_icon"
                 />
-                <h2>Notifications</h2>
+                <h2>Activity</h2>
+                {props.getNotificationsData ? (
+                  props.getNotificationsData.notifications ? (
+                    props.getNotificationsData.notifications.length > 0 ? (
+                      props.getNotificationsData.notifications.filter(
+                        (notification) => notification.new
+                      ).length > 0 ? (
+                        <span className="fa-layers fa-fw">
+                          <FontAwesomeIcon
+                            className="menu_notifications_circle_counter"
+                            icon={faCircle}
+                          />
+                          <p>
+                            {props.getNotificationsData.notifications.filter(
+                              (notification) => notification.new
+                            ).length < 10
+                              ? props.getNotificationsData.notifications.filter(
+                                  (notification) => notification.new
+                                ).length
+                              : "9+"}
+                          </p>
+                        </span>
+                      ) : null
+                    ) : null
+                  ) : null
+                ) : null}
               </Link>
             </div>
           ) : null}

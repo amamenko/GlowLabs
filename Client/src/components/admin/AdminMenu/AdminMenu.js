@@ -11,6 +11,7 @@ import {
   faUsers,
   faCalendarWeek,
   faBell,
+  faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./AdminMenu.css";
@@ -92,11 +93,36 @@ const AdminMenu = (props) => {
         <div className="admin_menu_box_container">
           <Link
             className="admin_menu_box_container_link"
-            to="/admin/notifications"
+            to="/admin/activity"
             onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
           >
             <FontAwesomeIcon icon={faBell} className="admin_menu_box_icon" />
-            <h2>NOTIFICATIONS</h2>
+            <h2>ACTIVITY</h2>
+            {props.getNotificationsData ? (
+              props.getNotificationsData.notifications ? (
+                props.getNotificationsData.notifications.length > 0 ? (
+                  props.getNotificationsData.notifications.filter(
+                    (notification) => notification.new
+                  ).length > 0 ? (
+                    <span className="fa-layers fa-fw">
+                      <FontAwesomeIcon
+                        className="small_menu_notifications_circle_counter"
+                        icon={faCircle}
+                      />
+                      <p>
+                        {props.getNotificationsData.notifications.filter(
+                          (notification) => notification.new
+                        ).length < 10
+                          ? props.getNotificationsData.notifications.filter(
+                              (notification) => notification.new
+                            ).length
+                          : "9+"}
+                      </p>
+                    </span>
+                  ) : null
+                ) : null
+              ) : null
+            ) : null}
           </Link>
         </div>
         <div className="admin_menu_box_container">

@@ -47,6 +47,7 @@ const AdminPersonalEvent = (props) => {
     timeOptions,
     employeeOptions,
     getAllPersonalEventsRefetch,
+    getNotificationsRefetch,
   } = props;
 
   const dispatch = useDispatch();
@@ -330,6 +331,7 @@ const AdminPersonalEvent = (props) => {
       const loadingFunction = setTimeout(() => {
         handleBackToSchedule();
         getAllPersonalEventsRefetch();
+        getNotificationsRefetch();
       }, 2000);
       return () => {
         clearTimeout(loadingFunction);
@@ -340,6 +342,7 @@ const AdminPersonalEvent = (props) => {
     personalEventData,
     loadingSpinnerActive,
     getAllPersonalEventsRefetch,
+    getNotificationsRefetch,
   ]);
 
   useEffect(() => {

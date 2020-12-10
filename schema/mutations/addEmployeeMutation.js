@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const generator = require("generate-password");
 const mjmlUtils = require("mjml-utils");
 const nodemailer = require("nodemailer");
+const EmployeeType = require("../types/EmployeeType");
 const Employee = require("../../models/employee");
 const Notification = require("../../models/notification");
 const jwt = require("jsonwebtoken");
-const EmployeeType = require("../types/EmployeeType");
+const createNotificationFunction = require("./notifications/createNotificationFunction");
 
 // Hide usernames and passwords
 require("dotenv").config();
@@ -82,59 +83,34 @@ const addEmployeeMutation = {
         _id: decodedAdminID,
       });
 
-      if (addingEmployee) {
-        let filter = {
-          _id: decodedAdminID,
-        };
+      let filter = {
+        $or: [{ _id: decodedAdminID }, { employeeRole: "Admin" }],
+      };
 
-        let update;
+      let newNotification = new Notification({
+        _id: new mongoose.Types.ObjectId(),
+        new: true,
+        type: "addStaff",
+        originalAssociatedStaffFirstName: args.firstName,
+        originalAssociatedStaffLastName: args.lastName,
+        createdByFirstName: addingEmployee.firstName,
+        createdByLastName: addingEmployee.lastName,
+      });
 
-        let newNotification = new Notification({
-          _id: new mongoose.Types.ObjectId(),
-          new: false,
-          type: "addStaff",
-          originalAssociatedStaffFirstName: args.firstName,
-          originalAssociatedStaffLastName: args.lastName,
-          createdByFirstName: addingEmployee.firstName,
-          createdByLastName: addingEmployee.lastName,
-        });
-
-        if (addingEmployee.notifications.length >= 20) {
-          let sortedArr = addingEmployee.notifications.sort(
-            (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-          );
-          sortedArr[0] = newNotification;
-
-          update = {
-            notifications: sortedArr,
-          };
-        } else {
-          if (addingEmployee.notifications) {
-            addingEmployee.notifications.push(newNotification);
-          } else {
-            addingEmployee.notifications = [newNotification];
-          }
-
-          update = {
-            notifications: addingEmployee.notifications,
-          };
+      const updatedEmployees = await Employee.updateMany(
+        filter,
+        createNotificationFunction(newNotification, addingEmployee),
+        {
+          new: true,
         }
+      );
 
-        const updatedEmployee = await Employee.findOneAndUpdate(
-          filter,
-          update,
-          {
-            new: true,
-          }
-        );
+      const updatedEmployeesRes = await updatedEmployees.save();
 
-        const updatedEmployeeRes = await updatedEmployee.save();
-
-        return {
-          ...newEmployeeRes,
-          ...updatedEmployeeRes,
-        };
-      }
+      return {
+        ...newEmployeeRes,
+        ...updatedEmployeesRes,
+      };
     }
   },
 };

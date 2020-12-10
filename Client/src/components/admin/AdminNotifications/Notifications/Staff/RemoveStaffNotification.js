@@ -1,0 +1,52 @@
+import React from "react";
+import { FiUserMinus } from "react-icons/fi";
+import { IoMdTime } from "react-icons/io";
+import { format } from "timeago.js";
+
+const RemoveStaffNotification = (props) => {
+  const { notification, employee } = props;
+
+  const originalAssociatedStaffName =
+    notification.originalAssociatedStaffFirstName +
+    " " +
+    notification.originalAssociatedStaffLastName;
+  const createdByName =
+    notification.createdByFirstName + " " + notification.createdByLastName;
+  const signedInEmployeeName = employee.firstName + " " + employee.lastName;
+
+  return (
+    <div
+      className="admin_individual_notification_container"
+      style={{
+        background: notification.new
+          ? "rgba(211, 211, 211, 0.3)"
+          : "transparent",
+      }}
+    >
+      <div
+        className="admin_notification_main_icon_container"
+        style={{
+          color: "rgb(204, 102, 102)",
+          background: "rgba(204, 102, 102, 0.3)",
+        }}
+      >
+        <FiUserMinus />
+      </div>
+      <div className="admin_individual_notification_message_info">
+        <p>
+          <strong>
+            {createdByName === signedInEmployeeName ? "You" : createdByName}
+          </strong>{" "}
+          removed <strong>{originalAssociatedStaffName}</strong> as a staff
+          member.
+        </p>
+        <div className="admin_notification_time_ago">
+          <IoMdTime />{" "}
+          {notification.createdAt ? format(notification.createdAt) : null}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RemoveStaffNotification;

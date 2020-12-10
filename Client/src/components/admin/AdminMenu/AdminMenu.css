@@ -73,3 +73,26 @@
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
+
+.admin_menu_box_container_link > span {
+  position: relative !important;
+}
+
+.small_menu_notifications_circle_counter {
+  display: inline;
+  color: red;
+  position: relative;
+}
+
+.small_menu_notifications_circle_counter + p {
+  font-size: 0.6rem !important;
+  position: absolute;
+  color: white;
+  top: 15%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  font-weight: 600;
+}

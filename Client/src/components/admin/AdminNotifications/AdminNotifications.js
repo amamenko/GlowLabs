@@ -3,12 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { IoMdClose, IoMdNotificationsOff, IoMdTime } from "react-icons/io";
-import { BsCheck } from "react-icons/bs";
+import { IoMdNotificationsOff } from "react-icons/io";
 import "./AdminNotifications.css";
+import BookAppointmentNotification from "./Notifications/Appointments/BookAppointmentNotification";
+import CancelAppointmentNotification from "./Notifications/Appointments/CancelAppointmentNotification";
+import ConfirmAppointmentNotification from "./Notifications/Appointments/ConfirmAppointmentNotification";
+import RemoveClientNotification from "./Notifications/Clients/RemoveClientNotification";
+import AddPersonalEventNotification from "./Notifications/PersonalEvents/AddPersonalEventNotification";
+import UpdatePersonalEventNotification from "./Notifications/PersonalEvents/UpdatePersonalEventNotification";
+import AddStaffNotification from "./Notifications/Staff/AddStaffNotification";
+import RemoveStaffNotification from "./Notifications/Staff/RemoveStaffNotification";
+import CancelPersonalEventNotification from "./Notifications/PersonalEvents/CancelPersonalEventNotification";
 
 const AdminNotifications = (props) => {
-  //   const {} = props;
+  const {
+    getEmployeeData,
+    getNotificationsData,
+    getNotificationsRefetch,
+  } = props;
 
   const adminAuthenticated = useSelector(
     (state) => state.adminAuthenticated.admin_authenticated
@@ -36,6 +48,8 @@ const AdminNotifications = (props) => {
     );
   };
 
+  console.log(getEmployeeData);
+
   return (
     <div className="admin_notifications_container">
       {redirectToAdminLogInPage()}{" "}
@@ -51,46 +65,95 @@ const AdminNotifications = (props) => {
             icon={faChevronLeft}
           />
         </Link>
-        <h1>NOTIFICATIONS</h1>
+        <h1>ACTIVITY</h1>
       </div>
       <div className="admin_notifications_content_container">
-        <div className="admin_individual_notification_container">
-          <div className="admin_notification_main_icon_container">
-            <BsCheck />
-          </div>
-          <div className="admin_individual_notification_message_info">
-            <p>
-              <strong>Ronny Goldberg</strong> has booked an appointment with you
-              scheduled for <strong>December 24th, 2020</strong> at{" "}
-              <strong>6:30 PM</strong>.
-            </p>
-            <div className="admin_notification_time_ago">
-              <IoMdTime /> 8 hours ago
-            </div>
-          </div>
-        </div>
-        <div className="admin_individual_notification_container">
-          <div
-            className="admin_notification_main_icon_container"
-            style={{
-              color: "rgb(204, 102, 102)",
-              background: "rgba(204, 102, 102, 0.3)",
-            }}
-          >
-            <IoMdClose />
-          </div>
-          <div className="admin_individual_notification_message_info">
-            <p>
-              <strong>Ronny Goldberg</strong> has canceled an appointment with
-              you scheduled for <strong>December 24th, 2020</strong> at{" "}
-              <strong>6:30 PM</strong>.
-            </p>
-            <div className="admin_notification_time_ago">
-              <IoMdTime /> 8 hours ago
-            </div>
-          </div>
-        </div>
-        {/* {renderNoNotifications()} */}
+        {getNotificationsData && getEmployeeData
+          ? getNotificationsData.notifications && getEmployeeData.employee
+            ? getNotificationsData.notifications.length > 0
+              ? getNotificationsData.notifications
+                  // Sort by most recent first
+                  .sort((a, b) => b.createdAt - a.createdAt)
+                  .map((notification, i) => {
+                    if (notification.type === "bookAppointment") {
+                      return (
+                        <BookAppointmentNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "confirmAppointment") {
+                      return (
+                        <ConfirmAppointmentNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "cancelAppointment") {
+                      return (
+                        <CancelAppointmentNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "removeClient") {
+                      return (
+                        <RemoveClientNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "addStaff") {
+                      return (
+                        <AddStaffNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "removeStaff") {
+                      return (
+                        <RemoveStaffNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "addPersonalEvent") {
+                      return (
+                        <AddPersonalEventNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "updatePersonalEvent") {
+                      return (
+                        <UpdatePersonalEventNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else if (notification.type === "cancelPersonalEvent") {
+                      return (
+                        <CancelPersonalEventNotification
+                          key={i}
+                          notification={notification}
+                          employee={getEmployeeData.employee}
+                        />
+                      );
+                    } else {
+                      return null;
+                    }
+                  })
+              : renderNoNotifications()
+            : renderNoNotifications()
+          : renderNoNotifications()}
       </div>
     </div>
   );

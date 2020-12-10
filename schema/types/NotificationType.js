@@ -12,6 +12,7 @@ const NotificationType = new GraphQLObjectType({
     type: { type: GraphQLString },
     date: { type: GraphQLString },
     time: { type: GraphQLString },
+    allDay: { type: GraphQLBoolean },
     associatedClientFirstName: { type: GraphQLString },
     associatedClientLastName: { type: GraphQLString },
     originalAssociatedStaffFirstName: { type: GraphQLString },

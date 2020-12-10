@@ -1,7 +1,11 @@
 const graphql = require("graphql");
+const mongoose = require("mongoose");
 const EmployeeType = require("../types/EmployeeType");
 const Employee = require("../../models/employee");
+const Notification = require("../../models/notification");
+const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
+const createNotificationFunction = require("./notifications/createNotificationFunction");
 
 const { GraphQLID } = graphql;
 
@@ -16,12 +20,47 @@ const deleteEmployeeMutation = {
     if (!adminAccessToken) {
       throw new UserInputError("Admin is not authenticated.");
     } else {
+      const deletedEmployee = await Employee.findById({
+        _id: args._id,
+      });
+
       await Employee.findByIdAndDelete({
         _id: args._id,
       });
 
+      const decodedAdminID = jwt.decode(adminAccessToken).id.toString();
+
+      const deletingEmployee = await Employee.findOne({
+        _id: decodedAdminID,
+      });
+
+      let filter = {
+        $or: [{ _id: decodedAdminID }, { employeeRole: "Admin" }],
+      };
+
+      let newNotification = new Notification({
+        _id: new mongoose.Types.ObjectId(),
+        new: true,
+        type: "deleteStaff",
+        originalAssociatedStaffFirstName: deletedEmployee.firstName,
+        originalAssociatedStaffLastName: deletedEmployee.lastName,
+        createdByFirstName: deletingEmployee.firstName,
+        createdByLastName: deletingEmployee.lastName,
+      });
+
+      const updatedEmployee = await Employee.updateMany(
+        filter,
+        createNotificationFunction(newNotification, deletingEmployee),
+        {
+          new: true,
+        }
+      );
+
+      const updatedEmployeeRes = await updatedEmployee.save();
+
       return {
         _id: args._id,
+        ...updatedEmployeeRes,
       };
     }
   },

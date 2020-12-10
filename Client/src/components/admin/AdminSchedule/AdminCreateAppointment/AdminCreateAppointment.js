@@ -57,6 +57,7 @@ const AdminCreateAppointment = (props) => {
     changeCreateAppointmentClicked,
     changePersonalEventClicked,
     getAllAppointmentsRefetch,
+    getNotificationsRefetch,
     employeeOptions,
   } = props;
 
@@ -695,10 +696,12 @@ const AdminCreateAppointment = (props) => {
     if (highestDelay === 0) {
       if (addAppointmentData) {
         getAllAppointmentsRefetch();
+        getNotificationsRefetch();
       }
     } else {
       setTimeout(() => {
         getAllAppointmentsRefetch();
+        getNotificationsRefetch();
       }, highestDelay);
     }
   };

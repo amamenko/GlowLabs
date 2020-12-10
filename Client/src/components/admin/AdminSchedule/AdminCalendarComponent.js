@@ -528,6 +528,7 @@ const AdminCalendarComponent = (props) => {
         handleAppointmentUntoggled={handleAppointmentUntoggled}
         renderSummaryCardAddOns={renderSummaryCardAddOns}
         renderSummaryCardTreatments={renderSummaryCardTreatments}
+        getNotificationsRefetch={props.getNotificationsRefetch}
       />
       <AdminSelectedPersonalEvent
         currentToggledAppointment={currentToggledAppointment}
@@ -543,6 +544,7 @@ const AdminCalendarComponent = (props) => {
         currentScreenSize={props.currentScreenSize}
         employeeOptions={props.employeeOptions}
         timeOptions={props.timeOptions}
+        getNotificationsRefetch={props.getNotificationsRefetch}
       />
     </div>
   );

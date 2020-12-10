@@ -7,6 +7,10 @@
   .large_screen_side_menu_extras_section div:not(:first-child) {
     display: none;
   }
+
+  .menu_notifications_circle_counter {
+    display: none;
+  }
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
@@ -128,6 +132,25 @@
     position: relative;
   }
 
+  .menu_notifications_circle_counter {
+    display: inline;
+    color: red;
+    position: relative;
+  }
+
+  .menu_notifications_circle_counter + p {
+    font-size: 0.6rem !important;
+    position: absolute;
+    color: white;
+    top: 10%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    font-weight: 600;
+  }
+
   .large_screen_side_menu_item_selected_border {
     position: absolute;
     left: -1.5rem;
@@ -135,6 +158,11 @@
     width: 100%;
     height: 1.5vh;
     transition: opacity 0.5s ease;
+  }
+
+  .large_screen_side_menu_item > span {
+    right: auto !important;
+    left: calc(0.4rem + 0.25vw) !important;
   }
 
   .large_screen_side_menu_pdf_container p,

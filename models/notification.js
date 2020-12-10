@@ -9,6 +9,7 @@ const NotificationSchema = new Schema({
   type: String,
   date: String,
   time: String,
+  allDay: Boolean,
   associatedClientFirstName: String,
   associatedClientLastName: String,
   originalAssociatedStaffFirstName: String,

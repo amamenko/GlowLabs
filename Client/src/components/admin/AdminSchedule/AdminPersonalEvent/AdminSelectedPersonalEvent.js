@@ -35,6 +35,7 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
     initialScreenSize,
     employeeOptions,
     timeOptions,
+    getNotificationsRefetch,
   } = props;
   const { selectedAppointmentBackRef, backToAppointmentsRef } = ref;
 
@@ -118,10 +119,16 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
 
   const resetStatesAfterLoading = useCallback(() => {
     getAllPersonalEventsRefetch();
+    getNotificationsRefetch();
     dispatch(ACTION_LOADING_SPINNER_RESET());
     dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET());
     changeCurrentToggledAppointment(false);
-  }, [dispatch, changeCurrentToggledAppointment, getAllPersonalEventsRefetch]);
+  }, [
+    dispatch,
+    changeCurrentToggledAppointment,
+    getAllPersonalEventsRefetch,
+    getNotificationsRefetch,
+  ]);
 
   useEffect(() => {
     changePageOpened(true);

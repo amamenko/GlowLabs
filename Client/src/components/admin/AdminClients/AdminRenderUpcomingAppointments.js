@@ -79,6 +79,7 @@ const AdminRenderUpcomingAppointments = (props) => {
 
   const resetStatesAfterLoading = useCallback(() => {
     props.getOwnAppointmentsRefetch();
+    props.getNotificationsRefetch();
     dispatch(ACTION_LOADING_SPINNER_RESET());
     dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET());
     changeAppointmentToggled(false);

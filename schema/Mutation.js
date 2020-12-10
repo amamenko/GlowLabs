@@ -22,6 +22,7 @@ const updateClientSquareIDMutation = require("./mutations/updateClientSquareIdMu
 const updateUnsavedSquareCardIDsMutation = require("./mutations/updateUnsavedSquareCardIDsMutation");
 const removeOneUnsavedSquareCardIDsMutation = require("./mutations/removeOneUnsavedSquareCardIDsMutation");
 const registerClientMutation = require("./mutations/registerClientMutation");
+const resetNotificationsMutation = require("./mutations/resetNotificationsMutation");
 
 const { GraphQLObjectType } = graphql;
 
@@ -51,6 +52,7 @@ const Mutation = new GraphQLObjectType({
     updateUnsavedSquareCardIDs: updateUnsavedSquareCardIDsMutation,
     removeOneUnsavedSquareCardIDs: removeOneUnsavedSquareCardIDsMutation,
     registerClient: registerClientMutation,
+    resetNotifications: resetNotificationsMutation,
   },
 });
 

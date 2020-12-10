@@ -140,8 +140,8 @@ const AdminSchedule = (props) => {
   useEffect(() => {
     const dayToday = new Date().getDay();
 
-    // If Monday, Wednesday, or Friday, adjust header flex attributew
-    if (dayToday === 1 || dayToday === 3 || dayToday === 5) {
+    // If not Saturday or Sunday, adjust header flex attribute
+    if (dayToday > 0 && dayToday < 6) {
       if (timeHeader) {
         if (timeHeader[0]) {
           timeHeader[0].style.flex = 1;
@@ -204,6 +204,7 @@ const AdminSchedule = (props) => {
         employeeOptions={employeeOptions}
         changeStopTransition={changeStopTransition}
         stopTransition={stopTransition}
+        getNotificationsRefetch={props.getNotificationsRefetch}
       />
       <AdminPersonalEvent
         getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
@@ -217,6 +218,7 @@ const AdminSchedule = (props) => {
         stopTransition={stopTransition}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
+        getNotificationsRefetch={props.getNotificationsRefetch}
       />
       <AdminCalendarComponent
         getAllAppointmentsData={props.getAllAppointmentsData}

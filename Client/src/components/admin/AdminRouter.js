@@ -8,6 +8,7 @@ import {
   getClientsQuery,
   getAllAppointmentsQuery,
   getAllPersonalEventsQuery,
+  getNotificationsQuery,
 } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
@@ -38,6 +39,13 @@ const AdminRouter = React.forwardRef((props, ref) => {
     fetchPolicy: "no-cache",
   });
 
+  const {
+    data: getNotificationsData,
+    refetch: getNotificationsRefetch,
+  } = useQuery(getNotificationsQuery, {
+    fetchPolicy: "no-cache",
+  });
+
   const randomColorArray = useMemo(() => {
     if (getClientsData) {
       if (getClientsData.clients.length > 0) {
@@ -61,6 +69,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
         employeeDataRefetch={props.employeeDataRefetch}
         getClientsLoading={getClientsLoading}
         handleClickToScrollToHome={props.handleClickToScrollToHome}
+        getNotificationsData={getNotificationsData}
+        getNotificationsRefetch={getNotificationsRefetch}
         ref={ref}
       />
       <Switch>
@@ -89,12 +99,14 @@ const AdminRouter = React.forwardRef((props, ref) => {
                 props.getEmployeeData ? props.getEmployeeData : null
               }
               employeeDataRefetch={props.employeeDataRefetch}
+              getNotificationsData={getNotificationsData}
+              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />
         <Route
           exact
-          path={props.path + "/notifications"}
+          path={props.path + "/activity"}
           render={() => (
             <AdminNotifications
               initialScreenSize={props.initialScreenSize}
@@ -102,6 +114,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getEmployeeData={
                 props.getEmployeeData ? props.getEmployeeData : null
               }
+              getNotificationsData={getNotificationsData}
+              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />
@@ -119,6 +133,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getClientsRefetch={getClientsRefetch}
               getClientsLoading={getClientsLoading}
               randomColorArray={randomColorArray ? randomColorArray : null}
+              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />
@@ -140,6 +155,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getAllAppointmentsData={getAllAppointmentsData}
               getAllAppointmentsRefetch={getAllAppointmentsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
+              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />
@@ -163,6 +179,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getAllPersonalEventsData={getAllPersonalEventsData}
               getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
+              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />

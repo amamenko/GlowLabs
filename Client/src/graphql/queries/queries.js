@@ -99,6 +99,28 @@ const getEmployeesQuery = gql`
   }
 `;
 
+const getNotificationsQuery = gql`
+  {
+    notifications {
+      _id
+      new
+      type
+      date
+      time
+      allDay
+      associatedClientFirstName
+      associatedClientLastName
+      originalAssociatedStaffFirstName
+      originalAssociatedStaffLastName
+      newAssociatedStaffFirstName
+      newAssociatedStaffLastName
+      createdByFirstName
+      createdByLastName
+      createdAt
+    }
+  }
+`;
+
 const getAllAppointmentsQuery = gql`
   {
     all_appointments {
@@ -661,6 +683,20 @@ const deletePersonalEventMutation = gql`
   mutation($_id: ID) {
     deletePersonalEvent(_id: $_id) {
       _id
+    }
+  }
+`;
+
+const resetNotificationsMutation = gql`
+  mutation {
+    _id
+    resetNotifications {
+      firstName
+      lastName
+      email
+      phoneNumber
+      employeeRole
+      notifications
     }
   }
 `;
@@ -1415,6 +1451,7 @@ export {
   loginQuery,
   adminLoginQuery,
   getClientsQuery,
+  getNotificationsQuery,
   getEmployeesQuery,
   getEmployeeQuery,
   getClientQuery,
@@ -1446,4 +1483,5 @@ export {
   updateClientInvalidateTokensMutation,
   updateEmployeeInvalidateTokensMutation,
   registerClientMutation,
+  resetNotificationsMutation,
 };
