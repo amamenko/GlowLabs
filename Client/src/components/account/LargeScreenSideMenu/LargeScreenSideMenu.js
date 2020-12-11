@@ -47,6 +47,15 @@ const override = css`
 const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   const { LandingPageRef } = ref;
 
+  const {
+    getClientData,
+    getEmployeeData,
+    getNotificationsData,
+    handleClickToScrollToHome,
+    initialScreenSize,
+    currentScreenSize,
+  } = props;
+
   const dispatch = useDispatch();
   const location = useLocation();
   const signature = useRef(null);
@@ -169,19 +178,19 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   };
 
   const renderDownloadConsentFormButton = () => {
-    if (props.getClientData) {
-      if (props.getClientData.client) {
-        if (props.getClientData.client.consentForm) {
-          if (props.getClientData.client.consentForm.date) {
+    if (getClientData) {
+      if (getClientData.client) {
+        if (getClientData.client.consentForm) {
+          if (getClientData.client.consentForm.date) {
             return (
               <>
                 {pdfLoading ? (
                   <PDFDownloadLink
                     document={
-                      props.getClientData ? (
+                      getClientData ? (
                         <ConsentFormPDF
                           getClientData={{
-                            client: props.getClientData.client,
+                            client: getClientData.client,
                           }}
                           signature={
                             signature
@@ -192,8 +201,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                           }
                           consentFormLastUpdated={moment
                             .unix(
-                              props.getClientData.client.consentForm.createdAt /
-                                1000
+                              getClientData.client.consentForm.createdAt / 1000
                             )
                             .format("l")}
                           onClick={handlePDFDownloadClick}
@@ -201,15 +209,11 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                       ) : null
                     }
                     fileName={
-                      props.getClientData.client.firstName[0].toUpperCase() +
-                      props.getClientData.client.firstName
-                        .slice(1)
-                        .toLowerCase() +
+                      getClientData.client.firstName[0].toUpperCase() +
+                      getClientData.client.firstName.slice(1).toLowerCase() +
                       "_" +
-                      props.getClientData.client.lastName[0].toUpperCase() +
-                      props.getClientData.client.lastName
-                        .slice(1)
-                        .toLowerCase() +
+                      getClientData.client.lastName[0].toUpperCase() +
+                      getClientData.client.lastName.slice(1).toLowerCase() +
                       "_" +
                       "Glow_Labs_Consent_Form.pdf"
                     }
@@ -234,7 +238,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                     </div>
                   </PDFDownloadLink>
                 ) : (
-                  consentFormOnFile(props.getClientData.client)
+                  consentFormOnFile(getClientData.client)
                 )}
               </>
             );
@@ -266,7 +270,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
     dispatch(ACTION_CART_IS_NOT_ACTIVE());
 
     setTimeout(() => {
-      props.handleClickToScrollToHome(LandingPageRef);
+      handleClickToScrollToHome(LandingPageRef);
     }, 300);
 
     document.body.classList.remove("no_scroll");
@@ -283,8 +287,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
             finalBookButtonActive ||
             cancelAppointmentClicked ||
             addProfilePhotoClicked ||
-            imageLoading ||
-            props.getClientsLoading
+            imageLoading
           ? "blur(5px) brightness(50%)"
           : "none",
         pointerEvents:
@@ -293,8 +296,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           finalBookButtonActive ||
           cancelAppointmentClicked ||
           addProfilePhotoClicked ||
-          imageLoading ||
-          props.getClientsLoading
+          imageLoading
             ? "none"
             : "auto",
         display:
@@ -302,11 +304,11 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           (adminAuthenticated && location.pathname.includes("admin")) ||
           (guestConsentFormAccessToken &&
             location.pathname.includes("consentform"))
-            ? !props.currentScreenSize
-              ? props.initialScreenSize >= 1200
+            ? !currentScreenSize
+              ? initialScreenSize >= 1200
                 ? "flex"
                 : "none"
-              : props.currentScreenSize >= 1200
+              : currentScreenSize >= 1200
               ? "flex"
               : "none"
             : "none",
@@ -315,15 +317,14 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
       <CanvasDraw
         className="consent_form_signature"
         saveData={
-          props.getClientData
-            ? props.getClientData.client
-              ? props.getClientData.client.consentForm.consentFormSignature
+          getClientData
+            ? getClientData.client
+              ? getClientData.client.consentForm.consentFormSignature
                 ? LZString.decompressFromEncodedURIComponent(
-                    props.getClientData.client.consentForm.consentFormSignature
+                    getClientData.client.consentForm.consentFormSignature
                   )
                   ? LZString.decompressFromEncodedURIComponent(
-                      props.getClientData.client.consentForm
-                        .consentFormSignature
+                      getClientData.client.consentForm.consentFormSignature
                     ).toString()
                   : ""
                 : ""
@@ -361,22 +362,20 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
       </div>
       <div className="large_screen_side_menu_profile_container">
         <div className="large_screen_side_menu_profile_client_avatar_container">
-          {props.getClientData ? (
-            props.getClientData.client ? (
-              props.getClientData.client.profilePicture ? (
+          {getClientData ? (
+            getClientData.client ? (
+              getClientData.client.profilePicture ? (
                 <img
                   className="large_screen_side_menu_profile_client_photo_avatar"
                   src={LZString.decompressFromEncodedURIComponent(
-                    props.getClientData.client.profilePicture
+                    getClientData.client.profilePicture
                   )}
                   alt={
-                    props.getClientData.client.firstName[0].toUpperCase() +
-                    props.getClientData.client.firstName
-                      .slice(1)
-                      .toLowerCase() +
+                    getClientData.client.firstName[0].toUpperCase() +
+                    getClientData.client.firstName.slice(1).toLowerCase() +
                     " " +
-                    props.getClientData.client.lastName[0].toUpperCase() +
-                    props.getClientData.client.lastName.slice(1).toLowerCase() +
+                    getClientData.client.lastName[0].toUpperCase() +
+                    getClientData.client.lastName.slice(1).toLowerCase() +
                     " Profile Picture"
                   }
                 />
@@ -392,24 +391,20 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                 icon={faUserCircle}
               />
             )
-          ) : props.getEmployeeData ? (
-            props.getEmployeeData.employee ? (
-              props.getEmployeeData.employee.profilePicture ? (
+          ) : getEmployeeData ? (
+            getEmployeeData.employee ? (
+              getEmployeeData.employee.profilePicture ? (
                 <img
                   className="large_screen_side_menu_profile_client_photo_avatar"
                   src={LZString.decompressFromEncodedURIComponent(
-                    props.getEmployeeData.employee.profilePicture
+                    getEmployeeData.employee.profilePicture
                   )}
                   alt={
-                    props.getEmployeeData.employee.firstName[0].toUpperCase() +
-                    props.getEmployeeData.employee.firstName
-                      .slice(1)
-                      .toLowerCase() +
+                    getEmployeeData.employee.firstName[0].toUpperCase() +
+                    getEmployeeData.employee.firstName.slice(1).toLowerCase() +
                     " " +
-                    props.getEmployeeData.employee.lastName[0].toUpperCase() +
-                    props.getEmployeeData.employee.lastName
-                      .slice(1)
-                      .toLowerCase() +
+                    getEmployeeData.employee.lastName[0].toUpperCase() +
+                    getEmployeeData.employee.lastName.slice(1).toLowerCase() +
                     " Profile Picture"
                   }
                 />
@@ -435,31 +430,31 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
         <div className="large_screen_side_menu_profile_contact_information_container">
           <div className="large_screen_side_menu_profile_name_container">
             <p>
-              {props.getEmployeeData
-                ? props.getEmployeeData.employee
-                  ? props.getEmployeeData.employee.firstName
-                    ? props.getEmployeeData.employee.firstName
+              {getEmployeeData
+                ? getEmployeeData.employee
+                  ? getEmployeeData.employee.firstName
+                    ? getEmployeeData.employee.firstName
                     : null
                   : null
                 : null}{" "}
-              {props.getEmployeeData
-                ? props.getEmployeeData.employee
-                  ? props.getEmployeeData.employee.lastName
-                    ? props.getEmployeeData.employee.lastName
+              {getEmployeeData
+                ? getEmployeeData.employee
+                  ? getEmployeeData.employee.lastName
+                    ? getEmployeeData.employee.lastName
                     : null
                   : null
                 : null}
-              {props.getClientData
-                ? props.getClientData.client
-                  ? props.getClientData.client.firstName
-                    ? props.getClientData.client.firstName
+              {getClientData
+                ? getClientData.client
+                  ? getClientData.client.firstName
+                    ? getClientData.client.firstName
                     : null
                   : null
                 : null}{" "}
-              {props.getClientData
-                ? props.getClientData.client
-                  ? props.getClientData.client.lastName
-                    ? props.getClientData.client.lastName
+              {getClientData
+                ? getClientData.client
+                  ? getClientData.client.lastName
+                    ? getClientData.client.lastName
                     : null
                   : null
                 : null}
@@ -468,13 +463,11 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           <div className="large_screen_side_menu_profile_membership_type_container">
             <p>Membership Type</p>
             <p>
-              {props.getClientData
+              {getClientData
                 ? "Default"
-                : props.getEmployeeData
-                ? props.getEmployeeData.employee
-                  ? props.getEmployeeData.employee.employeeRole.includes(
-                      "Admin"
-                    )
+                : getEmployeeData
+                ? getEmployeeData.employee
+                  ? getEmployeeData.employee.employeeRole.includes("Admin")
                     ? "Admin"
                     : "Staff"
                   : "Staff"
@@ -486,14 +479,14 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           <div className="large_screen_side_menu_profile_email_container">
             <h2>Email Address</h2>
             <p>
-              {props.getEmployeeData
-                ? props.getEmployeeData.employee
-                  ? props.getEmployeeData.employee.email
+              {getEmployeeData
+                ? getEmployeeData.employee
+                  ? getEmployeeData.employee.email
                   : null
                 : null}
-              {props.getClientData
-                ? props.getClientData.client
-                  ? props.getClientData.client.email
+              {getClientData
+                ? getClientData.client
+                  ? getClientData.client.email
                   : null
                 : null}
             </p>
@@ -501,14 +494,14 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           <div className="large_screen_side_menu_profile_phone_number_container">
             <h2>Phone Number</h2>
             <p>
-              {props.getEmployeeData
-                ? props.getEmployeeData.employee
-                  ? props.getEmployeeData.employee.phoneNumber
+              {getEmployeeData
+                ? getEmployeeData.employee
+                  ? getEmployeeData.employee.phoneNumber
                   : null
                 : null}
-              {props.getClientData
-                ? props.getClientData.client
-                  ? props.getClientData.client.phoneNumber
+              {getClientData
+                ? getClientData.client
+                  ? getClientData.client.phoneNumber
                   : null
                 : null}
             </p>
@@ -530,7 +523,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
               <h2>Home</h2>
             </div>
           </div>
-          {props.getEmployeeData ? (
+          {getEmployeeData ? (
             <div className="large_screen_side_menu_item_container">
               <Link
                 className="large_screen_side_menu_item"
@@ -547,10 +540,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                   className="large_screen_side_menu_item_icon"
                 />
                 <h2>Activity</h2>
-                {props.getNotificationsData ? (
-                  props.getNotificationsData.notifications ? (
-                    props.getNotificationsData.notifications.length > 0 ? (
-                      props.getNotificationsData.notifications.filter(
+                {getNotificationsData ? (
+                  getNotificationsData.notifications ? (
+                    getNotificationsData.notifications.length > 0 ? (
+                      getNotificationsData.notifications.filter(
                         (notification) => notification.new
                       ).length > 0 ? (
                         <span className="fa-layers fa-fw">
@@ -559,10 +552,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                             icon={faCircle}
                           />
                           <p>
-                            {props.getNotificationsData.notifications.filter(
+                            {getNotificationsData.notifications.filter(
                               (notification) => notification.new
                             ).length < 10
-                              ? props.getNotificationsData.notifications.filter(
+                              ? getNotificationsData.notifications.filter(
                                   (notification) => notification.new
                                 ).length
                               : "9+"}
@@ -575,7 +568,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
               </Link>
             </div>
           ) : null}
-          {props.getEmployeeData ? (
+          {getEmployeeData ? (
             <div className="large_screen_side_menu_item_container">
               <Link className="large_screen_side_menu_item" to="/admin/clients">
                 <div
@@ -615,7 +608,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
               </Link>
             </div>
           )}{" "}
-          {props.getEmployeeData ? (
+          {getEmployeeData ? (
             <div className="large_screen_side_menu_item_container">
               <Link className="large_screen_side_menu_item" to="/admin/staff">
                 <div
@@ -653,7 +646,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
               </Link>
             </div>
           )}{" "}
-          {props.getEmployeeData ? (
+          {getEmployeeData ? (
             <>
               <div className="large_screen_side_menu_item_container">
                 <Link
@@ -700,7 +693,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
             </div>
           )}
           {renderDownloadConsentFormButton()}
-          {props.getEmployeeData ? null : (
+          {getEmployeeData ? null : (
             <div className="large_screen_side_menu_extras_section">
               <div className="large_screen_side_menu_underline_separator" />
               <div className="large_screen_side_menu_item_container">

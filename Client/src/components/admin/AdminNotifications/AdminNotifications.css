@@ -42,6 +42,10 @@
 
 .admin_notifications_content_container {
   padding-top: 8vh;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .admin_individual_notification_container {

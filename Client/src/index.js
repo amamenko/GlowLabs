@@ -7,7 +7,6 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import ApolloClient from "apollo-boost";
 import { ApolloProvider, useMutation, useQuery } from "@apollo/react-hooks";
 import ReactDOM from "react-dom";
 import { Spring, Transition } from "react-spring/renderprops";
@@ -43,6 +42,7 @@ import {
   getEmployeesQuery,
   updateEmployeeInvalidateTokensMutation,
 } from "./graphql/queries/queries";
+import apolloClient from "./apolloClient";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { css } from "@emotion/css";
@@ -144,16 +144,6 @@ const store = createStore(
   RootReducer,
   composeWithDevTools(applyMiddleware(...middleware))
 );
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
-  credentials: "include",
-  onError: ({ graphQLErrors }) => {
-    if (graphQLErrors) {
-      graphQLErrors.map(({ message }) => console.log(message));
-    }
-  },
-});
 
 const App = () => {
   const location = useLocation();
@@ -1587,7 +1577,7 @@ Modal.setAppElement(rootElement);
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <AliveScope>
           <App />
         </AliveScope>

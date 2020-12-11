@@ -2,6 +2,7 @@ const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const expressPlayground = require("graphql-playground-middleware-express")
   .default;
+const { PubSub } = require("apollo-server");
 const { ApolloServer } = require("apollo-server-express");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
@@ -406,9 +407,11 @@ app.use(async (req, res, next) => {
 
 app.use(cookieParser());
 
+const pubsub = new PubSub();
+
 const server = new ApolloServer({
   schema,
-  context: ({ req, res }) => ({ req, res }),
+  context: ({ req, res }) => ({ req, res, pubsub }),
   introspection: false,
   playground: true,
 });

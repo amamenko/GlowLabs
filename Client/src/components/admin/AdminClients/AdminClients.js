@@ -1083,9 +1083,6 @@ const AdminClients = (props) => {
                                         ? props.getEmployeeData
                                         : null
                                     }
-                                    getNotificationsRefetch={
-                                      props.getNotificationsRefetch
-                                    }
                                   />
                                 ) : adminClientSectionSelected ===
                                   "UpcomingAppointments" ? (
@@ -1105,9 +1102,6 @@ const AdminClients = (props) => {
                                       }
                                       initialScreenSize={
                                         props.initialScreenSize
-                                      }
-                                      getNotificationsRefetch={
-                                        props.getNotificationsRefetch
                                       }
                                     />
                                   </div>

@@ -3,12 +3,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminClients from "./AdminClients/AdminClients";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useSubscription } from "@apollo/react-hooks";
 import {
   getClientsQuery,
   getAllAppointmentsQuery,
   getAllPersonalEventsQuery,
-  getNotificationsQuery,
+  getNotificationsSubscription,
 } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
@@ -41,8 +41,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
 
   const {
     data: getNotificationsData,
-    refetch: getNotificationsRefetch,
-  } = useQuery(getNotificationsQuery, {
+    loading: getNotificationsLoading,
+  } = useSubscription(getNotificationsSubscription, {
     fetchPolicy: "no-cache",
   });
 
@@ -60,6 +60,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
     }
   }, [getClientsData]);
 
+  console.log(getNotificationsData);
+
   return (
     <>
       <LargeScreenSideMenu
@@ -70,7 +72,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
         getClientsLoading={getClientsLoading}
         handleClickToScrollToHome={props.handleClickToScrollToHome}
         getNotificationsData={getNotificationsData}
-        getNotificationsRefetch={getNotificationsRefetch}
         ref={ref}
       />
       <Switch>
@@ -100,7 +101,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
               }
               employeeDataRefetch={props.employeeDataRefetch}
               getNotificationsData={getNotificationsData}
-              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />
@@ -115,7 +115,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
                 props.getEmployeeData ? props.getEmployeeData : null
               }
               getNotificationsData={getNotificationsData}
-              getNotificationsRefetch={getNotificationsRefetch}
+              getNotificationsLoading={getNotificationsLoading}
             />
           )}
         />
@@ -133,7 +133,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getClientsRefetch={getClientsRefetch}
               getClientsLoading={getClientsLoading}
               randomColorArray={randomColorArray ? randomColorArray : null}
-              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />
@@ -155,7 +154,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getAllAppointmentsData={getAllAppointmentsData}
               getAllAppointmentsRefetch={getAllAppointmentsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
-              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />
@@ -179,7 +177,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getAllPersonalEventsData={getAllPersonalEventsData}
               getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
-              getNotificationsRefetch={getNotificationsRefetch}
             />
           )}
         />

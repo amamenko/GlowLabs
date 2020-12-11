@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const { GraphQLList } = graphql;
 
-const notificationsQuery = {
+const notificationsSubscription = {
   type: new GraphQLList(NotificationType),
   async resolve(parent, args, context) {
     const adminAccessToken = context.cookies["admin-access-token"];
@@ -22,4 +22,4 @@ const notificationsQuery = {
   },
 };
 
-module.exports = notificationsQuery;
+module.exports = notificationsSubscription;

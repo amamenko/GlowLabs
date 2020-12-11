@@ -17,6 +17,7 @@
     "@tippyjs/react": "^4.2.0",
     "acorn": "^8.0.4",
     "apollo-boost": "^0.4.9",
+    "apollo-link-ws": "^1.0.20",
     "axios": "^0.21.0",
     "body-scroll-lock": "^3.1.5",
     "bootstrap": "^4.5.3",
@@ -64,6 +65,7 @@
     "scroll-behavior-polyfill": "^2.0.13",
     "scroll-snap": "^3.1.0",
     "smoothscroll-polyfill": "^0.4.4",
+    "subscriptions-transport-ws": "^0.9.18",
     "timeago.js": "^4.0.2",
     "validator": "^13.5.1"
   },

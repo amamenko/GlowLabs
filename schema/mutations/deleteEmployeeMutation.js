@@ -9,13 +9,15 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLID } = graphql;
 
+const NEW_NOTIFICATION = "NEW_NOTIFICATION";
+
 const deleteEmployeeMutation = {
   type: EmployeeType,
   args: {
     _id: { type: GraphQLID },
   },
-  async resolve(parent, args, context) {
-    const adminAccessToken = context.cookies["admin-access-token"];
+  async resolve(parent, args, { cookies, pubsub }) {
+    const adminAccessToken = cookies["admin-access-token"];
 
     if (!adminAccessToken) {
       throw new UserInputError("Admin is not authenticated.");
@@ -48,19 +50,19 @@ const deleteEmployeeMutation = {
         createdByLastName: deletingEmployee.lastName,
       });
 
-      const updatedEmployee = await Employee.updateMany(
-        filter,
-        createNotificationFunction(newNotification, deletingEmployee),
-        {
-          new: true,
-        }
+      const update = createNotificationFunction(
+        newNotification,
+        deletingEmployee
       );
 
-      const updatedEmployeeRes = await updatedEmployee.save();
+      await Employee.updateMany(filter, update, {
+        new: true,
+      });
+
+      pubsub.publish(NEW_NOTIFICATION, update);
 
       return {
         _id: args._id,
-        ...updatedEmployeeRes,
       };
     }
   },

@@ -14,6 +14,8 @@ require("dotenv").config();
 
 const { GraphQLString, GraphQLList, GraphQLNonNull } = graphql;
 
+const NEW_NOTIFICATION = "new_notificaton";
+
 const addEmployeeMutation = {
   type: EmployeeType,
   args: {
@@ -23,8 +25,8 @@ const addEmployeeMutation = {
     phoneNumber: { type: new GraphQLNonNull(GraphQLString) },
     employeeRole: { type: new GraphQLList(GraphQLString) },
   },
-  async resolve(parent, args, context) {
-    const adminAccessToken = context.cookies["admin-access-token"];
+  async resolve(parent, args, { cookies, pubsub }) {
+    const adminAccessToken = cookies["admin-access-token"];
 
     if (adminAccessToken) {
       // Generate temporary password for new employee
@@ -97,19 +99,19 @@ const addEmployeeMutation = {
         createdByLastName: addingEmployee.lastName,
       });
 
-      const updatedEmployees = await Employee.updateMany(
-        filter,
-        createNotificationFunction(newNotification, addingEmployee),
-        {
-          new: true,
-        }
+      const update = createNotificationFunction(
+        newNotification,
+        addingEmployee
       );
 
-      const updatedEmployeesRes = await updatedEmployees.save();
+      await Employee.updateMany(filter, update, {
+        new: true,
+      });
+
+      pubsub.publish(NEW_NOTIFICATION, update);
 
       return {
         ...newEmployeeRes,
-        ...updatedEmployeesRes,
       };
     }
   },

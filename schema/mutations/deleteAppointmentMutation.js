@@ -1,4 +1,5 @@
 const graphql = require("graphql");
+const jwt = require("jsonwebtoken");
 const Appointment = require("../../models/appointment");
 const AppointmentInput = require("../types/inputs/AppointmentInput");
 const { UserInputError } = require("apollo-server");

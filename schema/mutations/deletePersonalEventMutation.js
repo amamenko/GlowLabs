@@ -1,18 +1,24 @@
 const graphql = require("graphql");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const PersonalEventType = require("../types/PersonalEventType");
 const PersonalEvent = require("../../models/personalevent");
+const Employee = require("../../models/employee");
+const Notification = require("../../models/notification");
 const { UserInputError } = require("apollo-server");
 const createNotificationFunction = require("./notifications/createNotificationFunction");
 
 const { GraphQLID } = graphql;
+
+const NEW_NOTIFICATION = "new_notification";
 
 const deletePersonalEventMutation = {
   type: PersonalEventType,
   args: {
     _id: { type: GraphQLID },
   },
-  async resolve(parent, args, context) {
-    const adminAccessToken = context.cookies["admin-access-token"];
+  async resolve(parent, args, { cookies, pubsub }) {
+    const adminAccessToken = cookies["admin-access-token"];
 
     if (adminAccessToken) {
       const associatedPersonalEvent = await PersonalEvent.findById({
@@ -42,23 +48,26 @@ const deletePersonalEventMutation = {
         createdByLastName: addingEmployee.lastName,
       });
 
-      const updatedEmployee = await Employee.updateMany(
-        filter,
-        createNotificationFunction(newNotification, addingEmployee),
-        {
-          new: true,
-        }
+      const update = createNotificationFunction(
+        newNotification,
+        addingEmployee
       );
 
-      const updatedEmployeeRes = await updatedEmployee.save();
+      await Employee.updateMany(filter, update, {
+        new: true,
+      });
+
       const deletePersonalEventRes = await PersonalEvent.findByIdAndDelete({
         _id: args._id,
+      });
+
+      pubsub.publish(NEW_NOTIFICATION, {
+        notifications: { type: "deletePersonalEvent" },
       });
 
       return {
         _id: args._id,
         ...deletePersonalEventRes,
-        ...updatedEmployeeRes,
       };
     } else {
       throw new UserInputError("Admin is not authenticated.");

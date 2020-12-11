@@ -1,4 +1,5 @@
 const EmployeeType = require("../types/EmployeeType");
+const Employee = require("../../models/employee");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 

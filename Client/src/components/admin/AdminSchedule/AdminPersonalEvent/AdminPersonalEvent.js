@@ -34,6 +34,7 @@ import Modal from "react-modal";
 import { BounceLoader } from "react-spinners";
 import { css } from "@emotion/css";
 import moment from "moment";
+import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 
 const AdminPersonalEvent = (props) => {
   const {
@@ -47,7 +48,6 @@ const AdminPersonalEvent = (props) => {
     timeOptions,
     employeeOptions,
     getAllPersonalEventsRefetch,
-    getNotificationsRefetch,
   } = props;
 
   const dispatch = useDispatch();
@@ -154,6 +154,7 @@ const AdminPersonalEvent = (props) => {
     dispatch(ACTION_ADMIN_PERSONAL_EVENT_NOTES_RESET());
     dispatch(ACTION_ADMIN_PERSONAL_EVENT_START_TIME_RESET());
     dispatch(ACTION_ADMIN_PERSONAL_EVENT_END_TIME_RESET());
+    dispatch(ACTION_LOADING_SPINNER_RESET());
 
     changeClickOutsideDayPicker(false);
 
@@ -300,7 +301,11 @@ const AdminPersonalEvent = (props) => {
           ),
           staff:
             adminAppointmentStaffMember && !adminPersonalEventStaff
-              ? adminAppointmentStaffMember
+              ? adminAppointmentStaffMember.value
+                ? adminAppointmentStaffMember.value
+                : adminAppointmentStaffMember
+              : adminPersonalEventStaff.value
+              ? adminPersonalEventStaff.value
               : adminPersonalEventStaff,
           notes: adminPersonalEventNotes,
           allDay: adminPersonalEventAllDay,
@@ -326,12 +331,14 @@ const AdminPersonalEvent = (props) => {
     }
   };
 
+  console.log(personalEventData);
+
   useEffect(() => {
     if (personalEventData) {
+      console.log("RUNNING NOW");
       const loadingFunction = setTimeout(() => {
         handleBackToSchedule();
         getAllPersonalEventsRefetch();
-        getNotificationsRefetch();
       }, 2000);
       return () => {
         clearTimeout(loadingFunction);
@@ -342,7 +349,6 @@ const AdminPersonalEvent = (props) => {
     personalEventData,
     loadingSpinnerActive,
     getAllPersonalEventsRefetch,
-    getNotificationsRefetch,
   ]);
 
   useEffect(() => {

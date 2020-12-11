@@ -50,7 +50,6 @@ const AdminClientIndividualProfile = (props) => {
 
   const resetStatesAfterLoading = useCallback(() => {
     props.getClientsRefetch();
-    props.getNotificationsRefetch();
     dispatch(ACTION_LOADING_SPINNER_RESET());
     props.changeClientToggled("");
   }, [props, dispatch]);

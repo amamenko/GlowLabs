@@ -208,13 +208,13 @@ const AdminLoginPage = (props) => {
     ) {
       if (!props.currentScreenSize) {
         if (props.initialScreenSize >= 1200) {
-          return <Redirect to="/admin/clients" />;
+          return <Redirect to="/admin/activity" />;
         } else {
           return <Redirect to="/admin/menu" />;
         }
       } else {
         if (props.currentScreenSize >= 1200) {
-          return <Redirect to="/admin/clients" />;
+          return <Redirect to="/admin/activity" />;
         } else {
           return <Redirect to="/admin/menu" />;
         }

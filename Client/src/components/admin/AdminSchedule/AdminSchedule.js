@@ -204,7 +204,6 @@ const AdminSchedule = (props) => {
         employeeOptions={employeeOptions}
         changeStopTransition={changeStopTransition}
         stopTransition={stopTransition}
-        getNotificationsRefetch={props.getNotificationsRefetch}
       />
       <AdminPersonalEvent
         getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
@@ -218,7 +217,6 @@ const AdminSchedule = (props) => {
         stopTransition={stopTransition}
         initialScreenSize={props.initialScreenSize}
         currentScreenSize={props.currentScreenSize}
-        getNotificationsRefetch={props.getNotificationsRefetch}
       />
       <AdminCalendarComponent
         getAllAppointmentsData={props.getAllAppointmentsData}

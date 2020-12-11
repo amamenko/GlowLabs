@@ -2,12 +2,17 @@ import React from "react";
 import { BiCalendarX } from "react-icons/bi";
 import { IoMdTime } from "react-icons/io";
 import { format } from "timeago.js";
+import moment from "moment";
 
 const CancelPersonalEventNotification = (props) => {
   const { notification, employee } = props;
 
   const createdByName =
     notification.createdByFirstName + " " + notification.createdByLastName;
+  const originalAssociatedStaffName =
+    notification.originalAssociatedStaffFirstName +
+    " " +
+    notification.originalAssociatedStaffLastName;
   const signedInEmployeeName = employee.firstName + " " + employee.lastName;
 
   return (
@@ -33,9 +38,18 @@ const CancelPersonalEventNotification = (props) => {
           <strong>
             {createdByName === signedInEmployeeName ? "You" : createdByName}
           </strong>{" "}
-          canceled a personal event scheduled for{" "}
-          {notification.allDay ? "all day" : null}{" "}
-          <strong>{notification.date}</strong>
+          canceled a personal event
+          {createdByName === signedInEmployeeName
+            ? " "
+            : ` in ${
+                originalAssociatedStaffName === signedInEmployeeName
+                  ? "your"
+                  : originalAssociatedStaffName + "'s"
+              } calendar `}
+          scheduled for {notification.allDay ? "all day" : null}{" "}
+          <strong>
+            {moment(notification.date, "L").format("MMMM Do, YYYY")}
+          </strong>
           {notification.allDay ? "." : " at "}
           {notification.allDay ? null : notification.time ? (
             <strong>{notification.time}</strong>

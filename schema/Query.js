@@ -10,19 +10,17 @@ const ownAppointmentsQuery = require("./queries/ownAppointmentsQuery");
 const ownPastAppointmentsQuery = require("./queries/ownPastAppointmentsQuery");
 const clientsQuery = require("./queries/clientsQuery");
 const employeesQuery = require("./queries/employeesQuery");
-const notificationsQuery = require("./queries/notificationsQuery");
 
 const { GraphQLObjectType } = graphql;
 
-const RootQuery = new GraphQLObjectType({
-  name: "RootQueryType",
+const Query = new GraphQLObjectType({
+  name: "Query",
   fields: {
     appointment: appointmentQuery,
     client: clientQuery,
     employee: employeeQuery,
     login: loginQuery,
     adminLogin: adminLoginQuery,
-    notifications: notificationsQuery,
     all_personal_events: allPersonalEventsQuery,
     all_appointments: allAppointmentsQuery,
     own_appointments: ownAppointmentsQuery,
@@ -32,4 +30,4 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-module.exports = RootQuery;
+module.exports = Query;

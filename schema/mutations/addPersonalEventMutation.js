@@ -1,10 +1,15 @@
 const graphql = require("graphql");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 const PersonalEvent = require("../../models/personalevent");
 const PersonalEventType = require("../types/PersonalEventType");
+const Employee = require("../../models/employee");
+const Notification = require("../../models/notification");
 const createNotificationFunction = require("./notifications/createNotificationFunction");
 
 const { GraphQLString, GraphQLBoolean, GraphQLInt, GraphQLNonNull } = graphql;
+
+const NEW_NOTIFICATION = "new_notificaton";
 
 const addPersonalEventMutation = {
   type: PersonalEventType,
@@ -19,8 +24,8 @@ const addPersonalEventMutation = {
     allDay: { type: GraphQLBoolean },
     blockTime: { type: GraphQLBoolean },
   },
-  async resolve(parent, args) {
-    const adminAccessToken = context.cookies["admin-access-token"];
+  async resolve(parent, args, { pubsub, cookies }) {
+    const adminAccessToken = cookies["admin-access-token"];
 
     if (adminAccessToken) {
       let personalEvent = new PersonalEvent({
@@ -53,28 +58,33 @@ const addPersonalEventMutation = {
         date: args.date,
         time: args.startTime,
         allDay: args.allDay,
-        originalAssociatedStaffFirstName: addingEmployee.firstName,
-        originalAssociatedStaffLastName: addingEmployee.lastName,
+        originalAssociatedStaffFirstName: args.staff.split(" ")[0],
+        originalAssociatedStaffLastName: args.staff.split(" ")[1],
         createdByFirstName: addingEmployee.firstName,
         createdByLastName: addingEmployee.lastName,
       });
 
-      const updatedEmployee = await Employee.updateMany(
-        filter,
-        createNotificationFunction(newNotification, addingEmployee),
-        {
-          new: true,
-        }
+      const update = createNotificationFunction(
+        newNotification,
+        addingEmployee
       );
 
-      const updatedEmployeeRes = await updatedEmployee.save();
+      await Employee.updateMany(filter, update, {
+        new: true,
+      });
+
       const personalEventRes = await personalEvent.save();
 
       return {
         ...personalEventRes,
-        ...updatedEmployeeRes,
       };
     }
+
+    console.log(pubsub);
+
+    pubsub.publish(NEW_NOTIFICATION, {
+      notifications: { type: "addPersonalEvent" },
+    });
   },
 };
 

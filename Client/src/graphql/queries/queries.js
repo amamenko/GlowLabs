@@ -99,28 +99,6 @@ const getEmployeesQuery = gql`
   }
 `;
 
-const getNotificationsQuery = gql`
-  {
-    notifications {
-      _id
-      new
-      type
-      date
-      time
-      allDay
-      associatedClientFirstName
-      associatedClientLastName
-      originalAssociatedStaffFirstName
-      originalAssociatedStaffLastName
-      newAssociatedStaffFirstName
-      newAssociatedStaffLastName
-      createdByFirstName
-      createdByLastName
-      createdAt
-    }
-  }
-`;
-
 const getAllAppointmentsQuery = gql`
   {
     all_appointments {
@@ -689,14 +667,23 @@ const deletePersonalEventMutation = gql`
 
 const resetNotificationsMutation = gql`
   mutation {
-    _id
     resetNotifications {
       firstName
       lastName
       email
       phoneNumber
       employeeRole
-      notifications
+      notifications {
+        new
+        type
+        date
+        time
+        allDay
+        originalAssociatedStaffFirstName
+        originalAssociatedStaffLastName
+        createdByFirstName
+        createdByLastName
+      }
     }
   }
 `;
@@ -1447,11 +1434,35 @@ const removeOneUnsavedSquareCardIDsMutation = gql`
   }
 `;
 
+// Subscriptions
+
+const getNotificationsSubscription = gql`
+  subscription getNotifications {
+    notifications {
+      _id
+      new
+      type
+      date
+      time
+      allDay
+      associatedClientFirstName
+      associatedClientLastName
+      originalAssociatedStaffFirstName
+      originalAssociatedStaffLastName
+      newAssociatedStaffFirstName
+      newAssociatedStaffLastName
+      createdByFirstName
+      createdByLastName
+      createdAt
+    }
+  }
+`;
+
 export {
   loginQuery,
   adminLoginQuery,
   getClientsQuery,
-  getNotificationsQuery,
+  getNotificationsSubscription,
   getEmployeesQuery,
   getEmployeeQuery,
   getClientQuery,

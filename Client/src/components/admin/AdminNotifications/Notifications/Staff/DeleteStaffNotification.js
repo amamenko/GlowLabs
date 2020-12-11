@@ -3,7 +3,7 @@ import { FiUserMinus } from "react-icons/fi";
 import { IoMdTime } from "react-icons/io";
 import { format } from "timeago.js";
 
-const RemoveStaffNotification = (props) => {
+const DeleteStaffNotification = (props) => {
   const { notification, employee } = props;
 
   const originalAssociatedStaffName =
@@ -49,4 +49,4 @@ const RemoveStaffNotification = (props) => {
   );
 };
 
-export default RemoveStaffNotification;
+export default DeleteStaffNotification;

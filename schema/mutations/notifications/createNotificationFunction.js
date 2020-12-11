@@ -20,9 +20,9 @@ const createNotificationFunction = (newNotification, employee) => {
     update = {
       notifications: employee.notifications,
     };
-
-    return update;
   }
+
+  return update;
 };
 
 module.exports = createNotificationFunction;
