@@ -7,8 +7,8 @@ const NEW_NOTIFICATION = "new_notificaton";
 
 const resetNotificationsMutation = {
   type: EmployeeType,
-  async resolve(parent, args, { cookies, pubsub }) {
-    const adminAccessToken = cookies["admin-access-token"];
+  async resolve(parent, args, context) {
+    const adminAccessToken = context.cookies["admin-access-token"];
 
     if (adminAccessToken) {
       const decodedAdminID = jwt.decode(adminAccessToken).id.toString();
@@ -32,10 +32,7 @@ const resetNotificationsMutation = {
 
       const updatedEmployeeRes = await updatedEmployee.save();
 
-      if (pubsub) {
-        console.log(pubsub);
-        pubsub.publish(NEW_NOTIFICATION, update);
-      }
+      context.pubsub.publish(NEW_NOTIFICATION, update);
 
       return {
         ...updatedEmployeeRes,

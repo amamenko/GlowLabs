@@ -331,11 +331,8 @@ const AdminPersonalEvent = (props) => {
     }
   };
 
-  console.log(personalEventData);
-
   useEffect(() => {
     if (personalEventData) {
-      console.log("RUNNING NOW");
       const loadingFunction = setTimeout(() => {
         handleBackToSchedule();
         getAllPersonalEventsRefetch();

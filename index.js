@@ -2,8 +2,8 @@ const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const expressPlayground = require("graphql-playground-middleware-express")
   .default;
-const { PubSub } = require("apollo-server");
 const { ApolloServer } = require("apollo-server-express");
+const { PubSub } = require("apollo-server");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -23,6 +23,7 @@ const cron = require("node-cron");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 const moment = require("moment");
 const defaultClient = SquareConnect.ApiClient.instance;
+const http = require("http");
 defaultClient.basePath = "https://connect.squareupsandbox.com";
 
 // Used to normalize phone numbers for use by Twilio
@@ -411,7 +412,7 @@ const pubsub = new PubSub();
 
 const server = new ApolloServer({
   schema,
-  context: ({ req, res }) => ({ req, res, pubsub }),
+  context: ({ req, res }) => ({ req, res }),
   introspection: false,
   playground: true,
 });
@@ -704,6 +705,8 @@ app.use(async (req, res, next) => {
     req.cookies["temporary-facebook-dummy-token"];
   const logoutCookie = req.cookies.logout;
 
+  req.pubsub = pubsub;
+
   if (logoutCookie) {
     res.clearCookie("access-token");
     res.clearCookie("refresh-token");
@@ -878,6 +881,8 @@ app.use(async (req, res, next) => {
   const temporaryAdminDummyToken = req.cookies["temporary-admin-dummy-token"];
   const logoutCookie = req.cookies.logout;
 
+  req.pubsub = pubsub;
+
   if (logoutCookie) {
     res.clearCookie("admin-access-token");
     res.clearCookie("admin-refresh-token");
@@ -1030,4 +1035,16 @@ server.applyMiddleware({
 
 app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
 
-app.listen(4000, () => console.log("Listening on port 4000"));
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen(4000, () => {
+  console.log(
+    `🚀 Server ready at http://localhost:${4000}${server.graphqlPath}`
+  );
+  console.log(
+    `🚀 Subscriptions ready at ws://localhost:${4000}${
+      server.subscriptionsPath
+    }`
+  );
+});

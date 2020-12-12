@@ -19,12 +19,13 @@ const Subscription = new GraphQLObjectType({
           _id: jwt.decode(adminAccessToken).id,
         });
 
+        console.log("RUNNING");
+
         if (employee) {
-          console.log(payload);
           return employee.notifications;
         }
       },
-      subscribe: (payload, args, { pubsub }) =>
+      subscribe: (parent, args, { pubsub }, info) =>
         pubsub.asyncIterator(NEW_NOTIFICATION),
     },
   },

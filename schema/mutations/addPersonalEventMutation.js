@@ -24,8 +24,8 @@ const addPersonalEventMutation = {
     allDay: { type: GraphQLBoolean },
     blockTime: { type: GraphQLBoolean },
   },
-  async resolve(parent, args, { pubsub, cookies }) {
-    const adminAccessToken = cookies["admin-access-token"];
+  async resolve(parent, args, context) {
+    const adminAccessToken = context.cookies["admin-access-token"];
 
     if (adminAccessToken) {
       let personalEvent = new PersonalEvent({
@@ -75,16 +75,12 @@ const addPersonalEventMutation = {
 
       const personalEventRes = await personalEvent.save();
 
+      context.pubsub.publish(NEW_NOTIFICATION, update);
+
       return {
         ...personalEventRes,
       };
     }
-
-    console.log(pubsub);
-
-    pubsub.publish(NEW_NOTIFICATION, {
-      notifications: { type: "addPersonalEvent" },
-    });
   },
 };
 

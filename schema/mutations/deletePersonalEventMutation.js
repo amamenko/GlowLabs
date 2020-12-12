@@ -17,8 +17,8 @@ const deletePersonalEventMutation = {
   args: {
     _id: { type: GraphQLID },
   },
-  async resolve(parent, args, { cookies, pubsub }) {
-    const adminAccessToken = cookies["admin-access-token"];
+  async resolve(parent, args, context) {
+    const adminAccessToken = context.cookies["admin-access-token"];
 
     if (adminAccessToken) {
       const associatedPersonalEvent = await PersonalEvent.findById({
@@ -61,9 +61,7 @@ const deletePersonalEventMutation = {
         _id: args._id,
       });
 
-      pubsub.publish(NEW_NOTIFICATION, {
-        notifications: { type: "deletePersonalEvent" },
-      });
+      context.pubsub.publish(NEW_NOTIFICATION, update);
 
       return {
         _id: args._id,

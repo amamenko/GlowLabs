@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "apollo-server": "^2.19.0",
-    "apollo-server-express": "^2.19.0",
+    "apollo-server": "^2.15.1",
+    "apollo-server-express": "^2.15.1",
     "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.3",
