@@ -46,9 +46,9 @@ const AddPersonalEventNotification = (props) => {
                   ? "your"
                   : originalAssociatedStaffName + "'s"
               } calendar `}
-          scheduled for {notification.allDay ? "all day" : null}{" "}
+          scheduled for {notification.allDay ? "all day on" : null}{" "}
           <strong>
-            {moment(notification.date, "L").format("MMMM Do, YYYY")}
+            {moment(new Date(notification.date)).format("MMMM Do, YYYY")}
           </strong>
           {notification.allDay ? "." : " at "}
           {notification.allDay ? null : notification.time ? (

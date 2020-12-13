@@ -3,12 +3,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminClients from "./AdminClients/AdminClients";
-import { useQuery, useSubscription } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import {
   getClientsQuery,
   getAllAppointmentsQuery,
   getAllPersonalEventsQuery,
-  getNotificationsSubscription,
 } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
@@ -39,13 +38,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
     fetchPolicy: "no-cache",
   });
 
-  const {
-    data: getNotificationsData,
-    loading: getNotificationsLoading,
-  } = useSubscription(getNotificationsSubscription, {
-    fetchPolicy: "no-cache",
-  });
-
   const randomColorArray = useMemo(() => {
     if (getClientsData) {
       if (getClientsData.clients.length > 0) {
@@ -60,8 +52,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
     }
   }, [getClientsData]);
 
-  console.log(getNotificationsData);
-
   return (
     <>
       <LargeScreenSideMenu
@@ -71,7 +61,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
         employeeDataRefetch={props.employeeDataRefetch}
         getClientsLoading={getClientsLoading}
         handleClickToScrollToHome={props.handleClickToScrollToHome}
-        getNotificationsData={getNotificationsData}
         ref={ref}
       />
       <Switch>
@@ -100,7 +89,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
                 props.getEmployeeData ? props.getEmployeeData : null
               }
               employeeDataRefetch={props.employeeDataRefetch}
-              getNotificationsData={getNotificationsData}
             />
           )}
         />
@@ -114,8 +102,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getEmployeeData={
                 props.getEmployeeData ? props.getEmployeeData : null
               }
-              getNotificationsData={getNotificationsData}
-              getNotificationsLoading={getNotificationsLoading}
+              getEmployeeLoading={props.getEmployeeLoading}
             />
           )}
         />

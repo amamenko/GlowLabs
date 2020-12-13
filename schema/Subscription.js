@@ -1,32 +1,32 @@
 const graphql = require("graphql");
+const EmployeeType = require("./types/EmployeeType");
 const Employee = require("../models/employee");
-const jwt = require("jsonwebtoken");
-const NotificationType = require("./types/NotificationType");
 
-const { GraphQLObjectType, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLID } = graphql;
 
 const NEW_NOTIFICATION = "new_notificaton";
 
 const Subscription = new GraphQLObjectType({
   name: "Subscription",
   fields: {
-    notifications: {
-      type: new GraphQLList(NotificationType),
+    getUpdatedEmployee: {
+      type: EmployeeType,
+      args: {
+        _id: { type: GraphQLID },
+      },
       resolve: async (payload, args, context, info) => {
-        const adminAccessToken = context.cookies["admin-access-token"];
-
         const employee = await Employee.findById({
-          _id: jwt.decode(adminAccessToken).id,
+          _id: args._id,
         });
 
-        console.log("RUNNING");
-
         if (employee) {
-          return employee.notifications;
+          return employee;
         }
       },
-      subscribe: (parent, args, { pubsub }, info) =>
-        pubsub.asyncIterator(NEW_NOTIFICATION),
+      subscribe: (parent, args, { pubsub }, info) => {
+        console.log(pubsub);
+        return pubsub.asyncIterator(NEW_NOTIFICATION);
+      },
     },
   },
 });

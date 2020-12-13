@@ -108,7 +108,7 @@ const addEmployeeMutation = {
         new: true,
       });
 
-      pubsub.publish(NEW_NOTIFICATION, update);
+      // pubsub.publish(NEW_NOTIFICATION, update);
 
       return {
         ...newEmployeeRes,

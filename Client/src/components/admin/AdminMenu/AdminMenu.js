@@ -31,6 +31,9 @@ const AdminMenu = (props) => {
   const adminAuthenticated = useSelector(
     (state) => state.adminAuthenticated.admin_authenticated
   );
+  const adminNotifications = useSelector(
+    (state) => state.adminNotifications.notifications
+  );
 
   useEffect(() => {
     if (!splashScreenComplete) {
@@ -98,28 +101,25 @@ const AdminMenu = (props) => {
           >
             <FontAwesomeIcon icon={faBell} className="admin_menu_box_icon" />
             <h2>ACTIVITY</h2>
-            {props.getNotificationsData ? (
-              props.getNotificationsData.notifications ? (
-                props.getNotificationsData.notifications.length > 0 ? (
-                  props.getNotificationsData.notifications.filter(
-                    (notification) => notification.new
-                  ).length > 0 ? (
-                    <span className="fa-layers fa-fw">
-                      <FontAwesomeIcon
-                        className="small_menu_notifications_circle_counter"
-                        icon={faCircle}
-                      />
-                      <p>
-                        {props.getNotificationsData.notifications.filter(
-                          (notification) => notification.new
-                        ).length < 10
-                          ? props.getNotificationsData.notifications.filter(
-                              (notification) => notification.new
-                            ).length
-                          : "9+"}
-                      </p>
-                    </span>
-                  ) : null
+            {adminNotifications ? (
+              adminNotifications.length > 0 ? (
+                adminNotifications.filter((notification) => notification.new)
+                  .length > 0 ? (
+                  <span className="fa-layers fa-fw">
+                    <FontAwesomeIcon
+                      className="small_menu_notifications_circle_counter"
+                      icon={faCircle}
+                    />
+                    <p>
+                      {adminNotifications.filter(
+                        (notification) => notification.new
+                      ).length < 10
+                        ? adminNotifications.filter(
+                            (notification) => notification.new
+                          ).length
+                        : "9+"}
+                    </p>
+                  </span>
                 ) : null
               ) : null
             ) : null}

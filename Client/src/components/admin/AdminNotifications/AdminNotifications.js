@@ -2,7 +2,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { IoMdNotificationsOff } from "react-icons/io";
 import { ClipLoader } from "react-spinners";
 import BookAppointmentNotification from "./Notifications/Appointments/BookAppointmentNotification";
@@ -20,11 +20,9 @@ import { resetNotificationsMutation } from "../../../graphql/queries/queries";
 import { useMutation } from "@apollo/react-hooks";
 
 const AdminNotifications = (props) => {
-  const {
-    getEmployeeData,
-    getNotificationsData,
-    getNotificationsLoading,
-  } = props;
+  const { getEmployeeData, getEmployeeLoading } = props;
+
+  const location = useLocation();
 
   const adminAuthenticated = useSelector(
     (state) => state.adminAuthenticated.admin_authenticated
@@ -35,7 +33,9 @@ const AdminNotifications = (props) => {
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
   );
-
+  const adminNotifications = useSelector(
+    (state) => state.adminNotifications.notifications
+  );
   const [resetNotifications] = useMutation(resetNotificationsMutation);
 
   const redirectToAdminLogInPage = () => {
@@ -61,12 +61,15 @@ const AdminNotifications = (props) => {
     right: 25%;
   `;
 
-  // Reset notifications on component unmount
+  // Reset notifications on component unmount or route change
   useEffect(() => {
+    if (!location.pathname.includes("activity")) {
+      resetNotifications();
+    }
     return () => {
       resetNotifications();
     };
-  }, [resetNotifications]);
+  }, [resetNotifications, location.pathname]);
 
   return (
     <div className="admin_notifications_container">
@@ -87,101 +90,94 @@ const AdminNotifications = (props) => {
       </div>
       <div
         className="admin_notifications_content_container"
-        style={{ display: getNotificationsLoading ? "flex" : "block" }}
+        style={{ display: getEmployeeLoading ? "flex" : "block" }}
       >
-        {getNotificationsLoading || !getEmployeeData ? (
+        {!getEmployeeData ? (
           <ClipLoader
             size={100}
             css={override}
             color={"rgb(44, 44, 52)"}
-            loading={getNotificationsLoading}
+            loading={getEmployeeLoading}
           />
-        ) : getNotificationsData && getEmployeeData ? (
-          getNotificationsData.notifications && getEmployeeData.employee ? (
-            getNotificationsData.notifications.length > 0 ? (
-              getNotificationsData.notifications
-                // Sort by most recent first
-                .sort((a, b) => b.createdAt - a.createdAt)
-                .map((notification, i) => {
-                  if (notification.type === "bookAppointment") {
-                    return (
-                      <BookAppointmentNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "confirmAppointment") {
-                    return (
-                      <ConfirmAppointmentNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "cancelAppointment") {
-                    return (
-                      <CancelAppointmentNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "removeClient") {
-                    return (
-                      <RemoveClientNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "addStaff") {
-                    return (
-                      <AddStaffNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "deleteStaff") {
-                    return (
-                      <DeleteStaffNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "addPersonalEvent") {
-                    return (
-                      <AddPersonalEventNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "updatePersonalEvent") {
-                    return (
-                      <UpdatePersonalEventNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else if (notification.type === "cancelPersonalEvent") {
-                    return (
-                      <CancelPersonalEventNotification
-                        key={i}
-                        notification={notification}
-                        employee={getEmployeeData.employee}
-                      />
-                    );
-                  } else {
-                    return null;
-                  }
-                })
-            ) : (
-              renderNoNotifications()
-            )
+        ) : adminNotifications ? (
+          adminNotifications.length > 0 ? (
+            adminNotifications.map((notification, i) => {
+              if (notification.type === "bookAppointment") {
+                return (
+                  <BookAppointmentNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "confirmAppointment") {
+                return (
+                  <ConfirmAppointmentNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "cancelAppointment") {
+                return (
+                  <CancelAppointmentNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "removeClient") {
+                return (
+                  <RemoveClientNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "addStaff") {
+                return (
+                  <AddStaffNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "deleteStaff") {
+                return (
+                  <DeleteStaffNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "addPersonalEvent") {
+                return (
+                  <AddPersonalEventNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "updatePersonalEvent") {
+                return (
+                  <UpdatePersonalEventNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "cancelPersonalEvent") {
+                return (
+                  <CancelPersonalEventNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else {
+                return null;
+              }
+            })
           ) : (
             renderNoNotifications()
           )

@@ -41,6 +41,7 @@ import {
   getEmployeeQuery,
   getEmployeesQuery,
   updateEmployeeInvalidateTokensMutation,
+  getUpdatedEmployeeSubscription,
 } from "./graphql/queries/queries";
 import apolloClient from "./apolloClient";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -132,6 +133,8 @@ import ACTION_NANONEEDLING_TOGGLE_RESET from "./actions/AddOns/Nanoneedling/ACTI
 import ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN from "./actions/ConsentForm/GuestConsentFormAccessToken/ACTION_GUEST_CONSENT_FORM_ACCESS_TOKEN";
 import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE";
+import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
+import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_RESET_ADMIN_NOTIFICATIONS";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -265,19 +268,77 @@ const App = () => {
     fetchPolicy: "no-cache",
   });
 
-  const { data: getEmployeeData, refetch: employeeDataRefetch } = useQuery(
-    getEmployeeQuery,
-    {
-      fetchPolicy: "no-cache",
-      variables: {
-        _id: adminTemporaryDummyToken
-          ? adminTemporaryDummyToken.id
-          : adminDummyToken
-          ? adminDummyToken.id
-          : null,
-      },
+  const {
+    data: getEmployeeData,
+    loading: getEmployeeLoading,
+    refetch: employeeDataRefetch,
+    subscribeToMore: employeeSubscribeToMore,
+  } = useQuery(getEmployeeQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: adminTemporaryDummyToken
+        ? adminTemporaryDummyToken.id
+        : adminDummyToken
+        ? adminDummyToken.id
+        : null,
+    },
+  });
+
+  useEffect(() => {
+    if (getEmployeeData) {
+      if (getEmployeeData.employee) {
+        if (getEmployeeData.employee.notifications) {
+          if (getEmployeeData.employee.notifications.length > 0) {
+            const employeeNotifications = getEmployeeData.employee.notifications
+              // Sort by most recent first
+              .sort((a, b) => b.createdAt - a.createdAt);
+
+            dispatch(ACTION_ASSIGN_ADMIN_NOTIFICATIONS(employeeNotifications));
+          }
+        }
+      }
     }
-  );
+  }, [dispatch, getEmployeeData]);
+
+  useEffect(() => {
+    if (adminDummyToken) {
+      // Subscribe to notifications
+      const unsubscribe = employeeSubscribeToMore({
+        document: getUpdatedEmployeeSubscription,
+        variables: {
+          _id: adminDummyToken.id,
+        },
+        updateQuery: (prev, { subscriptionData }) => {
+          console.log("UPDATE RUNNING");
+          if (subscriptionData.data) {
+            if (subscriptionData.data.getUpdatedEmployee) {
+              if (subscriptionData.data.getUpdatedEmployee.notifications) {
+                if (
+                  subscriptionData.data.getUpdatedEmployee.notifications
+                    .length > 0
+                ) {
+                  const employeeNotifications = subscriptionData.data.getUpdatedEmployee.notifications
+                    // Sort by most recent first
+                    .sort((a, b) => b.createdAt - a.createdAt);
+
+                  console.log(employeeNotifications);
+
+                  dispatch(
+                    ACTION_ASSIGN_ADMIN_NOTIFICATIONS(employeeNotifications)
+                  );
+                }
+              }
+            }
+          }
+        },
+      });
+
+      return () => {
+        // Unsubscribe to notifications on unmount
+        unsubscribe();
+      };
+    }
+  }, [adminDummyToken, employeeSubscribeToMore, dispatch]);
 
   if (isAndroid) {
     // Resets height to prevent Android keyboard input focus zoom
@@ -402,7 +463,7 @@ const App = () => {
     };
 
     setInterval(checkCookies, 100);
-  }, [dispatch, employeeDataRefetch]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (location.pathname.includes("account")) {
@@ -644,6 +705,7 @@ const App = () => {
   const handleLogout = () => {
     if (adminDummyToken) {
       updateEmployeeInvalidateTokens();
+      dispatch(ACTION_RESET_ADMIN_NOTIFICATIONS());
       changeLoggingOut(true);
     } else {
       updateClientInvalidateTokens();
@@ -1545,6 +1607,7 @@ const App = () => {
                 initialScreenSize={initialScreenSize}
                 currentScreenSize={currentScreenSize}
                 getEmployeeData={getEmployeeData ? getEmployeeData : null}
+                getEmployeeLoading={getEmployeeLoading}
                 employeeDataRefetch={employeeDataRefetch}
                 getEmployeesData={getEmployeesData ? getEmployeesData : null}
                 getEmployeesRefetch={getEmployeesRefetch}

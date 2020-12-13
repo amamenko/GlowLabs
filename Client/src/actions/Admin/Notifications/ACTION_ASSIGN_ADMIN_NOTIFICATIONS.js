@@ -1,0 +1,10 @@
+const ASSIGN_ADMIN_NOTIFICATIONS = "ASSIGN_ADMIN_NOTIFICATIONS";
+
+const ACTION_ASSIGN_ADMIN_NOTIFICATIONS = (notifications) => {
+  return {
+    type: ASSIGN_ADMIN_NOTIFICATIONS,
+    notifications,
+  };
+};
+
+export default ACTION_ASSIGN_ADMIN_NOTIFICATIONS;

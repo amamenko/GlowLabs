@@ -50,7 +50,6 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   const {
     getClientData,
     getEmployeeData,
-    getNotificationsData,
     handleClickToScrollToHome,
     initialScreenSize,
     currentScreenSize,
@@ -90,6 +89,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   const imageLoading = useSelector((state) => state.imageLoading.image_loading);
 
   const [pdfSpinnerActive, changePDFSpinnerActive] = useState(false);
+
+  const adminNotifications = useSelector(
+    (state) => state.adminNotifications.notifications
+  );
 
   useEffect(() => {
     return () => {
@@ -540,28 +543,26 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                   className="large_screen_side_menu_item_icon"
                 />
                 <h2>Activity</h2>
-                {getNotificationsData ? (
-                  getNotificationsData.notifications ? (
-                    getNotificationsData.notifications.length > 0 ? (
-                      getNotificationsData.notifications.filter(
-                        (notification) => notification.new
-                      ).length > 0 ? (
-                        <span className="fa-layers fa-fw">
-                          <FontAwesomeIcon
-                            className="menu_notifications_circle_counter"
-                            icon={faCircle}
-                          />
-                          <p>
-                            {getNotificationsData.notifications.filter(
-                              (notification) => notification.new
-                            ).length < 10
-                              ? getNotificationsData.notifications.filter(
-                                  (notification) => notification.new
-                                ).length
-                              : "9+"}
-                          </p>
-                        </span>
-                      ) : null
+                {adminNotifications ? (
+                  adminNotifications.length > 0 ? (
+                    adminNotifications.filter(
+                      (notification) => notification.new
+                    ).length > 0 ? (
+                      <span className="fa-layers fa-fw">
+                        <FontAwesomeIcon
+                          className="menu_notifications_circle_counter"
+                          icon={faCircle}
+                        />
+                        <p>
+                          {adminNotifications.filter(
+                            (notification) => notification.new
+                          ).length < 10
+                            ? adminNotifications.filter(
+                                (notification) => notification.new
+                              ).length
+                            : "9+"}
+                        </p>
+                      </span>
                     ) : null
                   ) : null
                 ) : null}

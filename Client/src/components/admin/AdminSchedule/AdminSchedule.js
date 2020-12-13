@@ -141,7 +141,7 @@ const AdminSchedule = (props) => {
     const dayToday = new Date().getDay();
 
     // If not Saturday or Sunday, adjust header flex attribute
-    if (dayToday > 0 && dayToday < 6) {
+    if (dayToday > 0) {
       if (timeHeader) {
         if (timeHeader[0]) {
           timeHeader[0].style.flex = 1;

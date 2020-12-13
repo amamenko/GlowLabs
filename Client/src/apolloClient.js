@@ -16,7 +16,7 @@ const link = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
     return (
-      definition.kind === "OperationDefintion" &&
+      definition.kind === "OperationDefinition" &&
       definition.operation === "subscription"
     );
   },

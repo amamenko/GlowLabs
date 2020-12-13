@@ -53,6 +53,8 @@ const deletePersonalEventMutation = {
         addingEmployee
       );
 
+      context.pubsub.publish(NEW_NOTIFICATION, update);
+
       await Employee.updateMany(filter, update, {
         new: true,
       });
@@ -60,8 +62,6 @@ const deletePersonalEventMutation = {
       const deletePersonalEventRes = await PersonalEvent.findByIdAndDelete({
         _id: args._id,
       });
-
-      context.pubsub.publish(NEW_NOTIFICATION, update);
 
       return {
         _id: args._id,

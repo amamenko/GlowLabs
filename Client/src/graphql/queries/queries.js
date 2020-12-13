@@ -505,6 +505,23 @@ const getEmployeeQuery = gql`
       tokenCount
       createdAt
       profilePicture
+      notifications {
+        _id
+        new
+        type
+        date
+        time
+        allDay
+        associatedClientFirstName
+        associatedClientLastName
+        originalAssociatedStaffFirstName
+        originalAssociatedStaffLastName
+        newAssociatedStaffFirstName
+        newAssociatedStaffLastName
+        createdByFirstName
+        createdByLastName
+        createdAt
+      }
     }
   }
 `;
@@ -683,6 +700,7 @@ const resetNotificationsMutation = gql`
         originalAssociatedStaffLastName
         createdByFirstName
         createdByLastName
+        createdAt
       }
     }
   }
@@ -1436,24 +1454,37 @@ const removeOneUnsavedSquareCardIDsMutation = gql`
 
 // Subscriptions
 
-const getNotificationsSubscription = gql`
-  subscription getNotifications {
-    notifications {
+const getUpdatedEmployeeSubscription = gql`
+  subscription getUpdatedEmployee($_id: ID!) {
+    getUpdatedEmployee(_id: $_id) {
       _id
-      new
-      type
-      date
-      time
-      allDay
-      associatedClientFirstName
-      associatedClientLastName
-      originalAssociatedStaffFirstName
-      originalAssociatedStaffLastName
-      newAssociatedStaffFirstName
-      newAssociatedStaffLastName
-      createdByFirstName
-      createdByLastName
+      firstName
+      lastName
+      email
+      phoneNumber
+      employeeRole
+      permanentPasswordSet
+      password
+      tokenCount
       createdAt
+      profilePicture
+      notifications {
+        _id
+        new
+        type
+        date
+        time
+        allDay
+        associatedClientFirstName
+        associatedClientLastName
+        originalAssociatedStaffFirstName
+        originalAssociatedStaffLastName
+        newAssociatedStaffFirstName
+        newAssociatedStaffLastName
+        createdByFirstName
+        createdByLastName
+        createdAt
+      }
     }
   }
 `;
@@ -1462,7 +1493,7 @@ export {
   loginQuery,
   adminLoginQuery,
   getClientsQuery,
-  getNotificationsSubscription,
+  getUpdatedEmployeeSubscription,
   getEmployeesQuery,
   getEmployeeQuery,
   getClientQuery,

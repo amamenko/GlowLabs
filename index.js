@@ -412,7 +412,7 @@ const pubsub = new PubSub();
 
 const server = new ApolloServer({
   schema,
-  context: ({ req, res }) => ({ req, res }),
+  context: ({ req, res }) => ({ req, res, pubsub }),
   introspection: false,
   playground: true,
 });
