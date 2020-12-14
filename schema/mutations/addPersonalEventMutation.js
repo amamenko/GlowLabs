@@ -9,7 +9,7 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLString, GraphQLBoolean, GraphQLInt, GraphQLNonNull } = graphql;
 
-const NEW_NOTIFICATION = "new_notificaton";
+const UPDATED_EMPLOYEE = "employee";
 
 const addPersonalEventMutation = {
   type: PersonalEventType,
@@ -27,9 +27,11 @@ const addPersonalEventMutation = {
   async resolve(parent, args, context) {
     const adminAccessToken = context.cookies["admin-access-token"];
 
+    const personalEventID = new mongoose.Types.ObjectId();
+
     if (adminAccessToken) {
       let personalEvent = new PersonalEvent({
-        _id: new mongoose.Types.ObjectId(),
+        _id: personalEventID,
         title: args.title,
         notes: args.notes,
         staff: args.staff,
@@ -46,10 +48,6 @@ const addPersonalEventMutation = {
       const addingEmployee = await Employee.findOne({
         _id: decodedAdminID,
       });
-
-      let filter = {
-        $or: [{ _id: decodedAdminID }, { employeeRole: "Admin" }],
-      };
 
       let newNotification = new Notification({
         _id: new mongoose.Types.ObjectId(),
@@ -69,16 +67,30 @@ const addPersonalEventMutation = {
         addingEmployee
       );
 
-      await Employee.updateMany(filter, update, {
+      await Employee.updateMany({ employeeRole: "Admin" }, update, {
         new: true,
+        multi: true,
       });
+
+      const updatedEmployee = await Employee.findOneAndUpdate(
+        { _id: decodedAdminID },
+        update,
+        {
+          new: true,
+        }
+      );
+
+      const updatedEmployeeRes = await updatedEmployee.save();
 
       const personalEventRes = await personalEvent.save();
 
-      context.pubsub.publish(NEW_NOTIFICATION, update);
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
+      });
 
       return {
         ...personalEventRes,
+        ...updatedEmployeeRes,
       };
     }
   },

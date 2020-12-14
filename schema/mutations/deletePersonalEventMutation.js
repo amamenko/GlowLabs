@@ -10,7 +10,7 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLID } = graphql;
 
-const NEW_NOTIFICATION = "new_notification";
+const UPDATED_EMPLOYEE = "employee";
 
 const deletePersonalEventMutation = {
   type: PersonalEventType,
@@ -31,10 +31,6 @@ const deletePersonalEventMutation = {
         _id: decodedAdminID,
       });
 
-      let filter = {
-        $or: [{ _id: decodedAdminID }, { employeeRole: "Admin" }],
-      };
-
       let newNotification = new Notification({
         _id: new mongoose.Types.ObjectId(),
         new: true,
@@ -53,19 +49,32 @@ const deletePersonalEventMutation = {
         addingEmployee
       );
 
-      context.pubsub.publish(NEW_NOTIFICATION, update);
-
-      await Employee.updateMany(filter, update, {
+      await Employee.updateMany({ employeeRole: "Admin" }, update, {
         new: true,
+        multi: true,
       });
+
+      const updatedEmployee = await Employee.findOneAndUpdate(
+        { _id: decodedAdminID },
+        update,
+        {
+          new: true,
+        }
+      );
+
+      const updatedEmployeeRes = await updatedEmployee.save();
 
       const deletePersonalEventRes = await PersonalEvent.findByIdAndDelete({
         _id: args._id,
       });
 
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
+      });
+
       return {
-        _id: args._id,
         ...deletePersonalEventRes,
+        ...updatedEmployeeRes,
       };
     } else {
       throw new UserInputError("Admin is not authenticated.");

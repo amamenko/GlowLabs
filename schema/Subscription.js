@@ -4,7 +4,7 @@ const Employee = require("../models/employee");
 
 const { GraphQLObjectType, GraphQLID } = graphql;
 
-const NEW_NOTIFICATION = "new_notificaton";
+const UPDATED_EMPLOYEE = "employee";
 
 const Subscription = new GraphQLObjectType({
   name: "Subscription",
@@ -19,13 +19,15 @@ const Subscription = new GraphQLObjectType({
           _id: args._id,
         });
 
+        console.log(payload);
+
         if (employee) {
           return employee;
         }
       },
       subscribe: (parent, args, { pubsub }, info) => {
         console.log(pubsub);
-        return pubsub.asyncIterator(NEW_NOTIFICATION);
+        return pubsub.asyncIterator(UPDATED_EMPLOYEE);
       },
     },
   },

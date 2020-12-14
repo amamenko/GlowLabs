@@ -36,6 +36,7 @@ import ACTION_IMAGE_LOADING from "../../../actions/Admin/ImageLoading/ACTION_IMA
 import ACTION_IMAGE_LOADING_RESET from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING_RESET";
 import "./AdminStaff.css";
 import "react-html5-camera-photo/build/css/index.css";
+import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 
 const AdminStaff = (props) => {
   const {
@@ -50,6 +51,7 @@ const AdminStaff = (props) => {
     getAllAppointmentsRefetch,
     employeeDataRefetch,
     randomColorArray,
+    resetNotifications,
   } = props;
 
   const dispatch = useDispatch();
@@ -86,6 +88,12 @@ const AdminStaff = (props) => {
   const imageLoading = useSelector((state) => state.imageLoading.image_loading);
   const cancelAppointmentClicked = useSelector(
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
+  );
+  const onActivityPage = useSelector(
+    (state) => state.onActivityPage.on_activity_page
+  );
+  const adminNotifications = useSelector(
+    (state) => state.adminNotifications.notifications
   );
 
   const [filteredAllEmployees, changeFilteredAllEmployees] = useState([]);
@@ -138,6 +146,19 @@ const AdminStaff = (props) => {
   const handleChangeEmployeeFilter = (e) => {
     changeEmployeeFilter(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    if (onActivityPage) {
+      if (adminNotifications) {
+        if (adminNotifications.length > 0) {
+          if (adminNotifications.some((item) => item.new)) {
+            resetNotifications();
+          }
+        }
+      }
+      dispatch(ACTION_ON_ACTIVITY_PAGE_RESET());
+    }
+  }, [onActivityPage, dispatch, resetNotifications, adminNotifications]);
 
   useEffect(() => {
     if (employeeToggled) {

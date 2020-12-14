@@ -1456,7 +1456,7 @@ const removeOneUnsavedSquareCardIDsMutation = gql`
 
 const getUpdatedEmployeeSubscription = gql`
   subscription getUpdatedEmployee($_id: ID!) {
-    getUpdatedEmployee(_id: $_id) {
+    employee(_id: $_id) {
       _id
       firstName
       lastName

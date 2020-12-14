@@ -14,9 +14,25 @@ import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER from "../../../actions/Admin/AdminC
 import ACTION_ADMIN_PERSONAL_EVENT_DATE from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventDate/ACTION_ADMIN_PERSONAL_EVENT_DATE";
 import ACTION_ADMIN_PERSONAL_EVENT_START_TIME from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventStartTime/ACTION_ADMIN_PERSONAL_EVENT_START_TIME";
 import ACTION_ADMIN_PERSONAL_EVENT_END_TIME from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventEndTime/ACTION_ADMIN_PERSONAL_EVENT_END_TIME";
+import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 
 const AdminSchedule = (props) => {
   const dispatch = useDispatch();
+
+  const {
+    getEmployeesData,
+    getEmployeeData,
+    resetNotifications,
+    initialScreenSize,
+    currentScreenSize,
+    getClientsData,
+    getClientsRefetch,
+    randomColorArray,
+    getAllAppointmentsData,
+    getAllAppointmentsRefetch,
+    getAllPersonalEventsData,
+    getAllPersonalEventsRefetch,
+  } = props;
 
   const logoutClicked = useSelector(
     (state) => state.logoutClicked.log_out_clicked
@@ -33,6 +49,13 @@ const AdminSchedule = (props) => {
   const cancelAppointmentClicked = useSelector(
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
   );
+  const onActivityPage = useSelector(
+    (state) => state.onActivityPage.on_activity_page
+  );
+  const adminNotifications = useSelector(
+    (state) => state.adminNotifications.notifications
+  );
+
   const [createAppointmentClicked, changeCreateAppointmentClicked] = useState(
     false
   );
@@ -77,10 +100,10 @@ const AdminSchedule = (props) => {
   };
 
   const employeeOptions = useCallback(() => {
-    if (props.getEmployeesData) {
-      if (props.getEmployeesData.employees) {
-        const estheticians = props.getEmployeesData.employees.filter(
-          (employee) => employee.employeeRole.includes("Esthetician")
+    if (getEmployeesData) {
+      if (getEmployeesData.employees) {
+        const estheticians = getEmployeesData.employees.filter((employee) =>
+          employee.employeeRole.includes("Esthetician")
         );
 
         return estheticians.map(
@@ -93,15 +116,13 @@ const AdminSchedule = (props) => {
         );
       }
     }
-  }, [props.getEmployeesData]);
+  }, [getEmployeesData]);
 
   useEffect(() => {
-    if (props.getEmployeeData) {
-      if (props.getEmployeeData.employee) {
-        if (
-          props.getEmployeeData.employee.employeeRole.includes("Esthetician")
-        ) {
-          const currentEmployee = props.getEmployeeData.employee;
+    if (getEmployeeData) {
+      if (getEmployeeData.employee) {
+        if (getEmployeeData.employee.employeeRole.includes("Esthetician")) {
+          const currentEmployee = getEmployeeData.employee;
 
           if (!adminAppointmentStaffMember) {
             dispatch(
@@ -129,12 +150,20 @@ const AdminSchedule = (props) => {
         }
       }
     }
-  }, [
-    dispatch,
-    props.getEmployeeData,
-    employeeOptions,
-    adminAppointmentStaffMember,
-  ]);
+  }, [dispatch, getEmployeeData, employeeOptions, adminAppointmentStaffMember]);
+
+  useEffect(() => {
+    if (onActivityPage) {
+      if (adminNotifications) {
+        if (adminNotifications.length > 0) {
+          if (adminNotifications.some((item) => item.new)) {
+            resetNotifications();
+          }
+        }
+      }
+      dispatch(ACTION_ON_ACTIVITY_PAGE_RESET());
+    }
+  }, [onActivityPage, dispatch, resetNotifications, adminNotifications]);
 
   // Styles react-big-calendar top header on select days
   useEffect(() => {
@@ -195,18 +224,18 @@ const AdminSchedule = (props) => {
         createAppointmentClicked={createAppointmentClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         changePersonalEventClicked={changePersonalEventClicked}
-        getClientsData={props.getClientsData}
-        getClientsRefetch={props.getClientsRefetch}
-        getAllAppointmentsData={props.getAllAppointmentsData}
-        randomColorArray={props.randomColorArray}
-        getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
+        getClientsData={getClientsData}
+        getClientsRefetch={getClientsRefetch}
+        getAllAppointmentsData={getAllAppointmentsData}
+        randomColorArray={randomColorArray}
+        getAllAppointmentsRefetch={getAllAppointmentsRefetch}
         timeOptions={timeOptions}
         employeeOptions={employeeOptions}
         changeStopTransition={changeStopTransition}
         stopTransition={stopTransition}
       />
       <AdminPersonalEvent
-        getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
+        getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
         personalEventClicked={personalEventClicked}
         createAppointmentClicked={createAppointmentClicked}
         changePersonalEventClicked={changePersonalEventClicked}
@@ -215,18 +244,18 @@ const AdminSchedule = (props) => {
         employeeOptions={employeeOptions}
         changeStopTransition={changeStopTransition}
         stopTransition={stopTransition}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
       <AdminCalendarComponent
-        getAllAppointmentsData={props.getAllAppointmentsData}
-        getEmployeeData={props.getEmployeeData}
-        getAllPersonalEventsData={props.getAllPersonalEventsData}
-        getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
+        getAllAppointmentsData={getAllAppointmentsData}
+        getEmployeeData={getEmployeeData}
+        getAllPersonalEventsData={getAllPersonalEventsData}
+        getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
         handleCreateAppointmentToggled={handleCreateAppointmentToggled}
-        getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
-        intialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        getAllAppointmentsRefetch={getAllAppointmentsRefetch}
+        intialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
         employeeOptions={employeeOptions}
         timeOptions={timeOptions}
         createAppointmentClicked={createAppointmentClicked}

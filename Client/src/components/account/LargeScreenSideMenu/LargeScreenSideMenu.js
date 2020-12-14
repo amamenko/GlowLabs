@@ -53,6 +53,9 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
     handleClickToScrollToHome,
     initialScreenSize,
     currentScreenSize,
+    onActivityPage,
+    changeOnActivityPage,
+    resetNotifications,
   } = props;
 
   const dispatch = useDispatch();
@@ -127,6 +130,19 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
       };
     }
   }, [pdfSpinnerActive, dispatch]);
+
+  const handleAdminResetNotifications = () => {
+    if (onActivityPage) {
+      if (adminNotifications) {
+        if (adminNotifications.length > 0) {
+          if (adminNotifications.some((item) => item.new)) {
+            resetNotifications();
+          }
+        }
+      }
+      changeOnActivityPage(false);
+    }
+  };
 
   const consentFormOnFile = (item) => {
     return (
@@ -527,7 +543,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
             </div>
           </div>
           {getEmployeeData ? (
-            <div className="large_screen_side_menu_item_container">
+            <div
+              className="large_screen_side_menu_item_container"
+              onClick={handleAdminResetNotifications}
+            >
               <Link
                 className="large_screen_side_menu_item"
                 to="/admin/activity"
@@ -570,7 +589,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
             </div>
           ) : null}
           {getEmployeeData ? (
-            <div className="large_screen_side_menu_item_container">
+            <div
+              className="large_screen_side_menu_item_container"
+              onClick={handleAdminResetNotifications}
+            >
               <Link className="large_screen_side_menu_item" to="/admin/clients">
                 <div
                   className="large_screen_side_menu_item_selected_border"
@@ -610,7 +632,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
             </div>
           )}{" "}
           {getEmployeeData ? (
-            <div className="large_screen_side_menu_item_container">
+            <div
+              className="large_screen_side_menu_item_container"
+              onClick={handleAdminResetNotifications}
+            >
               <Link className="large_screen_side_menu_item" to="/admin/staff">
                 <div
                   className="large_screen_side_menu_item_selected_border"
@@ -649,7 +674,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
           )}{" "}
           {getEmployeeData ? (
             <>
-              <div className="large_screen_side_menu_item_container">
+              <div
+                className="large_screen_side_menu_item_container"
+                onClick={handleAdminResetNotifications}
+              >
                 <Link
                   className="large_screen_side_menu_item"
                   to="/admin/schedule"

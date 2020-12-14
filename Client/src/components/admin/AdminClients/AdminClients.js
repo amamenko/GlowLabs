@@ -50,10 +50,22 @@ import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_N
 import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PROFILE_SELECTED.js";
 import "react-html5-camera-photo/build/css/index.css";
 import "./AdminClients.css";
+import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
+
+  const {
+    getClientsData,
+    getClientsLoading,
+    initialScreenSize,
+    currentScreenSize,
+    resetNotifications,
+    getClientsRefetch,
+    getEmployeeData,
+    randomColorArray,
+  } = props;
 
   let signature = useRef(null);
   let pdfDownloadRef = useRef(null);
@@ -89,6 +101,9 @@ const AdminClients = (props) => {
   const imageLoading = useSelector((state) => state.imageLoading.image_loading);
   const cancelAppointmentClicked = useSelector(
     (state) => state.cancelAppointmentClicked.cancelAppointmentClicked
+  );
+  const onActivityPage = useSelector(
+    (state) => state.onActivityPage.on_activity_page
   );
 
   const [filteredAllClients, changeFilteredAllClients] = useState([]);
@@ -233,11 +248,11 @@ const AdminClients = (props) => {
   };
 
   useMemo(() => {
-    if (props.getClientsData) {
-      if (props.getClientsData.clients.length > 0) {
+    if (getClientsData) {
+      if (getClientsData.clients.length > 0) {
         if (changeClientFilter) {
           changeFilteredAllClients(
-            [...props.getClientsData.clients].filter((x) => {
+            [...getClientsData.clients].filter((x) => {
               return (
                 new RegExp(clientFilter, "gi").test(
                   x.firstName + " " + x.lastName
@@ -253,11 +268,11 @@ const AdminClients = (props) => {
         }
       }
     }
-  }, [clientFilter, props.getClientsData]);
+  }, [clientFilter, getClientsData]);
 
   useMemo(() => {
     if (clientToggled) {
-      const clientEmail = [...props.getClientsData.clients].filter(
+      const clientEmail = [...getClientsData.clients].filter(
         (x) => x._id === clientToggled
       )[0].email;
 
@@ -273,7 +288,7 @@ const AdminClients = (props) => {
     clientToggled,
     getOwnAppointments,
     getOwnPastAppointments,
-    props.getClientsData,
+    getClientsData,
   ]);
 
   // Allows click only if selected client modal is not active
@@ -344,6 +359,13 @@ const AdminClients = (props) => {
   };
 
   useEffect(() => {
+    if (onActivityPage) {
+      resetNotifications();
+      dispatch(ACTION_ON_ACTIVITY_PAGE_RESET());
+    }
+  }, [onActivityPage, dispatch, resetNotifications]);
+
+  useEffect(() => {
     if (location.pathname || addProfilePhotoClicked || loadingSpinnerActive) {
       window.scrollTo(0, 0);
     }
@@ -374,9 +396,9 @@ const AdminClients = (props) => {
 
   useMemo(() => {
     if (updateClientProfilePictureData) {
-      props.getClientsRefetch();
+      getClientsRefetch();
     }
-  }, [props, updateClientProfilePictureData]);
+  }, [getClientsRefetch, updateClientProfilePictureData]);
 
   const handleProfilePictureRender = (item) => {
     if (item.profilePicture) {
@@ -400,8 +422,8 @@ const AdminClients = (props) => {
           className="admin_individual_client_initials_profile_avatar"
           style={{
             background:
-              props.randomColorArray[
-                props.getClientsData.clients
+              randomColorArray[
+                getClientsData.clients
                   .sort((a, b) => a.firstName.localeCompare(b.firstName))
                   .map((x) => x.email)
                   .indexOf(item.email)
@@ -522,14 +544,14 @@ const AdminClients = (props) => {
   };
 
   const renderBarInContactInfo = () => {
-    if (!props.currentScreenSize) {
-      if (props.initialScreenSize >= 1200) {
+    if (!currentScreenSize) {
+      if (initialScreenSize >= 1200) {
         return null;
       } else {
         return <p style={{ color: "rgb(200, 200, 200)" }}>|</p>;
       }
     } else {
-      if (props.currentScreenSize >= 1200) {
+      if (currentScreenSize >= 1200) {
         return null;
       } else {
         return <p style={{ color: "rgb(200, 200, 200)" }}>|</p>;
@@ -653,18 +675,18 @@ const AdminClients = (props) => {
   };
 
   useEffect(() => {
-    if (props.getClientsLoading) {
+    if (getClientsLoading) {
       dispatch(ACTION_LOADING_SPINNER_ACTIVE());
     } else {
       dispatch(ACTION_LOADING_SPINNER_RESET());
     }
-  }, [dispatch, props.getClientsLoading]);
+  }, [dispatch, getClientsLoading]);
 
   return (
     <div className="admin_clients_container">
       {redirectToAdminLogInPage()}
       <Modal
-        isOpen={imageLoading || loadingSpinnerActive || props.getClientsLoading}
+        isOpen={imageLoading || loadingSpinnerActive || getClientsLoading}
         style={{
           content: {
             position: "fixed",
@@ -692,9 +714,7 @@ const AdminClients = (props) => {
           size={100}
           css={override}
           color={"rgb(44, 44, 52)"}
-          loading={
-            imageLoading || loadingSpinnerActive || props.getClientsLoading
-          }
+          loading={imageLoading || loadingSpinnerActive || getClientsLoading}
         />
       </Modal>
       <div
@@ -706,11 +726,11 @@ const AdminClients = (props) => {
             loadingSpinnerActive ||
             imageLoading ||
             cancelAppointmentClicked ||
-            props.getClientsLoading
+            getClientsLoading
               ? 0
               : 5,
           filter:
-            cancelAppointmentClicked || props.getClientsLoading
+            cancelAppointmentClicked || getClientsLoading
               ? "blur(5px)"
               : "none",
         }}
@@ -739,8 +759,8 @@ const AdminClients = (props) => {
         </div>
       </FormGroup>
       <div className="admin_clients_content_container">
-        {props.getClientsData
-          ? props.getClientsData.clients.length > 0
+        {getClientsData
+          ? getClientsData.clients.length > 0
             ? filteredAllClients
                 .sort((a, b) => a.firstName.localeCompare(b.firstName))
                 .map((item, i) => {
@@ -904,22 +924,20 @@ const AdminClients = (props) => {
                                           <p>Confirm photo</p>
                                         </div>
                                       ) : null}
-                                      {(props.initialScreenSize >= 1200 &&
+                                      {(initialScreenSize >= 1200 &&
                                         !imageUploaded &&
                                         !imagePreviewAvailable) ||
-                                      (props.currentScreenSize >= 1200 &&
+                                      (currentScreenSize >= 1200 &&
                                         !imageUploaded &&
                                         !imagePreviewAvailable) ? (
                                         <>
                                           <p
                                             style={{
-                                              display: !props.currentScreenSize
-                                                ? props.initialScreenSize >=
-                                                  1200
+                                              display: !currentScreenSize
+                                                ? initialScreenSize >= 1200
                                                   ? "block"
                                                   : "none"
-                                                : props.currentScreenSize >=
-                                                  1200
+                                                : currentScreenSize >= 1200
                                                 ? "block"
                                                 : "none",
                                             }}
@@ -948,8 +966,8 @@ const AdminClients = (props) => {
                         className="admin_individual_client_initials_square"
                         style={{
                           background:
-                            props.randomColorArray[
-                              props.getClientsData.clients
+                            randomColorArray[
+                              getClientsData.clients
                                 .sort((a, b) =>
                                   a.firstName.localeCompare(b.firstName)
                                 )
@@ -1076,12 +1094,10 @@ const AdminClients = (props) => {
                                     renderDownloadConsentFormButton={
                                       renderDownloadConsentFormButton
                                     }
-                                    getClientsData={props.getClientsData}
-                                    getClientsRefetch={props.getClientsRefetch}
+                                    getClientsData={getClientsData}
+                                    getClientsRefetch={getClientsRefetch}
                                     getEmployeeData={
-                                      props.getEmployeeData
-                                        ? props.getEmployeeData
-                                        : null
+                                      getEmployeeData ? getEmployeeData : null
                                     }
                                   />
                                 ) : adminClientSectionSelected ===
@@ -1097,12 +1113,8 @@ const AdminClients = (props) => {
                                       loadingSpinnerActive={
                                         loadingSpinnerActive
                                       }
-                                      currentScreenSize={
-                                        props.currentScreenSize
-                                      }
-                                      initialScreenSize={
-                                        props.initialScreenSize
-                                      }
+                                      currentScreenSize={currentScreenSize}
+                                      initialScreenSize={initialScreenSize}
                                     />
                                   </div>
                                 ) : adminClientSectionSelected ===
@@ -1111,12 +1123,8 @@ const AdminClients = (props) => {
                                     <AdminRenderPastAppointments
                                       data={getOwnPastAppointmentsData}
                                       item={item}
-                                      currentScreenSize={
-                                        props.currentScreenSize
-                                      }
-                                      initialScreenSize={
-                                        props.initialScreenSize
-                                      }
+                                      currentScreenSize={currentScreenSize}
+                                      initialScreenSize={initialScreenSize}
                                     />
                                   </div>
                                 ) : null}

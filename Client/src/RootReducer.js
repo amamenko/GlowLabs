@@ -270,6 +270,7 @@ import adminStaffMemberEmailReducer from "./reducers/Admin/AdminAddStaffMember/A
 import adminStaffMemberPhoneNumberReducer from "./reducers/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/adminStaffMemberPhoneNumberReducer";
 import adminStaffMemberRolesReducer from "./reducers/Admin/AdminAddStaffMember/AdminStaffMemberRoles/adminStaffMemberRolesReducer";
 import adminNotificationsReducer from "./reducers/Admin/Notifications/adminNotificationsReducer";
+import onActivityPageReducer from "./reducers/Admin/OnActivityPage/onActivityPageReducer";
 
 const RootReducer = combineReducers({
   // Reducers for "LEARN MORE" button on treatments/add-ons on mobile
@@ -409,6 +410,7 @@ const RootReducer = combineReducers({
   addProfilePhotoClicked: addProfilePhotoClickedReducer,
   imageLoading: imageLoadingReducer,
   adminNotifications: adminNotificationsReducer,
+  onActivityPage: onActivityPageReducer,
 
   // Admin Create Appointment Reducers
   adminAppointmentDate: adminAppointmentDateReducer,

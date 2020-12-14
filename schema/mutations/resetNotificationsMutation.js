@@ -3,7 +3,7 @@ const Employee = require("../../models/employee");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 
-const NEW_NOTIFICATION = "new_notificaton";
+const UPDATED_EMPLOYEE = "employee";
 
 const resetNotificationsMutation = {
   type: EmployeeType,
@@ -32,7 +32,9 @@ const resetNotificationsMutation = {
 
       const updatedEmployeeRes = await updatedEmployee.save();
 
-      context.pubsub.publish(NEW_NOTIFICATION, update);
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
+      });
 
       return {
         ...updatedEmployeeRes,

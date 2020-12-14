@@ -9,7 +9,7 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLID } = graphql;
 
-const NEW_NOTIFICATION = "NEW_NOTIFICATION";
+const UPDATED_EMPLOYEE = "employee";
 
 const deleteEmployeeMutation = {
   type: EmployeeType,
@@ -59,7 +59,9 @@ const deleteEmployeeMutation = {
         new: true,
       });
 
-      pubsub.publish(NEW_NOTIFICATION, update);
+      pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: update,
+      });
 
       return {
         _id: args._id,

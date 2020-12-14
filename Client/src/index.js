@@ -135,6 +135,7 @@ import ACTION_DAY_OF_THE_WEEK_RESET from "./actions/SelectedDay/DayOfTheWeek/ACT
 import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE";
 import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_RESET_ADMIN_NOTIFICATIONS";
+import ACTION_ON_ACTIVITY_PAGE from "./actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 
 require("dotenv").config();
 require("intersection-observer");
@@ -274,7 +275,6 @@ const App = () => {
     refetch: employeeDataRefetch,
     subscribeToMore: employeeSubscribeToMore,
   } = useQuery(getEmployeeQuery, {
-    fetchPolicy: "no-cache",
     variables: {
       _id: adminTemporaryDummyToken
         ? adminTemporaryDummyToken.id
@@ -289,11 +289,14 @@ const App = () => {
       if (getEmployeeData.employee) {
         if (getEmployeeData.employee.notifications) {
           if (getEmployeeData.employee.notifications.length > 0) {
-            const employeeNotifications = getEmployeeData.employee.notifications
-              // Sort by most recent first
-              .sort((a, b) => b.createdAt - a.createdAt);
+            const employeeNotifications = getEmployeeData.employee.notifications.slice();
 
-            dispatch(ACTION_ASSIGN_ADMIN_NOTIFICATIONS(employeeNotifications));
+            // Sort by most recent
+            dispatch(
+              ACTION_ASSIGN_ADMIN_NOTIFICATIONS(
+                employeeNotifications.sort((a, b) => b.createdAt - a.createdAt)
+              )
+            );
           }
         }
       }
@@ -310,6 +313,7 @@ const App = () => {
         },
         updateQuery: (prev, { subscriptionData }) => {
           console.log("UPDATE RUNNING");
+
           if (subscriptionData.data) {
             if (subscriptionData.data.getUpdatedEmployee) {
               if (subscriptionData.data.getUpdatedEmployee.notifications) {
@@ -320,8 +324,6 @@ const App = () => {
                   const employeeNotifications = subscriptionData.data.getUpdatedEmployee.notifications
                     // Sort by most recent first
                     .sort((a, b) => b.createdAt - a.createdAt);
-
-                  console.log(employeeNotifications);
 
                   dispatch(
                     ACTION_ASSIGN_ADMIN_NOTIFICATIONS(employeeNotifications)
@@ -334,11 +336,18 @@ const App = () => {
       });
 
       return () => {
+        console.log("UNMOUNTED");
         // Unsubscribe to notifications on unmount
         unsubscribe();
       };
     }
   }, [adminDummyToken, employeeSubscribeToMore, dispatch]);
+
+  useEffect(() => {
+    if (location.pathname.includes("activity")) {
+      dispatch(ACTION_ON_ACTIVITY_PAGE());
+    }
+  }, [location.pathname, dispatch]);
 
   if (isAndroid) {
     // Resets height to prevent Android keyboard input focus zoom

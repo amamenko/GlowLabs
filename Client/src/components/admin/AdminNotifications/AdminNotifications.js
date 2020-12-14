@@ -1,7 +1,7 @@
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { IoMdNotificationsOff } from "react-icons/io";
 import { ClipLoader } from "react-spinners";
@@ -16,11 +16,13 @@ import DeleteStaffNotification from "./Notifications/Staff/DeleteStaffNotificati
 import CancelPersonalEventNotification from "./Notifications/PersonalEvents/CancelPersonalEventNotification";
 import "./AdminNotifications.css";
 import { css } from "@emotion/css";
-import { resetNotificationsMutation } from "../../../graphql/queries/queries";
-import { useMutation } from "@apollo/react-hooks";
+import ACTION_ON_ACTIVITY_PAGE from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
+import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "../../../actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 
 const AdminNotifications = (props) => {
-  const { getEmployeeData, getEmployeeLoading } = props;
+  const { getEmployeeData, getEmployeeLoading, resetNotifications } = props;
+
+  const dispatch = useDispatch();
 
   const location = useLocation();
 
@@ -36,13 +38,42 @@ const AdminNotifications = (props) => {
   const adminNotifications = useSelector(
     (state) => state.adminNotifications.notifications
   );
-  const [resetNotifications] = useMutation(resetNotificationsMutation);
 
   const redirectToAdminLogInPage = () => {
     if (!adminAuthenticated) {
       return <Redirect to="/admin" />;
     }
   };
+
+  useEffect(() => {
+    dispatch(ACTION_ON_ACTIVITY_PAGE());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      console.log("NOTIFICATIONS UNMOUNTED");
+
+      if (adminNotifications) {
+        if (adminNotifications.length > 0) {
+          if (adminNotifications.some((item) => item.new)) {
+            resetNotifications();
+            dispatch(
+              ACTION_ASSIGN_ADMIN_NOTIFICATIONS(
+                adminNotifications
+                  .sort((a, b) => b.createdAt - a.createdAt)
+                  .map((notification) => {
+                    const notificationClone = Object.assign({}, notification);
+
+                    notificationClone.new = false;
+                    return notificationClone;
+                  })
+              )
+            );
+          }
+        }
+      }
+    };
+  }, [adminNotifications, dispatch, resetNotifications]);
 
   const renderNoNotifications = () => {
     return (
@@ -64,12 +95,24 @@ const AdminNotifications = (props) => {
   // Reset notifications on component unmount or route change
   useEffect(() => {
     if (!location.pathname.includes("activity")) {
-      resetNotifications();
+      if (adminNotifications) {
+        if (adminNotifications.length > 0) {
+          if (adminNotifications.some((item) => item.new)) {
+            resetNotifications();
+          }
+        }
+      }
     }
     return () => {
-      resetNotifications();
+      if (adminNotifications) {
+        if (adminNotifications.length > 0) {
+          if (adminNotifications.some((item) => item.new)) {
+            resetNotifications();
+          }
+        }
+      }
     };
-  }, [resetNotifications, location.pathname]);
+  }, [resetNotifications, location.pathname, adminNotifications]);
 
   return (
     <div className="admin_notifications_container">

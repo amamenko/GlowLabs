@@ -1,21 +1,39 @@
-import React, { useMemo } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminClients from "./AdminClients/AdminClients";
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
   getClientsQuery,
   getAllAppointmentsQuery,
   getAllPersonalEventsQuery,
+  resetNotificationsMutation,
 } from "../../graphql/queries/queries";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
 import AdminStaff from "./AdminStaff/AdminStaff";
 import AdminNotifications from "./AdminNotifications/AdminNotifications";
+import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
+import { useDispatch } from "react-redux";
 
 const AdminRouter = React.forwardRef((props, ref) => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const {
+    getEmployeeData,
+    path,
+    initialScreenSize,
+    currentScreenSize,
+    getEmployeeLoading,
+    employeeDataRefetch,
+    getEmployeesData,
+    getEmployeesRefetch,
+    handleClickToScrollToHome,
+  } = props;
+
   const {
     data: getClientsData,
     refetch: getClientsRefetch,
@@ -52,118 +70,117 @@ const AdminRouter = React.forwardRef((props, ref) => {
     }
   }, [getClientsData]);
 
+  const [resetNotifications] = useMutation(resetNotificationsMutation);
+
+  useEffect(() => {
+    if (location.pathname.includes("activity")) {
+      dispatch(ACTION_ON_ACTIVITY_PAGE());
+    }
+  }, [location.pathname, dispatch]);
+
   return (
     <>
       <LargeScreenSideMenu
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        getEmployeeData={props.getEmployeeData ? props.getEmployeeData : null}
-        employeeDataRefetch={props.employeeDataRefetch}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        getEmployeeData={getEmployeeData ? getEmployeeData : null}
+        employeeDataRefetch={employeeDataRefetch}
         getClientsLoading={getClientsLoading}
-        handleClickToScrollToHome={props.handleClickToScrollToHome}
+        handleClickToScrollToHome={handleClickToScrollToHome}
         ref={ref}
+        resetNotifications={resetNotifications}
       />
       <Switch>
         <Route
           exact
-          path={props.path}
+          path={path}
           render={() => (
             <AdminLoginPage
-              initialScreenSize={props.initialScreenSize}
-              currentScreenSize={props.currentScreenSize}
-              getEmployeeData={
-                props.getEmployeeData ? props.getEmployeeData : null
-              }
-              employeeDataRefetch={props.employeeDataRefetch}
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
+              getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              employeeDataRefetch={employeeDataRefetch}
             />
           )}
         />
         <Route
           exact
-          path={props.path + "/menu"}
+          path={path + "/menu"}
           render={() => (
             <AdminMenu
-              initialScreenSize={props.initialScreenSize}
-              currentScreenSize={props.currentScreenSize}
-              getEmployeeData={
-                props.getEmployeeData ? props.getEmployeeData : null
-              }
-              employeeDataRefetch={props.employeeDataRefetch}
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
+              getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              employeeDataRefetch={employeeDataRefetch}
             />
           )}
         />
         <Route
           exact
-          path={props.path + "/activity"}
+          path={path + "/activity"}
           render={() => (
             <AdminNotifications
-              initialScreenSize={props.initialScreenSize}
-              currentScreenSize={props.currentScreenSize}
-              getEmployeeData={
-                props.getEmployeeData ? props.getEmployeeData : null
-              }
-              getEmployeeLoading={props.getEmployeeLoading}
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
+              getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              getEmployeeLoading={getEmployeeLoading}
+              resetNotifications={resetNotifications}
             />
           )}
         />
         <Route
           exact
-          path={props.path + "/clients"}
+          path={path + "/clients"}
           render={() => (
             <AdminClients
-              initialScreenSize={props.initialScreenSize}
-              currentScreenSize={props.currentScreenSize}
-              getEmployeeData={
-                props.getEmployeeData ? props.getEmployeeData : null
-              }
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
+              getEmployeeData={getEmployeeData ? getEmployeeData : null}
               getClientsData={getClientsData ? getClientsData : null}
               getClientsRefetch={getClientsRefetch}
               getClientsLoading={getClientsLoading}
               randomColorArray={randomColorArray ? randomColorArray : null}
+              resetNotifications={resetNotifications}
             />
           )}
         />
         <Route
           exact
-          path={props.path + "/staff"}
+          path={path + "/staff"}
           render={() => (
             <AdminStaff
-              initialScreenSize={props.initialScreenSize}
-              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
               getClientsData={getClientsData ? getClientsData : null}
               getClientsLoading={getClientsLoading}
-              getEmployeeData={
-                props.getEmployeeData ? props.getEmployeeData : null
-              }
-              employeeDataRefetch={props.employeeDataRefetch}
-              getEmployeesData={props.getEmployeesData}
-              getEmployeesRefetch={props.getEmployeesRefetch}
+              getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              employeeDataRefetch={employeeDataRefetch}
+              getEmployeesData={getEmployeesData}
+              getEmployeesRefetch={getEmployeesRefetch}
               getAllAppointmentsData={getAllAppointmentsData}
               getAllAppointmentsRefetch={getAllAppointmentsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
+              resetNotifications={resetNotifications}
             />
           )}
         />
         <Route
           exact
-          path={props.path + "/schedule"}
+          path={path + "/schedule"}
           render={() => (
             <AdminSchedule
-              initialScreenSize={props.initialScreenSize}
-              currentScreenSize={props.currentScreenSize}
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
               getAllAppointmentsData={getAllAppointmentsData}
               getAllAppointmentsRefetch={getAllAppointmentsRefetch}
-              getEmployeeData={
-                props.getEmployeeData ? props.getEmployeeData : null
-              }
-              getEmployeesData={
-                props.getEmployeesData ? props.getEmployeesData : null
-              }
+              getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              getEmployeesData={getEmployeesData ? getEmployeesData : null}
               getClientsData={getClientsData ? getClientsData : null}
               getClientsRefetch={getClientsRefetch}
               getAllPersonalEventsData={getAllPersonalEventsData}
               getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
+              resetNotifications={resetNotifications}
             />
           )}
         />
