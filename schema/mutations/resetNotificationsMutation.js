@@ -3,7 +3,7 @@ const Employee = require("../../models/employee");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 
-const UPDATED_EMPLOYEE = "employee";
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const resetNotificationsMutation = {
   type: EmployeeType,

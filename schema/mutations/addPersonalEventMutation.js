@@ -9,7 +9,7 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLString, GraphQLBoolean, GraphQLInt, GraphQLNonNull } = graphql;
 
-const UPDATED_EMPLOYEE = "employee";
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const addPersonalEventMutation = {
   type: PersonalEventType,

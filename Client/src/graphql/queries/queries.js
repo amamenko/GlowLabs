@@ -696,6 +696,10 @@ const resetNotificationsMutation = gql`
         date
         time
         allDay
+        associatedClientFirstName
+        associatedClientLastName
+        newAssociatedStaffFirstName
+        newAssociatedStaffLastName
         originalAssociatedStaffFirstName
         originalAssociatedStaffLastName
         createdByFirstName
@@ -1456,7 +1460,7 @@ const removeOneUnsavedSquareCardIDsMutation = gql`
 
 const getUpdatedEmployeeSubscription = gql`
   subscription getUpdatedEmployee($_id: ID!) {
-    employee(_id: $_id) {
+    getUpdatedEmployee(_id: $_id) {
       _id
       firstName
       lastName

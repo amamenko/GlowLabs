@@ -14,7 +14,7 @@ require("dotenv").config();
 
 const { GraphQLString, GraphQLList, GraphQLNonNull } = graphql;
 
-const NEW_NOTIFICATION = "new_notificaton";
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const addEmployeeMutation = {
   type: EmployeeType,
@@ -25,8 +25,8 @@ const addEmployeeMutation = {
     phoneNumber: { type: new GraphQLNonNull(GraphQLString) },
     employeeRole: { type: new GraphQLList(GraphQLString) },
   },
-  async resolve(parent, args, { cookies, pubsub }) {
-    const adminAccessToken = cookies["admin-access-token"];
+  async resolve(parent, args, context) {
+    const adminAccessToken = context.cookies["admin-access-token"];
 
     if (adminAccessToken) {
       // Generate temporary password for new employee
@@ -85,10 +85,6 @@ const addEmployeeMutation = {
         _id: decodedAdminID,
       });
 
-      let filter = {
-        $or: [{ _id: decodedAdminID }, { employeeRole: "Admin" }],
-      };
-
       let newNotification = new Notification({
         _id: new mongoose.Types.ObjectId(),
         new: true,
@@ -104,14 +100,28 @@ const addEmployeeMutation = {
         addingEmployee
       );
 
-      await Employee.updateMany(filter, update, {
+      await Employee.updateMany({ employeeRole: "Admin" }, update, {
         new: true,
+        multi: true,
       });
 
-      // pubsub.publish(NEW_NOTIFICATION, update);
+      const updatedEmployee = await Employee.findOneAndUpdate(
+        { _id: decodedAdminID },
+        update,
+        {
+          new: true,
+        }
+      );
+
+      const updatedEmployeeRes = await updatedEmployee.save();
+
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
+      });
 
       return {
         ...newEmployeeRes,
+        ...updatedEmployeeRes,
       };
     }
   },

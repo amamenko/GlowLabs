@@ -14,10 +14,9 @@ import UpdatePersonalEventNotification from "./Notifications/PersonalEvents/Upda
 import AddStaffNotification from "./Notifications/Staff/AddStaffNotification";
 import DeleteStaffNotification from "./Notifications/Staff/DeleteStaffNotification";
 import CancelPersonalEventNotification from "./Notifications/PersonalEvents/CancelPersonalEventNotification";
+import ACTION_ON_ACTIVITY_PAGE from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 import "./AdminNotifications.css";
 import { css } from "@emotion/css";
-import ACTION_ON_ACTIVITY_PAGE from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
-import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "../../../actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 
 const AdminNotifications = (props) => {
   const { getEmployeeData, getEmployeeLoading, resetNotifications } = props;
@@ -51,29 +50,15 @@ const AdminNotifications = (props) => {
 
   useEffect(() => {
     return () => {
-      console.log("NOTIFICATIONS UNMOUNTED");
-
       if (adminNotifications) {
         if (adminNotifications.length > 0) {
           if (adminNotifications.some((item) => item.new)) {
             resetNotifications();
-            dispatch(
-              ACTION_ASSIGN_ADMIN_NOTIFICATIONS(
-                adminNotifications
-                  .sort((a, b) => b.createdAt - a.createdAt)
-                  .map((notification) => {
-                    const notificationClone = Object.assign({}, notification);
-
-                    notificationClone.new = false;
-                    return notificationClone;
-                  })
-              )
-            );
           }
         }
       }
     };
-  }, [adminNotifications, dispatch, resetNotifications]);
+  }, [adminNotifications, resetNotifications]);
 
   const renderNoNotifications = () => {
     return (

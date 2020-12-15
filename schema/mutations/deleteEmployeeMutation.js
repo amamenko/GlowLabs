@@ -9,15 +9,15 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLID } = graphql;
 
-const UPDATED_EMPLOYEE = "employee";
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const deleteEmployeeMutation = {
   type: EmployeeType,
   args: {
     _id: { type: GraphQLID },
   },
-  async resolve(parent, args, { cookies, pubsub }) {
-    const adminAccessToken = cookies["admin-access-token"];
+  async resolve(parent, args, context) {
+    const adminAccessToken = context.cookies["admin-access-token"];
 
     if (!adminAccessToken) {
       throw new UserInputError("Admin is not authenticated.");
@@ -36,10 +36,6 @@ const deleteEmployeeMutation = {
         _id: decodedAdminID,
       });
 
-      let filter = {
-        $or: [{ _id: decodedAdminID }, { employeeRole: "Admin" }],
-      };
-
       let newNotification = new Notification({
         _id: new mongoose.Types.ObjectId(),
         new: true,
@@ -55,16 +51,28 @@ const deleteEmployeeMutation = {
         deletingEmployee
       );
 
-      await Employee.updateMany(filter, update, {
+      await Employee.updateMany({ employeeRole: "Admin" }, update, {
         new: true,
+        multi: true,
       });
 
-      pubsub.publish(UPDATED_EMPLOYEE, {
-        employee: update,
+      const updatedEmployee = await Employee.findOneAndUpdate(
+        { _id: decodedAdminID },
+        update,
+        {
+          new: true,
+        }
+      );
+
+      const updatedEmployeeRes = await updatedEmployee.save();
+
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
       });
 
       return {
         _id: args._id,
+        ...updatedEmployeeRes,
       };
     }
   },

@@ -26,6 +26,7 @@ import ACTION_ADMIN_STAFF_MEMBER_ROLES_RESET from "../../../actions/Admin/AdminA
 import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import "react-dropdown/style.css";
 import "react-day-picker/lib/style.css";
+import "./AdminStaff.css";
 
 const AdminAddStaffMember = (props) => {
   const dispatch = useDispatch();
@@ -640,7 +641,7 @@ const AdminAddStaffMember = (props) => {
                         : "react-autosuggest__input"
                     }
                     placeholder="Staff member assigned role"
-                    placeholderClassName="admin_create_appointent_dropdown_placeholder_no_time"
+                    placeholderClassName="admin_add_staff_dropdown_placeholder_no_time"
                   />
                 </div>
               ) : null}

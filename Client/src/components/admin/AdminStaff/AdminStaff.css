@@ -30,16 +30,17 @@
   cursor: pointer;
 }
 
-.admin_create_appointent_dropdown_placeholder_no_time::before {
+.admin_add_staff_dropdown_placeholder_no_time::before {
   background: #fff;
   position: absolute;
   color: #fff;
   content: "*****************************************";
 }
 
-.admin_create_appointent_dropdown_placeholder_no_time::after {
+.admin_add_staff_dropdown_placeholder_no_time::after {
   position: absolute;
   left: 1.5rem;
+  color: rgb(122, 122, 122);
   content: "Staff member assigned role";
 }
 

@@ -312,8 +312,6 @@ const App = () => {
           _id: adminDummyToken.id,
         },
         updateQuery: (prev, { subscriptionData }) => {
-          console.log("UPDATE RUNNING");
-
           if (subscriptionData.data) {
             if (subscriptionData.data.getUpdatedEmployee) {
               if (subscriptionData.data.getUpdatedEmployee.notifications) {
@@ -336,7 +334,6 @@ const App = () => {
       });
 
       return () => {
-        console.log("UNMOUNTED");
         // Unsubscribe to notifications on unmount
         unsubscribe();
       };
