@@ -88,11 +88,37 @@ const updateConsentFormMutation = {
       client.consentForm.consentFormSignature = args.consentFormSignature;
       client.consentForm.createdAt = new Date().toISOString();
 
-      const res = client.save();
+      const res = await client.save();
 
       if (!context.isAuth) {
         context.res.clearCookie("guest-consent-form-access-token");
       }
+
+      let newNotification = new Notification({
+        _id: new mongoose.Types.ObjectId(),
+        new: true,
+        type: "updateConsentForm",
+        associatedClientFirstName: client.firstName,
+        associatedClientLastName: client.lastName,
+        createdByFirstName: client.firstName,
+        createdByLastName: client.lastName,
+      });
+
+      const update = createNotificationFunction(
+        newNotification,
+        addingEmployee
+      );
+
+      await Employee.updateMany({ employeeRole: "Admin" }, update, {
+        new: true,
+        multi: true,
+      });
+
+      let employeeRes = "";
+
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
+      });
 
       return {
         ...res,

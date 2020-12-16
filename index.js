@@ -694,6 +694,12 @@ app.use(async (req, res, next) => {
   return next();
 });
 
+// Set pubsub as universal context
+app.use((req, res, next) => {
+  req.pubsub = pubsub;
+  return next();
+});
+
 // Handle client authentication
 app.use(async (req, res, next) => {
   const accessToken = req.cookies["access-token"];
@@ -704,8 +710,6 @@ app.use(async (req, res, next) => {
   const temporaryFacebookDummyToken =
     req.cookies["temporary-facebook-dummy-token"];
   const logoutCookie = req.cookies.logout;
-
-  req.pubsub = pubsub;
 
   if (logoutCookie) {
     res.clearCookie("access-token");
@@ -880,8 +884,6 @@ app.use(async (req, res, next) => {
   const temporaryAdminAccessToken = req.cookies["temporary-admin-access-token"];
   const temporaryAdminDummyToken = req.cookies["temporary-admin-dummy-token"];
   const logoutCookie = req.cookies.logout;
-
-  req.pubsub = pubsub;
 
   if (logoutCookie) {
     res.clearCookie("admin-access-token");

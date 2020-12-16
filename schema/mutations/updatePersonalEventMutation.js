@@ -2,8 +2,15 @@ const graphql = require("graphql");
 const PersonalEventType = require("../types/PersonalEventType");
 const PersonalEvent = require("../../models/personalevent");
 const { UserInputError } = require("apollo-server");
+const createNotificationFunction = require("./notifications/createNotificationFunction");
+const Employee = require("../../models/employee");
+const Notification = require("../../models/notification");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 const { GraphQLString, GraphQLBoolean, GraphQLID, GraphQLInt } = graphql;
+
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const updatePersonalEventMutation = {
   type: PersonalEventType,
@@ -20,16 +27,14 @@ const updatePersonalEventMutation = {
     blockTime: { type: GraphQLBoolean },
   },
   async resolve(parent, args, context) {
-    if (!context.adminAuth) {
+    const adminAccessToken = context.cookies["admin-access-token"];
+
+    if (!adminAccessToken) {
       throw new UserInputError("Admin is not authenticated.");
     } else {
       const personalEvent = await PersonalEvent.findOne({
         _id: args._id,
       });
-
-      const filter = {
-        _id: args._id,
-      };
 
       const update = {
         title: args.title ? args.title : personalEvent.title,
@@ -50,27 +55,67 @@ const updatePersonalEventMutation = {
       };
 
       const updatedPersonalEvent = await PersonalEvent.findOneAndUpdate(
-        filter,
+        {
+          _id: args._id,
+        },
         update,
         {
           new: true,
         }
       );
 
-      const res = updatedPersonalEvent.save();
+      const decodedAdminID = jwt.decode(adminAccessToken).id.toString();
+
+      const updatingEmployee = await Employee.findOne({
+        _id: decodedAdminID,
+      });
+
+      let newNotification = new Notification({
+        _id: new mongoose.Types.ObjectId(),
+        new: true,
+        type: "updatePersonalEvent",
+        date: args.date,
+        time: args.startTime,
+        allDay: args.allDay,
+        originalAssociatedStaffFirstName: args.staff.split(" ")[0],
+        originalAssociatedStaffLastName: args.staff.split(" ")[1],
+        createdByFirstName: updatingEmployee.firstName,
+        createdByLastName: updatingEmployee.lastName,
+      });
+
+      const updateNotification = createNotificationFunction(
+        newNotification,
+        updatingEmployee
+      );
+
+      await Employee.updateMany(
+        { employeeRole: "Admin", _id: { $ne: decodedAdminID } },
+        update,
+        {
+          new: true,
+          multi: true,
+        }
+      );
+
+      const updatedEmployee = await Employee.findOneAndUpdate(
+        { _id: decodedAdminID },
+        updateNotification,
+        {
+          new: true,
+        }
+      );
+
+      const updatedEmployeeRes = await updatedEmployee.save();
+
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
+      });
+
+      const updatedPersonalEventRes = await updatedPersonalEvent.save();
 
       return {
-        ...res,
-        _id: updatedPersonalEvent._id,
-        title: updatedPersonalEvent.title,
-        notes: updatedPersonalEvent.notes,
-        date: updatedPersonalEvent.date,
-        staff: updatedPersonalEvent.staff,
-        startTime: updatedPersonalEvent.startTime,
-        endTime: updatedPersonalEvent.endTime,
-        duration: updatedPersonalEvent.duration,
-        allDay: updatedPersonalEvent.allDay,
-        blockTime: updatedPersonalEvent.blockTime,
+        ...updatedPersonalEventRes,
+        ...updatedEmployeeRes,
       };
     }
   },

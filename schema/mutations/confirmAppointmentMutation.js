@@ -1,8 +1,15 @@
 const graphql = require("graphql");
 const AppointmentInput = require("../types/inputs/AppointmentInput");
 const Appointment = require("../../models/appointment");
+const Notification = require("../../models/notification");
+const createNotificationFunction = require("./notifications/createNotificationFunction");
+const jwt = require("jsonwebtoken");
+const Employee = require("../../models/employee");
+const mongoose = require("mongoose");
 
 const { GraphQLID } = graphql;
+
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const confirmAppointmentMutation = {
   type: AppointmentInput,
@@ -10,6 +17,12 @@ const confirmAppointmentMutation = {
     _id: { type: GraphQLID },
   },
   async resolve(parent, args, context) {
+    const adminAccessToken = context.cookies["admin-access-token"];
+
+    const selectedAppointment = await Appointment.findById({
+      _id: args._id,
+    });
+
     let filter = {
       _id: args._id,
     };
@@ -22,10 +35,83 @@ const confirmAppointmentMutation = {
       new: true,
     });
 
-    const appt_res = appointment.save();
+    let decodedAdminID = "";
+    let confirmingEmployee = "";
+
+    if (adminAccessToken) {
+      decodedAdminID = jwt.decode(adminAccessToken).id.toString();
+      confirmingEmployee = await Employee.findOne({
+        _id: decodedAdminID,
+      });
+    }
+
+    const newNotification = new Notification({
+      _id: new mongoose.Types.ObjectId(),
+      new: true,
+      type: "confirmAppointment",
+      date: selectedAppointment.date,
+      time:
+        selectedAppointment.startTime +
+        " " +
+        selectedAppointment.morningOrEvening,
+      associatedClientFirstName: selectedAppointment.client.firstName,
+      associatedClientLastName: selectedAppointment.client.lastName,
+      originalAssociatedStaffFirstName: selectedAppointment.esthetician.split(
+        " "
+      )[0],
+      originalAssociatedStaffLastName: selectedAppointment.esthetician.split(
+        " "
+      )[1],
+      createdByFirstName: adminAccessToken
+        ? confirmingEmployee.firstName
+        : selectedAppointment.client.firstName,
+      createdByLastName: adminAccessToken
+        ? confirmingEmployee.lastName
+        : selectedAppointment.client.lastName,
+    });
+
+    const notificationUpdate = createNotificationFunction(
+      newNotification,
+      deletingEmployee
+    );
+
+    await Employee.updateMany(
+      {
+        employeeRole: "Admin",
+        firstName: {
+          $ne: selectedAppointment.esthetician.split(" ")[0],
+        },
+        lastName: { $ne: selectedAppointment.esthetician.split(" ")[1] },
+      },
+      notificationUpdate,
+      {
+        new: true,
+        multi: true,
+      }
+    );
+
+    const updatedEmployee = await Employee.findOneAndUpdate(
+      {
+        firstName: selectedAppointment.esthetician.split(" ")[0],
+        lastName: selectedAppointment.esthetician.split(" ")[1],
+      },
+      notificationUpdate,
+      {
+        new: true,
+      }
+    );
+
+    const appt_res = await appointment.save();
+
+    const updatedEmployeeRes = await updatedEmployee.save();
+
+    context.pubsub.publish(UPDATED_EMPLOYEE, {
+      employee: updatedEmployeeRes,
+    });
 
     return {
       ...appt_res,
+      ...updatedEmployeeRes,
       createdAt: appt_res.createdAt,
       esthetician: appt_res.esthetician,
       date: appt_res.date,

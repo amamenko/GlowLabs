@@ -46,7 +46,8 @@ const CancelPersonalEventNotification = (props) => {
                   ? "your"
                   : originalAssociatedStaffName + "'s"
               } calendar `}
-          scheduled for {notification.allDay ? "all day" : null}{" "}
+          scheduled for {notification.allDay ? <strong>all day</strong> : null}{" "}
+          {notification.allDay ? "on " : null}
           <strong>
             {moment(new Date(notification.date)).format("MMMM Do, YYYY")}
           </strong>

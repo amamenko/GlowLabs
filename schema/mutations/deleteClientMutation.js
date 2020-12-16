@@ -1,10 +1,16 @@
 const graphql = require("graphql");
 const ClientType = require("../types/ClientType");
 const Client = require("../../models/client");
+const Employee = require("../../models/employee");
+const Notification = require("../../models/notification");
 const { UserInputError } = require("apollo-server");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const createNotificationFunction = require("./notifications/createNotificationFunction");
 
 const { GraphQLID } = graphql;
+
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const deleteClientMutation = {
   type: ClientType,
@@ -46,10 +52,14 @@ const deleteClientMutation = {
         deletingEmployee
       );
 
-      await Employee.updateMany({ employeeRole: "Admin" }, update, {
-        new: true,
-        multi: true,
-      });
+      await Employee.updateMany(
+        { employeeRole: "Admin", _id: { $ne: decodedAdminID } },
+        update,
+        {
+          new: true,
+          multi: true,
+        }
+      );
 
       const updatedEmployee = await Employee.findOneAndUpdate(
         { _id: decodedAdminID },

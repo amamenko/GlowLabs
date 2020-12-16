@@ -100,10 +100,18 @@ const addEmployeeMutation = {
         addingEmployee
       );
 
-      await Employee.updateMany({ employeeRole: "Admin" }, update, {
-        new: true,
-        multi: true,
-      });
+      // (await Employee.find({ employeeRole: "Admin", _id: { $ne: decodedAdminID } })).forEach((item) => {
+      //   item.update
+      // })
+
+      await Employee.updateMany(
+        { employeeRole: "Admin", _id: { $ne: decodedAdminID } },
+        update,
+        {
+          new: true,
+          multi: true,
+        }
+      );
 
       const updatedEmployee = await Employee.findOneAndUpdate(
         { _id: decodedAdminID },

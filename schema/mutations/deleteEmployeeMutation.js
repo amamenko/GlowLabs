@@ -51,10 +51,14 @@ const deleteEmployeeMutation = {
         deletingEmployee
       );
 
-      await Employee.updateMany({ employeeRole: "Admin" }, update, {
-        new: true,
-        multi: true,
-      });
+      await Employee.updateMany(
+        { employeeRole: "Admin", _id: { $ne: decodedAdminID } },
+        update,
+        {
+          new: true,
+          multi: true,
+        }
+      );
 
       const updatedEmployee = await Employee.findOneAndUpdate(
         { _id: decodedAdminID },

@@ -16,6 +16,9 @@ const {
 const mjmlUtils = require("mjml-utils");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const Notification = require("../../models/notification");
+const createNotificationFunction = require("./notifications/createNotificationFunction");
+const Employee = require("../../models/employee");
 
 // Used to normalize phone numbers for use by Twilio
 const phone = require("phone");
@@ -24,6 +27,8 @@ const phone = require("phone");
 require("dotenv").config();
 
 const { GraphQLString, GraphQLInt, GraphQLList, GraphQLNonNull } = graphql;
+
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const addAppointmentMutation = {
   type: AppointmentType,
@@ -154,6 +159,17 @@ const addAppointmentMutation = {
 
     const adminToken = context.cookies["admin-access-token"];
 
+    let decodedAdminID = "";
+    let currentSignedInEmployee = "";
+
+    if (adminToken) {
+      decodedAdminID = jwt.decode(adminToken).id.toString();
+
+      currentSignedInEmployee = await Employee.findOne({
+        _id: decodedAdminID,
+      });
+    }
+
     let transporter = nodemailer.createTransport({
       host: "smtp.mail.yahoo.com",
       service: "yahoo",
@@ -210,6 +226,34 @@ const addAppointmentMutation = {
 
     let client;
 
+    const associatedEmployee = await Employee.findOne({
+      firstName: args.esthetician.split(" ")[0],
+      lastName: args.esthetician.split(" ")[1],
+    });
+
+    let newNotification = new Notification({
+      _id: new mongoose.Types.ObjectId(),
+      new: true,
+      type: "bookAppointment",
+      date: args.date,
+      time: args.startTime + " " + args.morningOrEvening,
+      associatedClientFirstName: args.client[0].firstName,
+      associatedClientLastName: args.client[0].lastName,
+      originalAssociatedStaffFirstName: args.esthetician.split(" ")[0],
+      originalAssociatedStaffLastName: args.esthetician.split(" ")[1],
+      createdByFirstName: currentSignedInEmployee
+        ? currentSignedInEmployee.firstName
+        : args.client[0].firstName,
+      createdByLastName: currentSignedInEmployee
+        ? currentSignedInEmployee.lastName
+        : args.client[0].lastName,
+    });
+
+    const updateNotification = createNotificationFunction(
+      newNotification,
+      associatedEmployee
+    );
+
     if (!foundClient) {
       client = new Client({
         _id: new mongoose.Types.ObjectId(),
@@ -231,6 +275,38 @@ const addAppointmentMutation = {
       if (!emailTaken || !phoneNumberTaken) {
         appt_res = await appointment.save();
         const client_res = await client.save();
+
+        await Employee.updateMany(
+          {
+            employeeRole: "Admin",
+            firstName: {
+              $ne: args.esthetician.split(" ")[0],
+            },
+            lastName: { $ne: args.esthetician.split(" ")[1] },
+          },
+          updateNotification,
+          {
+            new: true,
+            multi: true,
+          }
+        );
+
+        const updatedEmployee = await Employee.findOneAndUpdate(
+          {
+            firstName: args.esthetician.split(" ")[0],
+            lastName: args.esthetician.split(" ")[1],
+          },
+          updateNotification,
+          {
+            new: true,
+          }
+        );
+
+        const updatedEmployeeRes = await updatedEmployee.save();
+
+        context.pubsub.publish(UPDATED_EMPLOYEE, {
+          employee: updatedEmployeeRes,
+        });
 
         const iCalEvent = new ICalendar(createEventObject(appt_res));
         const yahooCalendarEvent = new YahooCalendar(
@@ -313,6 +389,7 @@ const addAppointmentMutation = {
         return {
           ...appt_res,
           ...client_res,
+          ...updatedEmployeeRes,
           createdAt: appt_res.createdAt,
           client: {
             createdAt: client_res.createdAt,
@@ -336,6 +413,7 @@ const addAppointmentMutation = {
           confirmed: appt_res.confirmed,
         };
       }
+
       appt_res = await appointment.save();
 
       const iCalEvent = new ICalendar(createEventObject(appt_res));
@@ -418,8 +496,41 @@ const addAppointmentMutation = {
         );
       }
 
+      await Employee.updateMany(
+        {
+          employeeRole: "Admin",
+          firstName: {
+            $ne: args.esthetician.split(" ")[0],
+          },
+          lastName: { $ne: args.esthetician.split(" ")[1] },
+        },
+        updateNotification,
+        {
+          new: true,
+          multi: true,
+        }
+      );
+
+      const updatedEmployee = await Employee.findOneAndUpdate(
+        {
+          firstName: args.esthetician.split(" ")[0],
+          lastName: args.esthetician.split(" ")[1],
+        },
+        updateNotification,
+        {
+          new: true,
+        }
+      );
+
+      const updatedEmployeeRes = await updatedEmployee.save();
+
+      context.pubsub.publish(UPDATED_EMPLOYEE, {
+        employee: updatedEmployeeRes,
+      });
+
       return {
         ...appt_res,
+        ...updatedEmployeeRes,
         ...client,
         createdAt: appt_res.createdAt,
         client: {
@@ -525,6 +636,38 @@ const addAppointmentMutation = {
         );
       }
     }
+
+    await Employee.updateMany(
+      {
+        employeeRole: "Admin",
+        firstName: {
+          $ne: args.esthetician.split(" ")[0],
+        },
+        lastName: { $ne: args.esthetician.split(" ")[1] },
+      },
+      updateNotification,
+      {
+        new: true,
+        multi: true,
+      }
+    );
+
+    const updatedEmployee = await Employee.findOneAndUpdate(
+      {
+        firstName: args.esthetician.split(" ")[0],
+        lastName: args.esthetician.split(" ")[1],
+      },
+      updateNotification,
+      {
+        new: true,
+      }
+    );
+
+    const updatedEmployeeRes = await updatedEmployee.save();
+
+    context.pubsub.publish(UPDATED_EMPLOYEE, {
+      employee: updatedEmployeeRes,
+    });
 
     return {
       ...appt_res,
