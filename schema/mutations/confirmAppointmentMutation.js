@@ -70,34 +70,34 @@ const confirmAppointmentMutation = {
         : selectedAppointment.client.lastName,
     });
 
-    const notificationUpdate = createNotificationFunction(
-      newNotification,
-      deletingEmployee
-    );
+    const updateNotifications = (staff) =>
+      createNotificationFunction(newNotification, staff);
 
-    await Employee.updateMany(
-      {
+    (
+      await Employee.find({
         employeeRole: "Admin",
         firstName: {
           $ne: selectedAppointment.esthetician.split(" ")[0],
         },
         lastName: { $ne: selectedAppointment.esthetician.split(" ")[1] },
-      },
-      notificationUpdate,
-      {
-        new: true,
-        multi: true,
-      }
-    );
+      })
+    ).forEach((currentEmployee) => {
+      const notificationsObj = updateNotifications(currentEmployee);
+      currentEmployee.notifications = notificationsObj.notifications;
 
-    const updatedEmployee = await Employee.findOneAndUpdate(
+      currentEmployee.save();
+    });
+
+    const updatedEmployee = await Employee.findOne(
       {
         firstName: selectedAppointment.esthetician.split(" ")[0],
         lastName: selectedAppointment.esthetician.split(" ")[1],
       },
-      notificationUpdate,
-      {
-        new: true,
+      (err, currentEmployee) => {
+        const notificationsObj = updateNotifications(currentEmployee);
+        currentEmployee.notifications = notificationsObj.notifications;
+
+        currentEmployee.save();
       }
     );
 

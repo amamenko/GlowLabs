@@ -15,7 +15,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMutation } from "@apollo/react-hooks";
-import { deleteClientMutation } from "../../../graphql/queries/queries";
+import deleteClientMutation from "../../../graphql/mutations/deleteClientMutation";
 import ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_UPCOMING_APPOINTMENTS_SELECTED";
 import ACTION_ADMIN_CLIENT_PAST_APPOINTMENTS_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PAST_APPOINTMENTS_SELECTED";
 import ACTION_ADD_PROFILE_PHOTO_CLICKED from "../../../actions/Admin/AddProfilePhotoClicked/ACTION_ADD_PROFILE_PHOTO_CLICKED";

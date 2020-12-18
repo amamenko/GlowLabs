@@ -16,7 +16,7 @@ import imageCompression from "browser-image-compression";
 import ImageUploader from "react-images-upload";
 import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
 import { useMutation } from "@apollo/react-hooks";
-import { updateAdminProfilePictureMutation } from "../../../graphql/queries/queries";
+import updateAdminProfilePictureMutation from "../../../graphql/mutations/updateAdminProfilePictureMutation";
 import LZString from "lz-string";
 import { css } from "@emotion/css";
 import { BounceLoader } from "react-spinners";
@@ -34,9 +34,9 @@ import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_IMAGE_LOADING from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING";
 import ACTION_IMAGE_LOADING_RESET from "../../../actions/Admin/ImageLoading/ACTION_IMAGE_LOADING_RESET";
+import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 import "./AdminStaff.css";
 import "react-html5-camera-photo/build/css/index.css";
-import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 
 const AdminStaff = (props) => {
   const {

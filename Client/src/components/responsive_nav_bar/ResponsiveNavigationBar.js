@@ -3,26 +3,14 @@ import { GrCart } from "react-icons/gr";
 import { FaCircle, FaUser } from "react-icons/fa";
 import { FcHome, FcPlus, FcAbout, FcLike, FcPaid } from "react-icons/fc";
 import { toast } from "react-toastify";
-import "./NavigationBar.css";
-import "./ResponsiveNavigationBar.css";
 import BurgerMenu from "./Burger/BurgerMenuComponent";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import ACTION_LOG_OUT_CLICKED from "../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
-import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
-import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
-import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
-import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
-import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
-import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
-import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useQuery } from "@apollo/react-hooks";
-import {
-  getClientQuery,
-  getEmployeeQuery,
-} from "../../graphql/queries/queries";
+import getEmployeeQuery from "../../graphql/queries/getEmployeeQuery";
+import getClientQuery from "../../graphql/queries/getClientQuery";
 import Menu from "react-burger-menu/lib/menus/slide";
 import {
   disableBodyScroll,
@@ -33,6 +21,16 @@ import {
   faMapMarkerAlt,
   faPhoneSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import ACTION_LOG_OUT_CLICKED from "../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
+import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
+import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
+import ACTION_LOGIN_IS_ACTIVE from "../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
+import ACTION_NAVBAR_TOGGLE_RESET from "../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
+import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
+import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
+import "./NavigationBar.css";
+import "./ResponsiveNavigationBar.css";
 
 const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
   const {
@@ -69,9 +67,6 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
   );
   const addProfilePhotoClicked = useSelector(
     (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
-  );
-  const loadingSpinnerActive = useSelector(
-    (state) => state.loadingSpinnerActive.loading_spinner
   );
 
   const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
@@ -609,11 +604,10 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         filter: navbarToggle
           ? "none"
           : props.scroll
-          ? "drop-shadow(0 0 3px rgba(0, 0, 0, 0.4)"
+          ? "drop-shadow(0 0 3px rgba(0, 0, 0, 0.4))"
           : cancelAppointmentClicked ||
             logoutClicked ||
             addProfilePhotoClicked ||
-            loadingSpinnerActive ||
             imageLoading
           ? "blur(5px) brightness(50%)"
           : "none",

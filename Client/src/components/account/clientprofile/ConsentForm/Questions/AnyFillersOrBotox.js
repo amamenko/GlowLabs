@@ -12,16 +12,16 @@ import ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET from "../../../../../actions/Consen
 import ACTION_ANY_FILLERS_OR_BOTOX_YES from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/ACTION_ANY_FILLERS_OR_BOTOX_YES_RESET";
 import ACTION_ANY_FILLERS_OR_BOTOX_NOTES from "../../../../../actions/ConsentForm/AnyFillersOrBotox/Yes/Notes/ACTION_ANY_FILLERS_OR_BOTOX_NOTES";
 
-const AnyFillersOrBotox = props => {
+const AnyFillersOrBotox = (props) => {
   const dispatch = useDispatch();
   const anyFillersOrBotoxNo = useSelector(
-    state => state.anyFillersOrBotoxNo.any_fillers_or_botox_no_active
+    (state) => state.anyFillersOrBotoxNo.any_fillers_or_botox_no_active
   );
   const anyFillersOrBotoxYes = useSelector(
-    state => state.anyFillersOrBotoxYes.any_fillers_or_botox_yes_active
+    (state) => state.anyFillersOrBotoxYes.any_fillers_or_botox_yes_active
   );
   const anyFillersOrBotoxNotes = useSelector(
-    state => state.anyFillersOrBotoxNotes.any_fillers_or_botox_notes
+    (state) => state.anyFillersOrBotoxNotes.any_fillers_or_botox_notes
   );
   const [pageOpened, changePageOpened] = useState(false);
 
@@ -38,7 +38,7 @@ const AnyFillersOrBotox = props => {
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -79,27 +79,7 @@ const AnyFillersOrBotox = props => {
                 : "1rem"
             }
             style={{
-              marginTop:
-                props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1800
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1600
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1200
-                    ? "-0.5rem"
-                    : props.initialScreenSize >= 360
-                    ? "-0.5rem"
-                    : "0rem"
-                  : props.currentScreenSize >= 1800
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1600
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1200
-                  ? "-0.5rem"
-                  : props.currentScreenSize >= 360
-                  ? "-0.5rem"
-                  : "0rem",
-              display: "block"
+              display: "block",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -141,7 +121,7 @@ const AnyFillersOrBotox = props => {
     }
   };
 
-  const handleFillersOrBotoxNotes = e => {
+  const handleFillersOrBotoxNotes = (e) => {
     dispatch(ACTION_ANY_FILLERS_OR_BOTOX_NOTES(e.currentTarget.value.trim()));
   };
 
@@ -198,7 +178,7 @@ const AnyFillersOrBotox = props => {
           <Input
             type="textarea"
             style={{
-              fontFamily: "Montserrat"
+              fontFamily: "Montserrat",
             }}
             defaultValue={anyFillersOrBotoxNotes}
             placeholder="Enter any fillers or botox dates here."

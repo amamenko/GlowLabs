@@ -4,19 +4,17 @@ import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminClients from "./AdminClients/AdminClients";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import {
-  getClientsQuery,
-  getAllAppointmentsQuery,
-  getAllPersonalEventsQuery,
-  resetNotificationsMutation,
-} from "../../graphql/queries/queries";
+import getClientsQuery from "../../graphql/queries/getClientsQuery";
+import getAllAppointmentsQuery from "../../graphql/queries/getAllAppointmentsQuery";
+import getAllPersonalEventsQuery from "../../graphql/queries/getAllPersonalEventsQuery";
+import resetNotificationsMutation from "../../graphql/mutations/resetNotificationsMutation";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
 import AdminStaff from "./AdminStaff/AdminStaff";
 import AdminNotifications from "./AdminNotifications/AdminNotifications";
-import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 import { useDispatch } from "react-redux";
+import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 
 const AdminRouter = React.forwardRef((props, ref) => {
   const location = useLocation();

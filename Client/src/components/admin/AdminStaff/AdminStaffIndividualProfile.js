@@ -14,7 +14,7 @@ import Modal from "react-modal";
 import { BounceLoader } from "react-spinners";
 import { Transition } from "react-spring/renderprops";
 import { css } from "@emotion/css";
-import { deleteEmployeeMutation } from "../../../graphql/queries/queries";
+import deleteEmployeeMutation from "../../../graphql/mutations/deleteEmployeeMutation";
 import { useMutation } from "@apollo/react-hooks";
 import { useCallback } from "react";
 import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";

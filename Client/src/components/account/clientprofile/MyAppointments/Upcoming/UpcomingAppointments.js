@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import "../MyAppointments.css";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -31,13 +30,14 @@ import {
 } from "body-scroll-lock";
 import { css } from "@emotion/css";
 import { useMutation } from "@apollo/react-hooks";
-import { deleteAppointmentMutation } from "../../../../../graphql/queries/queries";
+import deleteAppointmentMutation from "../../../../../graphql/mutations/deleteAppointmentMutation";
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ClientRenderUpcomingAppointments from "./ClientRenderUpcomingAppointments";
 import SaltCaveSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
+import "../MyAppointments.css";
 
 const UpcomingAppointments = (props) => {
   const location = useLocation();

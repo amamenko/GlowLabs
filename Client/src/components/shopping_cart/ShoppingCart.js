@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback, useRef } from "react";
-import "./ShoppingCart.css";
+import React, { useEffect, useCallback, useRef, useMemo } from "react";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,8 +7,6 @@ import {
   faChevronRight,
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
-import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
-import ACTION_AVAILABILITY_CLICKED from "../../actions/AvailabilityClicked/ACTION_AVAILABILITY_CLICKED";
 import { useDispatch, useSelector } from "react-redux";
 import CalmCard from "./Treatment_Cards/Calm/CalmCard";
 import ClarifyCard from "./Treatment_Cards/Clarify/ClarifyCard";
@@ -34,15 +31,17 @@ import BeardCard from "./Add_On_Cards/Beard/BeardCard";
 import UnsureCard from "./Treatment_Cards/Unsure/UnsureCard";
 import SaltCaveCard from "./Treatment_Cards/SaltCave/SaltCaveCard";
 import NoFacialSelected from "./Treatment_Cards/NoFacialSelected";
-import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import { FormGroup, Input } from "reactstrap";
+import { animateScroll } from "react-scroll";
+import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
+import ACTION_CART_PAGE_RESET from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_RESET";
 import ACTION_AVAILABILITY_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
 import ACTION_SELECTED_ESTHETICIAN from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN";
 import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
-import { useMemo } from "react";
-import ACTION_CART_IS_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_ACTIVE";
-import ACTION_CART_PAGE_RESET from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_RESET";
-import { animateScroll } from "react-scroll";
+import ACTION_CART_IS_NOT_ACTIVE from "../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
+import ACTION_AVAILABILITY_CLICKED from "../../actions/AvailabilityClicked/ACTION_AVAILABILITY_CLICKED";
+import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
+import "./ShoppingCart.css";
 
 const ShoppingCart = (props) => {
   const dispatch = useDispatch();

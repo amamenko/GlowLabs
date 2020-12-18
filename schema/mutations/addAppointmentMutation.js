@@ -249,10 +249,8 @@ const addAppointmentMutation = {
         : args.client[0].lastName,
     });
 
-    const updateNotification = createNotificationFunction(
-      newNotification,
-      associatedEmployee
-    );
+    const updateNotifications = (staff) =>
+      createNotificationFunction(newNotification, staff);
 
     if (!foundClient) {
       client = new Client({
@@ -276,29 +274,31 @@ const addAppointmentMutation = {
         appt_res = await appointment.save();
         const client_res = await client.save();
 
-        await Employee.updateMany(
-          {
+        (
+          await Employee.find({
             employeeRole: "Admin",
             firstName: {
               $ne: args.esthetician.split(" ")[0],
             },
             lastName: { $ne: args.esthetician.split(" ")[1] },
-          },
-          updateNotification,
-          {
-            new: true,
-            multi: true,
-          }
-        );
+          })
+        ).forEach((currentEmployee) => {
+          const notificationsObj = updateNotifications(currentEmployee);
+          currentEmployee.notifications = notificationsObj.notifications;
 
-        const updatedEmployee = await Employee.findOneAndUpdate(
+          currentEmployee.save();
+        });
+
+        const updatedEmployee = await Employee.findOne(
           {
             firstName: args.esthetician.split(" ")[0],
             lastName: args.esthetician.split(" ")[1],
           },
-          updateNotification,
-          {
-            new: true,
+          (err, currentEmployee) => {
+            const notificationsObj = updateNotifications(currentEmployee);
+            currentEmployee.notifications = notificationsObj.notifications;
+
+            currentEmployee.save();
           }
         );
 
@@ -496,29 +496,31 @@ const addAppointmentMutation = {
         );
       }
 
-      await Employee.updateMany(
-        {
+      (
+        await Employee.find({
           employeeRole: "Admin",
           firstName: {
             $ne: args.esthetician.split(" ")[0],
           },
           lastName: { $ne: args.esthetician.split(" ")[1] },
-        },
-        updateNotification,
-        {
-          new: true,
-          multi: true,
-        }
-      );
+        })
+      ).forEach((currentEmployee) => {
+        const notificationsObj = updateNotifications(currentEmployee);
+        currentEmployee.notifications = notificationsObj.notifications;
 
-      const updatedEmployee = await Employee.findOneAndUpdate(
+        currentEmployee.save();
+      });
+
+      const updatedEmployee = await Employee.findOne(
         {
           firstName: args.esthetician.split(" ")[0],
           lastName: args.esthetician.split(" ")[1],
         },
-        updateNotification,
-        {
-          new: true,
+        (err, currentEmployee) => {
+          const notificationsObj = updateNotifications(currentEmployee);
+          currentEmployee.notifications = notificationsObj.notifications;
+
+          currentEmployee.save();
         }
       );
 
@@ -637,29 +639,31 @@ const addAppointmentMutation = {
       }
     }
 
-    await Employee.updateMany(
-      {
+    (
+      await Employee.find({
         employeeRole: "Admin",
         firstName: {
           $ne: args.esthetician.split(" ")[0],
         },
         lastName: { $ne: args.esthetician.split(" ")[1] },
-      },
-      updateNotification,
-      {
-        new: true,
-        multi: true,
-      }
-    );
+      })
+    ).forEach((currentEmployee) => {
+      const notificationsObj = updateNotifications(currentEmployee);
+      currentEmployee.notifications = notificationsObj.notifications;
 
-    const updatedEmployee = await Employee.findOneAndUpdate(
+      currentEmployee.save();
+    });
+
+    const updatedEmployee = await Employee.findOne(
       {
         firstName: args.esthetician.split(" ")[0],
         lastName: args.esthetician.split(" ")[1],
       },
-      updateNotification,
-      {
-        new: true,
+      (err, currentEmployee) => {
+        const notificationsObj = updateNotifications(currentEmployee);
+        currentEmployee.notifications = notificationsObj.notifications;
+
+        currentEmployee.save();
       }
     );
 

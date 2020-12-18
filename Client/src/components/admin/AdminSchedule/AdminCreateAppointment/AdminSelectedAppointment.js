@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import { BounceLoader } from "react-spinners";
 import { css } from "@emotion/css";
-import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 import { useMutation } from "@apollo/react-hooks";
-import { deleteAppointmentMutation } from "../../../../graphql/queries/queries";
+import deleteAppointmentMutation from "../../../../graphql/mutations/deleteAppointmentMutation";
 import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 
 const AdminSelectedAppointment = React.forwardRef((props, ref) => {
   const {

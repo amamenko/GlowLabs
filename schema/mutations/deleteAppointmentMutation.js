@@ -1,4 +1,5 @@
 const graphql = require("graphql");
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const Appointment = require("../../models/appointment");
 const AppointmentInput = require("../types/inputs/AppointmentInput");
@@ -71,34 +72,34 @@ const deleteAppointmentMutation = {
             createdByLastName: deletingEmployee.lastName,
           });
 
-          const update = createNotificationFunction(
-            newNotification,
-            deletingEmployee
-          );
+          const updateNotifications = (staff) =>
+            createNotificationFunction(newNotification, staff);
 
-          await Employee.updateMany(
-            {
+          (
+            await Employee.find({
               employeeRole: "Admin",
               firstName: {
                 $ne: selectedAppointment.esthetician.split(" ")[0],
               },
               lastName: { $ne: selectedAppointment.esthetician.split(" ")[1] },
-            },
-            update,
-            {
-              new: true,
-              multi: true,
-            }
-          );
+            })
+          ).forEach((currentEmployee) => {
+            const notificationsObj = updateNotifications(currentEmployee);
+            currentEmployee.notifications = notificationsObj.notifications;
 
-          const updatedEmployee = await Employee.findOneAndUpdate(
+            currentEmployee.save();
+          });
+
+          const updatedEmployee = await Employee.findOne(
             {
               firstName: selectedAppointment.esthetician.split(" ")[0],
               lastName: selectedAppointment.esthetician.split(" ")[1],
             },
-            update,
-            {
-              new: true,
+            (err, currentEmployee) => {
+              const notificationsObj = updateNotifications(currentEmployee);
+              currentEmployee.notifications = notificationsObj.notifications;
+
+              currentEmployee.save();
             }
           );
 
@@ -145,34 +146,34 @@ const deleteAppointmentMutation = {
             createdByLastName: deletingEmployee.lastName,
           });
 
-          const update = createNotificationFunction(
-            newNotification,
-            deletingEmployee
-          );
+          const updateNotifications = (staff) =>
+            createNotificationFunction(newNotification, staff);
 
-          await Employee.updateMany(
-            {
+          (
+            await Employee.find({
               employeeRole: "Admin",
               firstName: {
                 $ne: selectedAppointment.esthetician.split(" ")[0],
               },
               lastName: { $ne: selectedAppointment.esthetician.split(" ")[1] },
-            },
-            update,
-            {
-              new: true,
-              multi: true,
-            }
-          );
+            })
+          ).forEach((currentEmployee) => {
+            const notificationsObj = updateNotifications(currentEmployee);
+            currentEmployee.notifications = notificationsObj.notifications;
 
-          const updatedEmployee = await Employee.findOneAndUpdate(
+            currentEmployee.save();
+          });
+
+          const updatedEmployee = await Employee.findOne(
             {
               firstName: selectedAppointment.esthetician.split(" ")[0],
               lastName: selectedAppointment.esthetician.split(" ")[1],
             },
-            update,
-            {
-              new: true,
+            (err, currentEmployee) => {
+              const notificationsObj = updateNotifications(currentEmployee);
+              currentEmployee.notifications = notificationsObj.notifications;
+
+              currentEmployee.save();
             }
           );
 

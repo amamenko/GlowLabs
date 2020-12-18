@@ -8,7 +8,6 @@ import {
   CreditCardCVVInput,
   CreditCardSubmitButton,
 } from "react-square-payment-form";
-import "./PaymentInfo.css";
 import {
   faChevronLeft,
   faChevronRight,
@@ -18,12 +17,10 @@ import {
 import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import {
-  updateClientSquareIDMutation,
-  updateUnsavedSquareCardIDsMutation,
-  getClientsQuery,
-  removeOneUnsavedSquareCardIDsMutation,
-} from "../../graphql/queries/queries";
+import getClientsQuery from "../../graphql/queries/getClientsQuery";
+import removeOneUnsavedSquareCardIDsMutation from "../../graphql/mutations/removeOneUnsavedSquareCardIDsMutation";
+import updateUnsavedSquareCardIDsMutation from "../../graphql/mutations/updateUnsavedSquareCardIDsMutation";
+import updateClientSquareIDMutation from "../../graphql/mutations/updateClientSquareIDMutation";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { FormGroup, Label, Input } from "reactstrap";
 import Modal from "react-modal";
@@ -39,6 +36,7 @@ import ACTION_BOOKED_WITH_CARD_ID from "../../actions/PaymentInfo/BookedWithCard
 import ACTION_CONFIRMATION_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CONFIRMATION_PAGE_OPENED";
 import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
 import ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
+import "./PaymentInfo.css";
 
 const PaymentInfo = (props) => {
   const dispatch = useDispatch();

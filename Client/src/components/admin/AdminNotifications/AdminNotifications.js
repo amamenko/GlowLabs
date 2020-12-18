@@ -14,9 +14,10 @@ import UpdatePersonalEventNotification from "./Notifications/PersonalEvents/Upda
 import AddStaffNotification from "./Notifications/Staff/AddStaffNotification";
 import DeleteStaffNotification from "./Notifications/Staff/DeleteStaffNotification";
 import CancelPersonalEventNotification from "./Notifications/PersonalEvents/CancelPersonalEventNotification";
+import UpdateConsentFormNotification from "./Notifications/ConsentForm/UpdateConsentFormNotification";
+import { css } from "@emotion/css";
 import ACTION_ON_ACTIVITY_PAGE from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 import "./AdminNotifications.css";
-import { css } from "@emotion/css";
 
 const AdminNotifications = (props) => {
   const { getEmployeeData, getEmployeeLoading, resetNotifications } = props;
@@ -197,6 +198,14 @@ const AdminNotifications = (props) => {
               } else if (notification.type === "cancelPersonalEvent") {
                 return (
                   <CancelPersonalEventNotification
+                    key={i}
+                    notification={notification}
+                    employee={getEmployeeData.employee}
+                  />
+                );
+              } else if (notification.type === "updateConsentForm") {
+                return (
+                  <UpdateConsentFormNotification
                     key={i}
                     notification={notification}
                     employee={getEmployeeData.employee}

@@ -33,16 +33,12 @@ import {
 } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
-import "./styles.css";
-import {
-  updateClientInvalidateTokensMutation,
-  getClientQuery,
-  getEmployeeQuery,
-  getEmployeesQuery,
-  updateEmployeeInvalidateTokensMutation,
-  getUpdatedEmployeeSubscription,
-} from "./graphql/queries/queries";
+import getClientQuery from "./graphql/queries/getClientQuery";
+import getEmployeeQuery from "./graphql/queries/getEmployeeQuery";
+import getEmployeesQuery from "./graphql/queries/getEmployeesQuery";
+import updateClientInvalidateTokensMutation from "./graphql/mutations/updateClientInvalidateTokensMutation";
+import updateEmployeeInvalidateTokensMutation from "./graphql/mutations/updateEmployeeInvalidateTokensMutation";
+import getUpdatedEmployeeSubscription from "./graphql/subscriptions/getUpdatedEmployeeSubscription";
 import apolloClient from "./apolloClient";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -136,6 +132,8 @@ import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE"
 import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_RESET_ADMIN_NOTIFICATIONS";
 import ACTION_ON_ACTIVITY_PAGE from "./actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
+import "react-toastify/dist/ReactToastify.min.css";
+import "./styles.css";
 
 require("dotenv").config();
 require("intersection-observer");

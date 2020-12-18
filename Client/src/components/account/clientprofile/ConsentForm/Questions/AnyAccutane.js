@@ -12,16 +12,16 @@ import ACTION_ANY_ACCUTANE_YES_RESET from "../../../../../actions/ConsentForm/An
 import ACTION_ANY_ACCUTANE_YES from "../../../../../actions/ConsentForm/AnyAccutane/Yes/ACTION_ANY_ACCUTANE_YES";
 import ACTION_ANY_ACCUTANE_NOTES from "../../../../../actions/ConsentForm/AnyAccutane/Yes/Notes/ACTION_ANY_ACCUTANE_NOTES";
 
-const AnyAccutane = props => {
+const AnyAccutane = (props) => {
   const dispatch = useDispatch();
   const anyAccutaneNo = useSelector(
-    state => state.anyAccutaneNo.any_accutane_no_active
+    (state) => state.anyAccutaneNo.any_accutane_no_active
   );
   const anyAccutaneYes = useSelector(
-    state => state.anyAccutaneYes.any_accutane_yes_active
+    (state) => state.anyAccutaneYes.any_accutane_yes_active
   );
   const anyAccutaneNotes = useSelector(
-    state => state.anyAccutaneNotes.any_accutane_notes
+    (state) => state.anyAccutaneNotes.any_accutane_notes
   );
   const [pageOpened, changePageOpened] = useState(false);
 
@@ -38,7 +38,7 @@ const AnyAccutane = props => {
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -79,27 +79,7 @@ const AnyAccutane = props => {
                 : "1rem"
             }
             style={{
-              marginTop:
-                props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1800
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1600
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1200
-                    ? "-0.5rem"
-                    : props.initialScreenSize >= 360
-                    ? "-0.5rem"
-                    : "0rem"
-                  : props.currentScreenSize >= 1800
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1600
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1200
-                  ? "-0.5rem"
-                  : props.currentScreenSize >= 360
-                  ? "-0.5rem"
-                  : "0rem",
-              display: "block"
+              display: "block",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -141,7 +121,7 @@ const AnyAccutane = props => {
     }
   };
 
-  const handleAnyAccutaneNotes = e => {
+  const handleAnyAccutaneNotes = (e) => {
     dispatch(ACTION_ANY_ACCUTANE_NOTES(e.currentTarget.value.trim()));
   };
 
@@ -199,7 +179,7 @@ const AnyAccutane = props => {
           <Input
             type="textarea"
             style={{
-              fontFamily: "Montserrat"
+              fontFamily: "Montserrat",
             }}
             defaultValue={anyAccutaneNotes}
             placeholder="Enter any information here."

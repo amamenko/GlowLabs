@@ -12,16 +12,16 @@ import ACTION_ANY_HEALTH_PROBLEMS_YES_RESET from "../../../../../actions/Consent
 import ACTION_ANY_HEALTH_PROBLEMS_YES from "../../../../../actions/ConsentForm/AnyHealthProblems/Yes/ACTION_ANY_HEALTH_PROBLEMS_YES";
 import ACTION_ANY_HEALTH_PROBLEMS_NOTES from "../../../../../actions/ConsentForm/AnyHealthProblems/Yes/Notes/ACTION_ANY_HEALTH_PROBLEMS_NOTES";
 
-const AnyHealthProblems = props => {
+const AnyHealthProblems = (props) => {
   const dispatch = useDispatch();
   const anyHealthProblemsNo = useSelector(
-    state => state.anyHealthProblemsNo.any_health_problems_no_active
+    (state) => state.anyHealthProblemsNo.any_health_problems_no_active
   );
   const anyHealthProblemsYes = useSelector(
-    state => state.anyHealthProblemsYes.any_health_problems_yes_active
+    (state) => state.anyHealthProblemsYes.any_health_problems_yes_active
   );
   const anyHealthProblemsNotes = useSelector(
-    state => state.anyHealthProblemsNotes.any_health_problems_notes
+    (state) => state.anyHealthProblemsNotes.any_health_problems_notes
   );
   const [pageOpened, changePageOpened] = useState(false);
 
@@ -38,7 +38,7 @@ const AnyHealthProblems = props => {
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -79,27 +79,7 @@ const AnyHealthProblems = props => {
                 : "1rem"
             }
             style={{
-              marginTop:
-                props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1800
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1600
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1200
-                    ? "-0.5rem"
-                    : props.initialScreenSize >= 360
-                    ? "-0.5rem"
-                    : "0rem"
-                  : props.currentScreenSize >= 1800
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1600
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1200
-                  ? "-0.5rem"
-                  : props.currentScreenSize >= 360
-                  ? "-0.5rem"
-                  : "0rem",
-              display: "block"
+              display: "block",
             }}
             viewBox="0 0 13.229 13.229"
           >
@@ -141,7 +121,7 @@ const AnyHealthProblems = props => {
     }
   };
 
-  const handleAnyHealthProblemsNotes = e => {
+  const handleAnyHealthProblemsNotes = (e) => {
     dispatch(ACTION_ANY_HEALTH_PROBLEMS_NOTES(e.currentTarget.value.trim()));
   };
 
@@ -200,7 +180,7 @@ const AnyHealthProblems = props => {
           <Input
             type="textarea"
             style={{
-              fontFamily: "Montserrat"
+              fontFamily: "Montserrat",
             }}
             defaultValue={anyHealthProblemsNotes}
             placeholder="Enter any health problems here."

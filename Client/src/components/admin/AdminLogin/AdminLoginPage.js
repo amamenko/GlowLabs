@@ -1,19 +1,18 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Redirect } from "react-router-dom";
-import "./AdminLoginPage.css";
 import AdminLoginEmail from "./AdminLoginEmail";
 import AdminLoginPassword from "./AdminLoginPassword";
 import { Form } from "reactstrap";
 import Modal from "react-modal";
 import { css } from "@emotion/css";
-import {
-  adminLoginQuery,
-  getEmployeesQuery,
-  updateAdminPasswordMutation,
-} from "../../../graphql/queries/queries";
+import adminLoginQuery from "../../../graphql/queries/adminLoginQuery";
+import getEmployeesQuery from "../../../graphql/queries/getEmployeesQuery";
+import updateAdminPasswordMutation from "../../../graphql/mutations/updateAdminPasswordMutation";
 import { useLazyQuery, useQuery, useMutation } from "@apollo/react-hooks";
 import { BounceLoader } from "react-spinners";
+import AdminNewPassword from "./AdminNewPassword/AdminNewPassword";
+import AdminConfirmNewPassword from "./AdminNewPassword/AdminConfirmNewPassword";
 import ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID from "../../../actions/Admin/AdminLogin/AdminEmail/Invalid/ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID";
 import ACTION_ADMIN_LOGIN_EMAIL_INVALID from "../../../actions/Admin/AdminLogin/AdminEmail/Invalid/ACTION_ADMIN_LOGIN_EMAIL_INVALID";
 import ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID from "../../../actions/Admin/AdminLogin/AdminPassword/Invalid/ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID";
@@ -22,8 +21,7 @@ import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIV
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
-import AdminNewPassword from "./AdminNewPassword/AdminNewPassword";
-import AdminConfirmNewPassword from "./AdminNewPassword/AdminConfirmNewPassword";
+import "./AdminLoginPage.css";
 
 const AdminLoginPage = (props) => {
   const dispatch = useDispatch();

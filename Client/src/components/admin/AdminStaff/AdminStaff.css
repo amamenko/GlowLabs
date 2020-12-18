@@ -30,6 +30,15 @@
   cursor: pointer;
 }
 
+.errorsContainer > .errorMessage {
+  position: absolute;
+  top: 0;
+  bottom: 25%;
+  left: 0;
+  right: 0;
+  padding-bottom: 0 !important;
+}
+
 .admin_add_staff_dropdown_placeholder_no_time::before {
   background: #fff;
   position: absolute;

@@ -62,25 +62,28 @@ const addPersonalEventMutation = {
         createdByLastName: addingEmployee.lastName,
       });
 
-      const update = createNotificationFunction(
-        newNotification,
-        addingEmployee
-      );
+      const updateNotifications = (staff) =>
+        createNotificationFunction(newNotification, staff);
 
-      await Employee.updateMany(
-        { employeeRole: "Admin", _id: { $ne: decodedAdminID } },
-        update,
-        {
-          new: true,
-          multi: true,
-        }
-      );
+      (
+        await Employee.find({
+          employeeRole: "Admin",
+          _id: { $ne: decodedAdminID },
+        })
+      ).forEach((currentEmployee) => {
+        const notificationsObj = updateNotifications(currentEmployee);
+        currentEmployee.notifications = notificationsObj.notifications;
 
-      const updatedEmployee = await Employee.findOneAndUpdate(
+        currentEmployee.save();
+      });
+
+      const updatedEmployee = await Employee.findOne(
         { _id: decodedAdminID },
-        update,
-        {
-          new: true,
+        (err, currentEmployee) => {
+          const notificationsObj = updateNotifications(currentEmployee);
+          currentEmployee.notifications = notificationsObj.notifications;
+
+          currentEmployee.save();
         }
       );
 

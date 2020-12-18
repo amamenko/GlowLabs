@@ -24,12 +24,12 @@ import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSu
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import "./AdminSchedule.css";
-import "../../account/clientprofile/MyAppointments/MyAppointments.css";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useSelector } from "react-redux";
 import AdminSelectedAppointment from "./AdminCreateAppointment/AdminSelectedAppointment";
 import AdminSelectedPersonalEvent from "./AdminPersonalEvent/AdminSelectedPersonalEvent";
+import "./AdminSchedule.css";
+import "../../account/clientprofile/MyAppointments/MyAppointments.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const AdminCalendarComponent = (props) => {
   const selectedAppointmentBackRef = useRef(null);

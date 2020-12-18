@@ -13,7 +13,7 @@ import { BounceLoader } from "react-spinners";
 import { useSelector, useDispatch } from "react-redux";
 import { css } from "@emotion/css";
 import { useMutation } from "@apollo/react-hooks";
-import { deleteAppointmentMutation } from "../../../graphql/queries/queries";
+import deleteAppointmentMutation from "../../../graphql/mutations/deleteAppointmentMutation";
 import { useLocation } from "react-router-dom";
 import CalmSummaryCard from "../../checkout/SummaryReviewCards/Treatments/CalmSummaryCard";
 import BacialSummaryCard from "../../checkout/SummaryReviewCards/Treatments/BacialSummaryCard";
@@ -36,12 +36,12 @@ import DermarollingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/De
 import NanoNeedlingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
-import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import SaltCaveSummaryCard from "../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import ACTION_LOADING_SPINNER_RESET from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
+import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 
 const AdminRenderUpcomingAppointments = (props) => {
   const location = useLocation();

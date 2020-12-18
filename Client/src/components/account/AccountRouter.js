@@ -14,10 +14,8 @@ import FacebookCompleteRegistration from "./login/FacebookCompleteRegistration/F
 import UpcomingAppointments from "./clientprofile/MyAppointments/Upcoming/UpcomingAppointments";
 import PastAppointments from "./clientprofile/MyAppointments/Past/PastAppointments";
 import { useLazyQuery } from "@apollo/react-hooks";
-import {
-  getOwnAppointmentsQuery,
-  getOwnPastAppointmentsQuery,
-} from "../../graphql/queries/queries";
+import getOwnPastAppointmentsQuery from "../../graphql/queries/getOwnPastAppointmentsQuery";
+import getOwnAppointmentsQuery from "../../graphql/queries/getOwnAppointmentsQuery";
 import MyProfile from "./clientprofile/MyProfile/MyProfile";
 import SkinCareRoutine from "./clientprofile/MyProfile/SkinCareRoutine/SkinCareRoutine";
 import MyRoutine from "./clientprofile/MyProfile/SkinCareRoutine/MyRoutine";

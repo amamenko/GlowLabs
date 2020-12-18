@@ -16,23 +16,23 @@ import ACTION_EXFOLIATING_SCRUBS from "../../../../../actions/ConsentForm/AnyPro
 import ACTION_VITAMIN_A_RESET from "../../../../../actions/ConsentForm/AnyProductsWithIngredients/VitaminA/ACTION_VITAMIN_A_RESET";
 import ACTION_VITAMIN_A from "../../../../../actions/ConsentForm/AnyProductsWithIngredients/VitaminA/ACTION_VITAMIN_A";
 
-const AnyProductsWithIngredients = props => {
+const AnyProductsWithIngredients = (props) => {
   const dispatch = useDispatch();
 
   const ingredientGlycolicAcid = useSelector(
-    state => state.ingredientGlycolicAcid.glycolic_acid_active
+    (state) => state.ingredientGlycolicAcid.glycolic_acid_active
   );
   const ingredientLacticAcid = useSelector(
-    state => state.ingredientLacticAcid.lactic_acid_active
+    (state) => state.ingredientLacticAcid.lactic_acid_active
   );
   const ingredientSalicyclicAcid = useSelector(
-    state => state.ingredientSalicyclicAcid.salicyclic_acid_active
+    (state) => state.ingredientSalicyclicAcid.salicyclic_acid_active
   );
   const ingredientExfoliatingScrubs = useSelector(
-    state => state.ingredientExfoliatingScrubs.exfoliating_scrubs_active
+    (state) => state.ingredientExfoliatingScrubs.exfoliating_scrubs_active
   );
   const ingredientVitaminA = useSelector(
-    state => state.ingredientVitaminA.vitamin_a_active
+    (state) => state.ingredientVitaminA.vitamin_a_active
   );
 
   const [pageOpened, changePageOpened] = useState(false);
@@ -50,7 +50,7 @@ const AnyProductsWithIngredients = props => {
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -91,27 +91,7 @@ const AnyProductsWithIngredients = props => {
                 : "1rem"
             }
             style={{
-              marginTop:
-                props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1800
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1600
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1200
-                    ? "-0.5rem"
-                    : props.initialScreenSize >= 360
-                    ? "-0.5rem"
-                    : "0rem"
-                  : props.currentScreenSize >= 1800
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1600
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1200
-                  ? "-0.5rem"
-                  : props.currentScreenSize >= 360
-                  ? "-0.5rem"
-                  : "0rem",
-              display: "block"
+              display: "block",
             }}
             viewBox="0 0 13.229 13.229"
           >

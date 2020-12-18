@@ -8,19 +8,17 @@ import {
   faExternalLinkAlt,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "@apollo/react-hooks";
+import deleteMyRoutineItemMutation from "../../../../../../graphql/mutations/deleteMyRoutineItemMutation";
+import updateMyRoutineMutation from "../../../../../../graphql/mutations/updateMyRoutineMutation";
+import { BounceLoader } from "react-spinners";
+import { css } from "@emotion/css";
 import ACTION_MORNING_CLEANSER_PRODUCT_NAME from "../../../../../../actions/MyRoutine/Morning/Cleanser/ProductName/ACTION_MORNING_CLEANSER_NAME";
 import ACTION_MORNING_CLEANSER_PRODUCT_FREQUENCY from "../../../../../../actions/MyRoutine/Morning/Cleanser/ProductFrequency/ACTION_MORNING_CLEANSER_PRODUCT_FREQUENCY";
 import ACTION_MORNING_CLEANSER_PRODUCT_USE_NOTES from "../../../../../../actions/MyRoutine/Morning/Cleanser/ProductUseNotes/ACTION_MORNING_CLEANSER_PRODUCT_USE_NOTES";
 import ACTION_MORNING_CLEANSER_PRODUCT_LINK from "../../../../../../actions/MyRoutine/Morning/Cleanser/ProductLink/ACTION_MORNING_CLEANSER_PRODUCT_LINK";
-import { useDispatch, useSelector } from "react-redux";
 import ACTION_RESET_ALL_MORNING_CLEANSER_FIELDS from "../../../../../../actions/MyRoutine/Morning/Cleanser/ACTION_RESET_ALL_MORNING_CLEANSER_FIELDS";
-import { useMutation } from "@apollo/react-hooks";
-import {
-  updateMyRoutineMutation,
-  deleteMyRoutineItemMutation,
-} from "../../../../../../graphql/queries/queries";
-import { BounceLoader } from "react-spinners";
-import { css } from "@emotion/css";
 
 const MorningCleanser = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();

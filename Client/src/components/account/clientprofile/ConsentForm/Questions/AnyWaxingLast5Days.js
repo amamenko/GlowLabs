@@ -10,13 +10,13 @@ import ACTION_ANY_WAXING_LAST_5_DAYS_NO from "../../../../../actions/ConsentForm
 import ACTION_ANY_WAXING_LAST_5_DAYS_YES_RESET from "../../../../../actions/ConsentForm/AnyWaxingLast5Days/Yes/ACTION_ANY_WAXING_LAST_5_DAYS_YES_RESET";
 import ACTION_ANY_WAXING_LAST_5_DAYS_YES from "../../../../../actions/ConsentForm/AnyWaxingLast5Days/Yes/ACTION_ANY_WAXING_LAST_5_DAYS_YES";
 
-const AnyWaxingLast5Days = props => {
+const AnyWaxingLast5Days = (props) => {
   const dispatch = useDispatch();
   const anyWaxingLast5DaysNo = useSelector(
-    state => state.anyWaxingLast5DaysNo.any_waxing_last_5_days_no_active
+    (state) => state.anyWaxingLast5DaysNo.any_waxing_last_5_days_no_active
   );
   const anyWaxingLast5DaysYes = useSelector(
-    state => state.anyWaxingLast5DaysYes.any_waxing_last_5_days_yes_active
+    (state) => state.anyWaxingLast5DaysYes.any_waxing_last_5_days_yes_active
   );
   const [pageOpened, changePageOpened] = useState(false);
 
@@ -33,7 +33,7 @@ const AnyWaxingLast5Days = props => {
   const checkMark = () => {
     return (
       <Spring from={{ x: 100 }} to={{ x: 0 }} config={{ duration: 2000 }}>
-        {styles => (
+        {(styles) => (
           <svg
             width={
               props.currentScreenSize === ""
@@ -74,27 +74,7 @@ const AnyWaxingLast5Days = props => {
                 : "1rem"
             }
             style={{
-              marginTop:
-                props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1800
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1600
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1200
-                    ? "-0.5rem"
-                    : props.initialScreenSize >= 360
-                    ? "-0.5rem"
-                    : "0rem"
-                  : props.currentScreenSize >= 1800
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1600
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1200
-                  ? "-0.5rem"
-                  : props.currentScreenSize >= 360
-                  ? "-0.5rem"
-                  : "0rem",
-              display: "block"
+              display: "block",
             }}
             viewBox="0 0 13.229 13.229"
           >

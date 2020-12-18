@@ -7,6 +7,10 @@ import CreateAccountEmail from "./CreateAccountEmail/CreateAccountEmail";
 import CreateAccountPhoneNumber from "./CreateAccountPhoneNumber/CreateAccountPhoneNumber";
 import CreateAccountPassword from "./CreateAccountPassword/CreateAccountPassword";
 import CreateAccountConfirmPassword from "./CreateAccountConfirmPassword.js/CreateAccountConfirmPassword";
+import registerClientMutation from "../../../graphql/mutations/registerClientMutation";
+import { useMutation } from "@apollo/react-hooks";
+import { BounceLoader } from "react-spinners";
+import { css } from "@emotion/css";
 import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 import ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET from "../../../actions/CreateAccount/CreateAccountFirstName/ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET";
 import ACTION_CREATE_ACCOUNT_FIRST_NAME from "../../../actions/CreateAccount/CreateAccountFirstName/ACTION_CREATE_ACCOUNT_FIRST_NAME";
@@ -15,10 +19,6 @@ import ACTION_CREATE_ACCOUNT_LAST_NAME_RESET from "../../../actions/CreateAccoun
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import "./SignUp.css";
-import { registerClientMutation } from "../../../graphql/queries/queries";
-import { useMutation } from "@apollo/react-hooks";
-import { BounceLoader } from "react-spinners";
-import { css } from "@emotion/css";
 
 const SignUp = (props) => {
   let location = useLocation();

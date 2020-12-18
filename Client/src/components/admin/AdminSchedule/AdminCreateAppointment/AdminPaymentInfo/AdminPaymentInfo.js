@@ -7,18 +7,16 @@ import {
   CreditCardCVVInput,
   CreditCardSubmitButton,
 } from "react-square-payment-form";
-import "./AdminPaymentInfo.css";
 import Dropdown from "react-dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { useMutation } from "@apollo/react-hooks";
+import updateClientSquareIDMutation from "../../../../../graphql/mutations/updateClientSquareIDMutation";
+import updateUnsavedSquareCardIDsMutation from "../../../../../graphql/mutations/updateUnsavedSquareCardIDsMutation";
 import ACTION_BOOKED_WITH_CARD_ID_RESET from "../../../../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID_RESET";
 import ACTION_SQUARE_CUSTOMER_ID from "../../../../../actions/PaymentInfo/SquareCustomerID/ACTION_SQUARE_CUSTOMER_ID";
 import ACTION_BOOKED_WITH_CARD_ID from "../../../../../actions/PaymentInfo/BookedWithCardID/ACTION_BOOKED_WITH_CARD_ID";
-import { useMutation } from "@apollo/react-hooks";
-import {
-  updateUnsavedSquareCardIDsMutation,
-  updateClientSquareIDMutation,
-} from "../../../../../graphql/queries/queries";
+import "./AdminPaymentInfo.css";
 
 const AdminPaymentInfo = (props) => {
   const { getClientsData, getClientsRefetch, handleSubmitBooking } = props;

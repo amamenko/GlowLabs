@@ -1,10 +1,16 @@
 const graphql = require("graphql");
+const mongoose = require("mongoose");
 const ConsentFormType = require("../types/ConsentFormType");
 const Client = require("../../models/client");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
+const Employee = require("../../models/employee");
+const Notification = require("../../models/notification");
+const createNotificationFunction = require("./notifications/createNotificationFunction");
 
 const { GraphQLString, GraphQLBoolean, GraphQLNonNull } = graphql;
+
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const updateConsentFormMutation = {
   type: ConsentFormType,
@@ -104,20 +110,24 @@ const updateConsentFormMutation = {
         createdByLastName: client.lastName,
       });
 
-      const update = createNotificationFunction(
-        newNotification,
-        addingEmployee
-      );
-
-      await Employee.updateMany({ employeeRole: "Admin" }, update, {
-        new: true,
-        multi: true,
-      });
+      const updateNotifications = (staff) =>
+        createNotificationFunction(newNotification, staff);
 
       let employeeRes = "";
 
+      (
+        await Employee.find({
+          employeeRole: "Admin",
+        })
+      ).forEach(async (currentEmployee) => {
+        const notificationsObj = updateNotifications(currentEmployee);
+        currentEmployee.notifications = notificationsObj.notifications;
+
+        employeeRes = await currentEmployee.save();
+      });
+
       context.pubsub.publish(UPDATED_EMPLOYEE, {
-        employee: updatedEmployeeRes,
+        employee: employeeRes,
       });
 
       return {

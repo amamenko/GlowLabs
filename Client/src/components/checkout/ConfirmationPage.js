@@ -4,10 +4,8 @@ import { Transition, Spring } from "react-spring/renderprops";
 import { css } from "@emotion/css";
 import { BounceLoader } from "react-spinners";
 import Modal from "react-modal";
-import {
-  addAppointmentMutation,
-  getClientQuery,
-} from "../../graphql/queries/queries";
+import getClientQuery from "../../graphql/queries/getClientQuery";
+import addAppointmentMutation from "../../graphql/mutations/addAppointmentMutation";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,6 +38,8 @@ import DermarollingSummaryCard from "./SummaryReviewCards/AddOns/DermarollingSum
 import NanoNeedlingSummaryCard from "./SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "./SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "./SummaryReviewCards/AddOns/BeardSummaryCard";
+import SaltCaveSummaryCard from "./SummaryReviewCards/Treatments/SaltCaveSummaryCard";
+import UnsureSummaryCard from "./SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_LOADING_SPINNER_RESET from "../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_FINAL_BOOK_BUTTON_ACTIVE from "../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_ACTIVE";
@@ -71,17 +71,15 @@ import ACTION_AVAILABILITY_RESET from "../../actions/AvailabilityClicked/ACTION_
 import ACTION_APPOINTMENT_END_TIME_RESET from "../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME_RESET";
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
-import UnsureSummaryCard from "./SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
 import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
 import ACTION_FINAL_BOOKING_MODAL_ACTIVE from "../../actions/InCart/FinalBookingModal/ACTION_FINAL_BOOKING_MODAL_ACTIVE";
 import ACTION_FINAL_BOOKING_MODAL_RESET from "../../actions/InCart/FinalBookingModal/ACTION_FINAL_BOOKING_MODAL_RESET";
 import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CART_PAGE_OPENED";
-import "./ConfirmationPage.css";
-import SaltCaveSummaryCard from "./SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import ACTION_SELECTED_SALT_CAVE_DURATION_RESET from "../../actions/Treatments/SaltCave/SaltCaveDuration/ACTION_SELECTED_SALT_CAVE_DURATION_RESET";
 import ACTION_DAY_OF_THE_WEEK_RESET from "../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
+import "./ConfirmationPage.css";
 
 const ConfirmationPage = (props) => {
   let location = useLocation();

@@ -9,18 +9,16 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
+import deleteMyRoutineItemMutation from "../../../../../../graphql/mutations/deleteMyRoutineItemMutation";
+import updateMyRoutineMutation from "../../../../../../graphql/mutations/updateMyRoutineMutation";
+import { useMutation } from "@apollo/react-hooks";
+import { css } from "@emotion/css";
+import { BounceLoader } from "react-spinners";
 import ACTION_MORNING_EYE_CREAM_PRODUCT_NAME from "../../../../../../actions/MyRoutine/Morning/EyeCream/ProductName/ACTION_MORNING_EYE_CREAM_PRODUCT_NAME";
 import ACTION_MORNING_EYE_CREAM_PRODUCT_FREQUENCY from "../../../../../../actions/MyRoutine/Morning/EyeCream/ProductFrequency/ACTION_MORNING_EYE_CREAM_PRODUCT_FREQUENCY";
 import ACTION_MORNING_EYE_CREAM_PRODUCT_USE_NOTES from "../../../../../../actions/MyRoutine/Morning/EyeCream/ProductUseNotes/ACTION_MORNING_EYE_CREAM_PRODUCT_USE_NOTES";
 import ACTION_MORNING_EYE_CREAM_PRODUCT_LINK from "../../../../../../actions/MyRoutine/Morning/EyeCream/ProductLink/ACTION_MORNING_EYE_CREAM_PRODUCT_LINK";
 import ACTION_RESET_ALL_MORNING_EYE_CREAM_FIELDS from "../../../../../../actions/MyRoutine/Morning/EyeCream/ACTION_RESET_ALL_MORNING_EYE_CREAM_FIELDS";
-import {
-  deleteMyRoutineItemMutation,
-  updateMyRoutineMutation,
-} from "../../../../../../graphql/queries/queries";
-import { useMutation } from "@apollo/react-hooks";
-import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
 
 const MorningEyeCream = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();

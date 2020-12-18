@@ -6,6 +6,19 @@ import {
   faSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
+import { formatDate, parseDate } from "react-day-picker/moment";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import Dropdown from "react-dropdown";
+import { useMutation } from "@apollo/react-hooks";
+import addPersonalEventMutation from "../../../../graphql/mutations/addPersonalEventMutation";
+import Modal from "react-modal";
+import { BounceLoader } from "react-spinners";
+import { css } from "@emotion/css";
+import moment from "moment";
+import ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventAllDay/ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY";
+import ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventBlockTime/ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_ADMIN_PERSONAL_EVENT_TITLE from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventTitle/ACTION_ADMIN_PERSONAL_EVENT_TITLE";
 import ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY_RESET from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventAllDay/ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY_RESET";
 import ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME_RESET from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventBlockTime/ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME_RESET";
@@ -20,26 +33,11 @@ import ACTION_ADMIN_PERSONAL_EVENT_DATE from "../../../../actions/Admin/AdminPer
 import ACTION_ADMIN_PERSONAL_EVENT_START_TIME from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventStartTime/ACTION_ADMIN_PERSONAL_EVENT_START_TIME";
 import ACTION_ADMIN_PERSONAL_EVENT_END_TIME from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventEndTime/ACTION_ADMIN_PERSONAL_EVENT_END_TIME";
 import ACTION_ADMIN_PERSONAL_EVENT_STAFF from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventStaff/ACTION_ADMIN_PERSONAL_EVENT_STAFF";
-import { formatDate, parseDate } from "react-day-picker/moment";
-import DayPickerInput from "react-day-picker/DayPickerInput";
 import "../AdminCreateAppointment/AdminCreateAppointment.css";
 import "./AdminPersonalEvent.css";
-import Dropdown from "react-dropdown";
-import ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventAllDay/ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY";
-import ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventBlockTime/ACTION_ADMIN_PERSONAL_EVENT_BLOCK_TIME";
-import { useMutation } from "@apollo/react-hooks";
-import { addPersonalEventMutation } from "../../../../graphql/queries/queries";
-import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
-import Modal from "react-modal";
-import { BounceLoader } from "react-spinners";
-import { css } from "@emotion/css";
-import moment from "moment";
-import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 
 const AdminPersonalEvent = (props) => {
   const {
-    initialScreenSize,
-    currentScreenSize,
     stopTransition,
     personalEventClicked,
     changeStopTransition,
@@ -231,26 +229,6 @@ const AdminPersonalEvent = (props) => {
           <svg
             width="100%"
             style={{
-              marginTop:
-                currentScreenSize === ""
-                  ? initialScreenSize >= 1800
-                    ? "-0.2rem"
-                    : initialScreenSize >= 1600
-                    ? "-0.2rem"
-                    : initialScreenSize >= 1200
-                    ? "-0.5rem"
-                    : initialScreenSize >= 360
-                    ? "-0.5rem"
-                    : "0rem"
-                  : currentScreenSize >= 1800
-                  ? "-0.2rem"
-                  : currentScreenSize >= 1600
-                  ? "-0.2rem"
-                  : currentScreenSize >= 1200
-                  ? "-0.5rem"
-                  : currentScreenSize >= 360
-                  ? "-0.5rem"
-                  : "0rem",
               display: "block",
             }}
             viewBox="0 0 13.229 13.229"

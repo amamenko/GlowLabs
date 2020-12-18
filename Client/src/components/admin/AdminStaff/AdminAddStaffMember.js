@@ -10,7 +10,7 @@ import { BounceLoader } from "react-spinners";
 import phone from "phone";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
-import { addEmployeeMutation } from "../../../graphql/queries/queries";
+import addEmployeeMutation from "../../../graphql/mutations/addEmployeeMutation";
 import Dropdown from "react-dropdown";
 import ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER";
 import ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER_RESET from "../../../actions/Admin/AdminAddStaffMember/AdminStaffMemberPhoneNumber/ACTION_ADMIN_STAFF_MEMBER_PHONE_NUMBER_RESET";

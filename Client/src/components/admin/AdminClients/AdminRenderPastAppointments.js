@@ -30,8 +30,8 @@ import DermarollingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/De
 import NanoNeedlingSummaryCard from "../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
-import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import SaltCaveSummaryCard from "../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
+import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 
 const AdminRenderUpcomingAppointments = (props) => {
   const location = useLocation();

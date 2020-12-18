@@ -14,11 +14,9 @@ import imageCompression from "browser-image-compression";
 import ImageUploader from "react-images-upload";
 import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
-import {
-  updateClientProfilePictureMutation,
-  getOwnAppointmentsQuery,
-  getOwnPastAppointmentsQuery,
-} from "../../../graphql/queries/queries";
+import getOwnPastAppointmentsQuery from "../../../graphql/queries/getOwnPastAppointmentsQuery";
+import getOwnAppointmentsQuery from "../../../graphql/queries/getOwnAppointmentsQuery";
+import updateClientProfilePictureMutation from "../../../graphql/mutations/updateClientProfilePictureMutation";
 import moment from "moment";
 import LZString from "lz-string";
 import { css } from "@emotion/css";
@@ -48,9 +46,9 @@ import ACTION_SPLASH_SCREEN_COMPLETE from "../../../actions/SplashScreenComplete
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLogin/AdminClientSectionSelected/ACTION_ADMIN_CLIENT_PROFILE_SELECTED.js";
+import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 import "react-html5-camera-photo/build/css/index.css";
 import "./AdminClients.css";
-import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();

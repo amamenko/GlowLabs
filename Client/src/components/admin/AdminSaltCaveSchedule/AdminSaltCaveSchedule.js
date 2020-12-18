@@ -3,8 +3,8 @@ import { Redirect, Link } from "react-router-dom";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
-import "./AdminSaltCaveSchedule.css";
 import AdminSaltCaveCalendarComponent from "./AdminSaltCaveCalendarComponent";
+import "./AdminSaltCaveSchedule.css";
 
 const AdminSaltCaveSchedule = (props) => {
   const logoutClicked = useSelector(

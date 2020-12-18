@@ -51,6 +51,15 @@
   cursor: pointer;
 }
 
+.client_consent_form_checkbox > svg:nth-child(2) {
+  width: 100%;
+  height: 100%;
+}
+
+.client_consent_form_checkbox > svg > g > g {
+  transform: scale(1.5) !important;
+}
+
 .client_consent_form_option_container {
   margin-top: 1rem;
 }
@@ -442,7 +451,6 @@
   }
 
   .client_consent_form_checkbox {
-    transform: scale(1.5) translate(0%, -26%);
     margin-top: 1rem;
   }
 

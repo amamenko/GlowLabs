@@ -7,22 +7,20 @@ import {
   faTimes,
   faSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import { BounceLoader } from "react-spinners";
 import { css } from "@emotion/css";
-import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 import { useMutation } from "@apollo/react-hooks";
-import {
-  deletePersonalEventMutation,
-  updatePersonalEventMutation,
-} from "../../../../graphql/queries/queries";
-import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
-import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import updatePersonalEventMutation from "../../../../graphql/mutations/updatePersonalEventMutation";
+import deletePersonalEventMutation from "../../../../graphql/mutations/deletePersonalEventMutation";
 import Dropdown from "react-dropdown";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import { formatDate, parseDate } from "react-day-picker/moment";
+import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
+import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
+import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
+import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 
 const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
   const {

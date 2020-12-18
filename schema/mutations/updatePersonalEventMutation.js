@@ -1,4 +1,5 @@
 const graphql = require("graphql");
+const mongoose = require("mongoose");
 const PersonalEventType = require("../types/PersonalEventType");
 const PersonalEvent = require("../../models/personalevent");
 const { UserInputError } = require("apollo-server");
@@ -6,7 +7,6 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 const Employee = require("../../models/employee");
 const Notification = require("../../models/notification");
 const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
 
 const { GraphQLString, GraphQLBoolean, GraphQLID, GraphQLInt } = graphql;
 
@@ -83,25 +83,28 @@ const updatePersonalEventMutation = {
         createdByLastName: updatingEmployee.lastName,
       });
 
-      const updateNotification = createNotificationFunction(
-        newNotification,
-        updatingEmployee
-      );
+      const updateNotifications = (staff) =>
+        createNotificationFunction(newNotification, staff);
 
-      await Employee.updateMany(
-        { employeeRole: "Admin", _id: { $ne: decodedAdminID } },
-        update,
-        {
-          new: true,
-          multi: true,
-        }
-      );
+      (
+        await Employee.find({
+          employeeRole: "Admin",
+          _id: { $ne: decodedAdminID },
+        })
+      ).forEach((currentEmployee) => {
+        const notificationsObj = updateNotifications(currentEmployee);
+        currentEmployee.notifications = notificationsObj.notifications;
 
-      const updatedEmployee = await Employee.findOneAndUpdate(
+        currentEmployee.save();
+      });
+
+      const updatedEmployee = await Employee.findOne(
         { _id: decodedAdminID },
-        updateNotification,
-        {
-          new: true,
+        (err, currentEmployee) => {
+          const notificationsObj = updateNotifications(currentEmployee);
+          currentEmployee.notifications = notificationsObj.notifications;
+
+          currentEmployee.save();
         }
       );
 

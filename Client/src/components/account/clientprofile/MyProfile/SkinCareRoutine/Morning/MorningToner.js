@@ -9,18 +9,16 @@ import {
   faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "@apollo/react-hooks";
+import deleteMyRoutineItemMutation from "../../../../../../graphql/mutations/deleteMyRoutineItemMutation";
+import updateMyRoutineMutation from "../../../../../../graphql/mutations/updateMyRoutineMutation";
+import { BounceLoader } from "react-spinners";
+import { css } from "@emotion/css";
 import ACTION_MORNING_TONER_PRODUCT_NAME from "../../../../../../actions/MyRoutine/Morning/Toner/ProductName/ACTION_MORNING_TONER_PRODUCT_NAME";
 import ACTION_MORNING_TONER_PRODUCT_FREQUENCY from "../../../../../../actions/MyRoutine/Morning/Toner/ProductFrequency/ACTION_MORNING_TONER_PRODUCT_FREQUENCY";
 import ACTION_MORNING_TONER_PRODUCT_USE_NOTES from "../../../../../../actions/MyRoutine/Morning/Toner/ProductUseNotes/ACTION_MORNING_TONER_PRODUCT_USE_NOTES";
 import ACTION_MORNING_TONER_PRODUCT_LINK from "../../../../../../actions/MyRoutine/Morning/Toner/ProductLink/ACTION_MORNING_TONER_PRODUCT_LINK";
 import ACTION_RESET_ALL_MORNING_TONER_FIELDS from "../../../../../../actions/MyRoutine/Morning/Toner/ACTION_RESET_ALL_MORNING_TONER_FIELDS";
-import { useMutation } from "@apollo/react-hooks";
-import {
-  updateMyRoutineMutation,
-  deleteMyRoutineItemMutation,
-} from "../../../../../../graphql/queries/queries";
-import { BounceLoader } from "react-spinners";
-import { css } from "@emotion/css";
 
 const MorningToner = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();

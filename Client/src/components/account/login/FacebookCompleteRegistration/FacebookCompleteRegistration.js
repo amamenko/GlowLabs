@@ -4,16 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { Form } from "reactstrap";
 import Modal from "react-modal";
 import { useMutation } from "@apollo/react-hooks";
-import { updateClientInformationMutation } from "../../../../graphql/queries/queries";
+import updateClientInformationMutation from "../../../../graphql/mutations/updateClientInformationMutation";
 import CreateAccountPhoneNumber from "../../signup/CreateAccountPhoneNumber/CreateAccountPhoneNumber";
-import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "../../../../actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
-import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/Validation/Invalid/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID";
-import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET";
 import { BounceLoader } from "react-spinners";
 import { css } from "@emotion/css";
 import ACTION_USER_AUTHENTICATED from "../../../../actions/Authenticated/ACTION_USER_AUTHENTICATED";
 import ACTION_LOGIN_IS_ACTIVE from "../../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
+import ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET from "../../../../actions/Login/FacebookCompleteRegistration/ACTION_FACEBOOK_COMPLETE_REGISTRATION_RESET";
+import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/Validation/Invalid/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID";
+import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET";
 
 const FacebookCompleteRegistration = (props) => {
   let location = useLocation();

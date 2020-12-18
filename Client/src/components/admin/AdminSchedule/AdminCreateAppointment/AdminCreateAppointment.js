@@ -5,10 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import { formatDate, parseDate } from "react-day-picker/moment";
 import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
-import "react-day-picker/lib/style.css";
-import "./AdminCreateAppointment.css";
 import { useSelector, useDispatch } from "react-redux";
+import ClientAutosuggest from "./Autosuggest/ClientAutosuggest";
+import TreatmentAutosuggest from "./Autosuggest/TreatmentAutosuggest";
+import SaltCaveAutosuggest from "./Autosuggest/SaltCaveAutosuggest";
+import AdminPaymentInfo from "./AdminPaymentInfo/AdminPaymentInfo";
+import { Collapse } from "reactstrap";
+import addAppointmentMutation from "../../../../graphql/mutations/addAppointmentMutation";
+import { useMutation } from "@apollo/react-hooks";
+import moment from "moment";
+import Modal from "react-modal";
+import { css } from "@emotion/css";
+import { BounceLoader } from "react-spinners";
 import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentStaffMember/ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER";
 import ACTION_ADMIN_CLIENT_EMAIL from "../../../../actions/Admin/AdminCreateAppointment/AdminClientEmail/ACTION_ADMIN_CLIENT_EMIAL";
 import ACTION_ADMIN_CLIENT_PHONE_NUMBER from "../../../../actions/Admin/AdminCreateAppointment/AdminClientPhoneNumber/ACTION_ADMIN_CLIENT_PHONE_NUMBER";
@@ -30,19 +38,11 @@ import ACTION_ADMIN_APPOINTMENT_DURATION from "../../../../actions/Admin/AdminCr
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
 import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
 import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
-import ClientAutosuggest from "./Autosuggest/ClientAutosuggest";
-import TreatmentAutosuggest from "./Autosuggest/TreatmentAutosuggest";
-import SaltCaveAutosuggest from "./Autosuggest/SaltCaveAutosuggest";
-import AdminPaymentInfo from "./AdminPaymentInfo/AdminPaymentInfo";
-import { Collapse } from "reactstrap";
+import "react-dropdown/style.css";
+import "react-day-picker/lib/style.css";
+import "./AdminCreateAppointment.css";
 // Minified Bootstrap CSS file (for Collapse feature)
 import "../../../../bootstrap.min.css";
-import { addAppointmentMutation } from "../../../../graphql/queries/queries";
-import { useMutation } from "@apollo/react-hooks";
-import moment from "moment";
-import Modal from "react-modal";
-import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
 
 const AdminCreateAppointment = (props) => {
   const dispatch = useDispatch();

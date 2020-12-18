@@ -4,6 +4,16 @@ import { Transition, Spring } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
+import CanvasDraw from "react-canvas-draw";
+import LZString from "lz-string";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
+import Modal from "react-modal";
+import { css } from "@emotion/css";
+import { BounceLoader } from "react-spinners";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import updateConsentFormMutation from "../../../../../../graphql/mutations/updateConsentFormMutation";
+import getClientQuery from "../../../../../../graphql/queries/getClientQuery";
 import ACTION_CONSENT_FORM_PAGE_7 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_7";
 import ACTION_FINAL_BOOK_BUTTON_ACTIVE from "../../../../../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_ACTIVE";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
@@ -45,20 +55,8 @@ import ACTION_ULTIMATE_SKIN_CARE_GOALS_NOTES_RESET from "../../../../../../actio
 import ACTION_LIST_KNOWN_ALLERGIES_NOTES_RESET from "../../../../../../actions/ConsentForm/ListKnownAllergies/ACTION_LIST_KNOWN_ALLERGIES_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_FINAL_BOOK_BUTTON_RESET from "../../../../../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_RESET";
-import CanvasDraw from "react-canvas-draw";
 import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
-import LZString from "lz-string";
-import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
-import Modal from "react-modal";
-import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import {
-  updateConsentFormMutation,
-  getClientQuery,
-} from "../../../../../../graphql/queries/queries";
 
 const ConsentFormPage7 = (props) => {
   const dispatch = useDispatch();
