@@ -32,6 +32,21 @@ import "../../account/clientprofile/MyAppointments/MyAppointments.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const AdminCalendarComponent = (props) => {
+  const {
+    personalEventClicked,
+    getAllPersonalEventsRefetch,
+    getAllAppointmentsData,
+    getEmployeeData,
+    getAllPersonalEventsData,
+    createAppointmentClicked,
+    handleCreateAppointmentToggled,
+    getAllAppointmentsRefetch,
+    timeOptions,
+    allEmployeeOptions,
+    initialScreenSize,
+    currentScreenSize,
+  } = props;
+
   const selectedAppointmentBackRef = useRef(null);
   const backToAppointmentsRef = useRef(null);
 
@@ -173,19 +188,19 @@ const AdminCalendarComponent = (props) => {
 
   useEffect(() => {
     const currentAdminAppointments = () => {
-      const filteredApps = props.getAllAppointmentsData
-        ? props.getAllAppointmentsData.all_appointments.filter((x) => {
+      const filteredApps = getAllAppointmentsData
+        ? getAllAppointmentsData.all_appointments.filter((x) => {
             if (x.esthetician) {
-              if (props.getEmployeeData) {
-                if (props.getEmployeeData.employee.firstName) {
-                  if (props.getEmployeeData.employee.lastName) {
+              if (getEmployeeData) {
+                if (getEmployeeData.employee.firstName) {
+                  if (getEmployeeData.employee.lastName) {
                     const firstName = x.esthetician.split(" ")[0];
                     const lastInitial = x.esthetician.split(" ")[1][0];
 
                     if (
-                      props.getEmployeeData.employee.firstName.toUpperCase() ===
+                      getEmployeeData.employee.firstName.toUpperCase() ===
                         firstName.toUpperCase() &&
-                      props.getEmployeeData.employee.lastName[0].toUpperCase() ===
+                      getEmployeeData.employee.lastName[0].toUpperCase() ===
                         lastInitial.toUpperCase()
                     ) {
                       return true;
@@ -211,23 +226,23 @@ const AdminCalendarComponent = (props) => {
     };
 
     changeAllAdminAppointments(currentAdminAppointments());
-  }, [props.getAllAppointmentsData, props.getEmployeeData]);
+  }, [getAllAppointmentsData, getEmployeeData]);
 
   useEffect(() => {
     const currentAdminPersonalEvents = () => {
-      const filteredApps = props.getAllPersonalEventsData
-        ? props.getAllPersonalEventsData.all_personal_events.filter((x) => {
+      const filteredApps = getAllPersonalEventsData
+        ? getAllPersonalEventsData.all_personal_events.filter((x) => {
             if (x.staff) {
-              if (props.getEmployeeData) {
-                if (props.getEmployeeData.employee.firstName) {
-                  if (props.getEmployeeData.employee.lastName) {
+              if (getEmployeeData) {
+                if (getEmployeeData.employee.firstName) {
+                  if (getEmployeeData.employee.lastName) {
                     const firstName = x.staff.split(" ")[0];
                     const lastInitial = x.staff.split(" ")[1][0];
 
                     if (
-                      props.getEmployeeData.employee.firstName.toUpperCase() ===
+                      getEmployeeData.employee.firstName.toUpperCase() ===
                         firstName.toUpperCase() &&
-                      props.getEmployeeData.employee.lastName[0].toUpperCase() ===
+                      getEmployeeData.employee.lastName[0].toUpperCase() ===
                         lastInitial.toUpperCase()
                     ) {
                       return true;
@@ -253,7 +268,7 @@ const AdminCalendarComponent = (props) => {
     };
 
     changeAllPersonalEvents(currentAdminPersonalEvents());
-  }, [props.getAllPersonalEventsData, props.getEmployeeData]);
+  }, [getAllPersonalEventsData, getEmployeeData]);
 
   const events = () => {
     if (allAdminAppointments) {
@@ -438,7 +453,7 @@ const AdminCalendarComponent = (props) => {
       className="admin_schedule_calendar_main_container"
       style={{
         zIndex:
-          props.createAppointmentClicked || props.personalEventClicked
+          createAppointmentClicked || personalEventClicked
             ? -1
             : logoutClicked || loadingSpinnerActive || cancelAppointmentClicked
             ? 0
@@ -509,7 +524,7 @@ const AdminCalendarComponent = (props) => {
         }}
         selectable={true}
         onSelectSlot={(time) =>
-          props.handleCreateAppointmentToggled(
+          handleCreateAppointmentToggled(
             moment(time.start).format("LT"),
             moment(time.end).format("LT"),
             moment(time.start).format("L")
@@ -518,7 +533,7 @@ const AdminCalendarComponent = (props) => {
       />
       <AdminSelectedAppointment
         allAdminAppointments={allAdminAppointments}
-        getAllAppointmentsRefetch={props.getAllAppointmentsRefetch}
+        getAllAppointmentsRefetch={getAllAppointmentsRefetch}
         currentToggledAppointment={currentToggledAppointment}
         changeCurrentToggledAppointment={changeCurrentToggledAppointment}
         ref={{
@@ -537,12 +552,12 @@ const AdminCalendarComponent = (props) => {
           backToAppointmentsRef: backToAppointmentsRef,
         }}
         handleAppointmentUntoggled={handleAppointmentUntoggled}
-        getAllPersonalEventsData={props.getAllPersonalEventsData}
-        getAllPersonalEventsRefetch={props.getAllPersonalEventsRefetch}
-        intialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
-        employeeOptions={props.employeeOptions}
-        timeOptions={props.timeOptions}
+        getAllPersonalEventsData={getAllPersonalEventsData}
+        getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
+        intialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
+        allEmployeeOptions={allEmployeeOptions}
+        timeOptions={timeOptions}
       />
     </div>
   );

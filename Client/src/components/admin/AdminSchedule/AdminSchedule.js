@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector, useDispatch } from "react-redux";
+import Dropdown from "react-dropdown";
 import AdminCalendarComponent from "./AdminCalendarComponent";
 import AdminCreateAppointment from "./AdminCreateAppointment/AdminCreateAppointment";
 import AdminPersonalEvent from "./AdminPersonalEvent/AdminPersonalEvent";
@@ -118,6 +119,71 @@ const AdminSchedule = (props) => {
     }
   }, [getEmployeesData]);
 
+  const allEmployeeOptions = useCallback(() => {
+    if (getEmployeesData) {
+      if (getEmployeesData.employees) {
+        const allStaff = getEmployeesData.employees;
+
+        return allStaff.map(
+          (staff) =>
+            staff.firstName[0].toUpperCase() +
+            staff.firstName.slice(1).toLowerCase() +
+            " " +
+            staff.lastName[0].toUpperCase() +
+            staff.lastName.slice(1).toLowerCase()
+        );
+      }
+    }
+  }, [getEmployeesData]);
+
+  const renderLoggedInStaffName = () => {
+    if (getEmployeeData) {
+      if (getEmployeeData.employee) {
+        return [
+          getEmployeeData.employee.firstName[0].toUpperCase() +
+            getEmployeeData.employee.firstName.slice(1).toLowerCase() +
+            " " +
+            getEmployeeData.employee.lastName[0].toUpperCase() +
+            getEmployeeData.employee.lastName.slice(1).toLowerCase(),
+        ];
+      }
+    }
+  };
+
+  const renderScheduleSelectionDropdownOptions = () => {
+    if (getEmployeeData) {
+      if (getEmployeeData.employee) {
+        if (getEmployeeData.employee.employeeRole.includes("Admin")) {
+          const allStaff = getEmployeesData.employees;
+
+          return allStaff.map((staff) => {
+            const loggedInEmployeeFullName =
+              getEmployeeData.employee.firstName[0].toUpperCase() +
+              getEmployeeData.employee.firstName.slice(1).toLowerCase() +
+              " " +
+              getEmployeeData.employee.lastName[0].toUpperCase() +
+              getEmployeeData.employee.lastName.slice(1).toLowerCase();
+
+            const currentIndexFullName =
+              staff.firstName[0].toUpperCase() +
+              staff.firstName.slice(1).toLowerCase() +
+              " " +
+              staff.lastName[0].toUpperCase() +
+              staff.lastName.slice(1).toLowerCase();
+
+            if (loggedInEmployeeFullName === currentIndexFullName) {
+              return "My Schedule";
+            } else {
+              return currentIndexFullName + "'s Schedule";
+            }
+          });
+        } else {
+          return ["My Schedule"];
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     if (getEmployeeData) {
       if (getEmployeeData.employee) {
@@ -206,6 +272,29 @@ const AdminSchedule = (props) => {
         <h1>SCHEDULE</h1>
       </div>
       <div className="admin_calendar_top_buttons_container">
+        {getEmployeeData ? (
+          getEmployeeData.employee ? (
+            <Dropdown
+              options={renderScheduleSelectionDropdownOptions()}
+              onChange={(choice) =>
+                dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(choice))
+              }
+              value={adminAppointmentStaffMember}
+              controlClassName="react-autosuggest__input"
+              className="react-autosuggest__container"
+              placeholder={
+                adminAppointmentStaffMember
+                  ? adminAppointmentStaffMember
+                  : "Selected Esthetician"
+              }
+              placeholderClassName={
+                adminAppointmentStaffMember
+                  ? "admin_create_appointent_dropdown_placeholder_time"
+                  : "admin_create_appointent_dropdown_placeholder_no_time"
+              }
+            />
+          ) : null
+        ) : null}
         <div
           className="admin_calendar_create_personal_event_button"
           onClick={() => changePersonalEventClicked(true)}
@@ -224,15 +313,17 @@ const AdminSchedule = (props) => {
         createAppointmentClicked={createAppointmentClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         changePersonalEventClicked={changePersonalEventClicked}
+        getEmployeeData={getEmployeeData}
         getClientsData={getClientsData}
         getClientsRefetch={getClientsRefetch}
         getAllAppointmentsData={getAllAppointmentsData}
         randomColorArray={randomColorArray}
         getAllAppointmentsRefetch={getAllAppointmentsRefetch}
         timeOptions={timeOptions}
-        employeeOptions={employeeOptions}
+        allEmployeeOptions={allEmployeeOptions}
         changeStopTransition={changeStopTransition}
         stopTransition={stopTransition}
+        renderLoggedInStaffName={renderLoggedInStaffName}
       />
       <AdminPersonalEvent
         getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
@@ -241,11 +332,13 @@ const AdminSchedule = (props) => {
         changePersonalEventClicked={changePersonalEventClicked}
         changeCreateAppointmentClicked={changeCreateAppointmentClicked}
         timeOptions={timeOptions}
-        employeeOptions={employeeOptions}
+        allEmployeeOptions={allEmployeeOptions}
+        getEmployeeData={getEmployeeData}
         changeStopTransition={changeStopTransition}
         stopTransition={stopTransition}
         initialScreenSize={initialScreenSize}
         currentScreenSize={currentScreenSize}
+        renderLoggedInStaffName={renderLoggedInStaffName}
       />
       <AdminCalendarComponent
         getAllAppointmentsData={getAllAppointmentsData}
@@ -256,7 +349,7 @@ const AdminSchedule = (props) => {
         getAllAppointmentsRefetch={getAllAppointmentsRefetch}
         intialScreenSize={initialScreenSize}
         currentScreenSize={currentScreenSize}
-        employeeOptions={employeeOptions}
+        allEmployeeOptions={allEmployeeOptions}
         timeOptions={timeOptions}
         createAppointmentClicked={createAppointmentClicked}
         personalEventClicked={personalEventClicked}

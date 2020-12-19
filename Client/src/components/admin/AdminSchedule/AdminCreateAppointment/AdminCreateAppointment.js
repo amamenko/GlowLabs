@@ -58,7 +58,9 @@ const AdminCreateAppointment = (props) => {
     changePersonalEventClicked,
     getAllAppointmentsRefetch,
     getNotificationsRefetch,
-    employeeOptions,
+    allEmployeeOptions,
+    getEmployeeData,
+    renderLoggedInStaffName,
   } = props;
 
   const [clickOutsideDayPicker, changeClickOutsideDayPicker] = useState(true);
@@ -1007,7 +1009,15 @@ const AdminCreateAppointment = (props) => {
             <div className="admin_create_appointment_input_information_container">
               <div className="admin_create_appointment_label">Staff</div>
               <Dropdown
-                options={employeeOptions()}
+                options={
+                  getEmployeeData
+                    ? getEmployeeData.employee
+                      ? getEmployeeData.employee.employeeRole.includes("Admin")
+                        ? allEmployeeOptions()
+                        : renderLoggedInStaffName()
+                      : renderLoggedInStaffName()
+                    : renderLoggedInStaffName()
+                }
                 onChange={(choice) =>
                   dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(choice))
                 }

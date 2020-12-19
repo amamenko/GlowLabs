@@ -1,15 +1,15 @@
 import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
+import { useQuery } from "@apollo/react-hooks";
+import getClientsQuery from "../../../graphql/queries/getClientsQuery";
+import ACTION_PHONE_NUMBER_RESET from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
+import ACTION_PHONE_NUMBER from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER";
 import ACTION_PHONE_VALID from "../../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_VALID";
 import ACTION_PHONE_NOT_INVALID from "../../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_NOT_INVALID";
 import ACTION_PHONE_NOT_VALID from "../../../actions/PhoneNumberValidation/Valid/ACTION_PHONE_NOT_VALID";
 import ACTION_PHONE_INVALID from "../../../actions/PhoneNumberValidation/Invalid/ACTION_PHONE_INVALID";
 import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
-import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
-import { useQuery } from "@apollo/react-hooks";
-import { getClientsQuery } from "../../../graphql/queries/queries";
-import ACTION_PHONE_NUMBER_RESET from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER_RESET";
-import ACTION_PHONE_NUMBER from "../../../actions/GuestCheckoutForm/PhoneNumber/ACTION_PHONE_NUMBER";
 import "../GuestCheckout.css";
 
 const PhoneNumber = () => {

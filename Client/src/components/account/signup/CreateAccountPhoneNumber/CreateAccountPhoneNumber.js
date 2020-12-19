@@ -2,14 +2,14 @@ import React, { useMemo, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import { useQuery } from "@apollo/react-hooks";
-import { getClientsQuery } from "../../../../graphql/queries/queries";
-import "../SignUp.css";
+import getClientsQuery from "../../../../graphql/queries/getClientsQuery";
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_VALID from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/Validation/Valid/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_VALID";
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/Validation/Invalid/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID";
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/Validation/Valid/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID";
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/Validation/Invalid/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID";
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/ACTION_CREATE_ACCOUNT_PHONE_NUMBER";
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET";
+import "../SignUp.css";
 
 const PhoneNumber = () => {
   const dispatch = useDispatch();

@@ -153,6 +153,18 @@
     justify-content: space-between;
   }
 
+  .admin_calendar_top_buttons_container > .react-autosuggest__container {
+    margin-right: 1rem;
+  }
+
+  .admin_calendar_top_buttons_container
+    > .react-autosuggest__container
+    > .react-autosuggest__input {
+    font-size: 1rem !important;
+    padding: 1rem !important;
+    border-left: 1px solid rgb(211, 211, 211);
+  }
+
   .admin_calendar_create_appointment_button {
     padding: 1rem;
     width: 45vw;
@@ -175,6 +187,7 @@
     cursor: pointer;
     text-align: center;
     margin-right: 1rem;
+    margin-left: 1rem;
   }
 
   /* React Big Calendar Style Re-Resets */
@@ -318,7 +331,7 @@
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
   .admin_calendar_top_buttons_container {
-    width: 26%;
+    width: 66%;
     right: 7vw;
   }
 }

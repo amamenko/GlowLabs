@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import isEmail from "validator/lib/isEmail";
+import { useQuery } from "@apollo/react-hooks";
+import getClientsQuery from "../../../graphql/queries/getClientsQuery";
 import ACTION_EMAIL from "../../../actions/GuestCheckoutForm/Email/ACTION_EMAIL";
 import ACTION_EMAIL_RESET from "../../../actions/GuestCheckoutForm/Email/ACTION_EMAIL_RESET";
 import ACTION_EMAIL_NOT_INVALID from "../../../actions/EmailValidation/Invalid/ACTION_EMAIL_NOT_INVALID";
@@ -9,8 +11,6 @@ import ACTION_EMAIL_VALID from "../../../actions/EmailValidation/Valid/ACTION_EM
 import ACTION_EMAIL_INVALID from "../../../actions/EmailValidation/Invalid/ACTION_EMAIL_INVALID";
 import ACTION_EMAIL_NOT_VALID from "../../../actions/EmailValidation/Valid/ACTION_EMAIL_NOT_VALID";
 import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
-import { useQuery } from "@apollo/react-hooks";
-import { getClientsQuery } from "../../../graphql/queries/queries";
 import "../GuestCheckout.css";
 
 const Email = () => {

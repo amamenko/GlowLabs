@@ -31,7 +31,7 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
     getAllPersonalEventsRefetch,
     currentScreenSize,
     initialScreenSize,
-    employeeOptions,
+    allEmployeeOptions,
     timeOptions,
   } = props;
   const { selectedAppointmentBackRef, backToAppointmentsRef } = ref;
@@ -466,7 +466,7 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
               <div className="admin_create_appointment_input_information_container">
                 <div className="admin_create_appointment_label">Staff</div>
                 <Dropdown
-                  options={employeeOptions()}
+                  options={allEmployeeOptions()}
                   onChange={(choice) => {
                     if (titleError) {
                       changeTitleError(false);

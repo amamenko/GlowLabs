@@ -44,8 +44,10 @@ const AdminPersonalEvent = (props) => {
     changePersonalEventClicked,
     changeCreateAppointmentClicked,
     timeOptions,
-    employeeOptions,
+    allEmployeeOptions,
+    getEmployeeData,
     getAllPersonalEventsRefetch,
+    renderLoggedInStaffName,
   } = props;
 
   const dispatch = useDispatch();
@@ -473,7 +475,15 @@ const AdminPersonalEvent = (props) => {
             <div className="admin_create_appointment_input_information_container">
               <div className="admin_create_appointment_label">Staff</div>
               <Dropdown
-                options={employeeOptions()}
+                options={
+                  getEmployeeData
+                    ? getEmployeeData.employee
+                      ? getEmployeeData.employee.employeeRole.includes("Admin")
+                        ? allEmployeeOptions()
+                        : renderLoggedInStaffName()
+                      : renderLoggedInStaffName()
+                    : renderLoggedInStaffName()
+                }
                 onChange={(choice) => {
                   resetErrorStates();
                   dispatch(ACTION_ADMIN_PERSONAL_EVENT_STAFF(choice));

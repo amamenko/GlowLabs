@@ -2,15 +2,15 @@ import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import { useQuery } from "@apollo/react-hooks";
-import { getClientsQuery } from "../../../../graphql/queries/queries";
+import getClientsQuery from "../../../../graphql/queries/getClientsQuery";
 import isEmail from "validator/lib/isEmail";
-import "../SignUp.css";
 import ACTION_CREATE_ACCOUNT_EMAIL from "../../../../actions/CreateAccount/CreateAccountEmail/ACTION_CREATE_ACCOUNT_EMAIL";
 import ACTION_CREATE_ACCOUNT_EMAIL_NOT_INVALID from "../../../../actions/CreateAccount/CreateAccountEmail/Validation/Invalid/ACTION_CREATE_ACCOUNT_EMAIL_NOT_INVALID";
 import ACTION_CREATE_ACCOUNT_EMAIL_VALID from "../../../../actions/CreateAccount/CreateAccountEmail/Validation/Valid/ACTION_CREATE_ACCOUNT_EMAIL_VALID";
 import ACTION_CREATE_ACCOUNT_EMAIL_INVALID from "../../../../actions/CreateAccount/CreateAccountEmail/Validation/Invalid/ACTION_CREATE_ACCOUNT_EMAIL_INVALID";
 import ACTION_CREATE_ACCOUNT_EMAIL_NOT_VALID from "../../../../actions/CreateAccount/CreateAccountEmail/Validation/Valid/ACTION_CREATE_ACCOUNT_EMAIL_NOT_VALID";
 import ACTION_CREATE_ACCOUNT_EMAIL_RESET from "../../../../actions/CreateAccount/CreateAccountEmail/ACTION_CREATE_ACCOUNT_EMAIL_RESET";
+import "../SignUp.css";
 
 const CreateAccountEmail = () => {
   const dispatch = useDispatch();

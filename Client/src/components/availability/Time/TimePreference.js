@@ -2,6 +2,16 @@ import React, { useCallback, useState, useEffect } from "react";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { Collapse } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { useQuery } from "@apollo/react-hooks";
+import getAllAppointmentsQuery from "../../../graphql/queries/getAllAppointmentsQuery";
+import getAllPersonalEventsQuery from "../../../graphql/queries/getAllPersonalEventsQuery";
+import { animateScroll } from "react-scroll";
 import ACTION_DAY_OF_THE_WEEK from "../../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK";
 import ACTION_REFORMATTED_DAY_CLONE_RESET from "../../../actions/SelectedDay/ReformattedDayClone/ACTION_REFORMATTED_DAY_CLONE_RESET";
 import ACTION_SELECTED_TIME from "../../../actions/SelectedTime/ACTION_SELECTED_TIME";
@@ -27,25 +37,12 @@ import ACTION_PHONE_NOT_VALID from "../../../actions/PhoneNumberValidation/Valid
 import ACTION_APPOINTMENT_NOTES_RESET from "../../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_RESET";
 import ACTION_APPOINTMENT_END_TIME from "../../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME";
 import ACTION_TOTAL_DURATION from "../../../actions/TotalDuration/ACTION_TOTAL_DURATION";
-import { Collapse } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { useQuery } from "@apollo/react-hooks";
-import {
-  getAllAppointmentsQuery,
-  getAllPersonalEventsQuery,
-} from "../../../graphql/queries/queries";
-import "./TimePreference.css";
-import { animateScroll } from "react-scroll";
-
-// Minified Bootstrap CSS file (for Collapse feature)
-import "../../../bootstrap.min.css";
 import ACTION_AVAILABILITY_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
 import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
 import ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
+import "./TimePreference.css";
+// Minified Bootstrap CSS file (for Collapse feature)
+import "../../../bootstrap.min.css";
 
 const TimePreference = (props) => {
   const dispatch = useDispatch();
