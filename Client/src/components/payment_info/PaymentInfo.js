@@ -323,7 +323,7 @@ const PaymentInfo = (props) => {
     cardData,
     buyerVerificationToken
   ) => {
-    if (errors[0] !== null) {
+    if (errors) {
       return changeErrorMessage(
         errors.map((error) => (error ? error.message : null))
       );
@@ -363,7 +363,8 @@ const PaymentInfo = (props) => {
                 "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
             },
           })
-          .then((res) => {
+          .then((res, err) => {
+            console.log(res);
             const squareData = {
               card_nonce: nonce,
               billing_address: { postal_code: cardData.billing_postal_code },

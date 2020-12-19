@@ -60,6 +60,9 @@ const AdminSchedule = (props) => {
   const [createAppointmentClicked, changeCreateAppointmentClicked] = useState(
     false
   );
+  const [currentScheduleShown, changeCurrentScheduleShown] = useState(
+    "My Schedule"
+  );
   const [personalEventClicked, changePersonalEventClicked] = useState(false);
   const [stopTransition, changeStopTransition] = useState(false);
 
@@ -154,29 +157,37 @@ const AdminSchedule = (props) => {
     if (getEmployeeData) {
       if (getEmployeeData.employee) {
         if (getEmployeeData.employee.employeeRole.includes("Admin")) {
-          const allStaff = getEmployeesData.employees;
+          if (getEmployeesData) {
+            if (getEmployeesData.employees) {
+              const allStaff = getEmployeesData.employees;
 
-          return allStaff.map((staff) => {
-            const loggedInEmployeeFullName =
-              getEmployeeData.employee.firstName[0].toUpperCase() +
-              getEmployeeData.employee.firstName.slice(1).toLowerCase() +
-              " " +
-              getEmployeeData.employee.lastName[0].toUpperCase() +
-              getEmployeeData.employee.lastName.slice(1).toLowerCase();
+              const newArr = ["Salt Cave Schedule"];
 
-            const currentIndexFullName =
-              staff.firstName[0].toUpperCase() +
-              staff.firstName.slice(1).toLowerCase() +
-              " " +
-              staff.lastName[0].toUpperCase() +
-              staff.lastName.slice(1).toLowerCase();
+              for (let i = 0; i < allStaff.length; i++) {
+                const loggedInEmployeeFullName =
+                  getEmployeeData.employee.firstName[0].toUpperCase() +
+                  getEmployeeData.employee.firstName.slice(1).toLowerCase() +
+                  " " +
+                  getEmployeeData.employee.lastName[0].toUpperCase() +
+                  getEmployeeData.employee.lastName.slice(1).toLowerCase();
 
-            if (loggedInEmployeeFullName === currentIndexFullName) {
-              return "My Schedule";
-            } else {
-              return currentIndexFullName + "'s Schedule";
+                const currentIndexFullName =
+                  allStaff[i].firstName[0].toUpperCase() +
+                  allStaff[i].firstName.slice(1).toLowerCase() +
+                  " " +
+                  allStaff[i].lastName[0].toUpperCase() +
+                  allStaff[i].lastName.slice(1).toLowerCase();
+
+                if (loggedInEmployeeFullName === currentIndexFullName) {
+                  newArr.unshift("My Schedule");
+                } else {
+                  newArr.push(currentIndexFullName + "'s Schedule");
+                }
+              }
+
+              return newArr;
             }
-          });
+          }
         } else {
           return ["My Schedule"];
         }
@@ -187,10 +198,10 @@ const AdminSchedule = (props) => {
   useEffect(() => {
     if (getEmployeeData) {
       if (getEmployeeData.employee) {
-        if (getEmployeeData.employee.employeeRole.includes("Esthetician")) {
-          const currentEmployee = getEmployeeData.employee;
+        const currentEmployee = getEmployeeData.employee;
 
-          if (!adminAppointmentStaffMember) {
+        if (currentScheduleShown === "My Schedule") {
+          if (!createAppointmentClicked) {
             dispatch(
               ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(
                 currentEmployee.firstName[0].toUpperCase() +
@@ -212,11 +223,44 @@ const AdminSchedule = (props) => {
             );
           }
         } else {
-          dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(employeeOptions()[0]));
+          const currentScheduleEmployee = currentScheduleShown.split("'")[0];
+          const currentScheduleFirstName = currentScheduleEmployee.split(
+            " "
+          )[0];
+          const currentScheduleLastName = currentScheduleEmployee.split(" ")[1];
+
+          if (!createAppointmentClicked) {
+            dispatch(
+              ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(
+                currentScheduleFirstName[0].toUpperCase() +
+                  currentScheduleFirstName.slice(1).toLowerCase() +
+                  " " +
+                  currentScheduleLastName[0].toUpperCase() +
+                  currentScheduleLastName.slice(1).toLowerCase()
+              )
+            );
+
+            dispatch(
+              ACTION_ADMIN_PERSONAL_EVENT_STAFF(
+                currentScheduleFirstName[0].toUpperCase() +
+                  currentScheduleFirstName.slice(1).toLowerCase() +
+                  " " +
+                  currentScheduleLastName[0].toUpperCase() +
+                  currentScheduleLastName.slice(1).toLowerCase()
+              )
+            );
+          }
         }
       }
     }
-  }, [dispatch, getEmployeeData, employeeOptions, adminAppointmentStaffMember]);
+  }, [
+    dispatch,
+    getEmployeeData,
+    employeeOptions,
+    adminAppointmentStaffMember,
+    currentScheduleShown,
+    createAppointmentClicked,
+  ]);
 
   useEffect(() => {
     if (onActivityPage) {
@@ -276,19 +320,17 @@ const AdminSchedule = (props) => {
           getEmployeeData.employee ? (
             <Dropdown
               options={renderScheduleSelectionDropdownOptions()}
-              onChange={(choice) =>
-                dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER(choice))
-              }
-              value={adminAppointmentStaffMember}
+              onChange={(choice) => changeCurrentScheduleShown(choice.value)}
+              value={currentScheduleShown}
               controlClassName="react-autosuggest__input"
               className="react-autosuggest__container"
               placeholder={
-                adminAppointmentStaffMember
-                  ? adminAppointmentStaffMember
-                  : "Selected Esthetician"
+                currentScheduleShown
+                  ? currentScheduleShown
+                  : "Choose a Schedule"
               }
               placeholderClassName={
-                adminAppointmentStaffMember
+                currentScheduleShown
                   ? "admin_create_appointent_dropdown_placeholder_time"
                   : "admin_create_appointent_dropdown_placeholder_no_time"
               }
@@ -353,6 +395,7 @@ const AdminSchedule = (props) => {
         timeOptions={timeOptions}
         createAppointmentClicked={createAppointmentClicked}
         personalEventClicked={personalEventClicked}
+        currentScheduleShown={currentScheduleShown}
       />
     </div>
   );

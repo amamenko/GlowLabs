@@ -18,19 +18,16 @@ const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const parseUrl = require("parseurl");
 const getMainImage = require("./getMainImage");
-const SquareConnect = require("square-connect");
 const cron = require("node-cron");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 const moment = require("moment");
-const defaultClient = SquareConnect.ApiClient.instance;
+const { v4: uuidv4 } = require("uuid");
 const http = require("http");
-defaultClient.basePath = "https://connect.squareupsandbox.com";
+const { ApiError, Environment } = require("square");
+const SquareClient = require("square").Client;
 
 // Used to normalize phone numbers for use by Twilio
 const phone = require("phone");
-
-const oauth2 = defaultClient.authentications["oauth2"];
-oauth2.accessToken = process.env.SQUARE_SANDBOX_ACCESS_TOKEN;
 
 // Fix Puppeteer memory leak issue
 process.setMaxListeners(Infinity);
@@ -54,24 +51,42 @@ app.post("/customers", (req, res) => {
     "Authorization",
     `Bearer ${process.env.SQUARE_SANDBOX_ACCESS_TOKEN}`
   );
+
   const requestParams = req.body;
 
-  const apiInstance = new SquareConnect.CustomersApi();
-  const requestBody = {
-    given_name: requestParams.given_name,
-    family_name: requestParams.family_name,
-    email_address: requestParams.email_address,
-    phone_number: requestParams.phone_number,
+  const client = new SquareClient({
+    environment: Environment.Sandbox,
+    accessToken: process.env.SQUARE_SANDBOX_ACCESS_TOKEN,
+  });
+
+  const { customersApi } = client;
+
+  const idempotencyKey = uuidv4();
+
+  const createCustomer = async () => {
+    const requestBody = {
+      idempotencyKey: idempotencyKey,
+      givenName: requestParams.given_name,
+      familyName: requestParams.family_name,
+      emailAddress: requestParams.email_address,
+      phoneNumber: requestParams.phone_number,
+    };
+
+    try {
+      let { result } = await customersApi.createCustomer(requestBody);
+      console.log("API called successfully. Returned data: " + result);
+      res.send(result);
+    } catch (error) {
+      if (error instanceof ApiError) {
+        console.log("Errors: ", error.errors);
+        res.send(error.errors);
+      } else {
+        console.log("Unexpected Error: ", res.send(error));
+      }
+    }
   };
 
-  apiInstance.createCustomer(requestBody).then(
-    (data) => {
-      res.send(data);
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
+  createCustomer();
 });
 
 app.get("/smsresponse", async (req, res) => {
@@ -241,26 +256,44 @@ app.post("/customers/card", (req, res) => {
   );
   const requestParams = req.body;
 
-  const apiInstance = new SquareConnect.CustomersApi();
+  const client = new SquareClient({
+    environment: Environment.Sandbox,
+    accessToken: process.env.SQUARE_SANDBOX_ACCESS_TOKEN,
+  });
+
+  const { customersApi } = client;
+
+  const idempotencyKey = uuidv4();
 
   const customerId = requestParams.customerId;
 
-  const requestBody = {
-    card_nonce: requestParams.card_nonce,
-    billing_address: requestParams.billing_address,
-    cardholder_name: requestParams.cardholder_name,
-    verification_token: requestParams.verification_token,
+  const createCard = async () => {
+    const requestBody = {
+      idempotencyKey: idempotencyKey,
+      cardNonce: requestParams.card_nonce,
+      billingAddress: requestParams.billing_address,
+      cardholderName: requestParams.cardholder_name,
+      verificationToken: requestParams.verification_token,
+    };
+
+    try {
+      let { data } = await customersApi.createCustomerCard(
+        customerId,
+        requestBody
+      );
+      console.log("API called successfully. Returned data: " + data);
+      res.send(data);
+    } catch (error) {
+      if (error instanceof ApiError) {
+        console.log("Errors: ", error.errors);
+        res.send(error.errors);
+      } else {
+        console.log("Unexpected Error: ", res.send(error));
+      }
+    }
   };
 
-  apiInstance.createCustomerCard(customerId, requestBody).then(
-    (data) => {
-      console.log(data);
-      res.send(data);
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
+  createCard();
 });
 
 app.post("/customers/delete_card", (req, res) => {
@@ -270,20 +303,32 @@ app.post("/customers/delete_card", (req, res) => {
   );
   const requestParams = req.body;
 
-  const apiInstance = new SquareConnect.CustomersApi();
+  const client = new SquareClient({
+    environment: Environment.Sandbox,
+    accessToken: process.env.SQUARE_SANDBOX_ACCESS_TOKEN,
+  });
+
+  const { customersApi } = client;
 
   const customerId = requestParams.customerId;
   const cardId = requestParams.cardId;
 
-  apiInstance.deleteCustomerCard(customerId, cardId).then(
-    (data) => {
-      console.log(data);
+  const deleteCard = async () => {
+    try {
+      let { data } = await customersApi.deleteCustomerCard(customerId, cardId);
+      console.log("API called successfully. Returned data: " + data);
       res.send(data);
-    },
-    (error) => {
-      console.error(error);
+    } catch (error) {
+      if (error instanceof ApiError) {
+        console.log("Errors: ", error.errors);
+        res.send(error.errors);
+      } else {
+        console.log("Unexpected Error: ", res.send(error));
+      }
     }
-  );
+  };
+
+  deleteCard();
 });
 
 app.post("/retrieve_customer", (req, res) => {
@@ -293,18 +338,31 @@ app.post("/retrieve_customer", (req, res) => {
   );
   const requestParams = req.body;
 
-  const apiInstance = new SquareConnect.CustomersApi();
+  const client = new SquareClient({
+    environment: Environment.Sandbox,
+    accessToken: process.env.SQUARE_SANDBOX_ACCESS_TOKEN,
+  });
+
+  const { customersApi } = client;
 
   const customerId = requestParams.data.squareCustomerId;
 
-  apiInstance.retrieveCustomer(customerId).then(
-    (data) => {
-      res.send(data.customer.cards);
-    },
-    (error) => {
-      console.error(error);
+  const getCustomer = async () => {
+    try {
+      let { data } = await customersApi.retrieveCustomer(customerId);
+      console.log("API called successfully. Returned data: " + data);
+      res.send(data);
+    } catch (error) {
+      if (error instanceof ApiError) {
+        console.log("Errors: ", error.errors);
+        res.send(error.errors);
+      } else {
+        console.log("Unexpected Error: ", res.send(error));
+      }
     }
-  );
+  };
+
+  getCustomer();
 });
 
 app.post("/delete_customer", (req, res) => {
@@ -314,18 +372,31 @@ app.post("/delete_customer", (req, res) => {
   );
   const requestParams = req.body;
 
-  const apiInstance = new SquareConnect.CustomersApi();
+  const client = new SquareClient({
+    environment: Environment.Sandbox,
+    accessToken: process.env.SQUARE_SANDBOX_ACCESS_TOKEN,
+  });
+
+  const { customersApi } = client;
 
   const customerId = requestParams.data.squareCustomerId;
 
-  apiInstance.deleteCustomer(customerId).then(
-    (data) => {
+  const removeCustomer = async () => {
+    try {
+      let { data } = await customersApi.deleteCustomer(customerId);
+      console.log("API called successfully. Returned data: " + data);
       res.send(data);
-    },
-    (error) => {
-      console.error(error);
+    } catch (error) {
+      if (error instanceof ApiError) {
+        console.log("Errors: ", error.errors);
+        res.send(error.errors);
+      } else {
+        console.log("Unexpected Error: ", res.send(error));
+      }
     }
-  );
+  };
+
+  removeCustomer();
 });
 
 app.use(async (req, res, next) => {

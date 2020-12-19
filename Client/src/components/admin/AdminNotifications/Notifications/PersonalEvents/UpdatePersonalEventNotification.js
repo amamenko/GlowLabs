@@ -39,13 +39,22 @@ const UpdatePersonalEventNotification = (props) => {
             {createdByName === signedInEmployeeName ? "You" : createdByName}
           </strong>{" "}
           updated a personal event
-          {createdByName === signedInEmployeeName
-            ? " "
-            : ` in ${
-                originalAssociatedStaffName === signedInEmployeeName
-                  ? "your"
-                  : originalAssociatedStaffName + "'s"
-              } calendar `}
+          {createdByName === signedInEmployeeName ? (
+            " "
+          ) : (
+            <>
+              {" "}
+              in{" "}
+              {originalAssociatedStaffName === signedInEmployeeName ? (
+                <strong>your</strong>
+              ) : createdByName === originalAssociatedStaffName ? (
+                <strong>their</strong>
+              ) : (
+                <strong>{`${originalAssociatedStaffName} + 's`}</strong>
+              )}{" "}
+              calendar{" "}
+            </>
+          )}
           scheduled for {notification.allDay ? <strong>all day</strong> : null}{" "}
           {notification.allDay ? "on " : null}
           <strong>

@@ -44,7 +44,7 @@
     "puppeteer": "^5.5.0",
     "puppeteer-extra": "^3.1.15",
     "puppeteer-extra-plugin-stealth": "^2.6.5",
-    "square-connect": "^5.20201118.0",
+    "square": "^8.0.1",
     "twilio": "^3.53.0"
   },
   "devDependencies": {}

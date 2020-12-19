@@ -45,6 +45,7 @@ const AdminCalendarComponent = (props) => {
     allEmployeeOptions,
     initialScreenSize,
     currentScreenSize,
+    currentScheduleShown,
   } = props;
 
   const selectedAppointmentBackRef = useRef(null);
@@ -197,15 +198,45 @@ const AdminCalendarComponent = (props) => {
                     const firstName = x.esthetician.split(" ")[0];
                     const lastInitial = x.esthetician.split(" ")[1][0];
 
-                    if (
-                      getEmployeeData.employee.firstName.toUpperCase() ===
-                        firstName.toUpperCase() &&
-                      getEmployeeData.employee.lastName[0].toUpperCase() ===
-                        lastInitial.toUpperCase()
-                    ) {
-                      return true;
+                    if (currentScheduleShown === "My Schedule") {
+                      if (
+                        getEmployeeData.employee.firstName.toUpperCase() ===
+                          firstName.toUpperCase() &&
+                        getEmployeeData.employee.lastName[0].toUpperCase() ===
+                          lastInitial.toUpperCase()
+                      ) {
+                        return true;
+                      } else {
+                        return false;
+                      }
                     } else {
-                      return false;
+                      let currentShownFullName = "";
+
+                      if (currentShownFullName.includes("Salt Cave")) {
+                        currentShownFullName = "Salt Cave";
+                      } else {
+                        currentShownFullName = currentScheduleShown.split(
+                          "'"
+                        )[0];
+                      }
+
+                      const currentShownFirstName = currentShownFullName.split(
+                        " "
+                      )[0];
+                      const currentShownLastName = currentShownFullName.split(
+                        " "
+                      )[1];
+
+                      if (
+                        currentShownFirstName.toUpperCase() ===
+                          firstName.toUpperCase() &&
+                        currentShownLastName[0].toUpperCase() ===
+                          lastInitial.toUpperCase()
+                      ) {
+                        return true;
+                      } else {
+                        return false;
+                      }
                     }
                   } else {
                     return false;
@@ -226,7 +257,7 @@ const AdminCalendarComponent = (props) => {
     };
 
     changeAllAdminAppointments(currentAdminAppointments());
-  }, [getAllAppointmentsData, getEmployeeData]);
+  }, [getAllAppointmentsData, getEmployeeData, currentScheduleShown]);
 
   useEffect(() => {
     const currentAdminPersonalEvents = () => {
@@ -239,15 +270,45 @@ const AdminCalendarComponent = (props) => {
                     const firstName = x.staff.split(" ")[0];
                     const lastInitial = x.staff.split(" ")[1][0];
 
-                    if (
-                      getEmployeeData.employee.firstName.toUpperCase() ===
-                        firstName.toUpperCase() &&
-                      getEmployeeData.employee.lastName[0].toUpperCase() ===
-                        lastInitial.toUpperCase()
-                    ) {
-                      return true;
+                    if (currentScheduleShown === "My Schedule") {
+                      if (
+                        getEmployeeData.employee.firstName.toUpperCase() ===
+                          firstName.toUpperCase() &&
+                        getEmployeeData.employee.lastName[0].toUpperCase() ===
+                          lastInitial.toUpperCase()
+                      ) {
+                        return true;
+                      } else {
+                        return false;
+                      }
                     } else {
-                      return false;
+                      let currentShownFullName = "";
+
+                      if (currentShownFullName.includes("Salt Cave")) {
+                        currentShownFullName = "Salt Cave";
+                      } else {
+                        currentShownFullName = currentScheduleShown.split(
+                          "'"
+                        )[0];
+                      }
+
+                      const currentShownFirstName = currentShownFullName.split(
+                        " "
+                      )[0];
+                      const currentShownLastName = currentShownFullName.split(
+                        " "
+                      )[1];
+
+                      if (
+                        currentShownFirstName.toUpperCase() ===
+                          firstName.toUpperCase() &&
+                        currentShownLastName[0].toUpperCase() ===
+                          lastInitial.toUpperCase()
+                      ) {
+                        return true;
+                      } else {
+                        return false;
+                      }
                     }
                   } else {
                     return false;
@@ -268,7 +329,7 @@ const AdminCalendarComponent = (props) => {
     };
 
     changeAllPersonalEvents(currentAdminPersonalEvents());
-  }, [getAllPersonalEventsData, getEmployeeData]);
+  }, [getAllPersonalEventsData, getEmployeeData, currentScheduleShown]);
 
   const events = () => {
     if (allAdminAppointments) {
