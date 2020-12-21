@@ -226,11 +226,6 @@ const addAppointmentMutation = {
 
     let client;
 
-    const associatedEmployee = await Employee.findOne({
-      firstName: args.esthetician.split(" ")[0],
-      lastName: args.esthetician.split(" ")[1],
-    });
-
     let newNotification = new Notification({
       _id: new mongoose.Types.ObjectId(),
       new: true,
@@ -291,8 +286,8 @@ const addAppointmentMutation = {
 
         const updatedEmployee = await Employee.findOne(
           {
-            firstName: args.esthetician.split(" ")[0],
-            lastName: args.esthetician.split(" ")[1],
+            firstName: args.esthetician.split(" ")[0].trim(),
+            lastName: args.esthetician.split(" ")[1].trim(),
           },
           (err, currentEmployee) => {
             const notificationsObj = updateNotifications(currentEmployee);

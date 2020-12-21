@@ -25,7 +25,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { FormGroup, Label, Input } from "reactstrap";
 import Modal from "react-modal";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
+import { BounceLoader, ClipLoader } from "react-spinners";
 import { Spring } from "react-spring/renderprops";
 import ACTION_SAVE_CARD_UNCHECKED from "../../actions/PaymentInfo/SaveCardChecked/ACTION_SAVE_CARD_UNCHECKED";
 import ACTION_SAVE_CARD_CHECKED from "../../actions/PaymentInfo/SaveCardChecked/ACTION_SAVE_CARD_CHECKED";
@@ -79,6 +79,7 @@ const PaymentInfo = (props) => {
   ] = useState("");
   const [squareFormLoading, changeSquareFormLoading] = useState(true);
   const [pageOpened, changePageOpened] = useState(false);
+  const [clipLoaderActive, changeClipLoaderActive] = useState(false);
 
   const [updateUnsavedSquareCardIDs] = useMutation(
     updateUnsavedSquareCardIDsMutation
@@ -323,7 +324,9 @@ const PaymentInfo = (props) => {
     cardData,
     buyerVerificationToken
   ) => {
+    changeClipLoaderActive(true);
     if (errors) {
+      changeClipLoaderActive(false);
       return changeErrorMessage(
         errors.map((error) => (error ? error.message : null))
       );
@@ -364,10 +367,9 @@ const PaymentInfo = (props) => {
             },
           })
           .then((res, err) => {
-            console.log(res);
             const squareData = {
               card_nonce: nonce,
-              billing_address: { postal_code: cardData.billing_postal_code },
+              billing_address: { postalCode: cardData.billing_postal_code },
               cardholder_name:
                 (userAuthenticated
                   ? cardHolderFirstName
@@ -426,8 +428,6 @@ const PaymentInfo = (props) => {
               }
             }
 
-            changeSuccessfulCardNonce(true);
-
             if (!saveCardChecked && userAuthenticated) {
               updateUnsavedSquareCardIDs({
                 variables: {
@@ -460,90 +460,102 @@ const PaymentInfo = (props) => {
             );
           })
           .then(async (res) => {
-            if (squareStoredCreditCards.data) {
-              if (
-                squareStoredCreditCards.data.some(
-                  (x) =>
-                    x.billing_address.postal_code ===
-                      res.data.card.billing_address.postal_code &&
-                    x.card_brand === res.data.card.card_brand &&
-                    x.cardholder_name === res.data.card.cardholder_name &&
-                    x.exp_month === res.data.card.exp_month &&
-                    x.exp_year === res.data.card.exp_year &&
-                    x.last_4 === res.data.card.last_4
-                )
-              ) {
-                const deleteCardData = {
-                  customerId: userAuthenticated
-                    ? props.getClientData.client.squareCustomerId
-                    : matchedClient.squareCustomerId,
-                  cardId: res.data.card.id,
-                };
+            if (res.data.error) {
+              changeClipLoaderActive(false);
+              return changeErrorMessage(
+                res.data.error.map((error) => error.detail)
+              );
+            } else {
+              changeErrorMessage([]);
+              if (squareStoredCreditCards.data) {
+                if (
+                  squareStoredCreditCards.data.some(
+                    (x) =>
+                      x.billing_address.postal_code ===
+                        res.data.card.billing_address.postal_code &&
+                      x.card_brand === res.data.card.card_brand &&
+                      x.cardholder_name === res.data.card.cardholder_name &&
+                      x.exp_month === res.data.card.exp_month &&
+                      x.exp_year === res.data.card.exp_year &&
+                      x.last_4 === res.data.card.last_4
+                  )
+                ) {
+                  const deleteCardData = {
+                    customerId: userAuthenticated
+                      ? props.getClientData.client.squareCustomerId
+                      : matchedClient.squareCustomerId,
+                    cardId: res.data.card.id,
+                  };
 
-                const matchedDuplicateCard = squareStoredCreditCards.data.filter(
-                  (x) =>
-                    x.billing_address.postal_code ===
-                      res.data.card.billing_address.postal_code &&
-                    x.card_brand === res.data.card.card_brand &&
-                    x.cardholder_name === res.data.card.cardholder_name &&
-                    x.exp_month === res.data.card.exp_month &&
-                    x.exp_year === res.data.card.exp_year &&
-                    x.last_4 === res.data.card.last_4
-                )[0];
+                  const matchedDuplicateCard = squareStoredCreditCards.data.filter(
+                    (x) =>
+                      x.billing_address.postal_code ===
+                        res.data.card.billing_address.postal_code &&
+                      x.card_brand === res.data.card.card_brand &&
+                      x.cardholder_name === res.data.card.cardholder_name &&
+                      x.exp_month === res.data.card.exp_month &&
+                      x.exp_year === res.data.card.exp_year &&
+                      x.last_4 === res.data.card.last_4
+                  )[0];
 
-                dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
+                  dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
+                  changeClipLoaderActive(false);
+                  changeSuccessfulCardNonce(true);
 
-                if (saveCardChecked) {
-                  if (userAuthenticated) {
-                    if (
-                      props.getClientData.client.unsavedSquareCardIDs.includes(
-                        matchedDuplicateCard.id
-                      )
-                    ) {
-                      removeOneUnsavedSquareCardIDs({
-                        variables: {
-                          unsavedSquareCardID: matchedDuplicateCard.id,
-                          firstName: props.getClientData.client.firstName,
-                          lastName: props.getClientData.client.lastName,
-                          email: props.getClientData.client.email,
-                        },
-                      });
+                  if (saveCardChecked) {
+                    if (userAuthenticated) {
+                      if (
+                        props.getClientData.client.unsavedSquareCardIDs.includes(
+                          matchedDuplicateCard.id
+                        )
+                      ) {
+                        removeOneUnsavedSquareCardIDs({
+                          variables: {
+                            unsavedSquareCardID: matchedDuplicateCard.id,
+                            firstName: props.getClientData.client.firstName,
+                            lastName: props.getClientData.client.lastName,
+                            email: props.getClientData.client.email,
+                          },
+                        });
+                      }
                     }
                   }
+
+                  return await axios.post(
+                    "http://localhost:4000/customers/delete_card",
+                    deleteCardData,
+                    {
+                      headers: {
+                        Authorization:
+                          "Bearer " +
+                          process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+                      },
+                    }
+                  );
                 }
-
-                return await axios.post(
-                  "http://localhost:4000/customers/delete_card",
-                  deleteCardData,
-                  {
-                    headers: {
-                      Authorization:
-                        "Bearer " +
-                        process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
-                    },
-                  }
-                );
               }
-            }
 
-            dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
-            if (!saveCardChecked && userAuthenticated) {
-              updateUnsavedSquareCardIDs({
-                variables: {
-                  unsavedSquareCardID: res.data.card.id,
-                  firstName: userAuthenticated
-                    ? props.getClientData.client.firstName
-                    : firstName,
-                  lastName: userAuthenticated
-                    ? props.getClientData.client.lastName
-                    : lastName,
-                  email: userAuthenticated
-                    ? props.getClientData.client.email
-                    : email,
-                },
-              });
+              dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
+              changeSuccessfulCardNonce(true);
+              changeClipLoaderActive(false);
+              if (!saveCardChecked && userAuthenticated) {
+                updateUnsavedSquareCardIDs({
+                  variables: {
+                    unsavedSquareCardID: res.data.card.id,
+                    firstName: userAuthenticated
+                      ? props.getClientData.client.firstName
+                      : firstName,
+                    lastName: userAuthenticated
+                      ? props.getClientData.client.lastName
+                      : lastName,
+                    email: userAuthenticated
+                      ? props.getClientData.client.email
+                      : email,
+                  },
+                });
 
-              props.clientDataRefetch();
+                props.clientDataRefetch();
+              }
             }
           })
           .catch((err) => {
@@ -554,7 +566,7 @@ const PaymentInfo = (props) => {
       const returningClientSquarePostRequestFunction = async () => {
         const squareData = {
           card_nonce: nonce,
-          billing_address: { postal_code: cardData.billing_postal_code },
+          billing_address: { postalCode: cardData.billing_postal_code },
           cardholder_name:
             (userAuthenticated
               ? cardHolderFirstName
@@ -580,6 +592,7 @@ const PaymentInfo = (props) => {
         };
 
         changeSuccessfulCardNonce(true);
+        changeClipLoaderActive(false);
 
         return await axios
           .post("http://localhost:4000/customers/card", squareData, {
@@ -621,6 +634,8 @@ const PaymentInfo = (props) => {
                 )[0];
 
                 dispatch(ACTION_BOOKED_WITH_CARD_ID(matchedDuplicateCard.id));
+                changeSuccessfulCardNonce(true);
+                changeClipLoaderActive(false);
 
                 if (saveCardChecked) {
                   if (userAuthenticated) {
@@ -656,6 +671,8 @@ const PaymentInfo = (props) => {
             }
 
             dispatch(ACTION_BOOKED_WITH_CARD_ID(res.data.card.id));
+            changeSuccessfulCardNonce(true);
+            changeClipLoaderActive(false);
 
             if (!saveCardChecked && userAuthenticated) {
               updateUnsavedSquareCardIDs({
@@ -964,7 +981,17 @@ const PaymentInfo = (props) => {
       >
         {redirectToHome()}
         {redirectToCheckout()}
-
+        <div
+          className="payment_info_clip_loader_spinner_container"
+          style={{ display: clipLoaderActive ? "flex" : "none" }}
+        >
+          <ClipLoader
+            size={100}
+            css={override}
+            color={"rgb(44, 44, 52)"}
+            loading={clipLoaderActive}
+          />
+        </div>
         <div className="payment_info_container_header">
           <Link
             to={() => {
@@ -1324,7 +1351,8 @@ const PaymentInfo = (props) => {
             </fieldset>
             {selectedCreditCardFullData ||
             (!selectedCreditCard.name &&
-              (!cardHolderFirstName || !cardHolderLastName)) ? (
+              (!cardHolderFirstName || !cardHolderLastName) &&
+              errorMessages.length === 0) ? (
               <Link
                 to={() => {
                   if (!props.currentScreenSize) {
@@ -1371,7 +1399,7 @@ const PaymentInfo = (props) => {
               </CreditCardSubmitButton>
             )}
           </SquarePaymentForm>
-          {selectedCreditCardFullData ? null : (
+          {selectedCreditCardFullData && errorMessages.length === 0 ? null : (
             <div className="sq-error-message">
               {errorMessages.map((errorMessage) => (
                 <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>

@@ -777,7 +777,11 @@ const TimePreference = (props) => {
           {saltCaveInCart
             ? null
             : selectedEsthetician
-            ? " WITH " + selectedEsthetician.toUpperCase()
+            ? " WITH " +
+              selectedEsthetician.split(" ")[0].toUpperCase() +
+              " " +
+              selectedEsthetician.split(" ")[1][0].toUpperCase() +
+              "."
             : null}
         </h2>
       </div>

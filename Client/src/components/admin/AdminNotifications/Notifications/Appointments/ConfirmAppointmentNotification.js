@@ -49,7 +49,7 @@ const ConfirmAppointmentNotification = (props) => {
               : createdByName === associatedClientName
               ? "you"
               : "you"}
-          </strong>
+          </strong>{" "}
           scheduled for <strong>{notification.date}</strong> at{" "}
           <strong>{notification.time}</strong>.
         </p>

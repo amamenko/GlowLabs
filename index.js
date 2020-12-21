@@ -74,7 +74,10 @@ app.post("/customers", (req, res) => {
 
     try {
       let { result } = await customersApi.createCustomer(requestBody);
-      console.log("API called successfully. Returned data: " + result);
+      console.log(
+        "API called successfully. Customer created successfully Returned data: " +
+          result
+      );
       res.send(result);
     } catch (error) {
       if (error instanceof ApiError) {
@@ -277,16 +280,19 @@ app.post("/customers/card", (req, res) => {
     };
 
     try {
-      let { data } = await customersApi.createCustomerCard(
+      let { result } = await customersApi.createCustomerCard(
         customerId,
         requestBody
       );
-      console.log("API called successfully. Returned data: " + data);
-      res.send(data);
+      console.log(
+        "API called successfully. Customer card created successfully. Returned data: " +
+          result
+      );
+      res.send(result);
     } catch (error) {
       if (error instanceof ApiError) {
         console.log("Errors: ", error.errors);
-        res.send(error.errors);
+        res.send({ error: error.errors });
       } else {
         console.log("Unexpected Error: ", res.send(error));
       }

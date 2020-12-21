@@ -335,7 +335,16 @@ const ShoppingCart = (props) => {
 
         return filteredEmployeesArr.map((x, i) => {
           return (
-            <option key={i}>
+            <option
+              key={i}
+              value={
+                x.firstName[0].toUpperCase() +
+                x.firstName.slice(1).toLowerCase() +
+                " " +
+                x.lastName[0].toUpperCase() +
+                x.lastName.slice(1).toLowerCase()
+              }
+            >
               {x.firstName[0].toUpperCase() +
                 x.firstName.slice(1).toLowerCase() +
                 " " +

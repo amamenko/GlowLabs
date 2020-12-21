@@ -483,10 +483,10 @@ const Availability = (props) => {
           dispatch(
             ACTION_SELECTED_ESTHETICIAN(
               randomEmployee.firstName[0].toUpperCase() +
-                randomEmployee.firstName.slice(1) +
+                randomEmployee.firstName.slice(1).toLowerCase() +
                 " " +
                 randomEmployee.lastName[0].toUpperCase() +
-                "."
+                randomEmployee.lastName.slice(1).toLowerCase()
             )
           );
         }
@@ -583,7 +583,11 @@ const Availability = (props) => {
           {saltCaveInCart
             ? null
             : selectedEsthetician
-            ? " WITH " + selectedEsthetician.toUpperCase()
+            ? " WITH " +
+              selectedEsthetician.split(" ")[0].toUpperCase() +
+              " " +
+              selectedEsthetician.split(" ")[1][0].toUpperCase() +
+              "."
             : null}
         </h2>
       </div>
