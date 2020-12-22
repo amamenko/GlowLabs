@@ -177,14 +177,6 @@
   background: rgb(244, 239, 243);
 }
 
-.modal_x {
-  position: absolute;
-  top: 3%;
-  right: 7%;
-  color: rgb(0, 129, 177);
-  font-size: 2rem;
-}
-
 .modal_calendar_icon {
   position: absolute;
   bottom: -15%;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./login/Login";
 import SignUp from "./signup/SignUp";
@@ -20,6 +20,7 @@ import MyProfile from "./clientprofile/MyProfile/MyProfile";
 import SkinCareRoutine from "./clientprofile/MyProfile/SkinCareRoutine/SkinCareRoutine";
 import MyRoutine from "./clientprofile/MyProfile/SkinCareRoutine/MyRoutine";
 import LargeScreenSideMenu from "./LargeScreenSideMenu/LargeScreenSideMenu";
+import { Font } from "@react-pdf/renderer";
 import "./LargeScreenSideMenu/LargeScreenSideMenu.css";
 
 const AccountRouter = React.forwardRef((props, ref) => {
@@ -40,6 +41,18 @@ const AccountRouter = React.forwardRef((props, ref) => {
   ] = useLazyQuery(getOwnPastAppointmentsQuery, {
     fetchPolicy: "no-cache",
   });
+
+  const registerFont = () => {
+    Font.register({
+      family: "Montserrat",
+      src:
+        "http://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf",
+    });
+  };
+
+  useMemo(() => {
+    registerFont();
+  }, []);
 
   return (
     <>

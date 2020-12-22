@@ -169,9 +169,54 @@ body {
   cursor: pointer;
 }
 
+.modal_x {
+  position: absolute;
+  top: 3%;
+  right: 7%;
+  color: rgb(0, 129, 177);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
 .ReactModalPortal {
   position: fixed;
   z-index: 99999999 !important;
+}
+
+.clip_loader_spinner_container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(211, 211, 211, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 999999;
+}
+
+.admin_router_container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: stretch;
+  height: 100vh;
+  width: 100%;
+}
+
+.auth_route_fallback_clip_loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(211, 211, 211, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 999999;
+  flex: 1;
+  height: 100vh;
 }
 
 ::-webkit-scrollbar {

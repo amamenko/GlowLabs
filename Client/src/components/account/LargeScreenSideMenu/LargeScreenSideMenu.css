@@ -17,7 +17,7 @@
 @media only screen and (min-width: 1200px) {
   .large_sceen_logged_in_side_menu {
     display: flex;
-    position: fixed;
+    position: relative;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;

@@ -1,4 +1,3 @@
-import * as smoothscroll from "smoothscroll-polyfill";
 import React, {
   useRef,
   useState,
@@ -6,9 +5,10 @@ import React, {
   useEffect,
   useMemo,
   useCallback,
+  Suspense,
 } from "react";
-import { ApolloProvider, useMutation, useQuery } from "@apollo/react-hooks";
 import ReactDOM from "react-dom";
+import { ApolloProvider, useMutation, useQuery } from "@apollo/react-hooks";
 import { Spring, Transition } from "react-spring/renderprops";
 import Modal from "react-modal";
 import { createStore, applyMiddleware } from "redux";
@@ -18,10 +18,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
 import LandingPage from "./components/landing_page/LandingPage";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
-import AvailabilityRouter from "./components/availability/AvailabilityRouter";
-import PaymentInfo from "./components/payment_info/PaymentInfo";
-import CheckoutRouter from "./components/checkout/CheckoutRouter";
-import AccountRouter from "./components/account/AccountRouter";
+import * as smoothscroll from "smoothscroll-polyfill";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import {
@@ -43,9 +40,7 @@ import apolloClient from "./apolloClient";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
-import { Font } from "@react-pdf/renderer";
-import AdminRouter from "./components/admin/AdminRouter";
+import { BounceLoader, ClipLoader } from "react-spinners";
 import { isAndroid } from "react-device-detect";
 import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
 import AllTreatments from "./components/all_treatments/AllTreatments";
@@ -54,10 +49,6 @@ import { scroller } from "react-scroll";
 import FollowUs from "./components/follow_us/FollowUs";
 import ContactUs from "./components/contact_us/ContactUs";
 import iNoBounce from "./inobounce";
-import Availability from "./components/availability/Date/Availability";
-import TimePreference from "./components/availability/Time/TimePreference";
-import GuestCheckout from "./components/checkout/GuestCheckout";
-import ConfirmationPage from "./components/checkout/ConfirmationPage";
 import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
@@ -134,6 +125,33 @@ import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTI
 import ACTION_ON_ACTIVITY_PAGE from "./actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
+
+// Lazy-loaded Routes
+const AdminRouter = React.lazy(() => import("./components/admin/AdminRouter"));
+const AccountRouter = React.lazy(() =>
+  import("./components/account/AccountRouter")
+);
+const Availability = React.lazy(() =>
+  import("./components/availability/Date/Availability")
+);
+const TimePreference = React.lazy(() =>
+  import("./components/availability/Time/TimePreference")
+);
+const GuestCheckout = React.lazy(() =>
+  import("./components/checkout/GuestCheckout")
+);
+const ConfirmationPage = React.lazy(() =>
+  import("./components/checkout/ConfirmationPage")
+);
+const AvailabilityRouter = React.lazy(() =>
+  import("./components/availability/AvailabilityRouter")
+);
+const PaymentInfo = React.lazy(() =>
+  import("./components/payment_info/PaymentInfo")
+);
+const CheckoutRouter = React.lazy(() =>
+  import("./components/checkout/CheckoutRouter")
+);
 
 require("dotenv").config();
 require("intersection-observer");
@@ -788,18 +806,6 @@ const App = () => {
     right: 25%;
   `;
 
-  const registerFont = () => {
-    Font.register({
-      family: "Montserrat",
-      src:
-        "http://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf",
-    });
-  };
-
-  useMemo(() => {
-    registerFont();
-  }, []);
-
   useMemo(() => {
     if (!cartIsActive) {
       if (largeScreenFrozenScrollPosition !== "") {
@@ -1006,45 +1012,55 @@ const App = () => {
       );
     } else if (cartPageOpened === "Availability") {
       return (
-        <Availability
-          currentScreenSize={currentScreenSize}
-          initialScreenSize={initialScreenSize}
-          getEmployeesData={getEmployeesData}
-        />
+        <Suspense fallback={renderCartRoutesFallbackLoader()}>
+          <Availability
+            currentScreenSize={currentScreenSize}
+            initialScreenSize={initialScreenSize}
+            getEmployeesData={getEmployeesData}
+          />
+        </Suspense>
       );
     } else if (cartPageOpened === "TimePreference") {
       return (
-        <TimePreference
-          currentScreenSize={currentScreenSize}
-          initialScreenSize={initialScreenSize}
-        />
+        <Suspense fallback={renderCartRoutesFallbackLoader()}>
+          <TimePreference
+            currentScreenSize={currentScreenSize}
+            initialScreenSize={initialScreenSize}
+          />
+        </Suspense>
       );
     } else if (cartPageOpened === "GuestCheckout") {
       return (
-        <GuestCheckout
-          currentScreenSize={currentScreenSize}
-          initialScreenSize={initialScreenSize}
-        />
+        <Suspense fallback={renderCartRoutesFallbackLoader()}>
+          <GuestCheckout
+            currentScreenSize={currentScreenSize}
+            initialScreenSize={initialScreenSize}
+          />
+        </Suspense>
       );
     } else if (cartPageOpened === "PaymentInfo") {
       return (
-        <PaymentInfo
-          currentScreenSize={currentScreenSize}
-          initialScreenSize={initialScreenSize}
-          getClientData={getClientData ? getClientData : null}
-          clientDataRefetch={clientDataRefetch}
-          largeScreenFrozenScrollPosition={largeScreenFrozenScrollPosition}
-          changeLargeScreenFrozenScrollPosition={
-            changeLargeScreenFrozenScrollPosition
-          }
-        />
+        <Suspense fallback={renderCartRoutesFallbackLoader()}>
+          <PaymentInfo
+            currentScreenSize={currentScreenSize}
+            initialScreenSize={initialScreenSize}
+            getClientData={getClientData ? getClientData : null}
+            clientDataRefetch={clientDataRefetch}
+            largeScreenFrozenScrollPosition={largeScreenFrozenScrollPosition}
+            changeLargeScreenFrozenScrollPosition={
+              changeLargeScreenFrozenScrollPosition
+            }
+          />
+        </Suspense>
       );
     } else if (cartPageOpened === "ConfirmationPage") {
       return (
-        <ConfirmationPage
-          currentScreenSize={currentScreenSize}
-          initialScreenSize={initialScreenSize}
-        />
+        <Suspense fallback={renderCartRoutesFallbackLoader()}>
+          <ConfirmationPage
+            currentScreenSize={currentScreenSize}
+            initialScreenSize={initialScreenSize}
+          />
+        </Suspense>
       );
     }
   };
@@ -1307,6 +1323,60 @@ const App = () => {
       iNoBounce.enable();
     }
   }, [location.pathname]);
+
+  const renderAuthFallbackLoader = () => {
+    return (
+      <Modal
+        isOpen={true}
+        style={{
+          content: {
+            position: "fixed",
+            zIndex: 10000,
+            opacity: 0.99,
+            height: "100%",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            paddingBottom: "10%",
+            borderRadius: "none",
+            width: "100vw",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            border: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <BounceLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={true}
+        />
+      </Modal>
+    );
+  };
+
+  const renderCartRoutesFallbackLoader = () => {
+    return (
+      <div
+        className="clip_loader_spinner_container"
+        style={{ display: "flex" }}
+      >
+        <ClipLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={true}
+        />
+      </div>
+    );
+  };
 
   return (
     <>
@@ -1580,54 +1650,69 @@ const App = () => {
             cartPageOpened === "TimePreference" ? (
             <Route
               render={() => (
-                <AvailabilityRouter
-                  path="/availability"
-                  getEmployeesData={getEmployeesData}
-                  initialScreenSize={initialScreenSize}
-                  currentScreenSize={currentScreenSize}
-                />
+                <Suspense fallback={renderCartRoutesFallbackLoader()}>
+                  <AvailabilityRouter
+                    path="/availability"
+                    getEmployeesData={getEmployeesData}
+                    initialScreenSize={initialScreenSize}
+                    currentScreenSize={currentScreenSize}
+                  />
+                </Suspense>
               )}
             />
           ) : null
         ) : null}
 
-        <Route path="/checkout" component={CheckoutRouter} />
+        <Route
+          path="/checkout"
+          render={() => (
+            <Suspense fallback={renderCartRoutesFallbackLoader()}>
+              <CheckoutRouter />
+            </Suspense>
+          )}
+        />
 
         <Route
           render={() =>
             location.pathname.includes("account") ? (
-              <AccountRouter
-                path="/account"
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                getClientData={getClientData ? getClientData : null}
-                clientDataRefetch={clientDataRefetch}
-                handleClickToScrollToHome={handleClickToScrollToHome}
-                ref={ref}
-              />
+              <Suspense fallback={renderAuthFallbackLoader()}>
+                <AccountRouter
+                  path="/account"
+                  initialScreenSize={initialScreenSize}
+                  currentScreenSize={currentScreenSize}
+                  getClientData={getClientData ? getClientData : null}
+                  clientDataRefetch={clientDataRefetch}
+                  handleClickToScrollToHome={handleClickToScrollToHome}
+                  ref={ref}
+                />
+              </Suspense>
             ) : location.pathname.includes("admin") ? (
-              <AdminRouter
-                path="/admin"
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                getEmployeeData={getEmployeeData ? getEmployeeData : null}
-                getEmployeeLoading={getEmployeeLoading}
-                employeeDataRefetch={employeeDataRefetch}
-                getEmployeesData={getEmployeesData ? getEmployeesData : null}
-                getEmployeesRefetch={getEmployeesRefetch}
-                getEmployeesLoading={getEmployeesLoading}
-                handleClickToScrollToHome={handleClickToScrollToHome}
-                ref={ref}
-              />
+              <Suspense fallback={renderAuthFallbackLoader()}>
+                <AdminRouter
+                  path="/admin"
+                  initialScreenSize={initialScreenSize}
+                  currentScreenSize={currentScreenSize}
+                  getEmployeeData={getEmployeeData ? getEmployeeData : null}
+                  getEmployeeLoading={getEmployeeLoading}
+                  employeeDataRefetch={employeeDataRefetch}
+                  getEmployeesData={getEmployeesData ? getEmployeesData : null}
+                  getEmployeesRefetch={getEmployeesRefetch}
+                  getEmployeesLoading={getEmployeesLoading}
+                  handleClickToScrollToHome={handleClickToScrollToHome}
+                  ref={ref}
+                />
+              </Suspense>
             ) : cartPageOpened === "PaymentInfo" ? (
-              <PaymentInfo
-                exact
-                path="/paymentinfo"
-                getClientData={getClientData ? getClientData : null}
-                clientDataRefetch={clientDataRefetch}
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-              />
+              <Suspense fallback={renderCartRoutesFallbackLoader()}>
+                <PaymentInfo
+                  exact
+                  path="/paymentinfo"
+                  getClientData={getClientData ? getClientData : null}
+                  clientDataRefetch={clientDataRefetch}
+                  initialScreenSize={initialScreenSize}
+                  currentScreenSize={currentScreenSize}
+                />
+              </Suspense>
             ) : null
           }
         />

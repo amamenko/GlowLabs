@@ -716,10 +716,6 @@
     cursor: pointer;
   }
 
-  .modal_x {
-    cursor: pointer;
-  }
-
   .yes_cancel_appointment_button p,
   .no_dont_cancel_appointment_button p {
     font-size: 1.5rem;

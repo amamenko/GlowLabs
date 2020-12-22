@@ -13,8 +13,11 @@ import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideM
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
 import AdminStaff from "./AdminStaff/AdminStaff";
 import AdminNotifications from "./AdminNotifications/AdminNotifications";
+import { Font } from "@react-pdf/renderer";
 import { useDispatch } from "react-redux";
 import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/css";
 
 const AdminRouter = React.forwardRef((props, ref) => {
   const location = useLocation();
@@ -76,8 +79,27 @@ const AdminRouter = React.forwardRef((props, ref) => {
     }
   }, [location.pathname, dispatch]);
 
+  const registerFont = () => {
+    Font.register({
+      family: "Montserrat",
+      src:
+        "http://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf",
+    });
+  };
+
+  useMemo(() => {
+    registerFont();
+  }, []);
+
+  const override = css`
+    display: block;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+  `;
+
   return (
-    <>
+    <div className="admin_router_container">
       <LargeScreenSideMenu
         initialScreenSize={initialScreenSize}
         currentScreenSize={currentScreenSize}
@@ -88,6 +110,14 @@ const AdminRouter = React.forwardRef((props, ref) => {
         ref={ref}
         resetNotifications={resetNotifications}
       />
+      {/* <div className="auth_route_fallback_clip_loader">
+        <ClipLoader
+          size={100}
+          css={override}
+          color={"rgb(44, 44, 52)"}
+          loading={true}
+        />
+      </div> */}
       <Switch>
         <Route
           exact
@@ -185,7 +215,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
         {/* If no path matches, redirect to home */}
         <Route render={() => <Redirect to="/" />} />
       </Switch>
-    </>
+    </div>
   );
 });
 
