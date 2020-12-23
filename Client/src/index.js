@@ -123,14 +123,12 @@ import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE"
 import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_RESET_ADMIN_NOTIFICATIONS";
 import ACTION_ON_ACTIVITY_PAGE from "./actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
+import AdminRouter from "./components/admin/AdminRouter";
+import AccountRouter from "./components/account/AccountRouter";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
 
 // Lazy-loaded Routes
-const AdminRouter = React.lazy(() => import("./components/admin/AdminRouter"));
-const AccountRouter = React.lazy(() =>
-  import("./components/account/AccountRouter")
-);
 const Availability = React.lazy(() =>
   import("./components/availability/Date/Availability")
 );
@@ -1675,33 +1673,29 @@ const App = () => {
         <Route
           render={() =>
             location.pathname.includes("account") ? (
-              <Suspense fallback={renderAuthFallbackLoader()}>
-                <AccountRouter
-                  path="/account"
-                  initialScreenSize={initialScreenSize}
-                  currentScreenSize={currentScreenSize}
-                  getClientData={getClientData ? getClientData : null}
-                  clientDataRefetch={clientDataRefetch}
-                  handleClickToScrollToHome={handleClickToScrollToHome}
-                  ref={ref}
-                />
-              </Suspense>
+              <AccountRouter
+                path="/account"
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+                getClientData={getClientData ? getClientData : null}
+                clientDataRefetch={clientDataRefetch}
+                handleClickToScrollToHome={handleClickToScrollToHome}
+                ref={ref}
+              />
             ) : location.pathname.includes("admin") ? (
-              <Suspense fallback={renderAuthFallbackLoader()}>
-                <AdminRouter
-                  path="/admin"
-                  initialScreenSize={initialScreenSize}
-                  currentScreenSize={currentScreenSize}
-                  getEmployeeData={getEmployeeData ? getEmployeeData : null}
-                  getEmployeeLoading={getEmployeeLoading}
-                  employeeDataRefetch={employeeDataRefetch}
-                  getEmployeesData={getEmployeesData ? getEmployeesData : null}
-                  getEmployeesRefetch={getEmployeesRefetch}
-                  getEmployeesLoading={getEmployeesLoading}
-                  handleClickToScrollToHome={handleClickToScrollToHome}
-                  ref={ref}
-                />
-              </Suspense>
+              <AdminRouter
+                path="/admin"
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+                getEmployeeData={getEmployeeData ? getEmployeeData : null}
+                getEmployeeLoading={getEmployeeLoading}
+                employeeDataRefetch={employeeDataRefetch}
+                getEmployeesData={getEmployeesData ? getEmployeesData : null}
+                getEmployeesRefetch={getEmployeesRefetch}
+                getEmployeesLoading={getEmployeesLoading}
+                handleClickToScrollToHome={handleClickToScrollToHome}
+                ref={ref}
+              />
             ) : cartPageOpened === "PaymentInfo" ? (
               <Suspense fallback={renderCartRoutesFallbackLoader()}>
                 <PaymentInfo

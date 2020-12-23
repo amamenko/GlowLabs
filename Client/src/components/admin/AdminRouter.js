@@ -15,7 +15,6 @@ import AdminClients from "./AdminClients/AdminClients";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
 import AdminStaff from "./AdminStaff/AdminStaff";
 import AdminNotifications from "./AdminNotifications/AdminNotifications";
-
 import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 
 const AdminRouter = React.forwardRef((props, ref) => {

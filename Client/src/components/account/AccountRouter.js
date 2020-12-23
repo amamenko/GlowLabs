@@ -22,6 +22,8 @@ import MyRoutine from "./clientprofile/MyProfile/SkinCareRoutine/MyRoutine";
 import LargeScreenSideMenu from "./LargeScreenSideMenu/LargeScreenSideMenu";
 import { Font } from "@react-pdf/renderer";
 import "./LargeScreenSideMenu/LargeScreenSideMenu.css";
+import "../../components/checkout/ConfirmationPage.css";
+import "../../components/checkout/GuestCheckout.css";
 
 const AccountRouter = React.forwardRef((props, ref) => {
   const [

@@ -16,6 +16,7 @@ import ACTION_ADMIN_PERSONAL_EVENT_START_TIME from "../../../actions/Admin/Admin
 import ACTION_ADMIN_PERSONAL_EVENT_END_TIME from "../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventEndTime/ACTION_ADMIN_PERSONAL_EVENT_END_TIME";
 import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 import "./AdminSchedule.css";
+import "../../payment_info/PaymentInfo.css";
 
 const AdminSchedule = (props) => {
   const dispatch = useDispatch();
@@ -163,35 +164,45 @@ const AdminSchedule = (props) => {
 
               const newArr = ["Salt Cave Schedule"];
 
-              for (let i = 0; i < allStaff.length; i++) {
-                const loggedInEmployeeFullName =
-                  getEmployeeData.employee.firstName[0].toUpperCase() +
-                  getEmployeeData.employee.firstName.slice(1).toLowerCase() +
-                  " " +
-                  getEmployeeData.employee.lastName[0].toUpperCase() +
-                  getEmployeeData.employee.lastName.slice(1).toLowerCase();
+              if (allStaff) {
+                for (let i = 0; i < allStaff.length; i++) {
+                  const loggedInEmployeeFullName =
+                    getEmployeeData.employee.firstName[0].toUpperCase() +
+                    getEmployeeData.employee.firstName.slice(1).toLowerCase() +
+                    " " +
+                    getEmployeeData.employee.lastName[0].toUpperCase() +
+                    getEmployeeData.employee.lastName.slice(1).toLowerCase();
 
-                const currentIndexFullName =
-                  allStaff[i].firstName[0].toUpperCase() +
-                  allStaff[i].firstName.slice(1).toLowerCase() +
-                  " " +
-                  allStaff[i].lastName[0].toUpperCase() +
-                  allStaff[i].lastName.slice(1).toLowerCase();
+                  const currentIndexFullName =
+                    allStaff[i].firstName[0].toUpperCase() +
+                    allStaff[i].firstName.slice(1).toLowerCase() +
+                    " " +
+                    allStaff[i].lastName[0].toUpperCase() +
+                    allStaff[i].lastName.slice(1).toLowerCase();
 
-                if (loggedInEmployeeFullName === currentIndexFullName) {
-                  newArr.unshift("My Schedule");
-                } else {
-                  newArr.push(currentIndexFullName + "'s Schedule");
+                  if (loggedInEmployeeFullName === currentIndexFullName) {
+                    newArr.unshift("My Schedule");
+                  } else {
+                    newArr.push(currentIndexFullName + "'s Schedule");
+                  }
                 }
-              }
 
-              return newArr;
+                return newArr;
+              }
+            } else {
+              return ["My Schedule"];
             }
+          } else {
+            return ["My Schedule"];
           }
         } else {
           return ["My Schedule"];
         }
+      } else {
+        return ["My Schedule"];
       }
+    } else {
+      return ["My Schedule"];
     }
   };
 

@@ -351,7 +351,9 @@ const AdminCalendarComponent = (props) => {
                   x.client.lastName[0].toUpperCase() +
                   x.client.lastName.slice(1).toLowerCase() +
                   " - " +
-                  x.treatments[0].name +
+                  (x.treatments[0].name === "ChemicalPeel"
+                    ? "Chemical Peel"
+                    : x.treatments[0].name) +
                   " " +
                   "Facial" +
                   (x.addOns === []

@@ -198,27 +198,6 @@ body {
   z-index: 999999;
 }
 
-.admin_router_container {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: stretch;
-  height: 100vh;
-  width: 100%;
-}
-
-.auth_route_fallback_clip_loader {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(211, 211, 211, 0.8);
-  backdrop-filter: blur(8px);
-  z-index: 999999;
-  flex: 1;
-  height: 100vh;
-}
-
 ::-webkit-scrollbar {
   height: 0px; /* height of horizontal scrollbar ← You're missing this */
   border: 1px solid #d5d5d5;

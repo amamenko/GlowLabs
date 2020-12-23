@@ -49,7 +49,6 @@ import ACTION_ADMIN_CLIENT_PROFILE_SELECTED from "../../../actions/Admin/AdminLo
 import ACTION_ON_ACTIVITY_PAGE_RESET from "../../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE_RESET";
 import "react-html5-camera-photo/build/css/index.css";
 import "./AdminClients.css";
-import "../../account/clientprofile/MyProfile/MyProfile.css";
 
 const AdminClients = (props) => {
   const dispatch = useDispatch();
