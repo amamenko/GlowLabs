@@ -784,15 +784,16 @@ const AdminStaff = (props) => {
                       <div
                         className="admin_individual_client_initials_square"
                         style={{
-                          background:
-                            randomColorArray[
-                              getEmployeesData.employees
-                                .sort((a, b) =>
-                                  a.firstName.localeCompare(b.firstName)
-                                )
-                                .map((x) => x.email)
-                                .indexOf(item.email)
-                            ],
+                          background: randomColorArray
+                            ? randomColorArray[
+                                getEmployeesData.employees
+                                  .sort((a, b) =>
+                                    a.firstName.localeCompare(b.firstName)
+                                  )
+                                  .map((x) => x.email)
+                                  .indexOf(item.email)
+                              ]
+                            : "rgb(0, 0, 0)",
                         }}
                       >
                         <p>

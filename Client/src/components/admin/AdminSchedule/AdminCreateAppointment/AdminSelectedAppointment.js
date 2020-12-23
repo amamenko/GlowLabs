@@ -91,10 +91,14 @@ const AdminSelectedAppointment = React.forwardRef((props, ref) => {
     >
       {(currentToggledAppointment) =>
         currentToggledAppointment ===
-          (allAdminAppointments.find((x) => x.id === currentToggledAppointment)
+          (allAdminAppointments
             ? allAdminAppointments.find(
                 (x) => x.id === currentToggledAppointment
-              ).id
+              )
+              ? allAdminAppointments.find(
+                  (x) => x.id === currentToggledAppointment
+                ).id
+              : null
             : null) &&
         ((styleprops) => {
           return (

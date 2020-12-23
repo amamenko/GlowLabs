@@ -2,7 +2,6 @@ import React, { useEffect, useMemo } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
-import AdminClients from "./AdminClients/AdminClients";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import getClientsQuery from "../../graphql/queries/getClientsQuery";
 import getAllAppointmentsQuery from "../../graphql/queries/getAllAppointmentsQuery";
@@ -10,14 +9,14 @@ import getAllPersonalEventsQuery from "../../graphql/queries/getAllPersonalEvent
 import resetNotificationsMutation from "../../graphql/mutations/resetNotificationsMutation";
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
+import { Font } from "@react-pdf/renderer";
+import { useDispatch } from "react-redux";
+import AdminClients from "./AdminClients/AdminClients";
 import AdminSchedule from "./AdminSchedule/AdminSchedule";
 import AdminStaff from "./AdminStaff/AdminStaff";
 import AdminNotifications from "./AdminNotifications/AdminNotifications";
-import { Font } from "@react-pdf/renderer";
-import { useDispatch } from "react-redux";
+
 import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
-import { ClipLoader } from "react-spinners";
-import { css } from "@emotion/css";
 
 const AdminRouter = React.forwardRef((props, ref) => {
   const location = useLocation();
@@ -91,15 +90,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
     registerFont();
   }, []);
 
-  const override = css`
-    display: block;
-    position: absolute;
-    left: 25%;
-    right: 25%;
-  `;
-
   return (
-    <div className="admin_router_container">
+    <>
       <LargeScreenSideMenu
         initialScreenSize={initialScreenSize}
         currentScreenSize={currentScreenSize}
@@ -110,14 +102,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
         ref={ref}
         resetNotifications={resetNotifications}
       />
-      {/* <div className="auth_route_fallback_clip_loader">
-        <ClipLoader
-          size={100}
-          css={override}
-          color={"rgb(44, 44, 52)"}
-          loading={true}
-        />
-      </div> */}
       <Switch>
         <Route
           exact
@@ -215,7 +199,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
         {/* If no path matches, redirect to home */}
         <Route render={() => <Redirect to="/" />} />
       </Switch>
-    </div>
+    </>
   );
 });
 
