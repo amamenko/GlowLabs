@@ -107,7 +107,7 @@
 }
 
 .admin_clients_searchbar_input_field {
-  width: 87%;
+  width: 87% !important;
   font-size: 1rem;
   margin-top: 1.5rem;
   padding-top: 0.5rem;
@@ -423,15 +423,15 @@
 }
 
 .profile_button_container p {
-  width: 100%;
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 0.7rem;
-  color: rgb(55, 55, 55);
+  width: 100% !important;
+  position: absolute !important;
+  bottom: 0.5rem !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-size: 0.7rem !important;
+  color: rgb(111, 111, 111);
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
@@ -472,7 +472,7 @@
   }
 
   .admin_clients_searchbar_input_field {
-    width: 82%;
+    width: 82% !important;
     font-size: 1.5rem;
     margin-top: 1.5rem;
     padding-top: 1rem;
@@ -612,24 +612,25 @@
 
   .profile_button_icon,
   .profile_button_container h2 {
-    font-size: 2rem;
+    font-size: 2rem !important;
     cursor: pointer;
   }
 
   .profile_button_container {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    margin-left: 1rem;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+    margin-left: 1rem !important;
+    width: auto !important;
   }
 
   .profile_button_container p {
-    width: 100%;
-    bottom: auto;
-    left: 5rem;
-    right: 0;
-    margin: auto;
-    text-align: center;
-    font-size: 1.5rem;
+    width: 100% !important;
+    bottom: auto !important;
+    left: 5rem !important;
+    right: 0 !important;
+    margin: auto !important;
+    text-align: center !important;
+    font-size: 1.5rem !important;
   }
 
   .admin_individual_client_add_photo_modal_contents h2 {
@@ -730,7 +731,7 @@
   }
 
   .profile_button_expand {
-    font-size: 2rem;
+    font-size: 2rem !important;
     cursor: pointer;
   }
 }
@@ -771,18 +772,18 @@
 
   .profile_button_icon,
   .profile_button_container h2 {
-    font-size: 1.6rem;
+    font-size: 1.6rem !important;
   }
 
   .profile_button_container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    margin-left: 1rem;
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+    margin-left: 1rem !important;
   }
 
   .profile_button_container p {
-    left: 7rem;
-    font-size: 1.5rem;
+    left: 7rem !important;
+    font-size: 1.5rem !important;
   }
 
   .admin_individual_client_add_photo_modal_content_container {
@@ -857,19 +858,19 @@
 
   .profile_button_icon,
   .profile_button_container h2 {
-    font-size: 2rem;
+    font-size: 2rem !important;
     cursor: pointer;
   }
 
   .profile_button_container {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    margin-left: 1rem;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+    margin-left: 1rem !important;
   }
 
   .profile_button_container p {
-    left: 5rem;
-    font-size: 1.5rem;
+    left: 8rem !important;
+    font-size: 1.5rem !important;
   }
 
   .admin_individual_client_add_photo_modal_content_container {

@@ -2,6 +2,10 @@ import React, { useEffect, useMemo } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AdminLoginPage from "./AdminLogin/AdminLoginPage";
 import AdminMenu from "./AdminMenu/AdminMenu";
+import AdminClients from "./AdminClients/AdminClients";
+import AdminSchedule from "./AdminSchedule/AdminSchedule";
+import AdminStaff from "./AdminStaff/AdminStaff";
+import AdminNotifications from "./AdminNotifications/AdminNotifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import getClientsQuery from "../../graphql/queries/getClientsQuery";
 import getAllAppointmentsQuery from "../../graphql/queries/getAllAppointmentsQuery";
@@ -10,12 +14,16 @@ import resetNotificationsMutation from "../../graphql/mutations/resetNotificatio
 import randomColor from "randomcolor";
 import LargeScreenSideMenu from "../account/LargeScreenSideMenu/LargeScreenSideMenu";
 import { Font } from "@react-pdf/renderer";
-import { useDispatch } from "react-redux";
-import AdminClients from "./AdminClients/AdminClients";
-import AdminSchedule from "./AdminSchedule/AdminSchedule";
-import AdminStaff from "./AdminStaff/AdminStaff";
-import AdminNotifications from "./AdminNotifications/AdminNotifications";
+import { useDispatch, useSelector } from "react-redux";
 import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
+import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
+import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import "../../components/account/clientprofile/MyProfile/MyProfile.css";
+import "../../components/account/clientprofile/ConsentForm/ConsentForm.css";
+import "../../components/account/clientprofile/MyAppointments/MyAppointments.css";
+import "../../components/account/clientprofile/ClientProfile.css";
+import "../../components/checkout/SummaryReviewCards/SummaryReviewCards.css";
+import "../../bootstrap_forms.min.css";
 
 const AdminRouter = React.forwardRef((props, ref) => {
   const location = useLocation();
@@ -23,6 +31,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
 
   const {
     getEmployeeData,
+    getEmployeeError,
     path,
     initialScreenSize,
     currentScreenSize,
@@ -54,6 +63,13 @@ const AdminRouter = React.forwardRef((props, ref) => {
   } = useQuery(getAllPersonalEventsQuery, {
     fetchPolicy: "no-cache",
   });
+
+  const splashScreenHalfway = useSelector(
+    (state) => state.splashScreenHalfway.splashScreenHalfway
+  );
+  const splashScreenComplete = useSelector(
+    (state) => state.splashScreenComplete.splashScreenComplete
+  );
 
   const randomColorArray = useMemo(() => {
     if (getClientsData) {
@@ -88,6 +104,27 @@ const AdminRouter = React.forwardRef((props, ref) => {
   useMemo(() => {
     registerFont();
   }, []);
+
+  useMemo(() => {
+    // If employee error, refresh page a single time to check again
+    if (getEmployeeError) {
+      if (location.pathname !== "/admin") {
+        if (!window.location.hash) {
+          window.location = window.location + "#reloaded";
+          window.location.reload();
+        }
+      }
+    }
+  }, [getEmployeeError, location.pathname]);
+
+  useEffect(() => {
+    if (!splashScreenComplete) {
+      dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+    }
+    if (!splashScreenHalfway) {
+      dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
+    }
+  }, [dispatch, splashScreenComplete, splashScreenHalfway]);
 
   return (
     <>

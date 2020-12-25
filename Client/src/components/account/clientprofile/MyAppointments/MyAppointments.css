@@ -863,6 +863,13 @@
     width: 98%;
     margin-left: -10.5rem;
   }
+
+  .yes_cancel_appointment_button,
+  .no_dont_cancel_appointment_button {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
 }
 
 /* CSS for Huge Desktops */

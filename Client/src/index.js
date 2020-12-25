@@ -123,8 +123,6 @@ import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE"
 import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_RESET_ADMIN_NOTIFICATIONS";
 import ACTION_ON_ACTIVITY_PAGE from "./actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
-import AdminRouter from "./components/admin/AdminRouter";
-import AccountRouter from "./components/account/AccountRouter";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
 
@@ -149,6 +147,10 @@ const PaymentInfo = React.lazy(() =>
 );
 const CheckoutRouter = React.lazy(() =>
   import("./components/checkout/CheckoutRouter")
+);
+const AdminRouter = React.lazy(() => import("./components/admin/AdminRouter"));
+const AccountRouter = React.lazy(() =>
+  import("./components/account/AccountRouter")
 );
 
 require("dotenv").config();
@@ -261,19 +263,20 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  const { data: getClientData, refetch: clientDataRefetch } = useQuery(
-    getClientQuery,
-    {
-      fetchPolicy: "no-cache",
-      variables: {
-        _id: dummyToken
-          ? dummyToken.id
-          : guestConsentFormAccessToken
-          ? guestConsentFormAccessToken.id
-          : null,
-      },
-    }
-  );
+  const {
+    data: getClientData,
+    error: getClientError,
+    refetch: clientDataRefetch,
+  } = useQuery(getClientQuery, {
+    fetchPolicy: "no-cache",
+    variables: {
+      _id: dummyToken
+        ? dummyToken.id
+        : guestConsentFormAccessToken
+        ? guestConsentFormAccessToken.id
+        : null,
+    },
+  });
 
   const {
     data: getEmployeesData,
@@ -285,6 +288,7 @@ const App = () => {
 
   const {
     data: getEmployeeData,
+    error: getEmployeeError,
     loading: getEmployeeLoading,
     refetch: employeeDataRefetch,
     subscribeToMore: employeeSubscribeToMore,
@@ -1673,29 +1677,35 @@ const App = () => {
         <Route
           render={() =>
             location.pathname.includes("account") ? (
-              <AccountRouter
-                path="/account"
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                getClientData={getClientData ? getClientData : null}
-                clientDataRefetch={clientDataRefetch}
-                handleClickToScrollToHome={handleClickToScrollToHome}
-                ref={ref}
-              />
+              <Suspense fallback={renderAuthFallbackLoader()}>
+                <AccountRouter
+                  path="/account"
+                  initialScreenSize={initialScreenSize}
+                  currentScreenSize={currentScreenSize}
+                  getClientData={getClientData ? getClientData : null}
+                  getClientError={getClientError}
+                  clientDataRefetch={clientDataRefetch}
+                  handleClickToScrollToHome={handleClickToScrollToHome}
+                  ref={ref}
+                />
+              </Suspense>
             ) : location.pathname.includes("admin") ? (
-              <AdminRouter
-                path="/admin"
-                initialScreenSize={initialScreenSize}
-                currentScreenSize={currentScreenSize}
-                getEmployeeData={getEmployeeData ? getEmployeeData : null}
-                getEmployeeLoading={getEmployeeLoading}
-                employeeDataRefetch={employeeDataRefetch}
-                getEmployeesData={getEmployeesData ? getEmployeesData : null}
-                getEmployeesRefetch={getEmployeesRefetch}
-                getEmployeesLoading={getEmployeesLoading}
-                handleClickToScrollToHome={handleClickToScrollToHome}
-                ref={ref}
-              />
+              <Suspense fallback={renderAuthFallbackLoader()}>
+                <AdminRouter
+                  path="/admin"
+                  initialScreenSize={initialScreenSize}
+                  currentScreenSize={currentScreenSize}
+                  getEmployeeData={getEmployeeData ? getEmployeeData : null}
+                  getEmployeeError={getEmployeeError}
+                  getEmployeeLoading={getEmployeeLoading}
+                  employeeDataRefetch={employeeDataRefetch}
+                  getEmployeesData={getEmployeesData ? getEmployeesData : null}
+                  getEmployeesRefetch={getEmployeesRefetch}
+                  getEmployeesLoading={getEmployeesLoading}
+                  handleClickToScrollToHome={handleClickToScrollToHome}
+                  ref={ref}
+                />
+              </Suspense>
             ) : cartPageOpened === "PaymentInfo" ? (
               <Suspense fallback={renderCartRoutesFallbackLoader()}>
                 <PaymentInfo

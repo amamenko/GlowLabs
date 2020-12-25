@@ -32,6 +32,8 @@
     "moment": "^2.29.1",
     "node-darwin-x64": "^15.3.0",
     "phone": "^2.4.17",
+    "preact": "^10.5.7",
+    "preact-compat": "^3.19.0",
     "randomcolor": "^0.6.2",
     "react": "^16.14.0",
     "react-activation": "^0.7.0",
@@ -65,6 +67,7 @@
     "scroll-behavior-polyfill": "^2.0.13",
     "scroll-snap": "^3.1.0",
     "smoothscroll-polyfill": "^0.4.4",
+    "source-map-explorer": "^2.5.1",
     "subscriptions-transport-ws": "^0.9.18",
     "timeago.js": "^4.0.2",
     "validator": "^13.5.1"
