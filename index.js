@@ -508,7 +508,7 @@ passport.use(
       ],
       passReqToCallback: true,
     },
-    function (req, accessToken, refreshToken, profile, done) {
+    (req, accessToken, refreshToken, profile, done) => {
       if (accessToken) {
         req.isAuth = true;
         req.facebookAccessToken = accessToken;
@@ -571,8 +571,8 @@ app.get("/:id/consentform", async (req, res) => {
   }
 });
 
-app.get("/auth/facebook/callback", function (req, res, next) {
-  passport.authenticate("facebook", async function (err, user, info) {
+app.get("/auth/facebook/callback", (req, res, next) => {
+  passport.authenticate("facebook", async (err, user, info) => {
     if (err) {
       return next(err);
     }

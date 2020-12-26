@@ -1666,10 +1666,9 @@ const App = () => {
         ) : null}
 
         <Route
-          path="/checkout"
           render={() => (
             <Suspense fallback={renderCartRoutesFallbackLoader()}>
-              <CheckoutRouter />
+              <CheckoutRouter path="/checkout" />
             </Suspense>
           )}
         />

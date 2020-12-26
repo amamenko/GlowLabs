@@ -11,76 +11,78 @@ import ConsentFormPage6 from "../account/clientprofile/ConsentForm/Pages/Page6/C
 import ConsentFormPage7 from "../account/clientprofile/ConsentForm/Pages/Page7/ConsentFormPage7";
 
 const CheckoutRouter = (props) => {
+  const { path, initialScreenSize, currentScreenSize } = props;
+
   return (
     <Switch>
       <Route
         exact
-        path={props.match.path}
+        path={path}
         render={() => (
           <GuestCheckout
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={initialScreenSize}
+            currentScreenSize={currentScreenSize}
           />
         )}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation"}
+        path={path + "/confirmation"}
         render={() => (
           <ConfirmationPage
-            initialScreenSize={props.initialScreenSize}
-            currentScreenSize={props.currentScreenSize}
+            initialScreenSize={initialScreenSize}
+            currentScreenSize={currentScreenSize}
           />
         )}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation/consentform/page1"}
+        path={path + "/confirmation/consentform/page1"}
         component={ConsentFormPage1}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation/consentform/page2"}
+        path={path + "/confirmation/consentform/page2"}
         component={ConsentFormPage2}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation/consentform/page3"}
+        path={path + "/confirmation/consentform/page3"}
         component={ConsentFormPage3}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation/consentform/page4"}
+        path={path + "/confirmation/consentform/page4"}
         component={ConsentFormPage4}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation/consentform/page5"}
+        path={path + "/confirmation/consentform/page5"}
         component={ConsentFormPage5}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation/consentform/page6"}
+        path={path + "/confirmation/consentform/page6"}
         component={ConsentFormPage6}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
       <Route
         exact
-        path={props.match.path + "/confirmation/consentform/page7"}
+        path={path + "/confirmation/consentform/page7"}
         component={ConsentFormPage7}
-        initialScreenSize={props.initialScreenSize}
-        currentScreenSize={props.currentScreenSize}
+        initialScreenSize={initialScreenSize}
+        currentScreenSize={currentScreenSize}
       />
     </Switch>
   );
