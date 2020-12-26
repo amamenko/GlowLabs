@@ -25,6 +25,7 @@
     "email-templates": "^8.0.2",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
+    "express-sslify": "^1.2.0",
     "generate-password": "^1.5.1",
     "graphql": "^15.4.0",
     "graphql-playground-middleware-express": "^1.7.22",

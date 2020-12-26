@@ -21,6 +21,7 @@ const getMainImage = require("./getMainImage");
 const cron = require("node-cron");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 const moment = require("moment");
+const enforce = require("express-sslify");
 const { v4: uuidv4 } = require("uuid");
 const http = require("http");
 const { ApiError, Environment } = require("square");
@@ -42,6 +43,12 @@ app.use(express.json({ limit: "50mb" }));
 
 // Cross-Origin Requests
 app.use(cors({ origin: true, credentials: true }));
+
+const port = process.env.PORT || 4000;
+
+if (process.env.NODE_ENV === "production") {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+}
 
 // Allow 200 responses, but not 304 not modified
 app.disable("etag");
@@ -499,7 +506,7 @@ passport.use(
     {
       clientID: `${process.env.FACEBOOK_APP_ID}`,
       clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
-      callbackURL: "http://localhost:4000/auth/facebook/callback",
+      callbackURL: `http://localhost:${port}/auth/facebook/callback`,
       profileFields: [
         "emails",
         "first_name",
@@ -1117,13 +1124,11 @@ app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
-httpServer.listen(4000, () => {
+httpServer.listen(port, () => {
   console.log(
-    `🚀 Server ready at http://localhost:${4000}${server.graphqlPath}`
+    `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
   );
   console.log(
-    `🚀 Subscriptions ready at ws://localhost:${4000}${
-      server.subscriptionsPath
-    }`
+    `🚀 Subscriptions ready at ws://localhost:${port}${server.subscriptionsPath}`
   );
 });
