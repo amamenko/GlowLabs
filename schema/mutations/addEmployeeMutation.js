@@ -66,7 +66,10 @@ const addEmployeeMutation = {
             employee.firstName[0].toUpperCase() +
             employee.firstName.slice(1).toLowerCase(),
           temporaryPassword: employee.password,
-          adminLoginLink: "http://localhost:3000/admin",
+          adminLoginLink:
+            process.env.NODE_ENV === "production"
+              ? "https://glowlabsskincare.netlify.app/admin"
+              : "http://localhost:3000/admin",
         })
         .then(async (finalTemplate) => {
           await transporter.sendMail({

@@ -48,7 +48,6 @@ import AllAddOns from "./components/all_add_ons/AllAddOns";
 import { scroller } from "react-scroll";
 import FollowUs from "./components/follow_us/FollowUs";
 import ContactUs from "./components/contact_us/ContactUs";
-import iNoBounce from "./inobounce";
 import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
@@ -1318,15 +1317,6 @@ const App = () => {
     }
   }, [location, headerOffset, cartIsActive]);
 
-  // Used to prevent rubber banding effect on mobile phones while allowing scroll on other pages
-  useEffect(() => {
-    if (location.pathname !== "/") {
-      iNoBounce.disable();
-    } else {
-      iNoBounce.enable();
-    }
-  }, [location.pathname]);
-
   const renderAuthFallbackLoader = () => {
     return (
       <Modal
@@ -1699,7 +1689,7 @@ const App = () => {
                   ref={ref}
                 />
               </Suspense>
-            ) : cartPageOpened.includes("checkout") ? (
+            ) : cartPageOpened === "GuestCheckout" ? (
               <Route
                 render={() => (
                   <Suspense fallback={renderCartRoutesFallbackLoader()}>

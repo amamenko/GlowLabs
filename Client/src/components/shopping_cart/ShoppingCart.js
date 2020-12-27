@@ -458,6 +458,7 @@ const ShoppingCart = (props) => {
                 type="select"
                 name="select"
                 defaultValue={selectedEsthetician}
+                placeholder="No preference"
                 id="esthetician_preference"
                 onChange={(e) => {
                   props.resetAllCartStatesExceptTreatments();

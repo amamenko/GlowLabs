@@ -208,6 +208,9 @@ cron.schedule("* * * * *", async () => {
 
   if (dayPriorMatchArr.length > 0) {
     dayPriorMatchArr.forEach((appointment) => {
+      // Format phone number for Twilio texting purposes
+      const clientPhoneNumber = phone(appointment.client.phoneNumber);
+
       client.messages
         .create({
           body:
@@ -223,16 +226,19 @@ cron.schedule("* * * * *", async () => {
             ". " +
             (!appointment.confirmed ? "Reply Y to confirm." : "See you then!"),
           from: process.env.GLOW_LABS_TEXT_NUMBER,
-          to: process.env.TWILIO_TEST_TEXT_NUMBER,
-
-          // Format phone number for Twilio texting purposes
-          // const clientPhoneNumber = phone(appointment.client.phoneNumber);
+          to:
+            process.env.NODE_ENV === "production"
+              ? clientPhoneNumber[0]
+              : process.env.TWILIO_TEST_TEXT_NUMBER,
         })
         .then((message) => console.log(message.sid))
         .catch((err) => console.log(err));
     });
   } else if (hourPriorMatchArr.length > 0) {
     hourPriorMatchArr.forEach((appointment) => {
+      // Format phone number for Twilio texting purposes
+      const clientPhoneNumber = phone(appointment.client.phoneNumber);
+
       client.messages
         .create({
           body:
@@ -246,10 +252,10 @@ cron.schedule("* * * * *", async () => {
               ? "Reply Y to confirm."
               : "Have a great day!"),
           from: process.env.GLOW_LABS_TEXT_NUMBER,
-          to: process.env.TWILIO_TEST_TEXT_NUMBER,
-
-          // Format phone number for Twilio texting purposes
-          // const clientPhoneNumber = phone(appointment.client.phoneNumber);
+          to:
+            process.env.NODE_ENV === "production"
+              ? clientPhoneNumber[0]
+              : process.env.TWILIO_TEST_TEXT_NUMBER,
         })
         .then((message) => console.log(message.sid))
         .catch((err) => console.log(err));
