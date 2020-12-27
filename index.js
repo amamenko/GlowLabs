@@ -221,7 +221,7 @@ cron.schedule("* * * * *", async () => {
             " at " +
             appointment.startTime +
             ". " +
-            (!appointment.confirmed ? "Reply Y to Confirm." : "See you then!"),
+            (!appointment.confirmed ? "Reply Y to confirm." : "See you then!"),
           from: process.env.GLOW_LABS_TEXT_NUMBER,
           to: process.env.TWILIO_TEST_TEXT_NUMBER,
 
@@ -243,7 +243,7 @@ cron.schedule("* * * * *", async () => {
             appointment.startTime +
             ". " +
             (!appointment.confirmed
-              ? "Reply Y to Confirm."
+              ? "Reply Y to confirm."
               : "Have a great day!"),
           from: process.env.GLOW_LABS_TEXT_NUMBER,
           to: process.env.TWILIO_TEST_TEXT_NUMBER,
@@ -506,7 +506,11 @@ passport.use(
     {
       clientID: `${process.env.FACEBOOK_APP_ID}`,
       clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
-      callbackURL: `http://localhost:${port}/auth/facebook/callback`,
+      callbackURL: `${
+        process.env.NODE_ENV === "production"
+          ? "https://glowlabs.herokuapp.com/auth/facebook/callback"
+          : "http://localhost:" + port + "/auth/facebook/callback"
+      }`,
       profileFields: [
         "emails",
         "first_name",
@@ -1126,9 +1130,17 @@ server.installSubscriptionHandlers(httpServer);
 
 httpServer.listen(port, () => {
   console.log(
-    `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+    `🚀 Server ready at ${
+      process.env.NODE_ENV === "production"
+        ? "https://glowlabs.herokuapp.com" + server.graphqlPath
+        : "http://localhost:" + port + server.graphqlPath
+    }`
   );
   console.log(
-    `🚀 Subscriptions ready at ws://localhost:${port}${server.subscriptionsPath}`
+    `🚀 Subscriptions ready at ${
+      process.env.NODE_ENV === "production"
+        ? "wss://glowlabs.herokuapp.com" + server.subscriptionsPath
+        : "ws://localhost:" + port + server.subscriptionsPath
+    }`
   );
 });

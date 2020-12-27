@@ -56,6 +56,10 @@ const AdminClients = (props) => {
 
   const {
     getClientsData,
+    getEmployeeError,
+    getEmployeesError,
+    employeeDataRefetch,
+    getEmployeesRefetch,
     getClientsLoading,
     initialScreenSize,
     currentScreenSize,
@@ -679,6 +683,18 @@ const AdminClients = (props) => {
       dispatch(ACTION_LOADING_SPINNER_RESET());
     }
   }, [dispatch, getClientsLoading]);
+
+  useEffect(() => {
+    if (getEmployeeError) {
+      employeeDataRefetch();
+    }
+  }, [getEmployeeError, employeeDataRefetch]);
+
+  useEffect(() => {
+    if (getEmployeesError) {
+      getEmployeesRefetch();
+    }
+  }, [getEmployeesError, getEmployeesRefetch]);
 
   return (
     <div className="admin_clients_container">

@@ -24,6 +24,10 @@ const AdminSchedule = (props) => {
   const {
     getEmployeesData,
     getEmployeeData,
+    getEmployeeError,
+    getEmployeesError,
+    employeeDataRefetch,
+    getEmployeesRefetch,
     resetNotifications,
     initialScreenSize,
     currentScreenSize,
@@ -305,6 +309,18 @@ const AdminSchedule = (props) => {
       }
     }
   }, [timeHeader]);
+
+  useEffect(() => {
+    if (getEmployeeError) {
+      employeeDataRefetch();
+    }
+  }, [getEmployeeError, employeeDataRefetch]);
+
+  useEffect(() => {
+    if (getEmployeesError) {
+      getEmployeesRefetch();
+    }
+  }, [getEmployeesError, getEmployeesRefetch]);
 
   return (
     <div className="admin_schedule_container">

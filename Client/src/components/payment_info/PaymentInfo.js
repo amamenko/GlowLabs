@@ -1054,47 +1054,61 @@ const PaymentInfo = (props) => {
             placeholderCVV="CVC"
           >
             <fieldset className="sq-fieldset">
-              <FormGroup className="choose_a_credit_card_formgroup">
-                <Label className="sq-label" for="select">
-                  CHOOSE A CREDIT CARD
-                </Label>
-                <FontAwesomeIcon
-                  className="choose_a_credit_card_dropdown_icon"
-                  icon={faChevronCircleDown}
-                />
-                <Input
-                  className="sq-cardholder-input"
-                  type="select"
-                  name="select"
-                  id="select"
-                  disabled={
-                    !userAuthenticated ||
-                    (userAuthenticated && !squareStoredCreditCards) ||
-                    (userAuthenticated &&
-                      squareStoredCreditCards &&
-                      squareStoredCreditCards.data.filter(
-                        (x) =>
-                          !props.getClientData.client.unsavedSquareCardIDs.includes(
-                            x.id
-                          )
-                      ).length === 0)
-                  }
-                  value={
-                    userAuthenticated
-                      ? bookedWithCardID
-                        ? squareStoredCreditCards
-                          ? JSON.stringify({
-                              name:
-                                squareStoredCreditCards.data
-                                  .filter((x) => x.id === bookedWithCardID)[0]
-                                  .card_brand.split("_")
-                                  .join(" ") +
-                                " - " +
-                                squareStoredCreditCards.data.filter(
-                                  (x) => x.id === bookedWithCardID
-                                )[0].last_4,
-                              id: bookedWithCardID,
-                            })
+              {!userAuthenticated ||
+              (userAuthenticated && !squareStoredCreditCards) ||
+              (userAuthenticated &&
+                squareStoredCreditCards &&
+                squareStoredCreditCards.data.filter(
+                  (x) =>
+                    !props.getClientData.client.unsavedSquareCardIDs.includes(
+                      x.id
+                    )
+                ).length === 0) ? null : (
+                <FormGroup className="choose_a_credit_card_formgroup">
+                  <Label className="sq-label" for="select">
+                    CHOOSE A CREDIT CARD
+                  </Label>
+                  <FontAwesomeIcon
+                    className="choose_a_credit_card_dropdown_icon"
+                    icon={faChevronCircleDown}
+                  />
+                  <Input
+                    className="sq-cardholder-input"
+                    type="select"
+                    name="select"
+                    id="select"
+                    disabled={
+                      !userAuthenticated ||
+                      (userAuthenticated && !squareStoredCreditCards) ||
+                      (userAuthenticated &&
+                        squareStoredCreditCards &&
+                        squareStoredCreditCards.data.filter(
+                          (x) =>
+                            !props.getClientData.client.unsavedSquareCardIDs.includes(
+                              x.id
+                            )
+                        ).length === 0)
+                    }
+                    value={
+                      userAuthenticated
+                        ? bookedWithCardID
+                          ? squareStoredCreditCards
+                            ? JSON.stringify({
+                                name:
+                                  squareStoredCreditCards.data
+                                    .filter((x) => x.id === bookedWithCardID)[0]
+                                    .card_brand.split("_")
+                                    .join(" ") +
+                                  " - " +
+                                  squareStoredCreditCards.data.filter(
+                                    (x) => x.id === bookedWithCardID
+                                  )[0].last_4,
+                                id: bookedWithCardID,
+                              })
+                            : JSON.stringify({
+                                name: selectedCreditCard.name,
+                                id: selectedCreditCard.id,
+                              })
                           : JSON.stringify({
                               name: selectedCreditCard.name,
                               id: selectedCreditCard.id,
@@ -1103,63 +1117,63 @@ const PaymentInfo = (props) => {
                             name: selectedCreditCard.name,
                             id: selectedCreditCard.id,
                           })
-                      : JSON.stringify({
-                          name: selectedCreditCard.name,
-                          id: selectedCreditCard.id,
-                        })
-                  }
-                  onChange={(e) => {
-                    const optionsArr = [{ name: "", id: "", index: 0 }].concat(
-                      squareStoredCreditCards.data
-                        .filter(
-                          (x) =>
-                            !props.getClientData.client.unsavedSquareCardIDs.includes(
-                              x.id
-                            )
-                        )
-                        .map((x, i) => {
-                          return {
-                            name:
-                              x.card_brand.split("_").join(" ") +
-                              " - " +
-                              x.last_4,
-                            id: x.id,
-                            index: i,
-                          };
-                        })
-                    );
+                    }
+                    onChange={(e) => {
+                      const optionsArr = [
+                        { name: "", id: "", index: 0 },
+                      ].concat(
+                        squareStoredCreditCards.data
+                          .filter(
+                            (x) =>
+                              !props.getClientData.client.unsavedSquareCardIDs.includes(
+                                x.id
+                              )
+                          )
+                          .map((x, i) => {
+                            return {
+                              name:
+                                x.card_brand.split("_").join(" ") +
+                                " - " +
+                                x.last_4,
+                              id: x.id,
+                              index: i,
+                            };
+                          })
+                      );
 
-                    let chosenItem = optionsArr.filter(
-                      (item, index) => index === e.target.options.selectedIndex
-                    )[0];
+                      let chosenItem = optionsArr.filter(
+                        (item, index) =>
+                          index === e.target.options.selectedIndex
+                      )[0];
 
-                    if (selectedCreditCard.name) {
-                      dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
-
-                      changeSelectedCreditCard({
-                        name: chosenItem.name,
-                        id: chosenItem.id,
-                      });
-                      if (e.target.value === "NEW CARD") {
+                      if (selectedCreditCard.name) {
                         dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
 
-                        changeSelectedCreditCard({ name: "", id: "" });
-                        changeSelectedCreditCardFullData("");
-                      }
-                    } else {
-                      dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+                        changeSelectedCreditCard({
+                          name: chosenItem.name,
+                          id: chosenItem.id,
+                        });
+                        if (e.target.value === "NEW CARD") {
+                          dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
 
-                      changeSelectedCreditCard({
-                        name: chosenItem.name,
-                        id: chosenItem.id,
-                      });
-                    }
-                  }}
-                >
-                  <option>NEW CARD</option>
-                  {renderStoredCreditCardOptions()}
-                </Input>
-              </FormGroup>
+                          changeSelectedCreditCard({ name: "", id: "" });
+                          changeSelectedCreditCardFullData("");
+                        }
+                      } else {
+                        dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
+
+                        changeSelectedCreditCard({
+                          name: chosenItem.name,
+                          id: chosenItem.id,
+                        });
+                      }
+                    }}
+                  >
+                    <option>NEW CARD</option>
+                    {renderStoredCreditCardOptions()}
+                  </Input>
+                </FormGroup>
+              )}
               <div className="sq_card_holder_container">
                 <span className="sq-label">CARDHOLDER FIRST NAME</span>
                 <input

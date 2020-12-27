@@ -24,6 +24,8 @@ import LargeScreenSideMenu from "./LargeScreenSideMenu/LargeScreenSideMenu";
 import { Font } from "@react-pdf/renderer";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import ACTION_NAVBAR_NOT_VISIBLE from "../../actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
+import ACTION_NAVBAR_IS_VISIBLE from "../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import "./LargeScreenSideMenu/LargeScreenSideMenu.css";
 import "../../components/checkout/ConfirmationPage.css";
 import "../../components/checkout/GuestCheckout.css";
@@ -84,7 +86,7 @@ const AccountRouter = React.forwardRef((props, ref) => {
     if (getClientError) {
       if (location.pathname.includes("clientprofile")) {
         if (!window.location.hash) {
-          window.location = window.location + "#reloaded";
+          window.location = window.location + "#";
           window.location.reload();
         }
       }
@@ -99,6 +101,17 @@ const AccountRouter = React.forwardRef((props, ref) => {
       dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
     }
   }, [dispatch, splashScreenComplete, splashScreenHalfway]);
+
+  useEffect(() => {
+    if (
+      location.pathname.includes("/login") ||
+      location.pathname.includes("/signup")
+    ) {
+      dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+    } else {
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    }
+  }, [dispatch, location.pathname]);
 
   return (
     <>

@@ -281,6 +281,7 @@ const App = () => {
   const {
     data: getEmployeesData,
     loading: getEmployeesLoading,
+    error: getEmployeesError,
     refetch: getEmployeesRefetch,
   } = useQuery(getEmployeesQuery, {
     fetchPolicy: "no-cache",
@@ -1666,14 +1667,6 @@ const App = () => {
         ) : null}
 
         <Route
-          render={() => (
-            <Suspense fallback={renderCartRoutesFallbackLoader()}>
-              <CheckoutRouter path="/checkout" />
-            </Suspense>
-          )}
-        />
-
-        <Route
           render={() =>
             location.pathname.includes("account") ? (
               <Suspense fallback={renderAuthFallbackLoader()}>
@@ -1699,12 +1692,21 @@ const App = () => {
                   getEmployeeLoading={getEmployeeLoading}
                   employeeDataRefetch={employeeDataRefetch}
                   getEmployeesData={getEmployeesData ? getEmployeesData : null}
+                  getEmployeesError={getEmployeesError}
                   getEmployeesRefetch={getEmployeesRefetch}
                   getEmployeesLoading={getEmployeesLoading}
                   handleClickToScrollToHome={handleClickToScrollToHome}
                   ref={ref}
                 />
               </Suspense>
+            ) : cartPageOpened.includes("checkout") ? (
+              <Route
+                render={() => (
+                  <Suspense fallback={renderCartRoutesFallbackLoader()}>
+                    <CheckoutRouter path="/checkout" />
+                  </Suspense>
+                )}
+              />
             ) : cartPageOpened === "PaymentInfo" ? (
               <Suspense fallback={renderCartRoutesFallbackLoader()}>
                 <PaymentInfo

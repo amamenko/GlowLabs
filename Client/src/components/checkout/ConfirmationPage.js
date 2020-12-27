@@ -159,7 +159,7 @@ const ConfirmationPage = (props) => {
       });
     }
   }, [getClient, userAuthenticated]);
-
+  console.log(selectedEsthetician);
   const override = css`
     display: block;
     position: absolute;

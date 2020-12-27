@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ACTION_ON_ACTIVITY_PAGE from "../../actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import ACTION_NAVBAR_IS_VISIBLE from "../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
+import ACTION_NAVBAR_NOT_VISIBLE from "../../actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import "../../components/account/clientprofile/MyProfile/MyProfile.css";
 import "../../components/account/clientprofile/ConsentForm/ConsentForm.css";
 import "../../components/account/clientprofile/MyAppointments/MyAppointments.css";
@@ -32,6 +34,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
   const {
     getEmployeeData,
     getEmployeeError,
+    getEmployeesError,
     path,
     initialScreenSize,
     currentScreenSize,
@@ -88,6 +91,14 @@ const AdminRouter = React.forwardRef((props, ref) => {
   const [resetNotifications] = useMutation(resetNotificationsMutation);
 
   useEffect(() => {
+    if (location.pathname === "/admin") {
+      dispatch(ACTION_NAVBAR_NOT_VISIBLE());
+    } else {
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    }
+  }, [dispatch, location.pathname]);
+
+  useEffect(() => {
     if (location.pathname.includes("activity")) {
       dispatch(ACTION_ON_ACTIVITY_PAGE());
     }
@@ -104,18 +115,6 @@ const AdminRouter = React.forwardRef((props, ref) => {
   useMemo(() => {
     registerFont();
   }, []);
-
-  useMemo(() => {
-    // If employee error, refresh page a single time to check again
-    if (getEmployeeError) {
-      if (location.pathname !== "/admin") {
-        if (!window.location.hash) {
-          window.location = window.location + "#reloaded";
-          window.location.reload();
-        }
-      }
-    }
-  }, [getEmployeeError, location.pathname]);
 
   useEffect(() => {
     if (!splashScreenComplete) {
@@ -184,11 +183,15 @@ const AdminRouter = React.forwardRef((props, ref) => {
               initialScreenSize={initialScreenSize}
               currentScreenSize={currentScreenSize}
               getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              getEmployeeError={getEmployeeError}
+              getEmployeesError={getEmployeesError}
               getClientsData={getClientsData ? getClientsData : null}
               getClientsRefetch={getClientsRefetch}
               getClientsLoading={getClientsLoading}
               randomColorArray={randomColorArray ? randomColorArray : null}
               resetNotifications={resetNotifications}
+              employeeDataRefetch={employeeDataRefetch}
+              getEmployeesRefetch={getEmployeesRefetch}
             />
           )}
         />
@@ -202,6 +205,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getClientsData={getClientsData ? getClientsData : null}
               getClientsLoading={getClientsLoading}
               getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              getEmployeeError={getEmployeeError}
+              getEmployeesError={getEmployeesError}
               employeeDataRefetch={employeeDataRefetch}
               getEmployeesData={getEmployeesData}
               getEmployeesRefetch={getEmployeesRefetch}
@@ -222,6 +227,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getAllAppointmentsData={getAllAppointmentsData}
               getAllAppointmentsRefetch={getAllAppointmentsRefetch}
               getEmployeeData={getEmployeeData ? getEmployeeData : null}
+              getEmployeeError={getEmployeeError}
+              getEmployeesError={getEmployeesError}
               getEmployeesData={getEmployeesData ? getEmployeesData : null}
               getClientsData={getClientsData ? getClientsData : null}
               getClientsRefetch={getClientsRefetch}
@@ -229,6 +236,8 @@ const AdminRouter = React.forwardRef((props, ref) => {
               getAllPersonalEventsRefetch={getAllPersonalEventsRefetch}
               randomColorArray={randomColorArray ? randomColorArray : null}
               resetNotifications={resetNotifications}
+              employeeDataRefetch={employeeDataRefetch}
+              getEmployeesRefetch={getEmployeesRefetch}
             />
           )}
         />

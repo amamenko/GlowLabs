@@ -41,6 +41,8 @@ import "react-html5-camera-photo/build/css/index.css";
 const AdminStaff = (props) => {
   const {
     getEmployeeData,
+    getEmployeeError,
+    getEmployeesError,
     getEmployeesRefetch,
     getEmployeesData,
     getAllAppointmentsData,
@@ -491,6 +493,18 @@ const AdminStaff = (props) => {
       dispatch(ACTION_LOADING_SPINNER_RESET());
     }
   }, [dispatch, getClientsLoading]);
+
+  useEffect(() => {
+    if (getEmployeeError) {
+      employeeDataRefetch();
+    }
+  }, [getEmployeeError, employeeDataRefetch]);
+
+  useEffect(() => {
+    if (getEmployeesError) {
+      getEmployeesRefetch();
+    }
+  }, [getEmployeesError, getEmployeesRefetch]);
 
   return (
     <div className="admin_clients_container">
