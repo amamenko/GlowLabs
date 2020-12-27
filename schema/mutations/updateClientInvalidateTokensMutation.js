@@ -3,6 +3,9 @@ const Client = require("../../models/client");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 
+// Hide usernames and passwords
+require("dotenv").config();
+
 const updateClientsInvalidateTokensMutation = {
   type: ClientType,
   async resolve(parent, args, context) {
@@ -27,6 +30,7 @@ const updateClientsInvalidateTokensMutation = {
           {
             maxAge: 1000 * 15,
             httpOnly: true,
+            secure: process.env.NODE_ENV === "production" ? true : false,
           }
         );
         client.tokenCount += 1;

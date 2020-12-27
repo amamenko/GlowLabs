@@ -3,6 +3,9 @@ const Employee = require("../../models/employee");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 
+// Hide usernames and passwords
+require("dotenv").config();
+
 const updateEmployeeInvalidateTokensMutation = {
   type: EmployeeType,
   async resolve(parent, args, context) {
@@ -28,6 +31,7 @@ const updateEmployeeInvalidateTokensMutation = {
           {
             maxAge: 1000 * 15,
             httpOnly: true,
+            secure: process.env.NODE_ENV === "production" ? true : false,
           }
         );
         employee.tokenCount += 1;

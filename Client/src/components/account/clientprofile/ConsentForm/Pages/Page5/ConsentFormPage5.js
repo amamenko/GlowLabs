@@ -3,12 +3,12 @@ import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-import "../../ConsentForm.css";
-import "../../../../../../bootstrap_forms.min.css";
 import SkinFlakyOrItch from "../../Questions/SkinFlakyOrItch";
 import DiagnosedWithRosacea from "../../Questions/DiagnosedWithRosacea";
 import PregnantOrNursing from "../../Questions/PregnantOrNursing";
 import ACTION_CONSENT_FORM_PAGE_5 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_5";
+import "../../ConsentForm.css";
+import "../../../../../../bootstrap_forms.min.css";
 
 const ConsentFormPage5 = (props) => {
   const dispatch = useDispatch();

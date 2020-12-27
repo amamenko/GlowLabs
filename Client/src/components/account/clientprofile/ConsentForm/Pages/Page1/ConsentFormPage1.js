@@ -5,11 +5,11 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import SurgeryLast3Months from "../../Questions/SurgeryLast3Months";
 import AnyHealthProblems from "../../Questions/AnyHealthProblems";
-import "../../ConsentForm.css";
-import "../../../../../../bootstrap_forms.min.css";
 import ACTION_CONSENT_FORM_PAGE_1 from "../../../../../../actions/ConsentForm/LastPageOpened/ACTION_CONSENT_FORM_PAGE_1";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../../../../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../../../../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
+import "../../ConsentForm.css";
+import "../../../../../../bootstrap_forms.min.css";
 
 const ConsentFormPage1 = (props) => {
   const dispatch = useDispatch();

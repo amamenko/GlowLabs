@@ -139,7 +139,11 @@ const PaymentInfo = (props) => {
 
   const deleteSquareCustomerFunction = useCallback(() => {
     return axios.post(
-      "http://localhost:4000/delete_customer",
+      `${
+        process.env.REACT_APP_ENV === "production"
+          ? "https://glowlabs.herokuapp.com"
+          : "http://localhost:4000"
+      }/delete_customer`,
       {
         data: {
           squareCustomerId: squareCustomerID,
@@ -258,7 +262,11 @@ const PaymentInfo = (props) => {
   const retrieveSquareCustomerFunction = useCallback(
     (matchedClient) => {
       return axios.post(
-        "http://localhost:4000/retrieve_customer",
+        `${
+          process.env.REACT_APP_ENV === "production"
+            ? "https://glowlabs.herokuapp.com"
+            : "http://localhost:4000"
+        }/retrieve_customer`,
         {
           data: {
             squareCustomerId: userAuthenticated
@@ -359,12 +367,20 @@ const PaymentInfo = (props) => {
 
       const squarePostRequestFunction = () => {
         axios
-          .post("http://localhost:4000/customers", squareCustomerData, {
-            headers: {
-              Authorization:
-                "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
-            },
-          })
+          .post(
+            `${
+              process.env.REACT_APP_ENV === "production"
+                ? "https://glowlabs.herokuapp.com"
+                : "http://localhost:4000"
+            }/customers`,
+            squareCustomerData,
+            {
+              headers: {
+                Authorization:
+                  "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+              },
+            }
+          )
           .then((res, err) => {
             const squareData = {
               card_nonce: nonce,
@@ -447,7 +463,11 @@ const PaymentInfo = (props) => {
             }
 
             return axios.post(
-              "http://localhost:4000/customers/card",
+              `${
+                process.env.REACT_APP_ENV === "production"
+                  ? "https://glowlabs.herokuapp.com"
+                  : "http://localhost:4000"
+              }/customers/card`,
               squareData,
               {
                 headers: {
@@ -521,7 +541,11 @@ const PaymentInfo = (props) => {
                   }
 
                   return await axios.post(
-                    "http://localhost:4000/customers/delete_card",
+                    `${
+                      process.env.REACT_APP_ENV === "production"
+                        ? "https://glowlabs.herokuapp.com"
+                        : "http://localhost:4000"
+                    }/customers/delete_card`,
                     deleteCardData,
                     {
                       headers: {
@@ -594,12 +618,20 @@ const PaymentInfo = (props) => {
         changeClipLoaderActive(false);
 
         return await axios
-          .post("http://localhost:4000/customers/card", squareData, {
-            headers: {
-              Authorization:
-                "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
-            },
-          })
+          .post(
+            `${
+              process.env.REACT_APP_ENV === "production"
+                ? "https://glowlabs.herokuapp.com"
+                : "http://localhost:4000"
+            }/customers/card`,
+            squareData,
+            {
+              headers: {
+                Authorization:
+                  "Bearer " + process.env.REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN,
+              },
+            }
+          )
           .then(async (res) => {
             if (squareStoredCreditCards.data) {
               if (
@@ -656,7 +688,11 @@ const PaymentInfo = (props) => {
                 }
 
                 return await axios.post(
-                  "http://localhost:4000/customers/delete_card",
+                  `${
+                    process.env.REACT_APP_ENV === "production"
+                      ? "https://glowlabs.herokuapp.com"
+                      : "http://localhost:4000"
+                  }/customers/delete_card`,
                   deleteCardData,
                   {
                     headers: {
