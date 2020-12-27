@@ -366,7 +366,7 @@ const LandingPage = React.forwardRef((props, ref) => {
         >
           <Spring
             from={{
-              opacity: 0,
+              opacity: 0.01,
             }}
             to={{
               opacity: 1,
@@ -838,7 +838,7 @@ const LandingPage = React.forwardRef((props, ref) => {
               }}
             >
               <Spring
-                from={{ opacity: 0 }}
+                from={{ opacity: 0.01 }}
                 to={{ opacity: 1 }}
                 config={{
                   delay: !props.currentScreenSize
@@ -939,7 +939,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       <FontAwesomeIcon
                         className="landing_page_bottom_icon"
                         icon={faChevronDown}
-                        style={{ opacity: lineRenderScroll ? 0 : 1 }}
+                        style={{ opacity: lineRenderScroll ? 0.01 : 1 }}
                       />
                     </div>
                   </div>
