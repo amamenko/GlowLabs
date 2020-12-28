@@ -104,6 +104,10 @@ const registerClientMutation = {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       secure: process.env.NODE_ENV === "production" ? true : false,
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? ".glowlabsskincare.netlify.app"
+          : "localhost",
     });
 
     const { accessToken, refreshToken } = createTokens(client);
@@ -113,6 +117,10 @@ const registerClientMutation = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? ".glowlabsskincare.netlify.app"
+          : "localhost",
     });
 
     context.res.cookie("refresh-token", refreshToken, {
@@ -120,6 +128,10 @@ const registerClientMutation = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? ".glowlabsskincare.netlify.app"
+          : "localhost",
     });
 
     return {

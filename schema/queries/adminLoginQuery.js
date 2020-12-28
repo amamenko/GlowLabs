@@ -71,6 +71,10 @@ const adminLoginQuery = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production" ? true : false,
             sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            domain:
+              process.env.NODE_ENV === "production"
+                ? ".glowlabsskincare.netlify.app"
+                : "localhost",
           });
 
           context.res.cookie("temporary-admin-dummy-token", dummyToken, {
@@ -78,6 +82,10 @@ const adminLoginQuery = {
             httpOnly: false,
             secure: process.env.NODE_ENV === "production" ? true : false,
             sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            domain:
+              process.env.NODE_ENV === "production"
+                ? ".glowlabsskincare.netlify.app"
+                : "localhost",
           });
         } else {
           throw new UserInputError("Incorrect password.");
@@ -111,6 +119,10 @@ const adminLoginQuery = {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           secure: process.env.NODE_ENV === "production" ? true : false,
           sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+          domain:
+            process.env.NODE_ENV === "production"
+              ? ".glowlabsskincare.netlify.app"
+              : "localhost",
         });
 
         const { accessToken, refreshToken } = createAdminTokens(employee);
@@ -120,6 +132,10 @@ const adminLoginQuery = {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production" ? true : false,
           sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+          domain:
+            process.env.NODE_ENV === "production"
+              ? ".glowlabsskincare.netlify.app"
+              : "localhost",
         });
 
         context.res.cookie("admin-refresh-token", refreshToken, {
@@ -127,6 +143,10 @@ const adminLoginQuery = {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production" ? true : false,
           sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+          domain:
+            process.env.NODE_ENV === "production"
+              ? ".glowlabsskincare.netlify.app"
+              : "localhost",
         });
 
         context.res.clearCookie("dummy-token");
