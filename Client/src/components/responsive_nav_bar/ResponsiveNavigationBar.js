@@ -714,7 +714,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         </Menu>
 
         <div className="navbar_logo_container">
-          <a href="/">
+          <a href="/" aria-label="Logo Site Refresh">
             <svg
               width="75%"
               viewBox="0 0 463.01 463.01"
@@ -1140,6 +1140,7 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
               ? "/checkout/confirmation"
               : "/cart"
           }
+          aria-label="Shopping Cart"
           onClick={handleShoppingCartClick}
         >
           <div className="nav_cart_container">

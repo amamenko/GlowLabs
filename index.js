@@ -1,4 +1,5 @@
 const express = require("express");
+const compression = require("compression");
 const { graphqlHTTP } = require("express-graphql");
 const expressPlayground = require("graphql-playground-middleware-express")
   .default;
@@ -37,6 +38,9 @@ process.setMaxListeners(Infinity);
 require("dotenv").config();
 
 const app = express();
+
+// Compress all responses
+app.use(compression());
 
 // Prevent request entity too large errors
 app.use(express.json({ limit: "50mb" }));

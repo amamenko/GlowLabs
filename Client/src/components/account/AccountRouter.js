@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import getOwnPastAppointmentsQuery from "../../graphql/queries/getOwnPastAppointmentsQuery";
 import getOwnAppointmentsQuery from "../../graphql/queries/getOwnAppointmentsQuery";
 import MyProfile from "./clientprofile/MyProfile/MyProfile";
-import SkinCareRoutine from "./clientprofile/MyProfile/SkinCareRoutine/SkinCareRoutine";
+// import SkinCareRoutine from "./clientprofile/MyProfile/SkinCareRoutine/SkinCareRoutine";
 // import MyRoutine from "./clientprofile/MyProfile/SkinCareRoutine/MyRoutine";
 import LargeScreenSideMenu from "./LargeScreenSideMenu/LargeScreenSideMenu";
 import { Font } from "@react-pdf/renderer";
@@ -156,11 +156,11 @@ const AccountRouter = React.forwardRef((props, ref) => {
           path={path + "/clientprofile/profile"}
           render={() => <MyProfile getClientData={getClientData} />}
         />
-        <Route
+        {/* <Route
           exact
           path={path + "/clientprofile/profile/routine"}
           render={() => <SkinCareRoutine getClientData={getClientData} />}
-        />
+        /> */}
         {/* <Route
           exact
           path={path + "/clientprofile/profile/myroutine"}
