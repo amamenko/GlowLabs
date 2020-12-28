@@ -46,7 +46,15 @@ app.use(compression());
 app.use(express.json({ limit: "50mb" }));
 
 // Cross-Origin Requests
-app.use(cors({ origin: true, credentials: true }));
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://glowlabsskincare.netlify.app"
+        : "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 const port = process.env.PORT || 4000;
 
