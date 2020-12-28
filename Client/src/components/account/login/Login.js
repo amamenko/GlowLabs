@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { Form } from "reactstrap";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import Modal from "react-modal";
 import loginQuery from "../../../graphql/queries/loginQuery";
 import getClientsQuery from "../../../graphql/queries/getClientsQuery";

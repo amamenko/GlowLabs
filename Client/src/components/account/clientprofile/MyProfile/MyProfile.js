@@ -10,7 +10,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { css } from "@emotion/css";
-import { ClipLoader } from "react-spinners";
+import ClipLoader from "react-spinners/ClipLoader";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../ConsentForm/ConsentFormPDF";
 import CanvasDraw from "react-canvas-draw";

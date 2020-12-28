@@ -3,7 +3,7 @@ import LZString from "lz-string";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

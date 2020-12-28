@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
 import Modal from "react-modal";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import phone from "phone";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";

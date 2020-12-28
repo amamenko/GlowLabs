@@ -6,7 +6,7 @@ import { faLongArrowAltLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { css } from "@emotion/css";
 import { useMutation } from "@apollo/react-hooks";
 import deleteAppointmentMutation from "../../../../graphql/mutations/deleteAppointmentMutation";

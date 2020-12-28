@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import { useMutation } from "@apollo/react-hooks";
 import updateClientInformationMutation from "../../../../graphql/mutations/updateClientInformationMutation";
 import CreateAccountPhoneNumber from "../../signup/CreateAccountPhoneNumber/CreateAccountPhoneNumber";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { css } from "@emotion/css";
 import ACTION_USER_AUTHENTICATED from "../../../../actions/Authenticated/ACTION_USER_AUTHENTICATED";
 import ACTION_LOGIN_IS_ACTIVE from "../../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";

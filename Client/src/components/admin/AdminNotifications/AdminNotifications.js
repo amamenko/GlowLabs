@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { IoMdNotificationsOff } from "react-icons/io";
-import { ClipLoader } from "react-spinners";
+import ClipLoader from "react-spinners/ClipLoader";
 import BookAppointmentNotification from "./Notifications/Appointments/BookAppointmentNotification";
 import CancelAppointmentNotification from "./Notifications/Appointments/CancelAppointmentNotification";
 import ConfirmAppointmentNotification from "./Notifications/Appointments/ConfirmAppointmentNotification";

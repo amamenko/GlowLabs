@@ -10,7 +10,7 @@ import adminLoginQuery from "../../../graphql/queries/adminLoginQuery";
 import getEmployeesQuery from "../../../graphql/queries/getEmployeesQuery";
 import updateAdminPasswordMutation from "../../../graphql/mutations/updateAdminPasswordMutation";
 import { useLazyQuery, useQuery, useMutation } from "@apollo/react-hooks";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import AdminNewPassword from "./AdminNewPassword/AdminNewPassword";
 import AdminConfirmNewPassword from "./AdminNewPassword/AdminConfirmNewPassword";
 import ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID from "../../../actions/Admin/AdminLogin/AdminEmail/Invalid/ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID";

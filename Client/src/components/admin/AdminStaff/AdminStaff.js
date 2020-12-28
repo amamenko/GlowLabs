@@ -19,7 +19,7 @@ import { useMutation } from "@apollo/react-hooks";
 import updateAdminProfilePictureMutation from "../../../graphql/mutations/updateAdminProfilePictureMutation";
 import LZString from "lz-string";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import AdminStaffIndividualProfile from "./AdminStaffIndividualProfile";
 import AdminAddStaffMember from "./AdminAddStaffMember";
 import AdminRenderUpcomingAppointments from "../AdminClients/AdminRenderUpcomingAppointments";

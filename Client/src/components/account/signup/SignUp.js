@@ -9,7 +9,7 @@ import CreateAccountPassword from "./CreateAccountPassword/CreateAccountPassword
 import CreateAccountConfirmPassword from "./CreateAccountConfirmPassword.js/CreateAccountConfirmPassword";
 import registerClientMutation from "../../../graphql/mutations/registerClientMutation";
 import { useMutation } from "@apollo/react-hooks";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { css } from "@emotion/css";
 import ACTION_LOGIN_IS_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_ACTIVE";
 import ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET from "../../../actions/CreateAccount/CreateAccountFirstName/ACTION_CREATE_ACCOUNT_FIRST_NAME_RESET";

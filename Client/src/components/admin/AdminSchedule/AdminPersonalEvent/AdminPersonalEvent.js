@@ -12,7 +12,7 @@ import Dropdown from "react-dropdown";
 import { useMutation } from "@apollo/react-hooks";
 import addPersonalEventMutation from "../../../../graphql/mutations/addPersonalEventMutation";
 import Modal from "react-modal";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { css } from "@emotion/css";
 import moment from "moment";
 import ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY from "../../../../actions/Admin/AdminPersonalEvent/AdminPersonalEventAllDay/ACTION_ADMIN_PERSONAL_EVENT_ALL_DAY";

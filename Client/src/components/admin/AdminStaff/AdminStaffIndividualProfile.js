@@ -11,7 +11,7 @@ import {
 import LZString from "lz-string";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { Transition } from "react-spring/renderprops";
 import { css } from "@emotion/css";
 import deleteEmployeeMutation from "../../../graphql/mutations/deleteEmployeeMutation";

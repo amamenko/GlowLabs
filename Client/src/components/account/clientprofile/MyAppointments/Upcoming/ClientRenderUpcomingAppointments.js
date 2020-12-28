@@ -11,7 +11,8 @@ import {
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
-import { BounceLoader, ClipLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
 import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
 import { useDispatch } from "react-redux";
@@ -67,7 +68,9 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                   .split(" ")
                   .slice(
                     0,
-                    moment(item.date, "LL").format("LLLL").split(" ").length - 2
+                    moment(item.date, "LL")
+                      .format("LLLL")
+                      .split(" ").length - 2
                   )
                   .join(" ") +
                   " " +
@@ -82,7 +85,9 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                   .split(" ")
                   .slice(
                     0,
-                    moment(item.date, "LL").format("LLLL").split(" ").length - 2
+                    moment(item.date, "LL")
+                      .format("LLLL")
+                      .split(" ").length - 2
                   )
                   .join(" ") +
                   " " +
@@ -199,7 +204,12 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                       .split(" ")[1]
                       .slice(0, item.date.split(" ")[1].indexOf(","))}
                   </p>
-                  <p>{item.date.split(" ")[0].slice(0, 3).toUpperCase()}</p>
+                  <p>
+                    {item.date
+                      .split(" ")[0]
+                      .slice(0, 3)
+                      .toUpperCase()}
+                  </p>
                 </div>
                 <div className="my_appointment_information_container">
                   <p className="my_appointment_date_time">
@@ -208,8 +218,9 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                       .split(" ")
                       .slice(
                         0,
-                        moment(item.date, "LL").format("LLLL").split(" ")
-                          .length - 2
+                        moment(item.date, "LL")
+                          .format("LLLL")
+                          .split(" ").length - 2
                       )
                       .join(" ") + ", "}
                     {!props.currentScreenSize ? (

@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import Modal from "react-modal";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import updateConsentFormMutation from "../../../../../../graphql/mutations/updateConsentFormMutation";
 import getClientQuery from "../../../../../../graphql/queries/getClientQuery";

@@ -27,7 +27,7 @@ import LZString from "lz-string";
 import moment from "moment";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../clientprofile/ConsentForm/ConsentFormPDF";
-import { ClipLoader } from "react-spinners";
+import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/css";
 import ACTION_LOG_OUT_CLICKED from "../../../actions/LogOut/ACTION_LOG_OUT_CLICKED";
 import ACTION_CART_IS_NOT_ACTIVE from "../../../actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";

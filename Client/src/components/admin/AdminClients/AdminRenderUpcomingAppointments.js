@@ -9,7 +9,7 @@ import {
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { useSelector, useDispatch } from "react-redux";
 import { css } from "@emotion/css";
 import { useMutation } from "@apollo/react-hooks";

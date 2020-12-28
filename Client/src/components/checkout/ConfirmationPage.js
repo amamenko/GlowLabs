@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from "react";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { Transition, Spring } from "react-spring/renderprops";
 import { css } from "@emotion/css";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import Modal from "react-modal";
 import getClientQuery from "../../graphql/queries/getClientQuery";
 import addAppointmentMutation from "../../graphql/mutations/addAppointmentMutation";

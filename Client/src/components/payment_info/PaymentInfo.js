@@ -24,7 +24,7 @@ import updateClientSquareIDMutation from "../../graphql/mutations/updateClientSq
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { FormGroup, Label, Input } from "reactstrap";
 import { css } from "@emotion/css";
-import { ClipLoader } from "react-spinners";
+import ClipLoader from "react-spinners/ClipLoader";
 import { Spring } from "react-spring/renderprops";
 import ACTION_SAVE_CARD_UNCHECKED from "../../actions/PaymentInfo/SaveCardChecked/ACTION_SAVE_CARD_UNCHECKED";
 import ACTION_SAVE_CARD_CHECKED from "../../actions/PaymentInfo/SaveCardChecked/ACTION_SAVE_CARD_CHECKED";

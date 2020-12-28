@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
-import { BounceLoader } from "react-spinners";
+import BounceLoader from "react-spinners/BounceLoader";
 import { css } from "@emotion/css";
 import { useMutation } from "@apollo/react-hooks";
 import updatePersonalEventMutation from "../../../../graphql/mutations/updatePersonalEventMutation";
