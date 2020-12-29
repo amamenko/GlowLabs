@@ -68,7 +68,7 @@ const addEmployeeMutation = {
           temporaryPassword: employee.password,
           adminLoginLink:
             process.env.NODE_ENV === "production"
-              ? "https://glowlabsskincare.netlify.app/admin"
+              ? "https://glowlabs.herokuapp.com/admin"
               : "http://localhost:3000/admin",
         })
         .then(async (finalTemplate) => {
