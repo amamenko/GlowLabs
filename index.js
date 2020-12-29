@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const compression = require("compression");
 const { graphqlHTTP } = require("express-graphql");
 const expressPlayground = require("graphql-playground-middleware-express")
