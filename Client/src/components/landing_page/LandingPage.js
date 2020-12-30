@@ -22,6 +22,17 @@ import "./LandingPage.css";
 
 const LandingPage = React.forwardRef((props, ref) => {
   const { LandingPageRef } = ref;
+  const {
+    currentScreenSize,
+    initialScreenSize,
+    scrollValue,
+    treatmentsPageInView,
+    name,
+    handleClickToScrollToTreatments,
+    initialScreenHeight,
+    currentScreenHeight,
+  } = props;
+
   const [lineRenderScroll, setLineRenderScroll] = useState(false);
   const [twoFingerTouch, changeTwoFingerTouch] = useState(false);
 
@@ -54,31 +65,23 @@ const LandingPage = React.forwardRef((props, ref) => {
 
   const dispatch = useDispatch();
 
-  const handleSplashScreenHalfway = useCallback(
-    (el) => {
-      if (
-        Number(el.top.substr(0, 3)) === 100 ||
-        Number(el.right.substr(0, 3)) === 100
-      ) {
-        changeCurrentOrientationSnapshot(props.currentScreenSize);
+  const handleSplashScreenHalfway = (el) => {
+    if (
+      Number(el.top.substr(0, 3)) === 100 ||
+      Number(el.right.substr(0, 3)) === 100
+    ) {
+      changeCurrentOrientationSnapshot(currentScreenSize);
+    } else {
+      if (!splashScreenHalfway) {
+        dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
       } else {
-        if (!splashScreenHalfway) {
-          dispatch(ACTION_SPLASH_SCREEN_HALFWAY());
-        } else {
-          if (currentOrientationSnapshot !== props.currentScreenSize) {
-            dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
-            dispatch(ACTION_BODY_SCROLL_ALLOW());
-          }
+        if (currentOrientationSnapshot !== currentScreenSize) {
+          dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
+          dispatch(ACTION_BODY_SCROLL_ALLOW());
         }
       }
-    },
-    [
-      dispatch,
-      props.currentScreenSize,
-      splashScreenHalfway,
-      currentOrientationSnapshot,
-    ]
-  );
+    }
+  };
 
   useEffect(() => {
     dispatch(ACTION_LOGIN_IS_NOT_ACTIVE());
@@ -86,8 +89,8 @@ const LandingPage = React.forwardRef((props, ref) => {
 
   useEffect(() => {
     if (splashScreenHalfway) {
-      if (props.initialScreenSize >= 600) {
-        if (currentOrientationSnapshot !== props.currentScreenSize) {
+      if (initialScreenSize >= 600) {
+        if (currentOrientationSnapshot !== currentScreenSize) {
           dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
           dispatch(ACTION_BODY_SCROLL_ALLOW());
         }
@@ -95,20 +98,20 @@ const LandingPage = React.forwardRef((props, ref) => {
     }
   }, [
     currentOrientationSnapshot,
-    props.currentScreenSize,
-    props.initialScreenSize,
+    currentScreenSize,
+    initialScreenSize,
     splashScreenHalfway,
     dispatch,
   ]);
 
   const changeScroll = useCallback(() => {
-    const userScroll = !props.currentScreenSize
-      ? props.initialScreenSize >= 600
-        ? props.scrollValue < 50
-        : props.scrollValue < 345
-      : props.currentScreenSize >= 600
-      ? props.scrollValue < 50
-      : props.scrollValue < 345;
+    const userScroll = !currentScreenSize
+      ? initialScreenSize >= 600
+        ? scrollValue < 50
+        : scrollValue < 345
+      : currentScreenSize >= 600
+      ? scrollValue < 50
+      : scrollValue < 345;
 
     if (!userScroll) {
       dispatch(ACTION_USER_SCROLLED());
@@ -116,17 +119,17 @@ const LandingPage = React.forwardRef((props, ref) => {
       dispatch(ACTION_USER_SCROLLED_RESET());
     }
 
-    if (props.treatmentsPageInView) {
+    if (treatmentsPageInView) {
       setLineRenderScroll(true);
     } else {
       setLineRenderScroll(false);
     }
   }, [
     dispatch,
-    props.treatmentsPageInView,
-    props.currentScreenSize,
-    props.initialScreenSize,
-    props.scrollValue,
+    treatmentsPageInView,
+    currentScreenSize,
+    initialScreenSize,
+    scrollValue,
   ]);
 
   useEffect(() => {
@@ -166,7 +169,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                 preventScroll,
                 false
               ),
-            props.initialScreenSize >= 600 ? 3800 : 2400
+            initialScreenSize >= 600 ? 3800 : 2400
           );
         }
       }
@@ -175,8 +178,8 @@ const LandingPage = React.forwardRef((props, ref) => {
     bodyScrollToggle,
     LandingPageRef,
     splashScreenComplete,
-    props.initialScreenSize,
-    props.currentScreenSize,
+    initialScreenSize,
+    currentScreenSize,
     navbarToggle,
     cartIsActive,
   ]);
@@ -215,15 +218,15 @@ const LandingPage = React.forwardRef((props, ref) => {
           dispatch(ACTION_BODY_SCROLL_ALLOW());
           dispatch(ACTION_SPLASH_SCREEN_COMPLETE());
         },
-        !props.currentScreenSize
-          ? props.initialScreenSize >= 600
+        !currentScreenSize
+          ? initialScreenSize >= 600
             ? 3800
             : 2400
-          : props.initialScreenSize >= 600
-          ? props.currentScreenSize >= 600
+          : initialScreenSize >= 600
+          ? currentScreenSize >= 600
             ? 3800
             : 2400
-          : props.currentScreenSize >= 600
+          : currentScreenSize >= 600
           ? 3800
           : 2400
       );
@@ -237,8 +240,8 @@ const LandingPage = React.forwardRef((props, ref) => {
     }
   }, [
     dispatch,
-    props.initialScreenSize,
-    props.currentScreenSize,
+    initialScreenSize,
+    currentScreenSize,
     LandingPageRef,
     splashScreenComplete,
     cartIsActive,
@@ -253,7 +256,7 @@ const LandingPage = React.forwardRef((props, ref) => {
       ) {
         document.body.style.setProperty("background", "rgb(255, 255, 255)");
       } else {
-        if (props.scrollValue < 0) {
+        if (scrollValue < 0) {
           document.body.style.setProperty("background", "rgb(44, 44, 52)");
         } else {
           document.body.style.setProperty("background", "rgb(255, 255, 255)");
@@ -264,11 +267,11 @@ const LandingPage = React.forwardRef((props, ref) => {
     }
   };
 
-  props.currentScreenSize === ""
-    ? props.initialScreenSize <= 600
+  currentScreenSize === ""
+    ? initialScreenSize <= 600
       ? portraitOverscroll()
       : document.body.style.setProperty("background", "rgb(255, 255, 255)")
-    : props.currentScreenSize <= 600
+    : currentScreenSize <= 600
     ? portraitOverscroll()
     : document.body.style.setProperty("background", "rgb(255, 255, 255)");
 
@@ -311,54 +314,52 @@ const LandingPage = React.forwardRef((props, ref) => {
         transition: "background 2s ease-out",
         zIndex: finalBookingModal ? -1 : "auto",
       }}
-      id={props.name}
+      id={name}
     >
       <section className="main_content">
         <div
           className="landing_page_drawing"
           style={{
             zIndex:
-              props.currentScreenSize === ""
-                ? props.initialScreenSize <= 1000 &&
-                  props.initialScreenSize >= 600
-                  ? props.scrollValue <= 1
+              currentScreenSize === ""
+                ? initialScreenSize <= 1000 && initialScreenSize >= 600
+                  ? scrollValue <= 1
                     ? navbarToggle
                       ? "1"
                       : "500"
                     : "1"
                   : "1"
-                : props.currentScreenSize <= 1000 &&
-                  props.currentScreenSize >= 600
-                ? props.scrollValue <= 1
+                : currentScreenSize <= 1000 && currentScreenSize >= 600
+                ? scrollValue <= 1
                   ? navbarToggle
                     ? "1"
                     : "500"
                   : "1"
                 : "1",
-            left: !props.currentScreenSize
-              ? props.initialScreenSize >= 550 &&
+            left: !currentScreenSize
+              ? initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "50%"
                 : "0%"
-              : props.currentScreenSize >= 550 &&
+              : currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
               ? "50%"
               : "0%",
-            height: !props.currentScreenSize
-              ? props.initialScreenSize >= 550 &&
+            height: !currentScreenSize
+              ? initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "90%"
                 : "42%"
-              : props.currentScreenSize >= 550 &&
+              : currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
               ? "90%"
               : "42%",
-            width: !props.currentScreenSize
-              ? props.initialScreenSize >= 550 &&
+            width: !currentScreenSize
+              ? initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "50%"
                 : "100%"
-              : props.currentScreenSize >= 550 &&
+              : currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
               ? "50%"
               : "100%",
@@ -372,12 +373,12 @@ const LandingPage = React.forwardRef((props, ref) => {
               opacity: 1,
             }}
             config={{
-              delay: !props.currentScreenSize
-                ? props.initialScreenSize >= 550
+              delay: !currentScreenSize
+                ? initialScreenSize >= 550
                   ? 3000
                   : 2350
-                : props.initialScreenSize >= 550
-                ? props.currentScreenSize >= 550
+                : initialScreenSize >= 550
+                ? currentScreenSize >= 550
                   ? 3000
                   : 2350
                 : 2350,
@@ -387,23 +388,23 @@ const LandingPage = React.forwardRef((props, ref) => {
             {(propstyles) => (
               <svg
                 height={
-                  !props.currentScreenSize
-                    ? props.initialScreenSize >= 550 &&
+                  !currentScreenSize
+                    ? initialScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                       ? "65%"
                       : "100%"
-                    : props.currentScreenSize >= 550 &&
+                    : currentScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                     ? "65%"
                     : "100%"
                 }
                 width={
-                  !props.currentScreenSize
-                    ? props.initialScreenSize >= 550 &&
+                  !currentScreenSize
+                    ? initialScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                       ? "100%"
                       : "65%"
-                    : props.currentScreenSize >= 550 &&
+                    : currentScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                     ? "100%"
                     : "65%"
@@ -711,71 +712,71 @@ const LandingPage = React.forwardRef((props, ref) => {
         </div>
         <Spring
           from={{
-            top: !props.currentScreenSize
+            top: !currentScreenSize
               ? "100%"
               : // Detect portrait mode or landscape
-              props.initialScreenSize >= 550 &&
+              initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
-              ? props.currentScreenSize >= 550 &&
+              ? currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "0%"
                 : "100%"
-              : props.currentScreenSize >= 550 &&
+              : currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
               ? "0%"
               : "0%",
-            right: !props.currentScreenSize
+            right: !currentScreenSize
               ? "100%"
-              : props.initialScreenSize >= 550 &&
+              : initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
-              ? props.currentScreenSize >= 550 &&
+              ? currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "100%"
                 : "0%"
-              : props.currentScreenSize >= 550 &&
+              : currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
               ? "100%"
               : "0%",
           }}
           to={{
-            top: !props.currentScreenSize
-              ? props.initialScreenSize >= 550 &&
+            top: !currentScreenSize
+              ? initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "0%"
                 : "50%"
-              : props.initialScreenSize >= 550 &&
+              : initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
-              ? props.currentScreenSize >= 550 &&
+              ? currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "0%"
                 : "50%"
-              : props.currentScreenSize >= 550 &&
+              : currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
               ? "0%"
               : "50%",
-            right: !props.currentScreenSize
-              ? props.initialScreenSize >= 550 &&
+            right: !currentScreenSize
+              ? initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "50%"
                 : "0%"
-              : props.initialScreenSize >= 550 &&
+              : initialScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
-              ? props.currentScreenSize >= 550 &&
+              ? currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
                 ? "50%"
                 : "0%"
-              : props.currentScreenSize >= 550 &&
+              : currentScreenSize >= 550 &&
                 window.matchMedia("(orientation: landscape)").matches
               ? "50%"
               : "0%",
           }}
           onFrame={(el) => handleSplashScreenHalfway(el)}
           config={{
-            delay: !props.currentScreenSize
-              ? props.initialScreenSize >= 550
+            delay: !currentScreenSize
+              ? initialScreenSize >= 550
                 ? 1200
                 : 500
-              : props.currentScreenSize >= 550
+              : currentScreenSize >= 550
               ? 1200
               : 500,
             duration: 1800,
@@ -786,52 +787,52 @@ const LandingPage = React.forwardRef((props, ref) => {
               className="bottom_content"
               style={{
                 top: splashScreenComplete
-                  ? !props.currentScreenSize
-                    ? props.initialScreenSize >= 550 &&
+                  ? !currentScreenSize
+                    ? initialScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                       ? "0%"
                       : "50%"
-                    : props.currentScreenSize >= 550 &&
+                    : currentScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                     ? "0%"
                     : "50%"
-                  : !props.currentScreenSize
-                  ? props.initialScreenSize >= 550 &&
+                  : !currentScreenSize
+                  ? initialScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
                     ? "0%"
                     : `${styles.top}`
-                  : props.initialScreenSize >= 550 &&
+                  : initialScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
-                  ? props.currentScreenSize >= 550 &&
+                  ? currentScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
                     ? "0%"
                     : `${styles.top}`
-                  : props.currentScreenSize >= 550 &&
+                  : currentScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
                   ? "0%"
                   : `${styles.top}`,
                 right: splashScreenComplete
-                  ? !props.currentScreenSize
-                    ? props.initialScreenSize >= 550 &&
+                  ? !currentScreenSize
+                    ? initialScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                       ? "50%"
                       : "0%"
-                    : props.currentScreenSize >= 550 &&
+                    : currentScreenSize >= 550 &&
                       window.matchMedia("(orientation: landscape)").matches
                     ? "50%"
                     : "0%"
-                  : !props.currentScreenSize
-                  ? props.initialScreenSize >= 550 &&
+                  : !currentScreenSize
+                  ? initialScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
                     ? `${styles.right}`
                     : "0%"
-                  : props.initialScreenSize >= 550 &&
+                  : initialScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
-                  ? props.currentScreenSize >= 550 &&
+                  ? currentScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
                     ? `${styles.right}`
                     : "0%"
-                  : props.currentScreenSize >= 550 &&
+                  : currentScreenSize >= 550 &&
                     window.matchMedia("(orientation: landscape)").matches
                   ? `${styles.right}`
                   : "0%",
@@ -841,35 +842,35 @@ const LandingPage = React.forwardRef((props, ref) => {
                 from={{ opacity: 0 }}
                 to={{ opacity: 1 }}
                 config={{
-                  delay: !props.currentScreenSize
-                    ? props.initialScreenSize >= 550
+                  delay: !currentScreenSize
+                    ? initialScreenSize >= 550
                       ? 3000
                       : 2350
-                    : props.initialScreenSize >= 550
-                    ? props.currentScreenSize >= 550
+                    : initialScreenSize >= 550
+                    ? currentScreenSize >= 550
                       ? 3000
                       : 2350
                     : 2350,
                   duration: 500,
                 }}
               >
-                {(styleprops) => (
+                {(styleopacity) => (
                   <div
                     className="landing_page_text_block"
                     style={{
                       zIndex:
-                        props.currentScreenSize === ""
-                          ? props.initialScreenSize <= 1000 &&
-                            props.initialScreenSize >= 550
-                            ? props.scrollValue <= 2
+                        currentScreenSize === ""
+                          ? initialScreenSize <= 1000 &&
+                            initialScreenSize >= 550
+                            ? scrollValue <= 2
                               ? navbarToggle
                                 ? "1"
                                 : "500"
                               : "1"
                             : "1"
-                          : props.currentScreenSize <= 1000 &&
-                            props.currentScreenSize >= 550
-                          ? props.scrollValue <= 2
+                          : currentScreenSize <= 1000 &&
+                            currentScreenSize >= 550
+                          ? scrollValue <= 2
                             ? navbarToggle
                               ? "1"
                               : "500"
@@ -881,7 +882,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       style={{
                         opacity: splashScreenComplete
                           ? "1"
-                          : `${styleprops.opacity}`,
+                          : `${styleopacity.opacity}`,
                       }}
                     >
                       Customized skin care,
@@ -892,7 +893,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       style={{
                         opacity: splashScreenComplete
                           ? "1"
-                          : `${styleprops.opacity}`,
+                          : `${styleopacity.opacity}`,
                       }}
                     >
                       We've reimagined the traditional idea of a facial so that
@@ -905,7 +906,7 @@ const LandingPage = React.forwardRef((props, ref) => {
                       style={{
                         opacity: splashScreenComplete
                           ? "1"
-                          : `${styleprops.opacity}`,
+                          : `${styleopacity.opacity}`,
                       }}
                     >
                       <div
@@ -913,13 +914,11 @@ const LandingPage = React.forwardRef((props, ref) => {
                         style={{
                           opacity: splashScreenComplete
                             ? "1"
-                            : `${styleprops.opacity}`,
+                            : `${styleopacity.opacity}`,
                         }}
                       >
                         <p
-                          onClick={() =>
-                            props.handleClickToScrollToTreatments("cta")
-                          }
+                          onClick={() => handleClickToScrollToTreatments("cta")}
                         >
                           GET STARTED NOW
                         </p>
@@ -929,12 +928,10 @@ const LandingPage = React.forwardRef((props, ref) => {
                       style={{
                         opacity: splashScreenComplete
                           ? "1"
-                          : `${styleprops.opacity}`,
+                          : `${styleopacity.opacity}`,
                       }}
                       className="landing_page_cta"
-                      onClick={() =>
-                        props.handleClickToScrollToTreatments("cta")
-                      }
+                      onClick={() => handleClickToScrollToTreatments("cta")}
                     >
                       <FontAwesomeIcon
                         className="landing_page_bottom_icon"
@@ -950,8 +947,8 @@ const LandingPage = React.forwardRef((props, ref) => {
         </Spring>
         <div className="splash_screen">
           <SplashScreen
-            currentScreenHeight={props.currentScreenHeight}
-            initialScreenHeight={props.initialScreenHeight}
+            currentScreenHeight={currentScreenHeight}
+            initialScreenHeight={initialScreenHeight}
           />
           {/* Need for Lighthouse Not to Throw NO_LCP Error */}
           <h1 style={{ position: "absolute", zIndex: -1 }}>Glow Labs</h1>

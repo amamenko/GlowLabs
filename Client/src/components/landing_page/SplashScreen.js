@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import "./LandingPage.css";
 
 const SplashScreen = (props) => {
+  const { initialScreenHeight, currentScreenHeight } = props;
+
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -49,25 +51,29 @@ const SplashScreen = (props) => {
             <>
               <g
                 transform={
-                  !props.currentScreenHeight
-                    ? props.initialScreenHeight >= 1350
-                      ? `translate(-2 -${props.initialScreenHeight / 19})`
-                      : props.initialScreenHeight >= 1300
-                      ? `translate(-2 -${props.initialScreenHeight / 15})`
-                      : props.initialScreenHeight >= 1000
-                      ? `translate(-2 -${props.initialScreenHeight / 12})`
-                      : props.initialScreenHeight >= 850
-                      ? `translate(-2 -${props.initialScreenHeight / 10})`
-                      : `translate(-2 -${props.initialScreenHeight / 5})`
-                    : props.currentScreenHeight >= 1350
-                    ? `translate(-2 -${props.initialScreenHeight / 19})`
-                    : props.currentScreenHeight >= 1300
-                    ? `translate(-2 -${props.initialScreenHeight / 15})`
-                    : props.currentScreenHeight >= 1000
-                    ? `translate(-2 -${props.currentScreenHeight / 12})`
-                    : props.currentScreenHeight >= 850
-                    ? `translate(-2 -${props.currentScreenHeight / 10})`
-                    : `translate(-2 -${props.currentScreenHeight / 5})`
+                  !currentScreenHeight
+                    ? initialScreenHeight >= 1350
+                      ? `translate(-2 -${initialScreenHeight / 19})`
+                      : initialScreenHeight >= 1300
+                      ? `translate(-2 -${initialScreenHeight / 15})`
+                      : initialScreenHeight >= 1000
+                      ? `translate(-2 -${initialScreenHeight / 12})`
+                      : initialScreenHeight >= 850
+                      ? `translate(-2 -${initialScreenHeight / 15})`
+                      : initialScreenHeight >= 768
+                      ? `translate(-2 -${initialScreenHeight / 5})`
+                      : `translate(-2 -${initialScreenHeight / 4})`
+                    : currentScreenHeight >= 1350
+                    ? `translate(-2 -${initialScreenHeight / 19})`
+                    : currentScreenHeight >= 1300
+                    ? `translate(-2 -${initialScreenHeight / 15})`
+                    : currentScreenHeight >= 1000
+                    ? `translate(-2 -${currentScreenHeight / 12})`
+                    : currentScreenHeight >= 850
+                    ? `translate(-2 -${currentScreenHeight / 15})`
+                    : currentScreenHeight >= 768
+                    ? `translate(-2 -${currentScreenHeight / 5})`
+                    : `translate(-2 -${currentScreenHeight / 4})`
                 }
               >
                 <filter
@@ -96,11 +102,7 @@ const SplashScreen = (props) => {
         </GlowChain>
       );
     }
-  }, [
-    splashScreenComplete,
-    props.currentScreenHeight,
-    props.initialScreenHeight,
-  ]);
+  }, [splashScreenComplete, currentScreenHeight, initialScreenHeight]);
 
   return (
     <svg className="glow_labs_logo_animation" viewBox="0 0 463.021 463.021">

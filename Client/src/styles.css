@@ -198,6 +198,62 @@ body {
   z-index: 999999;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.react-cookie-banner {
+  display: flex;
+  align-items: center;
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100px !important;
+  z-index: 999999999999 !important;
+  font-family: "Montserrat" !important;
+  background: 20px 50% / 30px 30px no-repeat rgb(50, 50, 50) !important;
+  background-image: url(./images/cookie.png) !important;
+  -webkit-filter: invert(1);
+  filter: invert(1);
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  animation: fadeIn 0.5s ease;
+}
+
+.react-cookie-banner > .button-close {
+  border: 1px solid white !important;
+  border-radius: 4;
+  width: 66px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  background: transparent !important;
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  opacity: 1;
+  right: 20px !important;
+  margin-top: -18px !important;
+}
+
+.cookie-message {
+  line-height: 1.3 !important;
+  font-weight: 500 !important;
+  color: white;
+  display: block !important;
+  padding: 9px 67px;
+  text-align: left;
+  margin-right: 30px !important;
+}
+
 ::-webkit-scrollbar {
   height: 0px; /* height of horizontal scrollbar ← You're missing this */
   border: 1px solid #d5d5d5;
@@ -206,6 +262,13 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgb(44, 44, 52);
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 360px) {
+  .react-cookie-banner {
+    height: 60px !important;
+    font-size: 7px !important;
+  }
 }
 
 @media only screen and (max-width: 1800px) and (orientation: portrait),
@@ -228,6 +291,10 @@ body {
 
 /* CSS for Tablets in Portrait Mode */
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .react-cookie-banner {
+    font-size: 0.8rem !important;
+  }
+
   .toast_error_container,
   .toast_container,
   .toast_removed_container {
@@ -284,6 +351,15 @@ body {
   .toast_removed_container {
     width: 28.5vw;
     margin-left: -5rem;
+  }
+
+  .react-cookie-banner {
+    font-size: 0.9rem !important;
+    top: 0 !important;
+  }
+
+  .cookie-message {
+    font-weight: 400 !important;
   }
 
   @media not all and (min-resolution: 0.001dpcm) {

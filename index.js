@@ -74,7 +74,7 @@ if (process.env.NODE_ENV === "production") {
 // Allow 200 responses, but not 304 not modified
 app.disable("etag");
 
-app.post("/customers", (req, res) => {
+app.post("/api/customers", (req, res) => {
   res.setHeader(
     "Authorization",
     `Bearer ${process.env.SQUARE_SANDBOX_ACCESS_TOKEN}`
@@ -286,7 +286,7 @@ cron.schedule("* * * * *", async () => {
   }
 });
 
-app.post("/customers/card", (req, res) => {
+app.post("/api/customers/card", (req, res) => {
   res.setHeader(
     "Authorization",
     `Bearer ${process.env.SQUARE_SANDBOX_ACCESS_TOKEN}`
@@ -336,7 +336,7 @@ app.post("/customers/card", (req, res) => {
   createCard();
 });
 
-app.post("/customers/delete_card", (req, res) => {
+app.post("/api/customers/delete_card", (req, res) => {
   res.setHeader(
     "Authorization",
     `Bearer ${process.env.SQUARE_SANDBOX_ACCESS_TOKEN}`
@@ -371,7 +371,7 @@ app.post("/customers/delete_card", (req, res) => {
   deleteCard();
 });
 
-app.post("/retrieve_customer", (req, res) => {
+app.post("/api/retrieve_customer", (req, res) => {
   res.setHeader(
     "Authorization",
     `Bearer ${process.env.SQUARE_SANDBOX_ACCESS_TOKEN}`
@@ -405,7 +405,7 @@ app.post("/retrieve_customer", (req, res) => {
   getCustomer();
 });
 
-app.post("/delete_customer", (req, res) => {
+app.post("/api/delete_customer", (req, res) => {
   res.setHeader(
     "Authorization",
     `Bearer ${process.env.SQUARE_SANDBOX_ACCESS_TOKEN}`
@@ -534,9 +534,7 @@ passport.use(
       clientID: `${process.env.FACEBOOK_APP_ID}`,
       clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
       callbackURL: `${
-        process.env.NODE_ENV === "production"
-          ? "https://glowlabs.herokuapp.com/auth/facebook/callback"
-          : "http://localhost:" + port + "/auth/facebook/callback"
+        "http://localhost:" + port + "/api/auth/facebook/callback"
       }`,
       profileFields: [
         "emails",
@@ -568,7 +566,7 @@ app.get(
 );
 
 // Set guest consent form cookie upon accessing link from appointment email
-app.get("/:id/consentform", async (req, res) => {
+app.get("/api/:id/consentform", async (req, res) => {
   const accessToken = req.cookies["access-token"];
   const refreshToken = req.cookies["refresh-token"];
   const dummyToken = req.cookies["dummy-token"];
@@ -614,7 +612,7 @@ app.get("/:id/consentform", async (req, res) => {
   }
 });
 
-app.get("/auth/facebook/callback", (req, res, next) => {
+app.get("/api/auth/facebook/callback", (req, res, next) => {
   passport.authenticate("facebook", async (err, user, info) => {
     if (err) {
       return next(err);

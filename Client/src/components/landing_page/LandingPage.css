@@ -730,10 +730,14 @@
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) and (orientation: landscape) {
+  .landing_page_drawing {
+    top: 0;
+  }
+
   .landing_page_text_block {
     margin-left: 3.1rem;
     margin-right: 3.1rem;
-    margin-bottom: 0vh;
+    margin-bottom: 20vh;
     grid-gap: 2rem;
     height: 40%;
   }
@@ -886,7 +890,15 @@
 
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
+  .landing_page_text_block {
+    margin-bottom: 0vh;
+  }
+
   .landing_page_description {
     line-height: 5rem;
+  }
+
+  .landing_page_drawing {
+    top: 8vh;
   }
 }

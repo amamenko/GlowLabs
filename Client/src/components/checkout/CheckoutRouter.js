@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import GuestCheckout from "./GuestCheckout";
 import ConfirmationPage from "./ConfirmationPage";
 import ConsentFormPage1 from "../account/clientprofile/ConsentForm/Pages/Page1/ConsentFormPage1";
@@ -13,77 +14,108 @@ import ConsentFormPage7 from "../account/clientprofile/ConsentForm/Pages/Page7/C
 const CheckoutRouter = (props) => {
   const { path, initialScreenSize, currentScreenSize } = props;
 
+  const cartPageOpened = useSelector(
+    (state) => state.cartPageOpened.cart_page_opened
+  );
+
   return (
     <Switch>
-      <Route
-        exact
-        path={path}
-        render={() => (
-          <GuestCheckout
-            initialScreenSize={initialScreenSize}
-            currentScreenSize={currentScreenSize}
+      {cartPageOpened === "GuestCheckout" ? (
+        <Route
+          exact
+          path={path}
+          render={() => (
+            <GuestCheckout
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
+            />
+          )}
+        />
+      ) : cartPageOpened === "ConfirmationPage" ? (
+        <Route
+          exact
+          path={path + "/confirmation"}
+          render={() => (
+            <ConfirmationPage
+              initialScreenSize={initialScreenSize}
+              currentScreenSize={currentScreenSize}
+            />
+          )}
+        />
+      ) : (
+        <>
+          <Route
+            exact
+            path={path + "/confirmation/consentform/page1"}
+            render={() => (
+              <ConsentFormPage1
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
           />
-        )}
-      />
-      <Route
-        exact
-        path={path + "/confirmation"}
-        render={() => (
-          <ConfirmationPage
-            initialScreenSize={initialScreenSize}
-            currentScreenSize={currentScreenSize}
+          <Route
+            exact
+            path={path + "/confirmation/consentform/page2"}
+            render={() => (
+              <ConsentFormPage2
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
           />
-        )}
-      />
-      <Route
-        exact
-        path={path + "/confirmation/consentform/page1"}
-        component={ConsentFormPage1}
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <Route
-        exact
-        path={path + "/confirmation/consentform/page2"}
-        component={ConsentFormPage2}
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <Route
-        exact
-        path={path + "/confirmation/consentform/page3"}
-        component={ConsentFormPage3}
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <Route
-        exact
-        path={path + "/confirmation/consentform/page4"}
-        component={ConsentFormPage4}
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <Route
-        exact
-        path={path + "/confirmation/consentform/page5"}
-        component={ConsentFormPage5}
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <Route
-        exact
-        path={path + "/confirmation/consentform/page6"}
-        component={ConsentFormPage6}
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
-      <Route
-        exact
-        path={path + "/confirmation/consentform/page7"}
-        component={ConsentFormPage7}
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
+          <Route
+            exact
+            path={path + "/confirmation/consentform/page3"}
+            render={() => (
+              <ConsentFormPage3
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
+          />
+          <Route
+            exact
+            path={path + "/confirmation/consentform/page4"}
+            render={() => (
+              <ConsentFormPage4
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
+          />
+          <Route
+            exact
+            path={path + "/confirmation/consentform/page5"}
+            render={() => (
+              <ConsentFormPage5
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
+          />
+          <Route
+            exact
+            path={path + "/confirmation/consentform/page6"}
+            render={() => (
+              <ConsentFormPage6
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
+          />
+          <Route
+            exact
+            path={path + "/confirmation/consentform/page7"}
+            render={() => (
+              <ConsentFormPage7
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+              />
+            )}
+          />
+        </>
+      )}
     </Switch>
   );
 };

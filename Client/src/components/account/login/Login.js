@@ -208,11 +208,7 @@ const Login = (props) => {
         <div className="login_facebook_container">
           <a
             className="continue_with_facebook_button"
-            href={`${
-              process.env.REACT_APP_ENV === "production"
-                ? "https://glowlabs.herokuapp.com"
-                : "http://localhost:4000"
-            }/auth/facebook/callback`}
+            href={"/api/auth/facebook/callback"}
           >
             <FontAwesomeIcon icon={faFacebook} />
             <p>Continue with Facebook</p>

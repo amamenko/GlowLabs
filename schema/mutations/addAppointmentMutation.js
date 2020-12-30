@@ -345,10 +345,7 @@ const addAppointmentMutation = {
                 client_res.email.toLowerCase().includes("outlook.com")
               ? outlookCalendarEvent.render()
               : iCalEvent.render(),
-            consentFormLink:
-              process.env.NODE_ENV === "production"
-                ? `https://glowlabs.herokuapp.com/${client_res._id}/consentform`
-                : `http://localhost:4000/${client_res._id}/consentform`,
+            consentFormLink: `http://localhost:4000/api/${client_res._id}/consentform`,
           })
           .then(async (finalTemplate) => {
             await transporter.sendMail({
@@ -454,10 +451,7 @@ const addAppointmentMutation = {
               args.client[0].email.toLowerCase().includes("outlook.com")
             ? outlookCalendarEvent.render()
             : iCalEvent.render(),
-          consentFormLink:
-            process.env.NODE_ENV === "production"
-              ? `https://glowlabs.herokuapp.com/${client_res._id}/consentform`
-              : `http://localhost:4000/${client_res._id}/consentform`,
+          consentFormLink: `http://localhost:4000/${client_res._id}/consentform`,
         })
         .then(async (finalTemplate) => {
           await transporter.sendMail({
@@ -598,10 +592,7 @@ const addAppointmentMutation = {
             args.client[0].email.toLowerCase().includes("outlook.com")
           ? outlookCalendarEvent.render()
           : iCalEvent.render(),
-        consentFormLink:
-          process.env.NODE_ENV === "production"
-            ? `https://glowlabs.herokuapp.com/${client_res._id}/consentform`
-            : `http://localhost:4000/${client_res._id}/consentform`,
+        consentFormLink: `http://localhost:4000/${client_res._id}/consentform`,
       })
       .then(async (finalTemplate) => {
         await transporter.sendMail({

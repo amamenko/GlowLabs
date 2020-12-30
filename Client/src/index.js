@@ -16,6 +16,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
+import CookieBanner from "react-cookie-banner";
 import LandingPage from "./components/landing_page/LandingPage";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
 import * as smoothscroll from "smoothscroll-polyfill";
@@ -203,6 +204,9 @@ const App = () => {
   const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
   const scroll = useSelector((state) => state.scrollToggle.scroll);
   const cartIsActive = useSelector((state) => state.cartIsActive.cartIsActive);
+  const splashScreenHalfway = useSelector(
+    (state) => state.splashScreenHalfway.splashScreenHalfway
+  );
   const splashScreenComplete = useSelector(
     (state) => state.splashScreenComplete.splashScreenComplete
   );
@@ -245,6 +249,8 @@ const App = () => {
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [treatmentsPageInView, changeTreatmentsPageInView] = useState(false);
   const [loggingOut, changeLoggingOut] = useState(false);
+  const [splashScreenLogoDone, changeSplashScreenLogoDone] = useState(false);
+  const [cookieBannerVisible, changeCookieBannerVisible] = useState(false);
 
   const [redirectActive, changeRedirectActive] = useState(false);
 
@@ -429,6 +435,28 @@ const App = () => {
     let currentGuestConsentFormAccessToken;
 
     const checkCookies = () => {
+      if (location.pathname === "/") {
+        if (
+          dummyToken ||
+          adminDummyToken ||
+          temporaryFacebookDummyToken ||
+          temporaryAdminDummyToken ||
+          guestConsentFormAccessToken
+        ) {
+          if (cookieBannerVisible) {
+            changeCookieBannerVisible(false);
+          }
+        } else {
+          if (splashScreenComplete && !cartIsActive) {
+            if (!Cookies.get("user-has-accepted-cookies")) {
+              if (!cookieBannerVisible) {
+                changeCookieBannerVisible(true);
+              }
+            }
+          }
+        }
+      }
+
       if (
         currentDummyToken !== Cookies.get("dummy-token") ||
         temporaryFacebookDummyToken !==
@@ -450,26 +478,45 @@ const App = () => {
         );
 
         if (currentDummyToken) {
-          dispatch(ACTION_DUMMY_TOKEN(jwt.decode(currentDummyToken)));
-          dispatch(ACTION_USER_AUTHENTICATED());
+          if (!dummyToken) {
+            dispatch(ACTION_DUMMY_TOKEN(jwt.decode(currentDummyToken)));
+          }
+          if (!userAuthenticated) {
+            dispatch(ACTION_USER_AUTHENTICATED());
+          }
         } else {
           dispatch(ACTION_DUMMY_TOKEN_RESET());
           dispatch(ACTION_USER_NOT_AUTHENTICATED());
           if (currentAdminDummyToken) {
-            dispatch(
-              ACTION_ADMIN_DUMMY_TOKEN(jwt.decode(currentAdminDummyToken))
-            );
-            dispatch(ACTION_ADMIN_AUTHENTICATED());
+            if (!adminDummyToken) {
+              dispatch(
+                ACTION_ADMIN_DUMMY_TOKEN(jwt.decode(currentAdminDummyToken))
+              );
+            }
+
+            if (!adminAuthenticated) {
+              dispatch(ACTION_ADMIN_AUTHENTICATED());
+            }
           } else if (temporaryAdminDummyToken) {
-            dispatch(
-              ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN(
-                jwt.decode(temporaryAdminDummyToken)
-              )
-            );
-            dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
+            if (!adminTemporaryDummyToken) {
+              dispatch(
+                ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN(
+                  jwt.decode(temporaryAdminDummyToken)
+                )
+              );
+            }
+            if (adminAuthenticated) {
+              dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
+            }
           } else {
-            dispatch(ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET());
-            dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
+            if (adminTemporaryDummyToken) {
+              dispatch(ACTION_ADMIN_TEMPORARY_DUMMY_TOKEN_RESET());
+            }
+
+            if (adminAuthenticated) {
+              dispatch(ACTION_ADMIN_NOT_AUTHENTICATED());
+            }
+
             if (temporaryFacebookDummyToken) {
               dispatch(ACTION_FACEBOOK_COMPLETE_REGISTRATION());
             } else {
@@ -488,7 +535,19 @@ const App = () => {
     };
 
     setInterval(checkCookies, 100);
-  }, [dispatch]);
+  }, [
+    dispatch,
+    adminAuthenticated,
+    cookieBannerVisible,
+    location.pathname,
+    splashScreenComplete,
+    userAuthenticated,
+    cartIsActive,
+    adminDummyToken,
+    dummyToken,
+    adminTemporaryDummyToken,
+    guestConsentFormAccessToken,
+  ]);
 
   useEffect(() => {
     if (location.pathname.includes("account")) {
@@ -1372,6 +1431,16 @@ const App = () => {
     );
   };
 
+  useEffect(() => {
+    if (splashScreenHalfway) {
+      if (!splashScreenLogoDone) {
+        setTimeout(() => {
+          changeSplashScreenLogoDone(true);
+        }, 700);
+      }
+    }
+  }, [splashScreenHalfway, splashScreenLogoDone]);
+
   return (
     <>
       {redirectToHome()}
@@ -1471,14 +1540,26 @@ const App = () => {
               marginTop: splashScreenComplete
                 ? !currentScreenSize
                   ? initialScreenSize >= 1200
-                    ? `${styles.marginTop}`
+                    ? cookieBannerVisible && !cartIsActive
+                      ? "100px"
+                      : `${styles.marginTop}`
                     : navbarVisible
-                    ? "0px"
+                    ? cookieBannerVisible && !cartIsActive
+                      ? initialScreenSize >= 360
+                        ? "100px"
+                        : "60px"
+                      : "0px"
                     : "-200px"
                   : currentScreenSize >= 1200
-                  ? `${styles.marginTop}`
+                  ? cookieBannerVisible && !cartIsActive
+                    ? "100px"
+                    : `${styles.marginTop}`
                   : navbarVisible
-                  ? "0px"
+                  ? cookieBannerVisible && !cartIsActive
+                    ? currentScreenSize >= 360
+                      ? "100px"
+                      : "60px"
+                    : "0px"
                   : "-200px"
                 : `${styles.marginTop}`,
               transition: "margin-top 0.5s ease",
@@ -1565,6 +1646,19 @@ const App = () => {
               id="main_container_element"
             >
               {redirectToCartRoutes()}
+              {location.pathname === "/" &&
+              !cartIsActive &&
+              !guestConsentFormAccessToken &&
+              !adminDummyToken &&
+              !dummyToken &&
+              !adminTemporaryDummyToken ? (
+                <CookieBanner
+                  message="By using this website, you agree to our use of cookies. We use cookies to provide you with a great experience and to help our website run effectively."
+                  cookie="user-has-accepted-cookies"
+                  dismissOnScroll={false}
+                  onAccept={() => changeCookieBannerVisible(false)}
+                />
+              ) : null}
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
@@ -1690,7 +1784,9 @@ const App = () => {
                   ref={ref}
                 />
               </Suspense>
-            ) : cartPageOpened === "GuestCheckout" ? (
+            ) : cartPageOpened === "GuestCheckout" ||
+              cartPageOpened === "ConfirmationPage" ||
+              location.pathname.includes("consentform") ? (
               <Route
                 render={() => (
                   <Suspense fallback={renderCartRoutesFallbackLoader()}>

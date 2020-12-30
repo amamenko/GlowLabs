@@ -924,6 +924,12 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             style={{
               pointerEvents:
                 logoutClicked || cancelAppointmentClicked ? "none" : "auto",
+              paddingLeft:
+                userAuthenticated || props.adminDummyToken
+                  ? dummyToken && dummyToken.picture
+                    ? "0.5rem"
+                    : "1rem"
+                  : "0rem",
             }}
           >
             {userAuthenticated || props.adminDummyToken ? (
