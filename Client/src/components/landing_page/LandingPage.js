@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   disableBodyScroll,
   enableBodyScroll,
@@ -12,6 +12,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_USER_SCROLLED from "../../actions/Scroll/ACTION_USER_SCROLLED";
 import ACTION_USER_SCROLLED_RESET from "../../actions/Scroll/ACTION_USER_SCROLLED_RESET";
+import ACTION_NAVBAR_IS_VISIBLE from "../../actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_TOUCH_SCALING_ACTIVE from "../../actions/FingerTouchScaling/ACTION_TOUCH_SCALING_ACTIVE";
@@ -86,6 +87,12 @@ const LandingPage = React.forwardRef((props, ref) => {
   useEffect(() => {
     dispatch(ACTION_LOGIN_IS_NOT_ACTIVE());
   }, [dispatch]);
+
+  useMemo(() => {
+    if (location.pathname === "/") {
+      dispatch(ACTION_NAVBAR_IS_VISIBLE());
+    }
+  }, [dispatch, location.pathname]);
 
   useEffect(() => {
     if (splashScreenHalfway) {

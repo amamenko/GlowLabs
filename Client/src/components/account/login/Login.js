@@ -125,29 +125,33 @@ const Login = (props) => {
 
   useEffect(() => {
     if (signInLoading) {
-      const userValidation = setTimeout(() => {
+      if (data) {
         changeSignInLoading(false);
 
         if (registeredClientFound) {
           if (loginEmailInvalid) {
             dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
           }
-          if (data) {
-            if (loginPasswordInvalid) {
+
+          if (loginPasswordInvalid) {
+            dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+          }
+        }
+      } else {
+        changeSignInLoading(false);
+
+        if (error) {
+          if (error.message) {
+            if (error.message.includes("email")) {
+              dispatch(ACTION_LOGIN_EMAIL_INVALID());
               dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
-            }
-          } else {
-            if (error !== undefined) {
+            } else {
               dispatch(ACTION_LOGIN_PASSWORD_INVALID());
+              dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
             }
           }
-        } else {
-          dispatch(ACTION_LOGIN_EMAIL_INVALID());
         }
-      }, 500);
-      return () => {
-        clearTimeout(userValidation);
-      };
+      }
     }
   }, [
     data,

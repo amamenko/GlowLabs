@@ -538,8 +538,10 @@ passport.use(
       clientID: `${process.env.FACEBOOK_APP_ID}`,
       clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
       callbackURL: `${
-        "http://localhost:" + port + "/api/auth/facebook/callback"
-      }`,
+        process.env.NODE_ENV === "production"
+          ? "https://glowlabs.herokuapp.com"
+          : "http://localhost:" + port
+      }/api/auth/facebook/callback`,
       profileFields: [
         "emails",
         "first_name",

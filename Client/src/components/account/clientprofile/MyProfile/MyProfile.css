@@ -153,13 +153,18 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .profile_button_container {
+  .my_profile_container
+    > .profile_bottom_buttons_container
+    > .profile_button_container {
     padding: 1rem;
     flex-direction: column;
     align-items: center;
   }
 
-  .profile_button_container > p {
+  .my_profile_container
+    > .profile_bottom_buttons_container
+    > .profile_button_container
+    > p {
     padding-top: 2rem;
     text-align: center;
   }

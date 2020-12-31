@@ -303,6 +303,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
   left: 0;
 }
 
+@media only screen and (max-width: 375px) {
+  .nav_sign_in_link_container {
+    padding-left: 0 !important;
+  }
+}
+
 @media only screen and (min-width: 370px) {
   .nav_burger_menu {
     margin-right: 0.5vw;
