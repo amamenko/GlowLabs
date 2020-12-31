@@ -355,9 +355,12 @@ app.post("/api/customers/delete_card", (req, res) => {
 
   const deleteCard = async () => {
     try {
-      let { data } = await customersApi.deleteCustomerCard(customerId, cardId);
-      console.log("API called successfully. Returned data: " + data);
-      res.send(data);
+      let { result } = await customersApi.deleteCustomerCard(
+        customerId,
+        cardId
+      );
+      console.log("API called successfully. Returned data: " + result);
+      res.send(result);
     } catch (error) {
       if (error instanceof ApiError) {
         console.log("Errors: ", error.errors);
@@ -376,6 +379,7 @@ app.post("/api/retrieve_customer", (req, res) => {
     "Authorization",
     `Bearer ${process.env.SQUARE_SANDBOX_ACCESS_TOKEN}`
   );
+
   const requestParams = req.body;
 
   const client = new SquareClient({
@@ -389,9 +393,9 @@ app.post("/api/retrieve_customer", (req, res) => {
 
   const getCustomer = async () => {
     try {
-      let { data } = await customersApi.retrieveCustomer(customerId);
-      console.log("API called successfully. Returned data: " + data);
-      res.send(data);
+      let { result } = await customersApi.retrieveCustomer(customerId);
+      console.log("API called successfully. Returned data: " + result);
+      res.send(result);
     } catch (error) {
       if (error instanceof ApiError) {
         console.log("Errors: ", error.errors);
@@ -423,9 +427,9 @@ app.post("/api/delete_customer", (req, res) => {
 
   const removeCustomer = async () => {
     try {
-      let { data } = await customersApi.deleteCustomer(customerId);
-      console.log("API called successfully. Returned data: " + data);
-      res.send(data);
+      let { result } = await customersApi.deleteCustomer(customerId);
+      console.log("API called successfully. Returned data: " + result);
+      res.send(result);
     } catch (error) {
       if (error instanceof ApiError) {
         console.log("Errors: ", error.errors);

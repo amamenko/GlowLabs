@@ -1808,8 +1808,10 @@ const App = () => {
             ) : null
           }
         />
-        {/* If no path matches, redirect to home */}
-        <Route render={() => <Redirect to="/" />} />
+        {/* If no path matches and not calling server, redirect to home */}
+        {!RegExp("^/api").test(location.pathname) ? (
+          <Route render={() => <Redirect to="/" />} />
+        ) : null}
       </Switch>
     </>
   );

@@ -1,12 +1,13 @@
 .confirmation_page_container {
+  height: 100vh;
   position: absolute;
   top: 0;
   bottom: 0;
   padding-top: 8vh;
+  padding-bottom: 15vh;
   background: rgb(255, 255, 255);
   overflow-x: hidden;
   overflow-y: auto;
-  z-index: -1;
 }
 
 .confirmation_page_container h1 {
