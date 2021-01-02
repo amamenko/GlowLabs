@@ -254,34 +254,6 @@ const LandingPage = React.forwardRef((props, ref) => {
     cartIsActive,
   ]);
 
-  // For iOS Rubberbanding Effect on Navbar / Footer
-  const portraitOverscroll = () => {
-    if (!cartIsActive) {
-      if (
-        location.pathname.includes("account") ||
-        location.pathname.includes("admin")
-      ) {
-        document.body.style.setProperty("background", "rgb(255, 255, 255)");
-      } else {
-        if (scrollValue < 0) {
-          document.body.style.setProperty("background", "rgb(44, 44, 52)");
-        } else {
-          document.body.style.setProperty("background", "rgb(255, 255, 255)");
-        }
-      }
-    } else {
-      document.body.style.setProperty("background", "rgb(255, 255, 255)");
-    }
-  };
-
-  currentScreenSize === ""
-    ? initialScreenSize <= 600
-      ? portraitOverscroll()
-      : document.body.style.setProperty("background", "rgb(255, 255, 255)")
-    : currentScreenSize <= 600
-    ? portraitOverscroll()
-    : document.body.style.setProperty("background", "rgb(255, 255, 255)");
-
   const handleTouchStart = (e) => {
     if (e.touches.length === 2) {
       if (!twoFingerTouch) {

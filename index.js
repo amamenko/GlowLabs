@@ -564,7 +564,7 @@ passport.use(
 );
 
 app.get(
-  "/auth/facebook",
+  "/api/auth/facebook",
   passport.authenticate("facebook", {
     authType: "rerequest",
     scope: ["email"],
