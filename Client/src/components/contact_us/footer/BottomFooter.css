@@ -44,11 +44,6 @@
   justify-content: center;
 }
 
-.bottom_footer_policy_links_container > a:hover {
-  color: rgb(44, 44, 52);
-  transition: color 0.5s ease;
-}
-
 .bottom_footer_policy_links_container > *:nth-child(2) {
   display: none;
 }
@@ -107,8 +102,9 @@
     font-size: 3vh;
   }
 
-  .footer_icon:hover {
-    color: black;
+  .footer_icon:hover,
+  .bottom_footer_policy_links_container > a:hover {
+    color: rgb(44, 44, 52);
     transition: color 0.5s ease;
   }
 

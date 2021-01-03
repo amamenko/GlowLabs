@@ -254,7 +254,7 @@ const App = () => {
   const [loggingOut, changeLoggingOut] = useState(false);
   const [splashScreenLogoDone, changeSplashScreenLogoDone] = useState(false);
   const [cookieBannerVisible, changeCookieBannerVisible] = useState(false);
-  console.log(cookieBannerVisible);
+
   const [redirectActive, changeRedirectActive] = useState(false);
 
   // For large screen shopping cart slide-in

@@ -60,7 +60,15 @@ app.use(
 const port = process.env.PORT || 4000;
 
 if (process.env.NODE_ENV === "production") {
-  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+  // Redirect to HTTPS if pathname isn't facebook OAUTH
+
+  app.use((req, res, next) => {
+    if (req.originalUrl === "/api/auth/facebook/callback") {
+      return next();
+    } else {
+      app.use(enforce.HTTPS({ trustProtoHeader: true }));
+    }
+  });
 
   // Serve front-end build
 
@@ -539,7 +547,7 @@ passport.use(
       clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
       callbackURL: `${
         process.env.NODE_ENV === "production"
-          ? "https://glowlabs.herokuapp.com"
+          ? "http://glowlabs.herokuapp.com"
           : "http://localhost:" + port
       }/api/auth/facebook/callback`,
       profileFields: [
