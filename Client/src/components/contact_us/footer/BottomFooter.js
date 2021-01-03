@@ -8,6 +8,7 @@ import {
   faPhoneSquare,
   faEnvelopeSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import "./BottomFooter.css";
 import "./Footer.css";
 
@@ -61,6 +62,15 @@ const BottomFooter = (props) => {
             <FontAwesomeIcon className="footer_icon" icon={faEnvelopeSquare} />
           </a>
         </div>
+      </div>
+      <div className="bottom_footer_policy_links_container">
+        <Link to="privacy">
+          <p>PRIVACY POLICY</p>
+        </Link>
+        <p>|</p>
+        <Link to="/termsandconditions">
+          <p>TERMS AND CONDITIONS</p>
+        </Link>
       </div>
       <div className="bottom_footer_company_details">
         <p>&copy; {new Date().getFullYear()} GLOWLABORATORIES, LLC</p>

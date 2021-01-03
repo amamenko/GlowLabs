@@ -96,7 +96,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         if (
           cartIsActive ||
           location.pathname.includes("account") ||
-          location.pathname.includes("admin")
+          location.pathname.includes("admin") ||
+          location.pathname.includes("privacy") ||
+          location.pathname.includes("termsandconditions")
         ) {
           return "rgb(44,44,52)";
         } else {
@@ -121,7 +123,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
         if (
           cartIsActive ||
           location.pathname.includes("account") ||
-          location.pathname.includes("admin")
+          location.pathname.includes("admin") ||
+          location.pathname.includes("privacy") ||
+          location.pathname.includes("termsandconditions")
         ) {
           return "rgb(44,44,52)";
         } else {
@@ -280,7 +284,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 if (
                   cartIsActive ||
                   location.pathname.includes("account") ||
-                  location.pathname.includes("admin")
+                  location.pathname.includes("admin") ||
+                  location.pathname.includes("privacy") ||
+                  location.pathname.includes("termsandconditions")
                 ) {
                   burgerMenuIcon[0].firstChild.classList.remove(
                     "navbar_cart_icon_dark"
@@ -349,7 +355,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 if (
                   cartIsActive ||
                   location.pathname.includes("account") ||
-                  location.pathname.includes("admin")
+                  location.pathname.includes("admin") ||
+                  location.pathname.includes("privacy") ||
+                  location.pathname.includes("termsandconditions")
                 ) {
                   burgerMenuIcon[0].firstChild.classList.remove(
                     "navbar_cart_icon_dark"
@@ -441,7 +449,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
               if (
                 cartIsActive ||
                 location.pathname.includes("account") ||
-                location.pathname.includes("admin")
+                location.pathname.includes("admin") ||
+                location.pathname.includes("privacy") ||
+                location.pathname.includes("termsandconditions")
               ) {
                 cartIcon[0].firstChild.classList.remove(
                   "navbar_cart_icon_dark"
@@ -470,7 +480,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
               if (
                 cartIsActive ||
                 location.pathname.includes("account") ||
-                location.pathname.includes("admin")
+                location.pathname.includes("admin") ||
+                location.pathname.includes("privacy") ||
+                location.pathname.includes("termsandconditions")
               ) {
                 cartIcon[0].firstChild.classList.remove(
                   "navbar_cart_icon_dark"
@@ -726,7 +738,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     ? props.initialScreenSize >= 1200 &&
                       (cartIsActive ||
                         location.pathname.includes("account") ||
-                        location.pathname.includes("admin"))
+                        location.pathname.includes("admin") ||
+                        location.pathname.includes("privacy") ||
+                        location.pathname.includes("termsandconditions"))
                       ? "rgb(239, 240, 243)"
                       : props.initialScreenSize >= 768 &&
                         props.initialScreenHeight >= props.initialScreenSize
@@ -743,7 +757,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     : props.currentScreenSize >= 1200 &&
                       (cartIsActive ||
                         location.pathname.includes("account") ||
-                        location.pathname.includes("admin"))
+                        location.pathname.includes("admin") ||
+                        location.pathname.includes("privacy") ||
+                        location.pathname.includes("termsandconditions"))
                     ? "rgb(239, 240, 243)"
                     : props.currentScreenSize >= 768 &&
                       props.currentScreenHeight >= props.currentScreenSize
@@ -775,7 +791,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                   ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
-                      location.pathname.includes("admin")
+                      location.pathname.includes("admin") ||
+                      location.pathname.includes("privacy") ||
+                      location.pathname.includes("termsandconditions")
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
@@ -784,7 +802,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
-                    location.pathname.includes("admin")
+                    location.pathname.includes("admin") ||
+                    location.pathname.includes("privacy") ||
+                    location.pathname.includes("termsandconditions")
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
@@ -802,7 +822,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                   ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
-                      location.pathname.includes("admin")
+                      location.pathname.includes("admin") ||
+                      location.pathname.includes("privacy") ||
+                      location.pathname.includes("termsandconditions")
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
@@ -811,7 +833,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
-                    location.pathname.includes("admin")
+                    location.pathname.includes("admin") ||
+                    location.pathname.includes("privacy") ||
+                    location.pathname.includes("termsandconditions")
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
@@ -828,7 +852,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                   ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
-                      location.pathname.includes("admin")
+                      location.pathname.includes("admin") ||
+                      location.pathname.includes("privacy") ||
+                      location.pathname.includes("termsandconditions")
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
@@ -837,7 +863,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
-                    location.pathname.includes("admin")
+                    location.pathname.includes("admin") ||
+                    location.pathname.includes("privacy") ||
+                    location.pathname.includes("termsandconditions")
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
@@ -856,7 +884,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                   ? props.scrollValue <= 1
                     ? cartIsActive ||
                       location.pathname.includes("account") ||
-                      location.pathname.includes("admin")
+                      location.pathname.includes("admin") ||
+                      location.pathname.includes("privacy") ||
+                      location.pathname.includes("termsandconditions")
                       ? "rgb(239, 240, 243)"
                       : "rgb(44, 44, 52)"
                     : "rgb(239, 240, 243)"
@@ -865,7 +895,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                 ? props.scrollValue <= 1
                   ? cartIsActive ||
                     location.pathname.includes("account") ||
-                    location.pathname.includes("admin")
+                    location.pathname.includes("admin") ||
+                    location.pathname.includes("privacy") ||
+                    location.pathname.includes("termsandconditions")
                     ? "rgb(239, 240, 243)"
                     : "rgb(44, 44, 52)"
                   : "rgb(239, 240, 243)"
@@ -887,7 +919,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                     ? "rgb(239, 240, 243)"
                     : cartIsActive ||
                       location.pathname.includes("account") ||
-                      location.pathname.includes("admin")
+                      location.pathname.includes("admin") ||
+                      location.pathname.includes("privacy") ||
+                      location.pathname.includes("termsandconditions")
                     ? "rgb(239, 240, 243)"
                     : props.scrollValue <= 5
                     ? "rgb(44, 44, 52)"
@@ -901,7 +935,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                   ? "rgb(239, 240, 243)"
                   : cartIsActive ||
                     location.pathname.includes("account") ||
-                    location.pathname.includes("admin")
+                    location.pathname.includes("admin") ||
+                    location.pathname.includes("privacy") ||
+                    location.pathname.includes("termsandconditions")
                   ? "rgb(239, 240, 243)"
                   : props.scrollValue <= 5
                   ? "rgb(44, 44, 52)"
@@ -948,7 +984,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                           ? "rgb(44, 44, 52)"
                           : cartIsActive ||
                             location.pathname.includes("account") ||
-                            location.pathname.includes("admin")
+                            location.pathname.includes("admin") ||
+                            location.pathname.includes("privacy") ||
+                            location.pathname.includes("termsandconditions")
                           ? "rgb(44, 44, 52)"
                           : props.scrollValue <= 5
                           ? "rgb(239, 240, 243)"
@@ -962,7 +1000,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                         ? "rgb(44, 44, 52)"
                         : cartIsActive ||
                           location.pathname.includes("account") ||
-                          location.pathname.includes("admin")
+                          location.pathname.includes("admin") ||
+                          location.pathname.includes("privacy") ||
+                          location.pathname.includes("termsandconditions")
                         ? "rgb(44, 44, 52)"
                         : props.scrollValue <= 5
                         ? "rgb(239, 240, 243)"
@@ -982,7 +1022,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                             ? "rgb(239, 240, 243)"
                             : cartIsActive ||
                               location.pathname.includes("account") ||
-                              location.pathname.includes("admin")
+                              location.pathname.includes("admin") ||
+                              location.pathname.includes("privacy") ||
+                              location.pathname.includes("termsandconditions")
                             ? "rgb(239, 240, 243)"
                             : props.scrollValue <= 5
                             ? "rgb(44, 44, 52)"
@@ -996,7 +1038,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                           ? "rgb(239, 240, 243)"
                           : cartIsActive ||
                             location.pathname.includes("account") ||
-                            location.pathname.includes("admin")
+                            location.pathname.includes("admin") ||
+                            location.pathname.includes("privacy") ||
+                            location.pathname.includes("termsandconditions")
                           ? "rgb(239, 240, 243)"
                           : props.scrollValue <= 5
                           ? "rgb(44, 44, 52)"
@@ -1056,7 +1100,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                         : props.initialScreenSize >= 600
                         ? props.initialScreenHeight >= props.initialScreenSize
                           ? "rgb(44, 44, 52)"
-                          : props.scrollValue <= 5
+                          : props.scrollValue <= 5 &&
+                            !location.pathname.includes("privacy") &&
+                            !location.pathname.includes("termsandconditions")
                           ? "rgb(239, 240, 243)"
                           : "rgb(44, 44, 52)"
                         : "rgb(44, 44, 52)"
@@ -1066,7 +1112,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                       : props.currentScreenSize >= 600
                       ? props.currentScreenHeight >= props.currentScreenSize
                         ? "rgb(44, 44, 52)"
-                        : props.scrollValue <= 5
+                        : props.scrollValue <= 5 &&
+                          !location.pathname.includes("privacy") &&
+                          !location.pathname.includes("termsandconditions")
                         ? "rgb(239, 240, 243)"
                         : "rgb(44, 44, 52)"
                       : "rgb(44, 44, 52)",
@@ -1086,7 +1134,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                         ? "rgb(44, 44, 52)"
                         : cartIsActive ||
                           location.pathname.includes("account") ||
-                          location.pathname.includes("admin")
+                          location.pathname.includes("admin") ||
+                          location.pathname.includes("privacy") ||
+                          location.pathname.includes("termsandconditions")
                         ? "rgb(44, 44, 52)"
                         : props.scrollValue <= 5
                         ? "rgb(239, 240, 243)"
@@ -1100,7 +1150,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
                       ? "rgb(44, 44, 52)"
                       : cartIsActive ||
                         location.pathname.includes("account") ||
-                        location.pathname.includes("admin")
+                        location.pathname.includes("admin") ||
+                        location.pathname.includes("privacy") ||
+                        location.pathname.includes("termsandconditions")
                       ? "rgb(44, 44, 52)"
                       : props.scrollValue <= 5
                       ? "rgb(239, 240, 243)"

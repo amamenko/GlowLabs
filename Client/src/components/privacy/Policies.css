@@ -1,0 +1,95 @@
+.policy_main_container {
+  height: 100vh;
+  overflow: auto;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  padding-top: 10vh;
+  line-height: 1.5rem;
+  font-family: "Montserrat";
+  padding-bottom: 15vh;
+  overflow-x: hidden;
+}
+
+.policy_main_container > p,
+.policy_main_container > ul > li {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.policy_main_container > h3,
+.policy_main_container > h2,
+.policy_main_container > h1 {
+  color: rgb(44, 44, 52);
+  -webkit-text-fill-color: rgb(44, 44, 52);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  line-height: 2rem;
+}
+
+.policy_bottom_buttons_container {
+  display: flex;
+  height: 20vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3vh;
+  margin-bottom: 10vh;
+}
+
+.next_policy_button {
+  width: 65%;
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  background: rgb(44, 44, 52);
+  color: rgb(255, 255, 255);
+}
+
+.policy_back_to_home_button {
+  width: 65%;
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(44, 44, 52);
+  color: rgb(44, 44, 52);
+  text-align: center;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.8rem;
+  cursor: pointer;
+}
+
+.policy_back_to_home_button p {
+  color: rgb(44, 44, 52);
+}
+
+.next_policy_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .policy_main_container {
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .policy_main_container {
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+
+  .policy_back_to_home_button,
+  .next_policy_button {
+    width: 24%;
+    font-size: 1.5rem;
+    padding: 0.8rem;
+    margin-top: 1rem;
+  }
+}

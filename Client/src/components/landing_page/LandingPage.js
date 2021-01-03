@@ -688,7 +688,7 @@ const LandingPage = React.forwardRef((props, ref) => {
               </svg>
             )}
           </Spring>
-        </div>
+        </div>{" "}
         <Spring
           from={{
             top: !currentScreenSize

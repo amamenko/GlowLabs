@@ -28,6 +28,7 @@ import {
   Route,
   useLocation,
   Redirect,
+  Link,
 } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
 import { ToastContainer, toast } from "react-toastify";
@@ -50,6 +51,8 @@ import AllAddOns from "./components/all_add_ons/AllAddOns";
 import { scroller } from "react-scroll";
 import FollowUs from "./components/follow_us/FollowUs";
 import ContactUs from "./components/contact_us/ContactUs";
+import PrivacyPolicy from "./components/privacy/PrivacyPolicy";
+import TermsAndConditions from "./components/privacy/TermsAndConditions";
 import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
@@ -251,7 +254,7 @@ const App = () => {
   const [loggingOut, changeLoggingOut] = useState(false);
   const [splashScreenLogoDone, changeSplashScreenLogoDone] = useState(false);
   const [cookieBannerVisible, changeCookieBannerVisible] = useState(false);
-
+  console.log(cookieBannerVisible);
   const [redirectActive, changeRedirectActive] = useState(false);
 
   // For large screen shopping cart slide-in
@@ -407,7 +410,10 @@ const App = () => {
     if (!splashScreenComplete) {
       if (
         !location.pathname.includes("account") &&
-        !location.pathname.includes("admin")
+        !location.pathname.includes("admin") &&
+        !location.pathname.includes("privacy") &&
+        !location.pathname.includes("termsandconditions") &&
+        location.pathname !== "/api/auth/facebook/callback"
       )
         return <Redirect to="/" />;
     }
@@ -435,7 +441,11 @@ const App = () => {
     let currentGuestConsentFormAccessToken;
 
     const checkCookies = () => {
-      if (location.pathname === "/") {
+      if (
+        location.pathname === "/" ||
+        location.pathname.includes("privacy") ||
+        location.pathname.includes("termsandconditions")
+      ) {
         if (
           dummyToken ||
           adminDummyToken ||
@@ -1337,7 +1347,7 @@ const App = () => {
           }
         }
       }
-    }, 500);
+    }, 100);
 
     return () => {
       clearInterval(headerOffsetInterval);
@@ -1542,7 +1552,11 @@ const App = () => {
                   ? initialScreenSize >= 1200
                     ? cookieBannerVisible && !cartIsActive
                       ? "100px"
-                      : `${styles.marginTop}`
+                      : location.pathname === "/"
+                      ? `${styles.marginTop}`
+                      : cookieBannerVisible && !cartIsActive
+                      ? "100px"
+                      : "0px"
                     : navbarVisible
                     ? cookieBannerVisible && !cartIsActive
                       ? initialScreenSize >= 360
@@ -1553,7 +1567,11 @@ const App = () => {
                   : currentScreenSize >= 1200
                   ? cookieBannerVisible && !cartIsActive
                     ? "100px"
-                    : `${styles.marginTop}`
+                    : location.pathname === "/"
+                    ? `${styles.marginTop}`
+                    : cookieBannerVisible && !cartIsActive
+                    ? "100px"
+                    : "0px"
                   : navbarVisible
                   ? cookieBannerVisible && !cartIsActive
                     ? currentScreenSize >= 360
@@ -1634,7 +1652,29 @@ const App = () => {
       />
 
       {renderSlideInShoppingCartContainer(largeScreenShoppingCartRender())}
-
+      {(location.pathname === "/" ||
+        location.pathname.includes("privacy") ||
+        location.pathname.includes("termsandconditions")) &&
+      !cartIsActive &&
+      !guestConsentFormAccessToken &&
+      !adminDummyToken &&
+      !dummyToken &&
+      !adminTemporaryDummyToken ? (
+        <CookieBanner
+          link={
+            <p>
+              By using this website, you agree to our{" "}
+              <Link to="/privacy">Privacy Policy</Link>,{" "}
+              <Link to="/termsandconditions">Terms and Conditions</Link>, and
+              use of cookies. We use cookies to provide you with a personalized
+              experience.
+            </p>
+          }
+          cookie="user-has-accepted-cookies"
+          dismissOnScroll={false}
+          onAccept={() => changeCookieBannerVisible(false)}
+        />
+      ) : null}
       <Switch>
         <Route exact path="/">
           <KeepAlive saveScrollPosition="screen">
@@ -1646,19 +1686,7 @@ const App = () => {
               id="main_container_element"
             >
               {redirectToCartRoutes()}
-              {location.pathname === "/" &&
-              !cartIsActive &&
-              !guestConsentFormAccessToken &&
-              !adminDummyToken &&
-              !dummyToken &&
-              !adminTemporaryDummyToken ? (
-                <CookieBanner
-                  message="By using this website, you agree to our use of cookies. We use cookies to provide you with a great experience and to help our website run effectively."
-                  cookie="user-has-accepted-cookies"
-                  dismissOnScroll={false}
-                  onAccept={() => changeCookieBannerVisible(false)}
-                />
-              ) : null}
+
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
@@ -1717,7 +1745,6 @@ const App = () => {
             </div>
           </KeepAlive>
         </Route>
-
         {cartIsActive ? (
           cartPageOpened === "Cart" ? (
             <Route
@@ -1750,7 +1777,6 @@ const App = () => {
             />
           ) : null
         ) : null}
-
         <Route
           render={() =>
             location.pathname.includes("account") ? (
@@ -1784,6 +1810,14 @@ const App = () => {
                   ref={ref}
                 />
               </Suspense>
+            ) : location.pathname.includes("privacy") ? (
+              <Route render={() => <PrivacyPolicy exact path="/privacy" />} />
+            ) : location.pathname.includes("termsandconditions") ? (
+              <Route
+                render={() => (
+                  <TermsAndConditions exact path="/termsandconditions" />
+                )}
+              />
             ) : cartPageOpened === "GuestCheckout" ||
               cartPageOpened === "ConfirmationPage" ||
               location.pathname.includes("consentform") ? (
@@ -1808,7 +1842,6 @@ const App = () => {
             ) : null
           }
         />
-        {/* If no path matches and not calling server, redirect to home */}
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </>

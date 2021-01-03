@@ -10,18 +10,17 @@ html,
 body {
   font-family: "Montserrat", sans-serif;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
   -webkit-text-size-adjust: none;
 }
 
 html {
   height: 100%;
-  overflow: hidden;
 }
 
 body {
   -webkit-text-size-adjust: none;
   overscroll-behavior-y: none;
+  overflow-x: hidden;
 }
 
 .height_hundred_percent {
@@ -217,7 +216,7 @@ body {
   left: 0 !important;
   width: 100% !important;
   height: 100px !important;
-  z-index: 999999999999 !important;
+  z-index: 500 !important;
   font-family: "Montserrat" !important;
   background: 20px 50% / 30px 30px no-repeat rgb(50, 50, 50) !important;
   background-image: url(./images/cookie.png) !important;
@@ -251,6 +250,16 @@ body {
   padding: 9px 67px;
   text-align: left;
   margin-right: 30px !important;
+}
+
+.cookie-message > p {
+  text-decoration: none !important;
+  margin-left: 0 !important;
+}
+
+.cookie-message > p > a {
+  color: white !important;
+  text-decoration: underline !important;
 }
 
 ::-webkit-scrollbar {
@@ -354,6 +363,7 @@ body {
   .react-cookie-banner {
     font-size: 0.9rem !important;
     top: 0 !important;
+    z-index: 999999999999 !important;
   }
 
   .cookie-message {
