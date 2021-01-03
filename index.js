@@ -59,26 +59,6 @@ app.use(
 
 const port = process.env.PORT || 4000;
 
-if (process.env.NODE_ENV === "production") {
-  // Redirect to HTTPS if pathname isn't facebook OAUTH
-
-  // app.use((req, res, next) => {
-  //   if (req.originalUrl === "/api/auth/facebook/callback") {
-  //     return next();
-  //   } else {
-  //     app.use(enforce.HTTPS({ trustProtoHeader: true }));
-  //   }
-  // });
-
-  // Serve front-end build
-
-  app.use(express.static("Client/build"));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "Client", "build", "index.html"));
-  });
-}
-
 // Allow 200 responses, but not 304 not modified
 app.disable("etag");
 
@@ -545,11 +525,7 @@ passport.use(
     {
       clientID: `${process.env.FACEBOOK_APP_ID}`,
       clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
-      callbackURL: `${
-        process.env.NODE_ENV === "production"
-          ? "http://glowlabs.herokuapp.com"
-          : "http://localhost:" + port
-      }/api/auth/facebook/callback`,
+      callbackURL: "/api/auth/facebook/callback",
       profileFields: [
         "emails",
         "first_name",
@@ -627,6 +603,7 @@ app.get("/api/:id/consentform", async (req, res) => {
 });
 
 app.get("/api/auth/facebook/callback", (req, res, next) => {
+  console.log("Facebook redirect");
   passport.authenticate("facebook", async (err, user, info) => {
     if (err) {
       return next(err);
@@ -1203,6 +1180,19 @@ server.applyMiddleware({
 });
 
 app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+
+  // Serve front-end build
+
+  app.use(express.static("Client/build"));
+
+  // Handle React routing, return all requests to React app
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "Client", "build", "index.html"));
+  });
+}
 
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
