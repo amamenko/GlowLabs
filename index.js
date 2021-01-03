@@ -62,13 +62,13 @@ const port = process.env.PORT || 4000;
 if (process.env.NODE_ENV === "production") {
   // Redirect to HTTPS if pathname isn't facebook OAUTH
 
-  app.use((req, res, next) => {
-    if (req.originalUrl === "/api/auth/facebook/callback") {
-      return next();
-    } else {
-      app.use(enforce.HTTPS({ trustProtoHeader: true }));
-    }
-  });
+  // app.use((req, res, next) => {
+  //   if (req.originalUrl === "/api/auth/facebook/callback") {
+  //     return next();
+  //   } else {
+  //     app.use(enforce.HTTPS({ trustProtoHeader: true }));
+  //   }
+  // });
 
   // Serve front-end build
 
