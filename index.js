@@ -23,7 +23,6 @@ const getMainImage = require("./getMainImage");
 const cron = require("node-cron");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 const moment = require("moment");
-const enforce = require("express-sslify");
 const { v4: uuidv4 } = require("uuid");
 const http = require("http");
 const { ApiError, Environment } = require("square");
@@ -1174,8 +1173,6 @@ app.use(async (req, res, next) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(enforce.HTTPS({ trustProtoHeader: true }));
-
   // Serve front-end build
 
   app.use(express.static("Client/build"));
