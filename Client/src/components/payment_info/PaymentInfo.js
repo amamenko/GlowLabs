@@ -143,7 +143,7 @@ const PaymentInfo = (props) => {
     return axios.post(
       `${
         process.env.REACT_APP_ENV === "production"
-          ? "https://glowlabs.herokuapp.com"
+          ? process.env.REACT_APP_PRODUCTION_URL
           : "http://localhost:4000"
       }/api/delete_customer`,
       {
@@ -270,7 +270,7 @@ const PaymentInfo = (props) => {
       return axios.post(
         `${
           process.env.REACT_APP_ENV === "production"
-            ? "https://glowlabs.herokuapp.com"
+            ? process.env.REACT_APP_PRODUCTION_URL
             : "http://localhost:4000"
         }/api/retrieve_customer`,
         {
@@ -394,7 +394,7 @@ const PaymentInfo = (props) => {
           .post(
             `${
               process.env.REACT_APP_ENV === "production"
-                ? "https://glowlabs.herokuapp.com"
+                ? process.env.REACT_APP_PRODUCTION_URL
                 : "http://localhost:4000"
             }/api/customers`,
             squareCustomerData,
@@ -491,7 +491,7 @@ const PaymentInfo = (props) => {
             return axios.post(
               `${
                 process.env.REACT_APP_ENV === "production"
-                  ? "https://glowlabs.herokuapp.com"
+                  ? process.env.REACT_APP_PRODUCTION_URL
                   : "http://localhost:4000"
               }/api/customers/card`,
               squareData,
@@ -571,7 +571,7 @@ const PaymentInfo = (props) => {
                   return await axios.post(
                     `${
                       process.env.REACT_APP_ENV === "production"
-                        ? "https://glowlabs.herokuapp.com"
+                        ? process.env.REACT_APP_PRODUCTION_URL
                         : "http://localhost:4000"
                     }/api/customers/delete_card`,
                     deleteCardData,
@@ -651,7 +651,7 @@ const PaymentInfo = (props) => {
           .post(
             `${
               process.env.REACT_APP_ENV === "production"
-                ? "https://glowlabs.herokuapp.com"
+                ? process.env.REACT_APP_PRODUCTION_URL
                 : "http://localhost:4000"
             }/api/customers/card`,
             squareData,
@@ -722,7 +722,7 @@ const PaymentInfo = (props) => {
                 return await axios.post(
                   `${
                     process.env.REACT_APP_ENV === "production"
-                      ? "https://glowlabs.herokuapp.com"
+                      ? process.env.REACT_APP_PRODUCTION_URL
                       : "http://localhost:4000"
                   }/api/customers/delete_card`,
                   deleteCardData,

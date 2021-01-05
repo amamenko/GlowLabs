@@ -128,41 +128,42 @@ const AdminLoginPage = (props) => {
 
   useEffect(() => {
     if (signInLoading) {
-      const userValidation = setTimeout(() => {
+      if (loginAdminData) {
         changeSignInLoading(false);
 
         if (registeredEmployeeFound) {
           if (adminLoginEmailInvalid) {
             dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
           }
-          if (loginAdminData) {
-            if (adminLoginPasswordInvalid) {
+
+          if (adminLoginPasswordInvalid) {
+            dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
+          }
+        }
+      } else {
+        changeSignInLoading(false);
+
+        if (error) {
+          if (error.message) {
+            if (error.message.includes("email")) {
+              dispatch(ACTION_ADMIN_LOGIN_EMAIL_INVALID());
               dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
-            }
-          } else {
-            if (error !== undefined) {
+            } else {
               dispatch(ACTION_ADMIN_LOGIN_PASSWORD_INVALID());
+              dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
             }
           }
-        } else {
-          dispatch(ACTION_ADMIN_LOGIN_EMAIL_INVALID());
         }
-      }, 500);
-      return () => {
-        clearTimeout(userValidation);
-      };
+      }
     }
   }, [
-    loginAdminData,
+    adminLoginEmailInvalid,
+    adminLoginPasswordInvalid,
     dispatch,
     error,
-    signInLoading,
-    loginAdmin,
-    adminLoginEmail,
-    adminLoginEmailInvalid,
-    adminLoginPassword,
-    adminLoginPasswordInvalid,
+    loginAdminData,
     registeredEmployeeFound,
+    signInLoading,
   ]);
 
   const handleAdminLoginClick = () => {

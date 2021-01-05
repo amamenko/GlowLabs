@@ -147,7 +147,7 @@ const addAppointmentMutation = {
             ) +
             ` at 1506 Broadway, Hewlett, NY 11557. Reply Y to confirm.\n\nIf you need to cancel or reschedule your appointment, please call us at (516) 442-8122 or visit ${
               process.env.NODE_ENV === "production"
-                ? "https://is.gd/GlowLabs"
+                ? "https://is.gd/glow_labs"
                 : "https://is.gd/glowlabs"
             }. We look forward to seeing you soon!`,
           from: process.env.GLOW_LABS_TEXT_NUMBER,
@@ -345,7 +345,10 @@ const addAppointmentMutation = {
                 client_res.email.toLowerCase().includes("outlook.com")
               ? outlookCalendarEvent.render()
               : iCalEvent.render(),
-            consentFormLink: `http://localhost:4000/api/${client_res._id}/consentform`,
+            consentFormLink:
+              process.env.NODE_ENV === "production"
+                ? `${process.env.PRODUCTION_URL}/api/${client_res._id}/consentform`
+                : `http://localhost:4000/api/${client_res._id}/consentform`,
           })
           .then(async (finalTemplate) => {
             await transporter.sendMail({
@@ -451,7 +454,10 @@ const addAppointmentMutation = {
               args.client[0].email.toLowerCase().includes("outlook.com")
             ? outlookCalendarEvent.render()
             : iCalEvent.render(),
-          consentFormLink: `http://localhost:4000/${client_res._id}/consentform`,
+          consentFormLink:
+            process.env.NODE_ENV === "production"
+              ? `${process.env.PRODUCTION_URL}/api/${client_res._id}/consentform`
+              : `http://localhost:4000/${client_res._id}/consentform`,
         })
         .then(async (finalTemplate) => {
           await transporter.sendMail({
@@ -592,7 +598,10 @@ const addAppointmentMutation = {
             args.client[0].email.toLowerCase().includes("outlook.com")
           ? outlookCalendarEvent.render()
           : iCalEvent.render(),
-        consentFormLink: `http://localhost:4000/${client_res._id}/consentform`,
+        consentFormLink:
+          process.env.NODE_ENV === "production"
+            ? `${process.env.PRODUCTION_URL}/api/${client_res._id}/consentform`
+            : `http://localhost:4000/${client_res._id}/consentform`,
       })
       .then(async (finalTemplate) => {
         await transporter.sendMail({

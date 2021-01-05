@@ -50,7 +50,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://glowlabs.herokuapp.com"
+        ? process.env.PRODUCTION_URL
         : "http://localhost:3000",
     credentials: true,
   })

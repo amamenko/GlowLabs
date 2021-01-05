@@ -214,7 +214,7 @@ const Login = (props) => {
             className="continue_with_facebook_button"
             href={`${
               process.env.REACT_APP_ENV === "production"
-                ? "https://glowlabs.herokuapp.com"
+                ? process.env.REACT_APP_PRODUCTION_URL
                 : "http://localhost:4000"
             }/api/auth/facebook/callback`}
           >
