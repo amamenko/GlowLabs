@@ -5,7 +5,7 @@ import { ApolloClient, InMemoryCache, split, HttpLink } from "@apollo/client";
 const webSocketsLink = new WebSocketLink({
   uri:
     process.env.REACT_APP_ENV === "production"
-      ? "wss://glowlabs.herokuapp.com/graphql"
+      ? `wss://${process.env.REACT_APP_PRODUCTION_ROOT}/graphql`
       : "ws://localhost:4000/graphql",
   reconnect: true,
 });
@@ -13,7 +13,7 @@ const webSocketsLink = new WebSocketLink({
 const httpLink = new HttpLink({
   uri:
     process.env.REACT_APP_ENV === "production"
-      ? "https://glowlabs.herokuapp.com/graphql"
+      ? `${process.env.REACT_APP_PRODUCTION_URL}/graphql`
       : "http://localhost:4000/graphql",
   credentials: "include",
 });
