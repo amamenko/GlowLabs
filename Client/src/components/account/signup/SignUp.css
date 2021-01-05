@@ -199,8 +199,8 @@
 
   .sign_up_page_container {
     width: 35%;
-    height: 85vh;
-    grid-template-rows: 23% 5% 50% 20% 25%;
+    height: 95vh;
+    grid-template-rows: 20% 5% 50% 20% 25%;
   }
 
   .sign_up_page_container:before {
@@ -245,6 +245,12 @@
   .create_account_button,
   .login_redirect_button {
     max-width: 25rem !important;
+  }
+
+  .sign_up_page_container {
+    width: 35%;
+    height: 85vh;
+    grid-template-rows: 23% 5% 50% 20% 25%;
   }
 }
 

@@ -1157,6 +1157,11 @@
     left: 0;
     font-size: 1rem;
   }
+
+  .card_description_paragraph {
+    font-size: 0.8rem;
+    line-height: 22px;
+  }
 }
 
 /* CSS for Medium Laptops */

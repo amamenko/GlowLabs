@@ -195,19 +195,15 @@ const NanoNeedling = (props) => {
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800
                   ? "2rem"
-                  : props.initialScreenSize >= 1600
-                  ? "1rem"
                   : props.initialScreenSize >= 1400
-                  ? "2.4rem"
+                  ? "1rem"
                   : props.initialScreenSize >= 1200
                   ? "1rem"
                   : "100%"
                 : props.currentScreenSize >= 1800
                 ? "2rem"
-                : props.currentScreenSize >= 1600
-                ? "1rem"
                 : props.currentScreenSize >= 1400
-                ? "2.4rem"
+                ? "1rem"
                 : props.currentScreenSize >= 1200
                 ? "1rem"
                 : "100%"

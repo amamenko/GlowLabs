@@ -60,6 +60,8 @@ const SplashScreen = (props) => {
                       ? `translate(-2 -${initialScreenHeight / 12})`
                       : initialScreenHeight >= 850
                       ? `translate(-2 -${initialScreenHeight / 15})`
+                      : initialScreenHeight >= 830
+                      ? `translate(-2 -${initialScreenHeight / 10})`
                       : initialScreenHeight >= 768
                       ? `translate(-2 -${initialScreenHeight / 5})`
                       : `translate(-2 -${initialScreenHeight / 4})`
@@ -71,6 +73,8 @@ const SplashScreen = (props) => {
                     ? `translate(-2 -${currentScreenHeight / 12})`
                     : currentScreenHeight >= 850
                     ? `translate(-2 -${currentScreenHeight / 15})`
+                    : currentScreenHeight >= 830
+                    ? `translate(-2 -${initialScreenHeight / 10})`
                     : currentScreenHeight >= 768
                     ? `translate(-2 -${currentScreenHeight / 5})`
                     : `translate(-2 -${currentScreenHeight / 4})`

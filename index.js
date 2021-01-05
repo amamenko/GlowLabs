@@ -1173,14 +1173,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
-
-server.applyMiddleware({
-  app,
-});
-
-app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
-
 if (process.env.NODE_ENV === "production") {
   app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
@@ -1193,6 +1185,14 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "Client", "build", "index.html"));
   });
 }
+
+app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
+
+server.applyMiddleware({
+  app,
+});
+
+app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
 
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);

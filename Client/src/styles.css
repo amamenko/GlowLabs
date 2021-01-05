@@ -20,6 +20,7 @@ html {
 body {
   -webkit-text-size-adjust: none;
   overscroll-behavior-y: none;
+  max-width: 100vw;
   overflow-x: hidden;
 }
 
@@ -368,14 +369,6 @@ body {
 
   .cookie-message {
     font-weight: 400 !important;
-  }
-
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      .input_field_sign_up::placeholder {
-        padding-top: 1vh;
-      }
-    }
   }
 }
 
