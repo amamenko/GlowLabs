@@ -110,10 +110,17 @@
 
   .bottom_footer_logo_container {
     height: 5vh;
+    opacity: 0;
   }
 
   .bottom_footer_all_icons_container > div {
     padding-left: 0;
     padding-right: 0;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .bottom_footer_logo_container {
+    opacity: 1;
   }
 }
