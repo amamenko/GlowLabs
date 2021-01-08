@@ -31,6 +31,10 @@ const updateClientsInvalidateTokensMutation = {
             maxAge: 1000 * 15,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           }
         );
         client.tokenCount += 1;

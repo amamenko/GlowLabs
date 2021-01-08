@@ -103,6 +103,10 @@ const registerClientMutation = {
     context.res.cookie("dummy-token", dummyToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       secure: process.env.NODE_ENV === "production" ? true : false,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          : "localhost",
     });
 
     const { accessToken, refreshToken } = createTokens(client);
@@ -111,12 +115,20 @@ const registerClientMutation = {
       maxAge: 1000 * 60 * 15,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          : "localhost",
     });
 
     context.res.cookie("refresh-token", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          : "localhost",
     });
 
     return {

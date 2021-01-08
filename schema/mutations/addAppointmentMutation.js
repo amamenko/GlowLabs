@@ -386,6 +386,10 @@ const addAppointmentMutation = {
             {
               maxAge: 1000 * 60 * 60 * 24 * 7,
               secure: process.env.NODE_ENV === "production" ? true : false,
+              domain:
+                process.env.NODE_ENV === "production"
+                  ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                  : "localhost",
             }
           );
         }
@@ -499,6 +503,10 @@ const addAppointmentMutation = {
           {
             maxAge: 1000 * 60 * 60 * 24 * 7,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           }
         );
       }
@@ -644,6 +652,10 @@ const addAppointmentMutation = {
           {
             maxAge: 1000 * 60 * 60 * 24 * 7,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           }
         );
       }

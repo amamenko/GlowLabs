@@ -32,6 +32,10 @@ const updateEmployeeInvalidateTokensMutation = {
             maxAge: 1000 * 15,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           }
         );
         employee.tokenCount += 1;

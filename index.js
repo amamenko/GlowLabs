@@ -590,6 +590,10 @@ app.get("/api/:id/consentform", async (req, res) => {
         {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           secure: process.env.NODE_ENV === "production" ? true : false,
+          domain:
+            process.env.NODE_ENV === "production"
+              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              : "localhost",
         }
       );
     }
@@ -666,24 +670,40 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
           maxAge: 1000 * 60 * 60 * 24 * 60,
           httpOnly: true,
           secure: process.env.NODE_ENV === "production" ? true : false,
+          domain:
+            process.env.NODE_ENV === "production"
+              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              : "localhost",
         });
 
         res.cookie("dummy-token", dummyToken, {
           maxAge: 1000 * 60 * 60 * 24 * 60,
           httpOnly: false,
           secure: process.env.NODE_ENV === "production" ? true : false,
+          domain:
+            process.env.NODE_ENV === "production"
+              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              : "localhost",
         });
       } else {
         res.cookie("temporary-facebook-access-token", accessToken, {
           maxAge: 1000 * 60 * 15,
           httpOnly: true,
           secure: process.env.NODE_ENV === "production" ? true : false,
+          domain:
+            process.env.NODE_ENV === "production"
+              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              : "localhost",
         });
 
         res.cookie("temporary-facebook-dummy-token", dummyToken, {
           maxAge: 1000 * 60 * 15,
           httpOnly: false,
           secure: process.env.NODE_ENV === "production" ? true : false,
+          domain:
+            process.env.NODE_ENV === "production"
+              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              : "localhost",
         });
       }
 
@@ -753,18 +773,30 @@ app.use(async (req, res, next) => {
       res.cookie("dummy-token", dummyToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
 
       res.cookie("access-token", tokens.accessToken, {
         maxAge: 1000 * 60 * 15,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
 
       res.cookie("refresh-token", tokens.refreshToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
     }
   }
@@ -809,18 +841,30 @@ app.use(async (req, res, next) => {
       res.cookie("admin-dummy-token", dummyToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
 
       res.cookie("admin-access-token", tokens.accessToken, {
         maxAge: 1000 * 60 * 15,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
 
       res.cookie("admin-refresh-token", tokens.refreshToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
     }
   }
@@ -884,6 +928,10 @@ app.use(async (req, res, next) => {
         res.cookie("dummy-token", dummyToken, {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           secure: process.env.NODE_ENV === "production" ? true : false,
+          domain:
+            process.env.NODE_ENV === "production"
+              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              : "localhost",
         });
       }
       req.id = accessClient.id;
@@ -939,12 +987,20 @@ app.use(async (req, res, next) => {
             maxAge: 1000 * 60 * 60 * 24 * 60,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           });
 
           res.cookie("dummy-token", dummyToken, {
             maxAge: 1000 * 60 * 60 * 24 * 60,
             httpOnly: false,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           });
         }
       } else {
@@ -995,6 +1051,10 @@ app.use(async (req, res, next) => {
       res.cookie("dummy-token", dummyToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
     }
 
@@ -1004,11 +1064,19 @@ app.use(async (req, res, next) => {
       maxAge: 1000 * 60 * 15,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          : "localhost",
     });
     res.cookie("refresh-token", tokens.refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          : "localhost",
     });
     req.id = client.id;
     return next();
@@ -1067,6 +1135,10 @@ app.use(async (req, res, next) => {
         res.cookie("admin-dummy-token", dummyToken, {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           secure: process.env.NODE_ENV === "production" ? true : false,
+          domain:
+            process.env.NODE_ENV === "production"
+              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              : "localhost",
         });
       }
 
@@ -1092,18 +1164,30 @@ app.use(async (req, res, next) => {
           res.cookie("admin-dummy-token", dummyToken, {
             maxAge: 1000 * 60 * 60 * 24 * 7,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           });
 
           res.cookie("admin-access-token", tokens.accessToken, {
             maxAge: 1000 * 60 * 15,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           });
 
           res.cookie("admin-refresh-token", tokens.refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 7,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production" ? true : false,
+            domain:
+              process.env.NODE_ENV === "production"
+                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                : "localhost",
           });
         }
       } else {
@@ -1155,6 +1239,10 @@ app.use(async (req, res, next) => {
       res.cookie("admin-dummy-token", dummyToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         secure: process.env.NODE_ENV === "production" ? true : false,
+        domain:
+          process.env.NODE_ENV === "production"
+            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            : "localhost",
       });
     }
 
@@ -1164,11 +1252,19 @@ app.use(async (req, res, next) => {
       maxAge: 1000 * 60 * 15,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          : "localhost",
     });
     res.cookie("admin-refresh-token", tokens.refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production" ? true : false,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          : "localhost",
     });
     req.id = employee.id;
     return next();
