@@ -33,7 +33,7 @@ const updateClientsInvalidateTokensMutation = {
             secure: process.env.NODE_ENV === "production" ? true : false,
             domain:
               process.env.NODE_ENV === "production"
-                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                ? process.env.PRODUCTION_CLIENT_ROOT
                 : "localhost",
           }
         );

@@ -592,7 +592,7 @@ app.get("/api/:id/consentform", async (req, res) => {
           secure: process.env.NODE_ENV === "production" ? true : false,
           domain:
             process.env.NODE_ENV === "production"
-              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              ? process.env.PRODUCTION_CLIENT_ROOT
               : "localhost",
         }
       );
@@ -672,7 +672,7 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
           secure: process.env.NODE_ENV === "production" ? true : false,
           domain:
             process.env.NODE_ENV === "production"
-              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              ? process.env.PRODUCTION_CLIENT_ROOT
               : "localhost",
         });
 
@@ -682,7 +682,7 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
           secure: process.env.NODE_ENV === "production" ? true : false,
           domain:
             process.env.NODE_ENV === "production"
-              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              ? process.env.PRODUCTION_CLIENT_ROOT
               : "localhost",
         });
       } else {
@@ -692,7 +692,7 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
           secure: process.env.NODE_ENV === "production" ? true : false,
           domain:
             process.env.NODE_ENV === "production"
-              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              ? process.env.PRODUCTION_CLIENT_ROOT
               : "localhost",
         });
 
@@ -702,7 +702,7 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
           secure: process.env.NODE_ENV === "production" ? true : false,
           domain:
             process.env.NODE_ENV === "production"
-              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              ? process.env.PRODUCTION_CLIENT_ROOT
               : "localhost",
         });
       }
@@ -775,7 +775,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
 
@@ -785,7 +785,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
 
@@ -795,7 +795,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
     }
@@ -843,7 +843,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
 
@@ -853,7 +853,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
 
@@ -863,7 +863,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
     }
@@ -930,7 +930,7 @@ app.use(async (req, res, next) => {
           secure: process.env.NODE_ENV === "production" ? true : false,
           domain:
             process.env.NODE_ENV === "production"
-              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              ? process.env.PRODUCTION_CLIENT_ROOT
               : "localhost",
         });
       }
@@ -989,7 +989,7 @@ app.use(async (req, res, next) => {
             secure: process.env.NODE_ENV === "production" ? true : false,
             domain:
               process.env.NODE_ENV === "production"
-                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                ? process.env.PRODUCTION_CLIENT_ROOT
                 : "localhost",
           });
 
@@ -999,7 +999,7 @@ app.use(async (req, res, next) => {
             secure: process.env.NODE_ENV === "production" ? true : false,
             domain:
               process.env.NODE_ENV === "production"
-                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                ? process.env.PRODUCTION_CLIENT_ROOT
                 : "localhost",
           });
         }
@@ -1053,7 +1053,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
     }
@@ -1066,7 +1066,7 @@ app.use(async (req, res, next) => {
       secure: process.env.NODE_ENV === "production" ? true : false,
       domain:
         process.env.NODE_ENV === "production"
-          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          ? process.env.PRODUCTION_CLIENT_ROOT
           : "localhost",
     });
     res.cookie("refresh-token", tokens.refreshToken, {
@@ -1075,7 +1075,7 @@ app.use(async (req, res, next) => {
       secure: process.env.NODE_ENV === "production" ? true : false,
       domain:
         process.env.NODE_ENV === "production"
-          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          ? process.env.PRODUCTION_CLIENT_ROOT
           : "localhost",
     });
     req.id = client.id;
@@ -1137,7 +1137,7 @@ app.use(async (req, res, next) => {
           secure: process.env.NODE_ENV === "production" ? true : false,
           domain:
             process.env.NODE_ENV === "production"
-              ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+              ? process.env.PRODUCTION_CLIENT_ROOT
               : "localhost",
         });
       }
@@ -1166,7 +1166,7 @@ app.use(async (req, res, next) => {
             secure: process.env.NODE_ENV === "production" ? true : false,
             domain:
               process.env.NODE_ENV === "production"
-                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                ? process.env.PRODUCTION_CLIENT_ROOT
                 : "localhost",
           });
 
@@ -1176,7 +1176,7 @@ app.use(async (req, res, next) => {
             secure: process.env.NODE_ENV === "production" ? true : false,
             domain:
               process.env.NODE_ENV === "production"
-                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                ? process.env.PRODUCTION_CLIENT_ROOT
                 : "localhost",
           });
 
@@ -1186,7 +1186,7 @@ app.use(async (req, res, next) => {
             secure: process.env.NODE_ENV === "production" ? true : false,
             domain:
               process.env.NODE_ENV === "production"
-                ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+                ? process.env.PRODUCTION_CLIENT_ROOT
                 : "localhost",
           });
         }
@@ -1241,7 +1241,7 @@ app.use(async (req, res, next) => {
         secure: process.env.NODE_ENV === "production" ? true : false,
         domain:
           process.env.NODE_ENV === "production"
-            ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+            ? process.env.PRODUCTION_CLIENT_ROOT
             : "localhost",
       });
     }
@@ -1254,7 +1254,7 @@ app.use(async (req, res, next) => {
       secure: process.env.NODE_ENV === "production" ? true : false,
       domain:
         process.env.NODE_ENV === "production"
-          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          ? process.env.PRODUCTION_CLIENT_ROOT
           : "localhost",
     });
     res.cookie("admin-refresh-token", tokens.refreshToken, {
@@ -1263,7 +1263,7 @@ app.use(async (req, res, next) => {
       secure: process.env.NODE_ENV === "production" ? true : false,
       domain:
         process.env.NODE_ENV === "production"
-          ? `.${process.env.PRODUCTION_CLIENT_ROOT}`
+          ? process.env.PRODUCTION_CLIENT_ROOT
           : "localhost",
     });
     req.id = employee.id;
