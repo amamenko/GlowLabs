@@ -45,7 +45,7 @@ Ideally, appointments, consent forms, and profile management would all be handle
 <br />
 
 
-This is a MERN (MongoDB, Express, React, Node.js) stack application that uses Redux for state management. It has some of the following features:
+This is a MERN (MongoDB, Express, React, Node.js) stack application that uses [Redux](https://github.com/reduxjs/redux) for state management and [Apollo Client](https://www.npmjs.com/package/apollo-boost) to fetch data from a MongoDB database via [GraphQL](https://graphql.org/). It has some of the following features:
 
 <strong>Responsive design and performance optimizations by means of:</strong>
 * SVG compression using [SVGOMG](https://jakearchibald.github.io/svgomg/), static site image compression using [Squoosh](https://squoosh.app/), and user-uploaded image compression using [browser-image-compression](https://www.npmjs.com/package/browser-image-compression) and [LZString](https://github.com/pieroxy/lz-string)).
@@ -59,9 +59,9 @@ This is a MERN (MongoDB, Express, React, Node.js) stack application that uses Re
 * Fill out contact information and any appointment notes.
 * Submit credit card information securely through a [Square Payment Form](https://github.com/square/react-square-payment-form) to hold their appointment. This form is an iframe (no credit card information is stored on Glow Labs' MongoDB database. Rather, this information goes to Square's POS).
 * Book selected appointments and receive: 
- * Confirmation and reminder texts via [Twilio](https://www.npmjs.com/package/twilio) and [node-cron](https://www.npmjs.com/package/node-cron) (to which they can reply to confirm their appointment).
- * Confirmation emails (created using the [MJML](https://github.com/mjmlio/mjml) markup language) via [Nodemailer](https://www.npmjs.com/package/nodemailer).
- * Link to fill out and sign a consent form.
+  * Confirmation and reminder texts via [Twilio](https://www.npmjs.com/package/twilio) and [node-cron](https://www.npmjs.com/package/node-cron) (to which they can reply to confirm their appointment).
+  * Confirmation emails (created using the [MJML](https://github.com/mjmlio/mjml) markup language) via [Nodemailer](https://www.npmjs.com/package/nodemailer).
+  * Link to fill out and sign a consent form.
 * Log in or create an account by entering details or using [Passport](https://www.npmjs.com/package/passport-facebook) to authenticate with Facebook via OAuth 2.0. Authentication is done by [JSON Web Tokens](https://jwt.io/introduction/) and [HttpOnly](https://owasp.org/www-community/HttpOnly) access and refresh cookies, as well as an additional client-visible "dummy" cookie after validation.
 
 <strong>Authenticated clients are able to do all of the above, as well as:</strong>
@@ -81,6 +81,65 @@ This is a MERN (MongoDB, Express, React, Node.js) stack application that uses Re
 * Delete clients and staff members.
 * Update all clients' and staff members' profile photos.
 * View and manage all staff members' calendars.
+
+## Deployment
+
+Server deployed via [AWS EC2](https://aws.amazon.com/ec2/) instance with [NGINX](https://www.nginx.com/) and SSL secured with [Let's Encrypt](https://letsencrypt.org/). Client-side deployed with [Vercel](https://vercel.com/).
+
+## Local Development
+
+To develop this project locally, follow the steps below.
+
+### Prerequisites
+
+You will need to have the following software installed:
+* npm
+* Git
+* Node.js
+
+### Installation
+
+1. Create a [Google Maps Platform](https://developers.google.com/maps/gmp-get-started) billing account, create a project, enable the Google Maps API, and get an [API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
+2. Create a new [Square Developer](https://squareup.com/signup?country_code=us&v=developers) account, create a new application, and get its Sandbox credentials.
+3. Create a [Twilio](https://www.twilio.com/try-twilio) account and get its account SID and authorization token.
+4. Create a [Facebook for Developers](https://developers.facebook.com/) account, register a new application, and get its ID and secret.
+5. Create a [MongoDB](https://account.mongodb.com/account/register) account, create a new database, and get its connection string to connect to [Mongoose](https://mongoosejs.com/docs/).
+6. Clone the Github repository.
+   ```sh
+   git clone https://github.com/amamenko/GlowLabs.git
+   ```
+7. Install all NPM packages.
+   ```sh
+   npm install
+   ```
+8. Enter your Google Maps API token and Square Sandbox application details as client-side environment variables.
+   ```JS
+   REACT_APP_GOOGLE_MAPS_API_KEY=YOUR GOOGLE MAPS API KEY
+   REACT_APP_SQUARE_SANDBOX_APPLICATION_ID=YOUR SQUARE SANDBOX APPLICATION ID
+   REACT_APP_SQUARE_SANDBOX_LOCATION_ID=YOUR SQUARE SANDBOX LOCATION ID
+   REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
+   ```
+9. Enter your Square Sandbox, Twilio, Facebook for Developers, and MongoDB credentials as server-side environment variables. Also enter your own Nodemailer email/password combinations and JSON Web Token secret keys as environment variables.
+   ```JS
+   SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
+   TWILIO_ACCOUNT_SID=YOUR TWILIO ACCOUNT SID
+   TWILIO_AUTH_TOKEN=YOUR TWILIO AUTH TOKEN
+   GLOW_LABS_TEXT_NUMBER=YOUR TWILIO TEXTING NUMBER
+   TWILIO_TEST_TEXT_NUMBER=YOUR OUTBOUND TEST TEXT NUMBER
+   FACEBOOK_APP_ID=YOUR FACEBOOK APP ID
+   FACEBOOK_APP_SECRET=YOUR FACEBOOK APP SECRET
+   JWT_SECRET_KEY_DUMMY=YOUR DUMMY JWT KEY
+   JWT_SECRET_KEY_ACCESS=YOUR ACCESS JWT KEY
+   JWT_SECRET_KEY_REFRESH=YOUR REFRESH JWT KEY
+   MONGO_DB_USERNAME=YOUR MONGODB USERNAME
+   MONGO_DB_PASSWORD=YOUR MONGODB PASSWORD
+   GLOW_LABS_EMAIL=YOUR EMAIL
+   GLOW_LABS_EMAIL_APP_PASSWORD=YOUR EMAIL PASSWORD
+   ```
+10. Build for production.
+   ```JS
+   npm run build
+   ```
 
 <!-- CONTRIBUTING -->
 ## Contributing
