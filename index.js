@@ -663,8 +663,18 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
     if (client) {
       req.isAuth = true;
       if (client.phoneNumber) {
-        res.clearCookie("temporary-facebook-access-token");
-        res.clearCookie("temporary-facebook-dummy-token");
+        res.clearCookie("temporary-facebook-access-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        res.clearCookie("temporary-facebook-dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
 
         res.cookie("access-token", accessToken, {
           maxAge: 1000 * 60 * 60 * 24 * 60,
@@ -765,9 +775,24 @@ app.use(async (req, res, next) => {
       const client = await Client.findOne({ email: refreshClient.email });
 
       const tokens = createTokens(client);
-      res.clearCookie("access-token");
-      res.clearCookie("refresh-token");
-      res.clearCookie("dummy-token");
+      res.clearCookie("access-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
+      res.clearCookie("refresh-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
+      res.clearCookie("dummy-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
 
       const dummyToken = generateDummyToken(client);
       res.cookie("dummy-token", dummyToken, {
@@ -833,9 +858,24 @@ app.use(async (req, res, next) => {
       });
 
       const tokens = createAdminTokens(employee);
-      res.clearCookie("admin-access-token");
-      res.clearCookie("admin-refresh-token");
-      res.clearCookie("admin-dummy-token");
+      res.clearCookie("admin-access-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
+      res.clearCookie("admin-refresh-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
+      res.clearCookie("admin-dummy-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
 
       const dummyToken = generateAdminDummyToken(employee);
       res.cookie("admin-dummy-token", dummyToken, {
@@ -889,10 +929,30 @@ app.use(async (req, res, next) => {
   const logoutCookie = req.cookies.logout;
 
   if (logoutCookie) {
-    res.clearCookie("access-token");
-    res.clearCookie("refresh-token");
-    res.clearCookie("dummy-token");
-    res.clearCookie("logout");
+    res.clearCookie("access-token", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
+    res.clearCookie("refresh-token", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
+    res.clearCookie("dummy-token", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
+    res.clearCookie("logout", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
   }
 
   const generateDummyToken = (client) => {
@@ -911,7 +971,12 @@ app.use(async (req, res, next) => {
     // No tokens in cookies
     req.isAuth = false;
     if (dummyToken) {
-      res.clearCookie("dummy-token");
+      res.clearCookie("dummy-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
     }
     return next();
   } else {
@@ -980,8 +1045,18 @@ app.use(async (req, res, next) => {
           const accessToken = generateFacebookAccessToken(client);
           const dummyToken = generateFacebookDummyToken(client);
 
-          res.clearCookie("temporary-facebook-access-token");
-          res.clearCookie("temporary-facebook-dummy-token");
+          res.clearCookie("temporary-facebook-access-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
+          res.clearCookie("temporary-facebook-dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
 
           res.cookie("access-token", accessToken, {
             maxAge: 1000 * 60 * 60 * 24 * 60,
@@ -1006,10 +1081,20 @@ app.use(async (req, res, next) => {
       } else {
         req.isAuth = false;
         if (dummyToken) {
-          res.clearCookie("dummy-token");
+          res.clearCookie("dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
         }
         if (temporaryFacebookDummyToken) {
-          res.clearCookie("temporary-facebook-dummy-token");
+          res.clearCookie("temporary-facebook-dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
         }
       }
       return next();
@@ -1027,7 +1112,12 @@ app.use(async (req, res, next) => {
       // Refresh token is invalid
       req.isAuth = false;
       if (dummyToken) {
-        res.clearCookie("dummy-token");
+        res.clearCookie("dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
       }
       return next();
     }
@@ -1038,7 +1128,12 @@ app.use(async (req, res, next) => {
     if (!client || client.tokenCount !== refreshClient.tokenCount) {
       req.isAuth = false;
       if (dummyToken) {
-        res.clearCookie("dummy-token");
+        res.clearCookie("dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
       }
       return next();
     }
@@ -1046,7 +1141,12 @@ app.use(async (req, res, next) => {
     // Refresh token is valid => USER AUTHENTICATED and gets new refresh / access tokens
     req.isAuth = true;
     if (dummyToken) {
-      res.clearCookie("dummy-token");
+      res.clearCookie("dummy-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
       const dummyToken = generateDummyToken(refreshClient);
       res.cookie("dummy-token", dummyToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -1093,10 +1193,30 @@ app.use(async (req, res, next) => {
   const logoutCookie = req.cookies.logout;
 
   if (logoutCookie) {
-    res.clearCookie("admin-access-token");
-    res.clearCookie("admin-refresh-token");
-    res.clearCookie("admin-dummy-token");
-    res.clearCookie("logout");
+    res.clearCookie("admin-access-token", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
+    res.clearCookie("admin-refresh-token", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
+    res.clearCookie("admin-dummy-token", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
+    res.clearCookie("logout", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
   }
 
   const generateAdminDummyToken = (employee) => {
@@ -1116,7 +1236,12 @@ app.use(async (req, res, next) => {
     // No employee tokens in cookies
     req.adminAuth = false;
     if (dummyToken) {
-      res.clearCookie("admin-dummy-token");
+      res.clearCookie("admin-dummy-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
     }
     return next();
   } else {
@@ -1157,8 +1282,18 @@ app.use(async (req, res, next) => {
 
         if (employee.permanentPasswordSet) {
           const tokens = createAdminTokens(employee);
-          res.clearCookie("temporary-admin-access-token");
-          res.clearCookie("temporary-admin-dummy-token");
+          res.clearCookie("temporary-admin-access-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
+          res.clearCookie("temporary-admin-dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
 
           const dummyToken = generateAdminDummyToken(employee);
           res.cookie("admin-dummy-token", dummyToken, {
@@ -1193,10 +1328,20 @@ app.use(async (req, res, next) => {
       } else {
         req.adminAuth = false;
         if (dummyToken) {
-          res.clearCookie("admin-dummy-token");
+          res.clearCookie("admin-dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
         }
         if (temporaryAdminDummyToken) {
-          res.clearCookie("temporary-admin-dummy-token");
+          res.clearCookie("temporary-admin-dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
         }
       }
       return next();
@@ -1214,7 +1359,12 @@ app.use(async (req, res, next) => {
       // Refresh token is invalid
       req.adminAuth = false;
       if (dummyToken) {
-        res.clearCookie("admin-dummy-token");
+        res.clearCookie("admin-dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
       }
       return next();
     }
@@ -1225,7 +1375,12 @@ app.use(async (req, res, next) => {
     if (!employee || employee.tokenCount !== refreshAdmin.tokenCount) {
       req.adminAuth = false;
       if (dummyToken) {
-        res.clearCookie("admin-dummy-token");
+        res.clearCookie("admin-dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
       }
       return next();
     }
@@ -1233,7 +1388,12 @@ app.use(async (req, res, next) => {
     // Refresh token is valid => USER AUTHENTICATED and gets new refresh / access tokens
     req.adminAuth = true;
     if (dummyToken) {
-      res.clearCookie("admin-dummy-token");
+      res.clearCookie("admin-dummy-token", {
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.PRODUCTION_CLIENT_ROOT
+            : "localhost",
+      });
 
       const dummyToken = generateAdminDummyToken(refreshAdmin);
       res.cookie("admin-dummy-token", dummyToken, {

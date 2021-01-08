@@ -38,9 +38,24 @@ const updateClientsInvalidateTokensMutation = {
           }
         );
         client.tokenCount += 1;
-        context.res.clearCookie("access-token");
-        context.res.clearCookie("refresh-token");
-        context.res.clearCookie("dummy-token");
+        context.res.clearCookie("access-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        context.res.clearCookie("refresh-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        context.res.clearCookie("dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
         const res = client.save();
 
         return {

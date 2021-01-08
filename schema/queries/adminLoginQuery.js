@@ -28,10 +28,30 @@ const adminLoginQuery = {
       if (!employee.permanentPasswordSet) {
         // Entered password is identical to temporary password
         if (args.password === employee.password) {
-          context.res.clearCookie("dummy-token");
-          context.res.clearCookie("access-token");
-          context.res.clearCookie("refresh-token");
-          context.res.clearCookie("temporary-facebook-dummy-token");
+          context.res.clearCookie("dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
+          context.res.clearCookie("access-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
+          context.res.clearCookie("refresh-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
+          context.res.clearCookie("temporary-facebook-dummy-token", {
+            domain:
+              process.env.NODE_ENV === "production"
+                ? process.env.PRODUCTION_CLIENT_ROOT
+                : "localhost",
+          });
 
           const generateAdminDummyToken = (employee) => {
             const token = jwt.sign(
@@ -144,10 +164,30 @@ const adminLoginQuery = {
               : "localhost",
         });
 
-        context.res.clearCookie("dummy-token");
-        context.res.clearCookie("access-token");
-        context.res.clearCookie("refresh-token");
-        context.res.clearCookie("temporary-facebook-dummy-token");
+        context.res.clearCookie("dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        context.res.clearCookie("access-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        context.res.clearCookie("refresh-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        context.res.clearCookie("temporary-facebook-dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
 
         return {
           _id: employee._id,

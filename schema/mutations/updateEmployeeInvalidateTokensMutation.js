@@ -39,9 +39,24 @@ const updateEmployeeInvalidateTokensMutation = {
           }
         );
         employee.tokenCount += 1;
-        context.res.clearCookie("admin-access-token");
-        context.res.clearCookie("admin-refresh-token");
-        context.res.clearCookie("admin-dummy-token");
+        context.res.clearCookie("admin-access-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        context.res.clearCookie("admin-refresh-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
+        context.res.clearCookie("admin-dummy-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
 
         const res = employee.save();
 

@@ -10,6 +10,9 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLString, GraphQLBoolean, GraphQLNonNull } = graphql;
 
+// Hide usernames and passwords
+require("dotenv").config();
+
 const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const updateConsentFormMutation = {
@@ -97,7 +100,12 @@ const updateConsentFormMutation = {
       const res = await client.save();
 
       if (!context.isAuth) {
-        context.res.clearCookie("guest-consent-form-access-token");
+        context.res.clearCookie("guest-consent-form-access-token", {
+          domain:
+            process.env.NODE_ENV === "production"
+              ? process.env.PRODUCTION_CLIENT_ROOT
+              : "localhost",
+        });
       }
 
       let newNotification = new Notification({
