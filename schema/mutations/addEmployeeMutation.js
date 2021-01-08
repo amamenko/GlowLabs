@@ -68,7 +68,7 @@ const addEmployeeMutation = {
           temporaryPassword: employee.password,
           adminLoginLink:
             process.env.NODE_ENV === "production"
-              ? `${process.env.PRODUCTION_URL}/admin`
+              ? `${process.env.PRODUCTION_CLIENT_URL}/admin`
               : "http://localhost:3000/admin",
         })
         .then(async (finalTemplate) => {

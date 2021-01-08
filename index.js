@@ -50,7 +50,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? process.env.PRODUCTION_URL
+        ? process.env.PRODUCTION_CLIENT_URL
         : "http://localhost:3000",
     credentials: true,
   })
@@ -524,7 +524,10 @@ passport.use(
     {
       clientID: `${process.env.FACEBOOK_APP_ID}`,
       clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
-      callbackURL: "/api/auth/facebook/callback",
+      callbackURL:
+        process.env.NODE_ENV === "production"
+          ? `${process.env.PRODUCTION_SERVER_URL}/api/auth/facebook/callback`
+          : `http://localhost:${port}/api/auth/facebook/callback`,
       profileFields: [
         "emails",
         "first_name",
@@ -594,7 +597,7 @@ app.get("/api/:id/consentform", async (req, res) => {
     res.redirect(
       `${
         process.env.NODE_ENV === "production"
-          ? "https://glowlabs.herokuapp.com"
+          ? process.env.PRODUCTION_CLIENT_URL
           : "http://localhost:3000"
       }/account/clientprofile/consentform/page1`
     );
@@ -687,7 +690,7 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
       res.redirect(
         `${
           process.env.NODE_ENV === "production"
-            ? "https://glowlabs.herokuapp.com"
+            ? process.env.PRODUCTION_CLIENT_URL
             : "http://localhost:3000"
         }/account/clientprofile`
       );
@@ -696,7 +699,7 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
       res.redirect(
         `${
           process.env.NODE_ENV === "production"
-            ? "https://glowlabs.herokuapp.com"
+            ? process.env.PRODUCTION_CLIENT_URL
             : "http://localhost:3000"
         }/account/login`
       );
@@ -1198,14 +1201,16 @@ httpServer.listen(port, () => {
   console.log(
     `🚀 Server ready at ${
       process.env.NODE_ENV === "production"
-        ? "https://glowlabs.herokuapp.com" + server.graphqlPath
+        ? process.env.PRODUCTION_SERVER_URL + server.graphqlPath
         : "http://localhost:" + port + server.graphqlPath
     }`
   );
   console.log(
     `🚀 Subscriptions ready at ${
       process.env.NODE_ENV === "production"
-        ? "wss://glowlabs.herokuapp.com" + server.subscriptionsPath
+        ? "wss://" +
+          process.env.PRODUCTION_SERVER_ROOT +
+          server.subscriptionsPath
         : "ws://localhost:" + port + server.subscriptionsPath
     }`
   );

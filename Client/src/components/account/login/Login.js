@@ -214,7 +214,7 @@ const Login = (props) => {
             className="continue_with_facebook_button"
             href={`${
               process.env.REACT_APP_ENV === "production"
-                ? process.env.REACT_APP_PRODUCTION_URL
+                ? process.env.REACT_APP_PRODUCTION_SERVER_URL
                 : "http://localhost:4000"
             }/api/auth/facebook/callback`}
           >

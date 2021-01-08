@@ -347,7 +347,7 @@ const addAppointmentMutation = {
               : iCalEvent.render(),
             consentFormLink:
               process.env.NODE_ENV === "production"
-                ? `${process.env.PRODUCTION_URL}/api/${client_res._id}/consentform`
+                ? `${process.env.PRODUCTION_SERVER_URL}/api/${client_res._id}/consentform`
                 : `http://localhost:4000/api/${client_res._id}/consentform`,
           })
           .then(async (finalTemplate) => {
@@ -456,7 +456,7 @@ const addAppointmentMutation = {
             : iCalEvent.render(),
           consentFormLink:
             process.env.NODE_ENV === "production"
-              ? `${process.env.PRODUCTION_URL}/api/${client_res._id}/consentform`
+              ? `${process.env.PRODUCTION_SERVER_URL}/api/${client_res._id}/consentform`
               : `http://localhost:4000/${client_res._id}/consentform`,
         })
         .then(async (finalTemplate) => {
@@ -600,7 +600,7 @@ const addAppointmentMutation = {
           : iCalEvent.render(),
         consentFormLink:
           process.env.NODE_ENV === "production"
-            ? `${process.env.PRODUCTION_URL}/api/${client_res._id}/consentform`
+            ? `${process.env.PRODUCTION_SERVER_URL}/api/${client_res._id}/consentform`
             : `http://localhost:4000/${client_res._id}/consentform`,
       })
       .then(async (finalTemplate) => {
