@@ -22,6 +22,13 @@ import MyProfile from "./clientprofile/MyProfile/MyProfile";
 // import MyRoutine from "./clientprofile/MyProfile/SkinCareRoutine/MyRoutine";
 import LargeScreenSideMenu from "./LargeScreenSideMenu/LargeScreenSideMenu";
 import { Font } from "@react-pdf/renderer";
+// Font Relative Imports
+import MontserratLightSrc from "../../MontserratFont/ttf/Montserrat-Light.ttf";
+import MontserratRegularSrc from "../../MontserratFont/ttf/Montserrat-Regular.ttf";
+import MontserratMediumSrc from "../../MontserratFont/ttf/Montserrat-Medium.ttf";
+import MontserratSemiBoldSrc from "../../MontserratFont/ttf/Montserrat-SemiBold.ttf";
+import MontserratBoldSrc from "../../MontserratFont/ttf/Montserrat-Bold.ttf";
+import MontserratBlackSrc from "../../MontserratFont/ttf/Montserrat-Black.ttf";
 import ACTION_SPLASH_SCREEN_COMPLETE from "../../actions/SplashScreenComplete/ACTION_SPLASH_SCREEN_COMPLETE";
 import ACTION_SPLASH_SCREEN_HALFWAY from "../../actions/SplashScreenHalfway/ACTION_SPLASH_SCREEN_HALFWAY";
 import ACTION_NAVBAR_NOT_VISIBLE from "../../actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
@@ -74,32 +81,32 @@ const AccountRouter = React.forwardRef((props, ref) => {
       family: "Montserrat",
       fonts: [
         {
-          src: "../../MontserratFont/ttf/Montserrat-Light.ttf",
+          src: MontserratLightSrc,
           fontStyle: "normal",
           fontWeight: 300,
         },
         {
-          src: "../../MontserratFont/ttf/Montserrat-Regular.ttf",
+          src: MontserratRegularSrc,
           fontStyle: "normal",
           fontWeight: 400,
         },
         {
-          src: "../../MontserratFont/ttf/Montserrat-Medium.ttf",
+          src: MontserratMediumSrc,
           fontStyle: "normal",
           fontWeight: 500,
         },
         {
-          src: "../../MontserratFont/ttf/Montserrat-SemiBold.ttf",
+          src: MontserratSemiBoldSrc,
           fontStyle: "normal",
           fontWeight: 600,
         },
         {
-          src: "../../MontserratFont/ttf/Montserrat-Bold.ttf",
+          src: MontserratBoldSrc,
           fontStyle: "normal",
           fontWeight: 700,
         },
         {
-          src: "../../MontserratFont/ttf/Montserrat-Black.ttf",
+          src: MontserratBlackSrc,
           fontStyle: "normal",
           fontWeight: 900,
         },
