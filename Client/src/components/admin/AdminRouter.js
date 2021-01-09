@@ -107,8 +107,131 @@ const AdminRouter = React.forwardRef((props, ref) => {
   const registerFont = () => {
     Font.register({
       family: "Montserrat",
-      src:
-        "http://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf",
+      fonts: [
+        {
+          src: "../../MontserratFont/woff2/Montserrat-Light.woff2",
+          fontStyle: "normal",
+          fontWeight: 300,
+        },
+        {
+          src: "../../MontserratFont/woff2/Montserrat-Regular.woff2",
+          fontStyle: "normal",
+          fontWeight: 400,
+        },
+        {
+          src: "../../MontserratFont/woff2/Montserrat-Medium.woff2",
+          fontStyle: "normal",
+          fontWeight: 500,
+        },
+        {
+          src: "../../MontserratFont/woff2/Montserrat-SemiBold.woff2",
+          fontStyle: "normal",
+          fontWeight: 600,
+        },
+        {
+          src: "../../MontserratFont/woff2/Montserrat-Bold.woff2",
+          fontStyle: "normal",
+          fontWeight: 700,
+        },
+        {
+          src: "../../MontserratFont/woff2/Montserrat-Black.woff2",
+          fontStyle: "normal",
+          fontWeight: 900,
+        },
+
+        {
+          src: "../../MontserratFont/woff/Montserrat-Light.woff",
+          fontStyle: "normal",
+          fontWeight: 300,
+        },
+        {
+          src: "../../MontserratFont/woff/Montserrat-Regular.woff",
+          fontStyle: "normal",
+          fontWeight: 400,
+        },
+        {
+          src: "../../MontserratFont/woff/Montserrat-Medium.woff",
+          fontStyle: "normal",
+          fontWeight: 500,
+        },
+        {
+          src: "../../MontserratFont/woff/Montserrat-SemiBold.woff",
+          fontStyle: "normal",
+          fontWeight: 600,
+        },
+        {
+          src: "../../MontserratFont/woff/Montserrat-Bold.woff",
+          fontStyle: "normal",
+          fontWeight: 700,
+        },
+        {
+          src: "../../MontserratFont/woff/Montserrat-Black.woff",
+          fontStyle: "normal",
+          fontWeight: 900,
+        },
+
+        {
+          src: "../../MontserratFont/otf/Montserrat-Light.otf",
+          fontStyle: "normal",
+          fontWeight: 300,
+        },
+        {
+          src: "../../MontserratFont/otf/Montserrat-Regular.otf",
+          fontStyle: "normal",
+          fontWeight: 400,
+        },
+        {
+          src: "../../MontserratFont/otf/Montserrat-Medium.otf",
+          fontStyle: "normal",
+          fontWeight: 500,
+        },
+        {
+          src: "../../MontserratFont/otf/Montserrat-SemiBold.otf",
+          fontStyle: "normal",
+          fontWeight: 600,
+        },
+        {
+          src: "../../MontserratFont/otf/Montserrat-Bold.otf",
+          fontStyle: "normal",
+          fontWeight: 700,
+        },
+        {
+          src: "../../MontserratFont/otf/Montserrat-Black.otf",
+          fontStyle: "normal",
+          fontWeight: 900,
+        },
+
+        {
+          src: "../../MontserratFont/ttf/Montserrat-Light.ttf",
+          fontStyle: "normal",
+          fontWeight: 300,
+        },
+        {
+          src: "../../MontserratFont/ttf/Montserrat-Regular.ttf",
+          fontStyle: "normal",
+          fontWeight: 400,
+        },
+        {
+          src: "../../MontserratFont/ttf/Montserrat-Medium.ttf",
+          fontStyle: "normal",
+          fontWeight: 500,
+        },
+        {
+          src: "../../MontserratFont/ttf/Montserrat-SemiBold.ttf",
+          fontStyle: "normal",
+          fontWeight: 600,
+        },
+        {
+          src: "../../MontserratFont/ttf/Montserrat-Bold.ttf",
+          fontStyle: "normal",
+          fontWeight: 700,
+        },
+        {
+          src: "../../MontserratFont/ttf/Montserrat-Black.ttf",
+          fontStyle: "normal",
+          fontWeight: 900,
+        },
+      ],
     });
   };
 
