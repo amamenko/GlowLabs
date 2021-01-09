@@ -925,14 +925,14 @@ const PaymentInfo = (props) => {
             width={
               props.currentScreenSize === ""
                 ? props.initialScreenSize >= 1800
-                  ? "1.5rem"
+                  ? "2rem"
                   : props.initialScreenSize >= 1600
                   ? "1rem"
                   : props.initialScreenSize >= 1200
                   ? "0.5rem"
                   : "100%"
                 : props.currentScreenSize >= 1800
-                ? "1.5rem"
+                ? "2rem"
                 : props.currentScreenSize >= 1600
                 ? "1rem"
                 : props.currentScreenSize >= 1200
@@ -961,26 +961,6 @@ const PaymentInfo = (props) => {
                 : "1rem"
             }
             style={{
-              marginTop:
-                props.currentScreenSize === ""
-                  ? props.initialScreenSize >= 1800
-                    ? "-0.5rem"
-                    : props.initialScreenSize >= 1600
-                    ? "-0.2rem"
-                    : props.initialScreenSize >= 1200
-                    ? "-0.5rem"
-                    : props.initialScreenSize >= 360
-                    ? "-0.5rem"
-                    : "0rem"
-                  : props.currentScreenSize >= 1800
-                  ? "-0.5rem"
-                  : props.currentScreenSize >= 1600
-                  ? "-0.2rem"
-                  : props.currentScreenSize >= 1200
-                  ? "-0.5rem"
-                  : props.currentScreenSize >= 360
-                  ? "-0.5rem"
-                  : "0rem",
               display: "block",
             }}
             viewBox="0 0 13.229 13.229"
