@@ -18,9 +18,10 @@ const CancelAppointmentNotification = (props) => {
     <div
       className="admin_individual_notification_container"
       style={{
-        background: notification.new
-          ? "rgba(211, 211, 211, 0.3)"
-          : "transparent",
+        background:
+          notification.new === true
+            ? "rgba(211, 211, 211, 0.3)"
+            : "transparent",
       }}
     >
       <div

@@ -565,7 +565,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                 {adminNotifications ? (
                   adminNotifications.length > 0 ? (
                     adminNotifications.filter(
-                      (notification) => notification.new
+                      (notification) => notification.new === true
                     ).length > 0 ? (
                       <span className="fa-layers fa-fw">
                         <FontAwesomeIcon
@@ -574,10 +574,10 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
                         />
                         <p>
                           {adminNotifications.filter(
-                            (notification) => notification.new
+                            (notification) => notification.new === true
                           ).length < 10
                             ? adminNotifications.filter(
-                                (notification) => notification.new
+                                (notification) => notification.new === true
                               ).length
                             : "9+"}
                         </p>

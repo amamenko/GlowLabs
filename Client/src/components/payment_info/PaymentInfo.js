@@ -1356,7 +1356,7 @@ const PaymentInfo = (props) => {
               userAuthenticated ? (
                 <div className="sq_save_card_information_container">
                   <span
-                    className="fa-fw client_consent_form_checkbox"
+                    className="fa-layers fa-fw client_consent_form_checkbox"
                     onClick={handleSaveCardChecked}
                   >
                     <FontAwesomeIcon

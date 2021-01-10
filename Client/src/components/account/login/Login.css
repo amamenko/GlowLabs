@@ -124,7 +124,6 @@
 }
 
 .login_container {
-  height: 85vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-template-rows: 20% 5% 15% 5% 25% 20% 10%;

@@ -103,8 +103,9 @@ const AdminMenu = (props) => {
             <h2>ACTIVITY</h2>
             {adminNotifications ? (
               adminNotifications.length > 0 ? (
-                adminNotifications.filter((notification) => notification.new)
-                  .length > 0 ? (
+                adminNotifications.filter(
+                  (notification) => notification.new === true
+                ).length > 0 ? (
                   <span className="fa-layers fa-fw">
                     <FontAwesomeIcon
                       className="small_menu_notifications_circle_counter"
@@ -112,10 +113,10 @@ const AdminMenu = (props) => {
                     />
                     <p>
                       {adminNotifications.filter(
-                        (notification) => notification.new
+                        (notification) => notification.new === true
                       ).length < 10
                         ? adminNotifications.filter(
-                            (notification) => notification.new
+                            (notification) => notification.new === true
                           ).length
                         : "9+"}
                     </p>
