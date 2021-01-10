@@ -120,6 +120,7 @@ body {
 
 .main_container {
   height: 100vh;
+  overflow: auto;
   /* Important for Smooth Momentum Scrolling */
   -webkit-overflow-scrolling: touch;
 }
