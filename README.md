@@ -194,4 +194,4 @@ Project Link: [https://github.com/amamenko/GlowLabs](https://github.com/amamenko
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/amamenko/GlowLabs/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/avraham-mamenko-0599831b8
+[linkedin-url]: https://www.linkedin.com/in/avrahammamenko
