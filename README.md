@@ -47,7 +47,8 @@ Ideally, appointments, consent forms, and profile management would all be handle
 
 This is a MERN (MongoDB, Express, React, Node.js) stack application that uses [Redux](https://github.com/reduxjs/redux) for state management and [Apollo Client](https://www.npmjs.com/package/apollo-boost) to fetch data from a MongoDB database via [GraphQL](https://graphql.org/). It has some of the following features:
 
-<strong>Responsive design and performance optimizations by means of:</strong>
+<strong>Responsive design, SEO, and performance optimizations by means of:</strong>
+* Custom, effective meta tags with [metatags.io](https://metatags.io/) and favicons with [favicon.io](https://favicon.io/).
 * SVG compression using [SVGOMG](https://jakearchibald.github.io/svgomg/), static site image compression using [Squoosh](https://squoosh.app/), and user-uploaded image compression using [browser-image-compression](https://www.npmjs.com/package/browser-image-compression) and [LZString](https://github.com/pieroxy/lz-string)).
 * Lazy loading and SVG stroke-dashoffset animation triggers and animation on landing page with the [Intersection Observer API](https://www.npmjs.com/package/react-intersection-observer) and [react-spring](https://www.npmjs.com/package/react-spring).
 * [Code-splitting](https://reactjs.org/docs/code-splitting.html) along shopping cart routes and authenticated user routes.
