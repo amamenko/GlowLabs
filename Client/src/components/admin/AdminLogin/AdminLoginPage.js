@@ -62,12 +62,40 @@ const AdminLoginPage = (props) => {
     (state) => state.adminAuthenticated.admin_authenticated
   );
 
-  const [loginAdmin, { data: loginAdminData, error }] = useLazyQuery(
-    adminLoginQuery,
-    {
-      fetchPolicy: "no-cache",
+  const handleAdminLogin = () => {
+    changeSignInLoading(false);
+
+    if (registeredEmployeeFound) {
+      if (adminLoginEmailInvalid) {
+        dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
+      }
+
+      if (adminLoginPasswordInvalid) {
+        dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
+      }
     }
-  );
+  };
+
+  const handleAdminLoginError = () => {
+    if (error) {
+      if (error.message) {
+        changeSignInLoading(false);
+        if (error.message.includes("email")) {
+          dispatch(ACTION_ADMIN_LOGIN_EMAIL_INVALID());
+          dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
+        } else {
+          dispatch(ACTION_ADMIN_LOGIN_PASSWORD_INVALID());
+          dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
+        }
+      }
+    }
+  };
+
+  const [loginAdmin, { error }] = useLazyQuery(adminLoginQuery, {
+    fetchPolicy: "no-cache",
+    onCompleted: handleAdminLogin,
+    onError: handleAdminLoginError,
+  });
   const { data: getEmployeesData } = useQuery(getEmployeesQuery, {
     fetchPolicy: "no-cache",
   });
@@ -127,44 +155,13 @@ const AdminLoginPage = (props) => {
   }, [updateAdminPasswordData]);
 
   useEffect(() => {
-    if (signInLoading) {
-      if (loginAdminData) {
-        changeSignInLoading(false);
-
-        if (registeredEmployeeFound) {
-          if (adminLoginEmailInvalid) {
-            dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
-          }
-
-          if (adminLoginPasswordInvalid) {
-            dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
-          }
-        }
-      } else {
-        changeSignInLoading(false);
-
-        if (error) {
-          if (error.message) {
-            if (error.message.includes("email")) {
-              dispatch(ACTION_ADMIN_LOGIN_EMAIL_INVALID());
-              dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
-            } else {
-              dispatch(ACTION_ADMIN_LOGIN_PASSWORD_INVALID());
-              dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
-            }
-          }
-        }
-      }
-    }
-  }, [
-    adminLoginEmailInvalid,
-    adminLoginPasswordInvalid,
-    dispatch,
-    error,
-    loginAdminData,
-    registeredEmployeeFound,
-    signInLoading,
-  ]);
+    dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
+    dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
+    return () => {
+      dispatch(ACTION_ADMIN_LOGIN_EMAIL_NOT_INVALID());
+      dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
+    };
+  }, [dispatch]);
 
   const handleAdminLoginClick = () => {
     loginAdmin({

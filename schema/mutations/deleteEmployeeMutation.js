@@ -44,6 +44,7 @@ const deleteEmployeeMutation = {
         originalAssociatedStaffLastName: deletedEmployee.lastName,
         createdByFirstName: deletingEmployee.firstName,
         createdByLastName: deletingEmployee.lastName,
+        createdAt: Date.now(),
       });
 
       const updateNotifications = (staff) =>

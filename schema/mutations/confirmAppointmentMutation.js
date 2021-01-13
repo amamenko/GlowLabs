@@ -68,6 +68,7 @@ const confirmAppointmentMutation = {
       createdByLastName: adminAccessToken
         ? confirmingEmployee.lastName
         : selectedAppointment.client.lastName,
+      createdAt: Date.now(),
     });
 
     const updateNotifications = (staff) =>

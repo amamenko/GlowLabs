@@ -54,9 +54,40 @@ const Login = (props) => {
       state.facebookCompleteRegistration.facebook_complete_registration_active
   );
 
-  const [loginClient, { data, error }] = useLazyQuery(loginQuery, {
+  const handleClientLogin = () => {
+    changeSignInLoading(false);
+
+    if (registeredClientFound) {
+      if (loginEmailInvalid) {
+        dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
+      }
+
+      if (loginPasswordInvalid) {
+        dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+      }
+    }
+  };
+
+  const handleClientLoginError = () => {
+    if (error) {
+      if (error.message) {
+        if (error.message.includes("email")) {
+          dispatch(ACTION_LOGIN_EMAIL_INVALID());
+          dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+        } else {
+          dispatch(ACTION_LOGIN_PASSWORD_INVALID());
+          dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
+        }
+      }
+    }
+  };
+
+  const [loginClient, { error }] = useLazyQuery(loginQuery, {
     fetchPolicy: "no-cache",
+    onCompleted: handleClientLogin,
+    onError: handleClientLoginError,
   });
+
   const { data: getClientsData } = useQuery(getClientsQuery, {
     fetchPolicy: "no-cache",
   });
@@ -123,49 +154,6 @@ const Login = (props) => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
   };
 
-  useEffect(() => {
-    if (signInLoading) {
-      if (data) {
-        changeSignInLoading(false);
-
-        if (registeredClientFound) {
-          if (loginEmailInvalid) {
-            dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
-          }
-
-          if (loginPasswordInvalid) {
-            dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
-          }
-        }
-      } else {
-        changeSignInLoading(false);
-
-        if (error) {
-          if (error.message) {
-            if (error.message.includes("email")) {
-              dispatch(ACTION_LOGIN_EMAIL_INVALID());
-              dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
-            } else {
-              dispatch(ACTION_LOGIN_PASSWORD_INVALID());
-              dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
-            }
-          }
-        }
-      }
-    }
-  }, [
-    data,
-    dispatch,
-    error,
-    signInLoading,
-    loginClient,
-    loginEmail,
-    loginEmailInvalid,
-    loginPassword,
-    loginPasswordInvalid,
-    registeredClientFound,
-  ]);
-
   const handleLoginClick = () => {
     loginClient({ variables: { email: loginEmail, password: loginPassword } });
     changeSignInLoading(true);
@@ -176,6 +164,13 @@ const Login = (props) => {
     dispatch(ACTION_LOGIN_IS_ACTIVE());
     return () => {
       dispatch(ACTION_LOGIN_IS_NOT_ACTIVE());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
+      dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
     };
   }, [dispatch]);
 

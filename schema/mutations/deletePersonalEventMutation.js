@@ -42,6 +42,7 @@ const deletePersonalEventMutation = {
         originalAssociatedStaffLastName: addingEmployee.lastName,
         createdByFirstName: addingEmployee.firstName,
         createdByLastName: addingEmployee.lastName,
+        createdAt: Date.now(),
       });
 
       const updateNotifications = (staff) =>

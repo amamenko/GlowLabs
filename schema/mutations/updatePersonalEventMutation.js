@@ -81,6 +81,7 @@ const updatePersonalEventMutation = {
         originalAssociatedStaffLastName: args.staff.split(" ")[1],
         createdByFirstName: updatingEmployee.firstName,
         createdByLastName: updatingEmployee.lastName,
+        createdAt: Date.now(),
       });
 
       const updateNotifications = (staff) =>

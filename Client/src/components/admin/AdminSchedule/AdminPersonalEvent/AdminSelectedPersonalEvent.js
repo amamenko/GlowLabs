@@ -623,7 +623,7 @@ const AdminSelectedPersonalEvent = React.forwardRef((props, ref) => {
                     (x) => x._id === currentToggledAppointment
                   )[0].date,
                   "MMMM D, YYYY"
-                ).format("MMMM D, YYYY") >= moment().format("MMMM D, YYYY") ? (
+                ).format("MMMM D, YYYY") < moment().format("MMMM D, YYYY") ? (
                   <div
                     className="cancel_appointment_button"
                     onClick={() =>

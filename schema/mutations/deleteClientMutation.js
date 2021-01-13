@@ -45,6 +45,7 @@ const deleteClientMutation = {
         associatedClientLastName: deletedClient.lastName,
         createdByFirstName: deletingEmployee.firstName,
         createdByLastName: deletingEmployee.lastName,
+        createdAt: Date.now(),
       });
 
       const updateNotifications = (staff) =>

@@ -248,6 +248,7 @@ const addAppointmentMutation = {
       createdByLastName: currentSignedInEmployee
         ? currentSignedInEmployee.lastName
         : args.client[0].lastName,
+      createdAt: Date.now(),
     });
 
     const updateNotifications = (staff) =>

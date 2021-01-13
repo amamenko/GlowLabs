@@ -96,6 +96,7 @@ const addEmployeeMutation = {
         originalAssociatedStaffLastName: args.lastName,
         createdByFirstName: addingEmployee.firstName,
         createdByLastName: addingEmployee.lastName,
+        createdAt: Date.now(),
       });
 
       const updateNotifications = (staff) =>

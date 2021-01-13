@@ -70,6 +70,7 @@ const deleteAppointmentMutation = {
             )[1],
             createdByFirstName: deletingEmployee.firstName,
             createdByLastName: deletingEmployee.lastName,
+            createdAt: Date.now(),
           });
 
           const updateNotifications = (staff) =>

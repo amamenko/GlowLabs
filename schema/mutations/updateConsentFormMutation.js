@@ -116,6 +116,7 @@ const updateConsentFormMutation = {
         associatedClientLastName: client.lastName,
         createdByFirstName: client.firstName,
         createdByLastName: client.lastName,
+        createdAt: Date.now(),
       });
 
       const updateNotifications = (staff) =>
