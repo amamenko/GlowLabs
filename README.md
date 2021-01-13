@@ -109,38 +109,44 @@ You will need to have the following software installed:
    ```sh
    git clone https://github.com/amamenko/GlowLabs.git
    ```
-7. Install all NPM packages.
+7. Install all client-side NPM packages.
    ```sh
+   cd Client
    npm install
    ```
 8. Enter your Google Maps API token and Square Sandbox application details as client-side environment variables.
-   ```JS
+   ```sh
    REACT_APP_GOOGLE_MAPS_API_KEY=YOUR GOOGLE MAPS API KEY
    REACT_APP_SQUARE_SANDBOX_APPLICATION_ID=YOUR SQUARE SANDBOX APPLICATION ID
    REACT_APP_SQUARE_SANDBOX_LOCATION_ID=YOUR SQUARE SANDBOX LOCATION ID
    REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
    ```
-9. Enter your Square Sandbox, Twilio, Facebook for Developers, and MongoDB credentials as server-side environment variables. Also enter your own Nodemailer email/password combinations and JSON Web Token secret keys as environment variables.
-   ```JS
-   SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
-   TWILIO_ACCOUNT_SID=YOUR TWILIO ACCOUNT SID
-   TWILIO_AUTH_TOKEN=YOUR TWILIO AUTH TOKEN
-   GLOW_LABS_TEXT_NUMBER=YOUR TWILIO TEXTING NUMBER
-   TWILIO_TEST_TEXT_NUMBER=YOUR OUTBOUND TEST TEXT NUMBER
-   FACEBOOK_APP_ID=YOUR FACEBOOK APP ID
-   FACEBOOK_APP_SECRET=YOUR FACEBOOK APP SECRET
-   JWT_SECRET_KEY_DUMMY=YOUR DUMMY JWT KEY
-   JWT_SECRET_KEY_ACCESS=YOUR ACCESS JWT KEY
-   JWT_SECRET_KEY_REFRESH=YOUR REFRESH JWT KEY
-   MONGO_DB_USERNAME=YOUR MONGODB USERNAME
-   MONGO_DB_PASSWORD=YOUR MONGODB PASSWORD
-   GLOW_LABS_EMAIL=YOUR EMAIL
-   GLOW_LABS_EMAIL_APP_PASSWORD=YOUR EMAIL PASSWORD
+9. Install all server-side NPM packages.
+   ```sh
+   cd ..
+   npm install
    ```
-10. Build for production.
-   ```JS
-   npm run build
-   ```
+10. Enter your Square Sandbox, Twilio, Facebook for Developers, and MongoDB credentials as server-side environment variables. Also enter your own Nodemailer email/password combinations and JSON Web Token secret keys as environment variables.
+    ```sh
+     SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
+     TWILIO_ACCOUNT_SID=YOUR TWILIO ACCOUNT SID
+     TWILIO_AUTH_TOKEN=YOUR TWILIO AUTH TOKEN
+     GLOW_LABS_TEXT_NUMBER=YOUR TWILIO TEXTING NUMBER
+     TWILIO_TEST_TEXT_NUMBER=YOUR OUTBOUND TEST TEXT NUMBER
+     FACEBOOK_APP_ID=YOUR FACEBOOK APP ID
+     FACEBOOK_APP_SECRET=YOUR FACEBOOK APP SECRET
+     JWT_SECRET_KEY_DUMMY=YOUR DUMMY JWT KEY
+     JWT_SECRET_KEY_ACCESS=YOUR ACCESS JWT KEY
+     JWT_SECRET_KEY_REFRESH=YOUR REFRESH JWT KEY
+     MONGO_DB_USERNAME=YOUR MONGODB USERNAME
+     MONGO_DB_PASSWORD=YOUR MONGODB PASSWORD
+     GLOW_LABS_EMAIL=YOUR EMAIL
+     GLOW_LABS_EMAIL_APP_PASSWORD=YOUR EMAIL PASSWORD
+    ```
+11. Build for production.
+    ```sh
+    npm run build
+    ```
 
 <!-- CONTRIBUTING -->
 ## Contributing
