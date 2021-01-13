@@ -109,19 +109,25 @@ You will need to have the following software installed:
    ```sh
    git clone https://github.com/amamenko/GlowLabs.git
    ```
-7. Install all NPM packages.
+7. Install all client-side NPM packages.
    ```sh
+   cd Client
    npm install
    ```
 8. Enter your Google Maps API token and Square Sandbox application details as client-side environment variables.
-   ```JS
+   ```sh
    REACT_APP_GOOGLE_MAPS_API_KEY=YOUR GOOGLE MAPS API KEY
    REACT_APP_SQUARE_SANDBOX_APPLICATION_ID=YOUR SQUARE SANDBOX APPLICATION ID
    REACT_APP_SQUARE_SANDBOX_LOCATION_ID=YOUR SQUARE SANDBOX LOCATION ID
    REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
    ```
-9. Enter your Square Sandbox, Twilio, Facebook for Developers, and MongoDB credentials as server-side environment variables. Also enter your own Nodemailer email/password combinations and JSON Web Token secret keys as environment variables.
-   ```JS
+9. Install all server-side NPM packages.
+   ```sh
+   cd ..
+   npm install
+   ```
+10. Enter your Square Sandbox, Twilio, Facebook for Developers, and MongoDB credentials as server-side environment variables. Also enter your own Nodemailer email/password combinations and JSON Web Token secret keys as environment variables.
+   ```sh
    SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
    TWILIO_ACCOUNT_SID=YOUR TWILIO ACCOUNT SID
    TWILIO_AUTH_TOKEN=YOUR TWILIO AUTH TOKEN
@@ -137,8 +143,8 @@ You will need to have the following software installed:
    GLOW_LABS_EMAIL=YOUR EMAIL
    GLOW_LABS_EMAIL_APP_PASSWORD=YOUR EMAIL PASSWORD
    ```
-10. Build for production.
-   ```JS
+11. Build for production.
+   ```sh
    npm run build
    ```
 
