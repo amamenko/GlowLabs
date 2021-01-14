@@ -705,7 +705,7 @@ const ConfirmationPage = (props) => {
         </div>
       </Link>
       <Modal
-        isOpen={true}
+        isOpen={finalBookButtonActive}
         style={{
           content: {
             position: "fixed",
@@ -736,13 +736,13 @@ const ConfirmationPage = (props) => {
           loading={loadingSpinnerActive}
         />
         <Transition
-          items={true}
+          items={finalBookingModal}
           from={{ transform: "translate3d(0, -65%, 0)" }}
           enter={{ transform: "translate3d(0, 0, 0)" }}
           leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
           {(finalBookingModal) =>
-            true &&
+            finalBookingModal &&
             ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
