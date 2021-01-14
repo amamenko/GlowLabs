@@ -142,35 +142,42 @@ const AdminCalendarComponent = (props) => {
   const renderSummaryCardAddOns = () => {
     let componentsArr = [];
 
-    for (let i = 0; i < addOnsSummaryCardComponentsArr.length; i++) {
-      for (
-        let j = 0;
-        j <
-        allAdminAppointments.filter(
-          (x) => x.id === currentToggledAppointment
-        )[0].addOns.length;
-        j++
-      ) {
-        if (
-          allAdminAppointments.filter((x) => x.id === currentToggledAppointment)
-            .length > 0
+    if (
+      allAdminAppointments.filter((x) => x.id === currentToggledAppointment)[0]
+    ) {
+      for (let i = 0; i < addOnsSummaryCardComponentsArr.length; i++) {
+        for (
+          let j = 0;
+          j <
+          allAdminAppointments.filter(
+            (x) => x.id === currentToggledAppointment
+          )[0].addOns.length;
+          j++
         ) {
           if (
             allAdminAppointments.filter(
               (x) => x.id === currentToggledAppointment
-            )[0].addOns !== []
+            ).length > 0
           ) {
             if (
               allAdminAppointments.filter(
                 (x) => x.id === currentToggledAppointment
-              )[0].addOns[j].name
+              )[0].addOns !== []
             ) {
               if (
                 allAdminAppointments.filter(
                   (x) => x.id === currentToggledAppointment
-                )[0].addOns[j].name === addOnsSummaryCardComponentsArr[i].name
+                )[0].addOns[j].name
               ) {
-                componentsArr.push(addOnsSummaryCardComponentsArr[i].component);
+                if (
+                  allAdminAppointments.filter(
+                    (x) => x.id === currentToggledAppointment
+                  )[0].addOns[j].name === addOnsSummaryCardComponentsArr[i].name
+                ) {
+                  componentsArr.push(
+                    addOnsSummaryCardComponentsArr[i].component
+                  );
+                }
               }
             }
           }
@@ -356,9 +363,16 @@ const AdminCalendarComponent = (props) => {
                     : x.treatments[0].name) +
                   " " +
                   "Facial" +
-                  (x.addOns === []
-                    ? null
-                    : x.addOns.map((x) => `${x.name}, Add-On`))}
+                  (x.addOns.length === 0
+                    ? ""
+                    : x.addOns.map(
+                        (x) =>
+                          ` ${
+                            x.name === "ExtraExtractions"
+                              ? "Extra Extractions"
+                              : x.name
+                          } Add-On`
+                      ))}
               </>
             ),
             text:

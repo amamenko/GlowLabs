@@ -23,7 +23,6 @@ const AdminSelectedAppointment = React.forwardRef((props, ref) => {
     renderSummaryCardAddOns,
     changeCurrentToggledAppointment,
     getAllAppointmentsRefetch,
-    getNotificationsRefetch,
   } = props;
   const { selectedAppointmentBackRef, backToAppointmentsRef } = ref;
 
@@ -55,16 +54,10 @@ const AdminSelectedAppointment = React.forwardRef((props, ref) => {
 
   const resetStatesAfterLoading = useCallback(() => {
     getAllAppointmentsRefetch();
-    getNotificationsRefetch();
     dispatch(ACTION_LOADING_SPINNER_RESET());
     dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET());
     changeCurrentToggledAppointment(false);
-  }, [
-    dispatch,
-    changeCurrentToggledAppointment,
-    getAllAppointmentsRefetch,
-    getNotificationsRefetch,
-  ]);
+  }, [dispatch, changeCurrentToggledAppointment, getAllAppointmentsRefetch]);
 
   useEffect(() => {
     if (data) {

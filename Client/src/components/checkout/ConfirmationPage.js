@@ -80,6 +80,7 @@ import ACTION_CART_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_
 import ACTION_SELECTED_SALT_CAVE_DURATION_RESET from "../../actions/Treatments/SaltCave/SaltCaveDuration/ACTION_SELECTED_SALT_CAVE_DURATION_RESET";
 import ACTION_DAY_OF_THE_WEEK_RESET from "../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 import "./ConfirmationPage.css";
+import "../account/clientprofile/ConsentForm/ConsentForm.css";
 
 const ConfirmationPage = (props) => {
   let location = useLocation();
@@ -159,7 +160,7 @@ const ConfirmationPage = (props) => {
       });
     }
   }, [getClient, userAuthenticated]);
-  console.log(selectedEsthetician);
+
   const override = css`
     display: block;
     position: absolute;
@@ -704,7 +705,7 @@ const ConfirmationPage = (props) => {
         </div>
       </Link>
       <Modal
-        isOpen={finalBookButtonActive}
+        isOpen={true}
         style={{
           content: {
             position: "fixed",
@@ -735,13 +736,13 @@ const ConfirmationPage = (props) => {
           loading={loadingSpinnerActive}
         />
         <Transition
-          items={finalBookingModal}
+          items={true}
           from={{ transform: "translate3d(0, -65%, 0)" }}
           enter={{ transform: "translate3d(0, 0, 0)" }}
           leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
           {(finalBookingModal) =>
-            finalBookingModal &&
+            true &&
             ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
