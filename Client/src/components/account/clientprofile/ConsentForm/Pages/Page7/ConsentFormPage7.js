@@ -55,6 +55,7 @@ import ACTION_ULTIMATE_SKIN_CARE_GOALS_NOTES_RESET from "../../../../../../actio
 import ACTION_LIST_KNOWN_ALLERGIES_NOTES_RESET from "../../../../../../actions/ConsentForm/ListKnownAllergies/ACTION_LIST_KNOWN_ALLERGIES_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../../../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_FINAL_BOOK_BUTTON_RESET from "../../../../../../actions/FinalBookButton/ACTION_FINAL_BOOK_BUTTON_RESET";
+import "../../../../../checkout/ConfirmationPage.css";
 import "../../ConsentForm.css";
 import "../../../../../../bootstrap_forms.min.css";
 
@@ -499,7 +500,7 @@ const ConsentFormPage7 = (props) => {
         <p className="consent_form_page_number_info">Page 7 of 7</p>
       </div>
       <Modal
-        isOpen={finalBookButtonActive}
+        isOpen={true}
         style={{
           content: {
             position: "fixed",
@@ -530,13 +531,13 @@ const ConsentFormPage7 = (props) => {
           loading={loadingSpinnerActive}
         />
         <Transition
-          items={finalBookingModalActive}
+          items={true}
           from={{ transform: "translate3d(0, -65%, 0)" }}
           enter={{ transform: "translate3d(0, 0, 0)" }}
           leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
           {(finalBookingModalActive) =>
-            finalBookingModalActive &&
+            true &&
             ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
