@@ -16,7 +16,7 @@ const NotificationSchema = new Schema({
   newAssociatedStaffLastName: String,
   createdByFirstName: String,
   createdByLastName: String,
-  createdAt: { type: Date },
+  createdAt: Date,
 });
 
 module.exports = mongoose.model("Notification", NotificationSchema);

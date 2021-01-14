@@ -322,7 +322,13 @@ const App = () => {
             // Sort by most recent
             dispatch(
               ACTION_ASSIGN_ADMIN_NOTIFICATIONS(
-                employeeNotifications.sort((a, b) => b.createdAt - a.createdAt)
+                employeeNotifications.sort(
+                  (a, b) =>
+                    new Date(
+                      parseInt(b._id.substring(0, 8), 16) * 1000 -
+                        new Date(parseInt(a._id.substring(0, 8), 16) * 1000)
+                    )
+                )
               )
             );
           }

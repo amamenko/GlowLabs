@@ -69,7 +69,11 @@ const UpdatePersonalEventNotification = (props) => {
         </p>
         <div className="admin_notification_time_ago">
           <IoMdTime />{" "}
-          {notification.createdAt ? format(notification.createdAt) : null}
+          {notification.createdAt
+            ? format(
+                new Date(parseInt(notification._id.substring(0, 8), 16) * 1000)
+              )
+            : null}
         </div>
       </div>
     </div>
