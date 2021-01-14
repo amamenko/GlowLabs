@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const compression = require("compression");
 const { graphqlHTTP } = require("express-graphql");
 const expressPlayground = require("graphql-playground-middleware-express")
@@ -13,6 +12,8 @@ const cookieParser = require("cookie-parser");
 const Appointment = require("./models/appointment");
 const Client = require("./models/client");
 const Employee = require("./models/employee");
+const Notification = require("./models/notification");
+const createNotificationFunction = require("./schema/mutations/notifications/createNotificationFunction");
 const jwt = require("jsonwebtoken");
 const createTokens = require("./createTokens");
 const createAdminTokens = require("./createAdminTokens");
@@ -151,6 +152,57 @@ app.get("/smsresponse", async (req, res) => {
           new: true,
         });
 
+        const newNotification = new Notification({
+          _id: new mongoose.Types.ObjectId(),
+          new: true,
+          type: "confirmAppointment",
+          date: appointment.date,
+          time: appointment.startTime + " " + appointment.morningOrEvening,
+          associatedClientFirstName: appointment.client.firstName,
+          associatedClientLastName: appointment.client.lastName,
+          originalAssociatedStaffFirstName: appointment.esthetician.split(
+            " "
+          )[0],
+          originalAssociatedStaffLastName: appointment.esthetician.split(
+            " "
+          )[1],
+          createdByFirstName: appointment.client.firstName,
+          createdByLastName: appointment.client.lastName,
+          createdAt: Date.now(),
+        });
+
+        const updateNotifications = (staff) =>
+          createNotificationFunction(newNotification, staff);
+
+        (
+          await Employee.find({
+            employeeRole: "Admin",
+            firstName: {
+              $ne: appointment.esthetician.split(" ")[0],
+            },
+            lastName: { $ne: appointment.esthetician.split(" ")[1] },
+          })
+        ).forEach((currentEmployee) => {
+          const notificationsObj = updateNotifications(currentEmployee);
+          currentEmployee.notifications = notificationsObj.notifications;
+
+          currentEmployee.save();
+        });
+
+        const updatedEmployee = await Employee.findOne(
+          {
+            firstName: appointment.esthetician.split(" ")[0],
+            lastName: appointment.esthetician.split(" ")[1],
+          },
+          (err, currentEmployee) => {
+            const notificationsObj = updateNotifications(currentEmployee);
+            currentEmployee.notifications = notificationsObj.notifications;
+
+            currentEmployee.save();
+          }
+        );
+
+        updatedEmployee.save();
         appointment.save();
       }
     });
