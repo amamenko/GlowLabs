@@ -156,18 +156,14 @@ app.get("/smsresponse", async (req, res) => {
           _id: new mongoose.Types.ObjectId(),
           new: true,
           type: "confirmAppointment",
-          date: appointment.date,
-          time: appointment.startTime + " " + appointment.morningOrEvening,
-          associatedClientFirstName: appointment.client.firstName,
-          associatedClientLastName: appointment.client.lastName,
-          originalAssociatedStaffFirstName: appointment.esthetician.split(
-            " "
-          )[0],
-          originalAssociatedStaffLastName: appointment.esthetician.split(
-            " "
-          )[1],
-          createdByFirstName: appointment.client.firstName,
-          createdByLastName: appointment.client.lastName,
+          date: item.date,
+          time: item.startTime + " " + item.morningOrEvening,
+          associatedClientFirstName: item.client.firstName,
+          associatedClientLastName: item.client.lastName,
+          originalAssociatedStaffFirstName: item.esthetician.split(" ")[0],
+          originalAssociatedStaffLastName: item.esthetician.split(" ")[1],
+          createdByFirstName: item.client.firstName,
+          createdByLastName: item.client.lastName,
           createdAt: Date.now(),
         });
 
@@ -178,9 +174,9 @@ app.get("/smsresponse", async (req, res) => {
           await Employee.find({
             employeeRole: "Admin",
             firstName: {
-              $ne: appointment.esthetician.split(" ")[0],
+              $ne: item.esthetician.split(" ")[0],
             },
-            lastName: { $ne: appointment.esthetician.split(" ")[1] },
+            lastName: { $ne: item.esthetician.split(" ")[1] },
           })
         ).forEach((currentEmployee) => {
           const notificationsObj = updateNotifications(currentEmployee);
@@ -191,8 +187,8 @@ app.get("/smsresponse", async (req, res) => {
 
         const updatedEmployee = await Employee.findOne(
           {
-            firstName: appointment.esthetician.split(" ")[0],
-            lastName: appointment.esthetician.split(" ")[1],
+            firstName: item.esthetician.split(" ")[0],
+            lastName: item.esthetician.split(" ")[1],
           },
           (err, currentEmployee) => {
             const notificationsObj = updateNotifications(currentEmployee);
