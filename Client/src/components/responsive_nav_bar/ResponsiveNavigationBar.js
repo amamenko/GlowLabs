@@ -220,10 +220,16 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
               />
             );
           } else {
-            return data.client.firstName[0].toUpperCase();
+            return (
+              data.client.firstName[0].toUpperCase() +
+              data.client.lastName[0].toUpperCase()
+            );
           }
         } else {
-          return data.client.firstName[0].toUpperCase();
+          return (
+            data.client.firstName[0].toUpperCase() +
+            data.client.lastName[0].toUpperCase()
+          );
         }
       } else {
         return "";

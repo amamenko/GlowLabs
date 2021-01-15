@@ -98,14 +98,22 @@ const SignUp = (props) => {
     if (registerClientData) {
       if (!props.currentScreenSize) {
         if (props.initialScreenSize >= 1200) {
+          window.location.reload();
+
           return <Redirect to="/account/clientprofile/upcomingappointments" />;
         } else {
+          window.location.reload();
+
           return <Redirect to="/account/clientprofile" />;
         }
       } else {
         if (props.currentScreenSize >= 1200) {
+          window.location.reload();
+
           return <Redirect to="/account/clientprofile/upcomingappointments" />;
         } else {
+          window.location.reload();
+
           return <Redirect to="/account/clientprofile" />;
         }
       }

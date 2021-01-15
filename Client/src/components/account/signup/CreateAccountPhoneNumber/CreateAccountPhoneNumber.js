@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Label, Input } from "reactstrap";
 import { useQuery } from "@apollo/react-hooks";
@@ -45,31 +45,29 @@ const PhoneNumber = () => {
     fetchPolicy: "no-cache",
   });
 
-  useMemo(() => {
-    if (createAccountPhoneNumber) {
-      if (data) {
-        for (let i = 0; i < data.clients.length; i++) {
-          if (
-            data.clients[i].phoneNumber === createAccountPhoneNumber &&
-            (data.clients[i].password !== null ||
-              data.clients[i].tokenCount > 0)
-          ) {
-            changePhoneNumberAlreadyRegistered(true);
-            dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
-            dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID());
-          }
-        }
-      }
-    }
-  }, [data, createAccountPhoneNumber, dispatch]);
-
   const validatePhoneNumber = useCallback(
     (number) => {
       const validPhoneNumber = phoneNumberReg.test(number);
       const validPhoneAutocomplete = phoneNumberAutocompleteReg.test(number);
 
+      if (createAccountPhoneNumber) {
+        if (data) {
+          for (let i = 0; i < data.clients.length; i++) {
+            if (
+              data.clients[i].phoneNumber === createAccountPhoneNumber &&
+              (data.clients[i].password !== null ||
+                data.clients[i].tokenCount > 0)
+            ) {
+              changePhoneNumberAlreadyRegistered(true);
+              dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_VALID());
+              dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_INVALID());
+            }
+          }
+        }
+      }
+
       if (!phoneNumberAlreadyRegistered) {
-        if (validPhoneNumber | validPhoneAutocomplete) {
+        if (validPhoneNumber || validPhoneAutocomplete) {
           dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_VALID());
           dispatch(ACTION_CREATE_ACCOUNT_PHONE_NUMBER_NOT_INVALID());
         } else {
@@ -82,10 +80,12 @@ const PhoneNumber = () => {
       }
     },
     [
+      data,
       dispatch,
       phoneNumberAlreadyRegistered,
       phoneNumberAutocompleteReg,
       phoneNumberReg,
+      createAccountPhoneNumber,
     ]
   );
 
