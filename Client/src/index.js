@@ -346,6 +346,7 @@ const App = () => {
           _id: adminDummyToken.id,
         },
         updateQuery: (prev, { subscriptionData }) => {
+          console.log("LET's UDPATE");
           if (subscriptionData.data) {
             if (subscriptionData.data.getUpdatedEmployee) {
               if (subscriptionData.data.getUpdatedEmployee.notifications) {
@@ -355,7 +356,13 @@ const App = () => {
                 ) {
                   const employeeNotifications = subscriptionData.data.getUpdatedEmployee.notifications
                     // Sort by most recent first
-                    .sort((a, b) => b.createdAt - a.createdAt);
+                    .sort(
+                      (a, b) =>
+                        new Date(
+                          parseInt(b._id.substring(0, 8), 16) * 1000 -
+                            new Date(parseInt(a._id.substring(0, 8), 16) * 1000)
+                        )
+                    );
 
                   dispatch(
                     ACTION_ASSIGN_ADMIN_NOTIFICATIONS(employeeNotifications)

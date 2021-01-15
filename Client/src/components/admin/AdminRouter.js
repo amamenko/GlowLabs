@@ -202,13 +202,13 @@ const AdminRouter = React.forwardRef((props, ref) => {
         <Route
           exact
           path={path + "/activity"}
+          onLeave={() => resetNotifications()}
           render={() => (
             <AdminNotifications
               initialScreenSize={initialScreenSize}
               currentScreenSize={currentScreenSize}
               getEmployeeData={getEmployeeData ? getEmployeeData : null}
               getEmployeeLoading={getEmployeeLoading}
-              resetNotifications={resetNotifications}
             />
           )}
         />

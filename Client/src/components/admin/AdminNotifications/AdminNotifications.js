@@ -2,7 +2,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { IoMdNotificationsOff } from "react-icons/io";
 import ClipLoader from "react-spinners/ClipLoader";
 import BookAppointmentNotification from "./Notifications/Appointments/BookAppointmentNotification";
@@ -20,11 +20,9 @@ import ACTION_ON_ACTIVITY_PAGE from "../../../actions/Admin/OnActivityPage/ACTIO
 import "./AdminNotifications.css";
 
 const AdminNotifications = (props) => {
-  const { getEmployeeData, getEmployeeLoading, resetNotifications } = props;
+  const { getEmployeeData, getEmployeeLoading } = props;
 
   const dispatch = useDispatch();
-
-  const location = useLocation();
 
   const adminAuthenticated = useSelector(
     (state) => state.adminAuthenticated.admin_authenticated
@@ -49,18 +47,6 @@ const AdminNotifications = (props) => {
     dispatch(ACTION_ON_ACTIVITY_PAGE());
   }, [dispatch]);
 
-  useEffect(() => {
-    return () => {
-      if (adminNotifications) {
-        if (adminNotifications.length > 0) {
-          if (adminNotifications.some((item) => item.new)) {
-            resetNotifications();
-          }
-        }
-      }
-    };
-  }, [adminNotifications, resetNotifications]);
-
   const renderNoNotifications = () => {
     return (
       <div className="my_upcoming_appointments_empty_container">
@@ -77,28 +63,6 @@ const AdminNotifications = (props) => {
     left: 25%;
     right: 25%;
   `;
-
-  // Reset notifications on component unmount or route change
-  useEffect(() => {
-    if (!location.pathname.includes("activity")) {
-      if (adminNotifications) {
-        if (adminNotifications.length > 0) {
-          if (adminNotifications.some((item) => item.new)) {
-            resetNotifications();
-          }
-        }
-      }
-    }
-    return () => {
-      if (adminNotifications) {
-        if (adminNotifications.length > 0) {
-          if (adminNotifications.some((item) => item.new)) {
-            resetNotifications();
-          }
-        }
-      }
-    };
-  }, [resetNotifications, location.pathname, adminNotifications]);
 
   return (
     <div className="admin_notifications_container">
