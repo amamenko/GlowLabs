@@ -500,7 +500,7 @@ const ConsentFormPage7 = (props) => {
         <p className="consent_form_page_number_info">Page 7 of 7</p>
       </div>
       <Modal
-        isOpen={true}
+        isOpen={finalBookButtonActive}
         style={{
           content: {
             position: "fixed",
@@ -531,13 +531,13 @@ const ConsentFormPage7 = (props) => {
           loading={loadingSpinnerActive}
         />
         <Transition
-          items={true}
+          items={finalBookingModalActive}
           from={{ transform: "translate3d(0, -65%, 0)" }}
           enter={{ transform: "translate3d(0, 0, 0)" }}
           leave={{ transform: "translate3d(0, -65%, 0)" }}
         >
           {(finalBookingModalActive) =>
-            true &&
+            finalBookingModalActive &&
             ((props) => (
               <div className="final_booking_modal" style={props}>
                 <div className="final_booking_modal_contents">
