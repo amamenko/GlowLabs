@@ -98,23 +98,43 @@ const SignUp = (props) => {
     if (registerClientData) {
       if (!props.currentScreenSize) {
         if (props.initialScreenSize >= 1200) {
-          window.location.reload();
-
-          return <Redirect to="/account/clientprofile/upcomingappointments" />;
+          return (
+            <Redirect
+              to={{
+                pathname: "/account/clientprofile/upcomingappointments",
+                state: { successful_sign_up: true },
+              }}
+            />
+          );
         } else {
-          window.location.reload();
-
-          return <Redirect to="/account/clientprofile" />;
+          return (
+            <Redirect
+              to={{
+                pathname: "/account/clientprofile",
+                state: { successful_sign_up: true },
+              }}
+            />
+          );
         }
       } else {
         if (props.currentScreenSize >= 1200) {
-          window.location.reload();
-
-          return <Redirect to="/account/clientprofile/upcomingappointments" />;
+          return (
+            <Redirect
+              to={{
+                pathname: "/account/clientprofile/upcomingappointments",
+                state: { successful_sign_up: true },
+              }}
+            />
+          );
         } else {
-          window.location.reload();
-
-          return <Redirect to="/account/clientprofile" />;
+          return (
+            <Redirect
+              to={{
+                pathname: "/account/clientprofile",
+                state: { successful_sign_up: true },
+              }}
+            />
+          );
         }
       }
     }

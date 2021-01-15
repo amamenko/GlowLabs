@@ -110,6 +110,12 @@ const UpcomingAppointments = (props) => {
   }, [loading, data]);
 
   useEffect(() => {
+    if (props.location.state.successful_sign_up) {
+      window.location.reload();
+    }
+  }, [props.location.state.successful_sign_up]);
+
+  useEffect(() => {
     const checkModalRef = setInterval(() => {
       let currentRef;
 

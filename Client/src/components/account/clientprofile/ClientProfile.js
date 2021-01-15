@@ -44,6 +44,12 @@ const ClientProfile = (props) => {
     }
   }, [props]);
 
+  useEffect(() => {
+    if (props.location.state.successful_sign_up) {
+      window.location.reload();
+    }
+  }, [props.location.state.successful_sign_up]);
+
   useMemo(() => {
     if (!props.pastAppointmentsCalled) {
       props.getOwnPastAppointments();
