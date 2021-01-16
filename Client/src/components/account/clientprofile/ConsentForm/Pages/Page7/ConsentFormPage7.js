@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
-import { Transition, Spring } from "react-spring/renderprops";
+import { Spring } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -530,114 +530,94 @@ const ConsentFormPage7 = (props) => {
           color={"rgb(232, 210, 195)"}
           loading={loadingSpinnerActive}
         />
-        <Transition
-          items={finalBookingModalActive}
-          from={{ transform: "translate3d(0, -65%, 0)" }}
-          enter={{ transform: "translate3d(0, 0, 0)" }}
-          leave={{ transform: "translate3d(0, -65%, 0)" }}
-        >
-          {(finalBookingModalActive) =>
-            finalBookingModalActive &&
-            ((props) => (
-              <div className="final_booking_modal" style={props}>
-                <div className="final_booking_modal_contents">
-                  <Link
-                    to={
-                      guestConsentFormAccessToken
-                        ? "/"
-                        : "/account/clientprofile"
-                    }
+        <div className="final_booking_modal">
+          <div className="final_booking_modal_contents">
+            <Link
+              to={guestConsentFormAccessToken ? "/" : "/account/clientprofile"}
+            >
+              <FontAwesomeIcon
+                className="modal_x"
+                icon={faTimes}
+                onClick={handleModalBackToClientProfile}
+              />
+            </Link>
+            <div className="modal_consent_form_icon_container">
+              <svg
+                className="modal_consent_form_icon"
+                width="100%"
+                height="50vh"
+                viewBox="0 0 13.229 13.229"
+              >
+                <path
+                  d="M2.566 2.923H2.35v.204H.627V.603h.43c-.037.08-.039.179.048.228.073.041.343.023.424.023.195 0 .523.012.39-.251h.431v.627h.216c.053-.182.033-.469.012-.659-.007-.074-.035-.147-.105-.183-.189-.096-.486.01-.692-.023C1.658.345 1.618.187 1.473.2c-.128.01-.168.148-.278.166C.992.4.69.29.503.386.321.48.396.87.396 1.042v1.63c0 .16-.06.478.038.611.108.147.448.08.608.08h1c.124 0 .318.036.431-.021.132-.068.129-.295.093-.419M1.612.368H1.35c.07-.09.2-.112.262 0m-.816.752v.47h.462v-.47H.796m.415.047v.377H.842v-.377h.37m1.138.195c-.91.146-.673 1.564.231 1.431.92-.135.68-1.577-.23-1.43m-1.555.416v.47h.461v-.47H.796m.415.047v.376h-.37v-.376h.37m-.415.611v.47h.461v-.47H.796m.415.047v.377h-.37v-.377z"
+                  fill="#2c2c34"
+                />
+              </svg>
+              <Spring
+                from={{ x: 100 }}
+                to={{ x: 0 }}
+                config={{ delay: 500, duration: 2000 }}
+              >
+                {(styles) => (
+                  <svg
+                    width="100%"
+                    height="0.1rem"
+                    className="modal_consent_form_checkmark"
+                    viewBox="0 0 13.229 13.229"
                   >
-                    <FontAwesomeIcon
-                      className="modal_x"
-                      icon={faTimes}
-                      onClick={handleModalBackToClientProfile}
+                    <path
+                      d="M2.851 7.56l2.45 2.482 5.36-6.958"
+                      fill="none"
+                      stroke="rgb(255, 255, 255)"
+                      strokeDasharray="100"
+                      strokeDashoffset={`${styles.x}`}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="3"
                     />
-                  </Link>
-                  <div className="modal_consent_form_icon_container">
-                    <svg
-                      className="modal_consent_form_icon"
-                      width="100%"
-                      height="50vh"
-                      viewBox="0 0 13.229 13.229"
-                    >
-                      <path
-                        d="M2.566 2.923H2.35v.204H.627V.603h.43c-.037.08-.039.179.048.228.073.041.343.023.424.023.195 0 .523.012.39-.251h.431v.627h.216c.053-.182.033-.469.012-.659-.007-.074-.035-.147-.105-.183-.189-.096-.486.01-.692-.023C1.658.345 1.618.187 1.473.2c-.128.01-.168.148-.278.166C.992.4.69.29.503.386.321.48.396.87.396 1.042v1.63c0 .16-.06.478.038.611.108.147.448.08.608.08h1c.124 0 .318.036.431-.021.132-.068.129-.295.093-.419M1.612.368H1.35c.07-.09.2-.112.262 0m-.816.752v.47h.462v-.47H.796m.415.047v.377H.842v-.377h.37m1.138.195c-.91.146-.673 1.564.231 1.431.92-.135.68-1.577-.23-1.43m-1.555.416v.47h.461v-.47H.796m.415.047v.376h-.37v-.376h.37m-.415.611v.47h.461v-.47H.796m.415.047v.377h-.37v-.377z"
-                        fill="#2c2c34"
-                      />
-                    </svg>
-                    <Spring
-                      from={{ x: 100 }}
-                      to={{ x: 0 }}
-                      config={{ delay: 500, duration: 2000 }}
-                    >
-                      {(styles) => (
-                        <svg
-                          width="100%"
-                          height="0.1rem"
-                          className="modal_consent_form_checkmark"
-                          viewBox="0 0 13.229 13.229"
-                        >
-                          <path
-                            d="M2.851 7.56l2.45 2.482 5.36-6.958"
-                            fill="none"
-                            stroke="rgb(255, 255, 255)"
-                            strokeDasharray="100"
-                            strokeDashoffset={`${styles.x}`}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="3"
-                          />
-                        </svg>
-                      )}
-                    </Spring>
-                  </div>
-                  <h2 className="modal_statement_of_thanks">Thank you</h2>
-                  <p className="modal_confirmation_statement">
-                    {data
-                      ? data.client !== null
-                        ? data.client.firstName[0].toUpperCase() +
-                          data.client.firstName.slice(1).toLowerCase()
-                        : ""
-                      : ""}
-                    , your consent form has been submitted.
-                  </p>
-                  <Link
-                    to={
-                      guestConsentFormAccessToken
-                        ? "/"
-                        : "/account/clientprofile"
-                    }
-                    style={{ zIndex: 999 }}
-                  >
-                    <div
-                      className="dismiss_modal_button"
-                      onClick={handleModalBackToClientProfile}
-                    >
-                      <p>
-                        {!props.currentScreenSize
-                          ? props.initialScreenSize >= 1200
-                            ? guestConsentFormAccessToken
-                              ? "BACK TO HOME"
-                              : "BACK TO APPOINTMENTS"
-                            : guestConsentFormAccessToken
-                            ? "BACK TO HOME"
-                            : "BACK TO MENU"
-                          : props.currentScreenSize >= 1200
-                          ? guestConsentFormAccessToken
-                            ? "BACK TO HOME"
-                            : "BACK TO APPOINTMENTS"
-                          : guestConsentFormAccessToken
-                          ? "BACK TO HOME"
-                          : "BACK TO MENU"}
-                      </p>
-                    </div>
-                  </Link>
-                </div>
+                  </svg>
+                )}
+              </Spring>
+            </div>
+            <h2 className="modal_statement_of_thanks">Thank you</h2>
+            <p className="modal_confirmation_statement">
+              {data
+                ? data.client !== null
+                  ? data.client.firstName[0].toUpperCase() +
+                    data.client.firstName.slice(1).toLowerCase()
+                  : ""
+                : ""}
+              , your consent form has been submitted.
+            </p>
+            <Link
+              to={guestConsentFormAccessToken ? "/" : "/account/clientprofile"}
+              style={{ zIndex: 999 }}
+            >
+              <div
+                className="dismiss_modal_button"
+                onClick={handleModalBackToClientProfile}
+              >
+                <p>
+                  {!props.currentScreenSize
+                    ? props.initialScreenSize >= 1200
+                      ? guestConsentFormAccessToken
+                        ? "BACK TO HOME"
+                        : "BACK TO APPOINTMENTS"
+                      : guestConsentFormAccessToken
+                      ? "BACK TO HOME"
+                      : "BACK TO MENU"
+                    : props.currentScreenSize >= 1200
+                    ? guestConsentFormAccessToken
+                      ? "BACK TO HOME"
+                      : "BACK TO APPOINTMENTS"
+                    : guestConsentFormAccessToken
+                    ? "BACK TO HOME"
+                    : "BACK TO MENU"}
+                </p>
               </div>
-            ))
-          }
-        </Transition>
+            </Link>
+          </div>
+        </div>
       </Modal>
     </div>
   );

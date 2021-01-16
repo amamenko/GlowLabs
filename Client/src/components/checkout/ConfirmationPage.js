@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
-import { Transition, Spring } from "react-spring/renderprops";
+import { Spring } from "react-spring/renderprops";
 import { css } from "@emotion/css";
 import BounceLoader from "react-spinners/BounceLoader";
 import Modal from "react-modal";
@@ -735,111 +735,98 @@ const ConfirmationPage = (props) => {
           color={"rgb(44, 44, 52)"}
           loading={loadingSpinnerActive}
         />
-        <Transition
-          items={finalBookingModal}
-          from={{ transform: "translate3d(0, -65%, 0)" }}
-          enter={{ transform: "translate3d(0, 0, 0)" }}
-          leave={{ transform: "translate3d(0, -65%, 0)" }}
-        >
-          {(finalBookingModal) =>
-            finalBookingModal &&
-            ((props) => (
-              <div className="final_booking_modal" style={props}>
-                <div className="final_booking_modal_contents">
-                  <Link to="/">
-                    <FontAwesomeIcon
-                      className="modal_x"
-                      icon={faTimes}
-                      onClick={handleModalBackToHome}
-                    />
-                  </Link>
-                  <div className="modal_calendar_icon_container">
-                    <svg
-                      className="modal_calendar_icon"
-                      width="100%"
-                      height="6rem"
-                      viewBox="0 0 13.229 13.229"
-                    >
-                      <path d="M1.637 12.36a.469.469 0 01-.263-.288c-.036-.131-.035-9.665 0-9.796a.484.484 0 01.287-.294c.058-.017.358-.027.814-.027h.721v-.264c0-.319.027-.423.142-.54.117-.12.214-.145.568-.145.284 0 .308.004.424.066.1.054.135.09.188.193.06.117.064.146.064.408v.282h4.156v-.264c0-.319.028-.423.142-.54.117-.12.214-.145.569-.145.284 0 .307.004.423.066.1.054.136.09.188.193.06.117.064.146.064.408v.282h.722c.455 0 .755.01.813.027a.484.484 0 01.287.294c.036.134.036 9.665 0 9.799a.484.484 0 01-.287.294c-.066.019-1.49.026-5.01.025-4.18 0-4.933-.006-5.012-.034zm9.873-4.117V4.565h-9.7v7.356h9.7zm0-4.983v-.83h-1.386v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H4.582v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H1.811v1.66h9.699zM4.12 2.192v-.711h-.462v1.423h.462zm5.542 0v-.711H9.2v1.423h.462z" />
-                    </svg>
-                    <Spring
-                      from={{ x: 100 }}
-                      to={{ x: 0 }}
-                      config={{ delay: 500, duration: 2000 }}
-                    >
-                      {(styles) => (
-                        <svg
-                          width="100%"
-                          height="0.5rem"
-                          className="modal_checkmark"
-                          viewBox="0 0 13.229 13.229"
-                        >
-                          <path
-                            d="M2.851 7.56l2.45 2.482 5.36-6.958"
-                            fill="none"
-                            stroke="rgb(55, 55, 55)"
-                            strokeDasharray="100"
-                            strokeDashoffset={`${styles.x}`}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="3"
-                          />
-                        </svg>
-                      )}
-                    </Spring>
-                  </div>
-                  <p className="modal_confirmation_statement">
-                    {userAuthenticated
-                      ? data
-                        ? data.client.firstName
-                        : firstName
-                      : firstName}
-                    , your appointment has been confirmed.
-                  </p>
-                  <div className="modal_date_time_container">
-                    <div className="modal_bold_details_container">
-                      <p className="modal_appointment_time">
-                        {selectedTime}{" "}
-                        {Number(selectedTime.slice(0, 1)) > 1
-                          ? "PM"
-                          : Number(selectedTime.slice(0, 2)) < 12
-                          ? "AM"
-                          : "PM"}
-                      </p>
-                      <p className="modal_appointment_spacer">|</p>
-                      <p className="modal_appointment_provider">Glow Labs</p>
-                    </div>
-                    <div className="modal_bottom_info_container">
-                      <p className="modal_full_date_info">
-                        {dayOfTheWeek.toUpperCase()},{" "}
-                        {reformattedDay.toUpperCase()}
-                      </p>
-                      <div className="modal_address_container">
-                        <p>1506 BROADWAY</p>
-                        <p>|</p>
-                        <p>HEWLETT, NY</p>
-                      </div>
-                    </div>
-                  </div>
-                  <Link
-                    to={
-                      userAuthenticated || guestConsentFormAccessToken
-                        ? "/account/clientprofile/consentform/page1"
-                        : "/"
-                    }
+        <div className="final_booking_modal">
+          <div className="final_booking_modal_contents">
+            <Link to="/">
+              <FontAwesomeIcon
+                className="modal_x"
+                icon={faTimes}
+                onClick={handleModalBackToHome}
+              />
+            </Link>
+            <div className="modal_calendar_icon_container">
+              <svg
+                className="modal_calendar_icon"
+                width="100%"
+                height="6rem"
+                viewBox="0 0 13.229 13.229"
+              >
+                <path d="M1.637 12.36a.469.469 0 01-.263-.288c-.036-.131-.035-9.665 0-9.796a.484.484 0 01.287-.294c.058-.017.358-.027.814-.027h.721v-.264c0-.319.027-.423.142-.54.117-.12.214-.145.568-.145.284 0 .308.004.424.066.1.054.135.09.188.193.06.117.064.146.064.408v.282h4.156v-.264c0-.319.028-.423.142-.54.117-.12.214-.145.569-.145.284 0 .307.004.423.066.1.054.136.09.188.193.06.117.064.146.064.408v.282h.722c.455 0 .755.01.813.027a.484.484 0 01.287.294c.036.134.036 9.665 0 9.799a.484.484 0 01-.287.294c-.066.019-1.49.026-5.01.025-4.18 0-4.933-.006-5.012-.034zm9.873-4.117V4.565h-9.7v7.356h9.7zm0-4.983v-.83h-1.386v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H4.582v.282c0 .262-.005.29-.064.408a.366.366 0 01-.188.193c-.117.063-.138.066-.44.066-.304 0-.325-.004-.442-.066a.366.366 0 01-.187-.193c-.06-.117-.065-.146-.065-.408V2.43H1.811v1.66h9.699zM4.12 2.192v-.711h-.462v1.423h.462zm5.542 0v-.711H9.2v1.423h.462z" />
+              </svg>
+              <Spring
+                from={{ x: 100 }}
+                to={{ x: 0 }}
+                config={{ delay: 500, duration: 2000 }}
+              >
+                {(styles) => (
+                  <svg
+                    width="100%"
+                    height="0.5rem"
+                    className="modal_checkmark"
+                    viewBox="0 0 13.229 13.229"
                   >
-                    <div
-                      className="dismiss_modal_button"
-                      onClick={handleModalBackToHome}
-                    >
-                      <p>FILL CONSENT FORM</p>
-                    </div>
-                  </Link>
+                    <path
+                      d="M2.851 7.56l2.45 2.482 5.36-6.958"
+                      fill="none"
+                      stroke="rgb(55, 55, 55)"
+                      strokeDasharray="100"
+                      strokeDashoffset={`${styles.x}`}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="3"
+                    />
+                  </svg>
+                )}
+              </Spring>
+            </div>
+            <p className="modal_confirmation_statement">
+              {userAuthenticated
+                ? data
+                  ? data.client.firstName
+                  : firstName
+                : firstName}
+              , your appointment has been confirmed.
+            </p>
+            <div className="modal_date_time_container">
+              <div className="modal_bold_details_container">
+                <p className="modal_appointment_time">
+                  {selectedTime}{" "}
+                  {Number(selectedTime.slice(0, 1)) > 1
+                    ? "PM"
+                    : Number(selectedTime.slice(0, 2)) < 12
+                    ? "AM"
+                    : "PM"}
+                </p>
+                <p className="modal_appointment_spacer">|</p>
+                <p className="modal_appointment_provider">Glow Labs</p>
+              </div>
+              <div className="modal_bottom_info_container">
+                <p className="modal_full_date_info">
+                  {dayOfTheWeek.toUpperCase()}, {reformattedDay.toUpperCase()}
+                </p>
+                <div className="modal_address_container">
+                  <p>1506 BROADWAY</p>
+                  <p>|</p>
+                  <p>HEWLETT, NY</p>
                 </div>
               </div>
-            ))
-          }
-        </Transition>
+            </div>
+            <Link
+              to={
+                userAuthenticated || guestConsentFormAccessToken
+                  ? "/account/clientprofile/consentform/page1"
+                  : "/"
+              }
+            >
+              <div
+                className="dismiss_modal_button"
+                onClick={handleModalBackToHome}
+              >
+                <p>FILL CONSENT FORM</p>
+              </div>
+            </Link>
+          </div>
+        </div>
       </Modal>
     </div>
   );

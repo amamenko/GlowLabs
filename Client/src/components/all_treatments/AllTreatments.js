@@ -13,7 +13,10 @@ import Microneedle from "../treatments/Microneedle/Microneedle";
 import JetHydroPeel from "../treatments/JetHydroPeel/JetHydroPeel";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
+import { ToastContainer } from "react-toastify";
 import "./AllTreatments.css";
+import ToastifyCSSImport from "./ToastifyCSSImport";
+import { Suspense } from "react";
 
 const AllTreatments = React.forwardRef((props, ref) => {
   const {
@@ -33,6 +36,29 @@ const AllTreatments = React.forwardRef((props, ref) => {
 
   return (
     <div className="all_treatments_container" id={name} ref={Treatments1Ref}>
+      <ToastContainer
+        toastClassName="toast_container"
+        position={
+          !currentScreenSize
+            ? initialScreenSize >= 768
+              ? !window.matchMedia("(orientation: landscape)").matches
+                ? "bottom-center"
+                : "bottom-right"
+              : "bottom-right"
+            : currentScreenSize >= 768
+            ? !window.matchMedia("(orientation: landscape)").matches
+              ? "bottom-center"
+              : "bottom-right"
+            : "bottom-right"
+        }
+        autoClose={3000}
+        newestOnTop={false}
+        hideProgressBar
+        closeOnClick
+        pauseOnVisibilityChange
+        draggable={true}
+        draggablePercent={20}
+      />
       <header className="all_treatments_header" ref={inViewRef}>
         {inView ? (
           <Spring
@@ -48,6 +74,9 @@ const AllTreatments = React.forwardRef((props, ref) => {
           >
             {(styles) => (
               <>
+                <Suspense fallback={<></>}>
+                  <ToastifyCSSImport />
+                </Suspense>
                 <h2
                   style={{
                     position: `${styles.position}`,

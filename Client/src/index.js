@@ -31,7 +31,7 @@ import {
   Link,
 } from "react-router-dom";
 import KeepAlive, { AliveScope } from "react-activation";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import getClientQuery from "./graphql/queries/getClientQuery";
 import getEmployeeQuery from "./graphql/queries/getEmployeeQuery";
 import getEmployeesQuery from "./graphql/queries/getEmployeesQuery";
@@ -51,8 +51,6 @@ import AllAddOns from "./components/all_add_ons/AllAddOns";
 import { scroller } from "react-scroll";
 import FollowUs from "./components/follow_us/FollowUs";
 import ContactUs from "./components/contact_us/ContactUs";
-import PrivacyPolicy from "./components/privacy/PrivacyPolicy";
-import TermsAndConditions from "./components/privacy/TermsAndConditions";
 import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
@@ -127,7 +125,6 @@ import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE"
 import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_RESET_ADMIN_NOTIFICATIONS";
 import ACTION_ON_ACTIVITY_PAGE from "./actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
-import "react-toastify/dist/ReactToastify.min.css";
 import "./styles.css";
 
 // Lazy-loaded Routes
@@ -155,6 +152,12 @@ const CheckoutRouter = React.lazy(() =>
 const AdminRouter = React.lazy(() => import("./components/admin/AdminRouter"));
 const AccountRouter = React.lazy(() =>
   import("./components/account/AccountRouter")
+);
+const PrivacyPolicy = React.lazy(() =>
+  import("./components/privacy/PrivacyPolicy")
+);
+const TermsAndConditions = React.lazy(() =>
+  import("./components/privacy/TermsAndConditions")
 );
 
 require("dotenv").config();
@@ -346,7 +349,6 @@ const App = () => {
           _id: adminDummyToken.id,
         },
         updateQuery: (prev, { subscriptionData }) => {
-          console.log("LET's UDPATE");
           if (subscriptionData.data) {
             if (subscriptionData.data.getUpdatedEmployee) {
               if (subscriptionData.data.getUpdatedEmployee.notifications) {
@@ -1640,30 +1642,6 @@ const App = () => {
         )}
       </Spring>
 
-      <ToastContainer
-        toastClassName="toast_container"
-        position={
-          !currentScreenSize
-            ? initialScreenSize >= 768
-              ? !window.matchMedia("(orientation: landscape)").matches
-                ? "bottom-center"
-                : "bottom-right"
-              : "bottom-right"
-            : currentScreenSize >= 768
-            ? !window.matchMedia("(orientation: landscape)").matches
-              ? "bottom-center"
-              : "bottom-right"
-            : "bottom-right"
-        }
-        autoClose={3000}
-        newestOnTop={false}
-        hideProgressBar
-        closeOnClick
-        pauseOnVisibilityChange
-        draggable={true}
-        draggablePercent={20}
-      />
-
       {renderSlideInShoppingCartContainer(largeScreenShoppingCartRender())}
       {(location.pathname === "/" ||
         location.pathname.includes("privacy") ||
@@ -1699,7 +1677,6 @@ const App = () => {
               id="main_container_element"
             >
               {redirectToCartRoutes()}
-
               <LandingPage
                 currentScreenSize={currentScreenSize}
                 initialScreenSize={initialScreenSize}
@@ -1824,11 +1801,19 @@ const App = () => {
                 />
               </Suspense>
             ) : location.pathname.includes("privacy") ? (
-              <Route render={() => <PrivacyPolicy exact path="/privacy" />} />
+              <Route
+                render={() => (
+                  <Suspense fallback={renderAuthFallbackLoader()}>
+                    <PrivacyPolicy exact path="/privacy" />
+                  </Suspense>
+                )}
+              />
             ) : location.pathname.includes("termsandconditions") ? (
               <Route
                 render={() => (
-                  <TermsAndConditions exact path="/termsandconditions" />
+                  <Suspense fallback={renderAuthFallbackLoader()}>
+                    <TermsAndConditions exact path="/termsandconditions" />
+                  </Suspense>
                 )}
               />
             ) : cartPageOpened === "GuestCheckout" ||

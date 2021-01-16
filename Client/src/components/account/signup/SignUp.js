@@ -107,14 +107,7 @@ const SignUp = (props) => {
             />
           );
         } else {
-          return (
-            <Redirect
-              to={{
-                pathname: "/account/clientprofile",
-                state: { successful_sign_up: true },
-              }}
-            />
-          );
+          return <Redirect to="/account/clientprofile" />;
         }
       } else {
         if (props.currentScreenSize >= 1200) {
@@ -127,14 +120,7 @@ const SignUp = (props) => {
             />
           );
         } else {
-          return (
-            <Redirect
-              to={{
-                pathname: "/account/clientprofile",
-                state: { successful_sign_up: true },
-              }}
-            />
-          );
+          return <Redirect to="/account/clientprofile" />;
         }
       }
     }

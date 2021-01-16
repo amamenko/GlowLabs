@@ -42,6 +42,12 @@ import "../MyAppointments.css";
 const UpcomingAppointments = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const {
+    refetch,
+    initialScreenSize,
+    currentScreenSize,
+    loadingAppointments,
+  } = props;
 
   const individualAppointmentRef = useRef(null);
   const selectedAppointmentBackRef = useRef(null);
@@ -83,16 +89,16 @@ const UpcomingAppointments = (props) => {
     await deleteAppointment({
       variables: { _id: item.id },
     }).then(() => {
-      setTimeout(() => props.refetch(), 1000);
+      setTimeout(() => refetch(), 1000);
     });
   };
 
   const resetStatesAfterLoading = useCallback(() => {
-    props.refetch();
+    refetch();
     changeLoadingSpinnerActive(false);
     dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET());
     changeAppointmentToggled(false);
-  }, [props, dispatch]);
+  }, [dispatch, refetch]);
 
   useEffect(() => {
     if (data) {
@@ -108,12 +114,6 @@ const UpcomingAppointments = (props) => {
       changeLoadingSpinnerActive(true);
     }
   }, [loading, data]);
-
-  useEffect(() => {
-    if (props.location.state.successful_sign_up) {
-      window.location.reload();
-    }
-  }, [props.location.state.successful_sign_up]);
 
   useEffect(() => {
     const checkModalRef = setInterval(() => {
@@ -153,6 +153,16 @@ const UpcomingAppointments = (props) => {
   };
 
   useEffect(() => {
+    if (location) {
+      if (location.state) {
+        if (location.state.successful_sign_up) {
+          refetch();
+        }
+      }
+    }
+  }, [location, refetch]);
+
+  useEffect(() => {
     if (location.pathname) {
       window.scrollTo(0, 0);
     }
@@ -190,12 +200,12 @@ const UpcomingAppointments = (props) => {
     let componentsArr = [];
 
     for (let i = 0; i < treatmentsSummaryCardComponentsArr.length; i++) {
-      if (props.data) {
-        if (props.data.own_appointments) {
-          if (props.data.own_appointments[dataIndex].treatments) {
-            if (props.data.own_appointments[dataIndex].treatments[0].name) {
+      if (data) {
+        if (data.own_appointments) {
+          if (data.own_appointments[dataIndex].treatments) {
+            if (data.own_appointments[dataIndex].treatments[0].name) {
               if (
-                props.data.own_appointments[dataIndex].treatments[0].name ===
+                data.own_appointments[dataIndex].treatments[0].name ===
                 treatmentsSummaryCardComponentsArr[i].name
               ) {
                 componentsArr.push(
@@ -218,17 +228,13 @@ const UpcomingAppointments = (props) => {
     let componentsArr = [];
 
     for (let i = 0; i < addOnsSummaryCardComponentsArr.length; i++) {
-      for (
-        let j = 0;
-        j < props.data.own_appointments[dataIndex].addOns.length;
-        j++
-      ) {
-        if (props.data) {
-          if (props.data.own_appointments) {
-            if (props.data.own_appointments[dataIndex].addOns !== []) {
-              if (props.data.own_appointments[dataIndex].addOns[j].name) {
+      for (let j = 0; j < data.own_appointments[dataIndex].addOns.length; j++) {
+        if (data) {
+          if (data.own_appointments) {
+            if (data.own_appointments[dataIndex].addOns !== []) {
+              if (data.own_appointments[dataIndex].addOns[j].name) {
                 if (
-                  props.data.own_appointments[dataIndex].addOns[j].name ===
+                  data.own_appointments[dataIndex].addOns[j].name ===
                   addOnsSummaryCardComponentsArr[i].name
                 ) {
                   componentsArr.push(
@@ -294,8 +300,8 @@ const UpcomingAppointments = (props) => {
     <div
       className="my_appointments_container"
       style={{
-        height: props.data
-          ? props.data.own_appointments.length > 4
+        height: data
+          ? data.own_appointments.length > 4
             ? "100%"
             : "100vh"
           : "100vh",
@@ -320,11 +326,11 @@ const UpcomingAppointments = (props) => {
         )}
         <h1>
           {adminAuthenticated ? "CLIENT" : "MY"}{" "}
-          {!props.currentScreenSize
-            ? props.initialScreenSize >= 1200
+          {!currentScreenSize
+            ? initialScreenSize >= 1200
               ? "UPCOMING "
               : null
-            : props.currentScreenSize >= 1200
+            : currentScreenSize >= 1200
             ? "UPCOMING "
             : null}
           APPOINTMENTS
@@ -350,8 +356,8 @@ const UpcomingAppointments = (props) => {
       }
       <div className="my_appointments_content_container">
         <ClientRenderUpcomingAppointments
-          data={props.data}
-          loadingAppointments={props.loadingAppointments}
+          data={data}
+          loadingAppointments={loadingAppointments}
           handleAppointmentToggled={handleAppointmentToggled}
           handleAppointmentUntoggled={handleAppointmentUntoggled}
           handleCancelAppointment={handleCancelAppointment}
@@ -368,8 +374,8 @@ const UpcomingAppointments = (props) => {
             selectedAppointmentBackRef: selectedAppointmentBackRef,
             backToAppointmentsRef: backToAppointmentsRef,
           }}
-          currentScreenSize={props.currentScreenSize}
-          initialScreenSize={props.initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          initialScreenSize={initialScreenSize}
         />
       </div>
     </div>
