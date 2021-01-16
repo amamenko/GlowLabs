@@ -36,6 +36,7 @@ import "../../../../components/add_ons/LEDTherapy/LEDTherapy.css";
 import "../../../../components/add_ons/Microcurrent/Microcurrent.css";
 import "../../../../components/add_ons/Microdermabrasion/Microdermabrasion.css";
 import "../../../../components/add_ons/NanoNeedling/NanoNeedling.css";
+import "../../../../components/treatments_pages/Page_2/NotSurePopUp/NotSurePopUp.css";
 
 const AdminSelectedAppointment = React.forwardRef((props, ref) => {
   const {
