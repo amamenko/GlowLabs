@@ -1,0 +1,10 @@
+const ADMIN_NOTIFICATION_SUBSCRIPTION = "ADMIN_NOTIFICATION_SUBSCRIPTION";
+
+const ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION = (notification_subscription) => {
+  return {
+    type: ADMIN_NOTIFICATION_SUBSCRIPTION,
+    notification_subscription,
+  };
+};
+
+export default ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION;

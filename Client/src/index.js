@@ -125,6 +125,8 @@ import ACTION_CART_IS_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_ACTIVE"
 import ACTION_ASSIGN_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_ASSIGN_ADMIN_NOTIFICATIONS";
 import ACTION_RESET_ADMIN_NOTIFICATIONS from "./actions/Admin/Notifications/ACTION_RESET_ADMIN_NOTIFICATIONS";
 import ACTION_ON_ACTIVITY_PAGE from "./actions/Admin/OnActivityPage/ACTION_ON_ACTIVITY_PAGE";
+import ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION from "./actions/Admin/AdminNotificationSubscription/ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION";
+import ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION_RESET from "./actions/Admin/AdminNotificationSubscription/ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION_RESET";
 import "./styles.css";
 
 // Lazy-loaded Routes
@@ -244,6 +246,9 @@ const App = () => {
   const adminTemporaryDummyToken = useSelector(
     (state) => state.adminTemporaryDummyToken.admin_temporary_dummy_token
   );
+  const adminNotificationSubscription = useSelector(
+    (state) => state.adminNotificationSubscription.notification_subscription
+  );
   const cartPageOpened = useSelector(
     (state) => state.cartPageOpened.cart_page_opened
   );
@@ -344,46 +349,59 @@ const App = () => {
 
   useEffect(() => {
     if (adminDummyToken) {
-      // Subscribe to notifications
-      const unsubscribe = employeeSubscribeToMore({
-        document: getUpdatedEmployeeSubscription,
-        variables: {
-          _id: adminDummyToken.id,
-        },
-        updateQuery: (prev, { subscriptionData }) => {
-          if (subscriptionData.data) {
-            if (subscriptionData.data.getUpdatedEmployee) {
-              if (subscriptionData.data.getUpdatedEmployee.notifications) {
-                if (
-                  subscriptionData.data.getUpdatedEmployee.notifications
-                    .length > 0
-                ) {
-                  const employeeNotifications = subscriptionData.data.getUpdatedEmployee.notifications
-                    // Sort by most recent first
-                    .sort(
-                      (a, b) =>
-                        new Date(
-                          parseInt(b._id.substring(0, 8), 16) * 1000 -
-                            new Date(parseInt(a._id.substring(0, 8), 16) * 1000)
-                        )
-                    );
+      if (!adminNotificationSubscription) {
+        // Subscribe to notifications
+        const subscription = employeeSubscribeToMore({
+          document: getUpdatedEmployeeSubscription,
+          variables: {
+            _id: adminDummyToken.id,
+          },
+          updateQuery: (prev, { subscriptionData }) => {
+            if (subscriptionData.data) {
+              if (subscriptionData.data.getUpdatedEmployee) {
+                if (subscriptionData.data.getUpdatedEmployee.notifications) {
+                  if (
+                    subscriptionData.data.getUpdatedEmployee.notifications
+                      .length > 0
+                  ) {
+                    const employeeNotifications = subscriptionData.data.getUpdatedEmployee.notifications
+                      // Sort by most recent first
+                      .sort(
+                        (a, b) =>
+                          new Date(
+                            parseInt(b._id.substring(0, 8), 16) * 1000 -
+                              new Date(
+                                parseInt(a._id.substring(0, 8), 16) * 1000
+                              )
+                          )
+                      );
 
-                  dispatch(
-                    ACTION_ASSIGN_ADMIN_NOTIFICATIONS(employeeNotifications)
-                  );
+                    dispatch(
+                      ACTION_ASSIGN_ADMIN_NOTIFICATIONS(employeeNotifications)
+                    );
+                  }
                 }
               }
             }
-          }
-        },
-      });
+          },
+        });
 
-      return () => {
-        // Unsubscribe to notifications on unmount
-        unsubscribe();
-      };
+        dispatch(ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION(subscription));
+      }
+    } else {
+      if (adminNotificationSubscription) {
+        // Invoke to unsubscribe from notifications
+        adminNotificationSubscription();
+
+        dispatch(ACTION_ADMIN_NOTIFICATION_SUBSCRIPTION_RESET());
+      }
     }
-  }, [adminDummyToken, employeeSubscribeToMore, dispatch]);
+  }, [
+    adminDummyToken,
+    employeeSubscribeToMore,
+    dispatch,
+    adminNotificationSubscription,
+  ]);
 
   useEffect(() => {
     if (location.pathname.includes("activity")) {
@@ -1470,6 +1488,9 @@ const App = () => {
 
   return (
     <>
+      <div className="font_preload" style={{ opacity: 0 }}>
+        <span style={{ fontFamily: "Montserrat, Arial, sans-serif" }}></span>
+      </div>
       {redirectToHome()}
       {redirectToRoot()}
       <Modal
