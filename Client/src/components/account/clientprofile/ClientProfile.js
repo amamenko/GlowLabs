@@ -15,6 +15,7 @@ import ACTION_SPLASH_SCREEN_HALFWAY from "../../../actions/SplashScreenHalfway/A
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import ACTION_LOGIN_IS_NOT_ACTIVE from "../../../actions/Login/ACTION_LOGIN_IS_NOT_ACTIVE";
 import "./ClientProfile.css";
+import "../../../components/treatments/card_styling.css";
 
 const ClientProfile = (props) => {
   const dispatch = useDispatch();

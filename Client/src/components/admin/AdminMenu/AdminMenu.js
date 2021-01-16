@@ -65,6 +65,21 @@ const AdminMenu = (props) => {
     }
   }, [location.state]);
 
+  const handleAdminResetNotifications = () => {
+    dispatch(ACTION_BODY_SCROLL_ALLOW());
+
+    if (adminNotifications) {
+      if (adminNotifications.length > 0) {
+        if (
+          adminNotifications.filter((notification) => notification.new === true)
+            .length > 0
+        ) {
+          props.resetNotifications();
+        }
+      }
+    }
+  };
+
   const redirectToActivityPage = () => {
     if (!props.currentScreenSize) {
       if (props.initialScreenSize >= 1200) {
@@ -130,7 +145,7 @@ const AdminMenu = (props) => {
           <Link
             className="admin_menu_box_container_link"
             to="/admin/clients"
-            onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+            onClick={handleAdminResetNotifications}
           >
             <FontAwesomeIcon icon={faUsers} className="admin_menu_box_icon" />
             <h2>CLIENTS</h2>
@@ -140,7 +155,7 @@ const AdminMenu = (props) => {
           <Link
             className="admin_menu_box_container_link"
             to="/admin/staff"
-            onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+            onClick={handleAdminResetNotifications}
           >
             <FontAwesomeIcon
               icon={faBriefcase}
@@ -153,7 +168,7 @@ const AdminMenu = (props) => {
           <Link
             className="admin_menu_box_container_link"
             to="/admin/schedule"
-            onClick={() => dispatch(ACTION_BODY_SCROLL_ALLOW())}
+            onClick={handleAdminResetNotifications}
           >
             <FontAwesomeIcon
               icon={faCalendarWeek}

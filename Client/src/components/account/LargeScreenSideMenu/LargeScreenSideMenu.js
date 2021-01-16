@@ -36,6 +36,7 @@ import ACTION_PDF_LOADING from "../../../actions/PDFLoading/ACTION_PDF_LOADING";
 import ACTION_NAVBAR_TOGGLE_RESET from "../../../actions/Nav/ACTION_NAVBAR_TOGGLE_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
 import "./LargeScreenSideMenu.css";
+import "../../../components/treatments/card_styling.css";
 
 const override = css`
   display: block;
@@ -53,8 +54,6 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
     handleClickToScrollToHome,
     initialScreenSize,
     currentScreenSize,
-    onActivityPage,
-    changeOnActivityPage,
     resetNotifications,
   } = props;
 
@@ -132,15 +131,15 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
   }, [pdfSpinnerActive, dispatch]);
 
   const handleAdminResetNotifications = () => {
-    if (onActivityPage) {
-      if (adminNotifications) {
-        if (adminNotifications.length > 0) {
-          if (adminNotifications.some((item) => item.new)) {
-            resetNotifications();
-          }
+    if (adminNotifications) {
+      if (adminNotifications.length > 0) {
+        if (
+          adminNotifications.filter((notification) => notification.new === true)
+            .length > 0
+        ) {
+          resetNotifications();
         }
       }
-      changeOnActivityPage(false);
     }
   };
 
@@ -543,10 +542,7 @@ const LargeScreenSideMenu = React.forwardRef((props, ref) => {
             </div>
           </div>
           {getEmployeeData ? (
-            <div
-              className="large_screen_side_menu_item_container"
-              onClick={handleAdminResetNotifications}
-            >
+            <div className="large_screen_side_menu_item_container">
               <Link
                 className="large_screen_side_menu_item"
                 to="/admin/activity"

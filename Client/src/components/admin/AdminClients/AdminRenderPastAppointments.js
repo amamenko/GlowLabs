@@ -32,6 +32,29 @@ import GuaShaSummaryCard from "../../checkout/SummaryReviewCards/AddOns/GuaShaSu
 import BeardSummaryCard from "../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
 import SaltCaveSummaryCard from "../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import "../../account/clientprofile/MyAppointments/MyAppointments.css";
+import "../../../components/checkout/SummaryReviewCards/SummaryReviewCards.css";
+import "../../../components/treatments/Bacial/Bacial.css";
+import "../../../components/treatments/Calm/Calm.css";
+import "../../../components/treatments/CBD/CBD.css";
+import "../../../components/treatments/ChemicalPeel/ChemicalPeel.css";
+import "../../../components/treatments/Clarify/Clarify.css";
+import "../../../components/treatments/Dermaplaning/Dermaplaning.css";
+import "../../../components/treatments/Glow/Glow.css";
+import "../../../components/treatments/JetHydroPeel/JetHydroPeel.css";
+import "../../../components/treatments/Microneedle/Microneedle.css";
+import "../../../components/treatments/Quench/Quench.css";
+import "../../../components/treatments/Quickie/Quickie.css";
+import "../../../components/treatments/Rejuvenate/Rejuvenate.css";
+import "../../../components/treatments/SaltCave/SaltCave.css";
+import "../../../components/add_ons/Beard/Beard.css";
+import "../../../components/add_ons/Dermarolling/Dermarolling.css";
+import "../../../components/add_ons/ExtraExtractions/ExtraExtractions.css";
+import "../../../components/add_ons/GuaSha/GuaSha.css";
+import "../../../components/add_ons/HydroJellyMask/HydroJellyMask.css";
+import "../../../components/add_ons/LEDTherapy/LEDTherapy.css";
+import "../../../components/add_ons/Microcurrent/Microcurrent.css";
+import "../../../components/add_ons/Microdermabrasion/Microdermabrasion.css";
+import "../../../components/add_ons/NanoNeedling/NanoNeedling.css";
 
 const AdminRenderUpcomingAppointments = (props) => {
   const location = useLocation();

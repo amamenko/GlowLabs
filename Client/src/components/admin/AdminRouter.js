@@ -196,6 +196,7 @@ const AdminRouter = React.forwardRef((props, ref) => {
               currentScreenSize={currentScreenSize}
               getEmployeeData={getEmployeeData ? getEmployeeData : null}
               employeeDataRefetch={employeeDataRefetch}
+              resetNotifications={resetNotifications}
             />
           )}
         />

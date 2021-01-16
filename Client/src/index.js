@@ -169,7 +169,9 @@ const middleware = [thunk];
 
 const store = createStore(
   RootReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
+  process.env.REACT_APP_NODE_ENV === "production"
+    ? applyMiddleware(...middleware)
+    : composeWithDevTools(applyMiddleware(...middleware))
 );
 
 const App = () => {
