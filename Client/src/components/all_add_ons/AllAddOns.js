@@ -1,16 +1,8 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
-import ExtraExtractions from "../add_ons/ExtraExtractions/ExraExtractions";
-import HydroJellyMask from "../add_ons/HydroJellyMask/HydroJellyMask";
-import LEDTherapy from "../add_ons/LEDTherapy/LEDTherapy";
-import Microcurrent from "../add_ons/Microcurrent/Microcurrent";
-import Microdermabrasion from "../add_ons/Microdermabrasion/Microdermabrasion";
-import Dermarolling from "../add_ons/Dermarolling/Dermarolling";
-import NanoNeedling from "../add_ons/NanoNeedling/NanoNeedling";
-import GuaSha from "../add_ons/GuaSha/GuaSha";
-import Beard from "../add_ons/Beard/Beard";
 import "./AllAddOns.css";
+import { Suspense } from "react";
 
 const AllAddOns = React.forwardRef((props, ref) => {
   const {
@@ -22,6 +14,48 @@ const AllAddOns = React.forwardRef((props, ref) => {
   } = props;
 
   const addOnsHeaderRef = useRef(null);
+
+  // Lazy-loaded Add-Ons
+  const ExtraExtractions = useMemo(
+    () =>
+      React.lazy(() => import("../add_ons/ExtraExtractions/ExraExtractions")),
+    []
+  );
+  const HydroJellyMask = useMemo(
+    () => React.lazy(() => import("../add_ons/HydroJellyMask/HydroJellyMask")),
+    []
+  );
+  const LEDTherapy = useMemo(
+    () => React.lazy(() => import("../add_ons/LEDTherapy/LEDTherapy")),
+    []
+  );
+  const Microcurrent = useMemo(
+    () => React.lazy(() => import("../add_ons/Microcurrent/Microcurrent")),
+    []
+  );
+  const Microdermabrasion = useMemo(
+    () =>
+      React.lazy(() =>
+        import("../add_ons/Microdermabrasion/Microdermabrasion")
+      ),
+    []
+  );
+  const Dermarolling = useMemo(
+    () => React.lazy(() => import("../add_ons/Dermarolling/Dermarolling")),
+    []
+  );
+  const NanoNeedling = useMemo(
+    () => React.lazy(() => import("../add_ons/NanoNeedling/NanoNeedling")),
+    []
+  );
+  const GuaSha = useMemo(
+    () => React.lazy(() => import("../add_ons/GuaSha/GuaSha")),
+    []
+  );
+  const Beard = useMemo(
+    () => React.lazy(() => import("../add_ons/Beard/Beard")),
+    []
+  );
 
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
@@ -83,51 +117,87 @@ const AllAddOns = React.forwardRef((props, ref) => {
           </Spring>
         ) : null}
       </header>
-      <ExtraExtractions
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <HydroJellyMask
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <LEDTherapy
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <Microcurrent
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <Microdermabrasion
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <Dermarolling
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <NanoNeedling
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <GuaSha
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
-      <Beard
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStatesExceptTreatments={resetAllCartStatesExceptTreatments}
-      />
+      <Suspense fallback={<></>}>
+        <ExtraExtractions
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <HydroJellyMask
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <LEDTherapy
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Microcurrent
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Microdermabrasion
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Dermarolling
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <NanoNeedling
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <GuaSha
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Beard
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStatesExceptTreatments={
+            resetAllCartStatesExceptTreatments
+          }
+        />
+      </Suspense>
     </div>
   );
 });

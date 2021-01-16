@@ -1,22 +1,10 @@
-import React, { useRef } from "react";
-import Calm from "../treatments/Calm/Calm";
-import Clarify from "../treatments/Clarify/Clarify";
-import Bacial from "../treatments/Bacial/Bacial";
-import Glow from "../treatments/Glow/Glow";
-import Rejuvenate from "../treatments/Rejuvenate/Rejuvenate";
-import Quench from "../treatments/Quench/Quench";
-import SaltCave from "../treatments/SaltCave/SaltCave";
-import ChemicalPeel from "../treatments/ChemicalPeel/ChemicalPeel";
-import Dermaplaning from "../treatments/Dermaplaning/Dermaplaning";
-import CBD from "../treatments/CBD/CBD";
-import Microneedle from "../treatments/Microneedle/Microneedle";
-import JetHydroPeel from "../treatments/JetHydroPeel/JetHydroPeel";
+import React, { useMemo, useRef } from "react";
+import { Suspense } from "react";
 import { Spring } from "react-spring/renderprops";
 import { useInView } from "react-intersection-observer";
 import { ToastContainer } from "react-toastify";
-import "./AllTreatments.css";
 import ToastifyCSSImport from "./ToastifyCSSImport";
-import { Suspense } from "react";
+import "./AllTreatments.css";
 
 const AllTreatments = React.forwardRef((props, ref) => {
   const {
@@ -28,6 +16,56 @@ const AllTreatments = React.forwardRef((props, ref) => {
   } = props;
 
   const treatmentsHeaderRef = useRef(null);
+
+  // Lazy-loaded Treatments
+  const Calm = useMemo(
+    () => React.lazy(() => import("../treatments/Calm/Calm")),
+    []
+  );
+  const Clarify = useMemo(
+    () => React.lazy(() => import("../treatments/Clarify/Clarify")),
+    []
+  );
+  const Bacial = useMemo(
+    () => React.lazy(() => import("../treatments/Bacial/Bacial")),
+    []
+  );
+  const Glow = useMemo(
+    () => React.lazy(() => import("../treatments/Glow/Glow")),
+    []
+  );
+  const Rejuvenate = useMemo(
+    () => React.lazy(() => import("../treatments/Rejuvenate/Rejuvenate")),
+    []
+  );
+  const Quench = useMemo(
+    () => React.lazy(() => import("../treatments/Quench/Quench")),
+    []
+  );
+  const SaltCave = useMemo(
+    () => React.lazy(() => import("../treatments/SaltCave/SaltCave")),
+    []
+  );
+  const ChemicalPeel = useMemo(
+    () => React.lazy(() => import("../treatments/ChemicalPeel/ChemicalPeel")),
+    []
+  );
+  const Dermaplaning = useMemo(
+    () => React.lazy(() => import("../treatments/Dermaplaning/Dermaplaning")),
+    []
+  );
+  const CBD = useMemo(
+    () => React.lazy(() => import("../treatments/CBD/CBD")),
+    []
+  );
+  const Microneedle = useMemo(
+    () => React.lazy(() => import("../treatments/Microneedle/Microneedle")),
+    []
+  );
+  const JetHydroPeel = useMemo(
+    () => React.lazy(() => import("../treatments/JetHydroPeel/JetHydroPeel")),
+    []
+  );
 
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
@@ -115,66 +153,90 @@ const AllTreatments = React.forwardRef((props, ref) => {
           </Spring>
         ) : null}
       </header>
-      <Calm
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-        scrollValue={props.scrollValue}
-      />
-      <Clarify
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <Bacial
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <Glow
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <Rejuvenate
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <Quench
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <SaltCave
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <ChemicalPeel
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <Dermaplaning
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <CBD
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <Microneedle
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-        resetAllCartStates={resetAllCartStates}
-      />
-      <JetHydroPeel
-        initialScreenSize={initialScreenSize}
-        currentScreenSize={currentScreenSize}
-      />
+      <Suspense fallback={<></>}>
+        <Calm
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+          scrollValue={props.scrollValue}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Clarify
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Bacial
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Glow
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Rejuvenate
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Quench
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <SaltCave
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <ChemicalPeel
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Dermaplaning
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <CBD
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <Microneedle
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+          resetAllCartStates={resetAllCartStates}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <JetHydroPeel
+          initialScreenSize={initialScreenSize}
+          currentScreenSize={currentScreenSize}
+        />
+      </Suspense>
     </div>
   );
 });
