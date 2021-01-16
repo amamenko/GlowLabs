@@ -12,6 +12,7 @@
       format("truetype"),
     url("../../../../MontserratFont/otf/Montserrat-Light.otf")
       format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Regular **/
@@ -27,6 +28,7 @@
       format("truetype"),
     url("../../../../MontserratFont/otf/Montserrat-Regular.otf")
       format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Medium **/
@@ -41,6 +43,7 @@
       format("truetype"),
     url("../../../../MontserratFont/otf/Montserrat-Medium.otf")
       format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat SemiBold **/
@@ -56,6 +59,7 @@
       format("truetype"),
     url("../../../../MontserratFont/otf/Montserrat-SemiBold.otf")
       format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Bold **/
@@ -68,6 +72,7 @@
     url("../../../../MontserratFont/woff/Montserrat-Bold.woff") format("woff"),
     url("../../../../MontserratFont/ttf/Montserrat-Bold.ttf") format("truetype"),
     url("../../../../MontserratFont/otf/Montserrat-Bold.otf") format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Black **/
@@ -82,6 +87,7 @@
       format("truetype"),
     url("../../../../MontserratFont/otf/Montserrat-Black.otf")
       format("opentype");
+  font-display: swap;
 }
 
 .admin_create_appointment_input_information_container {

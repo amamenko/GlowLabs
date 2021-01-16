@@ -9,6 +9,7 @@
     url("./MontserratFont/woff/Montserrat-Light.woff") format("woff"),
     url("./MontserratFont/ttf/Montserrat-Light.ttf") format("truetype"),
     url("./MontserratFont/otf/Montserrat-Light.otf") format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Regular **/
@@ -20,6 +21,7 @@
     url("./MontserratFont/woff/Montserrat-Regular.woff") format("woff"),
     url("./MontserratFont/ttf/Montserrat-Regular.ttf") format("truetype"),
     url("./MontserratFont/otf/Montserrat-Regular.otf") format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Medium **/
@@ -31,6 +33,7 @@
     url("./MontserratFont/woff/Montserrat-Medium.woff") format("woff"),
     url("./MontserratFont/ttf/Montserrat-Medium.ttf") format("truetype"),
     url("./MontserratFont/otf/Montserrat-Medium.otf") format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat SemiBold **/
@@ -42,6 +45,7 @@
     url("./MontserratFont/woff/Montserrat-SemiBold.woff") format("woff"),
     url("./MontserratFont/ttf/Montserrat-SemiBold.ttf") format("truetype"),
     url("./MontserratFont/otf/Montserrat-SemiBold.otf") format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Bold **/
@@ -53,6 +57,7 @@
     url("./MontserratFont/woff/Montserrat-Bold.woff") format("woff"),
     url("./MontserratFont/ttf/Montserrat-Bold.ttf") format("truetype"),
     url("./MontserratFont/otf/Montserrat-Bold.otf") format("opentype");
+  font-display: swap;
 }
 
 /** Montserrat Black **/
@@ -64,6 +69,7 @@
     url("./MontserratFont/woff/Montserrat-Black.woff") format("woff"),
     url("./MontserratFont/ttf/Montserrat-Black.ttf") format("truetype"),
     url("./MontserratFont/otf/Montserrat-Black.otf") format("opentype");
+  font-display: swap;
 }
 
 * {
