@@ -55,7 +55,7 @@ const loginQuery = {
       domain:
         process.env.NODE_ENV === "production"
           ? process.env.PRODUCTION_CLIENT_ROOT
-          : "localhost",
+          : null,
     });
 
     const { accessToken, refreshToken } = createTokens(client);
@@ -67,7 +67,7 @@ const loginQuery = {
       domain:
         process.env.NODE_ENV === "production"
           ? process.env.PRODUCTION_CLIENT_ROOT
-          : "localhost",
+          : null,
     });
 
     context.res.cookie("refresh-token", refreshToken, {
@@ -77,7 +77,7 @@ const loginQuery = {
       domain:
         process.env.NODE_ENV === "production"
           ? process.env.PRODUCTION_CLIENT_ROOT
-          : "localhost",
+          : null,
     });
 
     return {

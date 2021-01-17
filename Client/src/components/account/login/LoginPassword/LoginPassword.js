@@ -6,18 +6,19 @@ import ACTION_LOGIN_EMAIL_NOT_INVALID from "../../../../actions/Login/LoginEmail
 import ACTION_LOGIN_PASSWORD_NOT_INVALID from "../../../../actions/Login/LoginPassword/Invalid/ACTION_LOGIN_PASSWORD_NOT_INVALID";
 import "../Login.css";
 
-const LoginPassword = () => {
+const LoginPassword = (props) => {
+  const { handleLoginClick } = props;
   const dispatch = useDispatch();
 
   // Password States
   const loginPassword = useSelector(
-    state => state.loginPassword.login_password
+    (state) => state.loginPassword.login_password
   );
   const loginPasswordInvalid = useSelector(
-    state => state.loginPasswordInvalid.login_password_invalid
+    (state) => state.loginPasswordInvalid.login_password_invalid
   );
 
-  const passwordTyping = e => {
+  const passwordTyping = (e) => {
     dispatch(ACTION_LOGIN_PASSWORD(e.currentTarget.value.trim()));
     dispatch(ACTION_LOGIN_EMAIL_NOT_INVALID());
     dispatch(ACTION_LOGIN_PASSWORD_NOT_INVALID());
@@ -34,6 +35,11 @@ const LoginPassword = () => {
         defaultValue={loginPassword}
         maxLength={128}
         placeholder="Password"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleLoginClick();
+          }
+        }}
         className="input_field_sign_up"
         onChange={passwordTyping}
         invalid={

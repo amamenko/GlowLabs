@@ -47,6 +47,7 @@ const UpcomingAppointments = (props) => {
     initialScreenSize,
     currentScreenSize,
     loadingAppointments,
+    upcomingAppointmentsData,
   } = props;
 
   const individualAppointmentRef = useRef(null);
@@ -74,9 +75,10 @@ const UpcomingAppointments = (props) => {
   const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
   const [appointmentToggled, changeAppointmentToggled] = useState("");
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
-  const [deleteAppointment, { loading, data }] = useMutation(
-    deleteAppointmentMutation
-  );
+  const [
+    deleteAppointment,
+    { loading, data: deleteAppointmentData },
+  ] = useMutation(deleteAppointmentMutation);
 
   const override = css`
     display: block;
@@ -101,19 +103,19 @@ const UpcomingAppointments = (props) => {
   }, [dispatch, refetch]);
 
   useEffect(() => {
-    if (data) {
+    if (deleteAppointmentData) {
       const loadingFunction = setTimeout(() => resetStatesAfterLoading(), 2000);
       return () => {
         clearTimeout(loadingFunction);
       };
     }
-  }, [data, resetStatesAfterLoading]);
+  }, [deleteAppointmentData, resetStatesAfterLoading]);
 
   useEffect(() => {
     if (loading) {
       changeLoadingSpinnerActive(true);
     }
-  }, [loading, data]);
+  }, [loading, deleteAppointmentData]);
 
   useEffect(() => {
     const checkModalRef = setInterval(() => {
@@ -200,12 +202,16 @@ const UpcomingAppointments = (props) => {
     let componentsArr = [];
 
     for (let i = 0; i < treatmentsSummaryCardComponentsArr.length; i++) {
-      if (data) {
-        if (data.own_appointments) {
-          if (data.own_appointments[dataIndex].treatments) {
-            if (data.own_appointments[dataIndex].treatments[0].name) {
+      if (upcomingAppointmentsData) {
+        if (upcomingAppointmentsData.own_appointments) {
+          if (upcomingAppointmentsData.own_appointments[dataIndex].treatments) {
+            if (
+              upcomingAppointmentsData.own_appointments[dataIndex].treatments[0]
+                .name
+            ) {
               if (
-                data.own_appointments[dataIndex].treatments[0].name ===
+                upcomingAppointmentsData.own_appointments[dataIndex]
+                  .treatments[0].name ===
                 treatmentsSummaryCardComponentsArr[i].name
               ) {
                 componentsArr.push(
@@ -228,14 +234,23 @@ const UpcomingAppointments = (props) => {
     let componentsArr = [];
 
     for (let i = 0; i < addOnsSummaryCardComponentsArr.length; i++) {
-      for (let j = 0; j < data.own_appointments[dataIndex].addOns.length; j++) {
-        if (data) {
-          if (data.own_appointments) {
-            if (data.own_appointments[dataIndex].addOns !== []) {
-              if (data.own_appointments[dataIndex].addOns[j].name) {
+      for (
+        let j = 0;
+        j < upcomingAppointmentsData.own_appointments[dataIndex].addOns.length;
+        j++
+      ) {
+        if (upcomingAppointmentsData) {
+          if (upcomingAppointmentsData.own_appointments) {
+            if (
+              upcomingAppointmentsData.own_appointments[dataIndex].addOns !== []
+            ) {
+              if (
+                upcomingAppointmentsData.own_appointments[dataIndex].addOns[j]
+                  .name
+              ) {
                 if (
-                  data.own_appointments[dataIndex].addOns[j].name ===
-                  addOnsSummaryCardComponentsArr[i].name
+                  upcomingAppointmentsData.own_appointments[dataIndex].addOns[j]
+                    .name === addOnsSummaryCardComponentsArr[i].name
                 ) {
                   componentsArr.push(
                     addOnsSummaryCardComponentsArr[i].component
@@ -300,8 +315,8 @@ const UpcomingAppointments = (props) => {
     <div
       className="my_appointments_container"
       style={{
-        height: data
-          ? data.own_appointments.length > 4
+        height: upcomingAppointmentsData
+          ? upcomingAppointmentsData.own_appointments.length > 4
             ? "100%"
             : "100vh"
           : "100vh",
@@ -356,7 +371,7 @@ const UpcomingAppointments = (props) => {
       }
       <div className="my_appointments_content_container">
         <ClientRenderUpcomingAppointments
-          data={data}
+          upcomingAppointmentsData={upcomingAppointmentsData}
           loadingAppointments={loadingAppointments}
           handleAppointmentToggled={handleAppointmentToggled}
           handleAppointmentUntoggled={handleAppointmentUntoggled}

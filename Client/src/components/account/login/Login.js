@@ -70,6 +70,7 @@ const Login = (props) => {
 
   const handleClientLoginError = () => {
     if (error) {
+      changeSignInLoading(false);
       if (error.message) {
         if (error.message.includes("email")) {
           dispatch(ACTION_LOGIN_EMAIL_INVALID());
@@ -155,7 +156,12 @@ const Login = (props) => {
   };
 
   const handleLoginClick = () => {
-    loginClient({ variables: { email: loginEmail, password: loginPassword } });
+    loginClient({
+      variables: {
+        email: loginEmail,
+        password: loginPassword,
+      },
+    });
     changeSignInLoading(true);
   };
 
@@ -224,7 +230,7 @@ const Login = (props) => {
         </div>
         <Form className="login_form_container">
           <LoginEmail />
-          <LoginPassword />
+          <LoginPassword handleLoginClick={handleLoginClick} />
         </Form>
         <div className="bottom_buttons_container">
           <Link
@@ -242,6 +248,11 @@ const Login = (props) => {
               transition: "background 0.5s ease, color 0.5s ease",
             }}
             onClick={handleLoginClick}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLoginClick();
+              }
+            }}
           >
             <p>Log In</p>
           </Link>

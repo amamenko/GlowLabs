@@ -213,8 +213,8 @@ const AccountRouter = React.forwardRef((props, ref) => {
           path={path + "/clientprofile/upcomingappointments"}
           render={() => (
             <UpcomingAppointments
-              data={data ? data : null}
-              refetch={refetch ? refetch : null}
+              upcomingAppointmentsData={data}
+              refetch={refetch}
               loadingAppointments={loadingAppointments}
               initialScreenSize={initialScreenSize}
               currentScreenSize={currentScreenSize}
@@ -226,7 +226,7 @@ const AccountRouter = React.forwardRef((props, ref) => {
           path={path + "/clientprofile/pastappointments"}
           render={() => (
             <PastAppointments
-              data={pastAppointmentsData ? pastAppointmentsData : null}
+              data={pastAppointmentsData}
               loadingPastAppointments={loadingPastAppointments}
               initialScreenSize={initialScreenSize}
               currentScreenSize={currentScreenSize}

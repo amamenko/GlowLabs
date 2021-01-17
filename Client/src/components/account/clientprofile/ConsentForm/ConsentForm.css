@@ -273,13 +273,14 @@
   }
 }
 
-@media only screen and (min-width: 375px) {
+@media only screen and (min-width: 370px) {
   .modal_consent_form_checkmark {
     top: -27%;
+    left: 11%;
   }
 }
 
-@media only screen and (min-width: 375px) and (min-height: 800px) {
+@media only screen and (min-width: 370px) and (min-height: 800px) {
   .modal_consent_form_icon {
     left: 33%;
     top: -8.5vh;

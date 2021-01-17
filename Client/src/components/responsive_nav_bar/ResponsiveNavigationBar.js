@@ -31,6 +31,7 @@ import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCRO
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import "./NavigationBar.css";
 import "./ResponsiveNavigationBar.css";
+import "../landing_page/LandingPage.css";
 
 const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
   const {
@@ -67,6 +68,9 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
   );
   const addProfilePhotoClicked = useSelector(
     (state) => state.addProfilePhotoClicked.add_profile_photo_clicked
+  );
+  const splashScreenHalfway = useSelector(
+    (state) => state.splashScreenHalfway.splashScreenHalfway
   );
 
   const navbarToggle = useSelector((state) => state.navbarToggle.toggle);
@@ -629,9 +633,8 @@ const ResponsiveNavigationBar = React.forwardRef((props, ref) => {
             imageLoading
           ? "blur(5px) brightness(50%)"
           : "none",
-
         transition: "background 0.5s ease, filter 0.5s ease",
-        display: loginIsActive ? "none" : "flex",
+        display: loginIsActive || !splashScreenHalfway ? "none" : "flex",
       }}
     >
       <div className="left_nav">

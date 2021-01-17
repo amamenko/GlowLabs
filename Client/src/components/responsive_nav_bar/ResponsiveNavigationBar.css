@@ -223,7 +223,7 @@
 }
 
 .nav_sign_in_link_container p {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   flex-wrap: nowrap;
   white-space: nowrap;
 }
@@ -325,6 +325,28 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   .nav_login_container {
     height: calc(2rem + 0.5vw);
+    padding-left: calc(1rem + 3vw);
+    padding-right: calc(1rem + 3vw);
+    margin-right: 2vw;
+  }
+
+  .nav_login_container h2 {
+    font-size: calc(1rem + 0.5vw);
+  }
+
+  .letter_circle {
+    top: 1.7vw;
+    left: -4vw;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  .nav_sign_in_link_container p {
+    font-size: 0.9rem;
+  }
+
+  .nav_login_container {
+    height: calc(2rem + 0.5vw);
     padding-left: calc(0.5rem + 3vw);
     padding-right: calc(0.5rem + 3vw);
     margin-right: 2vw;
@@ -335,7 +357,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 
   .letter_circle {
-    top: 1.7vw;
+    left: 0;
   }
 }
 

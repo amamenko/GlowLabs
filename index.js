@@ -40,6 +40,8 @@ require("dotenv").config();
 
 const app = express();
 
+app.use(cookieParser());
+
 // Compress all responses
 app.use(compression());
 
@@ -556,15 +558,14 @@ app.use(async (req, res, next) => {
   return next();
 });
 
-app.use(cookieParser());
-
 const pubsub = new PubSub();
 
 const server = new ApolloServer({
   schema,
-  context: ({ req, res }) => ({ req, res, pubsub }),
-  introspection: false,
-  playground: true,
+  context: ({ req, res }) => {
+    req, res, pubsub;
+  },
+  playground: process.env.NODE_ENV === "production" ? false : true,
 });
 
 passport.use(
@@ -657,7 +658,6 @@ app.get("/api/:id/consentform", async (req, res) => {
 });
 
 app.get("/api/auth/facebook/callback", (req, res, next) => {
-  console.log("Facebook redirect");
   passport.authenticate("facebook", async (err, user, info) => {
     if (err) {
       return next(err);
@@ -1483,6 +1483,8 @@ app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
 server.applyMiddleware({
   app,
+  path: "/",
+  cors: false,
 });
 
 app.get("/playground", expressPlayground({ endpoint: "/graphql" }));

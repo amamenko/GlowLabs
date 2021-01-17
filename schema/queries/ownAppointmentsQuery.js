@@ -15,8 +15,9 @@ const ownAppointmentsQuery = {
   },
   async resolve(parent, args, context) {
     const token = context.cookies["access-token"];
+    const adminToken = context.cookies["admin-access-token"];
 
-    if (!context.isAuth && !context.adminAuth) {
+    if (!token && !adminToken) {
       throw new UserInputError("User is not authenticated.");
     }
 
@@ -34,7 +35,8 @@ const ownAppointmentsQuery = {
             : item.client.email === jwt.decode(token).email.toString()
             ? item.client.email === jwt.decode(token).email.toString()
             : null
-          : item.client._id
+          : // No token, search by client ID
+          item.client._id
           ? item.client._id.toString() === args._id
             ? item.client._id.toString() === args._id
             : item.client.email === args.email

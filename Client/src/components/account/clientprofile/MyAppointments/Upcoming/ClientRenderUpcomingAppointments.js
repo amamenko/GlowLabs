@@ -59,9 +59,9 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
 
   return (
     <>
-      {props.data ? (
-        props.data.own_appointments.length > 0 ? (
-          props.data.own_appointments.map((item, i) => {
+      {props.upcomingAppointmentsData ? (
+        props.upcomingAppointmentsData.own_appointments.length > 0 ? (
+          props.upcomingAppointmentsData.own_appointments.map((item, i) => {
             const event = {
               title: "Glow Labs Appointment",
               description:
@@ -421,17 +421,18 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                             </p>
                           </div>
                           {props.renderSummaryCardTreatments(i)}
-                          {props.data ? (
-                            props.data.own_appointments ? (
-                              props.data.own_appointments[i].addOns.length ===
-                              0 ? null : (
+                          {props.upcomingAppointmentsData ? (
+                            props.upcomingAppointmentsData.own_appointments ? (
+                              props.upcomingAppointmentsData.own_appointments[i]
+                                .addOns.length === 0 ? null : (
                                 <>
                                   <div className="selected_appointment_add_ons_header">
                                     <p>
                                       Add On
-                                      {props.data
-                                        ? props.data.own_appointments[i].addOns
-                                            .length > 1
+                                      {props.upcomingAppointmentsData
+                                        ? props.upcomingAppointmentsData
+                                            .own_appointments[i].addOns.length >
+                                          1
                                           ? "s"
                                           : null
                                         : null}

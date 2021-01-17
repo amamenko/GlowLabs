@@ -78,8 +78,8 @@ const AdminLoginPage = (props) => {
 
   const handleAdminLoginError = () => {
     if (error) {
+      changeSignInLoading(false);
       if (error.message) {
-        changeSignInLoading(false);
         if (error.message.includes("email")) {
           dispatch(ACTION_ADMIN_LOGIN_EMAIL_INVALID());
           dispatch(ACTION_ADMIN_LOGIN_PASSWORD_NOT_INVALID());
