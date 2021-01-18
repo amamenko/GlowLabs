@@ -126,7 +126,14 @@ const Login = (props) => {
 
   const redirectToUpcomingAppointments = () => {
     if (userAuthenticated) {
-      return <Redirect to="/account/clientprofile/upcomingappointments" />;
+      return (
+        <Redirect
+          to={{
+            pathname: "/account/clientprofile/upcomingappointments",
+            state: { successful_auth: true },
+          }}
+        />
+      );
     }
   };
 

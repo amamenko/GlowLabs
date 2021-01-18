@@ -40,7 +40,6 @@ import "../../components/checkout/GuestCheckout.css";
 const AccountRouter = React.forwardRef((props, ref) => {
   const {
     getClientData,
-    getClientError,
     initialScreenSize,
     currentScreenSize,
     path,
@@ -117,18 +116,6 @@ const AccountRouter = React.forwardRef((props, ref) => {
   useMemo(() => {
     registerFont();
   }, []);
-
-  useMemo(() => {
-    // If client error, refresh page a single time to check again
-    if (getClientError) {
-      if (location.pathname.includes("clientprofile")) {
-        if (!window.location.hash) {
-          window.location = window.location + "#";
-          window.location.reload();
-        }
-      }
-    }
-  }, [getClientError, location.pathname]);
 
   useEffect(() => {
     if (!splashScreenComplete) {
@@ -214,6 +201,8 @@ const AccountRouter = React.forwardRef((props, ref) => {
           render={() => (
             <UpcomingAppointments
               upcomingAppointmentsData={data}
+              getOwnAppointments={getOwnAppointments}
+              upcomingAppointmentsCalled={called}
               refetch={refetch}
               loadingAppointments={loadingAppointments}
               initialScreenSize={initialScreenSize}

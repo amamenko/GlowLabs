@@ -99,8 +99,8 @@ const registerClientMutation = {
     } else {
       client = new Client({
         _id: new mongoose.Types.ObjectId(),
-        firstName: args.firstName,
-        lastName: args.lastName,
+        firstName: args.firstName.trim(),
+        lastName: args.lastName.trim(),
         email: args.email,
         phoneNumber: args.phoneNumber,
         // Password is hashed

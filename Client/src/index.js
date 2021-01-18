@@ -1529,10 +1529,9 @@ const App = () => {
           color={"rgb(44, 44, 52)"}
           loading={loadingSpinnerActive}
         />
-        {adminLogoutAppLoading ||
-        appLoading ||
-        clientLogoutData ||
-        employeeLogoutData ? null : (
+        {loggingOut ||
+        location.pathname === "/account/login" ||
+        location.pathname === "/admin" ? null : (
           <div className="log_out_modal">
             <div className="log_out_modal_contents">
               <FontAwesomeIcon

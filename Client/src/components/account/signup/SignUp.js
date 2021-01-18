@@ -102,7 +102,7 @@ const SignUp = (props) => {
             <Redirect
               to={{
                 pathname: "/account/clientprofile/upcomingappointments",
-                state: { successful_sign_up: true },
+                state: { successful_auth: true },
               }}
             />
           );
@@ -115,7 +115,7 @@ const SignUp = (props) => {
             <Redirect
               to={{
                 pathname: "/account/clientprofile/upcomingappointments",
-                state: { successful_sign_up: true },
+                state: { successful_auth: true },
               }}
             />
           );

@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { Redirect, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -43,7 +49,8 @@ const UpcomingAppointments = (props) => {
     currentScreenSize,
     loadingAppointments,
     upcomingAppointmentsData,
-    location: propLocation,
+    upcomingAppointmentsCalled,
+    getOwnAppointments,
   } = props;
 
   const individualAppointmentRef = useRef(null);
@@ -128,16 +135,11 @@ const UpcomingAppointments = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (propLocation) {
-      if (propLocation.state) {
-        if (propLocation.state.successful_sign_up) {
-          window.location.reload();
-          refetch();
-        }
-      }
+  useMemo(() => {
+    if (!upcomingAppointmentsCalled) {
+      getOwnAppointments();
     }
-  }, [propLocation, refetch]);
+  }, [getOwnAppointments, upcomingAppointmentsCalled]);
 
   useEffect(() => {
     if (location.pathname) {

@@ -45,6 +45,22 @@ import "../../../../../components/treatments_pages/Page_2/NotSurePopUp/NotSurePo
 const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const {
+    upcomingAppointmentsData,
+    loadingSpinnerActive,
+    currentScreenSize,
+    initialScreenSize,
+    handleAppointmentToggled,
+    cancelAppointmentClicked,
+    logoutClicked,
+    appointmentToggled,
+    handleCancelAppointment,
+    handleAppointmentUntoggled,
+    renderSummaryCardAddOns,
+    renderSummaryCardTreatments,
+    loadingAppointments,
+  } = props;
+
+  const {
     individualAppointmentRef,
     selectedAppointmentBackRef,
     backToAppointmentsRef,
@@ -59,9 +75,9 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
 
   return (
     <>
-      {props.upcomingAppointmentsData ? (
-        props.upcomingAppointmentsData.own_appointments.length > 0 ? (
-          props.upcomingAppointmentsData.own_appointments.map((item, i) => {
+      {upcomingAppointmentsData ? (
+        upcomingAppointmentsData.own_appointments.length > 0 ? (
+          upcomingAppointmentsData.own_appointments.map((item, i) => {
             const event = {
               title: "Glow Labs Appointment",
               description:
@@ -128,13 +144,12 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
               <div
                 key={i}
                 className="my_individual_appointment_container"
-                onClick={(e) => props.handleAppointmentToggled(e, item)}
+                onClick={(e) => handleAppointmentToggled(e, item)}
                 ref={individualAppointmentRef}
               >
                 <Modal
                   isOpen={
-                    props.cancelAppointmentClicked &&
-                    props.appointmentToggled === item.id
+                    cancelAppointmentClicked && appointmentToggled === item.id
                   }
                   className="cancel_appointment_modal"
                   style={{
@@ -163,16 +178,15 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                 >
                   <BounceLoader
                     size={100}
-                    css={props.override}
+                    css={override}
                     color={"rgb(44, 44, 52)"}
-                    loading={props.loadingSpinnerActive}
+                    loading={loadingSpinnerActive}
                   />
                   <div
                     className="cancel_appointment_modal_content_container"
                     style={{
                       display:
-                        props.cancelAppointmentClicked &&
-                        !props.loadingSpinnerActive
+                        cancelAppointmentClicked && !loadingSpinnerActive
                           ? "flex"
                           : "none",
                     }}
@@ -189,7 +203,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                       <span className="logout_buttons_container">
                         <div
                           className="logout_button yes_cancel_appointment_button"
-                          onClick={() => props.handleCancelAppointment(item)}
+                          onClick={() => handleCancelAppointment(item)}
                         >
                           <p>YES, CANCEL</p>
                         </div>
@@ -230,11 +244,11 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                           .split(" ").length - 2
                       )
                       .join(" ") + ", "}
-                    {!props.currentScreenSize ? (
-                      props.initialScreenSize >= 1200 ? (
+                    {!currentScreenSize ? (
+                      initialScreenSize >= 1200 ? (
                         <br />
                       ) : null
-                    ) : props.currentScreenSize >= 1200 ? (
+                    ) : currentScreenSize >= 1200 ? (
                       <br />
                     ) : null}
                     {item.startTime +
@@ -286,14 +300,14 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
 
                 <FontAwesomeIcon
                   style={{
-                    zIndex: props.cancelAppointmentClicked
+                    zIndex: cancelAppointmentClicked
                       ? -1
-                      : props.logoutClicked || props.appointmentToggled
+                      : logoutClicked || appointmentToggled
                       ? 0
                       : 1,
-                    transitionDelay: props.logoutClicked
+                    transitionDelay: logoutClicked
                       ? "initial"
-                      : !props.appointmentToggled
+                      : !appointmentToggled
                       ? "0.5s"
                       : "initial",
                   }}
@@ -301,7 +315,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                   className="my_individual_appointment_expand_icon"
                 />
                 <Transition
-                  items={props.appointmentToggled}
+                  items={appointmentToggled}
                   from={{ transform: "translateX(-100%)" }}
                   enter={{ transform: "translateX(0%)" }}
                   leave={{ transform: "translateX(-100%)" }}
@@ -314,14 +328,14 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                         className="my_individual_selected_appointment_container"
                         style={{
                           ...styleprops,
-                          ...{ zIndex: props.cancelAppointmentClicked ? 0 : 1 },
+                          ...{ zIndex: cancelAppointmentClicked ? 0 : 1 },
                         }}
                       >
                         <div className="my_individual_selected_appointment_contents_container">
                           <div
                             className="my_individual_selected_appointment_back_container"
                             ref={selectedAppointmentBackRef}
-                            onClick={(e) => props.handleAppointmentUntoggled(e)}
+                            onClick={(e) => handleAppointmentUntoggled(e)}
                           >
                             <FontAwesomeIcon
                               icon={faLongArrowAltLeft}
@@ -403,17 +417,17 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                                 : null}
                             </p>
                           </div>
-                          {props.renderSummaryCardTreatments(i)}
-                          {props.upcomingAppointmentsData ? (
-                            props.upcomingAppointmentsData.own_appointments ? (
-                              props.upcomingAppointmentsData.own_appointments[i]
+                          {renderSummaryCardTreatments(i)}
+                          {upcomingAppointmentsData ? (
+                            upcomingAppointmentsData.own_appointments ? (
+                              upcomingAppointmentsData.own_appointments[i]
                                 .addOns.length === 0 ? null : (
                                 <>
                                   <div className="selected_appointment_add_ons_header">
                                     <p>
                                       Add On
-                                      {props.upcomingAppointmentsData
-                                        ? props.upcomingAppointmentsData
+                                      {upcomingAppointmentsData
+                                        ? upcomingAppointmentsData
                                             .own_appointments[i].addOns.length >
                                           1
                                           ? "s"
@@ -421,7 +435,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                                         : null}
                                     </p>
                                   </div>
-                                  {props.renderSummaryCardAddOns(i)}
+                                  {renderSummaryCardAddOns(i)}
                                 </>
                               )
                             ) : null
@@ -442,9 +456,7 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                             <div
                               className="back_to_all_appointments_button"
                               ref={backToAppointmentsRef}
-                              onClick={(e) =>
-                                props.handleAppointmentUntoggled(e)
-                              }
+                              onClick={(e) => handleAppointmentUntoggled(e)}
                             >
                               <p>Back to Appointments</p>
                             </div>
@@ -470,13 +482,13 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
             </p>
           </div>
         )
-      ) : props.loadingAppointments ? (
+      ) : loadingAppointments ? (
         <div className="my_upcoming_appointments_empty_container">
           <ClipLoader
             size={100}
             css={override}
             color={"rgb(44, 44, 52)"}
-            loading={props.loadingAppointments}
+            loading={loadingAppointments}
           />
         </div>
       ) : (

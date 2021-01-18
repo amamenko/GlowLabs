@@ -14,8 +14,8 @@ const addClientMutation = {
   },
   resolve(parent, args) {
     let client = new Client({
-      firstName: args.firstName,
-      lastName: args.lastName,
+      firstName: args.firstName.trim(),
+      lastName: args.lastName.trim(),
       email: args.email,
       phoneNumber: args.phoneNumber,
     });
