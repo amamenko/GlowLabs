@@ -12,10 +12,11 @@ import {
 import Modal from "react-modal";
 import BounceLoader from "react-spinners/BounceLoader";
 import ClipLoader from "react-spinners/ClipLoader";
-import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
-import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
+import { Transition } from "react-spring/renderprops";
 import { useDispatch } from "react-redux";
 import { css } from "@emotion/css";
+import ACTION_CANCEL_APPOINTMENT_CLICKED_RESET from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED_RESET";
+import ACTION_CANCEL_APPOINTMENT_CLICKED from "../../../../../actions/CancelAppointmentClicked/ACTION_CANCEL_APPOINTMENT_CLICKED";
 import "../../../../../components/checkout/SummaryReviewCards/SummaryReviewCards.css";
 import "../../../../../components/treatments/Bacial/Bacial.css";
 import "../../../../../components/treatments/Calm/Calm.css";
