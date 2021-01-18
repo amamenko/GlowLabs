@@ -131,6 +131,7 @@ const UpcomingAppointments = (props) => {
     if (location) {
       if (location.state) {
         if (location.state.successful_sign_up) {
+          window.location.reload();
           refetch();
         }
       }

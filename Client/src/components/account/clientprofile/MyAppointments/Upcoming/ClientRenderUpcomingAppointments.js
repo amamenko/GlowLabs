@@ -1,6 +1,5 @@
 import React from "react";
 import moment from "moment";
-import { Transition } from "react-spring/renderprops";
 import AddToCalendar from "react-add-to-calendar";
 import "react-add-to-calendar/dist/react-add-to-calendar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -167,60 +166,43 @@ const ClientRenderUpcomingAppointments = React.forwardRef((props, ref) => {
                     color={"rgb(44, 44, 52)"}
                     loading={props.loadingSpinnerActive}
                   />
-                  <Transition
-                    items={
-                      props.cancelAppointmentClicked &&
-                      !props.loadingSpinnerActive
-                    }
-                    from={{ transform: "translate3d(0, -65%, 0)" }}
-                    enter={{ transform: "translate3d(0, 0, 0)" }}
-                    leave={{ display: "none" }}
+                  <div
+                    className="cancel_appointment_modal_content_container"
+                    style={{
+                      display:
+                        props.cancelAppointmentClicked &&
+                        !props.loadingSpinnerActive
+                          ? "flex"
+                          : "none",
+                    }}
                   >
-                    {(cancelAppointmentClicked) =>
-                      cancelAppointmentClicked &&
-                      ((styleprops) => (
+                    <div className="log_out_modal_contents">
+                      <FontAwesomeIcon
+                        className="modal_x"
+                        icon={faTimes}
+                        onClick={() =>
+                          dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET())
+                        }
+                      />
+                      <h2>Are you sure you want to cancel your appointment?</h2>
+                      <span className="logout_buttons_container">
                         <div
-                          className="cancel_appointment_modal_content_container"
-                          style={styleprops}
+                          className="logout_button yes_cancel_appointment_button"
+                          onClick={() => props.handleCancelAppointment(item)}
                         >
-                          <div className="log_out_modal_contents">
-                            <FontAwesomeIcon
-                              className="modal_x"
-                              icon={faTimes}
-                              onClick={() =>
-                                dispatch(
-                                  ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
-                                )
-                              }
-                            />
-                            <h2>
-                              Are you sure you want to cancel your appointment?
-                            </h2>
-                            <span className="logout_buttons_container">
-                              <div
-                                className="logout_button yes_cancel_appointment_button"
-                                onClick={() =>
-                                  props.handleCancelAppointment(item)
-                                }
-                              >
-                                <p>YES, CANCEL</p>
-                              </div>
-                              <div
-                                className="cancel_logout_button no_dont_cancel_appointment_button"
-                                onClick={() =>
-                                  dispatch(
-                                    ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
-                                  )
-                                }
-                              >
-                                <p>NO, GO BACK</p>
-                              </div>
-                            </span>
-                          </div>
+                          <p>YES, CANCEL</p>
                         </div>
-                      ))
-                    }
-                  </Transition>
+                        <div
+                          className="cancel_logout_button no_dont_cancel_appointment_button"
+                          onClick={() =>
+                            dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET())
+                          }
+                        >
+                          <p>NO, GO BACK</p>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
                 </Modal>
                 <div className="my_appointment_date_square">
                   <p>
