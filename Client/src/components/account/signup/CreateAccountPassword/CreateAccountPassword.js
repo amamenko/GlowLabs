@@ -56,6 +56,7 @@ const CreateAccountPassword = () => {
         name="createAccountPassword"
         defaultValue={createAccountPassword}
         maxLength={128}
+        autoFocus
         placeholder="Password"
         className="input_field_sign_up"
         onChange={passwordTyping}

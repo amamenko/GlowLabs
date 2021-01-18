@@ -11,7 +11,7 @@ import ACTION_CREATE_ACCOUNT_PHONE_NUMBER from "../../../../actions/CreateAccoun
 import ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET from "../../../../actions/CreateAccount/CreateAccountPhoneNumber/ACTION_CREATE_ACCOUNT_PHONE_NUMBER_RESET";
 import "../SignUp.css";
 
-const PhoneNumber = () => {
+const PhoneNumber = (props) => {
   const dispatch = useDispatch();
   // Phone Number States
   const createAccountPhoneNumber = useSelector(
@@ -28,6 +28,15 @@ const PhoneNumber = () => {
   const facebookCompleteRegistration = useSelector(
     (state) =>
       state.facebookCompleteRegistration.facebook_complete_registration_active
+  );
+  const createAccountFirstName = useSelector(
+    (state) => state.createAccountFirstName.create_account_first_name
+  );
+  const createAccountLastName = useSelector(
+    (state) => state.createAccountLastName.create_account_last_name
+  );
+  const createAccountEmailValid = useSelector(
+    (state) => state.createAccountEmailValid.create_account_email_valid
   );
 
   const [
@@ -208,19 +217,6 @@ const PhoneNumber = () => {
     e.currentTarget.value = currentTyping;
   };
 
-  const phoneNumberKeyTyping = (e) => {
-    if (
-      (e.keyCode >= 8 && e.keyCode < 32) ||
-      (e.keyCode >= 37 && e.keyCode <= 40) ||
-      (e.keyCode >= 96 && e.keyCode <= 105) ||
-      (e.keyCode >= 48 && e.keyCode <= 57)
-    ) {
-      return e.keyCode;
-    } else {
-      e.preventDefault();
-    }
-  };
-
   return (
     <FormGroup className="sign_up_individual_form_field">
       <Label for="createAccountPhoneNumber">
@@ -235,12 +231,23 @@ const PhoneNumber = () => {
         type="tel"
         name="createAccountPhoneNumber"
         maxLength={16}
-        onKeyDown={phoneNumberKeyTyping}
         defaultValue={createAccountPhoneNumber}
         placeholder="Phone number"
         onBlur={handlePhoneNumber}
         onChange={phoneNumberTyping}
         className="input_field_sign_up"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            if (
+              createAccountFirstName &&
+              createAccountLastName &&
+              createAccountEmailValid &&
+              createAccountPhoneNumberValid
+            ) {
+              props.changeCreateAccountStepTwoTriggered(true);
+            }
+          }
+        }}
         invalid={
           createAccountPhoneNumber === ""
             ? false

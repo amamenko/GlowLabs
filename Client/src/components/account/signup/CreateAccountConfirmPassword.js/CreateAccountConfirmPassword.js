@@ -47,8 +47,14 @@ const CreateAccountConfirmPassword = () => {
     );
   };
 
-  const confirmPasswordTyping = () => {
+  const confirmPasswordTyping = (e) => {
     dispatch(ACTION_CREATE_ACCOUNT_CONFIRM_PASSWORD_RESET());
+
+    if (e.target.value === createAccountPassword) {
+      ACTION_CREATE_ACCOUNT_CONFIRM_PASSWORD(e.target.value);
+      dispatch(ACTION_CREATE_ACCOUNT_CONFIRM_PASSWORD_NOT_INVALID());
+      dispatch(ACTION_CREATE_ACCOUNT_CONFIRM_PASSWORD_VALID());
+    }
   };
 
   return (

@@ -271,7 +271,11 @@ const SignUp = (props) => {
                 />
               </FormGroup>
               <CreateAccountEmail />
-              <CreateAccountPhoneNumber />{" "}
+              <CreateAccountPhoneNumber
+                changeCreateAccountStepTwoTriggered={
+                  changeCreateAccountStepTwoTriggered
+                }
+              />{" "}
             </>
           ) : (
             <div className="sign_up_password_form_container">

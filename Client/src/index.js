@@ -1529,39 +1529,27 @@ const App = () => {
           color={"rgb(44, 44, 52)"}
           loading={loadingSpinnerActive}
         />
-        <Transition
-          items={logoutClicked && !loadingSpinnerActive}
-          from={{ transform: "translate3d(0, -65%, 0)" }}
-          enter={{ transform: "translate3d(0, 0, 0)" }}
-          leave={{ display: "none" }}
-        >
-          {(logoutClicked) =>
-            logoutClicked &&
-            ((props) => (
-              <div className="log_out_modal" style={props}>
-                <div className="log_out_modal_contents">
-                  <FontAwesomeIcon
-                    className="modal_x"
-                    icon={faTimes}
-                    onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
-                  />
-                  <h2>Are you sure you want to log out?</h2>
-                  <span className="logout_buttons_container">
-                    <div className="logout_button" onClick={handleLogout}>
-                      <p>LOG OUT</p>
-                    </div>
-                    <div
-                      className="cancel_logout_button"
-                      onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
-                    >
-                      <p>CANCEL</p>
-                    </div>
-                  </span>
-                </div>
+        <div className="log_out_modal">
+          <div className="log_out_modal_contents">
+            <FontAwesomeIcon
+              className="modal_x"
+              icon={faTimes}
+              onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
+            />
+            <h2>Are you sure you want to log out?</h2>
+            <span className="logout_buttons_container">
+              <div className="logout_button" onClick={handleLogout}>
+                <p>LOG OUT</p>
               </div>
-            ))
-          }
-        </Transition>
+              <div
+                className="cancel_logout_button"
+                onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
+              >
+                <p>CANCEL</p>
+              </div>
+            </span>
+          </div>
+        </div>
       </Modal>
       <Spring
         from={{
