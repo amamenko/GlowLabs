@@ -24,11 +24,6 @@ import DermarollingSummaryCard from "../../../../checkout/SummaryReviewCards/Add
 import NanoNeedlingSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from "body-scroll-lock";
 import UnsureSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/UnsureSummaryCard";
 import ClientRenderPastAppointments from "../Past/ClientRenderPastAppointments";
 import SaltCaveSummaryCard from "../../../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
@@ -57,28 +52,6 @@ const PastAppointments = (props) => {
   );
   const pdfLoading = useSelector((state) => state.pdfLoading.pdf_loading);
   const [appointmentToggled, changeAppointmentToggled] = useState("");
-
-  useEffect(() => {
-    const checkModalRef = setInterval(() => {
-      let currentRef;
-
-      if (selectedAppointmentBackRef) {
-        currentRef = selectedAppointmentBackRef.current;
-      }
-
-      if (currentRef) {
-        if (appointmentToggled) {
-          disableBodyScroll({ targetElement: currentRef });
-        } else {
-          enableBodyScroll({ targetElement: currentRef });
-        }
-      }
-    }, 100);
-    return () => {
-      clearInterval(checkModalRef);
-      clearAllBodyScrollLocks();
-    };
-  }, [appointmentToggled]);
 
   useEffect(() => {
     if (!splashScreenComplete) {

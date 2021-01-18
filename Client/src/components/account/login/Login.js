@@ -248,11 +248,6 @@ const Login = (props) => {
               transition: "background 0.5s ease, color 0.5s ease",
             }}
             onClick={handleLoginClick}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleLoginClick();
-              }
-            }}
           >
             <p>Log In</p>
           </Link>

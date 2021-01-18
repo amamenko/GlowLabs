@@ -46,6 +46,7 @@ import BounceLoader from "react-spinners/BounceLoader";
 import { isAndroid } from "react-device-detect";
 import { scroller } from "react-scroll";
 import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
+import CookieBanner from "react-cookie-banner";
 import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
@@ -164,7 +165,6 @@ const ContactUs = React.lazy(() => import("./components/contact_us/ContactUs"));
 const AllAddOns = React.lazy(() =>
   import("./components/all_add_ons/AllAddOns")
 );
-const CookieBanner = React.lazy(() => import("react-cookie-banner"));
 
 require("dotenv").config();
 require("intersection-observer");
@@ -1668,7 +1668,29 @@ const App = () => {
           </header>
         )}
       </Spring>
-
+      {(location.pathname === "/" ||
+        location.pathname.includes("privacy") ||
+        location.pathname.includes("termsandconditions")) &&
+      !cartIsActive &&
+      !guestConsentFormAccessToken &&
+      !adminDummyToken &&
+      !dummyToken &&
+      !adminTemporaryDummyToken ? (
+        <CookieBanner
+          link={
+            <p>
+              By using this website, you agree to our{" "}
+              <Link to="/privacy">Privacy Policy</Link>,{" "}
+              <Link to="/termsandconditions">Terms and Conditions</Link>, and
+              use of cookies. We use cookies to provide you with a personalized
+              experience.
+            </p>
+          }
+          cookie="user-has-accepted-cookies"
+          dismissOnScroll={false}
+          onAccept={() => changeCookieBannerVisible(false)}
+        />
+      ) : null}
       {renderSlideInShoppingCartContainer(largeScreenShoppingCartRender())}
 
       <Switch>
@@ -1682,33 +1704,6 @@ const App = () => {
               id="main_container_element"
             >
               {redirectToCartRoutes()}
-              {(location.pathname === "/" ||
-                location.pathname.includes("privacy") ||
-                location.pathname.includes("termsandconditions")) &&
-              !cartIsActive &&
-              !guestConsentFormAccessToken &&
-              !adminDummyToken &&
-              !dummyToken &&
-              !adminTemporaryDummyToken ? (
-                <Suspense fallback={renderAuthFallbackLoader()}>
-                  <CookieBanner
-                    link={
-                      <p>
-                        By using this website, you agree to our{" "}
-                        <Link to="/privacy">Privacy Policy</Link>,{" "}
-                        <Link to="/termsandconditions">
-                          Terms and Conditions
-                        </Link>
-                        , and use of cookies. We use cookies to provide you with
-                        a personalized experience.
-                      </p>
-                    }
-                    cookie="user-has-accepted-cookies"
-                    dismissOnScroll={false}
-                    onAccept={() => changeCookieBannerVisible(false)}
-                  />
-                </Suspense>
-              ) : null}
               <Suspense fallback={renderAuthFallbackLoader()}>
                 <LandingPage
                   currentScreenSize={currentScreenSize}

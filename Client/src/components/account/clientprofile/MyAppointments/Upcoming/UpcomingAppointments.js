@@ -23,11 +23,6 @@ import DermarollingSummaryCard from "../../../../checkout/SummaryReviewCards/Add
 import NanoNeedlingSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/NanoNeedlingSummaryCard";
 import GuaShaSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/GuaShaSummaryCard";
 import BeardSummaryCard from "../../../../checkout/SummaryReviewCards/AddOns/BeardSummaryCard";
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from "body-scroll-lock";
 import { css } from "@emotion/css";
 import { useMutation } from "@apollo/react-hooks";
 import deleteAppointmentMutation from "../../../../../graphql/mutations/deleteAppointmentMutation";
@@ -116,28 +111,6 @@ const UpcomingAppointments = (props) => {
       changeLoadingSpinnerActive(true);
     }
   }, [loading, deleteAppointmentData]);
-
-  useEffect(() => {
-    const checkModalRef = setInterval(() => {
-      let currentRef;
-
-      if (selectedAppointmentBackRef) {
-        currentRef = selectedAppointmentBackRef.current;
-      }
-
-      if (currentRef) {
-        if (appointmentToggled) {
-          disableBodyScroll({ targetElement: currentRef });
-        } else {
-          enableBodyScroll({ targetElement: currentRef });
-        }
-      }
-    }, 100);
-    return () => {
-      clearInterval(checkModalRef);
-      clearAllBodyScrollLocks();
-    };
-  }, [appointmentToggled]);
 
   useEffect(() => {
     if (!splashScreenComplete) {
