@@ -87,6 +87,13 @@ const registerClientMutation = {
 
     const res = await client.save();
 
+    context.res.clearCookie("guest-consent-form-access-token", {
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.PRODUCTION_CLIENT_ROOT
+          : "localhost",
+    });
+
     const generateDummyToken = (res) => {
       const token = jwt.sign(
         {

@@ -43,6 +43,7 @@ const UpcomingAppointments = (props) => {
     currentScreenSize,
     loadingAppointments,
     upcomingAppointmentsData,
+    location: propLocation,
   } = props;
 
   const individualAppointmentRef = useRef(null);
@@ -128,15 +129,15 @@ const UpcomingAppointments = (props) => {
   };
 
   useEffect(() => {
-    if (location) {
-      if (location.state) {
-        if (location.state.successful_sign_up) {
+    if (propLocation) {
+      if (propLocation.state) {
+        if (propLocation.state.successful_sign_up) {
           window.location.reload();
           refetch();
         }
       }
     }
-  }, [location, refetch]);
+  }, [propLocation, refetch]);
 
   useEffect(() => {
     if (location.pathname) {
