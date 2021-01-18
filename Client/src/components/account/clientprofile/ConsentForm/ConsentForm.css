@@ -227,8 +227,19 @@
 .modal_consent_form_icon_container {
   position: relative;
   width: 100%;
-  height: 5%;
-  padding-bottom: 24%;
+  height: 20%;
+}
+
+.modal_consent_form_check_icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  color: rgb(44, 44, 52);
 }
 
 .modal_consent_form_checkmark {
