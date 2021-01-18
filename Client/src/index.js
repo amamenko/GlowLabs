@@ -1529,27 +1529,32 @@ const App = () => {
           color={"rgb(44, 44, 52)"}
           loading={loadingSpinnerActive}
         />
-        <div className="log_out_modal">
-          <div className="log_out_modal_contents">
-            <FontAwesomeIcon
-              className="modal_x"
-              icon={faTimes}
-              onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
-            />
-            <h2>Are you sure you want to log out?</h2>
-            <span className="logout_buttons_container">
-              <div className="logout_button" onClick={handleLogout}>
-                <p>LOG OUT</p>
-              </div>
-              <div
-                className="cancel_logout_button"
+        {adminLogoutAppLoading ||
+        appLoading ||
+        clientLogoutData ||
+        employeeLogoutData ? null : (
+          <div className="log_out_modal">
+            <div className="log_out_modal_contents">
+              <FontAwesomeIcon
+                className="modal_x"
+                icon={faTimes}
                 onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
-              >
-                <p>CANCEL</p>
-              </div>
-            </span>
+              />
+              <h2>Are you sure you want to log out?</h2>
+              <span className="logout_buttons_container">
+                <div className="logout_button" onClick={handleLogout}>
+                  <p>LOG OUT</p>
+                </div>
+                <div
+                  className="cancel_logout_button"
+                  onClick={() => dispatch(ACTION_LOG_OUT_CLICKED_RESET())}
+                >
+                  <p>CANCEL</p>
+                </div>
+              </span>
+            </div>
           </div>
-        </div>
+        )}
       </Modal>
       <Spring
         from={{

@@ -70,22 +70,50 @@ const registerClientMutation = {
       throw new UserInputError("Registration error.", { errors });
     }
 
-    let client = new Client({
-      _id: new mongoose.Types.ObjectId(),
-      firstName: args.firstName,
-      lastName: args.lastName,
-      email: args.email,
-      phoneNumber: args.phoneNumber,
-      // Password is hashed
-      password: await bcrypt
-        .hash(args.password, 12)
-        .then((hash) => (args.password = hash))
-        .catch((err) => {
-          throw err;
-        }),
-    });
+    let res = "";
+    let client = "";
 
-    const res = await client.save();
+    if (
+      clientEmailMatch &&
+      (!clientPhoneMatch.password || !clientPhoneMatch.tokenCount)
+    ) {
+      client = await Client.findOneAndUpdate(
+        {
+          email: args.email,
+        },
+        {
+          // Password is hashed
+          password: await bcrypt
+            .hash(args.password, 12)
+            .then((hash) => (args.password = hash))
+            .catch((err) => {
+              throw err;
+            }),
+        },
+        {
+          new: true,
+        }
+      );
+
+      res = await client.save();
+    } else {
+      client = new Client({
+        _id: new mongoose.Types.ObjectId(),
+        firstName: args.firstName,
+        lastName: args.lastName,
+        email: args.email,
+        phoneNumber: args.phoneNumber,
+        // Password is hashed
+        password: await bcrypt
+          .hash(args.password, 12)
+          .then((hash) => (args.password = hash))
+          .catch((err) => {
+            throw err;
+          }),
+      });
+
+      res = await client.save();
+    }
 
     context.res.clearCookie("guest-consent-form-access-token", {
       domain:
