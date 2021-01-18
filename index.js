@@ -1483,8 +1483,6 @@ app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
 server.applyMiddleware({
   app,
-  path: "/",
-  cors: false,
 });
 
 app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
