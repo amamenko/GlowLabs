@@ -10,8 +10,7 @@ const createNotificationFunction = require("./notifications/createNotificationFu
 
 const { GraphQLID } = graphql;
 
-// Google Resource Name
-const UPDATED_EMPLOYEE = `projects/${process.env.GOOGLE_PUB_SUB_PROJECT_ID}/subscriptions/getUpdatedEmployee`;
+const UPDATED_EMPLOYEE = "getUpdatedEmployee";
 
 const deleteClientMutation = {
   type: ClientType,
