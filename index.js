@@ -563,10 +563,10 @@ const googlePubSubOptions = {
   projectId: process.env.GOOGLE_PUB_SUB_PROJECT_ID,
   credentials: {
     client_email: process.env.GOOGLE_PUB_SUB_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PUB_SUB_PRIVATE_KEY.replace(
-      new RegExp("\\\\n", "g"),
-      "\n"
-    ),
+    private_key: (
+      process.env.GOOGLE_PUB_SUB_PRIVATE_KEY_PART_ONE +
+      process.env.GOOGLE_PUB_SUB_PRIVATE_KEY_PART_TWO
+    ).replace(new RegExp("\\\\n", "g"), "\n"),
   },
 };
 
