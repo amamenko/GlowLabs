@@ -327,6 +327,7 @@
   align-items: center;
   justify-content: center;
   background: rgb(244, 239, 243);
+  overflow: hidden;
 }
 
 .admin_individual_client_add_photo_modal_buttons_container {

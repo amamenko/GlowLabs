@@ -5,6 +5,7 @@ const expressPlayground = require("graphql-playground-middleware-express")
   .default;
 const { ApolloServer } = require("apollo-server-express");
 const { PubSub } = require("apollo-server");
+const { GooglePubSub } = require("@axelspringer/graphql-google-pubsub");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -558,12 +559,30 @@ app.use(async (req, res, next) => {
   return next();
 });
 
-const pubsub = new PubSub();
+const googlePubSubOptions = {
+  projectId: process.env.GOOGLE_PUB_SUB_PROJECT_ID,
+  credentials: {
+    client_email: process.env.GOOGLE_PUB_SUB_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PUB_SUB_PRIVATE_KEY.replace(
+      new RegExp("\\\\n", "g"),
+      "\n"
+    ),
+  },
+};
+
+const pubsub =
+  process.env.NODE_ENV === "production"
+    ? new GooglePubSub(googlePubSubOptions)
+    : new PubSub();
 
 const server = new ApolloServer({
   schema,
-  context: ({ req, res }) => {
-    req, res, pubsub;
+  context: async ({ req, res }) => {
+    return {
+      req,
+      res,
+      pubsub,
+    };
   },
   playground: process.env.NODE_ENV === "production" ? false : true,
 });

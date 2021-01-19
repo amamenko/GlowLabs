@@ -172,10 +172,7 @@ const AdminStaff = (props) => {
 
           if (!employeeNameToggled) {
             changeEmployeeNameToggled(
-              selectedEmployee.firstName +
-                " " +
-                selectedEmployee.lastName[0] +
-                "."
+              selectedEmployee.firstName + " " + selectedEmployee.lastName
             );
           }
         }

@@ -508,6 +508,24 @@ const AdminRenderUpcomingAppointments = (props) => {
                               <p>Back to Upcoming Appointments</p>
                             </div>
                             <div className="selected_appointment_date_and_time_header">
+                              <p>Client Information</p>
+                            </div>
+                            <div className="selected_appointment_date_and_time_content_container">
+                              <div className="selected_appointment_date_and_time_content">
+                                <p>
+                                  {item.client.firstName[0].toUpperCase() +
+                                    item.client.firstName
+                                      .slice(1)
+                                      .toLowerCase() +
+                                    " " +
+                                    item.client.lastName[0].toUpperCase() +
+                                    item.client.lastName.slice(1).toLowerCase()}
+                                </p>
+                                <p>{item.client.phoneNumber}</p>
+                                <p>{item.client.email}</p>
+                              </div>
+                            </div>
+                            <div className="selected_appointment_date_and_time_header">
                               <p>Appointment Date &amp; Time</p>
                             </div>
                             <div className="selected_appointment_date_and_time_content_container">

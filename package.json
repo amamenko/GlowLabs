@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@axelspringer/graphql-google-pubsub": "^2.1.0",
     "@babel/polyfill": "^7.12.1",
     "apollo-server": "^2.15.1",
     "apollo-server-express": "^2.15.1",

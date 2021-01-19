@@ -175,7 +175,6 @@ const AdminPaymentInfo = (props) => {
     adminClientEmail,
     adminClientPhoneNumber,
     getClientsData,
-    getClientsData.clients,
   ]);
 
   const retrieveSquareCustomerFunction = useCallback(async () => {

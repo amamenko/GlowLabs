@@ -13,7 +13,8 @@ const { GraphQLString, GraphQLBoolean, GraphQLNonNull } = graphql;
 // Hide usernames and passwords
 require("dotenv").config();
 
-const UPDATED_EMPLOYEE = "getUpdatedEmployee";
+// Google Resource Name
+const UPDATED_EMPLOYEE = `projects/${process.env.GOOGLE_PUB_SUB_PROJECT_ID}/subscriptions/getUpdatedEmployee`;
 
 const updateConsentFormMutation = {
   type: ConsentFormType,

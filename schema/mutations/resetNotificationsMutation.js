@@ -3,7 +3,11 @@ const Employee = require("../../models/employee");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
 
-const UPDATED_EMPLOYEE = "getUpdatedEmployee";
+// Hide usernames and passwords
+require("dotenv").config();
+
+// Google Resource Name
+const UPDATED_EMPLOYEE = `projects/${process.env.GOOGLE_PUB_SUB_PROJECT_ID}/subscriptions/getUpdatedEmployee`;
 
 const resetNotificationsMutation = {
   type: EmployeeType,
