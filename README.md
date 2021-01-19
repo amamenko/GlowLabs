@@ -72,7 +72,7 @@ This is a MERN (MongoDB, Express, React, Node.js) stack application that uses [R
 * Download PDF copies of their latest consent forms via [React-PDF](https://www.npmjs.com/package/react-pdf).
 
 <strong>Authenticated staff members are able to:</strong>
-* Receive real-time relevant activity updates such as new bookings or cancellations in their employee dashboard via GraphQL [subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/).
+* Receive real-time relevant activity updates such as new bookings or cancellations in their employee dashboard via GraphQL [subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) powered by [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/overview).
 * View all clients and staff members and each individual's upcoming and past appointments, as well as PDF copies of client consent forms, if present.
 * Update client and their own profile photos by uploading a photo or taking a photo with a [webcam](https://github.com/MABelanger/react-html5-camera-photo).
 * Add, delete, or update appointments and personal events in their own calendar.
@@ -101,32 +101,33 @@ You will need to have the following software installed:
 ### Installation
 
 1. Create a [Google Maps Platform](https://developers.google.com/maps/gmp-get-started) billing account, create a project, enable the Google Maps API, and get an [API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
-2. Create a new [Square Developer](https://squareup.com/signup?country_code=us&v=developers) account, create a new application, and get its Sandbox credentials.
-3. Create a [Twilio](https://www.twilio.com/try-twilio) account and get its account SID and authorization token.
-4. Create a [Facebook for Developers](https://developers.facebook.com/) account, register a new application, and get its ID and secret.
-5. Create a [MongoDB](https://account.mongodb.com/account/register) account, create a new database, and get its connection string to connect to [Mongoose](https://mongoosejs.com/docs/).
-6. Clone the Github repository.
+2. Enable the [Google Pub/Sub API](https://cloud.google.com/pubsub) for that same project, add a new topic with a name of your  choosing, and then add a new subscription with the name "getUpdatedEmployee." Leave the delivery type as "Pull."
+3. Create a new [Square Developer](https://squareup.com/signup?country_code=us&v=developers) account, create a new application, and get its Sandbox credentials.
+4. Create a [Twilio](https://www.twilio.com/try-twilio) account and get its account SID and authorization token.
+5. Create a [Facebook for Developers](https://developers.facebook.com/) account, register a new application, and get its ID and secret.
+6. Create a [MongoDB](https://account.mongodb.com/account/register) account, create a new database, and get its connection string to connect to [Mongoose](https://mongoosejs.com/docs/).
+7. Clone the Github repository.
    ```sh
    git clone https://github.com/amamenko/GlowLabs.git
    ```
-7. Install all client-side NPM packages.
+8. Install all client-side NPM packages.
    ```sh
    cd Client
    npm install
    ```
-8. Enter your Google Maps API token and Square Sandbox application details as client-side environment variables.
+9. Enter your Google Maps API token and Square Sandbox application details as client-side environment variables.
    ```sh
    REACT_APP_GOOGLE_MAPS_API_KEY=YOUR GOOGLE MAPS API KEY
    REACT_APP_SQUARE_SANDBOX_APPLICATION_ID=YOUR SQUARE SANDBOX APPLICATION ID
    REACT_APP_SQUARE_SANDBOX_LOCATION_ID=YOUR SQUARE SANDBOX LOCATION ID
    REACT_APP_SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
    ```
-9. Install all server-side NPM packages.
-   ```sh
-   cd ..
-   npm install
-   ```
-10. Enter your Square Sandbox, Twilio, Facebook for Developers, and MongoDB credentials as server-side environment variables. Also enter your own Nodemailer email/password combinations and JSON Web Token secret keys as environment variables.
+10. Install all server-side NPM packages.
+     ```sh
+     cd ..
+     npm install
+     ```
+11. Enter your Square Sandbox, Twilio, Facebook for Developers, Google Cloud, and MongoDB credentials as server-side environment variables. Also enter your own Nodemailer email/password combinations and JSON Web Token secret keys as environment variables.
     ```sh
      SQUARE_SANDBOX_ACCESS_TOKEN=YOUR SQUARE SANDBOX ACCESS TOKEN
      TWILIO_ACCOUNT_SID=YOUR TWILIO ACCOUNT SID
@@ -140,10 +141,14 @@ You will need to have the following software installed:
      JWT_SECRET_KEY_REFRESH=YOUR REFRESH JWT KEY
      MONGO_DB_USERNAME=YOUR MONGODB USERNAME
      MONGO_DB_PASSWORD=YOUR MONGODB PASSWORD
+     GOOGLE_PUB_SUB_PROJECT_ID=YOUR GOOGLE CLOUD PUB/SUB PROJECT ID
+     GOOGLE_PUB_SUB_CLIENT_EMAIL=YOUR GOOGLE CLOUD PUB/SUB CLIENT EMAIL
+     GOOGLE_PUB_SUB_PRIVATE_KEY_PART_ONE=PART ONE OF YOUR GOOGLE CLOUD PUB/SUB PRIVATE KEY
+     GOOGLE_PUB_SUB_PRIVATE_KEY_PART_TWO=PART TWO OF YOUR GOOGLE CLOUD PUB/SUB PRIVATE KEY
      GLOW_LABS_EMAIL=YOUR EMAIL
      GLOW_LABS_EMAIL_APP_PASSWORD=YOUR EMAIL PASSWORD
     ```
-11. Build for production.
+12. Build for production.
     ```sh
     npm run build
     ```
