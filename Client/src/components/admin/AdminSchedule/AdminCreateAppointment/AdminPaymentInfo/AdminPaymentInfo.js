@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import {
   SquarePaymentForm,
   CreditCardNumberInput,
@@ -221,29 +221,25 @@ const AdminPaymentInfo = (props) => {
     }
   }, [bookedWithCardID, squareStoredCreditCards, selectedCreditCard]);
 
-  useEffect(() => {
-    if (!squareStoredCreditCards) {
-      if (selectedClient.length > 0) {
-        if (selectedClient[0].squareCustomerId) {
-          const fetchData = async () => {
-            const customerData = await retrieveSquareCustomerFunction();
+  const fetchData = useCallback(async () => {
+    const customerData = await retrieveSquareCustomerFunction();
 
-            changeSquareStoredCreditCards(customerData);
-          };
+    changeSquareStoredCreditCards(customerData);
+  }, [retrieveSquareCustomerFunction]);
 
-          fetchData();
-        } else {
-          changeSquareStoredCreditCards("");
-        }
+  useMemo(() => {
+    if (selectedClient.length > 0) {
+      if (selectedClient[0].squareCustomerId) {
+        fetchData();
+      } else {
+        changeSquareStoredCreditCards("");
       }
     } else {
-      if (squareStoredCreditCards) {
-        if (selectedClient.length === 0) {
-          changeSquareStoredCreditCards("");
-        }
+      if (selectedClient.length === 0) {
+        changeSquareStoredCreditCards("");
       }
     }
-  }, [retrieveSquareCustomerFunction, squareStoredCreditCards, selectedClient]);
+  }, [selectedClient, fetchData]);
 
   const renderStoredCreditCardOptions = () => {
     if (squareStoredCreditCards) {

@@ -57,7 +57,6 @@ const AdminCreateAppointment = (props) => {
     changeCreateAppointmentClicked,
     changePersonalEventClicked,
     getAllAppointmentsRefetch,
-    getNotificationsRefetch,
     allEmployeeOptions,
     getEmployeeData,
     renderLoggedInStaffName,
@@ -509,11 +508,19 @@ const AdminCreateAppointment = (props) => {
 
       changeSelectedTreatments(
         treatments.map((item) => {
-          return {
-            name: item.props.children[1].props.children,
-            duration: item.props.children[2].props.children,
-            price: item.props.children[3].props.children,
-          };
+          if (item.props.children.length === 4) {
+            return {
+              name: item.props.children[0].props.children,
+              duration: item.props.children[1].props.children,
+              price: item.props.children[2].props.children,
+            };
+          } else {
+            return {
+              name: item.props.children[1].props.children,
+              duration: item.props.children[2].props.children,
+              price: item.props.children[3].props.children,
+            };
+          }
         })
       );
 
@@ -539,23 +546,75 @@ const AdminCreateAppointment = (props) => {
     squareCustomerId: "",
   };
 
+  console.log(selectedTreatments);
+
   const handleSubmitBooking = (e) => {
     e.preventDefault();
 
-    const appDate = moment(adminAppointmentDate).format("MMMM D, YYYY");
+    const appDate = moment(adminAppointmentDate, "MM/DD/YYYY").format(
+      "MMMM D, YYYY"
+    );
 
-    const beforeSalt = selectedTreatments.filter((x) =>
-      x.name.includes("Before")
-    );
-    const duringSalt = selectedTreatments.filter((x) =>
-      x.name.includes("Minutes)")
-    );
-    const afterSalt = selectedTreatments.filter((x) =>
-      x.name.includes("After)")
-    );
-    const regularTreatments = selectedTreatments.filter(
-      (x) => !x.name.includes("Salt Cave")
-    );
+    const beforeSalt = selectedTreatments.filter((x) => {
+      if (x.name) {
+        if (typeof x.name === "string") {
+          if (x.name.includes("Before")) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    });
+    const duringSalt = selectedTreatments.filter((x) => {
+      if (x.name) {
+        if (typeof x.name === "string") {
+          if (x.name.includes("Minutes)")) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    });
+    const afterSalt = selectedTreatments.filter((x) => {
+      if (x.name) {
+        if (typeof x.name === "string") {
+          if (x.name.includes("After)")) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    });
+    const regularTreatments = selectedTreatments.filter((x) => {
+      if (x.name) {
+        if (typeof x.name === "string") {
+          if (!x.name.includes("Salt Cave")) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    });
 
     const twilioStaggerArr = [
       beforeSalt.length > 0,
@@ -698,12 +757,10 @@ const AdminCreateAppointment = (props) => {
     if (highestDelay === 0) {
       if (addAppointmentData) {
         getAllAppointmentsRefetch();
-        getNotificationsRefetch();
       }
     } else {
       setTimeout(() => {
         getAllAppointmentsRefetch();
-        getNotificationsRefetch();
       }, highestDelay);
     }
   };
