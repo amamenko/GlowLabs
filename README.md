@@ -85,7 +85,7 @@ This is a MERN (MongoDB, Express, React, Node.js) stack application that uses [R
 
 ## Deployment
 
-Server deployed via [AWS EC2](https://aws.amazon.com/ec2/) instance with [NGINX](https://www.nginx.com/) and SSL secured with [Let's Encrypt](https://letsencrypt.org/). Client-side deployed with [Vercel](https://vercel.com/).
+Server deployed via [AWS EC2](https://aws.amazon.com/ec2/) instance with [NGINX](https://www.nginx.com/) and SSL secured with [Let's Encrypt](https://letsencrypt.org/). Client-side deployed with [Vercel](https://vercel.com/). Custom domain from [Freenom](https://www.freenom.com/) with DNS routing by [Cloudflare](https://www.cloudflare.com/).
 
 ## Local Development
 
@@ -101,7 +101,7 @@ You will need to have the following software installed:
 ### Installation
 
 1. Create a [Google Maps Platform](https://developers.google.com/maps/gmp-get-started) billing account, create a project, enable the Google Maps API, and get an [API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
-2. Enable the [Google Pub/Sub API](https://cloud.google.com/pubsub) for that same project, add a new topic with a name of your  choosing, and then add a new subscription with the name "getUpdatedEmployee." Leave the delivery type as "Pull."
+2. Enable the [Google Pub/Sub API](https://cloud.google.com/pubsub) for that same project, add a new topic with a name of your choosing, and then add a new subscription with the name "getUpdatedEmployee." Leave the delivery type as "Pull."
 3. Create a new [Square Developer](https://squareup.com/signup?country_code=us&v=developers) account, create a new application, and get its Sandbox credentials.
 4. Create a [Twilio](https://www.twilio.com/try-twilio) account and get its account SID and authorization token.
 5. Create a [Facebook for Developers](https://developers.facebook.com/) account, register a new application, and get its ID and secret.
