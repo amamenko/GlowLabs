@@ -9,6 +9,7 @@ import GlowSummaryCard from "../../checkout/SummaryReviewCards/Treatments/GlowSu
 import QuenchSummaryCard from "../../checkout/SummaryReviewCards/Treatments/QuenchSummaryCard";
 import QuickieSummaryCard from "../../checkout/SummaryReviewCards/Treatments/QuickieSummaryCard";
 import ChemicalPeelSummaryCard from "../../checkout/SummaryReviewCards/Treatments/ChemicalPeelSummaryCard";
+import SaltCaveSummaryCard from "../../checkout/SummaryReviewCards/Treatments/SaltCaveSummaryCard";
 import CBDSummaryCard from "../../checkout/SummaryReviewCards/Treatments/CBDSummaryCard";
 import MicroneedleSummaryCard from "../../checkout/SummaryReviewCards/Treatments/MicroneedleSummaryCard";
 import RejuvenateSummaryCard from "../../checkout/SummaryReviewCards/Treatments/RejuvenateSummaryCard";
@@ -83,6 +84,7 @@ const AdminCalendarComponent = (props) => {
     { name: "Microneedling", component: <MicroneedleSummaryCard /> },
     { name: "Rejuvenate", component: <RejuvenateSummaryCard /> },
     { name: "Not Sure", component: <UnsureSummaryCard /> },
+    { name: "Salt Cave", component: <SaltCaveSummaryCard /> },
   ];
 
   const addOnsSummaryCardComponentsArr = [
@@ -124,6 +126,18 @@ const AdminCalendarComponent = (props) => {
               componentsArr.push(
                 treatmentsSummaryCardComponentsArr[i].component
               );
+            } else {
+              if (
+                allAdminAppointments
+                  .filter((x) => x.id === currentToggledAppointment)[0]
+                  .treatments[0].name.includes(
+                    treatmentsSummaryCardComponentsArr[i].name
+                  )
+              ) {
+                componentsArr.push(
+                  treatmentsSummaryCardComponentsArr[i].component
+                );
+              }
             }
           }
         }

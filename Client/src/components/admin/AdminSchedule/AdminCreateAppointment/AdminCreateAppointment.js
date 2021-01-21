@@ -36,6 +36,7 @@ import ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET from "../../../../actions/Adm
 import ACTION_ADMIN_APPOINTMENT_TIME_RESET from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentTime/ACTION_ADMIN_APPOINTMENT_TIME_RESET";
 import ACTION_ADMIN_APPOINTMENT_DURATION from "../../../../actions/Admin/AdminCreateAppointment/AdminAppointmentDuration/ACTION_ADMIN_APPOINTMENT_DURATION";
 import ACTION_LOADING_SPINNER_ACTIVE from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_ACTIVE";
+import ACTION_LOADING_SPINNER_RESET from "../../../../actions/LoadingSpinner/ACTION_LOADING_SPINNER_RESET";
 import ACTION_TOTAL_PRICE_RESET from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE_RESET";
 import ACTION_TOTAL_PRICE from "../../../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import "react-dropdown/style.css";
@@ -546,7 +547,22 @@ const AdminCreateAppointment = (props) => {
     squareCustomerId: "",
   };
 
-  console.log(selectedTreatments);
+  const handleBackToSchedule = useCallback(() => {
+    changeCreateAppointmentClicked(false);
+
+    dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_LAST_NAME_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET());
+    dispatch(ACTION_ADMIN_CLIENT_EMAIL_RESET());
+    dispatch(ACTION_ADMIN_SELECTED_TREATMENTS_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_DATE_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
+    dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
+
+    changeAddCardCollapseOpen(false);
+    changeClickOutsideDayPicker(false);
+  }, [dispatch, changeCreateAppointmentClicked]);
 
   const handleSubmitBooking = (e) => {
     e.preventDefault();
@@ -757,10 +773,14 @@ const AdminCreateAppointment = (props) => {
     if (highestDelay === 0) {
       if (addAppointmentData) {
         getAllAppointmentsRefetch();
+        dispatch(ACTION_LOADING_SPINNER_RESET());
+        handleBackToSchedule();
       }
     } else {
       setTimeout(() => {
         getAllAppointmentsRefetch();
+        dispatch(ACTION_LOADING_SPINNER_RESET());
+        handleBackToSchedule();
       }, highestDelay);
     }
   };
@@ -814,23 +834,6 @@ const AdminCreateAppointment = (props) => {
       dispatch(ACTION_TOTAL_PRICE(totalTime));
     }
   }, [adminSelectedTreatments, dispatch]);
-
-  const handleBackToSchedule = useCallback(() => {
-    changeCreateAppointmentClicked(false);
-
-    dispatch(ACTION_ADMIN_CLIENT_FIRST_NAME_RESET());
-    dispatch(ACTION_ADMIN_CLIENT_LAST_NAME_RESET());
-    dispatch(ACTION_ADMIN_CLIENT_PHONE_NUMBER_RESET());
-    dispatch(ACTION_ADMIN_CLIENT_EMAIL_RESET());
-    dispatch(ACTION_ADMIN_SELECTED_TREATMENTS_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_DATE_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_TIME_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_NOTES_RESET());
-    dispatch(ACTION_ADMIN_APPOINTMENT_STAFF_MEMBER_RESET());
-
-    changeAddCardCollapseOpen(false);
-    changeClickOutsideDayPicker(false);
-  }, [dispatch, changeCreateAppointmentClicked]);
 
   useEffect(() => {
     if (addAppointmentData && !loadingSpinnerActive) {

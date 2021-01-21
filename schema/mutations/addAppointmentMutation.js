@@ -298,9 +298,12 @@ const addAppointmentMutation = {
           },
           (err, currentEmployee) => {
             const notificationsObj = updateNotifications(currentEmployee);
-            currentEmployee.notifications = notificationsObj.notifications;
 
-            currentEmployee.save();
+            if (currentEmployee) {
+              currentEmployee.notifications = notificationsObj.notifications;
+
+              currentEmployee.save();
+            }
           }
         );
 
@@ -582,53 +585,57 @@ const addAppointmentMutation = {
       createEventObject(appt_res)
     );
 
-    mjmlUtils
-      .inject(`./emails/BookedAppointment.html`, {
-        firstName:
-          args.client[0].firstName[0].toUpperCase() +
-          args.client[0].firstName.slice(1).toLowerCase(),
-        date: appt_res.date,
-        day: moment(appt_res.date, "LL").format("dddd"),
-        startTime: appt_res.startTime + " " + appt_res.morningOrEvening,
-        treatment: appt_res.treatments[0].name.includes("Salt Cave")
-          ? "Salt Cave"
-          : appt_res.treatments[0].name === "ChemicalPeel"
-          ? "Chemical Peel with " + appt_res.esthetician
-          : appt_res.treatments[0].name +
-            " Facial with " +
-            appt_res.esthetician,
-        eventCalendarLink: args.client[0].email
-          .toLowerCase()
-          .includes("yahoo.com")
-          ? yahooCalendarEvent.render()
-          : args.client[0].email.toLowerCase().includes("gmail.com")
-          ? googleCalendarEvent.render()
-          : args.client[0].email.toLowerCase().includes("hotmail.com") ||
-            args.client[0].email.toLowerCase().includes("outlook.com")
-          ? outlookCalendarEvent.render()
-          : iCalEvent.render(),
-        consentFormLink:
-          process.env.NODE_ENV === "production"
-            ? `${process.env.PRODUCTION_SERVER_URL}/api/${client_res._id}/consentform`
-            : `http://localhost:4000/${client_res._id}/consentform`,
-      })
-      .then(async (finalTemplate) => {
-        await transporter.sendMail({
-          from: process.env.GLOW_LABS_EMAIL,
-          to: args.client[0].email,
-          subject: "Your Glow Labs Appointment",
-          html: finalTemplate,
-        });
-      });
-
-    // Sends appointment confirmation text from Twilio
-    twilioTextingFunction(args.client[0], appt_res);
-
     client = await Client.findOne({
       email: args.client[0].email,
     });
 
-    if (auth === undefined) {
+    try {
+      mjmlUtils
+        .inject(`./emails/BookedAppointment.html`, {
+          firstName:
+            args.client[0].firstName[0].toUpperCase() +
+            args.client[0].firstName.slice(1).toLowerCase(),
+          date: appt_res.date,
+          day: moment(appt_res.date, "LL").format("dddd"),
+          startTime: appt_res.startTime + " " + appt_res.morningOrEvening,
+          treatment: appt_res.treatments[0].name.includes("Salt Cave")
+            ? "Salt Cave"
+            : appt_res.treatments[0].name === "ChemicalPeel"
+            ? "Chemical Peel with " + appt_res.esthetician
+            : appt_res.treatments[0].name +
+              " Facial with " +
+              appt_res.esthetician,
+          eventCalendarLink: args.client[0].email
+            .toLowerCase()
+            .includes("yahoo.com")
+            ? yahooCalendarEvent.render()
+            : args.client[0].email.toLowerCase().includes("gmail.com")
+            ? googleCalendarEvent.render()
+            : args.client[0].email.toLowerCase().includes("hotmail.com") ||
+              args.client[0].email.toLowerCase().includes("outlook.com")
+            ? outlookCalendarEvent.render()
+            : iCalEvent.render(),
+          consentFormLink:
+            process.env.NODE_ENV === "production"
+              ? `${process.env.PRODUCTION_SERVER_URL}/api/${client._id}/consentform`
+              : `http://localhost:4000/${client._id}/consentform`,
+        })
+        .then(async (finalTemplate) => {
+          await transporter.sendMail({
+            from: process.env.GLOW_LABS_EMAIL,
+            to: args.client[0].email,
+            subject: "Your Glow Labs Appointment",
+            html: finalTemplate,
+          });
+        });
+    } catch (err) {
+      console.log(err);
+    }
+
+    // Sends appointment confirmation text from Twilio
+    twilioTextingFunction(args.client[0], appt_res);
+
+    if (!accessToken && !adminToken) {
       const generateGuestConsentFormAccessToken = (client) => {
         const token = jwt.sign(
           {
@@ -672,9 +679,12 @@ const addAppointmentMutation = {
       })
     ).forEach((currentEmployee) => {
       const notificationsObj = updateNotifications(currentEmployee);
-      currentEmployee.notifications = notificationsObj.notifications;
 
-      currentEmployee.save();
+      if (currentEmployee) {
+        currentEmployee.notifications = notificationsObj.notifications;
+
+        currentEmployee.save();
+      }
     });
 
     const updatedEmployee = await Employee.findOne(
@@ -684,9 +694,12 @@ const addAppointmentMutation = {
       },
       (err, currentEmployee) => {
         const notificationsObj = updateNotifications(currentEmployee);
-        currentEmployee.notifications = notificationsObj.notifications;
 
-        currentEmployee.save();
+        if (currentEmployee) {
+          currentEmployee.notifications = notificationsObj.notifications;
+
+          currentEmployee.save();
+        }
       }
     );
 

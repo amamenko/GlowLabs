@@ -98,9 +98,12 @@ const deleteAppointmentMutation = {
             },
             (err, currentEmployee) => {
               const notificationsObj = updateNotifications(currentEmployee);
-              currentEmployee.notifications = notificationsObj.notifications;
 
-              currentEmployee.save();
+              if (currentEmployee) {
+                currentEmployee.notifications = notificationsObj.notifications;
+
+                currentEmployee.save();
+              }
             }
           );
 
@@ -172,9 +175,12 @@ const deleteAppointmentMutation = {
             },
             (err, currentEmployee) => {
               const notificationsObj = updateNotifications(currentEmployee);
-              currentEmployee.notifications = notificationsObj.notifications;
 
-              currentEmployee.save();
+              if (currentEmployee) {
+                currentEmployee.notifications = notificationsObj.notifications;
+
+                currentEmployee.save();
+              }
             }
           );
 

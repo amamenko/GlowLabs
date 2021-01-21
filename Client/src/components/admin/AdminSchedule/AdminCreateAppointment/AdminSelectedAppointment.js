@@ -166,88 +166,70 @@ const AdminSelectedAppointment = React.forwardRef((props, ref) => {
                   color={"rgb(44, 44, 52)"}
                   loading={loadingSpinnerActive}
                 />
-                <Transition
-                  items={cancelAppointmentClicked && !loadingSpinnerActive}
-                  from={{ transform: "translate3d(0, -65%, 0)" }}
-                  enter={{ transform: "translate3d(0, 0, 0)" }}
-                  leave={{ display: "none" }}
+                <div
+                  className="cancel_appointment_modal_content_container"
+                  style={{ display: loadingSpinnerActive ? "none" : "flex" }}
                 >
-                  {(cancelAppointmentClicked) =>
-                    cancelAppointmentClicked &&
-                    ((styleprops) => (
-                      <div
-                        className="cancel_appointment_modal_content_container"
-                        style={styleprops}
-                      >
-                        <div className="log_out_modal_contents admin_cancel_appointment">
-                          <FontAwesomeIcon
-                            className="modal_x"
-                            icon={faTimes}
-                            onClick={() =>
-                              dispatch(
-                                ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
-                              )
-                            }
-                          />
-                          <h2>
-                            Are you sure you want to cancel{" "}
-                            {allAdminAppointments.filter(
+                  <div className="log_out_modal_contents admin_cancel_appointment">
+                    <FontAwesomeIcon
+                      className="modal_x"
+                      icon={faTimes}
+                      onClick={() =>
+                        dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET())
+                      }
+                    />
+                    <h2>
+                      Are you sure you want to cancel{" "}
+                      {allAdminAppointments.filter(
+                        (x) => x.id === currentToggledAppointment
+                      )[0]
+                        ? allAdminAppointments
+                            .filter(
                               (x) => x.id === currentToggledAppointment
                             )[0]
-                              ? allAdminAppointments
-                                  .filter(
-                                    (x) => x.id === currentToggledAppointment
-                                  )[0]
-                                  .client.firstName[0].toUpperCase() +
-                                allAdminAppointments
-                                  .filter(
-                                    (x) => x.id === currentToggledAppointment
-                                  )[0]
-                                  .client.firstName.slice(1)
-                                  .toLowerCase() +
-                                " " +
-                                allAdminAppointments
-                                  .filter(
-                                    (x) => x.id === currentToggledAppointment
-                                  )[0]
-                                  .client.lastName[0].toUpperCase() +
-                                allAdminAppointments
-                                  .filter(
-                                    (x) => x.id === currentToggledAppointment
-                                  )[0]
-                                  .client.lastName.slice(1)
-                                  .toLowerCase() +
-                                "'s "
-                              : null}
-                            appointment?
-                          </h2>
-                          <span className="logout_buttons_container">
-                            <div
-                              className="logout_button yes_cancel_appointment_button"
-                              onClick={() =>
-                                handleCancelAppointment(
-                                  currentToggledAppointment
-                                )
-                              }
-                            >
-                              <p>YES, CANCEL</p>
-                            </div>
-                            <div
-                              className="cancel_logout_button no_dont_cancel_appointment_button"
-                              onClick={() =>
-                                dispatch(
-                                  ACTION_CANCEL_APPOINTMENT_CLICKED_RESET()
-                                )
-                              }
-                            >
-                              <p>NO, GO BACK</p>
-                            </div>
-                          </span>
-                        </div>
+                            .client.firstName[0].toUpperCase() +
+                          allAdminAppointments
+                            .filter(
+                              (x) => x.id === currentToggledAppointment
+                            )[0]
+                            .client.firstName.slice(1)
+                            .toLowerCase() +
+                          " " +
+                          allAdminAppointments
+                            .filter(
+                              (x) => x.id === currentToggledAppointment
+                            )[0]
+                            .client.lastName[0].toUpperCase() +
+                          allAdminAppointments
+                            .filter(
+                              (x) => x.id === currentToggledAppointment
+                            )[0]
+                            .client.lastName.slice(1)
+                            .toLowerCase() +
+                          "'s "
+                        : null}
+                      appointment?
+                    </h2>
+                    <span className="logout_buttons_container">
+                      <div
+                        className="logout_button yes_cancel_appointment_button"
+                        onClick={() =>
+                          handleCancelAppointment(currentToggledAppointment)
+                        }
+                      >
+                        <p>YES, CANCEL</p>
                       </div>
-                    ))
-                  }
-                </Transition>
+                      <div
+                        className="cancel_logout_button no_dont_cancel_appointment_button"
+                        onClick={() =>
+                          dispatch(ACTION_CANCEL_APPOINTMENT_CLICKED_RESET())
+                        }
+                      >
+                        <p>NO, GO BACK</p>
+                      </div>
+                    </span>
+                  </div>
+                </div>
               </Modal>
               <div className="my_individual_selected_appointment_contents_container">
                 <div
