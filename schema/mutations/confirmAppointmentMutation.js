@@ -83,10 +83,12 @@ const confirmAppointmentMutation = {
         lastName: { $ne: selectedAppointment.esthetician.split(" ")[1] },
       })
     ).forEach((currentEmployee) => {
-      const notificationsObj = updateNotifications(currentEmployee);
-      currentEmployee.notifications = notificationsObj.notifications;
+      if (currentEmployee) {
+        const notificationsObj = updateNotifications(currentEmployee);
+        currentEmployee.notifications = notificationsObj.notifications;
 
-      currentEmployee.save();
+        currentEmployee.save();
+      }
     });
 
     const updatedEmployee = await Employee.findOne(
@@ -95,10 +97,12 @@ const confirmAppointmentMutation = {
         lastName: selectedAppointment.esthetician.split(" ")[1],
       },
       (err, currentEmployee) => {
-        const notificationsObj = updateNotifications(currentEmployee);
-        currentEmployee.notifications = notificationsObj.notifications;
+        if (currentEmployee) {
+          const notificationsObj = updateNotifications(currentEmployee);
+          currentEmployee.notifications = notificationsObj.notifications;
 
-        currentEmployee.save();
+          currentEmployee.save();
+        }
       }
     );
 

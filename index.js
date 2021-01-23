@@ -128,6 +128,7 @@ app.get("/smsresponse", async (req, res) => {
         appointment.morningOrEvening,
       "MMMM D, YYYY h:mm A"
     );
+
     const now = moment();
 
     // Show upcoming unconfirmed appointments
@@ -182,10 +183,12 @@ app.get("/smsresponse", async (req, res) => {
             lastName: { $ne: item.esthetician.split(" ")[1] },
           })
         ).forEach((currentEmployee) => {
-          const notificationsObj = updateNotifications(currentEmployee);
-          currentEmployee.notifications = notificationsObj.notifications;
+          if (currentEmployee) {
+            const notificationsObj = updateNotifications(currentEmployee);
+            currentEmployee.notifications = notificationsObj.notifications;
 
-          currentEmployee.save();
+            currentEmployee.save();
+          }
         });
 
         const updatedEmployee = await Employee.findOne(
@@ -194,10 +197,12 @@ app.get("/smsresponse", async (req, res) => {
             lastName: item.esthetician.split(" ")[1],
           },
           (err, currentEmployee) => {
-            const notificationsObj = updateNotifications(currentEmployee);
-            currentEmployee.notifications = notificationsObj.notifications;
+            if (currentEmployee) {
+              const notificationsObj = updateNotifications(currentEmployee);
+              currentEmployee.notifications = notificationsObj.notifications;
 
-            currentEmployee.save();
+              currentEmployee.save();
+            }
           }
         );
 

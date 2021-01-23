@@ -47,6 +47,7 @@ import { isAndroid } from "react-device-detect";
 import { scroller } from "react-scroll";
 import ResponsiveNavigationBar from "./components/responsive_nav_bar/ResponsiveNavigationBar";
 import CookieBanner from "react-cookie-banner";
+import isEqual from "lodash.isequal";
 import ACTION_CART_IS_NOT_ACTIVE from "./actions/CartIsActive/ACTION_CART_IS_NOT_ACTIVE";
 import ACTION_NAVBAR_NOT_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_NOT_VISIBLE";
 import ACTION_NAVBAR_IS_VISIBLE from "./actions/NavbarIsVisible/ACTION_NAVBAR_IS_VISIBLE";
@@ -262,6 +263,9 @@ const App = () => {
   const guestConsentFormAccessToken = useSelector(
     (state) => state.guestConsentFormAccessToken.access_token
   );
+  const adminNotifications = useSelector(
+    (state) => state.adminNotifications.notifications
+  );
 
   const [loadingSpinnerActive, changeLoadingSpinnerActive] = useState(false);
   const [treatmentsPageInView, changeTreatmentsPageInView] = useState(false);
@@ -366,7 +370,11 @@ const App = () => {
                 if (subscriptionData.data.getUpdatedEmployee.notifications) {
                   if (
                     subscriptionData.data.getUpdatedEmployee.notifications
-                      .length > 0
+                      .length > 0 ||
+                    !isEqual(
+                      adminNotifications,
+                      subscriptionData.data.getUpdatedEmployee.notifications
+                    )
                   ) {
                     const employeeNotifications = subscriptionData.data.getUpdatedEmployee.notifications
                       // Sort by most recent first
@@ -405,6 +413,7 @@ const App = () => {
     employeeSubscribeToMore,
     dispatch,
     adminNotificationSubscription,
+    adminNotifications,
   ]);
 
   useEffect(() => {
