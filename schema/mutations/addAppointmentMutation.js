@@ -632,42 +632,8 @@ const addAppointmentMutation = {
       console.log(err);
     }
 
-    // Sends appointment confirmation text from Twilio
+    // // Sends appointment confirmation text from Twilio
     twilioTextingFunction(args.client[0], appt_res);
-
-    if (!accessToken && !adminToken) {
-      const generateGuestConsentFormAccessToken = (client) => {
-        const token = jwt.sign(
-          {
-            id: client._id,
-            auth: true,
-          },
-          process.env.JWT_SECRET_KEY_ACCESS,
-          { expiresIn: "7d" }
-        );
-        return token;
-      };
-
-      const guestConsentFormAccessToken = generateGuestConsentFormAccessToken(
-        client
-      );
-
-      if (!adminToken) {
-        // Set Guest Consent Form Cookie
-        context.res.cookie(
-          "guest-consent-form-access-token",
-          guestConsentFormAccessToken,
-          {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-            secure: process.env.NODE_ENV === "production" ? true : false,
-            domain:
-              process.env.NODE_ENV === "production"
-                ? process.env.PRODUCTION_CLIENT_ROOT
-                : "localhost",
-          }
-        );
-      }
-    }
 
     (
       await Employee.find({
@@ -678,9 +644,8 @@ const addAppointmentMutation = {
         lastName: { $ne: args.esthetician.split(" ")[1] },
       })
     ).forEach((currentEmployee) => {
-      const notificationsObj = updateNotifications(currentEmployee);
-
       if (currentEmployee) {
+        const notificationsObj = updateNotifications(currentEmployee);
         currentEmployee.notifications = notificationsObj.notifications;
 
         currentEmployee.save();
@@ -693,9 +658,8 @@ const addAppointmentMutation = {
         lastName: args.esthetician.split(" ")[1],
       },
       (err, currentEmployee) => {
-        const notificationsObj = updateNotifications(currentEmployee);
-
         if (currentEmployee) {
+          const notificationsObj = updateNotifications(currentEmployee);
           currentEmployee.notifications = notificationsObj.notifications;
 
           currentEmployee.save();

@@ -14,15 +14,17 @@ const createNotificationFunction = (newNotification, employee) => {
           notifications: sortedArr,
         };
       } else {
-        if (employee.notifications) {
-          employee.notifications.push(newNotification);
-        } else {
-          employee.notifications = [newNotification];
-        }
+        if (employee) {
+          if (employee.notifications) {
+            employee.notifications.push(newNotification);
+          } else {
+            employee.notifications = [newNotification];
+          }
 
-        update = {
-          notifications: employee.notifications,
-        };
+          update = {
+            notifications: employee.notifications,
+          };
+        }
       }
 
       return update;

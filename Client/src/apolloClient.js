@@ -1,14 +1,18 @@
+import { SubscriptionClient } from "subscriptions-transport-ws";
 import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 import { ApolloClient, InMemoryCache, split, HttpLink } from "@apollo/client";
 
-const webSocketsLink = new WebSocketLink({
-  uri:
-    process.env.REACT_APP_ENV === "production"
-      ? `wss://${process.env.REACT_APP_PRODUCTION_SERVER_ROOT}/graphql`
-      : "ws://localhost:4000/graphql",
+const GRAPHQL_ENDPOINT =
+  process.env.REACT_APP_ENV === "production"
+    ? `wss://${process.env.REACT_APP_PRODUCTION_SERVER_ROOT}/graphql`
+    : "ws://localhost:4000/graphql";
+
+const client = new SubscriptionClient(GRAPHQL_ENDPOINT, {
   reconnect: true,
 });
+
+const webSocketsLink = new WebSocketLink(client);
 
 const httpLink = new HttpLink({
   uri:
