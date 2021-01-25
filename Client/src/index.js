@@ -16,7 +16,11 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
+import LandingPage from "./components/landing_page/LandingPage";
+import FollowUs from "./components/follow_us/FollowUs";
+import ContactUs from "./components/contact_us/ContactUs";
 import AllTreatments from "./components/all_treatments/AllTreatments";
+import AllAddOns from "./components/all_add_ons/AllAddOns";
 import ShoppingCart from "./components/shopping_cart/ShoppingCart";
 import * as smoothscroll from "smoothscroll-polyfill";
 import Cookies from "js-cookie";
@@ -157,14 +161,6 @@ const PrivacyPolicy = React.lazy(() =>
 );
 const TermsAndConditions = React.lazy(() =>
   import("./components/privacy/TermsAndConditions")
-);
-const LandingPage = React.lazy(() =>
-  import("./components/landing_page/LandingPage")
-);
-const FollowUs = React.lazy(() => import("./components/follow_us/FollowUs"));
-const ContactUs = React.lazy(() => import("./components/contact_us/ContactUs"));
-const AllAddOns = React.lazy(() =>
-  import("./components/all_add_ons/AllAddOns")
 );
 
 require("dotenv").config();
@@ -1705,29 +1701,25 @@ const App = () => {
               id="main_container_element"
             >
               {redirectToCartRoutes()}
-              <Suspense fallback={renderAuthFallbackLoader()}>
-                <LandingPage
-                  currentScreenSize={currentScreenSize}
-                  initialScreenSize={initialScreenSize}
-                  currentScreenHeight={currentScreenHeight}
-                  initialScreenHeight={initialScreenHeight}
-                  handleClickToScrollToHome={handleClickToScrollToHome}
-                  handleClickToScrollToTreatments={
-                    handleClickToScrollToTreatments
-                  }
-                  handleClickToScrollToAddOns={handleClickToScrollToAddOns}
-                  handleClickToScrollToInstagram={
-                    handleClickToScrollToInstagram
-                  }
-                  handleClickToScrollToContact={handleClickToScrollToContact}
-                  navbarVisible={navbarVisible}
-                  treatmentsPageInView={treatmentsPageInView}
-                  scrollDirection={scrollDirection}
-                  scrollValue={scrollValue}
-                  ref={ref}
-                  name="landing_page"
-                />
-              </Suspense>
+              <LandingPage
+                currentScreenSize={currentScreenSize}
+                initialScreenSize={initialScreenSize}
+                currentScreenHeight={currentScreenHeight}
+                initialScreenHeight={initialScreenHeight}
+                handleClickToScrollToHome={handleClickToScrollToHome}
+                handleClickToScrollToTreatments={
+                  handleClickToScrollToTreatments
+                }
+                handleClickToScrollToAddOns={handleClickToScrollToAddOns}
+                handleClickToScrollToInstagram={handleClickToScrollToInstagram}
+                handleClickToScrollToContact={handleClickToScrollToContact}
+                navbarVisible={navbarVisible}
+                treatmentsPageInView={treatmentsPageInView}
+                scrollDirection={scrollDirection}
+                scrollValue={scrollValue}
+                ref={ref}
+                name="landing_page"
+              />
               <AllTreatments
                 name="treatments"
                 currentScreenSize={currentScreenSize}
@@ -1743,33 +1735,27 @@ const App = () => {
                 treatmentsPageInView={treatmentsPageInView}
                 scrollValue={scrollValue}
               />
-              <Suspense fallback={renderAuthFallbackLoader()}>
-                <AllAddOns
-                  name="add_ons"
-                  currentScreenSize={currentScreenSize}
-                  initialScreenSize={initialScreenSize}
-                  AddOnsRef={AddOnsRef}
-                  resetAllCartStatesExceptTreatments={
-                    resetAllCartStatesExceptTreatments
-                  }
-                />
-              </Suspense>
-              <Suspense fallback={renderAuthFallbackLoader()}>
-                <FollowUs
-                  name="instagram"
-                  initialScreenSize={initialScreenSize}
-                  currentScreenSize={currentScreenSize}
-                  InstagramRef={InstagramRef}
-                />
-              </Suspense>
-              <Suspense fallback={renderAuthFallbackLoader()}>
-                <ContactUs
-                  name="contact"
-                  initialScreenSize={initialScreenSize}
-                  currentScreenSize={currentScreenSize}
-                  ContactRef={ContactRef}
-                />
-              </Suspense>
+              <AllAddOns
+                name="add_ons"
+                currentScreenSize={currentScreenSize}
+                initialScreenSize={initialScreenSize}
+                AddOnsRef={AddOnsRef}
+                resetAllCartStatesExceptTreatments={
+                  resetAllCartStatesExceptTreatments
+                }
+              />
+              <FollowUs
+                name="instagram"
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+                InstagramRef={InstagramRef}
+              />
+              <ContactUs
+                name="contact"
+                initialScreenSize={initialScreenSize}
+                currentScreenSize={currentScreenSize}
+                ContactRef={ContactRef}
+              />
             </div>
           </KeepAlive>
         </Route>
