@@ -36,6 +36,7 @@ import ACTION_CONFIRMATION_PAGE_OPENED from "../../actions/InCart/CartPageOpened
 import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
 import ACTION_GUEST_CHECKOUT_FORM_PAGE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
 import "./PaymentInfo.css";
+import "../account/clientprofile/ConsentForm/ConsentForm.css";
 
 const PaymentInfo = (props) => {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ const PaymentInfo = (props) => {
   const [cardHolderLastName, changeCardHolderLastName] = useState("");
   const [successfulCardNonce, changeSuccessfulCardNonce] = useState(false);
   const [squareStoredCreditCards, changeSquareStoredCreditCards] = useState("");
+  const [squareCustomerInfo, changeSquareCustomerInfo] = useState("");
   const [selectedCreditCard, changeSelectedCreditCard] = useState({
     name: "",
     id: "",
@@ -97,8 +99,6 @@ const PaymentInfo = (props) => {
     }
   );
 
-  console.log(selectedCreditCardFullData);
-
   useEffect(() => {
     changePageOpened(true);
     const pageNowOpen = setTimeout(() => {
@@ -126,12 +126,20 @@ const PaymentInfo = (props) => {
               id: cardFullData.id,
             });
 
+            changeCardHolderFirstName(
+              squareCustomerInfo.givenName.toUpperCase()
+            );
+            changeCardHolderLastName(
+              squareCustomerInfo.familyName.toUpperCase()
+            );
+
             changeSelectedCreditCardFullData(cardFullData);
           }
         }
       }
     }
   }, [
+    squareCustomerInfo,
     bookedWithCardID,
     squareStoredCreditCards,
     userAuthenticated,
@@ -161,8 +169,6 @@ const PaymentInfo = (props) => {
       }
     );
   }, [squareCustomerID]);
-
-  console.log(squareStoredCreditCards);
 
   useEffect(() => {
     if (!userAuthenticated) {
@@ -313,6 +319,7 @@ const PaymentInfo = (props) => {
             if (customerData.data) {
               if (customerData.data.customer) {
                 changeSquareStoredCreditCards(customerData.data.customer.cards);
+                changeSquareCustomerInfo(customerData.data.customer);
               }
             }
           }
@@ -1203,11 +1210,20 @@ const PaymentInfo = (props) => {
                           name: chosenItem.name,
                           id: chosenItem.id,
                         });
+
+                        changeCardHolderFirstName(
+                          squareCustomerInfo.givenName.toUpperCase()
+                        );
+                        changeCardHolderLastName(
+                          squareCustomerInfo.familyName.toUpperCase()
+                        );
                         if (e.target.value === "NEW CARD") {
                           dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
 
                           changeSelectedCreditCard({ name: "", id: "" });
                           changeSelectedCreditCardFullData("");
+                          changeCardHolderFirstName("");
+                          changeCardHolderLastName("");
                         }
                       } else {
                         dispatch(ACTION_BOOKED_WITH_CARD_ID_RESET());
@@ -1216,6 +1232,13 @@ const PaymentInfo = (props) => {
                           name: chosenItem.name,
                           id: chosenItem.id,
                         });
+
+                        changeCardHolderFirstName(
+                          squareCustomerInfo.givenName.toUpperCase()
+                        );
+                        changeCardHolderLastName(
+                          squareCustomerInfo.familyName.toUpperCase()
+                        );
                       }
                     }}
                   >
@@ -1234,11 +1257,7 @@ const PaymentInfo = (props) => {
                   className="sq-cardholder-input"
                   disabled={selectedCreditCardFullData ? true : false}
                   onChange={handleCardHolderFirstName}
-                  value={
-                    selectedCreditCardFullData
-                      ? selectedCreditCardFullData.cardholderName.split(" ")[0]
-                      : cardHolderFirstName
-                  }
+                  value={cardHolderFirstName}
                 />
               </div>
               <div className="sq_card_holder_container">
@@ -1251,14 +1270,7 @@ const PaymentInfo = (props) => {
                   className="sq-cardholder-input"
                   disabled={selectedCreditCardFullData ? true : false}
                   onChange={handleCardHolderLastName}
-                  value={
-                    selectedCreditCardFullData
-                      ? selectedCreditCardFullData.cardholderName.split(" ")[
-                          selectedCreditCardFullData.cardholderName.split(" ")
-                            .length - 1
-                        ]
-                      : cardHolderLastName
-                  }
+                  value={cardHolderLastName}
                 />
               </div>
               {selectedCreditCardFullData ? (
@@ -1328,9 +1340,7 @@ const PaymentInfo = (props) => {
                       type="text"
                       className="sq-cardholder-input"
                       disabled={selectedCreditCardFullData ? true : false}
-                      value={
-                        selectedCreditCardFullData.billingAddress.postalCode
-                      }
+                      value={"•••••"}
                     />
                   </div>
                   <div className="sq-form-third_cvv">
@@ -1357,6 +1367,15 @@ const PaymentInfo = (props) => {
                 <div className="sq_save_card_information_container">
                   <span
                     className="fa-layers fa-fw client_consent_form_checkbox"
+                    style={{
+                      transform: !props.currentScreenSize
+                        ? props.initialScreenSize >= 1200
+                          ? "scale(1.5) translate(0%, -26%)"
+                          : null
+                        : props.currentScreenSize >= 1200
+                        ? "scale(1.5) translate(0%, -26%)"
+                        : null,
+                    }}
                     onClick={handleSaveCardChecked}
                   >
                     <FontAwesomeIcon

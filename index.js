@@ -1503,13 +1503,24 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema,
+    graphiql: process.env.NODE_ENV === "production" ? false : true,
+  })
+);
 
 server.applyMiddleware({
   app,
 });
 
-app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
+app.get(
+  "/playground",
+  process.env.NODE_ENV === "production"
+    ? (req, res, next) => res.send("No playground in production!")
+    : expressPlayground({ endpoint: "/graphql" })
+);
 
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
