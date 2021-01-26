@@ -17,6 +17,8 @@
     <br />
     <br />
     <a href="https://glowlabs.ga">View Demo</a>
+     ·
+    <a href="https://www.youtube.com/watch?v=6skXNTfSanQ">Watch Video Demo</a>
     ·
     <a href="https://github.com/amamenko/GlowLabs/issues">Report Issue</a> 
   </p>
