@@ -4,6 +4,7 @@
   overflow-x: hidden;
   position: relative;
   padding-bottom: 20vh;
+  overflow-y:auto;
 }
 
 .my_upcoming_appointments_empty_container {
