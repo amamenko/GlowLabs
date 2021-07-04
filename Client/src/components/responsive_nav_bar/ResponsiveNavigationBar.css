@@ -32,6 +32,8 @@
 
 .right_nav > h2 {
   display: none;
+  font-size: 1rem;
+  margin-right: 2.5rem;
   cursor: pointer;
 }
 
@@ -421,6 +423,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 }
 
+@media only screen and (min-width: 1200px) {
+  .right_nav > h2 {
+    display: inline-block;
+    font-weight: 500;
+  }
+
+  .nav_cart_container {
+    margin-left: 2rem;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) and (orientation: portrait) {
   .nav_menu {
@@ -437,7 +450,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     display: block;
     color: #fff;
     font-weight: 500;
-    font-size: calc(0.6rem + 0.5vw);
+    font-size: calc(0.55rem + 0.5vw);
   }
 
   .nav_login_container h2 {

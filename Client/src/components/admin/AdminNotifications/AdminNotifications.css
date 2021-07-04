@@ -97,7 +97,7 @@
 @media only screen and (min-width: 1200px) {
   .admin_notifications_container {
     position: absolute;
-    width: 80%;
+    width: 70%;
     padding-top: 8vh;
     right: 0;
   }
@@ -128,12 +128,35 @@
   }
 
   .admin_individual_notification_container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding: 2rem 0;
     font-size: 1.5rem;
+  }
+
+  .admin_individual_notification_message_info {
+    font-size: 1rem;
   }
 
   .admin_notification_time_ago {
     padding-top: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-height: 950px) {
+  .admin_notifications_header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .admin_notifications_container {
+    width: 80%;
+  }
+
+  .admin_individual_notification_message_info {
+    font-size: 1.5rem;
+  }
+
+  .admin_individual_notification_container {
+    padding: 3rem 0;
   }
 }

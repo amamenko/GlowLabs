@@ -113,6 +113,13 @@
 
   .summary_card_image_circle {
     padding-left: 1rem;
+    transform: scale(0.8);
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-height: 950px) {
+  .summary_card_image_circle {
+    transform: scale(0.5);
   }
 }
 
@@ -134,6 +141,10 @@
 
   .summary_card_booking_description_right_section p {
     font-size: 2rem;
+  }
+
+  .summary_card_image_circle {
+    transform: scale(1);
   }
 }
 

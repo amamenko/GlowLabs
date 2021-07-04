@@ -444,6 +444,20 @@ body {
   }
 }
 
+@media only screen and (min-width: 1200px) {
+  .log_out_modal {
+    width: 35vw;
+    height: 35%;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-height: 950px) {
+  .log_out_modal {
+    height: 50vh;
+    margin-top: 10vh;
+  }
+}
+
 /* CSS for Medium Laptops */
 @media only screen and (min-width: 1400px) {
   .toast_error_container,

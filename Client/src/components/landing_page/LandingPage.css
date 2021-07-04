@@ -37,14 +37,6 @@
   bottom: 0;
 }
 
-.glow_labs_logo_animation {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-}
-
 .bottom_content {
   display: flex;
   flex-direction: column;
@@ -702,6 +694,12 @@
   }
 }
 
+@media only screen and (min-width: 1200px) {
+  .glow_labs_logo_animation {
+    top: 20%;
+  }
+}
+
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) and (orientation: portrait) {
   .call_to_action_button {
@@ -887,6 +885,10 @@
 
   .call_to_action_button {
     font-size: 2rem;
+  }
+
+  .glow_labs_logo_animation {
+    top: 0;
   }
 }
 

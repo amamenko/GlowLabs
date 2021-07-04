@@ -22,7 +22,7 @@
     align-items: flex-start;
     justify-content: center;
     height: 100vh;
-    width: 30%;
+    width: 30vw;
     padding-left: 3.1rem;
     padding-right: 3.1rem;
     background: rgb(244, 244, 244);
@@ -48,7 +48,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    overflow: auto;
     object-fit: cover;
   }
 
@@ -106,6 +105,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .large_screen_side_menu_profile_email_container p,
@@ -130,6 +131,11 @@
     justify-content: flex-start;
     align-items: center;
     position: relative;
+  }
+
+  .large_screen_side_menu_item_container h2 {
+    font-size: 0.8rem;
+    padding-left: 1.5rem;
   }
 
   .menu_notifications_circle_counter {
@@ -169,10 +175,7 @@
   .large_screen_side_menu_item p {
     position: absolute;
     font-size: 0.8rem;
-    left: 0;
-    right: 0;
     margin: 0 auto;
-    text-align: center;
     padding-top: 0.2rem;
   }
 
@@ -184,8 +187,14 @@
   .large_screen_side_menu_item_icon,
   .large_screen_side_menu_item h2 {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 600;
+  }
+
+  .large_screen_side_menu_pdf_container h2,
+  .large_screen_side_menu_item h2 {
+    padding-left: 1.5rem;
+    color: rgb(44, 44, 52);
   }
 
   .large_screen_side_menu_item h2:hover {
@@ -196,12 +205,6 @@
   .large_screen_side_menu_pdf_container h2:hover {
     color: rgb(155, 155, 155);
     transition: color 0.5s ease;
-  }
-
-  .large_screen_side_menu_pdf_container h2,
-  .large_screen_side_menu_item h2 {
-    padding-left: 1.5rem;
-    color: rgb(44, 44, 52);
   }
 
   .large_screen_account_nav_logo_container {
@@ -244,15 +247,37 @@
   }
 }
 
+@media only screen and (min-width: 1200px) and (max-height: 950px) {
+  .large_screen_side_menu_profile_container {
+    top: 10vh;
+  }
+
+  .large_screen_side_menu_all_items_container {
+    top: 35vh;
+  }
+
+  .large_screen_side_menu_profile_client_avatar_container {
+    margin-bottom: 0.5rem;
+  }
+
+  .large_screen_side_menu_profile_contact_information_container {
+    margin-bottom: 3rem;
+  }
+
+  .large_screen_account_nav_logo_container {
+    top: 1rem;
+  }
+}
+
 @media only screen and (min-width: 1400px) {
   .large_sceen_logged_in_side_menu {
-    width: 34%;
+    width: 34vw;
   }
 }
 
 @media only screen and (min-width: 1600px) {
   .large_sceen_logged_in_side_menu {
-    width: 30%;
+    width: 30vw;
   }
 }
 
@@ -318,6 +343,9 @@
   .large_screen_side_menu_item p {
     font-size: 0.8rem;
     padding-top: 0.2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
   }
 
   .large_screen_side_menu_pdf_container h2,
@@ -360,7 +388,7 @@
   .large_sceen_logged_in_side_menu {
     padding-left: 3.1rem;
     padding-right: 3.1rem;
-    width: 23%;
+    width: 23vw;
   }
 
   .large_screen_account_nav_logo {

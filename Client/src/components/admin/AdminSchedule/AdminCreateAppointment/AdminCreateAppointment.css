@@ -437,6 +437,12 @@
   }
 }
 
+@media only screen and (min-width: 1200px) {
+  .admin_create_appointent_dropdown_placeholder_time {
+    font-size: 0.8rem;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .admin_create_appointment_double_label {
@@ -467,6 +473,10 @@
   }
 
   .react-autosuggest__input {
+    font-size: 1rem;
+  }
+
+  .admin_create_appointent_dropdown_placeholder_time {
     font-size: 1rem;
   }
 }

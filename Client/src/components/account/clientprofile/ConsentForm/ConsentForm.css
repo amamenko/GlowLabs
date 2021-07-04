@@ -349,7 +349,7 @@
 /* CSS for Regular Desktops/Small Laptops and Tablets */
 @media only screen and (min-width: 1200px) {
   .client_consent_form_container {
-    width: 80%;
+    width: 70%;
     margin-bottom: 10vh;
     position: absolute;
     right: 0;
@@ -370,12 +370,12 @@
   }
 
   .client_consent_form_question {
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding-bottom: 0.5rem;
   }
 
   .client_consent_form_checkbox {
-    transform: scale(1.5) translate(0%, -26%);
+    transform: scale(1.5) translate(0%, -20%);
     margin-top: 1rem;
   }
 
@@ -386,11 +386,11 @@
   .client_consent_form_elaboration_box,
   .form_appointment_notes_extras {
     margin-top: 2rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .client_consent_form_checkbox_description {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-left: 1rem;
   }
 
@@ -433,11 +433,11 @@
   }
 
   .consent_form_sign_paragraph {
-    font-size: 1.5rem;
-    margin-top: 3rem;
+    font-size: 1.2rem;
+    margin-top: 2rem;
     margin-left: 11vw;
     margin-right: 11vw;
-    line-height: 2.5rem;
+    line-height: 2rem;
   }
 
   .consent_form_title_designation,
@@ -449,7 +449,7 @@
   }
 
   .consent_form_signature_container {
-    width: 15%;
+    width: 40%;
     height: 10%;
     margin-left: 11vw;
     margin-right: 11vw;
@@ -468,7 +468,7 @@
 
   .consent_form_date_field {
     width: 10%;
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 0.05rem;
     margin-right: 1rem;
   }
@@ -503,9 +503,32 @@
   }
 }
 
+@media only screen and (min-width: 1200px) and (max-height: 950px) {
+  .client_consent_form_header h1 {
+    font-size: 1.5rem;
+  }
+
+  .client_consent_form_content_container {
+    margin-top: 1rem;
+  }
+
+  .consent_form_bottom_button_container.page_1 {
+    height: 15vh;
+  }
+
+  .consent_form_bottom_button_container {
+    height: 25vh;
+  }
+
+  .consent_form_signature_container {
+    height: 15%;
+  }
+}
+
 /* CSS for Big Desktops */
 @media only screen and (min-width: 1800px) {
   .client_consent_form_container {
+    width: 80%;
     height: 120vh;
   }
 
@@ -513,12 +536,7 @@
     margin-top: 1rem;
   }
 
-  .client_consent_form_question {
-    font-size: 1.5rem;
-  }
-
   .client_consent_form_checkbox_description {
-    font-size: 1.5rem;
     margin-left: 0rem;
   }
 
@@ -526,9 +544,28 @@
     transform: scale(1.2) translate(0%, -18%);
   }
 
+  .client_consent_form_elaboration_box,
+  .form_appointment_notes_extras {
+    font-size: 1.5rem;
+  }
+
   .modal_consent_form_checkmark {
     top: -15%;
     left: 12%;
+  }
+
+  .consent_form_sign_paragraph {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .consent_form_signature_container {
+    width: 15%;
+  }
+
+  .consent_form_date_field {
+    font-size: 1.5rem;
   }
 }
 
