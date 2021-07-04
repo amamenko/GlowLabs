@@ -459,7 +459,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 @media only screen and (min-width: 1200px) {
   .right_nav {
     margin-right: 3.1rem;
-    margin-left: 6.1rem;
   }
 
   .left_nav {
