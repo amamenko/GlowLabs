@@ -67,7 +67,7 @@
   }
 
   .large_screen_side_menu_profile_membership_type_container {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     font-weight: 500;
     padding-top: 0.2rem;
     color: rgb(94, 94, 102);
@@ -114,6 +114,7 @@
     padding-top: 0.2rem;
     font-weight: 600;
     color: rgb(111, 111, 111);
+    font-size: 0.6rem;
   }
 
   .large_screen_side_menu_all_items_container {
@@ -177,6 +178,7 @@
     font-size: 0.8rem;
     margin: 0 auto;
     padding-top: 0.2rem;
+    left: 2.1rem;
   }
 
   .large_screen_side_menu_item_icon {
