@@ -4,6 +4,7 @@
   overflow-x: hidden;
   position: relative;
   padding-bottom: 20vh;
+  overflow-y:auto;
 }
 
 .my_upcoming_appointments_empty_container {
@@ -62,7 +63,7 @@
   font-size: 10rem;
   color: rgb(211, 211, 211);
 }
-
+Cancel
 .my_appointments_header {
   color: rgb(44, 44, 52);
   height: 8vh;
