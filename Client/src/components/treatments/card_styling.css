@@ -934,7 +934,7 @@
 
   .notification_text_container h3 {
     color: rgb(0, 0, 0);
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 600;
   }
 
@@ -1189,6 +1189,10 @@
 
 /* CSS for Regular-Sized Desktops */
 @media only screen and (min-width: 1600px) {
+  .notification_text_container h3 {
+    font-size: 1.3rem;
+  }
+
   .card_description_inner_wrapper h2 {
     font-size: 1.8rem;
   }

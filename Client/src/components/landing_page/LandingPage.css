@@ -696,7 +696,7 @@
 
 @media only screen and (min-width: 1200px) {
   .glow_labs_logo_animation {
-    top: 20%;
+    top: 10%;
   }
 }
 
@@ -886,14 +886,14 @@
   .call_to_action_button {
     font-size: 2rem;
   }
-
-  .glow_labs_logo_animation {
-    top: 0;
-  }
 }
 
 /* CSS for Huge Desktops */
 @media only screen and (min-width: 2200px) {
+  .glow_labs_logo_animation {
+    top: 5%;
+  }
+
   .landing_page_text_block {
     margin-bottom: 0vh;
   }

@@ -427,6 +427,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   .right_nav > h2 {
     display: inline-block;
     font-weight: 500;
+    margin-right: 1.2rem;
   }
 
   .nav_cart_container {
@@ -453,6 +454,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
     font-size: calc(0.55rem + 0.5vw);
   }
 
+  .right_nav h2:first-child {
+    margin-left: 4.5rem;
+  }
+
   .nav_login_container h2 {
     height: auto;
     display: flex;
@@ -474,6 +479,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
     margin-right: 3.1rem;
   }
 
+  .right_nav h2 {
+    white-space: nowrap;
+  }
+
   .left_nav {
     margin-left: 3.1rem;
   }
@@ -484,6 +493,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   .letter_circle {
     top: 0.65vw;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .right_nav h2:first-child {
+    margin-left: 4rem;
+  }
+}
+
+@media only screen and (min-width: 1450px) {
+  .right_nav h2:first-child {
+    margin-left: 5.5rem;
   }
 }
 
