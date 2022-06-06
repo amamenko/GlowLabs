@@ -520,6 +520,13 @@ const PrivacyPolicy = () => {
         means to protect Your Personal Data, We cannot guarantee its absolute
         security.
       </p>
+      <h2>Deletion of Your Personal Data</h2>
+      <p>
+        It is your right to completely delete any data we have collected on you.
+        Please send an email to our{" "}
+        <a href="glowlabs@yahoo.com">official inbox</a> to request deletion of
+        your data.
+      </p>
       <h2>Links to Other Websites</h2>
       <p>
         Our Service may contain links to other websites that are not operated by
