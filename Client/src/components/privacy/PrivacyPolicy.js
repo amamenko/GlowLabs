@@ -38,7 +38,7 @@ const PrivacyPolicy = () => {
         <strong>Privacy Policy</strong>
       </h1>
       <p>
-        <i>Last updated: January 1st, {new Date().getFullYear()}</i>
+        <i>Last updated: June 6th, 2022</i>
       </p>
       <p>
         This Privacy Policy describes Our policies and procedures on the
@@ -523,9 +523,9 @@ const PrivacyPolicy = () => {
       <h2>Deletion of Your Personal Data</h2>
       <p>
         It is your right to completely delete any data we have collected on you.
-        Please send an email to our{" "}
-        <a href="glowlabs@yahoo.com">official inbox</a> to request deletion of
-        your data.
+        Please send an email to us at{" "}
+        <a href="glowlabs@yahoo.com">glowlabs@yahoo.com</a> to request deletion
+        of your data.
       </p>
       <h2>Links to Other Websites</h2>
       <p>
