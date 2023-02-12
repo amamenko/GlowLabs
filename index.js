@@ -1,10 +1,10 @@
 const express = require("express");
 const compression = require("compression");
 const { graphqlHTTP } = require("express-graphql");
-const expressPlayground = require("graphql-playground-middleware-express")
-  .default;
+const expressPlayground =
+  require("graphql-playground-middleware-express").default;
 const { ApolloServer } = require("apollo-server-express");
-const { PubSub } = require("apollo-server");
+const { PubSub } = require("graphql-subscriptions");
 const { GooglePubSub } = require("@axelspringer/graphql-google-pubsub");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
@@ -651,9 +651,8 @@ app.get("/api/:id/consentform", async (req, res) => {
       return token;
     };
 
-    const guestConsentFormAccessToken = generateGuestConsentFormAccessToken(
-      client
-    );
+    const guestConsentFormAccessToken =
+      generateGuestConsentFormAccessToken(client);
 
     if (!accessToken && !refreshToken && !dummyToken) {
       // Set Guest Consent Form Cookie
