@@ -808,6 +808,10 @@ app.get("/api/auth/facebook/callback", (req, res, next) => {
   })(req, res, next);
 });
 
+app.get("/", (req, res) => {
+  res.send("The Glow Labs server is up and running!");
+});
+
 // Connect to MongoDB with Mongoose
 mongoose
   .connect(
