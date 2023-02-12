@@ -13,7 +13,6 @@ import ACTION_APPOINTMENT_NOTES_INVALID from "../../actions/GuestCheckoutForm/Ap
 import ACTION_APPOINTMENT_NOTES_VALID from "../../actions/GuestCheckoutForm/AppointmentNotes/ACTION_APPOINTMENT_NOTES_VALID";
 import ACTION_BOOKING_SUMMARY_NOT_ACTIVE from "../../actions/ContinueToBookingSummaryButtonActive/ACTION_BOOKING_SUMMARY_NOT_ACTIVE";
 import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
-import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -24,6 +23,7 @@ import "./GuestCheckout.css";
 
 // Minified Bootstrap CSS file (for Forms)
 import "../../bootstrap_forms.min.css";
+import ACTION_CONFIRMATION_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_CONFIRMATION_PAGE_OPENED";
 
 const GuestCheckout = (props) => {
   const dispatch = useDispatch();
@@ -95,7 +95,7 @@ const GuestCheckout = (props) => {
 
   const handleConfirmDetailsButtonClick = () => {
     dispatch(ACTION_BOOKING_SUMMARY_ACTIVE());
-    dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
+    dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
   };
 
   const renderRemainingCharacters = () => {
@@ -163,12 +163,12 @@ const GuestCheckout = (props) => {
             !props.currentScreenSize
               ? props.initialScreenSize >= 1200
                 ? "/"
-                : "/paymentinfo"
+                : "/checkout/confirmation"
               : props.currentScreenSize >= 1200
               ? "/"
-              : "/paymentinfo"
+              : "/checkout/confirmation"
           }
-          onClick={() => dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED())}
+          onClick={() => dispatch(ACTION_CONFIRMATION_PAGE_OPENED())}
         >
           <FontAwesomeIcon
             className="checkout_forward_arrow"
@@ -272,10 +272,10 @@ const GuestCheckout = (props) => {
               !props.currentScreenSize
                 ? props.initialScreenSize >= 1200
                   ? "/"
-                  : "/paymentinfo"
+                  : "/checkout/confirmation"
                 : props.currentScreenSize >= 1200
                 ? "/"
-                : "/paymentinfo"
+                : "/checkout/confirmation"
             }
             style={{
               display: "block",
@@ -312,7 +312,7 @@ const GuestCheckout = (props) => {
                 transition: "background 0.5s ease, color 0.5s ease",
               }}
             >
-              <p>Payment Details</p>
+              <p>Confirm Details</p>
             </div>
           </Link>
           <Link

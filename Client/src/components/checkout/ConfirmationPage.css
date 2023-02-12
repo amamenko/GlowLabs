@@ -477,7 +477,7 @@
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1600px) {
   .confirmation_page_container h1 {
     font-size: 2.5rem;
   }

@@ -38,7 +38,7 @@ import ACTION_APPOINTMENT_NOTES_RESET from "../../../actions/GuestCheckoutForm/A
 import ACTION_APPOINTMENT_END_TIME from "../../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME";
 import ACTION_TOTAL_DURATION from "../../../actions/TotalDuration/ACTION_TOTAL_DURATION";
 import ACTION_AVAILABILITY_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_AVAILABILITY_PAGE_OPENED";
-import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
+import ACTION_CONFIRMATION_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_CONFIRMATION_PAGE_OPENED";
 import ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED from "../../../actions/InCart/CartPageOpened/ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED";
 import "./TimePreference.css";
 // Minified Bootstrap CSS file (for Collapse feature)
@@ -739,7 +739,7 @@ const TimePreference = (props) => {
                 return "/";
               } else {
                 if (userAuthenticated) {
-                  return "/paymentinfo";
+                  return "/checkout/confirmation";
                 } else {
                   return "/checkout";
                 }
@@ -749,7 +749,7 @@ const TimePreference = (props) => {
                 return "/";
               } else {
                 if (userAuthenticated) {
-                  return "/paymentinfo";
+                  return "/checkout/confirmation";
                 } else {
                   return "/checkout";
                 }
@@ -758,7 +758,7 @@ const TimePreference = (props) => {
           }}
           onClick={() => {
             if (userAuthenticated) {
-              dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
+              dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
             } else {
               dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED());
             }
@@ -1514,7 +1514,7 @@ const TimePreference = (props) => {
                   return "/";
                 } else {
                   if (userAuthenticated) {
-                    return "/paymentinfo";
+                    return "/checkout/confirmation";
                   } else {
                     return "/checkout";
                   }
@@ -1524,7 +1524,7 @@ const TimePreference = (props) => {
                   return "/";
                 } else {
                   if (userAuthenticated) {
-                    return "/paymentinfo";
+                    return "/checkout/confirmation";
                   } else {
                     return "/checkout";
                   }
@@ -1548,7 +1548,7 @@ const TimePreference = (props) => {
               }}
               onClick={() => {
                 if (userAuthenticated) {
-                  dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED());
+                  dispatch(ACTION_CONFIRMATION_PAGE_OPENED());
                 } else {
                   dispatch(ACTION_GUEST_CHECKOUT_FORM_PAGE_OPENED());
                 }

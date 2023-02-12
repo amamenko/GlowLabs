@@ -22,7 +22,7 @@ import {
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CanvasDraw from "react-canvas-draw";
+import CanvasDraw from "@win11react/react-canvas-draw";
 import LZString from "lz-string";
 import moment from "moment";
 import { PDFDownloadLink } from "@react-pdf/renderer";

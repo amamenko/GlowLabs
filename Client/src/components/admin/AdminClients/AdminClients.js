@@ -21,7 +21,7 @@ import moment from "moment";
 import LZString from "lz-string";
 import { css } from "@emotion/css";
 import BounceLoader from "react-spinners/BounceLoader";
-import CanvasDraw from "react-canvas-draw";
+import CanvasDraw from "@win11react/react-canvas-draw";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../../account/clientprofile/ConsentForm/ConsentFormPDF";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

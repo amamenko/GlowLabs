@@ -13,7 +13,7 @@ import { css } from "@emotion/css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ConsentFormPDF from "../ConsentForm/ConsentFormPDF";
-import CanvasDraw from "react-canvas-draw";
+import CanvasDraw from "@win11react/react-canvas-draw";
 import ACTION_PDF_LOADING from "../../../../actions/PDFLoading/ACTION_PDF_LOADING";
 import ACTION_PDF_LOADING_RESET from "../../../../actions/PDFLoading/ACTION_PDF_LOADING_RESET";
 import "./MyProfile.css";

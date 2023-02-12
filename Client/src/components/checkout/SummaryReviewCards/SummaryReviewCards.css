@@ -93,7 +93,7 @@
 }
 
 /* CSS for Regular Desktops/Small Laptops and Tablets */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1600px) {
   .summary_card_booking_description_left_section h2 {
     font-size: 2rem;
   }
@@ -117,7 +117,7 @@
   }
 }
 
-@media only screen and (min-width: 1200px) and (max-height: 950px) {
+@media only screen and (min-width: 1600px) and (max-height: 950px) {
   .summary_card_image_circle {
     transform: scale(0.5);
   }

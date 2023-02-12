@@ -3,7 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-import CanvasDraw from "react-canvas-draw";
+import CanvasDraw from "@win11react/react-canvas-draw";
 import LZString from "lz-string";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";

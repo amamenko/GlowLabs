@@ -71,7 +71,6 @@ import ACTION_AVAILABILITY_RESET from "../../actions/AvailabilityClicked/ACTION_
 import ACTION_APPOINTMENT_END_TIME_RESET from "../../actions/AppointmentEndTime/ACTION_APPOINTMENT_END_TIME_RESET";
 import ACTION_BODY_SCROLL_RESET from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_RESET";
 import ACTION_BODY_SCROLL_ALLOW from "../../actions/Body_Scroll/ACTION_BODY_SCROLL_ALLOW";
-import ACTION_PAYMENT_INFO_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_PAYMENT_INFO_PAGE_OPENED";
 import ACTION_TOTAL_PRICE from "../../actions/TotalPrice/ACTION_TOTAL_PRICE";
 import ACTION_SELECTED_ESTHETICIAN_RESET from "../../actions/SelectedEsthetician/ACTION_SELECTED_ESTHETICIAN_RESET";
 import ACTION_FINAL_BOOKING_MODAL_ACTIVE from "../../actions/InCart/FinalBookingModal/ACTION_FINAL_BOOKING_MODAL_ACTIVE";
@@ -81,6 +80,7 @@ import ACTION_SELECTED_SALT_CAVE_DURATION_RESET from "../../actions/Treatments/S
 import ACTION_DAY_OF_THE_WEEK_RESET from "../../actions/SelectedDay/DayOfTheWeek/ACTION_DAY_OF_THE_WEEK_RESET";
 import "./ConfirmationPage.css";
 import "../account/clientprofile/ConsentForm/ConsentForm.css";
+import ACTION_TIME_PREFERENCE_PAGE_OPENED from "../../actions/InCart/CartPageOpened/ACTION_TIME_PREFERENCE_PAGE_OPENED";
 
 const ConfirmationPage = (props) => {
   let location = useLocation();
@@ -590,16 +590,16 @@ const ConfirmationPage = (props) => {
       {redirectToHome()}
       <div className="confirmation_page_container_header">
         <Link
-          to={
+          to={(location) =>
             !props.currentScreenSize
               ? props.initialScreenSize >= 1200
                 ? "/"
-                : "/paymentinfo"
+                : `${location.pathname}/timepreference`
               : props.currentScreenSize >= 1200
               ? "/"
-              : "/paymentinfo"
+              : `${location.pathname}/timepreference`
           }
-          onClick={() => dispatch(ACTION_PAYMENT_INFO_PAGE_OPENED())}
+          onClick={() => dispatch(ACTION_TIME_PREFERENCE_PAGE_OPENED())}
         >
           <FontAwesomeIcon
             className="confirmation_page_back_arrow"
