@@ -12,8 +12,8 @@
   "dependencies": {
     "@axelspringer/graphql-google-pubsub": "^2.1.0",
     "@babel/polyfill": "^7.12.1",
-    "apollo-server": "^2.15.1",
-    "apollo-server-express": "^2.15.1",
+    "apollo-server": "^3.11.1",
+    "apollo-server-express": "^3.11.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.3",
@@ -25,13 +25,11 @@
     "datebook": "^4.1.5",
     "dotenv": "^8.2.0",
     "email-templates": "^8.0.2",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-graphql": "^0.12.0",
     "generate-password": "^1.5.1",
-    "graphql": "^15.4.0",
+    "graphql": "^15.3.0",
     "graphql-playground-middleware-express": "^1.7.22",
-    "graphql-redis-subscriptions": "^2.3.1",
-    "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
     "mjml": "^4.6.3",
     "mjml-utils": "^2.2.1",
@@ -43,11 +41,10 @@
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "phone": "^2.4.17",
-    "puppeteer": "^5.5.0",
-    "puppeteer-extra": "^3.1.15",
-    "puppeteer-extra-plugin-stealth": "^2.6.5",
+    "puppeteer": "^19.6.3",
+    "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1",
     "square": "^8.0.1",
     "twilio": "^3.55.0"
-  },
-  "devDependencies": {}
+  }
 }

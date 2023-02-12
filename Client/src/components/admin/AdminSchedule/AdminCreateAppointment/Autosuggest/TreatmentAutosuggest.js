@@ -121,19 +121,17 @@ const TreatmentAutosuggest = (props) => {
       return sortedArr;
     } else {
       const sortedArr = [];
-
-      for (let i = 0; i < treatmentSuggestions().length; i++) {
+      const allTreatmentSuggestions = treatmentSuggestions();
+      for (let i = 0; i < allTreatmentSuggestions.length; i++) {
         sortedArr.push({
-          sectionTitle: treatmentSuggestions()
-            ? treatmentSuggestions()[i].sectionTitle
-              ? treatmentSuggestions()[i].sectionTitle
+          sectionTitle: allTreatmentSuggestions
+            ? allTreatmentSuggestions[i].sectionTitle
+              ? allTreatmentSuggestions[i].sectionTitle
               : null
             : null,
-          suggestions: treatmentSuggestions()
-            ? treatmentSuggestions()
-                [i].suggestions.sort((a, b) =>
-                  a.name ? a.name.localeCompare(b.name) : null
-                )
+          suggestions: allTreatmentSuggestions
+            ? allTreatmentSuggestions[i].suggestions
+                .sort((a, b) => (a.name ? a.name.localeCompare(b.name) : null))
                 .filter((x) => {
                   const treatmentName = x.name;
 
