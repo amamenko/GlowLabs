@@ -31,7 +31,7 @@
     "graphql": "^15.3.0",
     "graphql-playground-middleware-express": "^1.7.22",
     "graphql-subscriptions": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mjml": "^4.6.3",
     "mjml-utils": "^2.2.1",
     "moment": "^2.29.1",
